@@ -1,0 +1,135 @@
+<!-- BRG · Home &mdash; Netlify fragment. Shortcode: [brg_home]  (use [brg_home ttl="0"] on a test page)
+     Self-contained: inline CSS, brand fonts + photos loaded from the live WP uploads folder,
+     everything namespaced under .brgw so it can't collide with the WordPress theme. -->
+<section class="brgw" aria-label="Blacktop Restaurant Group &mdash; Home">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;800&display=swap');
+@font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06/BlancoCavelary.woff2') format('woff2');font-display:swap;font-weight:400;}
+
+.brgw{
+  --yellow:#FCE200; --teal:#19C7C2; --pink:#EC0F8D; --orange:#F5821F;
+  --bg:#201f1d; --bg2:#131210; --ink:#231F20; --white:#fff;
+  --wp:https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06;
+  --pad:clamp(24px,6vw,110px);
+  font-family:'Montserrat',system-ui,sans-serif; color:var(--white);
+  line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+.brgw *{box-sizing:border-box;}
+.brgw h1,.brgw h2,.brgw h3{margin:0;line-height:.92;}
+.brgw p{margin:0;}
+.brgw .blanco{font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;}
+.brgw .hl{background:var(--yellow);color:var(--ink);padding:.02em .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.brgw .btn{
+  display:inline-block;background:var(--yellow);color:var(--ink);text-decoration:none;
+  font-weight:700;font-size:clamp(13px,1.2vw,16px);letter-spacing:.14em;text-transform:uppercase;
+  padding:20px 34px;border-radius:2px;transition:transform .15s ease;
+}
+.brgw .btn:hover{transform:translateY(-2px);}
+.brgw .kicker{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--yellow);font-weight:700;}
+
+/* ---------- HERO ---------- */
+.brgw__hero{
+  position:relative;overflow:hidden;background:var(--bg2);
+  min-height:88vh;display:grid;place-items:center;text-align:center;
+  padding:clamp(90px,14vh,160px) var(--pad) clamp(70px,10vh,120px);
+}
+.brgw__hero::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:url(https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06/skater.webp) center/cover no-repeat;
+  filter:grayscale(1) contrast(1.05);opacity:.24;
+}
+.brgw__hero::after{content:"";position:absolute;inset:0;z-index:1;
+  background:radial-gradient(120% 90% at 50% 30%, rgba(0,0,0,.15), rgba(19,18,16,.86) 78%);}
+.brgw__hero > *{position:relative;z-index:2;}
+.brgw__hero h1{font-size:clamp(2.6rem,7vw,6rem);text-transform:uppercase;max-width:15ch;margin-inline:auto;}
+.brgw__hero .sub{font-size:clamp(1rem,1.4vw,1.35rem);opacity:.9;max-width:46ch;margin:26px auto 8px;line-height:1.55;}
+.brgw__hero .tag{font-size:clamp(1.4rem,2.6vw,2.4rem);color:var(--yellow);margin:14px auto 34px;}
+.brgw__uline{display:block;height:10px;width:min(360px,60%);margin:14px auto 0;
+  background:var(--yellow);border-radius:40% 60% 55% 45%/60% 50% 60% 40%;transform:rotate(-1deg);opacity:.95;}
+
+/* ---------- ABOUT ---------- */
+.brgw__about{background:#0f0e0d;padding:clamp(70px,12vh,150px) var(--pad);position:relative;overflow:hidden;}
+.brgw__about h2{font-size:clamp(2.4rem,6vw,5rem);text-transform:uppercase;margin-bottom:34px;}
+.brgw__cols{display:grid;grid-template-columns:1fr;gap:22px;max-width:820px;}
+.brgw__cols p{opacity:.82;font-size:1.02rem;}
+@media(min-width:800px){ .brgw__cols{grid-template-columns:1fr 1fr;gap:40px;} }
+
+/* ---------- WHAT WE'RE ABOUT (vision/mission) ---------- */
+.brgw__vm{background:#000;padding:clamp(70px,12vh,150px) var(--pad);text-align:center;}
+.brgw__vm .head{display:inline-block;font-size:clamp(2rem,5vw,3.6rem);text-transform:uppercase;
+  background:var(--yellow);color:var(--ink);padding:.06em .3em;transform:rotate(-2deg);margin-bottom:56px;}
+.brgw__vmgrid{display:grid;gap:44px;max-width:900px;margin-inline:auto;}
+.brgw__vmgrid .lbl{display:inline-block;background:var(--teal);color:var(--ink);font-weight:700;
+  font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;padding:8px 16px;border-radius:2px;margin-bottom:18px;}
+.brgw__vmgrid .big{font-size:clamp(1.6rem,3.4vw,2.8rem);text-transform:uppercase;}
+
+/* ---------- CORE VALUES ---------- */
+.brgw__values{background:var(--bg);padding:clamp(70px,12vh,150px) var(--pad);text-align:center;position:relative;}
+.brgw__values h2{font-size:clamp(2.4rem,6.5vw,5.5rem);text-transform:uppercase;margin-bottom:56px;}
+.brgw__grid{display:grid;grid-template-columns:1fr;gap:2px;max-width:1100px;margin-inline:auto;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);}
+@media(min-width:640px){ .brgw__grid{grid-template-columns:1fr 1fr;} }
+@media(min-width:980px){ .brgw__grid{grid-template-columns:1fr 1fr 1fr;} }
+.brgw__card{background:var(--bg);padding:34px 28px;text-align:left;}
+.brgw__card .lbl{display:inline-block;background:var(--teal);color:var(--ink);font-weight:700;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:2px;margin-bottom:16px;}
+.brgw__card p{opacity:.72;font-size:.96rem;line-height:1.55;}
+
+/* ---------- FOOTER ---------- */
+.brgw__footer{background:#000;text-align:center;padding:56px var(--pad);}
+.brgw__footer .lockup{font-family:'Blanco Cavelary','Montserrat',cursive;font-size:clamp(1.6rem,4vw,2.4rem);}
+.brgw__footer .lockup b{background:var(--yellow);color:var(--ink);font-family:'Montserrat';font-weight:800;
+  padding:.02em .28em;letter-spacing:.02em;}
+</style>
+
+<!-- HERO -->
+<div class="brgw__hero">
+  <h1 class="blanco">We're in the business of making your day great.</h1>
+  <p class="sub">From a classic Board &amp; Brew sandwich to a slice at Odie's &mdash; we're here for the moments that matter.</p>
+  <p class="tag blanco">Good food. Real people. Rad experience.</p>
+  <a class="btn" href="#restaurants">Explore Our Restaurants</a>
+  <span class="brgw__uline" aria-hidden="true"></span>
+</div>
+
+<!-- ABOUT -->
+<div class="brgw__about">
+  <h2 class="blanco">Born in San Diego.<br>Built <span class="hl">for community.</span></h2>
+  <div class="brgw__cols">
+    <p>Blacktop Restaurant Group started with a simple belief: that a great meal is really just an excuse to connect. Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, tasty food, and a deep love for the communities we call home.</p>
+    <p>We're not a corporation chasing locations &mdash; we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling. Today, BRG operates 12 Board &amp; Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside &mdash; and we're just getting started.</p>
+  </div>
+</div>
+
+<!-- WHAT WE'RE ABOUT -->
+<div class="brgw__vm">
+  <span class="head blanco">What we're about</span>
+  <div class="brgw__vmgrid">
+    <div>
+      <span class="lbl">Our Vision</span>
+      <div class="big blanco" style="color:var(--yellow)">Make your day great!</div>
+    </div>
+    <div>
+      <span class="lbl">Our Mission</span>
+      <div class="big blanco">To amp up our communities by creating real connections and rad experiences.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CORE VALUES -->
+<div class="brgw__values">
+  <h2 class="blanco">Our core values</h2>
+  <div class="brgw__grid">
+    <div class="brgw__card"><span class="lbl">Leadership</span><p>We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p></div>
+    <div class="brgw__card"><span class="lbl">Culture</span><p>Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p></div>
+    <div class="brgw__card"><span class="lbl">Advocate</span><p>We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p></div>
+    <div class="brgw__card"><span class="lbl">Stay Stoked</span><p>Energy is contagious. We bring the good vibes, keep it fun, and never lose sight of why we do this.</p></div>
+    <div class="brgw__card"><span class="lbl">Community</span><p>We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that trust us.</p></div>
+    <div class="brgw__card"><span class="lbl">Do It Right</span><p>Quality is non-negotiable &mdash; from the ingredients to the experience. If it's got our name on it, it's done right.</p></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="brgw__footer">
+  <div class="lockup"><b>BLACKTOP</b><br>Restaurant Group</div>
+</div>
+</section>

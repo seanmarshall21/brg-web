@@ -1,0 +1,14 @@
+# Netlify serves the BRG website fragments from /website.
+# Each page is website/<name>/embed.html  →  https://<site>.netlify.app/<name>/embed.html
+# The WordPress mu-plugin (fc-brands-embed) fetches these server-side and prints
+# them natively via [brg_home], [brg_brands], … Edit a fragment, git push, done.
+[build]
+  publish = "website"
+
+# Assets (photos/fonts) are referenced from the live WP uploads folder, so nothing
+# else needs to be served here. If you ever host fonts on Netlify, this lets the
+# embedded page (on blacktoprestaurantgroup.com) load them cross-origin:
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
