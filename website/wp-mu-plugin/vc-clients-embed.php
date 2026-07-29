@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) exit;
  * REGISTRY — one block per client component. 'versions' url = a Netlify
  * fragment (embed.html). 'active' = which version the plain [name] alias serves.
  * ==========================================================================*/
-$BRG = 'https://brg-web.netlify.app';   // ← Blacktop Restaurant Group Netlify site
+$BRG = 'https://blacktoprg.netlify.app';   // ← Blacktop Restaurant Group Netlify site
 
 $GLOBALS['VCC_EMBEDS'] = array(
 
