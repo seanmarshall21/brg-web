@@ -1,7 +1,7 @@
-<!-- BRG · Home &mdash; Netlify fragment. Shortcode: [brg_home]  (use [brg_home ttl="0"] on a test page)
-     Self-contained: inline CSS, brand fonts + photos loaded from the live WP uploads folder,
-     everything namespaced under .brgw so it can't collide with the WordPress theme. -->
-<section class="brgw" aria-label="Blacktop Restaurant Group &mdash; Home">
+<!-- BRG · Home — Netlify fragment. Shortcode: [brg_home]  (use [brg_home ttl="0"] on a test page)
+     Self-contained: inline CSS + JS, brand fonts + photos from the live WP uploads folder,
+     namespaced under .brgw. Entrance is font-gated (no Blanco FOUT) + scroll-triggered per section. -->
+<section class="brgw" aria-label="Blacktop Restaurant Group — Home">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;800&display=swap');
 @font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06/BlancoCavelary.woff2') format('woff2');font-display:swap;font-weight:400;}
@@ -9,7 +9,6 @@
 .brgw{
   --yellow:#FCE200; --teal:#19C7C2; --pink:#EC0F8D; --orange:#F5821F;
   --bg:#201f1d; --bg2:#131210; --ink:#231F20; --white:#fff;
-  --wp:https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06;
   --pad:clamp(24px,6vw,110px);
   font-family:'Montserrat',system-ui,sans-serif; color:var(--white);
   line-height:1.5; -webkit-font-smoothing:antialiased;
@@ -25,7 +24,6 @@
   padding:20px 34px;border-radius:2px;transition:transform .15s ease;
 }
 .brgw .btn:hover{transform:translateY(-2px);}
-.brgw .kicker{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--yellow);font-weight:700;}
 
 /* ---------- HERO ---------- */
 .brgw__hero{
@@ -80,56 +78,145 @@
 .brgw__footer .lockup{font-family:'Blanco Cavelary','Montserrat',cursive;font-size:clamp(1.6rem,4vw,2.4rem);}
 .brgw__footer .lockup b{background:var(--yellow);color:var(--ink);font-family:'Montserrat';font-weight:800;
   padding:.02em .28em;letter-spacing:.02em;}
+
+/* ================= ENTRANCE / SCROLL-REVEAL =================
+   Hidden states apply ONLY while JS is active (.brgw--anim) so no-JS still shows content.
+   Reveal fires when a section scrolls in (.reveal.is-in), after Blanco has loaded. */
+.brgw--anim .ln{display:block;overflow:hidden;}
+.brgw--anim .ln-i{display:inline-block;transform:translateY(116%);will-change:transform;}
+.brgw--anim .anim-up{opacity:0;transform:translateY(26px);will-change:opacity,transform;}
+.brgw--anim .anim-cta{clip-path:inset(50% 50% 50% 50%);will-change:clip-path;}
+.brgw--anim .brgw__hero::before{transform:scale(1.5);opacity:0;}
+
+.brgw .reveal.is-in .ln-i{transform:translateY(0);transition:transform .9s cubic-bezier(.22,.9,.24,1);}
+.brgw .reveal.is-in .anim-up{opacity:1;transform:none;transition:opacity .85s ease, transform .85s cubic-bezier(.22,.9,.24,1);}
+.brgw .reveal.is-in .anim-cta{animation:brgw-cta 1.05s cubic-bezier(.5,0,.2,1) both;}
+.brgw--anim .brgw__hero.is-in::before{transform:scale(1);opacity:.24;transition:transform 2.6s cubic-bezier(.16,.72,.2,1), opacity 1.8s ease;}
+
+/* splash-style button reveal: a center line expands, then the box opens to reveal the label */
+@keyframes brgw-cta{
+  0%  {clip-path:inset(50% 50% 50% 50%);}
+  24% {clip-path:inset(calc(50% - 1.5px) 50% calc(50% - 1.5px) 50%);animation-timing-function:cubic-bezier(.5,0,.2,1);}
+  56% {clip-path:inset(calc(50% - 1.5px) 0 calc(50% - 1.5px) 0);animation-timing-function:linear;}
+  100%{clip-path:inset(0 0 0 0);}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .brgw--anim .ln-i{transform:none!important;}
+  .brgw--anim .anim-up{opacity:1!important;transform:none!important;}
+  .brgw--anim .anim-cta{clip-path:none!important;animation:none!important;}
+  .brgw--anim .brgw__hero::before{transform:scale(1)!important;opacity:.24!important;}
+}
 </style>
 
 <!-- HERO -->
-<div class="brgw__hero">
-  <h1 class="blanco">We're in the business of making your day great.</h1>
-  <p class="sub">From a classic Board &amp; Brew sandwich to a slice at Odie's &mdash; we're here for the moments that matter.</p>
-  <p class="tag blanco">Good food. Real people. Rad experience.</p>
-  <a class="btn" href="#restaurants">Explore Our Restaurants</a>
-  <span class="brgw__uline" aria-hidden="true"></span>
+<div class="brgw__hero reveal">
+  <h1 class="blanco anim-head" data-head="words">We're in the business of making your day great.</h1>
+  <p class="sub anim-up">From a classic Board &amp; Brew sandwich to a slice at Odie's &mdash; we're here for the moments that matter.</p>
+  <p class="tag blanco anim-up">Good food. Real people. Rad experience.</p>
+  <a class="btn anim-cta" href="#restaurants">Explore Our Restaurants</a>
+  <span class="brgw__uline anim-up" aria-hidden="true"></span>
 </div>
 
 <!-- ABOUT -->
-<div class="brgw__about">
-  <h2 class="blanco">Born in San Diego.<br>Built <span class="hl">for community.</span></h2>
+<div class="brgw__about reveal">
+  <h2 class="blanco anim-head">Born in San Diego.<br>Built <span class="hl">for community.</span></h2>
   <div class="brgw__cols">
-    <p>Blacktop Restaurant Group started with a simple belief: that a great meal is really just an excuse to connect. Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, tasty food, and a deep love for the communities we call home.</p>
-    <p>We're not a corporation chasing locations &mdash; we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling. Today, BRG operates 12 Board &amp; Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside &mdash; and we're just getting started.</p>
+    <p class="anim-up">Blacktop Restaurant Group started with a simple belief: that a great meal is really just an excuse to connect. Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, tasty food, and a deep love for the communities we call home.</p>
+    <p class="anim-up">We're not a corporation chasing locations &mdash; we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling. Today, BRG operates 12 Board &amp; Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside &mdash; and we're just getting started.</p>
   </div>
 </div>
 
 <!-- WHAT WE'RE ABOUT -->
-<div class="brgw__vm">
-  <span class="head blanco">What we're about</span>
+<div class="brgw__vm reveal">
+  <span class="head blanco anim-up">What we're about</span>
   <div class="brgw__vmgrid">
     <div>
-      <span class="lbl">Our Vision</span>
-      <div class="big blanco" style="color:var(--yellow)">Make your day great!</div>
+      <span class="lbl anim-up">Our Vision</span>
+      <div class="big blanco anim-up" style="color:var(--yellow)">Make your day great!</div>
     </div>
     <div>
-      <span class="lbl">Our Mission</span>
-      <div class="big blanco">To amp up our communities by creating real connections and rad experiences.</div>
+      <span class="lbl anim-up">Our Mission</span>
+      <div class="big blanco anim-up">To amp up our communities by creating real connections and rad experiences.</div>
     </div>
   </div>
 </div>
 
 <!-- CORE VALUES -->
-<div class="brgw__values">
-  <h2 class="blanco">Our core values</h2>
+<div class="brgw__values reveal">
+  <h2 class="blanco anim-head">Our core values</h2>
   <div class="brgw__grid">
-    <div class="brgw__card"><span class="lbl">Leadership</span><p>We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p></div>
-    <div class="brgw__card"><span class="lbl">Culture</span><p>Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p></div>
-    <div class="brgw__card"><span class="lbl">Advocate</span><p>We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p></div>
-    <div class="brgw__card"><span class="lbl">Stay Stoked</span><p>Energy is contagious. We bring the good vibes, keep it fun, and never lose sight of why we do this.</p></div>
-    <div class="brgw__card"><span class="lbl">Community</span><p>We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that trust us.</p></div>
-    <div class="brgw__card"><span class="lbl">Do It Right</span><p>Quality is non-negotiable &mdash; from the ingredients to the experience. If it's got our name on it, it's done right.</p></div>
+    <div class="brgw__card anim-up"><span class="lbl">Leadership</span><p>We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p></div>
+    <div class="brgw__card anim-up"><span class="lbl">Culture</span><p>Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p></div>
+    <div class="brgw__card anim-up"><span class="lbl">Advocate</span><p>We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p></div>
+    <div class="brgw__card anim-up"><span class="lbl">Stay Stoked</span><p>Energy is contagious. We bring the good vibes, keep it fun, and never lose sight of why we do this.</p></div>
+    <div class="brgw__card anim-up"><span class="lbl">Community</span><p>We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that trust us.</p></div>
+    <div class="brgw__card anim-up"><span class="lbl">Do It Right</span><p>Quality is non-negotiable &mdash; from the ingredients to the experience. If it's got our name on it, it's done right.</p></div>
   </div>
 </div>
 
 <!-- FOOTER -->
-<div class="brgw__footer">
-  <div class="lockup"><b>BLACKTOP</b><br>Restaurant Group</div>
+<div class="brgw__footer reveal">
+  <div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div>
 </div>
+
+<script>
+(function(){
+  var root = (document.currentScript && document.currentScript.closest('.brgw')) || document.querySelector('.brgw');
+  if(!root || root.dataset.animInit) return; root.dataset.animInit = '1';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function wrapLines(el, htmlLines){
+    el.innerHTML = htmlLines.map(function(h){ return '<span class="ln"><span class="ln-i">'+h+'</span></span>'; }).join('');
+  }
+  function splitByBr(el){
+    var parts = el.innerHTML.split(/<br\s*\/?>/i).map(function(s){return s.trim();}).filter(Boolean);
+    wrapLines(el, parts.length ? parts : [el.innerHTML]);
+  }
+  function splitByWords(el){
+    var words = el.textContent.replace(/\s+/g,' ').trim().split(' ');
+    el.innerHTML = words.map(function(w){ return '<span class="w" style="display:inline-block">'+w+'</span>'; }).join(' ');
+    var ws = [].slice.call(el.querySelectorAll('.w')), lines=[], cur=[], top=null;
+    ws.forEach(function(s){
+      var t = s.offsetTop;
+      if(top===null) top=t;
+      if(Math.abs(t-top) > 4){ lines.push(cur); cur=[]; top=t; }
+      cur.push(s.textContent);
+    });
+    if(cur.length) lines.push(cur);
+    wrapLines(el, lines.map(function(a){ return a.join(' '); }));
+  }
+
+  var started=false;
+  function start(){
+    if(started) return; started=true;
+    // split headlines (font must be loaded first for correct line breaks)
+    root.querySelectorAll('.anim-head').forEach(function(el){
+      if(el.dataset.head==='words') splitByWords(el); else splitByBr(el);
+    });
+    // sequential stagger within each section
+    root.querySelectorAll('.reveal').forEach(function(sec){
+      var items = [].slice.call(sec.querySelectorAll('.ln-i, .anim-up, .anim-cta')), d=0;
+      items.forEach(function(el){
+        el.style.transitionDelay = d+'ms';
+        if(el.classList.contains('anim-cta')) el.style.animationDelay = d+'ms';
+        d += el.classList.contains('ln-i') ? 85 : 115;
+      });
+    });
+    // reveal on scroll-in
+    var io = new IntersectionObserver(function(ents){
+      ents.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, {threshold:0.16, rootMargin:'0px 0px -8% 0px'});
+    root.querySelectorAll('.reveal').forEach(function(s){ io.observe(s); });
+  }
+
+  root.classList.add('brgw--anim');
+  if(reduce){ root.querySelectorAll('.reveal').forEach(function(s){ s.classList.add('is-in'); }); return; }
+
+  // Gate on Blanco Cavelary so the headline never flashes the fallback font.
+  var fontP = (document.fonts && document.fonts.load) ? document.fonts.load("1em 'Blanco Cavelary'") : Promise.resolve();
+  Promise.race([ fontP.catch(function(){}), new Promise(function(r){ setTimeout(r, 1800); }) ]).then(start);
+  setTimeout(start, 3500); // absolute fallback — content never stays hidden
+})();
+</script>
 </section>
