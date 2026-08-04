@@ -1,108 +1,133 @@
 <?php
 /**
  * Plugin Name: VC-Clients Embed
- * Description: Vivo Creative client sites, built as code-driven HTML fragments on Netlify and rendered natively via shortcodes (no iframe). Versioned variants + a main alias per component. Fully namespaced so it coexists with FC-Brands Embed. Install once; content updates via git push → Netlify.
- * Version: 1.0.0
+ * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Per-client pages are driven by a repo manifest (pages.json) + shared assets — so adding a page NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
+ * Version: 2.0.0
  * Author: Vivo Creative
  *
- * INSTALL (once per WordPress site):
- *   Upload to  /wp-content/mu-plugins/vc-clients-embed.php   (mu-plugins auto-activate).
- *   Safe to run alongside fc-brands-embed.php — different names throughout.
+ * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
+ *   Upload to  /wp-content/mu-plugins/vc-clients-embed.php   (auto-activates).
+ *   Everything page-specific (markup, animations, scripts) lives in the client's
+ *   Netlify repo and is pulled at render time. You only touch this file to add a
+ *   whole new CLIENT (rare) — never to add a page.
  *
- * HOW IT WORKS — the $VCC_EMBEDS registry below defines, per component:
- *   • every version  ([name_v1], [name_v2], … — always available for testing)
- *   • one "active" version that the plain [name] alias serves (your live pick)
- *   Switch which version is live = change that component's 'active' value and
- *   re-upload this file. Alternates keep working under their _vN names.
+ * USE (WP page / Oxygen Shortcode element — NOT an Oxygen Text element):
+ *   [brg page="community"]     → BRG Community page   (generic form, always works)
+ *   [brg_community]            → same page            (per-page alias, from pages.json)
+ *   [brg_home ttl="0"]         → no server cache (put on TEST pages for instant edits)
+ *   ?brg_refresh=1 on the URL  → bust the cache immediately
  *
- * USE (Oxygen Code Block, Gutenberg shortcode block, etc.):
- *   [brg_home]              → ACTIVE version of the BRG home page
- *   [brg_home ttl="0"]      → no caching (use on TEST pages for instant updates)
- *   [brg_brands] [brg_team] [brg_community] [brg_careers] [brg_press]
- *   [vc_embed url="https://xxx.netlify.app/embed.html"]  → generic one-off
+ * ADD A PAGE (no code pasted on the site):
+ *   1. Claude adds  website/<slug>/embed.html  + a line in  website/pages.json ; push.
+ *   2. You create the WP page and drop  [brg page="<slug>"]  (or [brg_<slug>]). Done.
  *
- * Add a new Vivo client: give them a Netlify site and add a registry block below.
- * Cache: fragments are cached server-side (default 120s). ttl="0" = always fresh.
+ * Output carries  <!-- vc_embed <client>/<slug> vX.Y.Z -->  so the live version is verifiable.
  */
+if ( ! defined( 'ABSPATH' ) ) return;
 
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.0.0' );
+if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
-/* ============================================================================
- * REGISTRY — one block per client component. 'versions' url = a Netlify
- * fragment (embed.html). 'active' = which version the plain [name] alias serves.
- * ==========================================================================*/
-$BRG = 'https://blacktoprg.netlify.app';   // ← Blacktop Restaurant Group Netlify site
-
-$GLOBALS['VCC_EMBEDS'] = array(
-
-  // ---- Blacktop Restaurant Group ----
-  'brg_home'      => array('active'=>'v1','versions'=>array('v1'=>$BRG.'/home/embed.html')),
-  'brg_brands'    => array('active'=>'v1','versions'=>array('v1'=>$BRG.'/brands/embed.html')),
-  'brg_team'      => array('active'=>'v1','versions'=>array('v1'=>$BRG.'/team/embed.html')),
-  'brg_community' => array('active'=>'v1','versions'=>array('v1'=>$BRG.'/community/embed.html')),
-  'brg_careers'   => array('active'=>'v1','versions'=>array('v1'=>$BRG.'/careers/embed.html')),
-  'brg_press'     => array('active'=>'v1','versions'=>array('v1'=>$BRG.'/press/embed.html')),
-
-  // ---- Next Vivo client (example) ----
-  // 'acme_home' => array('active'=>'v1','versions'=>array(
-  //   'v1' => 'https://acme-web.netlify.app/home/embed.html',
-  // )),
-
+/* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
+$GLOBALS['VCC_CLIENTS'] = array(
+  'brg' => array(
+    'base'     => 'https://blacktoprg.netlify.app', // Netlify site (publish dir = website/)
+    'manifest' => '/pages.json',                    // list of pages Claude maintains
+    'assets'   => array( '/assets/brgw.css', '/assets/brgw.js' ), // shared, inlined once/page
+  ),
+  // 'acme' => array('base'=>'https://acme-web.netlify.app','manifest'=>'/pages.json','assets'=>array('/assets/acme.css','/assets/acme.js')),
 );
 
-/**
- * Core: fetch a Netlify fragment (server-side), cache it, output it natively.
- * Only *.netlify.app hosts allowed.
- */
-function vcc_embed_render($url, $atts = array()) {
-    $a = shortcode_atts(array('ttl' => '120'), $atts);
-
-    $host = wp_parse_url($url, PHP_URL_HOST);
-    if (!$host || !preg_match('/\.netlify\.app$/', $host)) {
-        return '<!-- vc_embed: host not allowed -->';
-    }
-
-    $ttl = max(0, intval($a['ttl']));
-    $key = 'vcc_embed_' . md5($url);
-
-    $html = $ttl ? get_transient($key) : false;
-    if ($html === false) {
-        $res = wp_remote_get($url, array('timeout' => 6));
-        if (is_wp_error($res) || wp_remote_retrieve_response_code($res) !== 200) {
-            $cached = get_transient($key . '_last');       // fall back to last good copy
-            return $cached !== false ? $cached : '<!-- vc_embed: fetch failed -->';
+/* ── Fetch a repo file (transient-cached; ttl=0 or ?brg_refresh=1 = always fresh) ── */
+if ( ! function_exists( 'vcc_fetch' ) ) {
+    function vcc_fetch( $url, $ttl ) {
+        $host = wp_parse_url( $url, PHP_URL_HOST );
+        if ( ! $host || ! preg_match( '/\.netlify\.app$/', $host ) ) return ''; // netlify only
+        $key = 'vcc_' . md5( $url );
+        if ( $ttl > 0 ) { $c = get_transient( $key ); if ( $c !== false ) return $c; }
+        $res = wp_remote_get( $url, array( 'timeout' => 8 ) );
+        if ( is_wp_error( $res ) || wp_remote_retrieve_response_code( $res ) !== 200 ) {
+            $stale = get_transient( $key . '_stale' );     // serve last-good rather than nothing
+            return $stale !== false ? $stale : '';
         }
-        $html = wp_remote_retrieve_body($res);
-        if ($ttl) set_transient($key, $html, $ttl);
-        set_transient($key . '_last', $html, WEEK_IN_SECONDS);
-    }
-    return $html;
-}
-
-/* Generic one-off: [vc_embed site="brg-web"] or [vc_embed url="..."] */
-add_shortcode('vc_embed', function ($atts) {
-    $a = shortcode_atts(array('site' => '', 'url' => '', 'ttl' => '120'), $atts, 'vc_embed');
-    $url = $a['url'];
-    if (!$url && $a['site']) {
-        $site = preg_replace('/[^a-z0-9-]/', '', strtolower($a['site']));
-        $url  = 'https://' . $site . '.netlify.app/embed.html';
-    }
-    if (!$url) return '<!-- vc_embed: no site/url given -->';
-    return vcc_embed_render($url, array('ttl' => $a['ttl']));
-});
-
-/* Register [name] (active) + [name_vN] (each version) from the registry. */
-foreach ($GLOBALS['VCC_EMBEDS'] as $base => $cfg) {
-    $versions = $cfg['versions'];
-    $active   = isset($versions[$cfg['active']]) ? $cfg['active'] : array_key_first($versions);
-
-    add_shortcode($base, function ($atts) use ($versions, $active) {
-        return vcc_embed_render($versions[$active], is_array($atts) ? $atts : array());
-    });
-
-    foreach ($versions as $v => $vurl) {
-        add_shortcode($base . '_' . $v, function ($atts) use ($vurl) {
-            return vcc_embed_render($vurl, is_array($atts) ? $atts : array());
-        });
+        $body = wp_remote_retrieve_body( $res );
+        if ( $ttl > 0 ) set_transient( $key, $body, $ttl );
+        set_transient( $key . '_stale', $body, WEEK_IN_SECONDS );
+        return $body;
     }
 }
+
+/* ── Render a client page fragment inline (shared CSS → markup → shared JS) ──── */
+if ( ! function_exists( 'vcc_render_page' ) ) {
+    function vcc_render_page( $client, $slug, $atts ) {
+        $cfg = isset( $GLOBALS['VCC_CLIENTS'][ $client ] ) ? $GLOBALS['VCC_CLIENTS'][ $client ] : null;
+        if ( ! $cfg ) return '<!-- vc_embed: unknown client -->';
+
+        $slug = preg_replace( '/[^a-z0-9-]/', '', strtolower( (string) $slug ) );
+        if ( $slug === '' ) return '';
+
+        $ttl  = isset( $atts['ttl'] ) ? max( 0, intval( $atts['ttl'] ) ) : VCC_TTL;
+        if ( isset( $_GET['brg_refresh'] ) ) $ttl = 0;
+        $base = rtrim( $cfg['base'], '/' );
+
+        $frag = vcc_fetch( $base . '/' . $slug . '/embed.html', $ttl );
+        if ( $frag === '' ) return '<!-- vc_embed: ' . esc_html( $client . '/' . $slug ) . ' fragment not found -->';
+
+        // Shared assets (tokens/reveal engine) inlined ONCE per client per request.
+        static $shared = array();
+        $css = ''; $js = '';
+        if ( empty( $shared[ $client ] ) ) {
+            $shared[ $client ] = true;
+            foreach ( $cfg['assets'] as $a ) {
+                $body = vcc_fetch( $base . $a, $ttl );
+                if ( $body === '' ) continue;
+                if ( substr( $a, -4 ) === '.css' )      $css .= '<style id="vcc-' . esc_attr( $client ) . '-css">' . $body . '</style>';
+                else if ( substr( $a, -3 ) === '.js' )  $js  .= '<script id="vcc-' . esc_attr( $client ) . '-js">' . $body . '</script>';
+            }
+        }
+
+        $out = "\n<!-- vc_embed " . esc_html( $client . '/' . $slug ) . ' v' . VCC_VERSION . " -->\n"
+             . $css . $frag . $js;
+
+        // WordPress/Oxygen runs do_shortcode again on rendered content; neutralise any
+        // literal [brg… token in our output so it can't recursively re-expand.
+        $out = preg_replace( '/\[(' . preg_quote( $client, '/' ) . '[_a-z0-9-]*)/', '[' . "\xE2\x80\x8B" . '$1', $out );
+        return $out;
+    }
+}
+
+/* ── Register shortcodes: generic [client] + per-page [client_slug] from manifest ── */
+add_action( 'init', function () {
+    foreach ( $GLOBALS['VCC_CLIENTS'] as $client => $cfg ) {
+
+        // Generic form — always works, needs no manifest: [brg page="community"]
+        add_shortcode( $client, function ( $atts ) use ( $client ) {
+            $atts = is_array( $atts ) ? $atts : array();
+            $slug = isset( $atts['page'] ) ? $atts['page'] : 'home';
+            return vcc_render_page( $client, $slug, $atts );
+        } );
+
+        // Per-page aliases [brg_<slug>] read from the repo manifest (cached).
+        $manifest = vcc_fetch( rtrim( $cfg['base'], '/' ) . $cfg['manifest'], VCC_TTL );
+        $pages    = $manifest ? json_decode( $manifest, true ) : array();
+        if ( is_array( $pages ) ) {
+            foreach ( $pages as $pg ) {
+                $slug = is_array( $pg ) ? ( isset( $pg['slug'] ) ? $pg['slug'] : '' ) : ( is_string( $pg ) ? $pg : '' );
+                $slug = preg_replace( '/[^a-z0-9-]/', '', strtolower( (string) $slug ) );
+                if ( $slug === '' ) continue;
+                add_shortcode( $client . '_' . $slug, function ( $atts ) use ( $client, $slug ) {
+                    return vcc_render_page( $client, $slug, is_array( $atts ) ? $atts : array() );
+                } );
+            }
+        }
+    }
+}, 20 );
+
+/* Generic one-off (rare): [vc_embed url="https://xxx.netlify.app/foo/embed.html"] */
+add_shortcode( 'vc_embed', function ( $atts ) {
+    $a = shortcode_atts( array( 'url' => '', 'ttl' => (string) VCC_TTL ), $atts, 'vc_embed' );
+    if ( ! $a['url'] ) return '<!-- vc_embed: no url -->';
+    $ttl = isset( $_GET['brg_refresh'] ) ? 0 : max( 0, intval( $a['ttl'] ) );
+    $body = vcc_fetch( $a['url'], $ttl );
+    return $body !== '' ? $body : '<!-- vc_embed: fetch failed -->';
+} );

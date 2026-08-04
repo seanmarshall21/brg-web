@@ -1,32 +1,8 @@
-<!-- BRG · Home — Netlify fragment. Shortcode: [brg_home]  (use [brg_home ttl="0"] on a test page)
-     Self-contained: inline CSS + JS, brand fonts + photos from the live WP uploads folder,
-     namespaced under .brgw. Entrance is font-gated (no Blanco FOUT) + scroll-triggered per section.
-     Content is hidden from first paint (no flash); <noscript>/timeout reveal it if JS is off/slow. -->
+<!-- BRG · Home — page FRAGMENT (markup + page-specific <style> only).
+     Shared tokens, buttons, footer, reveal engine come from assets/brgw.css + brgw.js,
+     injected by the vc-clients plugin. Shortcode: [brg_home]  (test page: [brg_home ttl="0"]). -->
 <section class="brgw" aria-label="Blacktop Restaurant Group — Home">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;800&display=swap');
-@font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06/BlancoCavelary.woff2') format('woff2');font-display:swap;font-weight:400;}
-
-.brgw{
-  --yellow:#FCE200; --teal:#19C7C2; --pink:#EC0F8D; --orange:#F5821F;
-  --bg:#201f1d; --bg2:#131210; --ink:#231F20; --white:#fff;
-  --pad:clamp(24px,6vw,110px);
-  font-family:'Montserrat',system-ui,sans-serif; color:var(--white);
-  line-height:1.5; -webkit-font-smoothing:antialiased;
-}
-.brgw *{box-sizing:border-box;}
-.brgw h1,.brgw h2,.brgw h3{margin:0;line-height:.92;}
-.brgw p{margin:0;}
-.brgw .blanco{font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;}
-.brgw .hl{background:var(--yellow);color:var(--ink);padding:.02em .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
-.brgw .btn{
-  display:inline-block;background:var(--yellow);color:var(--ink);text-decoration:none;
-  font-weight:700;font-size:clamp(13px,1.2vw,16px);letter-spacing:.14em;text-transform:uppercase;
-  padding:20px 34px;border-radius:2px;transition:transform .15s ease;
-}
-.brgw .btn:hover{transform:translateY(-2px);}
-
-/* ---------- HERO ---------- */
 .brgw__hero{
   position:relative;overflow:hidden;background:var(--bg2);
   min-height:88vh;display:grid;place-items:center;text-align:center;
@@ -35,8 +11,10 @@
 .brgw__hero::before{
   content:"";position:absolute;inset:0;z-index:0;
   background:url(https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06/skater.webp) center/cover no-repeat;
-  filter:grayscale(1) contrast(1.05);opacity:.24;
+  filter:grayscale(1) contrast(1.05);
+  transform:scale(1.5);opacity:0; /* hidden at first paint; revealed on scroll-in */
 }
+.brgw__hero.is-in::before{transform:scale(1);opacity:.24;transition:transform 2.6s cubic-bezier(.16,.72,.2,1), opacity 1.8s ease;}
 .brgw__hero::after{content:"";position:absolute;inset:0;z-index:1;
   background:radial-gradient(120% 90% at 50% 30%, rgba(0,0,0,.15), rgba(19,18,16,.86) 78%);}
 .brgw__hero > *{position:relative;z-index:2;}
@@ -46,14 +24,12 @@
 .brgw__uline{display:block;height:10px;width:min(360px,60%);margin:14px auto 0;
   background:var(--yellow);border-radius:40% 60% 55% 45%/60% 50% 60% 40%;transform:rotate(-1deg);opacity:.95;}
 
-/* ---------- ABOUT ---------- */
 .brgw__about{background:#0f0e0d;padding:clamp(70px,12vh,150px) var(--pad);position:relative;overflow:hidden;}
 .brgw__about h2{font-size:clamp(2.4rem,6vw,5rem);text-transform:uppercase;margin-bottom:34px;}
 .brgw__cols{display:grid;grid-template-columns:1fr;gap:22px;max-width:820px;}
 .brgw__cols p{opacity:.82;font-size:1.02rem;}
 @media(min-width:800px){ .brgw__cols{grid-template-columns:1fr 1fr;gap:40px;} }
 
-/* ---------- WHAT WE'RE ABOUT (vision/mission) ---------- */
 .brgw__vm{background:#000;padding:clamp(70px,12vh,150px) var(--pad);text-align:center;}
 .brgw__vm .head{display:inline-block;font-size:clamp(2rem,5vw,3.6rem);text-transform:uppercase;
   background:var(--yellow);color:var(--ink);padding:.06em .3em;transform:rotate(-2deg);margin-bottom:56px;}
@@ -62,7 +38,6 @@
   font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;padding:8px 16px;border-radius:2px;margin-bottom:18px;}
 .brgw__vmgrid .big{font-size:clamp(1.6rem,3.4vw,2.8rem);text-transform:uppercase;}
 
-/* ---------- CORE VALUES ---------- */
 .brgw__values{background:var(--bg);padding:clamp(70px,12vh,150px) var(--pad);text-align:center;position:relative;}
 .brgw__values h2{font-size:clamp(2.4rem,6.5vw,5.5rem);text-transform:uppercase;margin-bottom:56px;}
 .brgw__grid{display:grid;grid-template-columns:1fr;gap:2px;max-width:1100px;margin-inline:auto;
@@ -74,50 +49,11 @@
   font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:2px;margin-bottom:16px;}
 .brgw__card p{opacity:.72;font-size:.96rem;line-height:1.55;}
 
-/* ---------- FOOTER ---------- */
-.brgw__footer{background:#000;text-align:center;padding:56px var(--pad);}
-.brgw__footer .lockup{font-family:'Blanco Cavelary','Montserrat',cursive;font-size:clamp(1.6rem,4vw,2.4rem);}
-.brgw__footer .lockup b{background:var(--yellow);color:var(--ink);font-family:'Montserrat';font-weight:800;
-  padding:.02em .28em;letter-spacing:.02em;}
-
-/* ================= ENTRANCE / SCROLL-REVEAL =================
-   Hidden states are UNCONDITIONAL (applied at first paint → no visible-then-hide flash).
-   JS reveals each section on scroll-in (after Blanco loads). <noscript> + a JS timeout
-   guarantee content still appears if scripting is off or the font is slow. */
-.brgw .anim-head{opacity:0;}
-/* line mask: PADDED so tall glyphs / apostrophes aren't clipped; negative margin keeps
-   line spacing identical to the text's own line-height. */
-.brgw .ln{display:block;overflow:hidden;padding:.30em .10em .16em;margin:-.30em -.10em -.16em;}
-.brgw .ln-i{display:inline-block;transform:translateY(160%);will-change:transform;}
-.brgw .anim-up{opacity:0;transform:translateY(26px);will-change:opacity,transform;}
-.brgw .anim-cta{clip-path:inset(50% 50% 50% 50%);will-change:clip-path;}
-.brgw__hero::before{transform:scale(1.5);opacity:0;}
-
-.brgw .reveal.is-in .ln-i{transform:translateY(0);transition:transform .9s cubic-bezier(.22,.9,.24,1);}
-.brgw .reveal.is-in .anim-up{opacity:1;transform:none;transition:opacity .85s ease, transform .85s cubic-bezier(.22,.9,.24,1);}
-.brgw .reveal.is-in .anim-cta{animation:brgw-cta 1.05s cubic-bezier(.5,0,.2,1) both;}
-.brgw__hero.is-in::before{transform:scale(1);opacity:.24;transition:transform 2.6s cubic-bezier(.16,.72,.2,1), opacity 1.8s ease;}
-
-/* splash-style button reveal: a center line expands, then the box opens to reveal the label */
-@keyframes brgw-cta{
-  0%  {clip-path:inset(50% 50% 50% 50%);}
-  24% {clip-path:inset(calc(50% - 1.5px) 50% calc(50% - 1.5px) 50%);animation-timing-function:cubic-bezier(.5,0,.2,1);}
-  56% {clip-path:inset(calc(50% - 1.5px) 0 calc(50% - 1.5px) 0);animation-timing-function:linear;}
-  100%{clip-path:inset(0 0 0 0);}
-}
-
-@media (prefers-reduced-motion:reduce){
-  .brgw .anim-head,.brgw .anim-up{opacity:1!important;transform:none!important;}
-  .brgw .ln-i{transform:none!important;}
-  .brgw .anim-cta{clip-path:none!important;animation:none!important;}
-  .brgw__hero::before{transform:scale(1)!important;opacity:.24!important;}
-}
+@media (prefers-reduced-motion:reduce){ .brgw__hero::before{transform:scale(1)!important;opacity:.24!important;} }
 </style>
-
 <noscript><style>
   .brgw .anim-head,.brgw .anim-up{opacity:1!important;transform:none!important;}
-  .brgw .ln-i{transform:none!important;}
-  .brgw .anim-cta{clip-path:none!important;}
+  .brgw .ln-i{transform:none!important;} .brgw .anim-cta{clip-path:none!important;}
   .brgw__hero::before{transform:scale(1)!important;opacity:.24!important;}
 </style></noscript>
 
@@ -167,65 +103,8 @@
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- FOOTER (shared style) -->
 <div class="brgw__footer reveal">
   <div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div>
 </div>
-
-<script>
-(function(){
-  var root = (document.currentScript && document.currentScript.closest('.brgw')) || document.querySelector('.brgw');
-  if(!root || root.dataset.animInit) return; root.dataset.animInit = '1';
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return; // CSS reveals everything statically for reduced-motion users
-
-  function wrapLines(el, htmlLines){
-    el.innerHTML = htmlLines.map(function(h){ return '<span class="ln"><span class="ln-i">'+h+'</span></span>'; }).join('');
-    el.style.opacity = '1'; // headline was hidden pre-split; masks now own visibility
-  }
-  function splitByBr(el){
-    var parts = el.innerHTML.split(/<br\s*\/?>/i).map(function(s){return s.trim();}).filter(Boolean);
-    wrapLines(el, parts.length ? parts : [el.innerHTML]);
-  }
-  function splitByWords(el){
-    var words = el.textContent.replace(/\s+/g,' ').trim().split(' ');
-    el.innerHTML = words.map(function(w){ return '<span class="w" style="display:inline-block">'+w+'</span>'; }).join(' ');
-    var ws = [].slice.call(el.querySelectorAll('.w')), lines=[], cur=[], top=null;
-    ws.forEach(function(s){
-      var t = s.offsetTop;
-      if(top===null) top=t;
-      if(Math.abs(t-top) > 4){ lines.push(cur); cur=[]; top=t; }
-      cur.push(s.textContent);
-    });
-    if(cur.length) lines.push(cur);
-    wrapLines(el, lines.map(function(a){ return a.join(' '); }));
-  }
-
-  var started=false;
-  function start(){
-    if(started) return; started=true;
-    root.querySelectorAll('.anim-head').forEach(function(el){
-      if(el.dataset.head==='words') splitByWords(el); else splitByBr(el);
-    });
-    root.querySelectorAll('.reveal').forEach(function(sec){
-      var items = [].slice.call(sec.querySelectorAll('.ln-i, .anim-up, .anim-cta')), d=0;
-      items.forEach(function(el){
-        el.style.transitionDelay = d+'ms';
-        if(el.classList.contains('anim-cta')) el.style.animationDelay = d+'ms';
-        d += el.classList.contains('ln-i') ? 85 : 115;
-      });
-    });
-    var io = new IntersectionObserver(function(ents){
-      ents.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
-    }, {threshold:0.16, rootMargin:'0px 0px -8% 0px'});
-    root.querySelectorAll('.reveal').forEach(function(s){ io.observe(s); });
-  }
-
-  // Gate on Blanco so the split measures correct line breaks and the headline never
-  // flashes the fallback font. Race a timeout; hard fallback so nothing stays hidden.
-  var fontP = (document.fonts && document.fonts.load) ? document.fonts.load("1em 'Blanco Cavelary'") : Promise.resolve();
-  Promise.race([ fontP.catch(function(){}), new Promise(function(r){ setTimeout(r, 1800); }) ]).then(start);
-  setTimeout(start, 3500);
-})();
-</script>
 </section>
