@@ -14,7 +14,8 @@
   filter:grayscale(1) contrast(1.05);
   transform:scale(1.5);opacity:0; /* hidden at first paint; revealed on scroll-in */
 }
-.brgw__hero.is-in::before{transform:scale(1);opacity:.24;transition:transform 2.6s cubic-bezier(.16,.72,.2,1), opacity 1.8s ease;}
+.brgw__hero.is-in::before{transform:scale(1);opacity:.24;transition:transform 2.6s cubic-bezier(.16,.72,.2,1), opacity 1.8s ease;animation:brgw-herodrift 34s ease-in-out 2.6s infinite;}
+@keyframes brgw-herodrift{0%,100%{transform:scale(1) translate(0,0);}50%{transform:scale(1.07) translate(-1.4%,.8%);}}
 .brgw__hero::after{content:"";position:absolute;inset:0;z-index:1;
   background:radial-gradient(120% 90% at 50% 30%, rgba(0,0,0,.15), rgba(19,18,16,.86) 78%);}
 .brgw__hero > *{position:relative;z-index:2;}
@@ -49,12 +50,12 @@
   font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:2px;margin-bottom:16px;}
 .brgw__card p{opacity:.72;font-size:.96rem;line-height:1.55;}
 
-@media (prefers-reduced-motion:reduce){ .brgw__hero::before{transform:scale(1)!important;opacity:.24!important;} }
+@media (prefers-reduced-motion:reduce){ .brgw__hero::before{transform:scale(1)!important;opacity:.24!important;animation:none!important;} }
 </style>
 <noscript><style>
   .brgw .anim-head,.brgw .anim-up{opacity:1!important;transform:none!important;}
   .brgw .ln-i{transform:none!important;} .brgw .anim-cta{clip-path:none!important;}
-  .brgw__hero::before{transform:scale(1)!important;opacity:.24!important;}
+  .brgw__hero::before{transform:scale(1)!important;opacity:.24!important;animation:none!important;}
 </style></noscript>
 
 <!-- HERO -->

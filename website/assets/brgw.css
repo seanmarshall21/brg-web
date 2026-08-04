@@ -20,9 +20,9 @@
 .brgw .btn{
   display:inline-block;background:var(--yellow);color:var(--ink);text-decoration:none;
   font-weight:700;font-size:clamp(13px,1.2vw,16px);letter-spacing:.14em;text-transform:uppercase;
-  padding:20px 34px;border-radius:2px;transition:transform .15s ease;
+  padding:20px 34px;border-radius:2px;transition:transform .16s ease,box-shadow .2s ease;
 }
-.brgw .btn:hover{transform:translateY(-2px);}
+.brgw .btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 26px rgba(0,0,0,.22);}
 
 /* Shared HEADER (nav) — the plugin injects this around every page, links built
    from pages.json. Sticky, thin yellow top rule, active item underlined teal. */
@@ -34,11 +34,12 @@
 .brgw-logo b{background:var(--yellow);color:var(--ink);font-weight:800;padding:.06em .32em;font-size:1.05rem;letter-spacing:.01em;}
 .brgw-logo span{opacity:.75;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;}
 .brgw-nav{display:flex;gap:clamp(10px,1.5vw,28px);flex-wrap:wrap;align-items:center;}
-.brgw-nav a{color:#fff;text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.13em;
-  text-transform:uppercase;opacity:.82;padding:5px 0;border-bottom:2px solid transparent;
-  transition:opacity .15s,border-color .15s;}
+.brgw-nav a{position:relative;color:#fff;text-decoration:none;font-size:.72rem;font-weight:600;
+  letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:6px 0;transition:opacity .15s;}
 .brgw-nav a:hover{opacity:1;}
-.brgw-nav a.is-active{border-bottom-color:var(--teal);opacity:1;}
+.brgw-nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--teal);
+  transform:scaleX(0);transform-origin:left;transition:transform .24s cubic-bezier(.4,0,.2,1);}
+.brgw-nav a:hover::after,.brgw-nav a.is-active::after{transform:scaleX(1);}
 
 /* Shared footer (same on every page) */
 .brgw__footer{background:#000;text-align:center;padding:56px var(--pad);}
@@ -48,7 +49,10 @@
 
 /* Shared decorative bits (color set per page via inline color/background) */
 .brgw-uline{display:block;height:9px;width:min(340px,62%);margin:16px auto 0;
-  border-radius:40% 60% 55% 45%/60% 50% 60% 40%;transform:rotate(-1deg);background:currentColor;}
+  border-radius:40% 60% 55% 45%/60% 50% 60% 40%;background:currentColor;
+  transform:rotate(-1deg) scaleX(0);transform-origin:left center;}
+.brgw .reveal.is-in .brgw-uline{transform:rotate(-1deg) scaleX(1);
+  transition:transform .8s cubic-bezier(.2,.9,.3,1) .3s;}
 .brgw-badge{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin:0 auto;}
 .brgw-badge svg{width:54%;height:54%;display:block;}
 .brgw-lede{max-width:60ch;margin:0 auto;opacity:.85;font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.7;}
