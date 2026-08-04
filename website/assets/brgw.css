@@ -77,8 +77,14 @@
   46%,72%  {transform:rotate(22deg)  scale(1.08);}
   73%,100% {transform:rotate(-14deg) scale(.96);}
 }
+/* gentle idle loops (safe on inner/decorative elements, not on .anim-up targets) */
+.brgw-pulse{display:inline-block;transform-origin:center;animation:brgw-pulse 3.2s ease-in-out infinite;}
+@keyframes brgw-pulse{0%,100%{transform:scale(1) rotate(0);}50%{transform:scale(1.06) rotate(-1.5deg);}}
+.brgw-bob{animation:brgw-bob 4.5s ease-in-out infinite;}
+@keyframes brgw-bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
 @media (prefers-reduced-motion:reduce){
-  .brgw-badge svg,.brgw-doodle svg{animation:none!important;transform:none!important;}
+  .brgw-badge svg,.brgw-doodle svg,.brgw-pulse,.brgw-bob{animation:none!important;transform:none!important;}
 }
 
 /* ============ ENTRANCE / SCROLL-REVEAL (shared engine styles) ============

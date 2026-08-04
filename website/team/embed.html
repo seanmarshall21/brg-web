@@ -8,7 +8,8 @@
   display:grid;grid-template-columns:1fr;gap:34px;max-width:1120px;margin:0 auto;}
 @media(min-width:620px){ .tm-grid{grid-template-columns:1fr 1fr;} }
 @media(min-width:960px){ .tm-grid{grid-template-columns:1fr 1fr 1fr;} }
-.tm-card .pic{aspect-ratio:4/5;border-radius:8px;position:relative;display:flex;align-items:flex-end;padding:16px 18px;overflow:hidden;}
+.tm-card .pic{aspect-ratio:4/5;border-radius:8px;position:relative;display:flex;align-items:flex-end;padding:16px 18px;overflow:hidden;transition:transform .28s cubic-bezier(.22,.9,.24,1);}
+.tm-card:hover .pic{transform:translateY(-6px);}
 .tm-card .pic::after{content:"";position:absolute;left:50%;top:34%;width:44%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:rgba(0,0,0,.16);}
 .tm-card .pic::before{content:"";position:absolute;left:50%;bottom:-6%;width:70%;height:52%;transform:translateX(-50%);border-radius:50% 50% 0 0;background:rgba(0,0,0,.16);}
 .tm-card .nm{position:relative;z-index:1;font-family:'Blanco Cavelary','Montserrat',cursive;color:#fff;font-size:1.5rem;line-height:1;text-shadow:0 1px 6px rgba(0,0,0,.35);}

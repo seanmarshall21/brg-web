@@ -5,7 +5,9 @@
 .or-row{display:grid;grid-template-columns:1fr;gap:34px;max-width:1050px;margin:0 auto;align-items:center;}
 @media(min-width:820px){ .or-row{grid-template-columns:1.05fr 1fr;gap:56px;} }
 .or-card{aspect-ratio:16/10;border-radius:10px;display:grid;place-items:center;text-align:center;
-  font-family:'Blanco Cavelary','Montserrat',cursive;color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);padding:24px;}
+  font-family:'Blanco Cavelary','Montserrat',cursive;color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);padding:24px;
+  transition:transform .28s cubic-bezier(.22,.9,.24,1),box-shadow .28s ease;}
+.or-card:hover{transform:translateY(-7px) scale(1.012);box-shadow:0 20px 44px rgba(0,0,0,.20);}
 .or-card small{display:block;font-family:'Montserrat';font-weight:600;font-size:.6rem;letter-spacing:.24em;
   text-transform:uppercase;opacity:.85;margin-top:10px;}
 .or-card--bb{background:linear-gradient(135deg,#19C7C2,#0e8f8b);}
