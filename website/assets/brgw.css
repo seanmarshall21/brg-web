@@ -60,6 +60,27 @@
 .brgw-hero h1{font-size:clamp(2.4rem,6.4vw,5.4rem);text-transform:uppercase;max-width:18ch;margin:0 auto 8px;}
 .brgw-hero .sub{max-width:52ch;margin:26px auto 0;opacity:.9;line-height:1.6;font-size:clamp(1rem,1.3vw,1.2rem);}
 
+/* ---- looping micro-animations (splash-style hard-cut jitter) ---- */
+.brgw-badge svg{transform-origin:center;animation:brgw-jit 1.5s steps(1,end) infinite;}
+@keyframes brgw-jit{
+  0%,42%   {transform:rotate(0deg)  translateY(0);}
+  43%,74%  {transform:rotate(-9deg) translateY(-1px);}
+  75%,100% {transform:rotate(7deg)  translateY(1px);}
+}
+/* scattered brand doodle accent (bolt/asterisk/smiley) — absolute, small, loops */
+.brgw-doodle{position:absolute;z-index:3;width:clamp(30px,4vw,58px);pointer-events:none;}
+.brgw-doodle svg{display:block;width:100%;height:auto;transform-origin:center;animation:brgw-jit 1.35s steps(1,end) infinite;}
+.brgw-doodle--b svg{animation-duration:1.15s;}
+.brgw-doodle--c svg{animation:brgw-spin 1.9s steps(1,end) infinite;}
+@keyframes brgw-spin{
+  0%,45%   {transform:rotate(0deg)   scale(1);}
+  46%,72%  {transform:rotate(22deg)  scale(1.08);}
+  73%,100% {transform:rotate(-14deg) scale(.96);}
+}
+@media (prefers-reduced-motion:reduce){
+  .brgw-badge svg,.brgw-doodle svg{animation:none!important;transform:none!important;}
+}
+
 /* ============ ENTRANCE / SCROLL-REVEAL (shared engine styles) ============
    Hidden states are UNCONDITIONAL (first paint) → no visible-then-animate flash.
    brgw.js reveals each .reveal section on scroll-in (after Blanco loads). */
