@@ -81,12 +81,26 @@
   46%,72%  {transform:rotate(22deg)  scale(1.08);}
   73%,100% {transform:rotate(-14deg) scale(.96);}
 }
+/* ---- reusable slider (auto-advancing, dots, swipe) ---- */
+.brgw-slider{position:relative;overflow:hidden;}
+.brgw-slider__track{display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1);will-change:transform;}
+.brgw-slider__track > *{flex:0 0 100%;min-width:100%;}
+.brgw-slider__dots{display:flex;gap:11px;justify-content:center;padding:22px 0;background:#000;}
+.brgw-dot{width:11px;height:11px;border-radius:50%;border:0;padding:0;cursor:pointer;
+  background:rgba(255,255,255,.28);transition:background .2s,transform .2s;}
+.brgw-dot.is-on{background:var(--yellow);transform:scale(1.25);}
+
 /* gentle idle loops (safe on inner/decorative elements, not on .anim-up targets) */
 .brgw-pulse{display:inline-block;transform-origin:center;animation:brgw-pulse 3.2s ease-in-out infinite;}
 @keyframes brgw-pulse{0%,100%{transform:scale(1) rotate(0);}50%{transform:scale(1.06) rotate(-1.5deg);}}
 .brgw-bob{animation:brgw-bob 4.5s ease-in-out infinite;}
 @keyframes brgw-bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
 
+/* Mobile: decorative floating doodles crowd the smaller hero type — hide them.
+   The badge jitter + number pulses stay (they sit in their own space). */
+@media (max-width:560px){
+  .brgw-doodle{display:none;}
+}
 @media (prefers-reduced-motion:reduce){
   .brgw-badge svg,.brgw-doodle svg,.brgw-pulse,.brgw-bob{animation:none!important;transform:none!important;}
 }

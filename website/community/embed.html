@@ -4,14 +4,19 @@
 .cm-intro{background:#fff;color:var(--ink);text-align:center;padding:clamp(56px,8vh,100px) var(--pad) clamp(24px,4vh,48px);}
 .cm-intro p{max-width:74ch;margin:0 auto;opacity:.82;line-height:1.75;}
 .cm-badge{background:#fff;text-align:center;padding:16px 0 40px;}
-.cm-give{display:grid;grid-template-columns:1fr;gap:2px;background:#000;}
-@media(min-width:820px){ .cm-give{grid-template-columns:1fr 1fr;} }
-.cm-panel{padding:clamp(40px,6vw,80px);min-height:340px;display:flex;flex-direction:column;justify-content:center;}
-.cm-panel h3{font-size:clamp(1.5rem,3.4vw,2.4rem);text-transform:uppercase;margin-bottom:18px;}
-.cm-panel p{opacity:.82;line-height:1.7;font-size:.96rem;}
-.cm-panel--dark{background:#2b2a28;color:#fff;}
-.cm-panel--yellow{background:var(--yellow);color:var(--ink);}
-.cm-panel--yellow p{opacity:.85;}
+.cm-give{background:#000;}
+.cm-slide{display:grid;grid-template-columns:1fr;}
+@media(min-width:820px){ .cm-slide{grid-template-columns:1fr 1fr;} }
+.cm-slide__media{min-height:300px;background-size:cover;background-position:center;}
+.cm-slide__body{padding:clamp(40px,6vw,80px);min-height:300px;display:flex;flex-direction:column;justify-content:center;}
+.cm-slide__body h3{font-size:clamp(1.5rem,3.4vw,2.4rem);text-transform:uppercase;margin-bottom:18px;}
+.cm-slide__body p{opacity:.82;line-height:1.7;font-size:.96rem;}
+.cm-slide__body--dark{background:#2b2a28;color:#fff;}
+.cm-slide__body--yellow{background:var(--yellow);color:var(--ink);}
+.cm-slide__body--yellow p{opacity:.85;}
+.cm-slide__body--teal{background:var(--teal);color:var(--ink);}
+.cm-slide__body--teal p{opacity:.85;}
+@media(min-width:820px){ .cm-slide--rev .cm-slide__media{order:2;} }
 .cm-stats{background:#fff;color:var(--ink);padding:clamp(56px,9vh,110px) var(--pad);
   display:grid;grid-template-columns:1fr;gap:2px;max-width:1000px;margin:0 auto;}
 @media(min-width:640px){ .cm-stats{grid-template-columns:1fr 1fr;} }
@@ -42,13 +47,35 @@
 </div>
 
 <div class="cm-give reveal">
-  <div class="cm-panel cm-panel--dark anim-up">
-    <h3 class="blanco">Urban Surf 4 Kids</h3>
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-  </div>
-  <div class="cm-panel cm-panel--yellow anim-up">
-    <h3 class="blanco">Other contributions</h3>
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl.</p>
+  <div class="brgw-slider anim-up" data-autoplay="5500">
+    <div class="brgw-slider__track">
+
+      <div class="brgw-slide cm-slide cm-slide--rev">
+        <div class="cm-slide__media" style="background:linear-gradient(135deg,#3a3a38,#1c1b1a)"></div>
+        <div class="cm-slide__body cm-slide__body--dark">
+          <h3 class="blanco">Urban Surf 4 Kids</h3>
+          <p>Our flagship give-back partner. We help get kids with disabilities and those facing adversity out on the water — building confidence, connection, and stoke one wave at a time. It's exactly the kind of community-first mission we exist to support.</p>
+        </div>
+      </div>
+
+      <div class="brgw-slide cm-slide">
+        <div class="cm-slide__media" style="background:linear-gradient(135deg,#4a4a46,#26251f)"></div>
+        <div class="cm-slide__body cm-slide__body--yellow">
+          <h3 class="blanco">Other contributions</h3>
+          <p>From youth sports sponsorships to school fundraisers, holiday meal drives, and first-responder appreciation — when a local cause needs a hand, our doors and our kitchens are open. Small gestures, done consistently, add up.</p>
+        </div>
+      </div>
+
+      <div class="brgw-slide cm-slide cm-slide--rev">
+        <div class="cm-slide__media" style="background:linear-gradient(135deg,#19C7C2,#0e8f8b)"></div>
+        <div class="cm-slide__body cm-slide__body--teal">
+          <h3 class="blanco">Local partnerships</h3>
+          <p>We team up with neighborhood nonprofits, schools, and grassroots organizations across San Diego and Orange County — because the best way to strengthen a community is to build alongside the people already doing the work.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="brgw-slider__dots"></div>
   </div>
 </div>
 

@@ -61,13 +61,48 @@
     }).forEach(initRoot);
   }
 
-  function go() {
+  function startRevealGate() {
     // Gate on Blanco so split measures correct line breaks + no fallback-font flash.
     var fontP = (document.fonts && document.fonts.load) ? document.fonts.load("1em 'Blanco Cavelary'") : Promise.resolve();
     Promise.race([fontP.catch(function () {}), new Promise(function (r) { setTimeout(r, 1800); })]).then(startAll);
     setTimeout(startAll, 3500); // hard fallback — nothing stays hidden
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go);
-  else go();
+  // Reusable slider: <div class="brgw-slider" data-autoplay="5500"> with a
+  // .brgw-slider__track of slides and an (optional) empty .brgw-slider__dots.
+  function initSliders() {
+    document.querySelectorAll('.brgw-slider').forEach(function (sl) {
+      if (sl.dataset.sliderInit) return; sl.dataset.sliderInit = '1';
+      var track = sl.querySelector('.brgw-slider__track');
+      if (!track) return;
+      var slides = [].slice.call(track.children), n = slides.length;
+      if (n < 2) return;
+      var dotsWrap = sl.querySelector('.brgw-slider__dots');
+      var auto = parseInt(sl.dataset.autoplay || '0', 10), i = 0, timer = null, dots = [];
+      function draw() { dots.forEach(function (b, k) { b.classList.toggle('is-on', k === i); }); }
+      function go(k) { i = (k + n) % n; track.style.transform = 'translateX(' + (-i * 100) + '%)'; draw(); }
+      function restart() { if (!auto) return; clearInterval(timer); timer = setInterval(function () { go(i + 1); }, auto); }
+      if (dotsWrap) {
+        for (var d = 0; d < n; d++) (function (d) {
+          var b = document.createElement('button'); b.className = 'brgw-dot';
+          b.setAttribute('aria-label', 'Go to slide ' + (d + 1));
+          b.addEventListener('click', function () { go(d); restart(); });
+          dotsWrap.appendChild(b); dots.push(b);
+        })(d);
+      }
+      var x0 = null;
+      sl.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      sl.addEventListener('touchend', function (e) {
+        if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) { go(i + (dx < 0 ? 1 : -1)); restart(); } x0 = null;
+      });
+      sl.addEventListener('mouseenter', function () { clearInterval(timer); });
+      sl.addEventListener('mouseleave', restart);
+      go(0); restart();
+    });
+  }
+
+  function boot() { startRevealGate(); initSliders(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
