@@ -1,9 +1,7 @@
 [
-  { "slug": "home",      "title": "Home",            "status": "live" },
-  { "slug": "brands",    "title": "Brands",          "status": "stub" },
-  { "slug": "team",      "title": "Team",            "status": "stub" },
-  { "slug": "community", "title": "Community",       "status": "stub" },
-  { "slug": "careers",   "title": "Careers",         "status": "stub" },
-  { "slug": "press",     "title": "Press & Gallery", "status": "stub" },
-  { "slug": "contact",   "title": "Contact",         "status": "stub" }
+  { "slug": "home",            "title": "Home",            "status": "live" },
+  { "slug": "our-restaurants", "title": "Our Restaurants", "status": "stub" },
+  { "slug": "team",            "title": "Team",            "status": "stub" },
+  { "slug": "community",       "title": "Community",       "status": "stub" },
+  { "slug": "careers",         "title": "Careers",         "status": "stub" }
 ]
