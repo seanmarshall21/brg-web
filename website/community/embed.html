@@ -1,15 +1,62 @@
-<!-- BRG · Community — STUB fragment. Shortcode: [brg_community]. Tell Claude to build it out. -->
+<!-- BRG · Community — page fragment. Shortcode: [brg_community] -->
 <section class="brgw" aria-label="Blacktop Restaurant Group — Community">
 <style>
-.brgw__stub{min-height:70vh;display:grid;place-items:center;text-align:center;background:var(--bg2);
-  padding:clamp(90px,16vh,180px) var(--pad);}
-.brgw__stub h1{font-size:clamp(3rem,9vw,7rem);text-transform:uppercase;color:var(--yellow);}
-.brgw__stub p{opacity:.7;margin-top:22px;font-size:1.05rem;letter-spacing:.02em;}
+.cm-intro{background:#fff;color:var(--ink);text-align:center;padding:clamp(56px,8vh,100px) var(--pad) clamp(24px,4vh,48px);}
+.cm-intro p{max-width:74ch;margin:0 auto;opacity:.82;line-height:1.75;}
+.cm-badge{background:#fff;text-align:center;padding:16px 0 40px;}
+.cm-give{display:grid;grid-template-columns:1fr;gap:2px;background:#000;}
+@media(min-width:820px){ .cm-give{grid-template-columns:1fr 1fr;} }
+.cm-panel{padding:clamp(40px,6vw,80px);min-height:340px;display:flex;flex-direction:column;justify-content:center;}
+.cm-panel h3{font-size:clamp(1.5rem,3.4vw,2.4rem);text-transform:uppercase;margin-bottom:18px;}
+.cm-panel p{opacity:.82;line-height:1.7;font-size:.96rem;}
+.cm-panel--dark{background:#2b2a28;color:#fff;}
+.cm-panel--yellow{background:var(--yellow);color:var(--ink);}
+.cm-panel--yellow p{opacity:.85;}
+.cm-stats{background:#fff;color:var(--ink);padding:clamp(56px,9vh,110px) var(--pad);
+  display:grid;grid-template-columns:1fr;gap:2px;max-width:1000px;margin:0 auto;}
+@media(min-width:640px){ .cm-stats{grid-template-columns:1fr 1fr;} }
+.cm-stat{padding:34px 26px;text-align:center;border:1px solid rgba(0,0,0,.08);}
+.cm-stat .n{font-family:'Blanco Cavelary','Montserrat',cursive;color:var(--teal);font-size:clamp(3rem,7vw,5rem);line-height:.9;}
+.cm-stat p{opacity:.7;margin-top:10px;font-size:.9rem;line-height:1.4;}
+.cm-partner{background:#fff;color:var(--ink);text-align:center;padding:0 var(--pad) clamp(56px,9vh,110px);}
+.cm-partner .btn{background:var(--ink);color:#fff;}
+.cm-partner p{max-width:56ch;margin:24px auto 0;opacity:.75;}
 </style>
-<noscript><style>.brgw .anim-head,.brgw .anim-up{opacity:1!important;transform:none!important;}.brgw .ln-i{transform:none!important;}</style></noscript>
-<div class="brgw__stub reveal">
-  <h1 class="blanco anim-head">Community</h1>
-  <p class="anim-up">This page is wired up and ready — content coming soon.</p>
+
+<div class="brgw-hero reveal">
+  <h1 class="blanco anim-head" data-head="words">Great food, great people, epic communities.</h1>
+  <span class="brgw-uline anim-up" style="color:var(--orange)"></span>
+  <p class="sub anim-up">We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate.</p>
 </div>
-<div class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div></div>
+
+<div class="cm-intro reveal">
+  <p class="anim-up">At BRG, community isn't a marketing initiative — <span class="hl">it's in our DNA.</span> When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.</p>
+</div>
+
+<div class="cm-badge reveal">
+  <span class="brgw-banner anim-up" style="background:var(--teal)">How we give back</span>
+</div>
+
+<div class="cm-give reveal">
+  <div class="cm-panel cm-panel--dark anim-up">
+    <h3 class="blanco">Urban Surf 4 Kids</h3>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+  </div>
+  <div class="cm-panel cm-panel--yellow anim-up">
+    <h3 class="blanco">Other contributions</h3>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl.</p>
+  </div>
+</div>
+
+<div class="cm-stats reveal">
+  <div class="cm-stat anim-up"><div class="n">12</div><p>locations embedded in SD &amp; OC communities</p></div>
+  <div class="cm-stat anim-up"><div class="n">XX</div><p>local organizations supported annually</p></div>
+  <div class="cm-stat anim-up"><div class="n">XX</div><p>meals / dollars donated</p></div>
+  <div class="cm-stat anim-up"><div class="n">XX</div><p>giveback events per year</p></div>
+</div>
+
+<div class="cm-partner reveal">
+  <a class="btn anim-cta" href="#">Want to partner with us?</a>
+  <p class="anim-up">Whether you're a nonprofit, school, or local organization — we'd love to talk.</p>
+</div>
 </section>

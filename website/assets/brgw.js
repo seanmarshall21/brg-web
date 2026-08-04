@@ -15,10 +15,12 @@
       el.style.opacity = '1'; // was hidden pre-split; masks now own visibility
     }
     function splitByBr(el) {
+      if (el.querySelector('.ln')) return; // already split (guards nested roots)
       var parts = el.innerHTML.split(/<br\s*\/?>/i).map(function (s) { return s.trim(); }).filter(Boolean);
       wrapLines(el, parts.length ? parts : [el.innerHTML]);
     }
     function splitByWords(el) {
+      if (el.querySelector('.ln')) return; // already split (guards nested roots)
       var words = el.textContent.replace(/\s+/g, ' ').trim().split(' ');
       el.innerHTML = words.map(function (w) { return '<span class="w" style="display:inline-block">' + w + '</span>'; }).join(' ');
       var ws = [].slice.call(el.querySelectorAll('.w')), lines = [], cur = [], top = null;
@@ -52,7 +54,11 @@
   var started = false;
   function startAll() {
     if (started) return; started = true;
-    document.querySelectorAll('.brgw').forEach(initRoot);
+    // Init only TOP-LEVEL .brgw roots (the plugin wraps the page section in an outer
+    // .brgw shell for header/footer — one root scans everything, no double-processing).
+    [].slice.call(document.querySelectorAll('.brgw')).filter(function (r) {
+      return !(r.parentElement && r.parentElement.closest('.brgw'));
+    }).forEach(initRoot);
   }
 
   function go() {

@@ -1,15 +1,53 @@
-<!-- BRG · Our Restaurants — STUB fragment. Shortcode: [brg_our-restaurants]. Tell Claude to build it out. -->
+<!-- BRG · Our Restaurants — page fragment. Shortcode: [brg_our-restaurants] -->
 <section class="brgw" aria-label="Blacktop Restaurant Group — Our Restaurants">
 <style>
-.brgw__stub{min-height:70vh;display:grid;place-items:center;text-align:center;background:var(--bg2);
-  padding:clamp(90px,16vh,180px) var(--pad);}
-.brgw__stub h1{font-size:clamp(3rem,9vw,7rem);text-transform:uppercase;color:var(--yellow);}
-.brgw__stub p{opacity:.7;margin-top:22px;font-size:1.05rem;letter-spacing:.02em;}
+.or-brands{background:#fff;color:var(--ink);padding:clamp(60px,9vh,120px) var(--pad);}
+.or-row{display:grid;grid-template-columns:1fr;gap:34px;max-width:1050px;margin:0 auto;align-items:center;}
+@media(min-width:820px){ .or-row{grid-template-columns:1.05fr 1fr;gap:56px;} }
+.or-card{aspect-ratio:16/10;border-radius:10px;display:grid;place-items:center;text-align:center;
+  font-family:'Blanco Cavelary','Montserrat',cursive;color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);padding:24px;}
+.or-card small{display:block;font-family:'Montserrat';font-weight:600;font-size:.6rem;letter-spacing:.24em;
+  text-transform:uppercase;opacity:.85;margin-top:10px;}
+.or-card--bb{background:linear-gradient(135deg,#19C7C2,#0e8f8b);}
+.or-card--odie{background:linear-gradient(135deg,#F5821F,#c9410f);}
+.or-txt h3{font-size:clamp(1.9rem,4.4vw,3rem);text-transform:uppercase;margin-bottom:16px;}
+.or-txt p{opacity:.78;line-height:1.65;margin-bottom:14px;}
+.or-txt .btn{margin-top:12px;background:var(--ink);color:#fff;}
+.or-rule{max-width:1050px;margin:clamp(40px,6vh,72px) auto;height:1px;background:rgba(0,0,0,.14);}
+.or-badge{background:#fff;text-align:center;padding:34px 0;}
 </style>
-<noscript><style>.brgw .anim-head,.brgw .anim-up{opacity:1!important;transform:none!important;}.brgw .ln-i{transform:none!important;}</style></noscript>
-<div class="brgw__stub reveal">
-  <h1 class="blanco anim-head">Our Restaurants</h1>
-  <p class="anim-up">This page is wired up and ready — content coming soon.</p>
+
+<div class="brgw-hero reveal">
+  <h1 class="blanco anim-head" data-head="words">Two brands. One standard. Zero compromises.</h1>
+  <span class="brgw-uline anim-up" style="color:var(--teal)"></span>
+  <p class="sub anim-up">Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for.</p>
 </div>
-<div class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div></div>
+
+<div class="or-badge reveal">
+  <div class="brgw-badge anim-up" style="background:var(--yellow)"><svg viewBox="0 0 24 24"><g stroke="#231F20" stroke-width="3" stroke-linecap="round" fill="none"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/></g></svg></div>
+</div>
+
+<div class="or-brands">
+  <div class="or-row reveal">
+    <div class="or-card or-card--bb anim-up">Board&nbsp;&amp;&nbsp;Brew<small>San Diego, CA</small></div>
+    <div class="or-txt">
+      <h3 class="blanco anim-head">Board &amp; Brew</h3>
+      <p class="anim-up">San Diego's iconic sandwich shop. Board &amp; Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool.</p>
+      <p class="anim-up">12 locations across San Diego and Orange County — each one a neighborhood staple.</p>
+      <a class="btn anim-cta" href="#">Visit Us</a>
+    </div>
+  </div>
+
+  <div class="or-rule"></div>
+
+  <div class="or-row reveal">
+    <div class="or-card or-card--odie anim-up">Odie's Pizza Co.<small>Oceanside, CA</small></div>
+    <div class="or-txt">
+      <h3 class="blanco anim-head">Odie's Pizza</h3>
+      <p class="anim-up">Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast — think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around.</p>
+      <p class="anim-up">Our flagship is right in the heart of downtown Oceanside, and more locations are on the way.</p>
+      <a class="btn anim-cta" href="#">Visit Us</a>
+    </div>
+  </div>
+</div>
 </section>

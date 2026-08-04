@@ -1,15 +1,62 @@
-<!-- BRG · Careers — STUB fragment. Shortcode: [brg_careers]. Tell Claude to build it out. -->
+<!-- BRG · Careers — page fragment. Shortcode: [brg_careers] -->
 <section class="brgw" aria-label="Blacktop Restaurant Group — Careers">
 <style>
-.brgw__stub{min-height:70vh;display:grid;place-items:center;text-align:center;background:var(--bg2);
-  padding:clamp(90px,16vh,180px) var(--pad);}
-.brgw__stub h1{font-size:clamp(3rem,9vw,7rem);text-transform:uppercase;color:var(--yellow);}
-.brgw__stub p{opacity:.7;margin-top:22px;font-size:1.05rem;letter-spacing:.02em;}
+.ca-badge{background:#fff;text-align:center;padding:34px 0;}
+.ca-like{background:#fff;color:var(--ink);padding:clamp(50px,7vh,90px) var(--pad) clamp(56px,9vh,110px);}
+.ca-grid{display:grid;grid-template-columns:1fr;gap:40px;max-width:1050px;margin:0 auto;}
+@media(min-width:860px){ .ca-grid{grid-template-columns:1.2fr 1fr;gap:64px;} }
+.ca-like h2{font-size:clamp(2rem,4.6vw,3.2rem);text-transform:uppercase;line-height:1;margin-bottom:24px;}
+.ca-like h2 .pink{background:var(--pink);color:#fff;padding:.02em .18em;}
+.ca-like p{opacity:.78;line-height:1.7;margin-bottom:16px;}
+.ca-offer h3{font-family:'Blanco Cavelary','Montserrat',cursive;color:var(--teal);font-size:1.5rem;text-transform:uppercase;margin-bottom:18px;}
+.ca-offer ul{list-style:none;padding:0;margin:0;display:grid;gap:16px;}
+.ca-offer li{position:relative;padding-left:26px;opacity:.82;line-height:1.5;font-size:.98rem;}
+.ca-offer li::before{content:"";position:absolute;left:0;top:.35em;width:12px;height:12px;border-radius:50%;background:var(--teal);}
+.ca-apply{text-align:center;margin-top:clamp(40px,6vh,70px);}
+.ca-join{background:var(--yellow);color:var(--ink);text-align:center;position:relative;overflow:hidden;
+  padding:clamp(56px,9vh,120px) var(--pad);}
+.ca-join h2{font-size:clamp(2.2rem,6vw,4.4rem);text-transform:uppercase;margin-bottom:18px;}
+.ca-join p{max-width:56ch;margin:0 auto 30px;opacity:.85;line-height:1.6;}
+.ca-join .btn{background:var(--ink);color:#fff;}
+.ca-join::after{content:"";position:absolute;right:-4%;bottom:-30%;width:min(46%,520px);aspect-ratio:3/4;
+  background:url(https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06/surfer.webp) center/contain no-repeat;
+  filter:grayscale(1) contrast(1.05);opacity:.5;pointer-events:none;}
+@media(max-width:720px){ .ca-join::after{display:none;} }
 </style>
-<noscript><style>.brgw .anim-head,.brgw .anim-up{opacity:1!important;transform:none!important;}.brgw .ln-i{transform:none!important;}</style></noscript>
-<div class="brgw__stub reveal">
-  <h1 class="blanco anim-head">Careers</h1>
-  <p class="anim-up">This page is wired up and ready — content coming soon.</p>
+
+<div class="brgw-hero reveal">
+  <h1 class="blanco anim-head" data-head="words">Come work somewhere you actually want to be</h1>
+  <span class="brgw-uline anim-up" style="color:var(--teal)"></span>
+  <p class="sub anim-up">We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow — <span class="hl">let's talk.</span></p>
 </div>
-<div class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div></div>
+
+<div class="ca-badge reveal">
+  <div class="brgw-badge anim-up" style="background:var(--yellow)"><svg viewBox="0 0 24 24"><g stroke="#231F20" stroke-width="3" stroke-linecap="round" fill="none"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/></g></svg></div>
+</div>
+
+<div class="ca-like reveal">
+  <div class="ca-grid">
+    <div>
+      <h2 class="blanco anim-head">What it's like<br><span class="pink">to work here</span></h2>
+      <p class="anim-up">This isn't your average restaurant gig. At BRG, we invest in our people — with real training, real growth paths, and a culture that actually lives up to the hype.</p>
+      <p class="anim-up">Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around.</p>
+    </div>
+    <div class="ca-offer anim-up">
+      <h3>We offer</h3>
+      <ul>
+        <li>Competitive pay</li>
+        <li>Growth and advancement opportunities across multiple brands and locations</li>
+        <li>A team-first culture that takes your development seriously</li>
+        <li>The chance to work in restaurants that people genuinely love</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ca-apply reveal"><a class="btn anim-cta" href="#">Apply Today</a></div>
+</div>
+
+<div class="ca-join reveal">
+  <h2 class="blanco anim-head">Ready to join the crew?</h2>
+  <p class="anim-up">Browse our open roles below — from front-of-house to leadership positions across Board &amp; Brew and Odie's Pizza Co.</p>
+  <a class="btn anim-cta" href="#">Open Positions</a>
+</div>
 </section>

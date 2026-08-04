@@ -1,15 +1,105 @@
-<!-- BRG · Team — STUB fragment. Shortcode: [brg_team]. Tell Claude to build it out. -->
+<!-- BRG · Team — page fragment. Shortcode: [brg_team] -->
 <section class="brgw" aria-label="Blacktop Restaurant Group — Team">
 <style>
-.brgw__stub{min-height:70vh;display:grid;place-items:center;text-align:center;background:var(--bg2);
-  padding:clamp(90px,16vh,180px) var(--pad);}
-.brgw__stub h1{font-size:clamp(3rem,9vw,7rem);text-transform:uppercase;color:var(--yellow);}
-.brgw__stub p{opacity:.7;margin-top:22px;font-size:1.05rem;letter-spacing:.02em;}
+.tm-intro{background:#fff;color:var(--ink);text-align:center;padding:clamp(60px,9vh,110px) var(--pad) clamp(30px,5vh,60px);}
+.tm-intro p{max-width:70ch;margin:0 auto 30px;opacity:.8;line-height:1.7;}
+.tm-badge{background:#fff;text-align:center;padding:0 0 20px;}
+.tm-grid{background:#fff;color:var(--ink);padding:10px var(--pad) clamp(60px,9vh,120px);
+  display:grid;grid-template-columns:1fr;gap:34px;max-width:1120px;margin:0 auto;}
+@media(min-width:620px){ .tm-grid{grid-template-columns:1fr 1fr;} }
+@media(min-width:960px){ .tm-grid{grid-template-columns:1fr 1fr 1fr;} }
+.tm-card .pic{aspect-ratio:4/5;border-radius:8px;position:relative;display:flex;align-items:flex-end;
+  padding:16px 18px;overflow:hidden;}
+.tm-card .pic::after{content:"";position:absolute;left:50%;top:34%;width:44%;aspect-ratio:1;
+  transform:translateX(-50%);border-radius:50%;background:rgba(0,0,0,.16);}
+.tm-card .pic::before{content:"";position:absolute;left:50%;bottom:-6%;width:70%;height:52%;
+  transform:translateX(-50%);border-radius:50% 50% 0 0;background:rgba(0,0,0,.16);}
+.tm-card .nm{position:relative;z-index:1;font-family:'Blanco Cavelary','Montserrat',cursive;color:#fff;
+  font-size:1.5rem;line-height:1;text-shadow:0 1px 6px rgba(0,0,0,.35);}
+.tm-card .ti{position:relative;z-index:1;color:#fff;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;opacity:.9;}
+.tm-card .head{display:flex;flex-direction:column;gap:3px;}
+.tm-card blockquote{margin:14px 2px 0;font-size:.92rem;opacity:.72;line-height:1.55;font-style:italic;}
+.tm-cta{background:var(--teal);color:var(--ink);text-align:center;padding:clamp(56px,9vh,110px) var(--pad);}
+.tm-cta h2{font-size:clamp(2rem,5.5vw,3.8rem);text-transform:uppercase;margin-bottom:20px;}
+.tm-cta p{max-width:56ch;margin:0 auto 30px;opacity:.85;line-height:1.6;}
+.tm-cta .btn{background:var(--ink);color:#fff;}
 </style>
-<noscript><style>.brgw .anim-head,.brgw .anim-up{opacity:1!important;transform:none!important;}.brgw .ln-i{transform:none!important;}</style></noscript>
-<div class="brgw__stub reveal">
-  <h1 class="blanco anim-head">Team</h1>
-  <p class="anim-up">This page is wired up and ready — content coming soon.</p>
+
+<div class="brgw-hero reveal">
+  <h1 class="blanco anim-head">Meet the crew</h1>
+  <span class="brgw-uline anim-up" style="color:var(--pink)"></span>
+  <p class="sub anim-up">We're operators, leaders, community builders — and yes, we all have strong opinions about <span style="color:var(--pink)">sandwiches</span>. This is the team behind the brands.</p>
 </div>
-<div class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div></div>
+
+<div class="tm-intro reveal">
+  <p class="anim-up">Behind every great restaurant is a team that genuinely gives a damn. Our leadership crew brings decades of food &amp; beverage experience, a shared obsession with hospitality, and enough personality to fill a very loud dinner table.</p>
+  <span class="brgw-banner anim-up">We work hard, we have fun, and we take care of our people</span>
+</div>
+
+<div class="tm-badge reveal">
+  <div class="brgw-badge anim-up" style="background:#111"><svg viewBox="0 0 24 24"><g stroke="var(--yellow)" stroke-width="2.2" fill="none" stroke-linecap="round"><path d="M6.5 14.5Q12 19 17.5 14.5"/><path d="M7 8l2.4 2.4M9.4 8L7 10.4"/><path d="M14.6 8L17 10.4M17 8l-2.4 2.4"/></g></svg></div>
+</div>
+
+<div class="tm-grid reveal">
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:">
+      <div class="head"><span class="nm"></span><span class="ti"></span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:#19C7C2">
+      <div class="head"><span class="nm">Craig Applegate</span><span class="ti">CEO</span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:#F5821F">
+      <div class="head"><span class="nm">Clayton Wheeler</span><span class="ti">CEO</span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:#19C7C2">
+      <div class="head"><span class="nm">Name</span><span class="ti">Title</span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:#7A3FF2">
+      <div class="head"><span class="nm">Name</span><span class="ti">Title</span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:#FCE200">
+      <div class="head"><span class="nm">Name</span><span class="ti">Title</span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:#EC0F8D">
+      <div class="head"><span class="nm">Name</span><span class="ti">Title</span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:#F0433B">
+      <div class="head"><span class="nm">Name</span><span class="ti">Title</span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+  <div class="tm-card anim-up">
+    <div class="pic" style="background:#2FB84B">
+      <div class="head"><span class="nm">Name</span><span class="ti">Title</span></div>
+    </div>
+    <blockquote>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit."</blockquote>
+  </div>
+</div>
+
+<div class="tm-cta reveal">
+  <h2 class="blanco anim-head">Want to be part of the team?</h2>
+  <p class="anim-up">We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience.</p>
+  <a class="btn anim-cta" href="#">Apply Today</a>
+</div>
 </section>

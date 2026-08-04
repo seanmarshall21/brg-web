@@ -57,6 +57,30 @@ if ( ! function_exists( 'vcc_fetch' ) ) {
     }
 }
 
+/* ── Shared HEADER (nav built from the repo manifest) + FOOTER ─────────────── */
+if ( ! function_exists( 'vcc_chrome' ) ) {
+    function vcc_chrome( $cfg, $current_slug ) {
+        $manifest = vcc_fetch( rtrim( $cfg['base'], '/' ) . $cfg['manifest'], VCC_TTL );
+        $pages    = $manifest ? json_decode( $manifest, true ) : array();
+        $links = '';
+        if ( is_array( $pages ) ) {
+            foreach ( $pages as $pg ) {
+                $slug  = is_array( $pg ) ? ( isset( $pg['slug'] ) ? $pg['slug'] : '' ) : ( is_string( $pg ) ? $pg : '' );
+                $slug  = preg_replace( '/[^a-z0-9-]/', '', strtolower( (string) $slug ) );
+                if ( $slug === '' ) continue;
+                $title = is_array( $pg ) && isset( $pg['title'] ) ? $pg['title'] : ucwords( str_replace( '-', ' ', $slug ) );
+                $url   = ( $slug === 'home' ) ? '/' : '/' . $slug . '/';
+                $cls   = ( $slug === $current_slug ) ? ' class="is-active"' : '';
+                $links .= '<a href="' . esc_url( $url ) . '"' . $cls . '>' . esc_html( $title ) . '</a>';
+            }
+        }
+        $header = '<header class="brgw-header"><a class="brgw-logo" href="/"><b>BLACKTOP</b>'
+                . '<span>Restaurant Group</span></a><nav class="brgw-nav">' . $links . '</nav></header>';
+        $footer = '<footer class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div></footer>';
+        return array( $header, $footer );
+    }
+}
+
 /* ── Render a client page fragment inline (shared CSS → markup → shared JS) ──── */
 if ( ! function_exists( 'vcc_render_page' ) ) {
     function vcc_render_page( $client, $slug, $atts ) {
@@ -86,8 +110,14 @@ if ( ! function_exists( 'vcc_render_page' ) ) {
             }
         }
 
+        // Wrap in an outer .brgw shell with shared header + footer (chrome="0" to skip).
+        $chrome = ! ( isset( $atts['chrome'] ) && $atts['chrome'] === '0' );
+        list( $header, $footer ) = $chrome ? vcc_chrome( $cfg, $slug ) : array( '', '' );
+
         $out = "\n<!-- vc_embed " . esc_html( $client . '/' . $slug ) . ' v' . VCC_VERSION . " -->\n"
-             . $css . $frag . $js;
+             . $css
+             . '<div class="brgw brgw-shell">' . $header . $frag . $footer . '</div>'
+             . $js;
 
         // WordPress/Oxygen runs do_shortcode again on rendered content; neutralise any
         // literal [brg… token in our output so it can't recursively re-expand.

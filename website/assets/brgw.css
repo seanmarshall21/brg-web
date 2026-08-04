@@ -24,11 +24,41 @@
 }
 .brgw .btn:hover{transform:translateY(-2px);}
 
+/* Shared HEADER (nav) — the plugin injects this around every page, links built
+   from pages.json. Sticky, thin yellow top rule, active item underlined teal. */
+.brgw-header{position:sticky;top:0;z-index:50;background:rgba(19,18,16,.94);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:5px solid var(--yellow);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:12px clamp(16px,4vw,48px);font-family:'Montserrat',system-ui,sans-serif;}
+.brgw-logo{text-decoration:none;color:#fff;display:flex;align-items:baseline;gap:8px;line-height:1;}
+.brgw-logo b{background:var(--yellow);color:var(--ink);font-weight:800;padding:.06em .32em;font-size:1.05rem;letter-spacing:.01em;}
+.brgw-logo span{opacity:.75;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;}
+.brgw-nav{display:flex;gap:clamp(10px,1.5vw,28px);flex-wrap:wrap;align-items:center;}
+.brgw-nav a{color:#fff;text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;opacity:.82;padding:5px 0;border-bottom:2px solid transparent;
+  transition:opacity .15s,border-color .15s;}
+.brgw-nav a:hover{opacity:1;}
+.brgw-nav a.is-active{border-bottom-color:var(--teal);opacity:1;}
+
 /* Shared footer (same on every page) */
 .brgw__footer{background:#000;text-align:center;padding:56px var(--pad);}
 .brgw__footer .lockup{font-family:'Blanco Cavelary','Montserrat',cursive;font-size:clamp(1.6rem,4vw,2.4rem);}
 .brgw__footer .lockup b{background:var(--yellow);color:var(--ink);font-family:'Montserrat';font-weight:800;
   padding:.02em .28em;letter-spacing:.02em;}
+
+/* Shared decorative bits (color set per page via inline color/background) */
+.brgw-uline{display:block;height:9px;width:min(340px,62%);margin:16px auto 0;
+  border-radius:40% 60% 55% 45%/60% 50% 60% 40%;transform:rotate(-1deg);background:currentColor;}
+.brgw-badge{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin:0 auto;}
+.brgw-badge svg{width:54%;height:54%;display:block;}
+.brgw-lede{max-width:60ch;margin:0 auto;opacity:.85;font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.7;}
+.brgw-banner{display:inline-block;background:var(--yellow);color:var(--ink);
+  font-family:'Blanco Cavelary','Montserrat',cursive;text-transform:uppercase;
+  font-size:clamp(1.3rem,3vw,2.2rem);padding:.1em .5em;transform:rotate(-2deg);}
+.brgw-hero{position:relative;background:var(--bg2);text-align:center;
+  padding:clamp(90px,15vh,170px) var(--pad) clamp(56px,8vh,90px);}
+.brgw-hero h1{font-size:clamp(2.4rem,6.4vw,5.4rem);text-transform:uppercase;max-width:18ch;margin:0 auto 8px;}
+.brgw-hero .sub{max-width:52ch;margin:26px auto 0;opacity:.9;line-height:1.6;font-size:clamp(1rem,1.3vw,1.2rem);}
 
 /* ============ ENTRANCE / SCROLL-REVEAL (shared engine styles) ============
    Hidden states are UNCONDITIONAL (first paint) → no visible-then-animate flash.
