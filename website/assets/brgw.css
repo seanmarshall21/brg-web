@@ -1,8 +1,18 @@
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;800&display=swap');
-@font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06/BlancoCavelary.woff2') format('woff2');font-display:swap;font-weight:400;}
+/* FONTS — self-hosted from the repo (website/assets/media/fonts/), not Google and not the
+   WP uploads folder. Two external dependencies removed: the page no longer needs
+   fonts.googleapis.com, and a WP media-library reshuffle can no longer break the display face.
+   URLs MUST be absolute: this CSS is inlined into a page on blacktoprestaurantgroup.com, so a
+   relative path would resolve against WordPress, not the CDN. netlify.toml already sends
+   Access-Control-Allow-Origin:* for /*.woff2, which is what makes the cross-origin load work. */
+@font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprg.netlify.app/assets/media/fonts/BlancoCavelary.woff2') format('woff2');font-display:swap;font-weight:400;font-style:normal;}
+@font-face{font-family:'Swell';src:url('https://blacktoprg.netlify.app/assets/media/fonts/Swell-Regular.woff2') format('woff2');font-display:swap;font-weight:400;font-style:normal;}
+@font-face{font-family:'Montserrat';src:url('https://blacktoprg.netlify.app/assets/media/fonts/Montserrat-Regular.woff2') format('woff2');font-display:swap;font-weight:400;font-style:normal;}
+@font-face{font-family:'Montserrat';src:url('https://blacktoprg.netlify.app/assets/media/fonts/Montserrat-Medium.woff2') format('woff2');font-display:swap;font-weight:500;font-style:normal;}
+@font-face{font-family:'Montserrat';src:url('https://blacktoprg.netlify.app/assets/media/fonts/Montserrat-SemiBold.woff2') format('woff2');font-display:swap;font-weight:600;font-style:normal;}
+@font-face{font-family:'Montserrat';src:url('https://blacktoprg.netlify.app/assets/media/fonts/Montserrat-Bold.woff2') format('woff2');font-display:swap;font-weight:700;font-style:normal;}
 
 .brgw{
   --yellow:#FCE200; --teal:#19C7C2; --pink:#EC0F8D; --orange:#F5821F;
@@ -30,9 +40,15 @@
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:5px solid var(--yellow);
   display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   padding:12px clamp(16px,4vw,48px);font-family:'Montserrat',system-ui,sans-serif;}
-.brgw-logo{text-decoration:none;color:#fff;display:flex;align-items:baseline;gap:8px;line-height:1;}
-.brgw-logo b{background:var(--yellow);color:var(--ink);font-weight:800;padding:.06em .32em;font-size:1.05rem;letter-spacing:.01em;}
-.brgw-logo span{opacity:.75;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;}
+/* Real brand lockup. The plugin still emits the old <b>BLACKTOP</b><span>Restaurant Group</span>
+   text markup, so rather than block on a plugin change we swap the artwork in via CSS and keep
+   the text as the accessible name (indented out of view, still read by screen readers).
+   When the chrome moves into v2.1.0, this becomes a plain <img> and these hacks come out. */
+.brgw-logo{text-decoration:none;display:block;overflow:hidden;
+  width:clamp(150px,15vw,206px);aspect-ratio:413/67;
+  background:url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-nav-sm.svg') left center/contain no-repeat;
+  text-indent:-200vw;white-space:nowrap;}
+.brgw-logo b,.brgw-logo span{all:unset;}
 .brgw-nav{display:flex;gap:clamp(10px,1.5vw,28px);flex-wrap:wrap;align-items:center;}
 .brgw-nav a{position:relative;color:#fff;text-decoration:none;font-size:.72rem;font-weight:600;
   letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:6px 0;transition:opacity .15s;}
@@ -43,9 +59,12 @@
 
 /* Shared footer (same on every page) */
 .brgw__footer{background:#000;text-align:center;padding:56px var(--pad);}
-.brgw__footer .lockup{font-family:'Blanco Cavelary','Montserrat',cursive;font-size:clamp(1.6rem,4vw,2.4rem);}
-.brgw__footer .lockup b{background:var(--yellow);color:var(--ink);font-family:'Montserrat';font-weight:800;
-  padding:.02em .28em;letter-spacing:.02em;}
+.brgw__footer .lockup{display:block;overflow:hidden;margin:0 auto;
+  width:min(360px,62vw);aspect-ratio:717/117;
+  background:url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg') center/contain no-repeat;
+  text-indent:-200vw;white-space:nowrap;}
+.brgw__footer .lockup b,.brgw__footer .lockup br{all:unset;}
+.brgw__footer .lockup br{display:none;}
 
 /* Shared decorative bits (color set per page via inline color/background) */
 .brgw-uline{display:block;height:9px;width:min(340px,62%);margin:16px auto 0;

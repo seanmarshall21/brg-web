@@ -78,8 +78,15 @@ ${body}
 </body></html>
 `;
 
+/* Shipped CSS/markup references assets absolutely (https://blacktoprg.netlify.app/assets/…)
+   because the plugin inlines it into a page on blacktoprestaurantgroup.com, where a relative
+   path would resolve against WordPress. Locally that would mean every shot shows the LIVE
+   assets — or nothing at all before a push — so point them at our own server instead.
+   Skipped under --live, where hitting the real CDN is the entire point. */
+const local = (s) => (LIVE ? s : s.replaceAll(`${BASE}/assets/`, '/assets/'));
+
 async function compose(slug, pages, css, js) {
-  const frag = await src(`/${slug}/embed.html`);
+  const frag = local(await src(`/${slug}/embed.html`));
   const [header, footer] = chrome(pages, slug);
   const body =
     `\n<!-- vc_embed brg/${slug} v${VERSION} -->\n` +
@@ -92,8 +99,8 @@ async function compose(slug, pages, css, js) {
 
 async function main() {
   const pages = JSON.parse(await src('/pages.json'));
-  const css = await src('/assets/brgw.css');
-  const js = await src('/assets/brgw.js');
+  const css = local(await src('/assets/brgw.css'));
+  const js = local(await src('/assets/brgw.js'));
   const slugs = slugArgs.length ? slugArgs : pages.map((p) => p.slug);
 
   await mkdir(OUT, { recursive: true });
@@ -114,11 +121,17 @@ async function main() {
 
 /* ── tiny static server so the browser sees a real http:// origin (fonts, IO, etc.) ── */
 function serve() {
-  const TYPES = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml' };
+  const TYPES = {
+    '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp',
+    '.woff2': 'font/woff2', '.css': 'text/css', '.js': 'text/javascript',
+  };
   createServer(async (req, res) => {
     const path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-    const file = join(OUT, path === '/' ? 'index.html' : path.replace(/^\/+/, ''));
-    if (!file.startsWith(OUT) || !existsSync(file)) { res.writeHead(404).end('not found'); return; }
+    // /assets/** serves the real repo assets (fonts, media) so a local shot is faithful.
+    const root = path.startsWith('/assets/') ? SITE : OUT;
+    const file = join(root, path === '/' ? 'index.html' : path.replace(/^\/+/, ''));
+    if (!file.startsWith(root) || !existsSync(file)) { res.writeHead(404).end('not found'); return; }
     res.writeHead(200, { 'Content-Type': TYPES[extname(file)] || 'application/octet-stream' });
     res.end(await readFile(file));
   }).listen(PORT, () => {
