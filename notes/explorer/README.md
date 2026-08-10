@@ -15,6 +15,7 @@ Controller writes a `DECISION:` 👍 in `notes/controller.md` and the Finesser b
 |---|---|---|---|
 | SPEC-001 | [`stacking-sections.md`](stacking-sections.md) | Section-level fragments — manifest, shortcode form, plugin changes | ✅ **approved to build** 2026-08-10 (amended: phases inverted, B4 dropped) |
 | SPEC-002 | [`section-inventory.md`](section-inventory.md) | The 14 section archetypes already living in the 5 page fragments | **proposed** 2026-08-09 — harvest order superseded by SPEC-001 §7 (Careers 5 first) |
+| SPEC-003 | [`hand-drawn-lines.md`](hand-drawn-lines.md) | Sean's `assets/lines/` underlines — why DrawSVG can't animate them, the clip-wipe that can, nav + hero wiring | **proposed** 2026-08-10 |
 
 ## How I write a spec
 Enough that the Finesser can build from it without asking me anything: sections, content,
