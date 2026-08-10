@@ -1,14 +1,40 @@
-# Netlify serves the BRG website fragments from /website.
-# Each page is website/<name>/embed.html  →  https://<site>.netlify.app/<name>/embed.html
-# The WordPress mu-plugin (fc-brands-embed) fetches these server-side and prints
-# them natively via [brg_home], [brg_brands], … Edit a fragment, git push, done.
+# Netlify serves the BRG website fragments + shared assets from /website.
+#   Each page   : website/<slug>/embed.html      → https://<site>.netlify.app/<slug>/embed.html
+#   Each section: website/sections/<id>/embed.html → …/sections/<id>/embed.html
+#   Shared      : website/assets/{brgw.css,brgw.js,media/**}
+# The WordPress mu-plugin (vc-clients-embed) fetches these server-side and prints them
+# natively via [brg_home], [brg_section id=…], … Edit a fragment, git push, done.
 [build]
   publish = "website"
 
-# Assets (photos/fonts) are referenced from the live WP uploads folder, so nothing
-# else needs to be served here. If you ever host fonts on Netlify, this lets the
-# embedded page (on blacktoprestaurantgroup.com) load them cross-origin:
+# ── Keep the raw CDN out of Google ──────────────────────────────────────────────
+# The fragments are the SAME content as the real pages on blacktoprestaurantgroup.com.
+# If Google indexes …netlify.app/home/embed.html it becomes duplicate content competing
+# with the canonical WP page. noindex tells crawlers not to index anything on the CDN
+# host. It does NOT affect the plugin's server-side fetch (that ignores robots headers).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+# Fonts must load cross-origin (CSS is inlined onto blacktoprestaurantgroup.com).
 [[headers]]
   for = "/*.woff2"
   [headers.values]
     Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Media (images/svg/logos) is content-addressed by filename → safe to cache hard.
+[[headers]]
+  for = "/assets/media/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=31536000"
+
+# A stray visit to the bare CDN root should land on the real site, not a Netlify 404.
+# (Fragments are still reachable directly; only "/" redirects.)
+[[redirects]]
+  from = "/"
+  to = "https://blacktoprestaurantgroup.com/"
+  status = 302
+  force = true
