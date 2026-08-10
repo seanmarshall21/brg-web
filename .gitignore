@@ -1,2 +1,8 @@
 .DS_Store
 notes/finesser/.out/
+
+# Design mocks — high-res Figma exports (~88MB) used only as build reference.
+# Kept LOCAL: they sit inside the Netlify publish dir, so committing them would
+# deploy 88MB to the public CDN and bloat the repo. All chats share this checkout,
+# so Finn still reads them from website/mocks/ — they just aren't versioned/deployed.
+website/mocks/
