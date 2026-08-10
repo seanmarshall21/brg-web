@@ -3,7 +3,7 @@
 _Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-08-10 (Controller)
+**Last updated:** 2026-08-10 (Controller) — v2.0.0 verified live; v2.1.0 written
 
 ## What this project is
 The Blacktop Restaurant Group (BRG) marketing site for Vivo Creative. Pages are built as
@@ -53,15 +53,24 @@ footer + shared JS), desktop and mobile.
 2. **Verify plugin live** once one page exists — expect `<!-- vc_embed brg/<slug> v2.0.0 -->` + nav.
 3. **Real assets** — team headshots, Board & Brew / Odie's logos, give-back photos. Fragments
    use colored-card / gradient placeholders wired to swap in cleanly.
-4. **SPEC-001 "stacking sections" — APPROVED, in flight** ([spec](notes/explorer/stacking-sections.md)).
-   Section-level fragments (`website/sections/<id>/embed.html` + `website/sections.json`) composed via
-   `[brg_header]` / `[brg_section id=…]` / `[brg_footer]`, plugin → v2.1.0. Amendments: phases 2↔3
-   inverted (prove parity on Careers first), B4 deferred, slots kept minimal with **real** default copy.
-   **Order of operations:**
-   - **A. (human, blocking)** create ≥1 WP page + `[brg_<slug>]` → verify `v2.0.0` live. *No plugin change deploys before this.*
-   - **B. (Finesser, unblocked now)** harvest 5 Careers sections + local stacked-Careers screenshot-diff vs monolith; draft `sections.json`.
-   - **C. (Controller)** on local parity → write plugin v2.1.0 + ratify `sections.json`; **deploy only after A.**
-   - **D. (Finesser)** Phase-3 go/no-go live, then migrate the rest.
+4. **SPEC-001 "stacking sections" — plugin v2.1.0 WRITTEN, awaiting upload + section harvest.**
+   The 4 section-pages (brg-home/team/community/careers) are already composed in Oxygen from
+   `[brg_nav]` + `[brg_<page>-<section>]` × N + `[brg_footer]` (~16 section ids total). They render
+   literal today because v2.0.0 has no section shortcodes. **our-restaurants** uses the v2.0 monolith
+   `[brg_our-restaurants]` and works.
+   - **A. ✅ done** — WP pages exist (password-gated, pw shared); **v2.0.0 verified live** on our-restaurants
+     (`<!-- vc_embed brg/our-restaurants v2.0.0 -->` + nav + hero).
+   - **B. ✅ done (Conti)** — plugin **v2.1.0** written: `[brg_nav]`/`[brg_footer]` chrome, `[brg_<id>]`
+     + `[brg_section id=…]` section renderer, `vcc_shared_assets()` dedupe, `{{slot}}` fill, nav
+     `Home→/brg-home/` fix. `website/sections.json` created (17 ids: 5 live heroes + 12 stubs).
+   - **C. HUMAN, next** — **upload `website/wp-mu-plugin/vc-clients-embed.php` to `/wp-content/mu-plugins/`**
+     (replaces v2.0.0). Push already deploys the manifests to Netlify first. Then all 4 pages light up
+     (heroes render; stub sections show invisible until harvested).
+   - **D. Finn, next** — harvest the **12 stub sections** (home-about/values/…, team-members/apply,
+     community-stats/give/partner, careers-positions/posts/apply) into `website/sections/<id>/embed.html`
+     from the existing monolith fragments, per the §4 contract.
+
+   **Live URLs (all password-gated):** /brg-home/ · /our-restaurants/ · /team/ · /community/ · /careers/
 
 ## Deploying (the loop)
 ```
