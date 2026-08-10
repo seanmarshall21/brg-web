@@ -1,27 +1,32 @@
 {
   "version": 1,
-  "_note": "Section manifest for SPEC-001 stacking sections. The plugin registers [brg_<id>] for every entry, so a page never shows a literal shortcode. status:live = fragment exists at website/sections/<id>/embed.html; status:stub = referenced by a live page but not harvested yet (renders an invisible comment until Finn builds it). Slots are optional {{token}} overrides (default copy must be the real production line — the compose harness can't see WP-stored values).",
+  "_note": "Section manifest for SPEC-001 stacking sections. RATIFIED by Conti 2026-08-10 from Finn's notes/finesser/sections.draft.json (transcribed from the live pages). The plugin registers [brg_<id>] for EVERY entry, so a page never shows a literal shortcode; status:todo renders an invisible comment until its fragment lands at website/sections/<id>/embed.html. `stacks` documents per-page shortcode order (the harness reads it; the plugin ignores it). Slot defaults, when added, must be REAL production copy.",
   "sections": [
-    { "id": "home-hero",          "title": "Home — Hero",             "status": "live" },
-    { "id": "home-about",         "title": "Home — About",            "status": "stub" },
-    { "id": "home-different",     "title": "Home — What's different",  "status": "stub" },
-    { "id": "home-values",        "title": "Home — Core values",       "status": "stub" },
-    { "id": "home-community",     "title": "Home — Community",          "status": "stub" },
+    { "id": "home-hero",              "title": "Home — hero",                                   "group": "hero",      "status": "live", "summary": "Photo hero on the skater plate: display headline, lede, yellow tagline, CTA, marker underline." },
+    { "id": "our-restaurants-hero",   "title": "Our Restaurants — hero",                        "group": "hero",      "status": "live", "summary": "Type hero, teal marker underline, asterisk + bolt doodles." },
+    { "id": "team-hero",              "title": "Team — hero",                                   "group": "hero",      "status": "live", "summary": "Type hero, pink marker underline, bolt + smiley doodles." },
+    { "id": "community-hero",         "title": "Community — hero",                              "group": "hero",      "status": "live", "summary": "Type hero, orange marker underline, bolt + asterisk doodles." },
+    { "id": "careers-hero",           "title": "Careers — hero",                                "group": "hero",      "status": "live", "summary": "Type hero, teal marker underline, highlighted 'let's talk', asterisk + smiley doodles." },
+    { "id": "careers-apply",          "title": "Careers — what it's like",                      "group": "editorial", "status": "live", "summary": "Light section: pink-marked headline, two columns (copy + asterisk-bulleted offer list), seam badge, yellow CTA." },
+    { "id": "careers-positions",      "title": "Careers — open positions",                      "group": "cta",       "status": "live", "summary": "Yellow band with tonal watermark, black CTA, surfer cutout bleeding off the right edge." },
 
-    { "id": "our-restaurants-hero","title": "Our Restaurants — Hero",   "status": "live" },
-
-    { "id": "team-hero",          "title": "Team — Hero",              "status": "live" },
-    { "id": "team-members",       "title": "Team — Crew grid",         "status": "stub" },
-    { "id": "team-apply",         "title": "Team — Join CTA",          "status": "stub" },
-
-    { "id": "community-hero",     "title": "Community — Hero",          "status": "live" },
-    { "id": "community-stats",    "title": "Community — Stats",         "status": "stub" },
-    { "id": "community-give",     "title": "Community — Give-back",     "status": "stub" },
-    { "id": "community-partner",  "title": "Community — Partner CTA",   "status": "stub" },
-
-    { "id": "careers-hero",       "title": "Careers — Hero",           "status": "live" },
-    { "id": "careers-positions",  "title": "Careers — What it's like",  "status": "stub" },
-    { "id": "careers-posts",      "title": "Careers — Open positions",  "status": "stub" },
-    { "id": "careers-apply",      "title": "Careers — Apply band",      "status": "stub" }
-  ]
+    { "id": "home-community",         "title": "Home — born in San Diego",                      "group": "editorial", "status": "todo" },
+    { "id": "home-about",             "title": "Home — what we're about",                       "group": "editorial", "status": "todo" },
+    { "id": "home-different",         "title": "Home — a different kind of restaurant company", "group": "editorial", "status": "todo" },
+    { "id": "home-values",            "title": "Home — core values",                            "group": "grid",      "status": "todo" },
+    { "id": "our-restaurants-brands", "title": "Our Restaurants — brands",                      "group": "grid",      "status": "todo" },
+    { "id": "team-members",           "title": "Team — crew grid",                              "group": "grid",      "status": "todo" },
+    { "id": "team-apply",             "title": "Team — join the crew",                          "group": "cta",       "status": "todo" },
+    { "id": "community-give",         "title": "Community — how we give back",                  "group": "slider",    "status": "todo" },
+    { "id": "community-stats",        "title": "Community — by the numbers",                    "group": "grid",      "status": "todo" },
+    { "id": "community-partner",      "title": "Community — partner with us",                   "group": "cta",       "status": "todo" },
+    { "id": "careers-posts",          "title": "Careers — LinkedIn posts",                      "group": "feed",      "status": "todo" }
+  ],
+  "stacks": {
+    "home":            ["home-hero", "home-community", "home-about", "home-different", "home-values"],
+    "our-restaurants": ["our-restaurants-hero", "our-restaurants-brands"],
+    "team":            ["team-hero", "team-members", "team-apply"],
+    "community":       ["community-hero", "community-give", "community-stats", "community-partner"],
+    "careers":         ["careers-hero", "careers-apply", "careers-positions", "careers-posts"]
+  }
 }
