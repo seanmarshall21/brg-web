@@ -1,0 +1,46 @@
+{
+  "_comment": [
+    "DRAFT of website/sections.json — Conti owns/ratifies the real file (SPEC-001 §5).",
+    "Ids are page-scoped and hyphenated per Sean's 2026-08-10 call: [brg_home-hero] style,",
+    "which needs no change to the plugin's [a-z0-9-] slug sanitiser.",
+    "'stacks' is the per-page shortcode order decoded from the Figma annotation columns;",
+    "the plugin doesn't need it, but the harness composes from it and it documents the build.",
+    "Slot defaults are REAL production copy, not placeholders — Conti's contract rule, so that",
+    "a default compose-test represents the live page."
+  ],
+  "version": 1,
+  "sections": [
+    { "id": "home-hero", "title": "Home — hero", "group": "hero", "status": "live",
+      "summary": "Photo hero on the skater plate: display headline, lede, yellow tagline, CTA, marker underline." },
+    { "id": "our-restaurants-hero", "title": "Our Restaurants — hero", "group": "hero", "status": "live",
+      "summary": "Type hero, teal marker underline, asterisk + bolt doodles." },
+    { "id": "team-hero", "title": "Team — hero", "group": "hero", "status": "live",
+      "summary": "Type hero, pink marker underline, bolt + smiley doodles." },
+    { "id": "community-hero", "title": "Community — hero", "group": "hero", "status": "live",
+      "summary": "Type hero, orange marker underline, bolt + asterisk doodles." },
+    { "id": "careers-hero", "title": "Careers — hero", "group": "hero", "status": "live",
+      "summary": "Type hero, teal marker underline, highlighted 'let's talk', asterisk + smiley doodles." },
+
+    { "id": "home-community",     "title": "Home — born in San Diego",   "group": "editorial", "status": "todo" },
+    { "id": "home-about",         "title": "Home — what we're about",    "group": "editorial", "status": "todo" },
+    { "id": "home-different",     "title": "Home — a different kind of restaurant company", "group": "editorial", "status": "todo" },
+    { "id": "home-values",        "title": "Home — core values",         "group": "grid",      "status": "todo" },
+    { "id": "our-restaurants-brands", "title": "Our Restaurants — brands", "group": "grid",    "status": "todo" },
+    { "id": "team-members",       "title": "Team — crew grid",           "group": "grid",      "status": "todo" },
+    { "id": "team-apply",         "title": "Team — join the crew",       "group": "cta",       "status": "todo" },
+    { "id": "community-give",     "title": "Community — how we give back", "group": "slider",  "status": "todo" },
+    { "id": "community-stats",    "title": "Community — by the numbers",  "group": "grid",     "status": "todo" },
+    { "id": "community-partner",  "title": "Community — partner with us", "group": "cta",      "status": "todo" },
+    { "id": "careers-apply",      "title": "Careers — what it's like",    "group": "editorial", "status": "todo" },
+    { "id": "careers-positions",  "title": "Careers — open positions",    "group": "cta",      "status": "todo" },
+    { "id": "careers-posts",      "title": "Careers — LinkedIn posts",    "group": "feed",      "status": "todo" }
+  ],
+  "stacks": {
+    "home":            ["home-hero", "home-community", "home-about", "home-different", "home-values"],
+    "our-restaurants": ["our-restaurants-hero", "our-restaurants-brands"],
+    "team":            ["team-hero", "team-members", "team-apply"],
+    "community":       ["community-hero", "community-give", "community-stats", "community-partner"],
+    "careers":         ["careers-hero", "careers-apply", "careers-positions"],
+    "careers-extd":    ["careers-hero", "careers-apply", "careers-positions", "careers-posts"]
+  }
+}

@@ -97,6 +97,27 @@ async function compose(slug, pages, css, js) {
   return slug;
 }
 
+/* Stacked page: the SPEC-001 target shape. Sections emit NO chrome of their own — the
+   header and footer are their own shortcodes — and each shortcode emits its own
+   .brgw brgw-shell root, which is what brgw.js initialises per-root (brgw.js:55-62).
+   Composing it this way is what makes the parity check against the monolith meaningful. */
+async function composeStack(page, stack, pages, css, js) {
+  const [header, footer] = chrome(pages, page);
+  const parts = [];
+  for (const id of stack) {
+    try { parts.push(local(await src(`/sections/${id}/embed.html`))); }
+    catch { console.warn(`  · ${page}: section "${id}" not built yet — skipped`); }
+  }
+  const shell = (inner) => `<div class="brgw brgw-shell">${inner}</div>`;
+  const body =
+    `\n<!-- vc_embed brg/${page} STACKED v${VERSION} -->\n` +
+    `<style id="vcc-brg-css">${css}</style>` +
+    shell(header) + parts.map(shell).join('') + shell(footer) +
+    `<script id="vcc-brg-js">${js}</script>`;
+  await writeFile(join(OUT, `${page}--stacked.html`), host(`${page} (stacked)`, body));
+  return parts.length;
+}
+
 async function main() {
   const pages = JSON.parse(await src('/pages.json'));
   const css = local(await src('/assets/brgw.css'));
@@ -107,6 +128,17 @@ async function main() {
   for (const slug of slugs) {
     await compose(slug, pages, css, js);
     console.log(`composed  ${slug}  →  notes/finesser/.out/${slug}.html`);
+  }
+
+  // --stack composes the same pages from section fragments, for the parity check.
+  if (flags.has('--stack')) {
+    const draft = JSON.parse(await readFile(join(HERE, 'sections.draft.json'), 'utf8'));
+    for (const page of slugs) {
+      const stack = draft.stacks[page];
+      if (!stack) { console.warn(`  · no stack defined for "${page}"`); continue; }
+      const n = await composeStack(page, stack, pages, css, js);
+      console.log(`stacked   ${page}  ${n}/${stack.length} sections  →  notes/finesser/.out/${page}--stacked.html`);
+    }
   }
 
   await writeFile(

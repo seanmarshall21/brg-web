@@ -1,0 +1,33 @@
+<!-- BRG · section: home-hero  →  [brg_home-hero]
+     Photo hero. Shares the .brgw-hero base in brgw.css; only what differs from the
+     other four heroes lives here (the skater plate, the tag line, the CTA).
+     Contract: one root, no .brgw wrapper, all CSS scoped under .brgw-sec--home-hero. -->
+<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" aria-label="Blacktop Restaurant Group">
+<style>
+.brgw-sec--home-hero{overflow:hidden;min-height:88vh;display:grid;place-items:center;
+  padding:clamp(90px,14vh,160px) var(--pad) clamp(70px,10vh,120px);}
+/* Photo plate: hidden at first paint, drifts in on scroll-in so it never flashes. */
+.brgw-sec--home-hero::before{content:"";position:absolute;inset:0;z-index:0;
+  background:url('https://blacktoprg.netlify.app/assets/media/bg/skater.webp') center/cover no-repeat;
+  filter:grayscale(1) contrast(1.05);transform:scale(1.5);opacity:0;}
+.brgw-sec--home-hero.is-in::before{transform:scale(1);opacity:.24;
+  transition:transform 2.6s cubic-bezier(.16,.72,.2,1), opacity 1.8s ease;
+  animation:brgw-herodrift 34s ease-in-out 2.6s infinite;}
+@keyframes brgw-herodrift{0%,100%{transform:scale(1) translate(0,0);}50%{transform:scale(1.07) translate(-1.4%,.8%);}}
+.brgw-sec--home-hero::after{content:"";position:absolute;inset:0;z-index:1;
+  background:radial-gradient(120% 90% at 50% 30%, rgba(0,0,0,.15), rgba(19,18,16,.86) 78%);}
+.brgw-sec--home-hero > *{position:relative;z-index:2;}
+.brgw-sec--home-hero h1{font-size:clamp(2.6rem,7vw,6rem);max-width:15ch;}
+.brgw-sec--home-hero .sub{font-size:clamp(1rem,1.4vw,1.35rem);max-width:46ch;margin:26px auto 8px;}
+.brgw-sec--home-hero .tag{font-size:clamp(1.4rem,2.6vw,2.4rem);color:var(--yellow);margin:14px auto 34px;}
+.brgw-sec--home-hero .brgw-uline{color:var(--yellow);}
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--home-hero::before{transform:scale(1)!important;opacity:.24!important;animation:none!important;}
+}
+</style>
+  <h1 class="blanco anim-head" data-head="words">We're in the business of making your day great.</h1>
+  <p class="sub anim-up">From a classic Board &amp; Brew sandwich to a slice at Odie's &mdash; we're here for the moments that matter.</p>
+  <p class="tag blanco anim-up">Good food. Real people. Rad experience.</p>
+  <a class="btn anim-cta" href="/our-restaurants/">Explore Our Restaurants</a>
+  <span class="brgw-uline anim-up" aria-hidden="true"></span>
+</section>

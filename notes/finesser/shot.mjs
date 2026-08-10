@@ -20,7 +20,7 @@
  * Output: notes/finesser/.out/shots/<slug>-<device>.png
  */
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
-import { spawn } from 'node:child_process';
+import { spawn, execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -115,6 +115,25 @@ const PROBE = `(function(){
   });
 })()`;
 
+/* --probe: dump reveal-engine state after the gate has had time to run. Answers
+   "which root failed to init, and which heading is still hidden" without guessing. */
+const DIAG = `new Promise(function(res){ setTimeout(function(){
+  var roots = [].slice.call(document.querySelectorAll('.brgw')).filter(function(r){
+    return !(r.parentElement && r.parentElement.closest('.brgw'));
+  });
+  res(JSON.stringify({
+    topLevelRoots: roots.length,
+    inited: roots.map(function(r){ return r.dataset.animInit === '1'; }),
+    blanco: document.fonts.check("1em 'Blanco Cavelary'"),
+    reveals: document.querySelectorAll('.reveal').length,
+    isIn: document.querySelectorAll('.reveal.is-in').length,
+    heads: [].map.call(document.querySelectorAll('.anim-head'), function(e){
+      return { txt: e.textContent.trim().slice(0,24), op: getComputedStyle(e).opacity,
+               split: !!e.querySelector('.ln'), h: Math.round(e.getBoundingClientRect().height) };
+    })
+  }, null, 1));
+}, 6000); })`;
+
 async function until(c, budget) {
   const t0 = Date.now();
   let last = { ready: false, blanco: false };
@@ -140,6 +159,11 @@ async function waitForPort(url, tries = 60) {
 async function main() {
   if (!slugs.length) { console.error('usage: node notes/finesser/shot.mjs <slug> [...]'); process.exit(1); }
   await mkdir(SHOTS, { recursive: true });
+
+  // Reap orphans from an earlier crashed/killed run. They hold their debug port and
+  // compete for CPU, which showed up as "Chrome did not expose its debug port" and as
+  // phantom readiness timeouts on the first shot of a run. Cheap insurance.
+  try { execSync("pkill -f 'user-data-dir=.*brgw-shot-' || true", { stdio: 'ignore' }); } catch {}
 
   const dbg = 9333 + (process.pid % 400);
   const profile = join(tmpdir(), 'brgw-shot-' + process.pid);
@@ -178,8 +202,14 @@ async function main() {
         // Assert readiness rather than guessing with a sleep: brgw.js gates the reveal on
         // the Blanco font (1.8s race / 3.5s hard fallback) and only IT clears .anim-head's
         // opacity:0 — so a shot taken early silently loses every display headline.
+        if (has('--probe')) {
+          const r = await c.send('Runtime.evaluate', { expression: DIAG, returnByValue: true, awaitPromise: true });
+          console.log(`\n── ${slug} @ ${dev.width}px ──\n${r.result.value}`);
+          await c.send('Target.closeTarget', { targetId: tab.id }).catch(() => {});
+          c.close(); continue;
+        }
         const state = await until(c, SETTLE);
-        if (!state.ready) console.warn(`  ⚠ ${slug}/${dev.name}: reveal engine never ran — shot is not trustworthy`);
+        if (!state.ready) console.warn(`  ⚠ ${slug}/${dev.name}: reveal engine never ran — shot is not trustworthy · ${JSON.stringify(state)}`);
         if (!state.blanco) console.warn(`  ⚠ ${slug}/${dev.name}: Blanco Cavelary did NOT load — headlines are Montserrat fallback`);
 
         if (REVEAL && !FOLD) {
