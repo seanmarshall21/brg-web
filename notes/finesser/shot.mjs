@@ -160,10 +160,21 @@ async function main() {
   if (!slugs.length) { console.error('usage: node notes/finesser/shot.mjs <slug> [...]'); process.exit(1); }
   await mkdir(SHOTS, { recursive: true });
 
-  // Reap orphans from an earlier crashed/killed run. They hold their debug port and
-  // compete for CPU, which showed up as "Chrome did not expose its debug port" and as
-  // phantom readiness timeouts on the first shot of a run. Cheap insurance.
-  try { execSync("pkill -f 'user-data-dir=.*brgw-shot-' || true", { stdio: 'ignore' }); } catch {}
+  /* Reap orphans from earlier crashed runs. They hold their debug port and compete for
+     CPU; once ~9 had piled up, new launches stopped binding a port at all ("Chrome did
+     not expose its debug port") and readiness polls got starved.
+     Matched on OUR profile path only — never a bare "Google Chrome" pattern, which would
+     kill the user's real browser. `pkill -f` is wrong here: its own `sh -c` command line
+     contains the pattern, so it matches itself and dies before killing anything. */
+  try {
+    const mine = execSync('ps -eo pid,command', { encoding: 'utf8' })
+      .split('\n')
+      .filter((l) => l.includes(`user-data-dir=${tmpdir()}`) && l.includes('brgw-shot-'))
+      .map((l) => Number(l.trim().split(/\s+/)[0]))
+      .filter((pid) => pid && pid !== process.pid);
+    for (const pid of mine) { try { process.kill(pid, 'SIGKILL'); } catch {} }
+    if (mine.length) console.log(`reaped ${mine.length} orphaned headless Chrome(s)`);
+  } catch {}
 
   const dbg = 9333 + (process.pid % 400);
   const profile = join(tmpdir(), 'brgw-shot-' + process.pid);

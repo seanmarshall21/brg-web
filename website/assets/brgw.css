@@ -35,22 +35,31 @@
 
 /* Shared HEADER (nav) — the plugin injects this around every page, links built
    from pages.json. Sticky, thin yellow top rule, active item underlined teal. */
+/* Scale reference — the 1920 comp: yellow bar 24px, logo 267×67, nav caps ~10px,
+   active underline 6.3px, whole nav band 151px. We run the chrome at ~half that so it
+   reads as trim on a real screen: 20px bar, 16px top padding, logo ~134px wide.
+   Single row, never wrapping — the nav scrolls sideways before it stacks. */
 .brgw-header{position:sticky;top:0;z-index:50;background:rgba(19,18,16,.94);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:5px solid var(--yellow);
-  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  padding:12px clamp(16px,4vw,48px);font-family:'Montserrat',system-ui,sans-serif;}
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:20px solid var(--yellow);
+  display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,2vw,28px);
+  flex-wrap:nowrap;padding:16px clamp(16px,4vw,48px);font-family:'Montserrat',system-ui,sans-serif;}
 /* Real brand lockup. The plugin still emits the old <b>BLACKTOP</b><span>Restaurant Group</span>
    text markup, so rather than block on a plugin change we swap the artwork in via CSS and keep
    the text as the accessible name (indented out of view, still read by screen readers).
    When the chrome moves into v2.1.0, this becomes a plain <img> and these hacks come out. */
-.brgw-logo{text-decoration:none;display:block;overflow:hidden;
-  width:clamp(150px,15vw,206px);aspect-ratio:413/67;
+.brgw-logo{text-decoration:none;display:block;overflow:hidden;flex:0 0 auto;
+  width:clamp(104px,7vw,134px);aspect-ratio:413/67;
   background:url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-nav-sm.svg') left center/contain no-repeat;
   text-indent:-200vw;white-space:nowrap;}
 .brgw-logo b,.brgw-logo span{all:unset;}
-.brgw-nav{display:flex;gap:clamp(10px,1.5vw,28px);flex-wrap:wrap;align-items:center;}
-.brgw-nav a{position:relative;color:#fff;text-decoration:none;font-size:.72rem;font-weight:600;
-  letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:6px 0;transition:opacity .15s;}
+/* Scrolls rather than wraps: five links at this tracking can't fit 390px, and a second
+   row was eating ~170px of the fold on a phone. Scrollbar hidden — the fade is the affordance. */
+.brgw-nav{display:flex;gap:clamp(9px,1.4vw,22px);flex-wrap:nowrap;align-items:center;
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+.brgw-nav::-webkit-scrollbar{display:none;}
+.brgw-nav a{position:relative;color:#fff;text-decoration:none;font-size:clamp(.6rem,.78vw,.68rem);
+  font-weight:600;white-space:nowrap;
+  letter-spacing:.11em;text-transform:uppercase;opacity:.82;padding:4px 0;transition:opacity .15s;}
 .brgw-nav a:hover{opacity:1;}
 .brgw-nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--teal);
   transform:scaleX(0);transform-origin:left;transition:transform .24s cubic-bezier(.4,0,.2,1);}
@@ -118,6 +127,11 @@
    The badge jitter + number pulses stay (they sit in their own space). */
 @media (max-width:560px){
   .brgw-doodle{display:none;}
+  /* Trim the chrome further on a phone: a 20px rule is a lot of a 390px screen, and the
+     link row now scrolls, so it gets a right-edge fade to show there's more past the edge. */
+  .brgw-header{border-top-width:14px;padding:11px 16px;gap:12px;}
+  .brgw-nav{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+            mask-image:linear-gradient(90deg,#000 86%,transparent);}
 }
 @media (prefers-reduced-motion:reduce){
   .brgw-badge svg,.brgw-badge img,.brgw-doodle svg,.brgw-doodle img,.brgw-pulse,.brgw-bob{animation:none!important;transform:none!important;}
