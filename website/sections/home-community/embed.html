@@ -1,0 +1,63 @@
+<!-- BRG · section: home-community  →  [brg_home-community]
+     Matches website/mocks/brg_home-community.
+     Owns the yellow BOLT seam badge that straddles its top edge — per the cross-section
+     bleed rule (notes/controller.md): the element lives in the LOWER section and bleeds
+     UPWARD, because later shells paint on top. Nothing here bleeds downward. -->
+<section class="brgw-sec brgw-sec--home-community reveal" aria-label="Born in San Diego">
+<style>
+.brgw-sec--home-community{position:relative;background:#000;overflow:visible;
+  padding:clamp(84px,9vw,132px) var(--pad) clamp(76px,8vw,120px);}
+/* Graffiti watermark, top-left, low contrast — the comp's oversized brand doodles. */
+.brgw-sec--home-community::before{content:"";position:absolute;left:-6%;top:0;width:66%;height:70%;
+  z-index:0;pointer-events:none;opacity:.16;
+  background:left top/contain no-repeat
+    url('https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-blk@2x.webp');}
+.brgw-sec--home-community > *{position:relative;z-index:2;}
+
+.brgw-sec--home-community .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
+  transform:translate(-50%,-50%);z-index:5;}
+.brgw-sec--home-community .seam img{width:100%;height:auto;display:block;}
+
+.brgw-sec--home-community .grid{display:grid;grid-template-columns:1fr;gap:clamp(40px,5vw,72px);
+  max-width:1500px;margin-inline:auto;align-items:start;}
+@media(min-width:940px){ .brgw-sec--home-community .grid{grid-template-columns:1fr 1fr;gap:clamp(48px,6vw,110px);} }
+
+.brgw-sec--home-community h2{font-size:clamp(1.75rem,3.5vw,3rem);text-transform:uppercase;
+  margin-bottom:clamp(26px,3vw,42px);}
+/* Teal marker block on the second line, rotated as in the comp. */
+.brgw-sec--home-community h2 .mark{display:inline-block;background:var(--teal);color:var(--ink);
+  padding:.03em .22em;transform:rotate(-1.8deg);
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.brgw-sec--home-community p{opacity:.9;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:46ch;}
+.brgw-sec--home-community p + p{margin-top:1.25em;}
+.brgw-sec--home-community strong{font-weight:700;opacity:1;}
+
+/* Media composition: grey plate with a yellow block overlapping its top-right. The grey is
+   a PLACEHOLDER in the comp too — swap for the real photograph when Sean names it. */
+.brgw-sec--home-community .media{position:relative;aspect-ratio:4/3.35;min-height:260px;}
+.brgw-sec--home-community .media .plate{position:absolute;left:0;bottom:0;width:86%;height:82%;
+  background:#5b5b5b;}
+.brgw-sec--home-community .media .block{position:absolute;right:0;top:0;width:46%;height:44%;
+  background:var(--yellow);}
+/* Doodle cluster, bottom-right, overlapping the media as in the comp. */
+.brgw-sec--home-community .cluster{position:absolute;right:-2%;bottom:-7%;width:clamp(120px,15vw,215px);z-index:3;}
+.brgw-sec--home-community .cluster img{width:100%;height:auto;display:block;}
+
+@media(max-width:560px){ .brgw-sec--home-community .cluster{width:110px;right:0;bottom:-4%;} }
+</style>
+  <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg" alt="" width="151" height="145"></span>
+
+  <div class="grid">
+    <div>
+      <h2 class="blanco anim-head">Born in San Diego.<br>Built <span class="mark">for community.</span></h2>
+      <p class="anim-up">Blacktop Restaurant Group started with a simple belief: <strong>that a great meal is really just an excuse to connect.</strong> Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.</p>
+      <p class="anim-up">We're not a corporation chasing locations &mdash; we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.</p>
+      <p class="anim-up">Today, BRG operates 12 Board &amp; Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside &mdash; and we're just getting started.</p>
+    </div>
+    <div class="media anim-up">
+      <div class="plate"></div>
+      <div class="block"></div>
+      <span class="cluster" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg" alt="" width="302" height="310"></span>
+    </div>
+  </div>
+</section>

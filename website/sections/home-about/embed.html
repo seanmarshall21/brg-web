@@ -1,0 +1,48 @@
+<!-- BRG · section: home-about  →  [brg_home-about]
+     Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
+     re-grounds to ink. Full-bleed colour photograph on the left half, content on the right;
+     below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
+<section class="brgw-sec brgw-sec--home-about reveal" aria-label="What we're about">
+<style>
+.brgw-sec--home-about{background:var(--white);color:var(--ink);}
+.brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
+@media(min-width:940px){ .brgw-sec--home-about .grid{grid-template-columns:1fr 1fr;} }
+
+.brgw-sec--home-about .shot{position:relative;min-height:clamp(260px,46vw,620px);overflow:hidden;}
+.brgw-sec--home-about .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.04);}
+.brgw-sec--home-about.is-in .shot img{transform:scale(1);
+  transition:transform 1.8s cubic-bezier(.16,.72,.2,1);}
+
+.brgw-sec--home-about .body{display:flex;flex-direction:column;justify-content:center;
+  gap:clamp(26px,3vw,44px);padding:clamp(52px,6vw,90px) var(--pad);text-align:center;}
+/* Yellow marker block behind the section title, rotated as in the comp. */
+.brgw-sec--home-about h2{display:inline-block;align-self:center;background:var(--yellow);color:var(--ink);
+  font-size:clamp(1.7rem,3.4vw,3rem);text-transform:uppercase;padding:.04em .3em;
+  transform:rotate(-1.6deg);}
+.brgw-sec--home-about .lbl{display:inline-block;align-self:center;background:var(--teal);color:var(--white);
+  font-weight:700;font-size:clamp(.66rem,.82vw,.76rem);letter-spacing:.22em;text-transform:uppercase;
+  padding:9px 20px;}
+.brgw-sec--home-about .big{font-size:clamp(1.35rem,2.5vw,2.05rem);text-transform:uppercase;
+  max-width:22ch;margin-inline:auto;}
+.brgw-sec--home-about .pair{display:grid;gap:clamp(14px,1.6vw,22px);}
+</style>
+  <div class="grid">
+    <div class="shot">
+      <img src="https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp"
+           alt="Friends walking the Oceanside pier at golden hour" width="1600" height="1067"
+           decoding="async" loading="lazy">
+    </div>
+    <div class="body">
+      <h2 class="blanco anim-head">What we're about</h2>
+      <div class="pair">
+        <span class="lbl anim-up">Our Vision</span>
+        <div class="big blanco anim-up">Make your day great!</div>
+      </div>
+      <div class="pair">
+        <span class="lbl anim-up">Our Mission</span>
+        <div class="big blanco anim-up">To amp up our communities by creating real connections and rad experiences.</div>
+      </div>
+    </div>
+  </div>
+</section>

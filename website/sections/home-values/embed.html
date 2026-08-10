@@ -1,0 +1,57 @@
+<!-- BRG · section: home-values  →  [brg_home-values]
+     Matches website/mocks/brg_home-values.
+     Owns the yellow ASTERISK seam badge, bleeding upward into home-different (bleed rule).
+     The comp's grid is RULES, not filled cards: hairline dividers between cells, no borders
+     on the outside. Five values, not six — "Do It Right" isn't in the comp, and Stay Stoked's
+     copy differs from the old monolith, so the copy here is taken from the export. -->
+<section class="brgw-sec brgw-sec--home-values reveal" aria-label="Our core values">
+<style>
+.brgw-sec--home-values{position:relative;background:#000;overflow:visible;
+  padding:clamp(84px,9vw,130px) var(--pad) clamp(80px,9vw,124px);}
+/* Full-bleed graffiti watermark — the comp tiles brand doodles across the whole panel. */
+.brgw-sec--home-values::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:.2;
+  background:center/cover no-repeat
+    url('https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-blk-long@2x.webp');}
+.brgw-sec--home-values > *{position:relative;z-index:2;}
+
+.brgw-sec--home-values .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
+  transform:translate(-50%,-50%);z-index:5;}
+.brgw-sec--home-values .seam img{width:100%;height:auto;display:block;}
+
+.brgw-sec--home-values h2{font-size:clamp(2.2rem,5vw,4.2rem);text-transform:uppercase;
+  margin-bottom:clamp(40px,4.6vw,72px);max-width:1420px;margin-inline:auto;}
+
+/* Hairline rules between cells, nothing on the outside — gap+background would draw an outer
+   border too, so the rules are per-cell insets instead. */
+.brgw-sec--home-values .grid{display:grid;grid-template-columns:1fr;
+  max-width:1420px;margin-inline:auto;}
+@media(min-width:700px){ .brgw-sec--home-values .grid{grid-template-columns:1fr 1fr;} }
+@media(min-width:1040px){ .brgw-sec--home-values .grid{grid-template-columns:repeat(3,1fr);} }
+.brgw-sec--home-values .cell{padding:clamp(24px,2.6vw,40px) clamp(20px,2.4vw,38px);
+  border-top:1px solid rgba(255,255,255,.42);}
+@media(min-width:700px){
+  .brgw-sec--home-values .cell{border-top:0;border-bottom:1px solid rgba(255,255,255,.42);
+    border-right:1px solid rgba(255,255,255,.42);}
+  .brgw-sec--home-values .cell:nth-child(2n){border-right:0;}
+}
+@media(min-width:1040px){
+  .brgw-sec--home-values .cell:nth-child(2n){border-right:1px solid rgba(255,255,255,.42);}
+  .brgw-sec--home-values .cell:nth-child(3n){border-right:0;}
+  .brgw-sec--home-values .cell:nth-last-child(-n+2){border-bottom:0;}
+}
+.brgw-sec--home-values .lbl{display:inline-block;background:var(--teal);color:var(--ink);
+  font-size:clamp(1rem,1.5vw,1.35rem);text-transform:uppercase;padding:.08em .34em;margin-bottom:16px;}
+.brgw-sec--home-values .cell p{opacity:.9;font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.6;}
+</style>
+  <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146"></span>
+
+  <h2 class="blanco anim-head">Our core values</h2>
+  <div class="grid">
+    <div class="cell anim-up"><span class="lbl blanco">Leadership</span><p>We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p></div>
+    <div class="cell anim-up"><span class="lbl blanco">Culture</span><p>Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p></div>
+    <div class="cell anim-up"><span class="lbl blanco">Advocate</span><p>We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p></div>
+    <div class="cell anim-up"><span class="lbl blanco">Stay Stoked</span><p>Life's too short to be boring about food. We bring energy, passion, and a little fun to everything we do.</p></div>
+    <div class="cell anim-up"><span class="lbl blanco">Community</span><p>We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that invest in us.</p></div>
+  </div>
+</section>

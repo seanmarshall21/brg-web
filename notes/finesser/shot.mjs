@@ -230,6 +230,22 @@ async function main() {
           await sleep(1600); // let the staggered transitions land
         }
         if (!FOLD) {
+          // loading="lazy" images below the fold never enter the viewport during a
+          // captureBeyondViewport shot, so they photograph blank. Force them eager and wait
+          // for decode. Production keeps lazy — this is a capture-only adjustment.
+          await c.send('Runtime.evaluate', {
+            awaitPromise: true, returnByValue: true,
+            expression: `(function(){
+              var imgs=[].slice.call(document.images);
+              imgs.forEach(function(i){ i.loading='eager'; if(!i.complete&&i.dataset.src) i.src=i.dataset.src; });
+              return Promise.all(imgs.map(function(i){
+                return i.decode ? i.decode().catch(function(){}) : Promise.resolve();
+              }));
+            })()`,
+          });
+          await sleep(500);
+        }
+        if (!FOLD) {
           // captureBeyondViewport renders position:sticky against the EXPANDED viewport, which
           // ghosts the sticky header down the page — it looked like a duplicated logo bug for a
           // while. Pin it static for the capture only; --fold captures the real sticky behaviour.
