@@ -42,6 +42,18 @@ once to **place** a shortcode. See `STATUS.md` for the concrete stack + URLs.
    (`DONE:` / `PLAN:` / `NEED:` / `DECISION:` / `QUESTION:`). Single-writer files = no conflicts.
 5. `git push`.
 
+**Staging discipline (working-tree safety) — DECISION 2026-08-10.** All chats share one checkout
+on `main`, so **stage only your own area with an explicit pathspec — never a bare `git add -A` or
+`git add notes`** (that's what swept an in-flight file into `d4e5f31`). Owned pathspecs:
+- **Controller:** `MANIFESTO.md STATUS.md KICKOFF.md website/pages.json website/sections.json website/wp-mu-plugin/ notes/controller.md`
+- **Finesser:** `website/home website/our-restaurants website/team website/community website/careers website/sections website/assets notes/finesser.md notes/finesser/`
+- **Explorer:** `notes/explorer.md notes/explorer/`
+
+Because ownership is directory-disjoint, pathspec staging means no commit can ever include another
+chat's file, and `git pull` won't touch a file you're editing. The unused worktrees under
+`~/Documents/Claude/_Code/brg-web/` stay available as an opt-in escape hatch for a large multi-file
+sweep (e.g. SPEC-001 Phase 4 migration) — use one there, merge to `main` when done.
+
 **Clearance rule (Controller oversight):** the Finesser and Explorer **clear changes
 through the Controller before they land** for anything that touches shared code
 (`website/assets/brgw.css`, `website/assets/brgw.js`), the WP plugin, `pages.json`, or
@@ -65,8 +77,8 @@ single `website/<slug>/embed.html` may proceed and be logged as `DONE:`.
 ## Ownership (primary maintainer per file/area)
 | Maintainer | Files / area |
 |---|---|
-| **Controller** | `STATUS.md`, `MANIFESTO.md`, `website/pages.json`, `website/wp-mu-plugin/vc-clients-embed.php`, direction & reconciliation |
-| **Finesser** | `website/<slug>/embed.html` (page fragments) **and** `website/assets/brgw.css` + `website/assets/brgw.js` (shared reveal engine / slider / doodles) |
+| **Controller** | `STATUS.md`, `MANIFESTO.md`, `website/pages.json`, **`website/sections.json`** (section manifest), `website/wp-mu-plugin/vc-clients-embed.php`, direction & reconciliation |
+| **Finesser** | `website/<slug>/embed.html` (page fragments), **`website/sections/<id>/embed.html`** (section fragments) **and** `website/assets/brgw.css` + `website/assets/brgw.js` (shared reveal engine / slider / doodles) |
 | **Explorer** | proposals only — no production files; specs live in `notes/explorer.md` |
 
 Either chat may push a fix to another's file, but note it in your log and preserve
@@ -84,6 +96,10 @@ Everything renders in **one shared namespace on the page** (the plugin inlines
   page prefix: `or-*` (our-restaurants), `tm-*` (team), `cm-*` (community), `ca-*` (careers),
   `brgw__*` (home). Keep new page classes on that pattern.
 - **Slider:** `brgw-slider`, `brgw-slider__track`, `brgw-slider__dots`, `brgw-dot`, `brgw-slide`.
+- **Sections (SPEC-001):** `brgw-sec`, `brgw-sec--<id>`. **Every section fragment's CSS must be
+  scoped under `.brgw-sec--<id>`** — that is the whole collision contract: sections invent zero
+  other global class names, so `.lede`/`.card`/`.row` are free inside each one and need no
+  reservation here. `<id>` is `[a-z0-9-]+`.
 - **Keyframes:** `brgw-jit`, `brgw-spin`, `brgw-pulse`, `brgw-bob`, `brgw-herodrift`, `brgw-cta`.
 - **Color/space tokens (CSS vars on `.brgw`):** `--yellow --teal --pink --orange --bg --bg2
   --ink --white --pad`.

@@ -3,7 +3,7 @@
 _Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-08-09 (Controller)
+**Last updated:** 2026-08-10 (Controller)
 
 ## What this project is
 The Blacktop Restaurant Group (BRG) marketing site for Vivo Creative. Pages are built as
@@ -53,9 +53,15 @@ footer + shared JS), desktop and mobile.
 2. **Verify plugin live** once one page exists — expect `<!-- vc_embed brg/<slug> v2.0.0 -->` + nav.
 3. **Real assets** — team headshots, Board & Brew / Odie's logos, give-back photos. Fragments
    use colored-card / gradient placeholders wired to swap in cleanly.
-4. **"Stacking sections" architecture** (Explorer + Controller) — section-level fragments so a WP
-   page can compose several `[brg_section_*]` shortcodes. Infra already dedupes shared assets;
-   remaining work is a section manifest + shortcode form.
+4. **SPEC-001 "stacking sections" — APPROVED, in flight** ([spec](notes/explorer/stacking-sections.md)).
+   Section-level fragments (`website/sections/<id>/embed.html` + `website/sections.json`) composed via
+   `[brg_header]` / `[brg_section id=…]` / `[brg_footer]`, plugin → v2.1.0. Amendments: phases 2↔3
+   inverted (prove parity on Careers first), B4 deferred, slots kept minimal with **real** default copy.
+   **Order of operations:**
+   - **A. (human, blocking)** create ≥1 WP page + `[brg_<slug>]` → verify `v2.0.0` live. *No plugin change deploys before this.*
+   - **B. (Finesser, unblocked now)** harvest 5 Careers sections + local stacked-Careers screenshot-diff vs monolith; draft `sections.json`.
+   - **C. (Controller)** on local parity → write plugin v2.1.0 + ratify `sections.json`; **deploy only after A.**
+   - **D. (Finesser)** Phase-3 go/no-go live, then migrate the rest.
 
 ## Deploying (the loop)
 ```
