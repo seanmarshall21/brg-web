@@ -1,9 +1,22 @@
 # SPEC-001 — Stacking Sections
 
-**Status:** proposed · Explorer · 2026-08-09
-**Wants a `DECISION:` from:** Controller (owns `pages.json` + `vc-clients-embed.php`)
-**Built by:** Finesser (section fragments) + Controller (plugin)
+**Status:** ✅ **APPROVED to build** — Conti, `DECISION:` 2026-08-10, with four amendments (folded in below)
+**Written by:** Expo (Explorer) 2026-08-09 · **amended** 2026-08-10
+**Built by:** Finn (section fragments) + Conti (plugin)
 **Depends on:** nothing. Phase 1 is additive — every existing `[brg_<slug>]` keeps working byte-for-byte.
+
+> **Amendment log — 2026-08-10, per `notes/controller.md`**
+> **(a)** Phases 2↔3 inverted — harvest only the 5 sections Careers needs, prove parity, *then* harvest the rest (§7).
+> **(b)** **B4 dropped.** Scoped `.brgw-sec--<id>` CSS makes a duplicate `<style>` idempotent, and the strip-regex was
+> exactly the markup-regex failure mode §8 rejects elsewhere — I shouldn't have specced it. Plugin change #3 ships
+> without it (§3, §6).
+> **(c)** Motion parity confirmed in code; Finn runs the screenshot-diff at the Phase-3 gate with the harness in
+> `notes/finesser/`.
+> **(d)** §9 Q1–Q4 answered — recorded inline, plus one new contract rule on slot defaults (§5).
+>
+> **Deploy gate (separate `DECISION:`):** nothing touches the *deployed* plugin until v2.0.0 is verified live. Conti may
+> write v2.1.0 in the repo; the mu-plugins upload waits for one `[brg_<slug>]` page rendering `<!-- vc_embed brg/<slug>
+> v2.0.0 -->` + nav. Everything in §7 Phases 1–2 is local/repo work and is **not** blocked by that gate.
 
 ---
 
@@ -47,7 +60,7 @@ motion stay ours in the repo.
 | B1 | **Chrome duplicates.** Every page shortcode emits header + footer. 4 stacked = 4 headers, 4 footers. | [:113–115](../../website/wp-mu-plugin/vc-clients-embed.php) | Sections never emit chrome; add explicit `[brg_header]` / `[brg_footer]`. §6 |
 | B2 | **No path for a section.** Slug is sanitised to `[a-z0-9-]` (slashes stripped) and hard-wired to `/<slug>/embed.html`, so `sections/hero` fetches `/sectionshero/embed.html`. | [:90](../../website/wp-mu-plugin/vc-clients-embed.php), [:97](../../website/wp-mu-plugin/vc-clients-embed.php) | Separate `vcc_render_section()` with its own path builder. §6 |
 | B3 | **Asset dedupe is trapped inside `vcc_render_page`.** A second render function gets its own `static` → shared CSS/JS inlined twice on a page mixing a page + sections. | [:101](../../website/wp-mu-plugin/vc-clients-embed.php) | Lift to `vcc_shared_assets()`; both renderers call it. §6 |
-| B4 | **Same section twice = duplicate `<style>`.** Fragments carry their CSS inline. Two `cta-band`s on one page ship the block twice. | convention, all 5 fragments | Per-request `static $seen` per section id; strip `<style>` on repeats. §6 |
+| ~~B4~~ | ~~**Same section twice = duplicate `<style>`.**~~ **Dropped 2026-08-10 (Conti).** Because every section's CSS is scoped under `.brgw-sec--<id>` (§4 rule 3), a repeated block is *idempotent* — identical bytes, identical cascade, no visual effect. Cost is a few hundred duplicate bytes in a page that's already inlining the whole stylesheet. The cure (regex-stripping `<style>` out of fetched markup) was worse than the disease and contradicted §8. If duplicate bytes ever matter, hoist section CSS to a collected head-inject properly. | — | none — not a blocker |
 | B5 | **Nav can't know the active page.** `is-active` comes from the rendered slug; a stacked page has no single slug. | [:71](../../website/wp-mu-plugin/vc-clients-embed.php) | `[brg_header active="careers"]`. §6 |
 | B6 | **Cold-cache fan-out.** N sections = N sequential `wp_remote_get` at 8s timeout each. A 7-section page on a cold cache is a slow TTFB. | [:50–52](../../website/wp-mu-plugin/vc-clients-embed.php) | Cap ~8 sections/page + raise TTL for sections. **Controller call** — see §9 Q3. |
 
@@ -127,6 +140,11 @@ Four rules, and they're the whole contract:
   (use `html` sparingly; only where an em-dash-and-`<br>` line actually needs it).
 - Empty default + empty att → the token resolves to `''` and the line collapses. Sections should
   be written so an empty slot degrades to a missing element, not an empty box.
+- **Defaults must be the real production copy, never placeholders** (contract rule, Conti
+  2026-08-10, from Finn's refinement). The compose harness renders from repo files and *cannot*
+  see slot values stored in WordPress — so if defaults are `Lorem`/`TBD`, a default compose-test
+  stops representing the live page and the "verify before DONE" rule silently degrades. Write the
+  real headline as the default; a WP att then overrides it only where a page genuinely differs.
 - **Separate file, not a `type` field in `pages.json`.** `pages.json` drives the nav
   ([:66–76](../../website/wp-mu-plugin/vc-clients-embed.php)); putting sections in it would need
   filtering at three call sites and one missed filter puts "Cta Band" in the header. Two files,
@@ -144,10 +162,8 @@ Seven changes, all additive. Nothing in `vcc_render_page` changes behaviour for 
    ```php
    $id   = preg_replace( '/[^a-z0-9-]/', '', strtolower( (string) $id ) );
    $frag = vcc_fetch( $base . '/sections/' . $id . '/embed.html', $ttl );
-   static $seen = array();                       // B4: same section twice on one page
-   if ( ! empty( $seen[ $id ] ) ) $frag = preg_replace( '#<style\b[^>]*>.*?</style>#is', '', $frag );
-   $seen[ $id ] = true;
    $frag = vcc_fill_slots( $frag, $id, $atts, $cfg, $ttl );   // §5
+   // (no repeat-section <style> stripping — B4 dropped 2026-08-10; scoped CSS is idempotent)
    if ( ! empty( $atts['anchor'] ) ) { /* inject id="…" on the root element */ }
    return $css_js_once . '<div class="brgw brgw-shell">' . $frag . '</div>' . $js_once;   // no chrome
    ```
@@ -169,15 +185,28 @@ manifest keeps them distinct and the docs say so.
 
 ## 7. Rollout
 
-| Phase | Work | Risk | Who |
-|---|---|---|---|
-| 1 | Plugin v2.1.0 + `sections.json` (empty array) + **one** section (`cta-band`) on a scratch WP page | none — nothing live changes | Controller |
-| 2 | Harvest the 14 archetypes in SPEC-002 into `website/sections/` as **copies** — page fragments untouched | none — nothing references them yet | Finesser |
-| 3 | Rebuild **Careers** (64 lines, smallest, no slider) as a stack; screenshot-diff against `[brg_careers]` desktop + mobile | contained to one page | Finesser |
-| 4 | If parity holds, migrate the rest; retire duplicated markup last | low, and reversible | Finesser |
+**Phases 2↔3 inverted 2026-08-10 (Conti amendment (a))** — the contract test moves to the front.
+Harvesting 14 sections before proving one page composes correctly would mean writing 14 fragments
+against an unproven contract; if §4 is wrong, all 14 get reworked. Prove it on 5, then scale.
 
-Phase 3 is the go/no-go. If the stacked Careers page doesn't match the monolith pixel-for-pixel
-and motion-for-motion, the answer is to fix the section fragments, not to loosen the bar.
+| Phase | Work | Risk | Who | Blocked by deploy gate? |
+|---|---|---|---|---|
+| **1** | Harvest **only the 5 sections Careers needs** — `hero-page`, `badge-rule`, `perks-list`, `apply-button`, `cta-band` — into `website/sections/<id>/embed.html` per the §4 contract. Draft `sections.json` (real copy, §5) in `notes/finesser/`, hand up as a `NEED:` | none — nothing references them | Finn | no — local |
+| **2** | **Go/no-go.** Extend the compose harness to assemble a stacked Careers from those section files; screenshot-diff vs monolith `[brg_careers]`, desktop 1440 + mobile 390 | contained to one page, local only | Finn | no — local |
+| **3** | On parity: Conti ratifies `website/sections.json` and writes plugin **v2.1.0** in the repo. Upload waits on the v2.0.0 live-verify gate | none in-repo | Conti | **upload only** |
+| **4** | Harvest the remaining archetypes (SPEC-002 order); migrate the other pages; retire duplicated markup last | low, reversible | Finn | no |
+
+Phase 2 is the go/no-go. If stacked Careers doesn't match the monolith pixel-for-pixel and
+motion-for-motion, the answer is to fix the section fragments or the §4 contract — not to loosen
+the bar.
+
+Two things that make Phase 2 a *real* test rather than a rubber stamp, both from Finn's turn:
+`.anim-head{opacity:0}` is cleared **only** by `brgw.js`, so a capture taken before the font gate
+resolves silently drops every display headline while still looking like a valid page — the harness
+polls for it. And motion parity is structural, not incidental: the stagger is computed per
+`.reveal` ([brgw.js:40–45](../../website/assets/brgw.js)), and §4 rule 2 puts exactly one `.reveal`
+on each section root, so a stacked page reproduces the monolith's per-block cadence by
+construction.
 
 ## 8. Why not the alternatives
 
@@ -188,18 +217,29 @@ and motion-for-motion, the answer is to fix the section fragments, not to loosen
 - **Client-side composition (JS fetches sections).** Breaks the no-FOUC guarantee the reveal
   engine is built on (`brgw.css` hides content at first paint) and hurts SEO on a marketing site.
 
-## 9. Open questions for the Controller
+## 9. Open questions — ✅ all resolved (Conti, 2026-08-10)
 
-- **Q1 — Slots at all, or hardcoded sections?** Slots make a section reusable (`cta-band` on
-  three pages with three headings) but move copy into the WP page, where it's outside git. My
-  recommendation: **slots yes, but few** — heading / sub / cta pair / anchor only. Body copy,
-  lists and grids stay in the repo where they're reviewable and diffable.
-- **Q2 — `[brg_footer]` explicit, or auto-inject via `wp_footer`?** Explicit is honest and
-  debuggable; a `the_content` filter that appends chrome when it sees BRG shortcodes is fewer
-  shortcodes to place but more magic and harder for a human to reason about in Oxygen. I'd take
-  explicit.
-- **Q3 — Cold-cache budget (B6).** Cap sections per page (~8) and lift TTL for section fetches to
-  ~600s? Section markup changes far less often than we iterate, and `?brg_refresh=1` still busts
-  it instantly during a build session.
-- **Q4 — Does `brgw-sec` / `brgw-sec--*` go into MANIFESTO §Shared tokens?** It should, and only
-  the Controller edits that file.
+- **Q1 — Slots at all?** → **Yes, but few.** `heading`, `sub`, `cta_label` + `cta_href`, `anchor`.
+  Body copy, lists and grids stay in git where they're reviewable and diffable. Carries the new
+  contract rule in §5: **defaults are the real production copy, not placeholders.**
+- **Q2 — `[brg_footer]` explicit or auto-injected?** → **Explicit.** A `the_content` filter would
+  be fewer shortcodes to place but more magic, and harder for a human to reason about in Oxygen.
+- **Q3 — Cold-cache budget (B6).** → **Cap ~8 sections/page; section TTL 600s.** `ttl="0"` and
+  `?brg_refresh=1` still bust it instantly during a build session.
+- **Q4 — `brgw-sec` / `brgw-sec--*` in MANIFESTO §Shared tokens?** → **Added** (MANIFESTO:99–100),
+  along with `website/sections.json` → Conti and `website/sections/<id>/embed.html` → Finn in the
+  ownership table.
+
+## 10. Still open (Expo, tracked here so they don't get lost)
+
+Not blockers for Phases 1–2; they want an answer before Phase 4 turns 14 sections into live pages.
+
+- **A stacked page has no single "page" identity.** Nav active-state is solved by
+  `[brg_header active="…"]` (B5), but `<title>`, meta description and OG tags come from the WP
+  page, not from us — fine, as long as nobody assumes `pages.json` still describes what a page
+  contains. Worth a line in `STATUS.md` when Phase 4 lands (Conti's file).
+- **`hero-page` carries the `<h1>`.** If a page ever stacks two heroes, or none, it gets two `<h1>`s
+  or zero. Cheap fix: an `as="h1|h2"` slot on `hero-page`, decided when a second hero actually
+  appears rather than pre-emptively.
+- **SPEC-002 #11 `stat-strip` is still content-blocked** — three of four numbers read literal `XX`
+  (STATUS open item 3). Harvestable now, not shippable until the real figures exist.

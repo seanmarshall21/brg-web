@@ -1,7 +1,8 @@
 # notes/explorer/ — the Explorer's workspace
 
-**Single writer: the Explorer chat.** Controller + Finesser READ freely; they log to their own
-`notes/*.md`.
+**Single writer: the Explorer chat — "Expo".** Controller (**Conti**) and Finesser (**Finn**) READ
+freely; they log to their own `notes/*.md`. Sean uses the short names in conversation; they're the
+same three roles the MANIFESTO defines, nothing new.
 
 `notes/explorer.md` stays the **log** — dated one-liners (`PLAN:` / `NEED:` / `QUESTION:`) that
 the Controller scans each turn. Anything longer than a line lives **here** as a numbered spec,
@@ -12,8 +13,8 @@ Controller writes a `DECISION:` 👍 in `notes/controller.md` and the Finesser b
 
 | # | File | Topic | State |
 |---|---|---|---|
-| SPEC-001 | [`stacking-sections.md`](stacking-sections.md) | Section-level fragments — manifest, shortcode form, plugin changes | **proposed** 2026-08-09 |
-| SPEC-002 | [`section-inventory.md`](section-inventory.md) | The 14 section archetypes already living in the 5 page fragments | **proposed** 2026-08-09 |
+| SPEC-001 | [`stacking-sections.md`](stacking-sections.md) | Section-level fragments — manifest, shortcode form, plugin changes | ✅ **approved to build** 2026-08-10 (amended: phases inverted, B4 dropped) |
+| SPEC-002 | [`section-inventory.md`](section-inventory.md) | The 14 section archetypes already living in the 5 page fragments | **proposed** 2026-08-09 — harvest order superseded by SPEC-001 §7 (Careers 5 first) |
 
 ## How I write a spec
 Enough that the Finesser can build from it without asking me anything: sections, content,
