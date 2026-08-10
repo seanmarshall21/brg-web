@@ -1,9 +1,9 @@
 # BRG-WEB — Project Status
 
-_Living snapshot so any chat/machine can pick up where we are. The **Manager** maintains
+_Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-08-09 (Manager)
+**Last updated:** 2026-08-09 (Controller)
 
 ## What this project is
 The Blacktop Restaurant Group (BRG) marketing site for Vivo Creative. Pages are built as
@@ -53,7 +53,7 @@ footer + shared JS), desktop and mobile.
 2. **Verify plugin live** once one page exists — expect `<!-- vc_embed brg/<slug> v2.0.0 -->` + nav.
 3. **Real assets** — team headshots, Board & Brew / Odie's logos, give-back photos. Fragments
    use colored-card / gradient placeholders wired to swap in cleanly.
-4. **"Stacking sections" architecture** (Explorer + Manager) — section-level fragments so a WP
+4. **"Stacking sections" architecture** (Explorer + Controller) — section-level fragments so a WP
    page can compose several `[brg_section_*]` shortcodes. Infra already dedupes shared assets;
    remaining work is a section manifest + shortcode form.
 

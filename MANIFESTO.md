@@ -8,10 +8,10 @@ Adapted from the TEMPER handoff (`new-project-starter/HANDOFF-how-we-run-temper.
 
 ---
 
-## The operating model (Explorer / Finesser / Manager)
+## The operating model (Explorer / Finesser / Controller)
 Run this project across 2–3 conversations, each with a role, all sharing this one repo:
 
-- **Manager** — **source of truth.** Owns direction & final decisions, signs off new
+- **Controller** — **source of truth.** Owns direction & final decisions, signs off new
   features/sections and any change to shared code before it ships, keeps `STATUS.md`,
   owns the WP plugin + `pages.json` manifest, and does the canonical reconciliation
   pushes when work needs merging. **Everything routes through here.**
@@ -22,7 +22,7 @@ Run this project across 2–3 conversations, each with a role, all sharing this 
   references, best-practices research, new-section and new-feature proposals, and the
   "stacking sections" architecture. Produces **specs & ideas, not final production code.**
 
-Scale: 2 chats minimum (Manager also finesses; Explorer optional) → add the Explorer /
+Scale: 2 chats minimum (Controller also finesses; Explorer optional) → add the Explorer /
 extra Finessers as parallel work grows.
 
 ## The pipeline (how a change goes live)
@@ -42,14 +42,14 @@ once to **place** a shortcode. See `STATUS.md` for the concrete stack + URLs.
    (`DONE:` / `PLAN:` / `NEED:` / `DECISION:` / `QUESTION:`). Single-writer files = no conflicts.
 5. `git push`.
 
-**Clearance rule (Manager oversight):** the Finesser and Explorer **clear changes
-through the Manager before they land** for anything that touches shared code
+**Clearance rule (Controller oversight):** the Finesser and Explorer **clear changes
+through the Controller before they land** for anything that touches shared code
 (`website/assets/brgw.css`, `website/assets/brgw.js`), the WP plugin, `pages.json`, or
 introduces a new page/section/feature. Log the request as a `NEED:`/`PLAN:` in your note;
-the Manager replies with a `DECISION:` 👍 (or edits). Pure page-level polish inside a
+the Controller replies with a `DECISION:` 👍 (or edits). Pure page-level polish inside a
 single `website/<slug>/embed.html` may proceed and be logged as `DONE:`.
 
-**New feature/section flow:** Explorer proposes (`PLAN:`) → **Manager 👍 (`DECISION:`)**
+**New feature/section flow:** Explorer proposes (`PLAN:`) → **Controller 👍 (`DECISION:`)**
 → Finesser builds (`DONE:`). Prevents two chats building the same thing.
 
 **Name collisions:** the maintainer's existing names win; the other chat renames
@@ -58,14 +58,14 @@ single `website/<slug>/embed.html` may proceed and be logged as `DONE:`.
 ## Roles → who is who
 | Role | Conversation | Writes to |
 |---|---|---|
-| Manager | this chat (Claude — main) | `notes/manager.md` |
-| Finesser | (open next) | `notes/finesser.md` |
-| Explorer | (open next) | `notes/explorer.md` |
+| Controller | **BRG Controller** (main) | `notes/controller.md` |
+| Finesser | **BRG Finesser** | `notes/finesser.md` |
+| Explorer | **BRG Explorer** | `notes/explorer.md` |
 
 ## Ownership (primary maintainer per file/area)
 | Maintainer | Files / area |
 |---|---|
-| **Manager** | `STATUS.md`, `MANIFESTO.md`, `website/pages.json`, `website/wp-mu-plugin/vc-clients-embed.php`, direction & reconciliation |
+| **Controller** | `STATUS.md`, `MANIFESTO.md`, `website/pages.json`, `website/wp-mu-plugin/vc-clients-embed.php`, direction & reconciliation |
 | **Finesser** | `website/<slug>/embed.html` (page fragments) **and** `website/assets/brgw.css` + `website/assets/brgw.js` (shared reveal engine / slider / doodles) |
 | **Explorer** | proposals only — no production files; specs live in `notes/explorer.md` |
 
@@ -94,23 +94,23 @@ Everything renders in **one shared namespace on the page** (the plugin inlines
   init script.**
 
 ## Kickoff prompts (paste into each new conversation)
-- **Manager (this chat, already running):** "You're the Manager/source-of-truth for
+- **Controller (this chat, already running):** "You're the Controller/source-of-truth for
   `seanmarshall21/brg-web`. Read `MANIFESTO.md`, `STATUS.md`, and all `notes/*.md` first.
   You own direction, final decisions, new-feature sign-off, `pages.json`, the WP plugin,
-  and `STATUS.md`. Log to `notes/manager.md`."
+  and `STATUS.md`. Log to `notes/controller.md`."
 - **Finesser:** "You're the Finesser for `seanmarshall21/brg-web` (repo already cloned at
   ~/Documents/GitHub/brg-web). Read `MANIFESTO.md` + all `notes/*.md` first, `git pull`
   before every push. You own the page fragments `website/<slug>/embed.html` and the shared
   engine `website/assets/brgw.css` + `brgw.js` — but **clear any shared-asset / plugin /
-  pages.json change through the Manager (a `NEED:` in your note) before it lands.** Consume
+  pages.json change through the Controller (a `NEED:` in your note) before it lands.** Consume
   the shared reveal engine, slider, and doodle system instead of rebuilding. Compose-test a
   page the way the plugin renders it (shared CSS → header → fragment → footer → shared JS)
   and screenshot before you call it done. Log to `notes/finesser.md`."
 - **Explorer:** "You're the Explorer for `seanmarshall21/brg-web`. Research
   direction/sitemap/content/best-practices and propose new sections & features as **specs,
   not production code** — including the 'stacking sections' model (section-level fragments
-  the Manager can wire into the plugin). Read `MANIFESTO.md` + all `notes/*.md`, and log
-  proposals as `PLAN:` entries in `notes/explorer.md` for the Manager to approve."
+  the Controller can wire into the plugin). Read `MANIFESTO.md` + all `notes/*.md`, and log
+  proposals as `PLAN:` entries in `notes/explorer.md` for the Controller to approve."
 
 ## Credential boundary (what a chat can't do)
 A chat **cannot** and must not: use the WordPress login, create the Netlify↔GitHub link,
