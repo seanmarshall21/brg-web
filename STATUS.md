@@ -3,7 +3,7 @@
 _Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-08-10 (Controller) — v2.0.0 verified live; v2.1.0 written
+**Last updated:** 2026-08-10 (Controller) — v2.1.0 LIVE; 7/18 sections built; doodles need Figma placement
 
 ## What this project is
 The Blacktop Restaurant Group (BRG) marketing site for Vivo Creative. Pages are built as
