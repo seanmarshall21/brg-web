@@ -70,9 +70,9 @@ single `website/<slug>/embed.html` may proceed and be logged as `DONE:`.
 ## Roles → who is who
 | Role | Conversation | Writes to |
 |---|---|---|
-| Controller | **BRG Controller** (main) | `notes/controller.md` |
-| Finesser | **BRG Finesser** | `notes/finesser.md` |
-| Explorer | **BRG Explorer** | `notes/explorer.md` |
+| Controller | **BRG Controller** — "Conti" (main) | `notes/controller.md` |
+| Finesser | **BRG Finesser** — "Finn" | `notes/finesser.md` |
+| Explorer | **BRG Explorer** — "Expo" | `notes/explorer.md` |
 
 ## Ownership (primary maintainer per file/area)
 | Maintainer | Files / area |
