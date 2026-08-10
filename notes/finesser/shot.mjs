@@ -229,6 +229,14 @@ async function main() {
           });
           await sleep(1600); // let the staggered transitions land
         }
+        if (!FOLD) {
+          // captureBeyondViewport renders position:sticky against the EXPANDED viewport, which
+          // ghosts the sticky header down the page — it looked like a duplicated logo bug for a
+          // while. Pin it static for the capture only; --fold captures the real sticky behaviour.
+          await c.send('Runtime.evaluate', {
+            expression: "document.querySelectorAll('.brgw-header').forEach(function(h){h.style.position='static'})",
+          });
+        }
 
         const shot = await c.send('Page.captureScreenshot', {
           format: 'png', captureBeyondViewport: !FOLD, optimizeForSpeed: false,
