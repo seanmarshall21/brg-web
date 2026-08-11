@@ -27,6 +27,23 @@
 @keyframes brgw-hh-drift{0%,100%{transform:scale(1.06) translate3d(0,0,0);}50%{transform:scale(1.09) translate3d(-1%,.7%,0);}}
 
 .brgw-sec--home-hero > *:not(.bg){position:relative;z-index:2;}
+
+/* Icon stack — percentages lifted from the splash so the marks nest identically. */
+.brgw-sec--home-hero .icons{position:relative;margin:0 auto clamp(18px,2.4vw,34px);
+  width:clamp(112px,min(13vw,16vh),190px);aspect-ratio:303/317;}
+.brgw-sec--home-hero .ic{position:absolute;}
+.brgw-sec--home-hero .ic img{width:100%;height:auto;display:block;transform-origin:center;
+  animation:brgw-jit 1.35s steps(1,end) infinite;}
+.brgw-sec--home-hero .ic--smiley{left:37.6%;top:2.4%;width:60.8%;z-index:1;}
+.brgw-sec--home-hero .ic--text  {left:22.2%;top:46.2%;width:77.6%;z-index:2;}
+.brgw-sec--home-hero .ic--bolt  {left:0;    top:24.8%;width:30.8%;z-index:4;}
+.brgw-sec--home-hero .ic--ast   {left:31%;  top:0;    width:18.7%;z-index:5;}
+/* Staggered clocks so the four never tick in unison — that unison is what makes a
+   looping cluster read as one flat sprite instead of four separate marks. */
+.brgw-sec--home-hero .ic--text img{animation-duration:1.15s;}
+.brgw-sec--home-hero .ic--bolt img{animation-duration:1.6s;}
+.brgw-sec--home-hero .ic--ast img{animation:brgw-spin 1.9s steps(1,end) infinite;}
+@media (prefers-reduced-motion:reduce){ .brgw-sec--home-hero .ic img{animation:none!important;} }
 .brgw-sec--home-hero .head{max-width:min(94%,1180px);margin-inline:auto;}
 .brgw-sec--home-hero h1{font-size:clamp(2.3rem,5.4vw,4.7rem);max-width:none;}
 /* Hand-drawn underline, tucked under the tail of line 2 as in the comp. */
@@ -58,6 +75,15 @@
       sizes="100vw" width="1920" height="1340">
     <div class="grit"></div>
     <div class="veil"></div>
+  </div>
+
+  <!-- Splash icon cluster: same four marks, same stacking percentages as
+       css/brg-coming-soon.css (.brg-icons/.brg-ic), each jittering on its own clock. -->
+  <div class="icons anim-up" aria-hidden="true">
+    <span class="ic ic--smiley"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-smile.svg" alt="" width="185" height="175"></span>
+    <span class="ic ic--text"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-brg.svg" alt="" width="236" height="171"></span>
+    <span class="ic ic--bolt"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-bolt.svg" alt="" width="94" height="176"></span>
+    <span class="ic ic--ast"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-ast.svg" alt="" width="57" height="55"></span>
   </div>
 
   <div class="head">

@@ -1,0 +1,91 @@
+<!-- BRG · section: community-give  →  [brg_community-give]
+     Matches the Community comp (mocks/BRG - Community.png, y 916–3456 @1x).
+     Owns the yellow asterisk seam badge AND the teal "How we give back" banner, both of
+     which straddle a boundary and therefore live here and bleed upward (bleed rule).
+
+     Slides alternate side: odd slides put the copy panel left / image right, even slides
+     reverse it — that alternation is the comp's rhythm, so it's driven by :nth-child
+     rather than per-slide markup. Consumes the SHARED .brgw-slider engine in brgw.js
+     (auto-advance, dots, swipe) — no second slider. -->
+<section class="brgw-sec brgw-sec--community-give reveal" aria-label="How we give back">
+<style>
+.brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
+.brgw-sec--community-give .intro{padding:clamp(76px,8.4vw,120px) var(--pad) clamp(58px,6vw,86px);
+  text-align:center;}
+.brgw-sec--community-give .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
+  transform:translate(-50%,-50%);z-index:6;}
+.brgw-sec--community-give .seam img{width:100%;height:auto;display:block;}
+.brgw-sec--community-give .lede{max-width:78ch;margin:0 auto;
+  font-size:clamp(.98rem,1.15vw,1.1rem);line-height:1.65;opacity:.92;}
+.brgw-sec--community-give .lede b{font-weight:400;font-size:1.14em;}
+
+/* Teal banner straddles the white intro and the dark slider below it. */
+.brgw-sec--community-give .banner{position:relative;z-index:5;display:block;width:max-content;
+  max-width:92%;margin:0 auto -1.1em;background:var(--teal);color:var(--ink);
+  font-size:clamp(1.4rem,3.4vw,3rem);text-transform:uppercase;padding:.08em .38em;
+  transform:rotate(-1.4deg);}
+
+.brgw-sec--community-give .brgw-slide{display:grid;grid-template-columns:1fr;min-height:clamp(360px,44vw,620px);}
+@media(min-width:820px){ .brgw-sec--community-give .brgw-slide{grid-template-columns:1fr 1fr;} }
+.brgw-sec--community-give .panel{display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(46px,5.4vw,86px) clamp(28px,4vw,74px);text-align:center;}
+.brgw-sec--community-give .shot{position:relative;background:#5b5b5b;min-height:240px;}
+.brgw-sec--community-give .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+/* Alternate the sides, exactly as the comp does. */
+@media(min-width:820px){
+  .brgw-sec--community-give .brgw-slide:nth-child(even) .panel{order:2;}
+  .brgw-sec--community-give .brgw-slide:nth-child(even) .shot{order:1;}
+}
+.brgw-sec--community-give .brgw-slide:nth-child(odd) .panel{background:#000;color:var(--white);}
+.brgw-sec--community-give .brgw-slide:nth-child(even) .panel{background:var(--yellow);color:var(--ink);}
+.brgw-sec--community-give h3{font-size:clamp(1.3rem,2.4vw,2rem);text-transform:uppercase;margin-bottom:18px;}
+.brgw-sec--community-give .panel p{font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.62;
+  max-width:44ch;margin-inline:auto;opacity:.9;}
+/* Dots sit over the image half, as in the comp, not on a separate bar. */
+.brgw-sec--community-give .brgw-slider__dots{position:absolute;right:clamp(20px,3vw,54px);
+  bottom:clamp(18px,2.4vw,38px);background:none;padding:0;z-index:4;}
+</style>
+  <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146"></span>
+
+  <div class="intro">
+    <p class="lede anim-up">At BRG, community isn't a marketing initiative &mdash; <b class="blanco">it's in our DNA.</b> When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.</p>
+  </div>
+
+  <span class="banner blanco anim-up">How we give back</span>
+
+  <div class="brgw-slider" data-autoplay="6500">
+    <div class="brgw-slider__track">
+      <div class="brgw-slide">
+        <div class="panel">
+          <h3 class="blanco">Urban Surf 4 Kids</h3>
+          <p>Our flagship give-back partner. We help get kids with disabilities and those facing adversity out on the water &mdash; building confidence, connection, and stoke one wave at a time.</p>
+        </div>
+        <div class="shot brgw-img" data-brgw-img>
+          <img src="https://blacktoprg.netlify.app/assets/media/bg/surfer.webp" alt="" width="548" height="820"
+               decoding="async" loading="lazy" data-brgw-parallax=".8">
+        </div>
+      </div>
+      <div class="brgw-slide">
+        <div class="panel">
+          <h3 class="blanco">Local partnerships</h3>
+          <p>Schools, youth sports, neighborhood nonprofits &mdash; we show up where our guests already are, with food, sponsorship and hands on deck.</p>
+        </div>
+        <div class="shot brgw-img" data-brgw-img>
+          <img src="https://blacktoprg.netlify.app/assets/media/bg/skater.webp" alt="" width="733" height="1100"
+               decoding="async" loading="lazy" data-brgw-parallax=".8">
+        </div>
+      </div>
+      <div class="brgw-slide">
+        <div class="panel">
+          <h3 class="blanco">Other contributions</h3>
+          <p>From fundraiser nights to donated meals, a lot of what we do never makes it to a press release &mdash; and that's rather the point.</p>
+        </div>
+        <div class="shot brgw-img" data-brgw-img>
+          <img src="https://blacktoprg.netlify.app/assets/media/bg/car.webp" alt="" width="492" height="760"
+               decoding="async" loading="lazy" data-brgw-parallax=".8">
+        </div>
+      </div>
+    </div>
+    <div class="brgw-slider__dots"></div>
+  </div>
+</section>

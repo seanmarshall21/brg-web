@@ -1,0 +1,57 @@
+<!-- BRG · section: our-restaurants-brands  →  [brg_our-restaurants-brands]
+     Matches the Our Restaurants comp (mocks/BRG - Our Restaurants.png, y 916–2466 @1x).
+     Light section. Owns the yellow asterisk seam badge, bleeding upward per the bleed rule.
+     Brand plates are the real label artwork (bnb-img-label / odies-img-label), each on the
+     image-reveal + parallax hooks. -->
+<section class="brgw-sec brgw-sec--or-brands reveal" aria-label="Our brands">
+<style>
+.brgw-sec--or-brands{position:relative;background:var(--white);color:var(--ink);overflow:visible;
+  padding:clamp(78px,8.5vw,124px) var(--pad) clamp(74px,8vw,116px);}
+.brgw-sec--or-brands .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
+  transform:translate(-50%,-50%);z-index:5;}
+.brgw-sec--or-brands .seam img{width:100%;height:auto;display:block;}
+
+.brgw-sec--or-brands .brand{display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,64px);
+  max-width:1400px;margin-inline:auto;align-items:center;}
+@media(min-width:900px){ .brgw-sec--or-brands .brand{grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,84px);} }
+/* Hairline rule between the two brands, as in the comp — nothing above or below. */
+.brgw-sec--or-brands .brand + .brand{margin-top:clamp(46px,5vw,80px);padding-top:clamp(46px,5vw,80px);
+  border-top:1px solid var(--ink);}
+
+/* No image-reveal here: these are logo lockups, and the reveal's 2→1.2 counter-scale
+   crops the wordmark. A brand mark should never be cropped for the sake of an effect. */
+.brgw-sec--or-brands .plate{border-radius:14px;aspect-ratio:16/11;overflow:hidden;}
+.brgw-sec--or-brands .plate img{width:100%;height:100%;object-fit:cover;display:block;}
+.brgw-sec--or-brands h3{font-size:clamp(1.8rem,3.6vw,3.1rem);text-transform:uppercase;margin-bottom:18px;}
+.brgw-sec--or-brands p{opacity:.86;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:46ch;}
+.brgw-sec--or-brands p + p{margin-top:1.1em;}
+.brgw-sec--or-brands .btn{background:var(--ink);color:var(--white);margin-top:clamp(24px,2.6vw,36px);}
+</style>
+  <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146"></span>
+
+  <div class="brand">
+    <div class="plate">
+      <img class="anim-up" src="https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg"
+           alt="Board &amp; Brew" width="800" height="550" decoding="async" loading="lazy">
+    </div>
+    <div>
+      <h3 class="blanco anim-head">Board &amp; Brew</h3>
+      <p class="anim-up">San Diego's iconic sandwich shop. Board &amp; Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool.</p>
+      <p class="anim-up">12 locations across San Diego and Orange County &mdash; each one a neighborhood staple.</p>
+      <a class="btn anim-cta" href="https://boardandbrew.com" target="_blank" rel="noopener">Visit Us</a>
+    </div>
+  </div>
+
+  <div class="brand">
+    <div class="plate">
+      <img class="anim-up" src="https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg"
+           alt="Odie's Pizza Co." width="800" height="550" decoding="async" loading="lazy">
+    </div>
+    <div>
+      <h3 class="blanco anim-head">Odie's Pizza</h3>
+      <p class="anim-up">Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast &mdash; think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around.</p>
+      <p class="anim-up">Our flagship is right in the heart of downtown Oceanside, and more locations are on the way.</p>
+      <a class="btn anim-cta" href="https://odiespizza.com" target="_blank" rel="noopener">Visit Us</a>
+    </div>
+  </div>
+</section>
