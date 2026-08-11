@@ -102,7 +102,89 @@
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); }
+  /* ── SCROLL MOTION (GSAP + ScrollTrigger) ───────────────────────────────────
+     A LAYER on top of the CSS reveal engine, never a replacement. The CSS engine
+     stays the baseline: it is font-gated, needs no JS beyond this file, and already
+     handles split-line text, fade-ups and the CTA wipe. This layer adds only what
+     CSS genuinely can't do — scroll-SCRUBBED motion.
+
+     GSAP is self-hosted (assets/vendor/) and loaded LAZILY: only when a page
+     actually contains a motion hook, and never under reduced-motion. A page with no
+     hooks pays nothing; a reduced-motion visitor downloads nothing.
+
+     Hooks (all opt-in, all degrade to "the element just looks normal"):
+       [data-brgw-img]       image reveal — mask grows from the bottom edge while the
+                             image counter-scales 2 → 1.2, so the picture never moves.
+                             The residual 1.2 is deliberate headroom for the parallax.
+       [data-brgw-parallax]  scrub-linked drift. Value = strength (default 1).
+       [data-brgw-pin]       pin the element for its own height (or data-brgw-pin-end).
+     ─────────────────────────────────────────────────────────────────────────── */
+  var VENDOR = 'https://blacktoprg.netlify.app/assets/vendor/';
+  var MOTION_SEL = '[data-brgw-img],[data-brgw-parallax],[data-brgw-pin]';
+
+  function loadScript(src) {
+    return new Promise(function (res, rej) {
+      var s = document.createElement('script');
+      s.src = src; s.async = false;            // order matters: gsap before ScrollTrigger
+      s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+
+  function initMotion() {
+    var gsap = window.gsap, ST = window.ScrollTrigger;
+    if (!gsap || !ST) return;
+    gsap.registerPlugin(ST);
+
+    /* Image reveal. clip-path rather than an animated height: same picture — a
+       zero-height window pinned to the bottom edge opening to full — but it never
+       triggers layout, and the image's position is untouched by definition, which is
+       the property this effect depends on. */
+    document.querySelectorAll('[data-brgw-img]').forEach(function (box) {
+      var img = box.querySelector('img');
+      if (!img) return;
+      gsap.set(box, { clipPath: 'inset(100% 0% 0% 0%)' });
+      gsap.set(img, { scale: 2, transformOrigin: '50% 50%' });
+      gsap.timeline({ scrollTrigger: { trigger: box, start: 'top 82%', once: true } })
+        .to(box, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'power3.inOut' }, 0)
+        .to(img, { scale: 1.2, duration: 1.6, ease: 'power3.out' }, 0);
+    });
+
+    /* Parallax. Runs on the 1.2 headroom the reveal leaves, so nothing ever exposes an
+       edge. Distance scales with the element's own height, not a fixed pixel value, so
+       a tall hero and a small card drift proportionally. */
+    document.querySelectorAll('[data-brgw-parallax]').forEach(function (el) {
+      var k = parseFloat(el.dataset.brgwParallax) || 1;
+      gsap.fromTo(el, { yPercent: -6 * k }, {
+        yPercent: 6 * k, ease: 'none',
+        scrollTrigger: { trigger: el.closest('.brgw-sec') || el, start: 'top bottom', end: 'bottom top', scrub: true },
+      });
+    });
+
+    document.querySelectorAll('[data-brgw-pin]').forEach(function (el) {
+      ST.create({
+        trigger: el, start: 'top top',
+        end: el.dataset.brgwPinEnd || '+=' + el.offsetHeight,
+        pin: true, pinSpacing: true,
+      });
+    });
+
+    // Fonts and the reveal engine both change layout after first paint.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
+    window.addEventListener('load', function () { ST.refresh(); });
+  }
+
+  function startMotion() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // stays static
+    if (!document.querySelector(MOTION_SEL)) return;                    // nothing to drive
+    if (window.__brgwMotion) return; window.__brgwMotion = 1;
+    loadScript(VENDOR + 'gsap.min.js')
+      .then(function () { return loadScript(VENDOR + 'ScrollTrigger.min.js'); })
+      .then(initMotion)
+      .catch(function () { /* CDN blocked → CSS baseline still stands */ });
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

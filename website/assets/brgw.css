@@ -165,3 +165,9 @@
   .brgw .ln-i{transform:none!important;}
   .brgw .anim-cta{clip-path:none!important;animation:none!important;}
 }
+
+/* ---- image-reveal container (GSAP layer, brgw.js) ----------------------------
+   Structural only. The hidden pre-state is set by JS via gsap.set(), never here:
+   if the vendor script fails or is blocked, the picture must still be visible. */
+.brgw-img{position:relative;overflow:hidden;display:block;}
+.brgw-img img{display:block;width:100%;height:100%;object-fit:cover;}

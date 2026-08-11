@@ -125,6 +125,9 @@ const DIAG = `new Promise(function(res){ setTimeout(function(){
     topLevelRoots: roots.length,
     inited: roots.map(function(r){ return r.dataset.animInit === '1'; }),
     blanco: document.fonts.check("1em 'Blanco Cavelary'"),
+    gsap: !!window.gsap && window.gsap.version,
+    scrollTriggers: window.ScrollTrigger ? ScrollTrigger.getAll().length : 0,
+    motionHooks: document.querySelectorAll('[data-brgw-img],[data-brgw-parallax],[data-brgw-pin]').length,
     reveals: document.querySelectorAll('.reveal').length,
     isIn: document.querySelectorAll('.reveal.is-in').length,
     heads: [].map.call(document.querySelectorAll('.anim-head'), function(e){
@@ -244,6 +247,24 @@ async function main() {
             })()`,
           });
           await sleep(500);
+        }
+        if (!FOLD) {
+          // Settle the GSAP layer. A still frame can't show scroll-driven motion, so:
+          // entrance timelines (image reveals) are jumped to their END state, and scrubbed
+          // ones (parallax) are reverted to neutral — a parallax frozen at max drift would
+          // photograph as a misalignment bug that doesn't exist. Capture-only.
+          await c.send('Runtime.evaluate', {
+            expression: `(function(){
+              if(!window.ScrollTrigger) return 'no-gsap';
+              ScrollTrigger.getAll().forEach(function(t){
+                if(t.vars && t.vars.scrub){ if(t.animation) t.animation.progress(0.5); }
+                else if(t.animation){ t.animation.progress(1); }
+                t.kill(false);
+              });
+              return 'settled';
+            })()`, returnByValue: true,
+          });
+          await sleep(400);
         }
         if (!FOLD) {
           // captureBeyondViewport renders position:sticky against the EXPANDED viewport, which
