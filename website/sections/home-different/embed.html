@@ -40,12 +40,17 @@
 .brgw-sec--home-different p{opacity:.88;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:47ch;}
 .brgw-sec--home-different p + p{margin-top:1.25em;}
 
-/* Overlapping colour blocks — yellow behind, black in front, white lower-left. */
+/* Three overlapping IMAGE plates, at the comp's block positions. The comp draws them as
+   flat yellow/black/white, but they're image slots — same treatment as home-community.
+   Each keeps its comp colour as the background beneath the photograph, so a missing or
+   slow image still reads as the composition rather than as a hole. */
 .brgw-sec--home-different .blocks{position:relative;aspect-ratio:4/3.2;min-height:280px;}
-.brgw-sec--home-different .blocks i{position:absolute;display:block;}
+.brgw-sec--home-different .blocks .p{position:absolute;display:block;overflow:hidden;}
+.brgw-sec--home-different .blocks .p img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1) contrast(1.05);}
 .brgw-sec--home-different .blocks .y{right:8%;top:0;width:62%;height:60%;background:var(--yellow);}
-.brgw-sec--home-different .blocks .k{right:0;top:34%;width:52%;height:62%;background:#000;}
-.brgw-sec--home-different .blocks .w{left:6%;top:52%;width:26%;height:29%;background:var(--white);}
+.brgw-sec--home-different .blocks .k{right:0;top:34%;width:52%;height:62%;background:#000;z-index:2;}
+.brgw-sec--home-different .blocks .w{left:6%;top:52%;width:26%;height:29%;background:var(--white);z-index:3;}
 </style>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/svg/icons/bolt.svg" alt="" width="94" height="176"></span>
 
@@ -56,8 +61,22 @@
       <p class="anim-up">We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work &mdash; that energy is contagious. You feel it the moment you walk in.</p>
       <p class="anim-up">We're building something that lasts &mdash; not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.</p>
     </div>
-    <div class="blocks anim-up" aria-hidden="true">
-      <i class="y" data-brgw-parallax=".8"></i><i class="k" data-brgw-parallax="1.4"></i><i class="w" data-brgw-parallax="2"></i>
+    <!-- Parallax rates alternate in sign and grow with how far forward the plate sits, so
+         the three separate as you scroll instead of tracking together. Stand-in photography
+         — Sean to name the real three. -->
+    <div class="blocks anim-up">
+      <span class="p y brgw-img" data-brgw-img>
+        <img src="https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp" alt=""
+             width="1600" height="1067" decoding="async" loading="lazy" data-brgw-parallax=".7">
+      </span>
+      <span class="p k brgw-img" data-brgw-img>
+        <img src="https://blacktoprg.netlify.app/assets/media/bg/skater.webp" alt=""
+             width="733" height="1100" decoding="async" loading="lazy" data-brgw-parallax="-1.1">
+      </span>
+      <span class="p w brgw-img" data-brgw-img>
+        <img src="https://blacktoprg.netlify.app/assets/media/bg/surfer.webp" alt=""
+             width="548" height="820" decoding="async" loading="lazy" data-brgw-parallax="1.7">
+      </span>
     </div>
   </div>
 </section>
