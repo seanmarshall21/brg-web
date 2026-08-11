@@ -174,14 +174,29 @@
     window.addEventListener('load', function () { ST.refresh(); });
   }
 
+  /* Prefer the GSAP the HOST PAGE already has. blacktoprestaurantgroup.com loads the full
+     3.13 suite globally (gsap, ScrollTrigger, ScrollSmoother, SplitText, …) from its own
+     bundle, so shipping ours too would be ~116KB of duplicate download AND two copies of
+     gsap fighting over window.gsap — the second load wins, which would break any of the
+     site's own tweens that captured the first reference. Ours is the FALLBACK, for a host
+     that has none. Decided after window load so the host's scripts have actually landed. */
+  function ensureGsap() {
+    if (window.gsap && window.ScrollTrigger) return Promise.resolve('host');
+    if (window.gsap) return loadScript(VENDOR + 'ScrollTrigger.min.js').then(function () { return 'host+ours'; });
+    return loadScript(VENDOR + 'gsap.min.js')
+      .then(function () { return loadScript(VENDOR + 'ScrollTrigger.min.js'); })
+      .then(function () { return 'ours'; });
+  }
+
   function startMotion() {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // stays static
     if (!document.querySelector(MOTION_SEL)) return;                    // nothing to drive
     if (window.__brgwMotion) return; window.__brgwMotion = 1;
-    loadScript(VENDOR + 'gsap.min.js')
-      .then(function () { return loadScript(VENDOR + 'ScrollTrigger.min.js'); })
-      .then(initMotion)
-      .catch(function () { /* CDN blocked → CSS baseline still stands */ });
+    var go = function () {
+      ensureGsap().then(initMotion).catch(function () { /* no GSAP → CSS baseline stands */ });
+    };
+    if (document.readyState === 'complete') go();
+    else window.addEventListener('load', go);
   }
 
   function boot() { startRevealGate(); initSliders(); startMotion(); }

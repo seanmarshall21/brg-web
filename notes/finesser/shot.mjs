@@ -31,6 +31,7 @@ const SHOTS = join(HERE, '.out', 'shots');
 
 const argv = process.argv.slice(2);
 const slugs = argv.filter((a) => !a.startsWith('--'));
+const safeName = (s) => s.replace(/^https?:\/\//,'').replace(/[^a-z0-9._-]+/gi,'_').slice(0,60);
 const has = (f) => argv.includes(f);
 const PORT = Number((argv.find((a) => a.startsWith('--port=')) || '').split('=')[1] || 8787);
 const FOLD = has('--fold');
@@ -128,6 +129,9 @@ const DIAG = `new Promise(function(res){ setTimeout(function(){
     gsap: !!window.gsap && window.gsap.version,
     scrollTriggers: window.ScrollTrigger ? ScrollTrigger.getAll().length : 0,
     motionHooks: document.querySelectorAll('[data-brgw-img],[data-brgw-parallax],[data-brgw-pin]').length,
+    jsErrors: (window.__brgwErrs||[]).slice(0,4),
+    heroH1Opacity: (function(){var h=document.querySelector('.brgw .anim-head');
+      return h ? getComputedStyle(h).opacity + ' / split:' + !!h.querySelector('.ln') : 'none';})(),
     reveals: document.querySelectorAll('.reveal').length,
     isIn: document.querySelectorAll('.reveal.is-in').length,
     heads: [].map.call(document.querySelectorAll('.anim-head'), function(e){
@@ -209,8 +213,14 @@ async function main() {
           width: dev.width, height: dev.height, deviceScaleFactor: dev.dsf, mobile: dev.mobile,
         });
 
+        // Capture page errors — the whole point when probing a live page we don't control.
+        const errs = [];
+        await c.send('Runtime.enable');
+        await c.send('Log.enable').catch(() => {});
+        c.on ? null : null;
         const loaded = c.once('Page.loadEventFired');
-        await c.send('Page.navigate', { url: `http://localhost:${PORT}/${slug}.html` });
+        const target = /^https?:\/\//.test(slug) ? slug : `http://localhost:${PORT}/${slug}.html`;
+        await c.send('Page.navigate', { url: target });
         await loaded;
 
         // Assert readiness rather than guessing with a sleep: brgw.js gates the reveal on
@@ -278,7 +288,7 @@ async function main() {
         const shot = await c.send('Page.captureScreenshot', {
           format: 'png', captureBeyondViewport: !FOLD, optimizeForSpeed: false,
         });
-        const file = join(SHOTS, `${slug}-${dev.name}${FOLD ? '-fold' : ''}.png`);
+        const file = join(SHOTS, `${safeName(slug)}-${dev.name}${FOLD ? '-fold' : ''}.png`);
         await writeFile(file, Buffer.from(shot.data, 'base64'));
         console.log(`shot  ${slug}  ${dev.name.padEnd(7)}  ${dev.width}px  →  ${file.replace(HERE + '/', '')}`);
 

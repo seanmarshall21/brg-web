@@ -32,13 +32,15 @@
 .brgw-sec--home-community p + p{margin-top:1.25em;}
 .brgw-sec--home-community strong{font-weight:700;opacity:1;}
 
-/* Media composition: grey plate with a yellow block overlapping its top-right. The grey is
-   a PLACEHOLDER in the comp too — swap for the real photograph when Sean names it. */
+/* Media composition: two overlapping photographs (the comp draws them as flat colour
+   blocks, but they are image slots). Each gets the reveal + its own parallax rate, and
+   the rates have OPPOSITE signs so the two plates separate as you scroll rather than
+   sliding together — that counter-movement is what reads as depth. */
 .brgw-sec--home-community .media{position:relative;aspect-ratio:4/3.35;min-height:260px;}
-.brgw-sec--home-community .media .plate{position:absolute;left:0;bottom:0;width:86%;height:82%;
-  background:#5b5b5b;}
+.brgw-sec--home-community .media .plate{position:absolute;left:0;bottom:0;width:86%;height:82%;}
 .brgw-sec--home-community .media .block{position:absolute;right:0;top:0;width:46%;height:44%;
   background:var(--yellow);}
+.brgw-sec--home-community .media .block img{filter:grayscale(1) contrast(1.04);}
 /* Doodle cluster, bottom-right, overlapping the media as in the comp. */
 .brgw-sec--home-community .cluster{position:absolute;right:-2%;bottom:-7%;width:clamp(120px,15vw,215px);z-index:3;}
 .brgw-sec--home-community .cluster img{width:100%;height:auto;display:block;}
@@ -55,9 +57,15 @@
       <p class="anim-up">Today, BRG operates 12 Board &amp; Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside &mdash; and we're just getting started.</p>
     </div>
     <div class="media anim-up">
-      <div class="plate"></div>
-      <div class="block"></div>
-      <span class="cluster" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg" alt="" width="302" height="310"></span>
+      <div class="plate brgw-img" data-brgw-img>
+        <img src="https://blacktoprg.netlify.app/assets/media/bg/skater.webp" alt=""
+             width="733" height="1100" decoding="async" loading="lazy" data-brgw-parallax="1">
+      </div>
+      <div class="block brgw-img" data-brgw-img>
+        <img src="https://blacktoprg.netlify.app/assets/media/bg/surfer.webp" alt=""
+             width="548" height="820" decoding="async" loading="lazy" data-brgw-parallax="-.9">
+      </div>
+      <span class="cluster" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg" alt="" width="302" height="310"></span>
     </div>
   </div>
 </section>
