@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.1.0
+ * Version: 2.2.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.1.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.2.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -41,10 +41,23 @@ $GLOBALS['VCC_CLIENTS'] = array(
     'base'     => 'https://blacktoprg.netlify.app', // Netlify site (publish dir = website/)
     'manifest' => '/pages.json',                    // list of pages Claude maintains
     'sections' => '/sections.json',                 // list of stackable sections
-    'assets'   => array( '/assets/brgw.css', '/assets/brgw.js' ), // shared, inlined once/page
+    'assets'   => array( '/assets/brgw.css', '/assets/brgw.js', '/assets/brgw-nav.css', '/assets/brgw-nav.js' ), // shared, inlined once/page
+    // Nav is WordPress-MENU driven (Appearance → Menus). [brg_nav] runs wp_nav_menu() for this location.
+    'nav_menu' => 'brg_primary',                    // registered menu location (Manage Locations)
+    'nav_logo' => '/assets/media/logos/logo-brg-nav-sm.svg',
+    'home_url' => '/brg-home/',                      // logo link + home
   ),
   // 'acme' => array('base'=>'https://acme-web.netlify.app','manifest'=>'/pages.json','sections'=>'/sections.json','assets'=>array('/assets/acme.css','/assets/acme.js')),
 );
+
+/* ── Register WordPress menu LOCATIONS so nav content is managed in WP (not code).
+      User assigns a menu under Appearance → Menus → Manage Locations, exactly like Temper. ── */
+add_action( 'after_setup_theme', function () {
+    register_nav_menus( array(
+        'brg_primary' => 'BRG — Primary',
+        'brg_social'  => 'BRG — Social',
+    ) );
+} );
 
 /* ── ttl for a shortcode call (ttl="N" attr, or 0 via ?brg_refresh=1) ───────── */
 if ( ! function_exists( 'vcc_ttl' ) ) {
@@ -249,6 +262,47 @@ if ( ! function_exists( 'vcc_render_chrome' ) ) {
     }
 }
 
+/* ── Render the WP-menu-driven nav (v2.2: [brg_nav]). Content = wp_nav_menu() for the
+      configured location; styling/behaviour = brgw-nav.css/js. brgw-nav.js injects the
+      pen-stroke marker underline + builds the mobile takeover from the same menu. ──── */
+if ( ! function_exists( 'vcc_render_nav' ) ) {
+    function vcc_render_nav( $client, $atts ) {
+        $cfg = isset( $GLOBALS['VCC_CLIENTS'][ $client ] ) ? $GLOBALS['VCC_CLIENTS'][ $client ] : null;
+        if ( ! $cfg ) return '';
+        $ttl  = vcc_ttl( $atts );
+        $base = rtrim( $cfg['base'], '/' );
+        $home = isset( $cfg['home_url'] ) ? $cfg['home_url'] : '/';
+        $loc  = isset( $cfg['nav_menu'] ) ? $cfg['nav_menu'] : '';
+        $logo = isset( $cfg['nav_logo'] ) ? $base . $cfg['nav_logo'] : '';
+
+        $menu = '';
+        if ( $loc && function_exists( 'has_nav_menu' ) && has_nav_menu( $loc ) ) {
+            $menu = wp_nav_menu( array(
+                'theme_location' => $loc, 'container' => false, 'menu_class' => 'nav-src',
+                'echo' => false, 'fallback_cb' => false, 'depth' => 2,
+            ) );
+        }
+        if ( ! is_string( $menu ) || $menu === '' ) {
+            // No menu assigned yet — a helpful, unstyled note instead of a blank bar.
+            $menu = '<ul class="nav-src"><li><a class="bnav-link" href="' . esc_url( admin_url( 'nav-menus.php?action=locations' ) )
+                  . '">Assign a menu to “BRG — Primary” in Appearance → Menus → Manage Locations</a></li></ul>';
+        }
+
+        $header = '<header class="bnav">'
+                . '<a class="bnav-logo" href="' . esc_url( $home ) . '" aria-label="Blacktop Restaurant Group — home">'
+                . ( $logo ? '<img src="' . esc_url( $logo ) . '" alt="Blacktop Restaurant Group">' : '' )
+                . '</a>'
+                . $menu
+                . '<button class="bnav-ham" aria-label="Menu"><i></i><i></i></button>'
+                . '</header>';
+
+        list( $css, $js ) = vcc_shared_assets( $client, $cfg, $ttl );
+        $out = "\n<!-- vc_embed " . esc_html( $client . '/nav' ) . ' v' . VCC_VERSION . " -->\n"
+             . $css . '<div class="brgw brgw-shell">' . $header . '</div>' . $js;
+        return vcc_guard( $client, $out );
+    }
+}
+
 /* ── Register shortcodes from the manifests (adding a page/section needs no edit here) ── */
 add_action( 'init', function () {
     foreach ( $GLOBALS['VCC_CLIENTS'] as $client => $cfg ) {
@@ -267,9 +321,9 @@ add_action( 'init', function () {
             return $id === '' ? '<!-- vc_embed: section id missing -->' : vcc_render_section( $client, $id, $atts );
         } );
 
-        // Chrome: [brg_nav active="community"] + [brg_footer]
+        // Nav: [brg_nav] = WP-menu-driven header (v2.2). Footer stays the simple lockup.
         add_shortcode( $client . '_nav', function ( $atts ) use ( $client ) {
-            return vcc_render_chrome( $client, 'header', is_array( $atts ) ? $atts : array() );
+            return vcc_render_nav( $client, is_array( $atts ) ? $atts : array() );
         } );
         add_shortcode( $client . '_footer', function ( $atts ) use ( $client ) {
             return vcc_render_chrome( $client, 'footer', is_array( $atts ) ? $atts : array() );

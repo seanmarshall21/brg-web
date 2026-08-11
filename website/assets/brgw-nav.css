@@ -1,0 +1,72 @@
+/* brgw-nav.css — BRG navigation (reskin of Ranger's Temper nav component).
+   WP-MENU-DRIVEN: the plugin emits wp_nav_menu() as <ul class="nav-src"> inside
+   <header class="bnav">; brgw-nav.js enhances it (injects the marker underline,
+   marks the active item, mobile takeover). Content lives in WordPress (Appearance →
+   Menus); this styling pushes live from the repo. Namespaced .bnav to avoid the
+   legacy .brgw-header/.brgw-nav in brgw.css (which this replaces). */
+.bnav{ --acc:#19C7C2; --yellow:#FCE200; --ink:#231F20;
+  position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:26px;
+  background:#fff;border-top:6px solid var(--yellow);box-shadow:0 1px 0 rgba(0,0,0,.06);
+  padding:20px clamp(20px,4vw,54px);font-family:'Montserrat',system-ui,sans-serif;}
+.bnav *{box-sizing:border-box;}
+
+/* Auto-invert register: brgw-nav.js flips .on-dark when a dark section sits under the bar. */
+.bnav.on-dark{background:#131210;box-shadow:none;}
+.bnav.on-dark .bnav-link{color:#fff;}
+
+/* Logo (left) */
+.bnav-logo{display:flex;align-items:center;margin-right:auto;text-decoration:none;line-height:0;}
+.bnav-logo img{height:clamp(28px,3vw,36px);width:auto;display:block;}
+
+/* Menu (right) — wp_nav_menu(menu_class="nav-src") */
+.bnav .nav-src{display:flex;align-items:center;gap:clamp(14px,2vw,34px);list-style:none;margin:0;padding:0;}
+.bnav .nav-src li{position:relative;}
+.bnav-link{position:relative;display:inline-block;color:var(--ink);text-decoration:none;text-transform:uppercase;
+  letter-spacing:.14em;font-size:clamp(11px,1vw,12px);font-weight:700;opacity:.72;padding:4px 0 12px;
+  transition:opacity .16s ease,color .16s ease;font-family:inherit;background:none;border:0;cursor:pointer;}
+.bnav-link:hover,.bnav-link:focus-visible{opacity:1;}
+
+/* Pen-stroke marker underline — injected by brgw-nav.js as .bnav-uline > path.
+   Draws on hover AND on the active menu item (WP's .current-menu-item). */
+.bnav-uline{position:absolute;left:-6%;right:-6%;bottom:2px;width:112%;height:11px;overflow:visible;pointer-events:none;}
+.bnav-uline path{fill:none;stroke:var(--acc);stroke-width:4.5;stroke-linecap:round;visibility:hidden;
+  stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .55s cubic-bezier(.55,.06,.2,1);}
+.bnav .nav-src li:hover .bnav-uline path,
+.bnav .nav-src li:focus-within .bnav-uline path,
+.bnav .nav-src .current-menu-item > .bnav-uline path,
+.bnav .nav-src .current-menu-ancestor > .bnav-uline path,
+.bnav .nav-src .is-active > .bnav-uline path{visibility:visible;stroke-dashoffset:0;}
+/* active page draws a touch slower (feels deliberate); hover is snappy */
+.bnav .nav-src .current-menu-item > .bnav-uline path,
+.bnav .nav-src .is-active > .bnav-uline path{transition-duration:.7s;transition-delay:.15s;}
+.bnav .nav-src .current-menu-item > .bnav-link,
+.bnav .nav-src .is-active > .bnav-link{opacity:1;}
+
+/* Hamburger (mobile) */
+.bnav-ham{all:unset;display:none;cursor:pointer;width:42px;height:42px;place-items:center;margin-left:auto;}
+.bnav-ham i{display:block;width:26px;height:2.5px;background:currentColor;color:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .2s ease;}
+.bnav-ham i+i{margin-top:7px;}
+.bnav.on-dark .bnav-ham i{background:#fff;}
+
+/* Mobile takeover (full-screen menu) */
+.bnav-drawer{position:fixed;inset:0;z-index:59;background:#131210;color:#fff;
+  transform:translateY(-100%);transition:transform .5s cubic-bezier(.5,0,.2,1);
+  display:flex;flex-direction:column;padding:96px clamp(24px,7vw,64px) 48px;overflow:auto;}
+.bnav-drawer.open{transform:translateY(0);}
+.bnav-drawer .nav-src{display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0;}
+.bnav-drawer .bnav-link{font-size:clamp(30px,9vw,54px);letter-spacing:.01em;opacity:.9;padding:6px 0;color:#fff;
+  font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;}
+.bnav-drawer .bnav-uline{bottom:.12em;left:0;right:auto;width:min(320px,60%);height:.3em;}
+.bnav-drawer .bnav-uline path{stroke:var(--yellow);stroke-width:9;}
+
+@media (max-width:860px){
+  .bnav > .nav-src{display:none;}
+  .bnav-ham{display:grid;margin-right:0;}
+  .bnav-logo{margin-right:0;}
+}
+@media (min-width:861px){ .bnav-drawer{display:none;} }
+
+@media (prefers-reduced-motion:reduce){
+  .bnav-uline path{transition:none;}
+  .bnav-drawer{transition:none;}
+}
