@@ -34,10 +34,20 @@
     var dItems = drawer.querySelector('.bnav-drawer-items');
     function setDrawer(o) {
       drawer.classList.toggle('open', o); scrim.classList.toggle('open', o);
+      nav.classList.toggle('menu-open', o);          // morphs the hamburger → X
       drawer.setAttribute('aria-hidden', o ? 'false' : 'true');
       document.documentElement.style.overflow = o ? 'hidden' : '';
     }
-    function openWith(list) { dItems.innerHTML = ''; list.forEach(function (it) { dItems.appendChild(mkItem(it)); }); setDrawer(true); }
+    function openWith(list) {
+      dItems.innerHTML = '';
+      list.forEach(function (it, i) {
+        var el = mkItem(it);
+        el.style.transitionDelay = (0.14 + i * 0.055) + 's';   // staggered rise-in
+        dItems.appendChild(el);
+      });
+      void drawer.offsetWidth;                        // paint the hidden start state so the stagger plays
+      setDrawer(true);
+    }
     scrim.addEventListener('click', function () { setDrawer(false); });
     drawer.querySelector('.bnav-drawer-close').addEventListener('click', function () { setDrawer(false); });
     drawer.addEventListener('click', function (e) { if (e.target.closest('a')) setDrawer(false); });
@@ -84,7 +94,12 @@
 
     // Mobile hamburger → full menu in the drawer.
     var ham = nav.querySelector('.bnav-ham');
-    if (ham) { ham.setAttribute('aria-label', 'Menu'); ham.addEventListener('click', function () { openWith(SRC); }); }
+    if (ham) {
+      ham.setAttribute('aria-label', 'Menu');
+      ham.addEventListener('click', function () {
+        if (drawer.classList.contains('open')) setDrawer(false); else openWith(SRC);
+      });
+    }
 
     // sticky="hide" → hide-on-scroll-down / show-on-up.
     if (nav.dataset.sticky === 'hide') {

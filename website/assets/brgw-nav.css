@@ -68,31 +68,44 @@
 .bnav.lay-center .bnav-grp-a{justify-self:end;} .bnav.lay-center .bnav-grp-b{justify-self:start;}
 
 /* Hamburger (mobile) */
-.bnav-ham{all:unset;display:none;cursor:pointer;width:42px;height:42px;place-items:center;margin-left:auto;}
-.bnav-ham i{display:block;width:26px;height:2.5px;background:var(--ink);border-radius:2px;}
-.bnav-ham i+i{margin-top:7px;}
+.bnav-ham{all:unset;display:none;position:relative;cursor:pointer;width:40px;height:40px;margin-left:auto;}
+.bnav-ham i{position:absolute;left:7px;right:7px;top:calc(50% - 1.25px);height:2.5px;background:var(--ink);border-radius:2px;
+  transition:transform .38s cubic-bezier(.5,0,.2,1),background .25s ease;}
+.bnav-ham i:nth-child(1){transform:translateY(-4px);}   /* closed: two stacked bars */
+.bnav-ham i:nth-child(2){transform:translateY(4px);}
+/* morph → clean X while the menu is open: both bars sit on the same center line, rotate opposite.
+   Bars keep their register color — dark on the white bar, white on a transparent one. */
+.bnav.menu-open{z-index:63;}
+.bnav.menu-open .bnav-ham i:nth-child(1){transform:rotate(45deg);}
+.bnav.menu-open .bnav-ham i:nth-child(2){transform:rotate(-45deg);}
 
 /* Drawer (More on desktop · full menu on mobile) + scrim */
 .bnav-scrim{position:fixed;inset:0;z-index:61;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .3s ease;}
 .bnav-scrim.open{opacity:1;visibility:visible;}
-.bnav-drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,90vw);z-index:62;background:#131210;color:#fff;
-  transform:translateX(100%);transition:transform .45s cubic-bezier(.5,0,.2,1);
-  display:flex;flex-direction:column;padding:84px clamp(24px,5vw,48px) 40px;overflow:auto;}
+.bnav-drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);z-index:62;background:#131210;color:#fff;
+  transform:translateX(100%);transition:transform .5s cubic-bezier(.16,.84,.44,1);will-change:transform;
+  display:flex;flex-direction:column;padding:92px clamp(24px,5vw,48px) 40px;overflow:auto;}
 .bnav-drawer.open{transform:translateX(0);}
-.bnav-drawer-items{display:flex;flex-direction:column;}
-.bnav-drawer .bnav-link{color:#fff;opacity:.92;font-size:clamp(26px,6vw,40px);letter-spacing:.01em;padding:10px 0;white-space:normal;
+.bnav-drawer-items{display:flex;flex-direction:column;gap:2px;}
+/* items rise + fade in, staggered (delay set per item in JS) — no dead pause after the slide */
+.bnav-drawer .bnav-item{display:block;opacity:0;transform:translateY(18px);
+  transition:opacity .5s ease,transform .55s cubic-bezier(.2,.85,.3,1);}
+.bnav-drawer.open .bnav-item{opacity:1;transform:none;}
+.bnav-drawer .bnav-link{color:#fff;opacity:.92;font-size:clamp(26px,6vw,40px);letter-spacing:.01em;padding:8px 0;white-space:normal;
   font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;text-transform:uppercase;}
 .bnav-drawer .bnav-uline{position:relative;left:0;right:auto;width:min(280px,55%);height:.32em;bottom:.14em;display:block;}
 .bnav-drawer .bnav-uline path{stroke:var(--yellow);stroke-width:9;}
 .bnav-drawer .is-active .bnav-uline path{visibility:visible;stroke-dashoffset:0;}
 .bnav-drawer-close{all:unset;cursor:pointer;position:absolute;top:26px;right:26px;font-size:12px;letter-spacing:.14em;
   text-transform:uppercase;font-weight:700;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:8px 15px;color:#fff;}
+@media (max-width:860px){ .bnav-drawer-close{display:none;} }   /* mobile: the morphing hamburger X closes it */
 
 @media (max-width:860px){
   .bnav{display:flex !important;justify-content:space-between;}
   .bnav .bnav-grp{display:none !important;}
-  .bnav-logo{order:-1;margin:0;}
-  .bnav-ham{display:grid;margin-left:0;}
+  /* !important beats the lay-* logo auto-margins, or the ham gets pushed off-screen */
+  .bnav .bnav-logo{order:-1;margin:0 !important;justify-self:start;}
+  .bnav-ham{display:block;margin-left:0;}
 }
 
 @media (prefers-reduced-motion:reduce){
