@@ -1,0 +1,248 @@
+{
+  "registry": "brg",
+  "version": 1,
+  "_note": "SINGLE SOURCE OF TRUTH for every BRG shortcode. The docs (SHORTCODES.md, docs/shortcode-index.html) are GENERATED from this by kit/build.py — edit here, then run `python3 kit/build.py`. Pattern borrowed from fc-brands (temper/kit). Each component gets a `version` (int) + `contract` (hash of shortcode+type+attr names/defaults), stamped by the builder.",
+  "globals": [
+    {
+      "name": "ttl",
+      "default": "120",
+      "doc": "Server cache seconds on any shortcode. ttl=\"0\" = always fresh (test pages)."
+    },
+    {
+      "name": "?brg_refresh=1",
+      "default": "-",
+      "doc": "URL param (not an attr) — forces every BRG shortcode on the page to re-fetch once."
+    }
+  ],
+  "components": [
+    {
+      "id": "page",
+      "shortcode": "brg_<slug>",
+      "type": "embed",
+      "group": "pages",
+      "summary": "A whole page fragment (v2.0 monolith) + shared header/footer.",
+      "aliases": "brg_home, brg_our-restaurants, brg_team, brg_community, brg_careers (from pages.json)",
+      "attrs": [
+        {
+          "name": "ttl",
+          "default": "120",
+          "options": [],
+          "doc": "Server cache seconds. ttl=\"0\" = always fresh."
+        },
+        {
+          "name": "chrome",
+          "default": "on",
+          "options": [
+            "on",
+            "0"
+          ],
+          "doc": "chrome=\"0\" renders the page bare — no shared header/footer."
+        }
+      ],
+      "version": 1,
+      "contract": "88180b5dc4cf"
+    },
+    {
+      "id": "page_generic",
+      "shortcode": "brg page=\"…\"",
+      "type": "embed",
+      "group": "pages",
+      "summary": "Generic form of the page shortcode.",
+      "attrs": [
+        {
+          "name": "page",
+          "default": "home",
+          "options": [],
+          "doc": "Which page fragment (generic form of the aliases)."
+        },
+        {
+          "name": "ttl",
+          "default": "120",
+          "options": [],
+          "doc": "Server cache seconds."
+        },
+        {
+          "name": "chrome",
+          "default": "on",
+          "options": [
+            "on",
+            "0"
+          ],
+          "doc": "chrome=\"0\" = no header/footer."
+        }
+      ],
+      "version": 1,
+      "contract": "50710ec86127"
+    },
+    {
+      "id": "section",
+      "shortcode": "brg_<id>",
+      "type": "embed",
+      "group": "sections",
+      "summary": "One section fragment (no chrome). Stack these to build a page.",
+      "aliases": "brg_community-hero, brg_careers-apply, brg_home-values, … (from sections.json)",
+      "attrs": [
+        {
+          "name": "ttl",
+          "default": "120",
+          "options": [],
+          "doc": "Server cache seconds."
+        },
+        {
+          "name": "anchor",
+          "default": "",
+          "options": [],
+          "doc": "Injects id=\"…\" on the section root for jump links (/careers/#apply)."
+        },
+        {
+          "name": "slots",
+          "default": "",
+          "options": [],
+          "doc": "Per-section {{token}} overrides — none declared yet; appears when a section adds them."
+        }
+      ],
+      "version": 1,
+      "contract": "22483f6c6833"
+    },
+    {
+      "id": "section_generic",
+      "shortcode": "brg_section id=\"…\"",
+      "type": "embed",
+      "group": "sections",
+      "summary": "Generic form of the section shortcode.",
+      "attrs": [
+        {
+          "name": "id",
+          "default": "",
+          "options": [],
+          "doc": "Which section (generic form). e.g. id=\"cta-band\"."
+        },
+        {
+          "name": "ttl",
+          "default": "120",
+          "options": [],
+          "doc": "Server cache seconds."
+        },
+        {
+          "name": "anchor",
+          "default": "",
+          "options": [],
+          "doc": "Jump-link id on the section root."
+        }
+      ],
+      "version": 1,
+      "contract": "9d639f65bd4c"
+    },
+    {
+      "id": "nav",
+      "shortcode": "brg_nav",
+      "type": "php",
+      "group": "chrome",
+      "summary": "WordPress-menu-driven nav (fixed). Content from Appearance → Menus.",
+      "attrs": [
+        {
+          "name": "layout",
+          "default": "left",
+          "options": [
+            "left",
+            "split",
+            "center",
+            "compact"
+          ],
+          "doc": "center = logo centered; compact = logo-left, overflow → More drawer."
+        },
+        {
+          "name": "left",
+          "default": "2",
+          "options": [],
+          "doc": "Items per side (split/center) or total-before-overflow (compact)."
+        },
+        {
+          "name": "right",
+          "default": "2",
+          "options": [],
+          "doc": "Items on the right side (split/center)."
+        },
+        {
+          "name": "sticky",
+          "default": "pin",
+          "options": [
+            "pin",
+            "hide"
+          ],
+          "doc": "pin stays; hide = hide-on-scroll-down (nav is fixed, so it always sticks)."
+        },
+        {
+          "name": "bg",
+          "default": "solid",
+          "options": [
+            "solid",
+            "none",
+            "frost"
+          ],
+          "doc": "solid (white bar, reserves space) · none (transparent, floats over hero) · frost (dark frosted glass + blur)."
+        },
+        {
+          "name": "bgcolor",
+          "default": "#fff",
+          "options": [],
+          "doc": "Background color for solid/frost, any CSS color (bgcolor=\"#131210\")."
+        },
+        {
+          "name": "opacity",
+          "default": "1",
+          "options": [],
+          "doc": "Background opacity 0–1 (solid/frost)."
+        },
+        {
+          "name": "ttl",
+          "default": "120",
+          "options": [],
+          "doc": "Server cache seconds."
+        }
+      ],
+      "version": 1,
+      "contract": "e4a3ae5fc13b"
+    },
+    {
+      "id": "footer",
+      "shortcode": "brg_footer",
+      "type": "php",
+      "group": "chrome",
+      "summary": "The shared BLACKTOP lockup footer.",
+      "attrs": [
+        {
+          "name": "ttl",
+          "default": "120",
+          "options": [],
+          "doc": "Server cache seconds."
+        }
+      ],
+      "version": 1,
+      "contract": "2246471ccc36"
+    },
+    {
+      "id": "vc_embed",
+      "shortcode": "vc_embed url=\"…\"",
+      "type": "php",
+      "group": "utility",
+      "summary": "One-off: inline any Netlify fragment by full URL.",
+      "attrs": [
+        {
+          "name": "url",
+          "default": "",
+          "options": [],
+          "doc": "Full URL of any Netlify fragment. Netlify-host only."
+        },
+        {
+          "name": "ttl",
+          "default": "120",
+          "options": [],
+          "doc": "Server cache seconds."
+        }
+      ],
+      "version": 1,
+      "contract": "9bc191093a53"
+    }
+  ]
+}
