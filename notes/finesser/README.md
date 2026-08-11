@@ -3,6 +3,9 @@
 **Single writer: the Finesser chat.** Controller + Explorer READ freely; they log to their own
 `notes/*.md`.
 
+> **New Finesser chat? Read [`HANDOFF.md`](HANDOFF.md) first** — current build state, the
+> gotchas that cost real time, and what's still open.
+
 `notes/finesser.md` stays the **log** — dated one-liners (`DONE:` / `NEED:` / `QUESTION:`) that the
 Controller scans each turn. This folder holds the **tooling** that backs the "verify before you
 call it done" rule, plus any working notes too long for a log line.
@@ -26,6 +29,8 @@ node notes/finesser/shot.mjs home            # desktop 1440 + mobile 390, full p
 | `compose.mjs` | Rebuilds a WP page locally, mirroring `vcc_render_page()` + `vcc_chrome()` in the plugin — nav built from `pages.json`, `.is-active` on the current slug, shared assets inlined in the same order. `--live` composes from `blacktoprg.netlify.app` instead of local files, to check what actually deployed. |
 | `shot.mjs` | Screenshots a composed page at 1440 (desktop) and 390 (mobile), full-page. Zero dependencies — drives the system Chrome over the DevTools Protocol via Node's built-in `WebSocket`. |
 | `.out/` | Composed HTML + `shots/*.png`. Gitignored. |
+| `sections.draft.json` | My draft of the section manifest (Conti ratifies the real `website/sections.json`). |
+| `HANDOFF.md` | State-of-the-build handoff for an incoming Finesser chat. |
 
 ### Two things `shot.mjs` has to do, and why
 
