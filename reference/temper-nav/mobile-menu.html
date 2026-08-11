@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEMPER — Mobile Menu Takeover (Ranger · dark · WP-ready)</title>
+<link rel="stylesheet" href="https://use.typekit.net/kxm0tud.css">
+<style>
+  :root{--ui:#6BCEE8;--ink:#eaf6ff;--rule:rgba(107,206,232,.28);--cond:"helvetica-neue-lt-pro-cond","helvetica-neue-lt-pro",Arial,sans-serif;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#101216;color:#fff;font-family:var(--cond);
+    display:flex;flex-direction:column;align-items:center;min-height:100svh;gap:14px;padding:18px;}
+  .hint{color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.05em;text-align:center;max-width:430px;line-height:1.5}
+
+  .phone{position:relative;width:min(420px,94vw);height:min(880px,84svh);border-radius:38px;overflow:hidden;
+    border:1px solid rgba(255,255,255,.14);box-shadow:0 40px 120px rgba(0,0,0,.6);background:#05070d;}
+
+  /* persistent header (logo + hamburger) — sits ABOVE the menu so the hamburger morphs in place */
+  .tm-header{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+    padding:20px 22px;}
+  .tm-logo{font-family:"minion-pro","times new roman",serif;font-style:italic;font-size:23px;color:var(--ui);
+    text-decoration:none;transition:color .4s ease-out;}
+  .tm-logo:hover{color:#fff;}
+  .ham{all:unset;cursor:pointer;width:40px;height:40px;display:grid;place-items:center;}
+  .ham-lines{position:relative;width:27px;height:16px;}
+  .ham i{position:absolute;left:0;top:calc(50% - 1px);width:100%;height:2px;background:var(--ui);border-radius:2px;
+    transform-origin:50% 50%;transition:background-color .4s ease-out;}
+  .ham:hover i{background:#fff;}
+  /* persistent Tickets pill in the header (always-available CTA) */
+  .tm-head-r{display:flex;align-items:center;gap:14px;}
+  .tm-tix{display:inline-flex;align-items:center;text-decoration:none;text-transform:uppercase;letter-spacing:.1em;
+    font-family:var(--cond);font-weight:800;font-size:12px;color:#04070d;background:var(--ui);border-radius:999px;padding:8px 15px;
+    transition:transform .15s ease;}
+  .tm-tix:hover{transform:translateY(-1px);}
+  /* dedicated Tickets CTA section inside the takeover (its own block, above Social) */
+  .tm-tix-cta{flex:0 0 auto;margin-top:12px;display:flex;align-items:center;justify-content:space-between;
+    text-decoration:none;text-transform:uppercase;font-family:var(--cond);font-weight:800;letter-spacing:.04em;
+    font-size:26px;color:#04070d;background:var(--ui);border-radius:12px;padding:15px 18px;
+    box-shadow:0 0 40px rgba(107,206,232,.25);transition:transform .15s ease;}
+  .tm-tix-cta:hover{transform:translateY(-2px);}
+  .tm-tix-arrow{font-size:.9em;}
+  /* ---- Tickets PLACEMENT (data-tix on .phone) ----
+     bar = persistent header pill (also visible with menu closed) · top / inline / bottom = big CTA
+     inside the takeover (JS relocates it). Default = bottom (anchored above TEMPER). */
+  .phone:not([data-tix="bar"]) .tm-tix{display:none;}      /* header pill only in "bar" mode */
+  .phone[data-tix="bar"] .tm-tix-cta{display:none;}        /* big CTA hidden in "bar" mode */
+  .phone[data-tix="top"] .tm-tix-cta{margin:0 0 16px;}     /* top of the body, by the close */
+  .phone[data-tix="bottom"] .tm-tix-cta{margin-top:14px;}  /* bottom of the body, above TEMPER */
+  .phone[data-tix="end"] .tm-tix-cta{margin-top:16px;}     /* BELOW TEMPER/meta — the very last thing */
+
+  /* mini controls under the phone */
+  .ctl{display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+    border-radius:12px;padding:8px 12px;}
+  .ctl label{color:rgba(255,255,255,.45);font-size:10px;letter-spacing:.16em;text-transform:uppercase;}
+  .ctl button{all:unset;cursor:pointer;color:rgba(255,255,255,.7);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18);}
+  .ctl button.on{background:var(--ui);color:#04070d;border-color:var(--ui);font-weight:700;}
+
+  /* faux home behind the menu */
+  .stage{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px;
+    background:radial-gradient(70% 40% at 50% 18%,rgba(96,168,228,.14),transparent 70%),
+      repeating-linear-gradient(90deg,rgba(150,200,240,.05) 0 1px,transparent 1px 5px),#05070d;}
+  .stage h1{font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.9;font-size:clamp(40px,16vw,84px);
+    color:var(--ui);text-shadow:0 0 30px rgba(107,206,232,.35)}
+
+  /* ============ TAKEOVER (dark) ============ */
+  .tm{position:absolute;inset:0;z-index:10;overflow:hidden;visibility:hidden;clip-path:inset(0 0 100% 0);will-change:clip-path;}
+  .tm.open{visibility:visible;}
+  .tm-panel{position:absolute;inset:0;display:flex;flex-direction:column;padding:74px 22px 18px;color:var(--ink);
+    background:radial-gradient(70% 40% at 50% 12%,rgba(96,168,228,.16),transparent 70%),
+      repeating-linear-gradient(90deg,rgba(150,200,240,.06) 0 1px,transparent 1px 5px),#06090e;}
+
+  /* body = [menu (scrolls)] + [social (pinned to the cutoff line above TEMPER)] */
+  .tm-body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;}
+  .tm-eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;opacity:.55;margin:0 2px 2px;font-family:var(--cond);}
+
+  .tm-menu-sec{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .tm-social-sec{flex:0 0 auto;padding-top:14px;border-top:1px solid var(--rule);margin-top:12px;}  /* its TOP = the scroll cutoff */
+
+  /* WordPress menu markup: ul.menu > li.menu-item > a (+ ul.sub-menu). Enhancer adds num/count/expand. */
+  ul.menu{list-style:none;margin:0;padding:0;}
+  /* NOTE: descendant (not >) so the .tm-nav wrapper between .tm-menu-sec and ul.menu doesn't break it */
+  .tm-menu-sec ul.menu > li{border-top:1px solid var(--rule);}
+  .tm-menu-sec ul.menu > li:first-child{border-top:none;}   /* eyebrow floats directly above the first item (matches Social) */
+  .tm-menu-sec ul.menu > li > a{
+    display:flex;align-items:baseline;gap:6px;                  /* num<->label closer (was 12) */
+    text-decoration:none;color:var(--ink);cursor:pointer;
+    padding:13px 12px;                                          /* L/R padding so hover doesn't clip */
+    font-family:var(--cond);transition:color .18s ease;}
+  .tm-num{font-size:11px;letter-spacing:.08em;opacity:.55;transform:translateY(-.35em);min-width:1.5em;}
+  .tm-label{display:inline-block;overflow:hidden;padding:.02em .05em 0;   /* mask for the split-text rise */
+    font-weight:800;text-transform:uppercase;letter-spacing:.005em;line-height:.98;font-size:clamp(30px,9vw,46px);}
+  .tm-label-in{display:inline-block;text-shadow:0 0 22px rgba(107,206,232,.16);}
+  .tm-tail{margin-left:auto;align-self:center;display:flex;align-items:center;gap:10px;}
+  .tm-count{font-size:11px;border:1px solid currentColor;border-radius:999px;min-width:1.7em;height:1.7em;
+    display:inline-flex;align-items:center;justify-content:center;padding:0 .3em;opacity:.7;}
+  .tm-exp{font-size:26px;line-height:1;width:1em;text-align:center;transition:transform .3s ease;opacity:.85;}
+  .tm-menu-sec ul.menu > li.on-exp > a .tm-exp{transform:rotate(45deg);}
+  /* hover + current => blue */
+  .tm-menu-sec ul.menu > li > a:hover,
+  .tm-menu-sec ul.menu > li > a.current{color:var(--ui);}
+  .tm-menu-sec ul.menu > li > a.current .tm-num{opacity:1;}
+
+  ul.sub-menu{list-style:none;margin:0;padding:0;height:0;overflow:hidden;}
+  ul.sub-menu .sub-in{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;padding:2px 12px 16px calc(1.5em + 12px);}
+  ul.sub-menu a{color:inherit;text-decoration:none;opacity:.72;font-family:var(--cond);font-size:18px;text-transform:uppercase;letter-spacing:.02em;}
+  ul.sub-menu a:hover{opacity:1;color:var(--ui);}
+
+  /* social list (its own wp menu) */
+  .tm-social-sec ul.menu li + li{margin-top:2px;}
+  .tm-social-sec ul.menu a{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;
+    padding:8px 12px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-weight:700;font-size:20px;transition:color .18s ease;}
+  .tm-social-sec ul.menu a:hover{color:var(--ui);}
+  .tm-social-sec svg{width:20px;height:20px;flex:0 0 auto;fill:currentColor;}
+
+  /* anchor: line ~10px above TEMPER */
+  .tm-anchor{flex:0 0 auto;margin-top:10px;padding-top:10px;border-top:1px solid var(--rule);}
+  .tm-word{font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:.8;
+    font-size:clamp(56px,22vw,110px);color:var(--ink);text-shadow:0 0 40px rgba(107,206,232,.18);}
+  .tm-word sup{font-size:.22em;vertical-align:top;opacity:.6;}
+  .tm-meta{margin-top:8px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.6;font-family:var(--cond);}
+
+  /* dark reveal glitch flick */
+  .tm-item-go .tm-label{animation:tmGlitch .5s step-end 1;}
+  @keyframes tmGlitch{0%{transform:translate(0,0)}12%{transform:translate(-2px,1px);text-shadow:2px 0 rgba(255,0,90,.7),-2px 0 rgba(0,200,255,.7)}
+    30%{transform:translate(2px,-1px)}48%{transform:translate(-1px,1px);text-shadow:-2px 0 rgba(255,0,90,.5),2px 0 rgba(0,200,255,.5)}
+    70%{transform:translate(1px,0)}100%{transform:translate(0,0)}}
+  @media (prefers-reduced-motion:reduce){ .tm-exp{transition:none;} .tm-item-go .tm-label{animation:none;} }
+</style>
+</head>
+<body>
+<!-- ============================================================
+     GENERIC, REUSABLE mobile takeover (not Temper-specific).
+     Driven by standard wp_nav_menu markup (ul.menu > li > a, + ul.sub-menu);
+     the enhancer adds numbering, sub-menu expanders, and Social icons.
+     RESKIN for another site by changing only: --ui/--ink/--rule/--cond,
+     the .tm-logo + .tm-word (brand), and the two <ul class="menu"> lists.
+     CONFIG: data-tix on .phone = bar | top | inline | bottom | end
+       (bar = persistent header pill; end = below the brand block, very last).
+     ============================================================ -->
+<div class="phone" data-tix="bottom">
+  <!-- persistent header -->
+  <div class="tm-header">
+    <a class="tm-logo" href="#">Temper</a>
+    <div class="tm-head-r">
+      <a class="tm-tix" href="#">Tickets</a>
+      <button class="ham" id="ham" aria-label="Open menu" aria-expanded="false"><span class="ham-lines"><i></i><i></i></span></button>
+    </div>
+  </div>
+
+  <div class="stage"><h1>Dec 30<br>Petco Park</h1></div>
+
+  <!-- takeover: everything below is standard wp_nav_menu markup the enhancer upgrades -->
+  <div class="tm" id="tm" aria-hidden="true">
+    <div class="tm-panel">
+      <div class="tm-body">
+
+        <div class="tm-menu-sec">
+          <div class="tm-eyebrow">Menu</div>
+          <nav class="tm-nav" aria-label="Primary">
+            <ul class="menu">
+              <li class="menu-item current-menu-item"><a href="#">Home</a></li>
+              <li class="menu-item"><a href="#">Lineup</a></li>
+              <li class="menu-item"><a href="#">Artists</a></li>
+              <li class="menu-item menu-item-has-children"><a href="#">Info</a>
+                <ul class="sub-menu">
+                  <li><a href="#">Venue</a></li><li><a href="#">Travel</a></li>
+                  <li><a href="#">Policies</a></li><li><a href="#">Accessibility</a></li>
+                  <li><a href="#">FAQ</a></li><li><a href="#">Contact</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <a class="tm-tix-cta" href="#"><span>Get Tickets</span><span class="tm-tix-arrow">&rarr;</span></a>
+
+        <div class="tm-social-sec">
+          <div class="tm-eyebrow">Social</div>
+          <nav class="tm-nav" aria-label="Social">
+            <ul class="menu">
+              <li class="menu-item"><a href="#">Instagram</a></li>
+              <li class="menu-item"><a href="#">SoundCloud</a></li>
+              <li class="menu-item"><a href="#">Spotify</a></li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+
+      <div class="tm-anchor">
+        <div class="tm-word">Temper<sup>&reg;</sup></div>
+        <div class="tm-meta">( Dec 30 &middot; Petco Park &middot; 18+ )</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ctl" id="ctl">
+  <label>Tickets</label>
+  <button data-tix="bar">Bar</button><button data-tix="top">Top</button><button data-tix="inline">Inline</button><button data-tix="bottom" class="on">Bottom</button><button data-tix="end">End</button>
+</div>
+
+<p class="hint">Ranger prototype (dark, WP-ready) · tap the <b>hamburger</b> (top-right) — two lines slide together then rotate into an X, reverse on close. Menu is standard <code>wp_nav_menu</code> markup; the enhancer auto-numbers items, turns sub-menus into the expandable “Info +”, and icons the Social menu. Open on your phone for the true feel.</p>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var tm = document.getElementById('tm');
+  var panel = tm.querySelector('.tm-panel');
+  var ham = document.getElementById('ham');
+  var lines = ham.querySelectorAll('.ham-lines i');
+
+  // Social icon map: WP menu items just need the label; enhancer injects the SVG.
+  var ICONS = {
+    instagram:'<svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.17-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.17.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.17a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.41-.16-1.03-.35-2.17-.4-1.24-.06-1.59-.07-4.74-.07Zm0 2.76a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 8.74a3.44 3.44 0 1 0 0-6.88 3.44 3.44 0 0 0 0 6.88Zm6.74-8.94a1.24 1.24 0 1 1-2.48 0 1.24 1.24 0 0 1 2.48 0Z"/></svg>',
+    soundcloud:'<svg viewBox="0 0 24 24"><path d="M1 15.5c0-.9.2-1.7.6-2.4v4.8c-.4-.7-.6-1.5-.6-2.4Zm2 3.5V12a3.9 3.9 0 0 0 0 7Zm2 .5V11a4.6 4.6 0 0 0 0 8.5ZM7 19.5V9.8c-.3.1-.7.3-1 .5v9.2h1Zm2 0V9c-.3 0-.7 0-1 .1v10.4h1Zm2 0V9.2c-.3-.1-.7-.2-1-.2v10.5h1Zm11-3a3 3 0 0 1-3 3h-6V8.4a5 5 0 0 1 9 3 3 3 0 0 1 0 5.1Z"/></svg>',
+    spotify:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.62.62 0 0 1-.86.2c-2.35-1.44-5.3-1.76-8.8-.96a.62.62 0 1 1-.28-1.22c3.82-.87 7.1-.5 9.73 1.12.3.18.39.58.21.86Zm1.23-2.73a.78.78 0 0 1-1.07.26c-2.69-1.65-6.79-2.13-9.97-1.17a.78.78 0 1 1-.45-1.49c3.63-1.1 8.15-.56 11.24 1.33.36.22.48.7.25 1.07Zm.1-2.85C14.8 8.96 9.4 8.78 6.33 9.71a.94.94 0 1 1-.54-1.8c3.52-1.06 9.48-.86 13.22 1.36a.94.94 0 0 1-.96 1.61Z"/></svg>'
+  };
+
+  // ---- Enhance the WP menu markup (numbers, counts, expandables, social icons) ----
+  var menuUL = tm.querySelector('.tm-menu-sec ul.menu');
+  var top = menuUL ? menuUL.querySelectorAll(':scope > li') : [];
+  top.forEach(function(li,i){
+    var a = li.querySelector(':scope > a'); if(!a) return;
+    var label = a.textContent.trim(); a.textContent='';
+    var num = document.createElement('span'); num.className='tm-num'; num.textContent = ('0'+i).slice(-2);
+    var lab = document.createElement('span'); lab.className='tm-label';
+    var labIn = document.createElement('span'); labIn.className='tm-label-in'; labIn.textContent = label; // split-text mask inner
+    lab.appendChild(labIn);
+    a.appendChild(num); a.appendChild(lab);
+    if (li.classList.contains('current-menu-item')) a.classList.add('current');
+    var sub = li.querySelector(':scope > ul.sub-menu');
+    if (sub){
+      // wrap sub links in a grid container
+      var inner=document.createElement('div'); inner.className='sub-in';
+      Array.prototype.slice.call(sub.querySelectorAll(':scope > li > a')).forEach(function(sa){ inner.appendChild(sa); });
+      sub.innerHTML=''; sub.appendChild(inner);
+      var tail=document.createElement('span'); tail.className='tm-tail';
+      tail.innerHTML='<span class="tm-count">'+inner.children.length+'</span><span class="tm-exp">+</span>';
+      a.appendChild(tail);
+      a.addEventListener('click', function(e){ e.preventDefault();
+        var opening=!li.classList.contains('on-exp'); li.classList.toggle('on-exp',opening);
+        if(reduce){ sub.style.height=opening?'auto':'0px'; return; }
+        gsap.to(sub,{height:opening?'auto':0,duration:.4,ease:'power2.out'});
+      });
+    }
+  });
+  // social icons
+  tm.querySelectorAll('.tm-social-sec ul.menu > li > a').forEach(function(a){
+    var key=a.textContent.trim().toLowerCase().replace(/[^a-z]/g,'');
+    var svg=ICONS[key]||'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+    a.insertAdjacentHTML('afterbegin', svg);
+  });
+  var menuLinks = Array.prototype.slice.call(tm.querySelectorAll('.tm-menu-sec ul.menu > li > a'));
+  var labelIns  = menuLinks.map(function(a){ return a.querySelector('.tm-label-in'); });
+
+  // ---- hamburger morph (two lines -> come together -> rotate opposite into X) ----
+  var hamTL = null;
+  if (!reduce){
+    gsap.set(lines[0],{y:-4}); gsap.set(lines[1],{y:4});
+    hamTL = gsap.timeline({paused:true})
+      .to(lines,{y:0,duration:.2,ease:'power2.inOut'},0)
+      .to(lines[0],{rotation:45,duration:.26,ease:'power2.inOut'},0.2)
+      .to(lines[1],{rotation:-45,duration:.26,ease:'power2.inOut'},0.2);
+  }
+
+  // ---- open / close ----
+  var isOpen=false;
+  function open(){
+    isOpen=true; tm.classList.add('open'); tm.setAttribute('aria-hidden','false'); ham.setAttribute('aria-expanded','true');
+    if(hamTL) hamTL.play();
+    if(reduce){ tm.style.clipPath='inset(0 0 0 0)'; return; }
+    gsap.killTweensOf([tm,menuLinks,labelIns]);
+    gsap.set(menuLinks,{opacity:0}); gsap.set(labelIns,{yPercent:110});
+    gsap.to(tm,{clipPath:'inset(0 0 0% 0)',duration:.5,ease:'power4.inOut'});
+    // split-text: each label word masks UP, staggered by item
+    gsap.to(menuLinks,{opacity:1,duration:.4,ease:'power2.out',stagger:.06,delay:.16});
+    gsap.to(labelIns,{yPercent:0,duration:.6,ease:'power3.out',stagger:.06,delay:.16,
+      onStart:function(){ menuLinks.forEach(function(a,i){
+        setTimeout(function(){ a.classList.remove('tm-item-go'); void a.offsetWidth; a.classList.add('tm-item-go'); }, 180+i*60); }); }});
+  }
+  function close(){
+    isOpen=false; ham.setAttribute('aria-expanded','false');
+    if(hamTL) hamTL.reverse();
+    if(reduce){ tm.style.clipPath=''; tm.classList.remove('open'); tm.setAttribute('aria-hidden','true'); return; }
+    gsap.killTweensOf([tm,menuLinks,labelIns]);
+    gsap.to(menuLinks,{opacity:0,duration:.26,ease:'power2.in',stagger:.02});
+    gsap.to(labelIns,{yPercent:110,duration:.3,ease:'power2.in',stagger:.02});
+    gsap.to(tm,{clipPath:'inset(0 0 100% 0)',duration:.42,ease:'power4.inOut',delay:.1,
+      onComplete:function(){ tm.classList.remove('open'); tm.setAttribute('aria-hidden','true'); tm.style.clipPath=''; }});
+  }
+  ham.addEventListener('click', function(){ isOpen?close():open(); });
+
+  // ---- Tickets placement: relocate the big CTA (bar hides it, header pill shows instead) ----
+  var phone = document.querySelector('.phone');
+  function placeTix(mode){
+    phone.setAttribute('data-tix', mode);
+    var cta = phone.querySelector('.tm-tix-cta'), body = phone.querySelector('.tm-body'),
+        menuSec = phone.querySelector('.tm-menu-sec'), socialSec = phone.querySelector('.tm-social-sec');
+    if(!cta || !body) return;
+    var panel = phone.querySelector('.tm-panel');
+    if(mode==='top')         body.insertBefore(cta, body.firstChild);   // top of the takeover, by the close
+    else if(mode==='inline') body.insertBefore(cta, socialSec);         // in the item flow, above Social
+    else if(mode==='bottom') body.appendChild(cta);                     // bottom of the body, above TEMPER
+    else if(mode==='end')    panel.appendChild(cta);                    // BELOW TEMPER/meta — the very last thing
+    // bar: CTA hidden via CSS; header pill shows instead
+  }
+  var ctl = document.getElementById('ctl');
+  if(ctl) ctl.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    ctl.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x===b); });
+    if(b.dataset.tix) placeTix(b.dataset.tix);
+  });
+  placeTix('bottom');
+})();
+</script>
+</body>
+</html>
