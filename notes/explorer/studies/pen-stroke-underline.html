@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BRG — pen-stroke underline study (Expo)</title>
+<!--
+  SANDBOX. Not production, not shipped, not on the CDN. notes/explorer/studies/.
+  Marker paths are the REAL Figma strokes: centerlines derived from the filled outline
+  paths in website/mocks/brg_*-hero.svg + brg_nav.svg (see SPEC-004 §2 for the method).
+  GSAP is loaded from the repo's own self-hosted copy — no CDN, nothing downloaded.
+  If DrawSVGPlugin.min.js is ever dropped next to it, this page detects and uses it.
+-->
+<style>
+  :root{
+    --yellow:#FAE200; --teal:#00BEB4; --pink:#F40085; --orange:#F87513;
+    --bg:#201f1d; --bg2:#131210; --ink:#231F20; --white:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg2);color:var(--white);
+    font:400 16px/1.55 Montserrat,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+  code{font:500 .85em/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:#0000004d;
+    border:1px solid #ffffff1a;border-radius:3px;padding:.12em .4em}
+
+  /* ── chrome ─────────────────────────────────────────────────────── */
+  header{padding:44px clamp(20px,5vw,64px) 30px;border-top:14px solid var(--yellow);background:var(--bg)}
+  header h1{margin:0 0 10px;font-size:clamp(1.5rem,3.4vw,2.3rem);text-transform:uppercase;letter-spacing:.01em;line-height:1}
+  header p{margin:0;max-width:74ch;opacity:.72;font-size:.94rem}
+  .bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;
+    padding:12px clamp(20px,5vw,64px);background:#131210f2;backdrop-filter:blur(8px);
+    border-bottom:1px solid #ffffff1a}
+  .bar button{font:700 .68rem/1 Montserrat,sans-serif;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--ink);background:var(--yellow);border:0;border-radius:2px;padding:11px 16px;cursor:pointer;
+    transition:transform .15s ease}
+  .bar button:hover{transform:translateY(-2px)}
+  .bar label{display:flex;gap:7px;align-items:center;font-size:.7rem;letter-spacing:.1em;
+    text-transform:uppercase;opacity:.8;cursor:pointer}
+  .bar .sp{flex:1}
+  .flag{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:2px;
+    background:#ffffff14;border:1px solid #ffffff26;opacity:.85}
+
+  /* ── variant cards ──────────────────────────────────────────────── */
+  main{padding:0 clamp(20px,5vw,64px) 120px}
+  .v{padding:74px 0 66px;border-bottom:1px solid #ffffff14}
+  .v:last-child{border-bottom:0}
+  .vh{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline;margin-bottom:6px}
+  .vh h2{margin:0;font-size:1.32rem;text-transform:uppercase;letter-spacing:.02em}
+  .tag{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px;border-radius:2px;
+    background:var(--teal);color:var(--ink);font-weight:700}
+  .tag.alt{background:#ffffff1f;color:#fff;font-weight:600}
+  .v > p.d{margin:0 0 34px;max-width:78ch;opacity:.72;font-size:.92rem}
+  .stage{padding:52px 0 20px}
+  .demo{display:block;width:max-content;max-width:100%;position:relative}
+  .demo .word{font-size:clamp(1.5rem,4.4vw,3.4rem);text-transform:uppercase;font-weight:800;
+    letter-spacing:-.01em;line-height:1;white-space:nowrap}
+  /* the underline sits under the word, width-matched to it */
+  .uline{display:block;width:100%;margin-top:.1em}
+  .uline svg{display:block;width:100%;height:auto;overflow:visible}
+  .meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px 10px}
+  .meta span{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;opacity:.62;
+    border:1px solid #ffffff1f;border-radius:2px;padding:5px 9px}
+  .note{margin-top:20px;max-width:78ch;font-size:.86rem;opacity:.66;border-left:2px solid var(--teal);
+    padding-left:14px}
+  .note b{color:var(--teal);font-weight:700}
+  .note.warn{border-left-color:var(--orange)}
+  .note.warn b{color:var(--orange)}
+
+  /* palette row for the 5 real page strokes */
+  .fam{display:grid;gap:26px;margin-top:16px}
+  .fam .row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .fam .lbl{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55;width:9.5em;flex:0 0 auto}
+  .fam .ln{flex:1;min-width:220px;max-width:640px}
+
+  /* nav mini-demo */
+  .navdemo{display:flex;gap:26px;flex-wrap:wrap;background:#fff;padding:20px 26px;border-radius:3px}
+  .navdemo a{position:relative;color:var(--ink);text-decoration:none;font-weight:700;font-size:.72rem;
+    letter-spacing:.12em;text-transform:uppercase;padding-bottom:12px}
+  .navdemo .ul{position:absolute;left:0;right:0;bottom:0}
+  .navdemo .ul svg{display:block;width:100%;height:auto;overflow:visible}
+
+  /* the thing we're replacing */
+  /* faithful to what ships today: brgw.css uses height:9px + this border-radius */
+  .blob{display:block;height:9px;width:100%;border-radius:40% 60% 55% 45%/60% 50% 60% 40%;
+    background:var(--yellow);transform:rotate(-1deg) scaleX(0);transform-origin:left center}
+  .blob.on{transform:rotate(-1deg) scaleX(1);transition:transform .8s cubic-bezier(.2,.9,.3,1)}
+
+  @media (prefers-reduced-motion:reduce){
+    .bar{position:static}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Pen-stroke underline — variant study</h1>
+  <p>Prototype for replacing <code>.brgw-uline</code> (today a <code>scaleX</code> blob) with a real marker
+  stroke-draw. Every marker path below is the <strong>actual Figma stroke</strong>, centerline-derived from the
+  filled outlines in <code>website/mocks/</code>. Scroll to trigger; each variant fires once on scroll-in exactly
+  the way production would. Sandbox only — no production file is touched.</p>
+</header>
+
+<div class="bar">
+  <button id="replay">Replay all</button>
+  <label><input type="checkbox" id="slow"> Slow (0.35×)</label>
+  <label><input type="checkbox" id="rm"> Simulate reduced-motion</label>
+  <span class="sp"></span>
+  <span class="flag" id="engine">engine: …</span>
+</div>
+
+<main>
+
+<!-- ══════════ 1 · SINGLE MARKER ══════════ -->
+<section class="v" data-v>
+  <div class="vh"><h2>1 · Single marker</h2><span class="tag">recommended default</span></div>
+  <p class="d">One pass of the real stroke, drawn left→right. This is the comp's own artwork moving — no
+  invention. Restrained enough to sit under every hero on the site without wearing out.</p>
+
+  <div class="stage">
+    <div class="demo">
+      <div class="word">Make your day great</div>
+      <span class="uline">
+        <svg viewBox="0 0 847.4 29.97" fill="none" preserveAspectRatio="none" aria-hidden="true">
+          <path class="mk" data-draw d="M8.5 18.09C116.56 13 224.72 10.04 332.9 9.27C441.06 8.5 549.25 9.89 657.35 13.45C717.9 15.44 778.41 18.12 838.9 21.47"
+            stroke="var(--yellow)" stroke-width="15" stroke-linecap="round" pathLength="1"
+            vector-effect="non-scaling-stroke"/>
+        </svg>
+      </span>
+    </div>
+    <div class="meta">
+      <span>0.72s</span><span>power2.out</span><span>delay 0.25s</span><span>stroke-width 15</span>
+      <span>linecap round</span><span>1 path</span>
+    </div>
+    <p class="note"><b>Why this one.</b> The draw reads as a pen because the ink arrives along the stroke's own
+    length — and the round cap grows correctly at the leading edge, which a clip-wipe can't do. Cost over the
+    static SVG is one tween. <code>preserveAspectRatio="none"</code> + <code>vector-effect="non-scaling-stroke"</code>
+    lets one path stretch to any headline width while the stroke stays exactly 15px.</p>
+  </div>
+</section>
+
+<!-- ══════════ 2 · ROUGH MARKER ══════════ -->
+<section class="v" data-v>
+  <div class="vh"><h2>2 · Rough marker</h2><span class="tag alt">feTurbulence displacement</span></div>
+  <p class="d">Same draw, run through a displacement map so the edge frays like ink bleeding into paper.
+  <code>feTurbulence</code> generates fractal noise, <code>feDisplacementMap</code> pushes the stroke's pixels
+  around by it.</p>
+
+  <div class="stage">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <filter id="rough" x="-12%" y="-120%" width="124%" height="340%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035 0.16" numOctaves="3" seed="7" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="rough2" x="-12%" y="-120%" width="124%" height="340%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.22" numOctaves="4" seed="19" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="11" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs></svg>
+
+    <div class="demo">
+      <div class="word">Stay stoked</div>
+      <span class="uline">
+        <svg viewBox="0 0 649.36 26.9" fill="none" preserveAspectRatio="none" aria-hidden="true">
+          <path class="mk" data-draw filter="url(#rough)"
+            d="M8.5 15.82C90.64 11.95 172.86 9.69 255.09 9.09C337.32 8.5 419.56 9.55 501.74 12.25C548.13 13.78 594.51 15.83 640.86 18.4"
+            stroke="var(--pink)" stroke-width="15" stroke-linecap="round" pathLength="1"/>
+        </svg>
+      </span>
+    </div>
+    <div class="meta"><span>scale 6 (subtle)</span><span>baseFrequency .035 / .16</span><span>3 octaves</span><span>seed fixed</span></div>
+
+    <div class="demo" style="margin-top:52px">
+      <div class="word">Stay stoked</div>
+      <span class="uline">
+        <svg viewBox="0 0 649.36 26.9" fill="none" preserveAspectRatio="none" aria-hidden="true">
+          <path class="mk" data-draw filter="url(#rough2)"
+            d="M8.5 15.82C90.64 11.95 172.86 9.69 255.09 9.09C337.32 8.5 419.56 9.55 501.74 12.25C548.13 13.78 594.51 15.83 640.86 18.4"
+            stroke="var(--pink)" stroke-width="15" stroke-linecap="round" pathLength="1"/>
+        </svg>
+      </span>
+    </div>
+    <div class="meta"><span>scale 11 (heavy)</span><span>baseFrequency .05 / .22</span><span>4 octaves</span></div>
+
+    <p class="note warn"><b>Two real costs.</b> A displacement filter forces the stroke onto its own raster
+    surface — it re-rasterises every frame of the draw, and at hero width that is the most expensive thing on
+    this page. Second: the filter region has to be generous (<code>y:-120% height:340%</code>) or the noise
+    clips the stroke's own edge. <b>Never animate the <code>seed</code></b> — per-frame turbulence regeneration
+    is a jank machine. Fixed seed, animate only the draw. Heavy (scale 11) starts to read as a different,
+    scratchier brand than the comps.</p>
+  </div>
+</section>
+
+<!-- ══════════ 3 · TWO-PASS EMPHASIS ══════════ -->
+<section class="v" data-v>
+  <div class="vh"><h2>3 · Two-pass emphasis</h2><span class="tag alt">staggered</span></div>
+  <p class="d">Draw the stroke, then go over it again — second pass slightly shorter, lifted, and rotated a
+  hair, starting before the first finishes. The gesture of underlining something twice because you mean it.</p>
+
+  <div class="stage">
+    <div class="demo">
+      <div class="word">Do it right</div>
+      <span class="uline">
+        <svg viewBox="0 0 847.4 38" fill="none" preserveAspectRatio="none" aria-hidden="true">
+          <path class="mk" data-draw data-stagger="0"
+            d="M8.5 18.09C116.56 13 224.72 10.04 332.9 9.27C441.06 8.5 549.25 9.89 657.35 13.45C717.9 15.44 778.41 18.12 838.9 21.47"
+            stroke="var(--teal)" stroke-width="15" stroke-linecap="round" pathLength="1"/>
+          <path class="mk" data-draw data-stagger="0.16" data-dur="0.62"
+            transform="translate(34 12) rotate(-.5 420 15) scale(.93 1)"
+            d="M8.5 18.09C116.56 13 224.72 10.04 332.9 9.27C441.06 8.5 549.25 9.89 657.35 13.45C717.9 15.44 778.41 18.12 838.9 21.47"
+            stroke="var(--teal)" stroke-width="11" stroke-linecap="round" pathLength="1" opacity=".82"/>
+        </svg>
+      </span>
+    </div>
+    <div class="meta"><span>pass 1 · 0.72s · w15</span><span>pass 2 · 0.62s · w11 · α.82</span>
+      <span>stagger 0.16s</span><span>offset +34 / +12</span><span>rotate −0.5°</span></div>
+    <p class="note"><b>Where it earns its place.</b> Not on every hero — it's louder than the page needs five
+    times over. Save it for one deliberate moment (a single CTA or stat). The second pass must be
+    <em>thinner and dimmer</em>, not a clone: two identical strokes read as a rendering bug, not emphasis.</p>
+  </div>
+</section>
+
+<!-- ══════════ 4 · SCRIBBLE-CIRCLE ══════════ -->
+<section class="v" data-v>
+  <div class="vh"><h2>4 · Scribble-circle</h2><span class="tag alt">callout</span></div>
+  <p class="d">Loops a word ~1.6 times, overshooting the start the way a hand does. Longest draw of the four
+  because the eye has to follow it around.</p>
+
+  <div class="stage">
+    <div class="demo" style="padding:34px 56px">
+      <div class="word" style="position:relative;z-index:1">Rad</div>
+      <svg viewBox="0 0 300 150" fill="none" preserveAspectRatio="none" aria-hidden="true"
+           style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+        <path class="mk" data-draw data-dur="1.15" data-ease="power1.inOut"
+          d="M212 39C186 26 148 20 113 22C74 24 38 36 26 58C14 80 27 105 56 118C88 132 133 136 172 130C210 124 243 108 251 87C258 69 245 52 218 40C199 32 176 27 152 26C126 25 100 28 78 35"
+          stroke="var(--orange)" stroke-width="9" stroke-linecap="round" pathLength="1"/>
+      </svg>
+    </div>
+    <div class="meta"><span>1.15s</span><span>power1.inOut</span><span>~1.6 loops</span><span>stroke-width 9</span></div>
+    <p class="note warn"><b>Flagging honestly: this shape is mine, not the comps'.</b> I searched every SVG in
+    <code>website/mocks/</code> — there is no scribble-circle anywhere in the design. The nearest marker artwork
+    is the hand-drawn <em>numerals</em> in <code>brg_community-stats.svg</code>, which are variable-width brush
+    glyphs, not a uniform stroke. So this is drawn in the marker idiom to show the motion; if we ship it,
+    <b>the shape should come from Sean's hand</b>, not from me. Thinner stroke (9 vs 15) on purpose — at 15 a
+    loop this tight closes up into a blob.</p>
+  </div>
+</section>
+
+<!-- ══════════ 5 · THE REAL FAMILY ══════════ -->
+<section class="v" data-v>
+  <div class="vh"><h2>5 · All five page strokes</h2><span class="tag alt">real geometry</span></div>
+  <p class="d">Every hero underline in the comps, centerline-derived, drawn with variant 1. Note Careers: its
+  path runs <strong>right→left</strong> in the source, so drawn naively it writes backwards. Here it's corrected.</p>
+
+  <div class="stage fam">
+    <div class="row"><span class="lbl">home</span><span class="ln">
+      <svg viewBox="0 0 847.4 29.97" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="mk" data-draw
+        d="M8.5 18.09C116.56 13 224.72 10.04 332.9 9.27C441.06 8.5 549.25 9.89 657.35 13.45C717.9 15.44 778.41 18.12 838.9 21.47"
+        stroke="var(--yellow)" stroke-width="15" stroke-linecap="round" pathLength="1"/></svg></span></div>
+
+    <div class="row"><span class="lbl">our-restaurants</span><span class="ln">
+      <svg viewBox="0 0 845.67 29.97" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="mk" data-draw
+        d="M8.5 18.09C116.33 13 224.27 10.05 332.22 9.27C440.16 8.5 548.12 9.89 656 13.45C716.42 15.45 776.81 18.13 837.17 21.47"
+        stroke="var(--teal)" stroke-width="15" stroke-linecap="round" pathLength="1"/></svg></span></div>
+
+    <div class="row"><span class="lbl">team</span><span class="ln">
+      <svg viewBox="0 0 649.36 26.9" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="mk" data-draw
+        d="M8.5 15.82C90.64 11.95 172.86 9.69 255.09 9.09C337.32 8.5 419.56 9.55 501.74 12.25C548.13 13.78 594.51 15.83 640.86 18.4"
+        stroke="var(--pink)" stroke-width="15" stroke-linecap="round" pathLength="1"/></svg></span></div>
+
+    <div class="row"><span class="lbl">community</span><span class="ln">
+      <svg viewBox="0 0 843.43 29.97" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="mk" data-draw
+        d="M8.5 18.09C116.04 13 223.69 10.04 331.34 9.27C438.99 8.5 546.66 9.89 654.25 13.45C714.51 15.44 774.73 18.12 834.93 21.47"
+        stroke="var(--orange)" stroke-width="15" stroke-linecap="round" pathLength="1"/></svg></span></div>
+
+    <div class="row"><span class="lbl">careers <em style="opacity:.5;font-style:normal">(R→L)</em></span><span class="ln">
+      <svg viewBox="0 0 1123.75 32.16" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="mk" data-draw data-reverse="1"
+        d="M1115.25 15.37C1039.21 13.04 963.15 11.28 887.08 10.14C813.89 9.04 740.69 8.5 667.49 8.53C595.92 8.56 524.34 9.14 452.78 10.25C382.83 11.34 312.88 12.93 242.95 15C173.42 17.06 103.9 19.59 34.4 22.54C25.76 22.91 17.13 23.28 8.5 23.66"
+        stroke="var(--teal)" stroke-width="15" stroke-linecap="round" pathLength="1"/></svg></span></div>
+
+    <div class="row"><span class="lbl">nav (active)</span><span class="ln" style="max-width:150px">
+      <svg viewBox="0 0 97.05 8.62" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="mk" data-draw data-dur="0.34"
+        d="M3.5 4.69C26.87 3.66 50.28 3.5 73.66 4.26C80.29 4.47 86.91 4.76 93.55 5.12"
+        stroke="var(--teal)" stroke-width="5" stroke-linecap="round" pathLength="1"/></svg></span></div>
+  </div>
+
+  <p class="note"><b>Home, Our&nbsp;Restaurants and Community are the same stroke</b> — identical curve to within
+  ~2 units, just different lengths. Team and Careers are the only genuinely different shapes. So this is
+  <em>three</em> paths, not five, and with <code>preserveAspectRatio="none"</code> one of them stretches to
+  any width. Careers is also the only path authored right→left.</p>
+</section>
+
+<!-- ══════════ 6 · NAV ══════════ -->
+<section class="v" data-v>
+  <div class="vh"><h2>6 · Nav active item</h2><span class="tag alt">in situ</span></div>
+  <p class="d">The 5px nav stroke on the white bar. Draw is fast (0.34s) — nav feedback has to feel immediate,
+  not performed.</p>
+  <div class="stage">
+    <div class="navdemo">
+      <a href="#">Home</a>
+      <a href="#">Our Restaurants</a>
+      <a href="#" style="color:#000">Team
+        <span class="ul"><svg viewBox="0 0 97.05 8.62" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="mk" data-draw data-dur="0.34"
+          d="M3.5 4.69C26.87 3.66 50.28 3.5 73.66 4.26C80.29 4.47 86.91 4.76 93.55 5.12"
+          stroke="var(--teal)" stroke-width="5" stroke-linecap="round" pathLength="1"/></svg></span></a>
+      <a href="#">Community</a>
+      <a href="#">Careers</a>
+    </div>
+    <p class="note"><b>Hover is a different problem from scroll-in.</b> A draw on every hover is too slow and
+    too chatty. Recommendation: draw once for the <em>active</em> item on load; keep hover as the existing
+    fast CSS wipe. Motion should mark where you are, not narrate where your cursor is.</p>
+  </div>
+</section>
+
+<!-- ══════════ 7 · A/B vs PRODUCTION ══════════ -->
+<section class="v" data-v>
+  <div class="vh"><h2>7 · Against what ships today</h2><span class="tag alt">A/B</span></div>
+  <p class="d">Top: current <code>.brgw-uline</code> — a CSS blob, <code>scaleX(0→1)</code>. Bottom: variant 1.</p>
+  <div class="stage">
+    <div>
+      <div class="lbl" style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:10px">now — scaleX blob</div>
+      <span class="blob" data-blob></span>
+      <div class="lbl" style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin:38px 0 10px">proposed — marker draw</div>
+      <span class="uline"><svg viewBox="0 0 847.4 29.97" fill="none" preserveAspectRatio="none" aria-hidden="true"><path class="mk" data-draw
+        d="M8.5 18.09C116.56 13 224.72 10.04 332.9 9.27C441.06 8.5 549.25 9.89 657.35 13.45C717.9 15.44 778.41 18.12 838.9 21.47"
+        stroke="var(--yellow)" stroke-width="15" stroke-linecap="round" pathLength="1"/></svg></span>
+    </div>
+    <p class="note"><b>The blob doesn't just look flatter — it deforms.</b> <code>scaleX</code> squashes the
+    shape horizontally at every frame, so its ends are ellipses for the whole transition and only resolve at
+    the last frame. The draw never distorts the artwork: the ink simply hasn't arrived yet.</p>
+  </div>
+</section>
+
+</main>
+
+<script src="../../../website/assets/vendor/gsap.min.js"></script>
+<script src="../../../website/assets/vendor/ScrollTrigger.min.js"></script>
+<script>
+/* ── the draw ────────────────────────────────────────────────────────────────
+   Production intent is DrawSVGPlugin. It isn't in assets/vendor/ yet, so this
+   detects it and otherwise falls back to native stroke-dashoffset with
+   pathLength="1" — which is what DrawSVG does internally for a single-subpath
+   open path. Same output; the swap is one line, marked below. ──────────────── */
+(function () {
+  var hasDraw = !!(window.gsap && window.DrawSVGPlugin);
+  if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+  if (hasDraw) gsap.registerPlugin(DrawSVGPlugin);
+  document.getElementById('engine').textContent =
+    'engine: ' + (window.gsap ? 'gsap ' + gsap.version : 'GSAP NOT LOADED') +
+    ' · draw: ' + (hasDraw ? 'DrawSVGPlugin' : 'dashoffset fallback');
+
+  var paths = [].slice.call(document.querySelectorAll('[data-draw]'));
+  var blobs = [].slice.call(document.querySelectorAll('[data-blob]'));
+  var slow  = document.getElementById('slow');
+  var rmBox = document.getElementById('rm');
+
+  function reduced() {
+    return rmBox.checked || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  function scale() { return slow.checked ? 0.35 : 1; }
+
+  // hidden state. reduced-motion never hides: the final stroke is simply there.
+  function arm(p) {
+    if (reduced()) { show(p); return; }
+    if (hasDraw) { gsap.set(p, { drawSVG: '0%' }); return; }
+    var rev = p.dataset.reverse === '1';
+    gsap.set(p, { strokeDasharray: 1, strokeDashoffset: rev ? -1 : 1 });
+  }
+  function show(p) {
+    if (hasDraw) gsap.set(p, { drawSVG: '100%' });
+    else gsap.set(p, { strokeDasharray: 'none', strokeDashoffset: 0 });
+  }
+  function draw(p) {
+    if (reduced()) { show(p); return; }
+    var dur   = (parseFloat(p.dataset.dur) || 0.72) / scale();
+    var delay = (parseFloat(p.dataset.stagger) || 0) / scale() + 0.25;
+    var ease  = p.dataset.ease || 'power2.out';
+    if (hasDraw) {
+      // ── PRODUCTION LINE ──
+      gsap.to(p, { drawSVG: '100%', duration: dur, delay: delay, ease: ease });
+    } else {
+      gsap.to(p, { strokeDashoffset: 0, duration: dur, delay: delay, ease: ease });
+    }
+  }
+
+  /* One trigger per variant section — mirrors the way the reveal engine fires a
+     whole .reveal section rather than each element.
+
+     GOTCHA worth carrying into production: ScrollTrigger's onEnter fires when the
+     start line is CROSSED. A section already above the line at first paint — i.e.
+     anything in the first viewport, which on this site is always the hero — never
+     crosses it, so it never fires and the stroke stays hidden forever. The current
+     CSS engine doesn't have this bug because IntersectionObserver reports elements
+     that are already visible when you observe them. So the ScrollTrigger version
+     needs the explicit initial sweep below. */
+  var groups = [].slice.call(document.querySelectorAll('[data-v]')).map(function (sec) {
+    var g = {
+      sec: sec, fired: false,
+      fire: function () {
+        if (g.fired) return; g.fired = true;
+        sec.querySelectorAll('[data-draw]').forEach(draw);
+        sec.querySelectorAll('[data-blob]').forEach(function (b) {
+          setTimeout(function () { b.classList.add('on'); }, reduced() ? 0 : 250);
+        });
+      },
+    };
+    ScrollTrigger.create({ trigger: sec, start: 'top 78%', onEnter: g.fire });
+    return g;
+  });
+
+  function sweep() {                       // catch whatever is already on screen
+    var line = innerHeight * 0.78;
+    groups.forEach(function (g) {
+      if (g.sec.getBoundingClientRect().top < line) g.fire();
+    });
+  }
+  function armAll() {
+    gsap.killTweensOf(paths);
+    paths.forEach(arm);
+    blobs.forEach(function (b) { b.classList.toggle('on', reduced()); });
+    groups.forEach(function (g) { g.fired = false; });
+  }
+
+  document.getElementById('replay').addEventListener('click', function () {
+    armAll();
+    requestAnimationFrame(sweep);
+  });
+  rmBox.addEventListener('change', function () { armAll(); requestAnimationFrame(sweep); });
+
+  armAll();
+  ScrollTrigger.refresh();
+  sweep();
+})();
+</script>
+</body>
+</html>
