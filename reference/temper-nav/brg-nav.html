@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BRG — Desktop Nav (reskin of Temper component)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- ============================================================
+     BRG reskin of Ranger's generic nav (reference/temper-nav/desktop-nav.html).
+     Kept the CONTRACT: wp_nav_menu-style <ul class="nav-src">, layout/register
+     classes, data-attrs. Changed only: --acc (teal), yellow top rule + logo,
+     --cond (Montserrat), items, no Tickets pill, active = teal MARKER underline
+     (pen-stroke — same technique as the headline underlines).
+     ============================================================ -->
+<style>
+  :root{ --cond:"Montserrat",system-ui,sans-serif; --yellow:#FCE200; --teal:#19C7C2; --ink:#231F20; }
+  *{box-sizing:border-box;} html,body{margin:0;font-family:var(--cond);background:#e7e7e7;}
+  body{padding-bottom:60vh;} /* room to show a dark section under the nav */
+
+  .brgw-nav{position:sticky;top:0;z-index:60;background:#fff;border-top:6px solid var(--yellow);
+    display:flex;align-items:center;gap:26px;padding:22px clamp(20px,4vw,54px);
+    box-shadow:0 1px 0 rgba(0,0,0,.06);}
+  /* dark register (auto-invert when data-nav="dark" section sits under the bar) */
+  .brgw-nav.on-dark{background:#131210;border-top-color:var(--yellow);}
+  .brgw-nav.on-dark .nl{color:#fff;} .brgw-nav.on-dark .logo-sub{color:rgba(255,255,255,.6);}
+
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto;}
+  .logo img{height:34px;display:block;}
+  .nav-src{display:flex;align-items:center;gap:clamp(14px,2vw,34px);list-style:none;margin:0;padding:0;}
+  .nav-src li{position:relative;}
+  .nl{position:relative;display:inline-block;color:var(--ink);text-decoration:none;text-transform:uppercase;
+    letter-spacing:.14em;font-size:12px;font-weight:700;opacity:.72;padding:4px 0 10px;transition:opacity .16s ease,color .16s ease;}
+  .nl:hover{opacity:1;}
+  /* active = hand-drawn teal marker underline that draws on */
+  .uline{position:absolute;left:-6%;right:-6%;bottom:0;width:112%;height:12px;overflow:visible;pointer-events:none;}
+  .uline path{fill:none;stroke:var(--teal);stroke-width:4.5;stroke-linecap:round;visibility:hidden;
+    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .7s cubic-bezier(.55,.06,.2,1) .15s;}
+  .is-active .uline path,.nl:hover + .uline path{visibility:visible;}
+  .is-active .nl{opacity:1;}
+  .is-active .uline path{stroke-dashoffset:0;}
+  .nl:hover + .uline path{stroke-dashoffset:0;transition-duration:.45s;transition-delay:0s;}
+
+  .mob-ham{all:unset;display:none;cursor:pointer;width:40px;height:40px;place-items:center;margin-left:auto;}
+  .mob-ham i{display:block;width:26px;height:2.5px;background:var(--ink);border-radius:2px;} .mob-ham i+i{margin-top:7px;}
+
+  @media (max-width:860px){
+    .nav-src{display:none;}
+    .mob-ham{display:grid;margin-right:0;}
+    .logo{margin-right:0;}
+  }
+
+  /* demo scaffolding only */
+  .demo-hero{background:#131210;color:#fff;min-height:52vh;display:grid;place-items:center;text-align:center;padding:60px;}
+  .demo-hero h1{font-family:"Montserrat";font-weight:800;text-transform:uppercase;font-size:clamp(28px,5vw,60px);max-width:16ch;margin:0;letter-spacing:-.01em;}
+</style>
+</head>
+<body>
+
+  <header class="brgw-nav" data-left="0" data-right="7">
+    <a class="logo" href="/brg-home/" aria-label="Blacktop Restaurant Group — home">
+      <img src="https://blacktoprg.netlify.app/assets/media/logos/logo-brg-nav-sm.svg" alt="Blacktop Restaurant Group">
+    </a>
+    <ul class="nav-src">
+      <li class="is-active"><a class="nl" href="/brg-home/">Our Story</a>
+        <svg class="uline" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,7 C34,3 58,10 88,5 C102,3 114,7 117,6"/></svg></li>
+      <li><a class="nl" href="/our-restaurants/">Our Restaurants</a><svg class="uline" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,7 C34,3 58,10 88,5 C102,3 114,7 117,6"/></svg></li>
+      <li><a class="nl" href="/team/">Team</a><svg class="uline" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,7 C34,3 58,10 88,5 C102,3 114,7 117,6"/></svg></li>
+      <li><a class="nl" href="/community/">Community</a><svg class="uline" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,7 C34,3 58,10 88,5 C102,3 114,7 117,6"/></svg></li>
+      <li><a class="nl" href="/careers/">Careers</a><svg class="uline" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,7 C34,3 58,10 88,5 C102,3 114,7 117,6"/></svg></li>
+      <li><a class="nl" href="/press-gallery/">Press &amp; Gallery</a><svg class="uline" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,7 C34,3 58,10 88,5 C102,3 114,7 117,6"/></svg></li>
+      <li><a class="nl" href="/contact/">Contact</a><svg class="uline" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,7 C34,3 58,10 88,5 C102,3 114,7 117,6"/></svg></li>
+    </ul>
+    <button class="mob-ham" aria-label="Open menu"><i></i><i></i></button>
+  </header>
+
+  <section class="demo-hero"><h1>We're in the business of making your day great.</h1></section>
+
+</body>
+</html>
