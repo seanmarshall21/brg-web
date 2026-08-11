@@ -1,7 +1,7 @@
 # BRG — Shortcode Reference
 
 Every BRG shortcode + the attributes you can pass to customize it. This reflects the
-**actual plugin** (`website/wp-mu-plugin/vc-clients-embed.php`, v2.2.0) — not aspirational.
+**actual plugin** (`website/wp-mu-plugin/vc-clients-embed.php`, v2.3.0) — not aspirational.
 Where Temper has a knob BRG doesn't have yet, it's called out under **Not yet configurable**.
 
 ---
@@ -75,8 +75,18 @@ you'll pass them like `[brg_cta-band heading="Apply today" cta_href="/careers/"]
 
 ---
 
-## The nav is managed in WordPress
-`[brg_nav]` takes **no layout attributes** — its content is a WordPress menu:
+## The nav — WordPress menu + layout attributes
+`[brg_nav]` content is a WordPress menu; its **layout is set by shortcode attributes** (v2.3.0):
+
+| Attr | Default | Does |
+|---|---|---|
+| `layout` | `left` | `left` · `split` · `center` (logo centered) · `compact` |
+| `left` / `right` | `2` / `2` | items per side (split/center) or total-before-overflow (compact); overflow → a **More** drawer |
+| `sticky` | `pin` | `pin` stays; `sticky="hide"` = hide-on-scroll-down |
+
+Full example: `[brg_nav layout="center" left="2" right="2" sticky="hide"]`
+
+**To set the items:**
 
 1. **Appearance → Menus** → create **"BRG — Primary"**, add/order items + links.
 2. **Manage Locations** → assign it to **BRG — Primary** (`BRG — Social` is registered for later).
@@ -89,8 +99,7 @@ repo and pushes live; the *content* lives in WP. Change the nav = edit the WP me
 ## Not yet configurable (Temper has these; BRG doesn't — yet)
 BRG's nav was built to your export (fixed logo-left, no CTA pill), so these Temper knobs weren't
 ported. Easy to add if you want them — tell me which:
-- **Nav layout modes** (`data-left`/`data-right` per-side counts, logo-center/compact, **More**
-  overflow drawer).
+- ~~Nav layout modes~~ — **DONE (v2.3.0):** `layout`/`left`/`right`/`sticky` + More drawer.
 - **A CTA pill** (Temper's Tickets) — BRG has none; could add e.g. a "Contact" or "Order" button.
 - **Auto-invert** over dark/light sections (the code's in `brgw-nav.js` but gated off; BRG's nav
   is solid white by design).

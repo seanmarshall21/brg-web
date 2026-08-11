@@ -57,7 +57,7 @@
 <header class="top">
   <span class="brand"><b>BRG</b><span>Blacktop Restaurant Group</span></span>
   <h1>Shortcode Index</h1>
-  <span class="ver">plugin v2.2.0</span>
+  <span class="ver">plugin v2.3.0</span>
 </header>
 
 <div class="filters" id="filters">
@@ -71,7 +71,7 @@
 
 <main>
   <p class="lead">Every BRG shortcode + the attributes you can pass. Reflects the live plugin
-    (<code>vc-clients-embed.php</code> v2.2.0). Pages are code fragments on Netlify pulled into
+    (<code>vc-clients-embed.php</code> v2.3.0). Pages are code fragments on Netlify pulled into
     WordPress natively — edit a fragment → <code>git push</code> → live in ~60s. The nav is
     managed in WordPress (Appearance → Menus).</p>
 
@@ -122,9 +122,12 @@
     <div class="card" data-g="chrome">
       <h2>[brg_nav] <span class="grp">chrome</span></h2>
       <table><tr><th>Attr</th><th>Default</th><th>Does</th></tr>
+        <tr><td class="a">layout</td><td class="d">left</td><td><code>left</code> · <code>split</code> · <code>center</code> (logo centered) · <code>compact</code>. e.g. <code>[brg_nav layout="center"]</code></td></tr>
+        <tr><td class="a">left / right</td><td class="d">2 / 2</td><td>Items per side (split/center); in <code>compact</code>, total items shown before overflow. Overflow → a <b>More</b> drawer.</td></tr>
+        <tr><td class="a">sticky</td><td class="d">pin</td><td><code>pin</code> stays; <code>sticky="hide"</code> = hide-on-scroll-down, show-on-up.</td></tr>
         <tr><td class="a">ttl</td><td class="d">120</td><td>Server cache in seconds.</td></tr>
       </table>
-      <div class="note"><b>No layout attributes</b> — content is a WordPress menu. Appearance → Menus → build <b>"BRG — Primary"</b> → Manage Locations → assign it. Styling (white bar, yellow rule, teal marker underline on hover + active page) ships from the repo.</div>
+      <div class="note"><b>Content is a WordPress menu</b> — Appearance → Menus → build <b>"BRG — Primary"</b> → Manage Locations → assign it. Styling + the teal marker underline (hover + active) ship from the repo. Full example: <code>[brg_nav layout="center" left="2" right="2" sticky="hide"]</code></div>
     </div>
 
     <div class="card" data-g="chrome">
@@ -164,8 +167,8 @@
     <div class="callout" data-g="attrs">
       <h3>Not yet configurable — Temper has these, BRG doesn't (yet)</h3>
       <ul>
-        <li><b>Nav layout modes</b> — per-side counts, logo-center / compact, a <b>More</b> overflow drawer.</li>
-        <li><b>A CTA pill</b> (Temper's Tickets) — BRG has none; could add a Contact / Order button.</li>
+        <li><b>Nav layout modes</b> — <s>DONE</s> ✓ <code>layout</code>/<code>left</code>/<code>right</code>/<code>sticky</code> + More drawer are live (v2.3.0).</li>
+        <li><b>A CTA pill</b> (Temper's Tickets) — BRG has none; could add a Contact / Order button (`cta`/`ctalabel`).</li>
         <li><b>Auto-invert</b> over dark/light sections — code is in <code>brgw-nav.js</code> but gated off (nav is solid white by design).</li>
         <li><b>[brg_footer] options</b> — <code>capture</code>/<code>wordmark</code>/<code>layout</code>/<code>band</code>/<code>reg</code>. Not ported.</li>
       </ul>

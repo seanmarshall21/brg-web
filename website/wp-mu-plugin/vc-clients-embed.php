@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.2.0
+ * Version: 2.3.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.2.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.3.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -288,11 +288,21 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
                   . '">Assign a menu to “BRG — Primary” in Appearance → Menus → Manage Locations</a></li></ul>';
         }
 
-        $header = '<header class="bnav">'
+        // Layout controls (shortcode attrs): layout=left|split|center|compact, left/right (per-side
+        // counts, overflow → More drawer), sticky=pin|hide (hide-on-scroll-down). Default = left.
+        $layout = ( is_array( $atts ) && isset( $atts['layout'] ) ) ? preg_replace( '/[^a-z]/', '', strtolower( $atts['layout'] ) ) : 'left';
+        if ( ! in_array( $layout, array( 'left', 'split', 'center', 'compact' ), true ) ) $layout = 'left';
+        $left   = ( is_array( $atts ) && isset( $atts['left'] ) )  ? max( 0, intval( $atts['left'] ) )  : 2;
+        $right  = ( is_array( $atts ) && isset( $atts['right'] ) ) ? max( 0, intval( $atts['right'] ) ) : 2;
+        $sticky = ( is_array( $atts ) && isset( $atts['sticky'] ) && $atts['sticky'] === 'hide' ) ? 'hide' : 'pin';
+
+        $header = '<header class="bnav lay-' . esc_attr( $layout ) . '" data-left="' . esc_attr( $left )
+                . '" data-right="' . esc_attr( $right ) . '" data-sticky="' . esc_attr( $sticky ) . '">'
                 . '<a class="bnav-logo" href="' . esc_url( $home ) . '" aria-label="Blacktop Restaurant Group — home">'
                 . ( $logo ? '<img src="' . esc_url( $logo ) . '" alt="Blacktop Restaurant Group">' : '' )
                 . '</a>'
-                . $menu
+                . $menu                                             // hidden <ul class="nav-src"> source (JS reads it)
+                . '<div class="bnav-grp bnav-grp-a"></div><div class="bnav-grp bnav-grp-b"></div>'
                 . '<button class="bnav-ham" aria-label="Menu"><i></i><i></i></button>'
                 . '</header>';
 
