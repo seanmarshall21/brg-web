@@ -49,61 +49,61 @@
       "id": "home-community",
       "title": "Home \u2014 born in San Diego",
       "group": "editorial",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "home-about",
       "title": "Home \u2014 what we're about",
       "group": "editorial",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "home-different",
       "title": "Home \u2014 a different kind of restaurant company",
       "group": "editorial",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "home-values",
       "title": "Home \u2014 core values",
       "group": "grid",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "our-restaurants-brands",
       "title": "Our Restaurants \u2014 brands",
       "group": "grid",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "team-members",
       "title": "Team \u2014 crew grid",
       "group": "grid",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "team-apply",
       "title": "Team \u2014 join the crew",
       "group": "cta",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "community-give",
       "title": "Community \u2014 how we give back",
       "group": "slider",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "community-stats",
       "title": "Community \u2014 by the numbers",
       "group": "grid",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "community-partner",
       "title": "Community \u2014 partner with us",
       "group": "cta",
-      "status": "todo"
+      "status": "live"
     },
     {
       "id": "careers-apply",
@@ -123,7 +123,7 @@
       "id": "careers-posts",
       "title": "Careers \u2014 LinkedIn posts",
       "group": "feed",
-      "status": "todo"
+      "status": "live"
     }
   ],
   "stacks": {

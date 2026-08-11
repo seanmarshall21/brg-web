@@ -126,8 +126,15 @@ async function main() {
 
   await mkdir(OUT, { recursive: true });
   for (const slug of slugs) {
-    await compose(slug, pages, css, js);
-    console.log(`composed  ${slug}  →  notes/finesser/.out/${slug}.html`);
+    // A slug may be stack-only (e.g. careers-extd, an alternate state with no legacy
+    // monolith). That's the normal shape now — the monoliths are the legacy form — so a
+    // missing page fragment is a skip, not a failure.
+    try {
+      await compose(slug, pages, css, js);
+      console.log(`composed  ${slug}  →  notes/finesser/.out/${slug}.html`);
+    } catch {
+      console.log(`composed  ${slug}  —  no monolith fragment (stack-only), skipped`);
+    }
   }
 
   // --stack composes the same pages from section fragments, for the parity check.
