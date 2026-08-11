@@ -70,6 +70,18 @@
     }
     render();
 
+    // The nav is position:fixed. When its background is opaque (solid), reserve an equal
+    // spacer on its wrapper so page content isn't hidden underneath. Transparent / frost
+    // navs float over the content on purpose (no spacer).
+    var wrap = nav.parentElement;
+    function reserve() {
+      if (!wrap) return;
+      var floats = /\bbg-none\b|\bbg-frost\b/.test(nav.className);
+      wrap.style.minHeight = floats ? '' : nav.offsetHeight + 'px';
+    }
+    reserve();
+    window.addEventListener('resize', reserve);
+
     // Mobile hamburger → full menu in the drawer.
     var ham = nav.querySelector('.bnav-ham');
     if (ham) { ham.setAttribute('aria-label', 'Menu'); ham.addEventListener('click', function () { openWith(SRC); }); }

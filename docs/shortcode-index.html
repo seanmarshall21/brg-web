@@ -57,7 +57,7 @@
 <header class="top">
   <span class="brand"><b>BRG</b><span>Blacktop Restaurant Group</span></span>
   <h1>Shortcode Index</h1>
-  <span class="ver">plugin v2.3.0</span>
+  <span class="ver">plugin v2.4.0</span>
 </header>
 
 <div class="filters" id="filters">
@@ -71,7 +71,7 @@
 
 <main>
   <p class="lead">Every BRG shortcode + the attributes you can pass. Reflects the live plugin
-    (<code>vc-clients-embed.php</code> v2.3.0). Pages are code fragments on Netlify pulled into
+    (<code>vc-clients-embed.php</code> v2.4.0). Pages are code fragments on Netlify pulled into
     WordPress natively — edit a fragment → <code>git push</code> → live in ~60s. The nav is
     managed in WordPress (Appearance → Menus).</p>
 
@@ -124,7 +124,10 @@
       <table><tr><th>Attr</th><th>Default</th><th>Does</th></tr>
         <tr><td class="a">layout</td><td class="d">left</td><td><code>left</code> · <code>split</code> · <code>center</code> (logo centered) · <code>compact</code>. e.g. <code>[brg_nav layout="center"]</code></td></tr>
         <tr><td class="a">left / right</td><td class="d">2 / 2</td><td>Items per side (split/center); in <code>compact</code>, total items shown before overflow. Overflow → a <b>More</b> drawer.</td></tr>
-        <tr><td class="a">sticky</td><td class="d">pin</td><td><code>pin</code> stays; <code>sticky="hide"</code> = hide-on-scroll-down, show-on-up.</td></tr>
+        <tr><td class="a">sticky</td><td class="d">pin</td><td><code>pin</code> stays; <code>sticky="hide"</code> = hide-on-scroll-down, show-on-up. (Nav is fixed — always sticks.)</td></tr>
+        <tr><td class="a">bg</td><td class="d">solid</td><td><code>solid</code> (white bar, reserves space) · <code>none</code> (transparent, floats over the hero) · <code>frost</code> (dark frosted glass + blur).</td></tr>
+        <tr><td class="a">bgcolor</td><td class="d">#fff</td><td>Background color for <code>solid</code>/<code>frost</code>. Any CSS color, e.g. <code>bgcolor="#131210"</code>.</td></tr>
+        <tr><td class="a">opacity</td><td class="d">1</td><td>Background opacity 0–1 (works with solid/frost). e.g. <code>opacity="0.85"</code>.</td></tr>
         <tr><td class="a">ttl</td><td class="d">120</td><td>Server cache in seconds.</td></tr>
       </table>
       <div class="note"><b>Content is a WordPress menu</b> — Appearance → Menus → build <b>"BRG — Primary"</b> → Manage Locations → assign it. Styling + the teal marker underline (hover + active) ship from the repo. Full example: <code>[brg_nav layout="center" left="2" right="2" sticky="hide"]</code></div>
@@ -167,7 +170,7 @@
     <div class="callout" data-g="attrs">
       <h3>Not yet configurable — Temper has these, BRG doesn't (yet)</h3>
       <ul>
-        <li><b>Nav layout modes</b> — <s>DONE</s> ✓ <code>layout</code>/<code>left</code>/<code>right</code>/<code>sticky</code> + More drawer are live (v2.3.0).</li>
+        <li><b>Nav layout modes</b> — <s>DONE</s> ✓ <code>layout</code>/<code>left</code>/<code>right</code>/<code>sticky</code> + More drawer are live (v2.4.0).</li>
         <li><b>A CTA pill</b> (Temper's Tickets) — BRG has none; could add a Contact / Order button (`cta`/`ctalabel`).</li>
         <li><b>Auto-invert</b> over dark/light sections — code is in <code>brgw-nav.js</code> but gated off (nav is solid white by design).</li>
         <li><b>[brg_footer] options</b> — <code>capture</code>/<code>wordmark</code>/<code>layout</code>/<code>band</code>/<code>reg</code>. Not ported.</li>

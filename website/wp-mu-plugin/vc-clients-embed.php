@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.3.0
+ * Version: 2.4.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.3.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.4.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -296,7 +296,22 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
         $right  = ( is_array( $atts ) && isset( $atts['right'] ) ) ? max( 0, intval( $atts['right'] ) ) : 2;
         $sticky = ( is_array( $atts ) && isset( $atts['sticky'] ) && $atts['sticky'] === 'hide' ) ? 'hide' : 'pin';
 
-        $header = '<header class="bnav lay-' . esc_attr( $layout ) . '" data-left="' . esc_attr( $left )
+        // Background: bg=solid|none|frost, bgcolor="#hex|rgb()|name", opacity="0–1".
+        $bg = ( is_array( $atts ) && isset( $atts['bg'] ) ) ? preg_replace( '/[^a-z]/', '', strtolower( $atts['bg'] ) ) : 'solid';
+        if ( ! in_array( $bg, array( 'solid', 'none', 'frost' ), true ) ) $bg = 'solid';
+        $style = '';
+        if ( is_array( $atts ) && isset( $atts['bgcolor'] ) && $atts['bgcolor'] !== '' ) {
+            $c = preg_replace( '/[^#0-9a-zA-Z(),.% ]/', '', (string) $atts['bgcolor'] );
+            if ( $c !== '' ) $style .= '--bnav-bg:' . $c . ';';
+        }
+        if ( is_array( $atts ) && isset( $atts['opacity'] ) && $atts['opacity'] !== '' ) {
+            $op = (float) $atts['opacity'];
+            if ( $op >= 0 && $op <= 1 ) $style .= '--bnav-op:' . rtrim( rtrim( number_format( $op, 3, '.', '' ), '0' ), '.' ) . ';';
+        }
+
+        $header = '<header class="bnav lay-' . esc_attr( $layout ) . ' bg-' . esc_attr( $bg ) . '"'
+                . ( $style !== '' ? ' style="' . esc_attr( $style ) . '"' : '' )
+                . ' data-left="' . esc_attr( $left )
                 . '" data-right="' . esc_attr( $right ) . '" data-sticky="' . esc_attr( $sticky ) . '">'
                 . '<a class="bnav-logo" href="' . esc_url( $home ) . '" aria-label="Blacktop Restaurant Group — home">'
                 . ( $logo ? '<img src="' . esc_url( $logo ) . '" alt="Blacktop Restaurant Group">' : '' )

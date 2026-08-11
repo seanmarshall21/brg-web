@@ -5,19 +5,32 @@
    pen-stroke marker underline, marks the active item, builds the More drawer + mobile takeover.
    Shortcode attrs → classes/data-attrs: layout=left|split|center|compact, left/right (per-side
    counts, overflow → More), sticky=pin|hide. Namespaced .bnav (no clash with brgw.css). */
-.bnav{ --acc:#19C7C2; --yellow:#FCE200; --ink:#231F20;
-  position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:clamp(14px,2vw,30px);
-  background:#fff;border-top:6px solid var(--yellow);box-shadow:0 1px 0 rgba(0,0,0,.06);
+/* FIXED (not sticky): each shortcode is wrapped in its own short .brgw-shell, so a
+   sticky nav un-sticks with that tiny parent. Fixed floats over the page; brgw-nav.js
+   reserves an equal spacer when the bg is opaque so content isn't hidden. */
+.bnav{ --acc:#19C7C2; --yellow:#FCE200; --ink:#231F20; --bnav-bg:#fff; --bnav-op:1;
+  position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;gap:clamp(14px,2vw,30px);
   padding:18px clamp(20px,4vw,54px);font-family:'Montserrat',system-ui,sans-serif;
   transition:transform .35s cubic-bezier(.5,0,.2,1);}
 .bnav *{box-sizing:border-box;}
 .bnav .nav-src{display:none;}                 /* source menu — data only, JS reads it */
 
+/* Background layer (bg="solid|none|frost", bgcolor="…", opacity="0–1") ---------- */
+.bnav::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--bnav-bg);opacity:var(--bnav-op);
+  transition:opacity .3s ease;}
+.bnav.bg-solid{border-top:6px solid var(--yellow);box-shadow:0 1px 0 rgba(0,0,0,.06);}
+.bnav.bg-none::before{opacity:0;}
+.bnav.bg-frost{--bnav-bg:#17150f;--bnav-op:.5;}   /* dark frosted glass (override with bgcolor/opacity) */
+.bnav.bg-frost::before{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+/* transparent / frost float over dark imagery → light text by default */
+.bnav.bg-none .bnav-link,.bnav.bg-frost .bnav-link{color:#fff;}
+.bnav.bg-none .bnav-ham i,.bnav.bg-frost .bnav-ham i{background:#fff;}
+
 /* sticky = hide-on-scroll-down (JS toggles .is-hidden) */
 .bnav.is-hidden{transform:translateY(-100%);}
 
 /* register invert (opt-in via section data-nav) */
-.bnav.on-dark{background:#131210;box-shadow:none;}
+.bnav.on-dark{--bnav-bg:#131210;box-shadow:none;}
 .bnav.on-dark .bnav-link{color:#fff;} .bnav.on-dark .bnav-ham i{background:#fff;}
 
 /* Logo */
