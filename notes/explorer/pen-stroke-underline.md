@@ -144,7 +144,50 @@ the scribble-circle, which is multi-loop and may well want partial draws.
 If Conti prefers **B** anyway, the study already supports it: it detects `window.DrawSVGPlugin` and uses
 it when present, so dropping the file in flips it with no other change.
 
-## 7. Asks
+## 7. Pairing with split text — and the Blanco crop (§8 of the study)
+
+Sean's read is right on both counts: they pair well, and the mask *is* living close to the edge.
+
+**Sequencing.** Lines keep the engine's existing 85ms stagger; the marker starts at **+280ms** so it
+lands just after the last line settles rather than racing it. Study §8 runs the real production markup
+— `.ln` with `overflow:hidden` and `padding:.30em .10em .16em`, `.ln-i` from `translateY(160%)` — in the
+real Blanco, with the marker behind it.
+
+**The crop, measured rather than eyeballed.** The study carries a live audit that measures ink position
+against the actual mask box in the actual DOM (nothing hardcoded):
+
+| | measured |
+|---|---|
+| headroom above the ink | **+0.163em** |
+| headroom below the ink | **+0.202em** |
+| current copy's tallest ink (`’`) | 0.872em |
+| **what the mask can hold** | **1.034em** |
+| **tallest glyph in the face (`é`)** | **1.132em** |
+
+So: **today's copy does not clip — but the face doesn't fit the mask.** There's 0.163em of slack, and
+`é` needs 0.098em more than the mask has. Any accented capital in a headline gets shaved, and nothing
+warns you; it just looks like a slightly wrong letterform. Horizontal is fine (worst overhang 0.067em
+against 0.10em of padding), and descenders are fine (worst 0.184em against 0.346em).
+
+**Fix — one line in `brgw.css`, no layout change:**
+```css
+.brgw .ln{padding:.42em .10em .16em;margin:-.42em -.10em -.16em}   /* was .30em top */
+```
+The negative margin already cancels the padding, so spacing is untouched. `.42em` puts the budget at
+~1.155em, clearing the whole face with room. **Raising the *top* padding is safe for the reveal**: the
+line travels upward from `+160%` and stops at rest, so it is never above its rest position — extra
+room above the mask can't leak it early. (The same is *not* true of `padding-bottom`, which is why
+that one should stay at `.16em`.)
+
+**Caveat I could not close.** I couldn't reproduce a clip in today's copy, so if what Sean saw was on a
+specific headline, the cause may be different from the one I found. My leading suspect is the font
+gate rather than the padding: `splitByWords` groups words into lines by measuring `offsetTop`, and
+`startRevealGate` will fall through on a 1800ms race / 3500ms hard timeout. If Blanco resolves *after*
+that fallback fires, the grouping is measured in Montserrat metrics, so a line can end up wider than
+`.ln` — and `overflow:hidden` then cuts the end of it off horizontally. That would look exactly like
+"the font got cropped." Worth Finn checking on a throttled connection before we call it fixed.
+
+## 8. Asks
 
 - **DECISION (Conti) — §6, A or B.** Everything else in this spec is unaffected either way.
 - **NEED (Conti) — `DrawSVGPlugin.min.js` is not in `assets/vendor/`;** only `gsap.min.js` and
@@ -152,6 +195,10 @@ it when present, so dropping the file in flips it with no other change.
   that's a call for you or Sean, not me.
 - **QUESTION (Sean) — the scribble-circle shape** (§4), if we want it: re-export from Figma *without*
   outlining the stroke.
+- **NEED (Finn) — `.ln` mask padding `.30em → .42em`** (§7). One line, no layout change, closes a latent
+  crop on any accented capital.
+- **QUESTION (Finn) — the font-gate hypothesis** in §7's caveat: does a throttled connection produce
+  horizontally-clipped headlines, via `splitByWords` measuring in fallback metrics?
 - **NEED (Finn) — two capture traps**, both of which cost me time and will cost you a bad screenshot:
   1. **ScrollTrigger's `onEnter` never fires for anything already above the start line at first paint** —
      i.e. the hero, always. IntersectionObserver reports already-visible elements when you observe them;

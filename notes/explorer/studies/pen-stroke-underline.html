@@ -12,6 +12,10 @@
   If DrawSVGPlugin.min.js is ever dropped next to it, this page detects and uses it.
 -->
 <style>
+  /* the real display face, from the repo (served over http, not file://) */
+  @font-face{font-family:'Blanco Cavelary';
+    src:url('../../../website/assets/media/fonts/BlancoCavelary.woff2') format('woff2');
+    font-display:swap;font-weight:400;font-style:normal}
   :root{
     --yellow:#FAE200; --teal:#00BEB4; --pink:#F40085; --orange:#F87513;
     --bg:#201f1d; --bg2:#131210; --ink:#231F20; --white:#fff;
@@ -56,6 +60,17 @@
   /* the underline sits under the word, width-matched to it */
   .uline{display:block;width:100%;margin-top:.1em}
   .uline svg{display:block;width:100%;height:auto;overflow:visible}
+
+  /* production-faithful split-text mask — copied verbatim from brgw.css so the
+     clip audit below measures what actually ships, not an approximation */
+  .bl-head{font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;margin:0;
+    font-size:clamp(1.9rem,5.2vw,4rem);line-height:.92;text-transform:none}
+  .bl-head .ln{display:block;overflow:hidden;padding:.30em .10em .16em;margin:-.30em -.10em -.16em}
+  .bl-head .ln-i{display:inline-block;will-change:transform}
+  .audit-tbl{margin-top:10px;font-size:.78rem;border-collapse:collapse}
+  .audit-tbl td{padding:3px 14px 3px 0;opacity:.8}
+  .audit-tbl td:last-child{font-weight:700;opacity:1}
+  .ok{color:var(--teal)} .bad{color:var(--orange)}
   .meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px 10px}
   .meta span{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;opacity:.62;
     border:1px solid #ffffff1f;border-radius:2px;padding:5px 9px}
@@ -329,105 +344,198 @@
   </div>
 </section>
 
+<!-- ══════════ 8 · PAIRED WITH SPLIT TEXT ══════════ -->
+<section class="v" data-v>
+  <div class="vh"><h2>8 · Paired with the split-text reveal</h2><span class="tag alt">real Blanco + real mask</span></div>
+  <p class="d">The headline uses the production markup exactly — <code>.ln</code> masks with
+  <code>overflow:hidden</code> and <code>padding:.30em .10em .16em</code>, <code>.ln-i</code> sliding up from
+  <code>translateY(160%)</code> — in the real Blanco Cavelary. Lines stagger 85ms apart, then the marker draws
+  behind them. Watch the mask edges for clipped ascenders.</p>
+
+  <div class="stage">
+    <div class="demo">
+      <h3 class="bl-head">
+        <span class="ln"><span class="ln-i" data-line="0">We’re in the business</span></span>
+        <span class="ln"><span class="ln-i" data-line="0.085">of making your day great</span></span>
+      </h3>
+      <span class="uline" style="margin-top:.18em">
+        <svg viewBox="0 0 847.4 29.97" fill="none" preserveAspectRatio="none" aria-hidden="true">
+          <path class="mk" data-draw data-stagger="0.28"
+            d="M8.5 18.09C116.56 13 224.72 10.04 332.9 9.27C441.06 8.5 549.25 9.89 657.35 13.45C717.9 15.44 778.41 18.12 838.9 21.47"
+            stroke="var(--yellow)" stroke-width="15" stroke-linecap="round" pathLength="1"/>
+        </svg>
+      </span>
+    </div>
+    <div class="meta"><span>line 1 · 0s</span><span>line 2 · +85ms</span><span>marker · +280ms</span>
+      <span>mask pad .30 / .10 / .16em</span></div>
+
+    <div id="audit" class="note">measuring…</div>
+  </div>
+</section>
+
 </main>
 
-<script src="../../../website/assets/vendor/gsap.min.js"></script>
-<script src="../../../website/assets/vendor/ScrollTrigger.min.js"></script>
 <script>
 /* ── the draw ────────────────────────────────────────────────────────────────
-   Production intent is DrawSVGPlugin. It isn't in assets/vendor/ yet, so this
-   detects it and otherwise falls back to native stroke-dashoffset with
-   pathLength="1" — which is what DrawSVG does internally for a single-subpath
-   open path. Same output; the swap is one line, marked below. ──────────────── */
-(function () {
-  var hasDraw = !!(window.gsap && window.DrawSVGPlugin);
-  if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
-  if (hasDraw) gsap.registerPlugin(DrawSVGPlugin);
-  document.getElementById('engine').textContent =
-    'engine: ' + (window.gsap ? 'gsap ' + gsap.version : 'GSAP NOT LOADED') +
-    ' · draw: ' + (hasDraw ? 'DrawSVGPlugin' : 'dashoffset fallback');
+   NO LIBRARY. This is the implementation SPEC-004 §3 recommends: pathLength="1"
+   + a stroke-dashoffset CSS transition, triggered by IntersectionObserver.
 
+   The first cut of this page drove it with GSAP and triggered per SECTION. Two
+   bugs came out of that, both worth carrying into production:
+     1. the trigger fired on the section top, but the artwork sits ~350px lower —
+        so the draw finished off-screen and you only ever saw the finished stroke;
+     2. if GSAP fails to load for any reason, nothing arms the paths and every
+        stroke renders complete at first paint — same "it just appeared" symptom,
+        different cause.
+   Observing the ARTWORK, and doing the motion in CSS, removes both. ─────────── */
+(function () {
   var paths = [].slice.call(document.querySelectorAll('[data-draw]'));
   var blobs = [].slice.call(document.querySelectorAll('[data-blob]'));
+  var lines = [].slice.call(document.querySelectorAll('[data-line]'));
   var slow  = document.getElementById('slow');
   var rmBox = document.getElementById('rm');
 
   function reduced() {
     return rmBox.checked || matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
-  function scale() { return slow.checked ? 0.35 : 1; }
+  function k() { return slow.checked ? 1 / 0.35 : 1; }
 
-  // hidden state. reduced-motion never hides: the final stroke is simply there.
   function arm(p) {
-    if (reduced()) { show(p); return; }
-    if (hasDraw) { gsap.set(p, { drawSVG: '0%' }); return; }
     var rev = p.dataset.reverse === '1';
-    gsap.set(p, { strokeDasharray: 1, strokeDashoffset: rev ? -1 : 1 });
-  }
-  function show(p) {
-    if (hasDraw) gsap.set(p, { drawSVG: '100%' });
-    else gsap.set(p, { strokeDasharray: 'none', strokeDashoffset: 0 });
+    p.style.transition = 'none';
+    if (reduced()) { p.style.strokeDasharray = 'none'; p.style.strokeDashoffset = '0'; return; }
+    p.style.strokeDasharray = '1';
+    p.style.strokeDashoffset = String(rev ? -1 : 1);
   }
   function draw(p) {
-    if (reduced()) { show(p); return; }
-    var dur   = (parseFloat(p.dataset.dur) || 0.72) / scale();
-    var delay = (parseFloat(p.dataset.stagger) || 0) / scale() + 0.25;
-    var ease  = p.dataset.ease || 'power2.out';
-    if (hasDraw) {
-      // ── PRODUCTION LINE ──
-      gsap.to(p, { drawSVG: '100%', duration: dur, delay: delay, ease: ease });
-    } else {
-      gsap.to(p, { strokeDashoffset: 0, duration: dur, delay: delay, ease: ease });
-    }
+    if (reduced()) return;
+    var dur   = (parseFloat(p.dataset.dur) || 0.72) * k();
+    var delay = ((parseFloat(p.dataset.stagger) || 0) + 0.25) * k();
+    var ease  = p.dataset.ease === 'power1.inOut'
+      ? 'cubic-bezier(.45,.05,.55,.95)' : 'cubic-bezier(.22,.9,.24,1)';
+    p.style.transition = 'stroke-dashoffset ' + dur + 's ' + ease + ' ' + delay + 's';
+    p.style.strokeDashoffset = '0';
+  }
+  function armLine(el) {                       // split-text mask demo
+    el.style.transition = 'none';
+    el.style.transform = reduced() ? 'none' : 'translateY(160%)';
+  }
+  function drawLine(el) {
+    if (reduced()) return;
+    var d = (parseFloat(el.dataset.line) || 0) * k();
+    el.style.transition = 'transform ' + (0.9 * k()) + 's cubic-bezier(.22,.9,.24,1) ' + d + 's';
+    el.style.transform = 'translateY(0)';
   }
 
-  /* One trigger per variant section — mirrors the way the reveal engine fires a
-     whole .reveal section rather than each element.
-
-     GOTCHA worth carrying into production: ScrollTrigger's onEnter fires when the
-     start line is CROSSED. A section already above the line at first paint — i.e.
-     anything in the first viewport, which on this site is always the hero — never
-     crosses it, so it never fires and the stroke stays hidden forever. The current
-     CSS engine doesn't have this bug because IntersectionObserver reports elements
-     that are already visible when you observe them. So the ScrollTrigger version
-     needs the explicit initial sweep below. */
-  var groups = [].slice.call(document.querySelectorAll('[data-v]')).map(function (sec) {
-    var g = {
-      sec: sec, fired: false,
-      fire: function () {
-        if (g.fired) return; g.fired = true;
-        sec.querySelectorAll('[data-draw]').forEach(draw);
-        sec.querySelectorAll('[data-blob]').forEach(function (b) {
-          setTimeout(function () { b.classList.add('on'); }, reduced() ? 0 : 250);
-        });
-      },
-    };
-    ScrollTrigger.create({ trigger: sec, start: 'top 78%', onEnter: g.fire });
-    return g;
-  });
-
-  function sweep() {                       // catch whatever is already on screen
-    var line = innerHeight * 0.78;
-    groups.forEach(function (g) {
-      if (g.sec.getBoundingClientRect().top < line) g.fire();
-    });
-  }
   function armAll() {
-    gsap.killTweensOf(paths);
-    paths.forEach(arm);
+    paths.forEach(arm); lines.forEach(armLine);
     blobs.forEach(function (b) { b.classList.toggle('on', reduced()); });
-    groups.forEach(function (g) { g.fired = false; });
+    fired = new WeakSet();
   }
+
+  var fired = new WeakSet();
+  // Observe the ARTWORK, not its section. rootMargin trims the bottom so the
+  // draw starts once the stroke is genuinely on screen, not 300px before.
+  var io = new IntersectionObserver(function (ents) {
+    ents.forEach(function (e) {
+      if (!e.isIntersecting || fired.has(e.target)) return;
+      fired.add(e.target);
+      if (e.target.hasAttribute('data-draw')) draw(e.target);
+      else if (e.target.hasAttribute('data-line')) drawLine(e.target);
+      else if (e.target.hasAttribute('data-blob')) {
+        setTimeout(function () { e.target.classList.add('on'); }, reduced() ? 0 : 250 * k());
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+
+  function observeAll() { paths.concat(blobs, lines).forEach(function (el) { io.observe(el); }); }
+
+  document.getElementById('engine').textContent =
+    'engine: CSS stroke-dashoffset + IntersectionObserver · no library';
 
   document.getElementById('replay').addEventListener('click', function () {
     armAll();
-    requestAnimationFrame(sweep);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        paths.forEach(function (p) {
+          if (p.getBoundingClientRect().top < innerHeight) { fired.add(p); draw(p); }
+        });
+        lines.forEach(function (l) {
+          if (l.getBoundingClientRect().top < innerHeight) { fired.add(l); drawLine(l); }
+        });
+        blobs.forEach(function (b) {
+          if (b.getBoundingClientRect().top < innerHeight) {
+            fired.add(b); setTimeout(function () { b.classList.add('on'); }, 250 * k());
+          }
+        });
+      });
+    });
   });
-  rmBox.addEventListener('change', function () { armAll(); requestAnimationFrame(sweep); });
+  rmBox.addEventListener('change', function () { armAll(); observeAll(); });
 
   armAll();
-  ScrollTrigger.refresh();
-  sweep();
+  observeAll();
+
+  /* ── live clip audit ───────────────────────────────────────────────────────
+     Measures the real mask against the real font: where the ink actually sits
+     versus where overflow:hidden actually cuts. Everything here is measured in
+     this DOM — no numbers are hardcoded. */
+  function audit() {
+    var box = document.getElementById('audit');
+    var ln = document.querySelector('.bl-head .ln'), li = ln && ln.querySelector('.ln-i');
+    if (!ln || !li) return;
+    var fs = parseFloat(getComputedStyle(document.querySelector('.bl-head')).fontSize);
+
+    // a zero-size inline-block sits ON the baseline → its bottom edge IS the baseline
+    var probe = document.createElement('span');
+    probe.style.cssText = 'display:inline-block;width:0;height:0;overflow:hidden';
+    li.appendChild(probe);
+    var prev = li.style.transform, prevT = li.style.transition;
+    li.style.transition = 'none'; li.style.transform = 'none';       // measure at rest
+    var baseline = probe.getBoundingClientRect().bottom;
+    var lnR = ln.getBoundingClientRect();
+    li.style.transform = prev; li.style.transition = prevT;
+    probe.remove();
+
+    var c = document.createElement('canvas').getContext('2d');
+    c.font = fs + "px 'Blanco Cavelary'";
+    var m = c.measureText(li.textContent);
+    var inkTop = baseline - m.actualBoundingBoxAscent;
+    var inkBot = baseline + m.actualBoundingBoxDescent;
+    var headTop = (inkTop - lnR.top) / fs, headBot = (lnR.bottom - inkBot) / fs;
+
+    // worst glyph in the face, so we know the margin for copy we haven't written yet
+    var worst = { ch: '', v: 0 };
+    var chars = [];
+    for (var i = 33; i < 127; i++) chars.push(String.fromCharCode(i));
+    ['’', '‘', '“', '”', 'é', 'ñ', 'á', 'ü', '&'].forEach(function (x) { chars.push(x); });
+    chars.forEach(function (ch) {
+      var a = c.measureText(ch).actualBoundingBoxAscent / fs;
+      if (a > worst.v) worst = { ch: ch, v: a };
+    });
+    var thisAsc = m.actualBoundingBoxAscent / fs;
+    var budget = thisAsc + headTop;                 // tallest ink the mask can hold
+    var f = function (n) { return (n >= 0 ? '+' : '') + n.toFixed(3) + 'em'; };
+    var cls = function (ok) { return ok ? 'ok' : 'bad'; };
+
+    box.innerHTML =
+      '<b>Clip audit — measured live, this DOM, this font.</b>' +
+      '<table class="audit-tbl">' +
+      '<tr><td>headroom above the ink</td><td class="' + cls(headTop > 0) + '">' + f(headTop) + '</td></tr>' +
+      '<tr><td>headroom below the ink</td><td class="' + cls(headBot > 0) + '">' + f(headBot) + '</td></tr>' +
+      '<tr><td>this line’s tallest ink</td><td>' + thisAsc.toFixed(3) + 'em</td></tr>' +
+      '<tr><td>mask can hold up to</td><td>' + budget.toFixed(3) + 'em</td></tr>' +
+      '<tr><td>tallest glyph in the face (“' + worst.ch + '”)</td><td class="' +
+        cls(worst.v <= budget) + '">' + worst.v.toFixed(3) + 'em</td></tr>' +
+      '</table>' +
+      (worst.v > budget
+        ? '<p style="margin:10px 0 0"><b class="bad">So: today’s copy fits, but the face does not.</b> ' +
+          '“' + worst.ch + '” overshoots the mask by ' + (worst.v - budget).toFixed(3) +
+          'em — an accent in a headline would be shaved. The fix is padding-top, not a smaller face.</p>'
+        : '<p style="margin:10px 0 0"><b class="ok">Every glyph in the face clears the mask.</b></p>');
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(audit);
+  else setTimeout(audit, 600);
 })();
 </script>
 </body>
