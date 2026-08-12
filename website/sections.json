@@ -19,7 +19,13 @@
     { "id": "team-apply",             "title": "Team — join the crew",                          "group": "cta",       "status": "todo" },
     { "id": "community-give",         "title": "Community — how we give back",                  "group": "slider",    "status": "todo" },
     { "id": "community-stats",        "title": "Community — by the numbers",                    "group": "grid",      "status": "todo" },
-    { "id": "community-partner",      "title": "Community — partner with us",                   "group": "cta",       "status": "todo" },
+    { "id": "community-partner",      "title": "Community — partner with us",                   "group": "cta",       "status": "todo",
+      "slots": {
+        "heading":   { "type": "text",     "label": "Heading",      "default": "Want to partner with us?" },
+        "sub":       { "type": "textarea", "label": "Sub copy",     "default": "Whether you're a nonprofit, school, or local organization — we'd love to talk." },
+        "cta_label": { "type": "text",     "label": "Button label", "default": "Get in touch" },
+        "cta_href":  { "type": "url",      "label": "Button link",  "default": "/contact/" }
+      } },
     { "id": "careers-posts",          "title": "Careers — LinkedIn posts",                      "group": "feed",      "status": "todo" }
   ],
   "stacks": {

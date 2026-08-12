@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.4.0
+ * Version: 2.5.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.4.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.5.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -170,10 +170,27 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
         foreach ( $slots as $key => $def ) {
             $type    = ( is_array( $def ) && isset( $def['type'] ) )    ? $def['type']    : 'text';
             $default = ( is_array( $def ) && isset( $def['default'] ) ) ? $def['default'] : '';
-            $val     = ( is_array( $atts ) && isset( $atts[ $key ] ) )  ? $atts[ $key ]   : $default;
-            if      ( $type === 'url' )  $val = esc_url( $val );
-            else if ( $type === 'html' ) $val = wp_kses_post( $val );
-            else                         $val = esc_html( $val );
+            // Precedence: shortcode attr override > ACF option value > default.
+            // ACF field name = brg_<section-id with _>_<slot>, read from the "Section Content"
+            // options page (see website/wp-snippets/brg-section-content-options.php + the acf.json).
+            if ( is_array( $atts ) && isset( $atts[ $key ] ) ) {
+                $val = $atts[ $key ];
+            } else {
+                $val = $default;
+                if ( function_exists( 'get_field' ) ) {
+                    $acf = 'brg_' . str_replace( '-', '_', $id ) . '_' . $key;
+                    $v   = get_field( $acf, 'option' );
+                    if ( $v !== null && $v !== false && $v !== '' && $v !== array() ) $val = $v;
+                }
+            }
+            if ( $type === 'image' ) {                       // ACF image → URL (array / id / url)
+                if ( is_array( $val ) && isset( $val['url'] ) ) $val = $val['url'];
+                else if ( is_numeric( $val ) )                  $val = wp_get_attachment_image_url( (int) $val, 'full' );
+                $val = esc_url( (string) $val );
+            }
+            else if ( $type === 'url' )  $val = esc_url( (string) $val );
+            else if ( $type === 'html' ) $val = wp_kses_post( (string) $val );
+            else                         $val = esc_html( (string) $val );
             $frag = str_replace( '{{' . $key . '}}', $val, $frag );
         }
         return preg_replace( '/\{\{[a-z0-9_]+\}\}/i', '', $frag ); // strip any leftover tokens
