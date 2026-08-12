@@ -64,11 +64,18 @@ def main():
         json.dump([group(s)], open(out, 'w'), indent=4, ensure_ascii=False)
         open(out, 'a').write('\n')
         made.append((s['id'], os.path.relpath(out, ROOT), len(s['slots'])))
+    # Combined file the auto-loader (brg-acf.php) fetches from Netlify and registers — so
+    # field changes go live on push, no manual import.
+    all_groups = [group(s) for s in data.get('sections', []) if s.get('slots')]
+    json.dump(all_groups, open(os.path.join(OUTDIR, 'all.acf.json'), 'w'), indent=2, ensure_ascii=False)
+    open(os.path.join(OUTDIR, 'all.acf.json'), 'a').write('\n')
+
     if not made:
         print("No sections declare slots yet — add a `slots` object to a section in website/sections.json.")
     for sid, path, n in made:
         print(f"  {sid:22} {n} field(s) -> {path}")
-    print(f"\n{len(made)} field group(s) generated. Import each under ACF -> Tools -> Import Field Groups.")
+    print(f"\n{len(made)} field group(s) → also combined into website/acf/all.acf.json "
+          f"(the auto-loader fetches this; no manual import).")
 
 if __name__ == '__main__':
     main()

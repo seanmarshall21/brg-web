@@ -1,0 +1,101 @@
+[
+  {
+    "key": "group_brg_community_partner",
+    "title": "Community — partner with us — Content",
+    "fields": [
+      {
+        "key": "field_brg_community_partner_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Community — partner with us — Content**\nSource: `brg-web/website/acf/brg-community-partner.acf.json` (generated from sections.json). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_community_partner_heading",
+        "label": "Heading",
+        "name": "brg_community_partner_heading",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Want to partner with us?"
+      },
+      {
+        "key": "field_brg_community_partner_sub",
+        "label": "Sub copy",
+        "name": "brg_community_partner_sub",
+        "type": "textarea",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Whether you're a nonprofit, school, or local organization — we'd love to talk."
+      },
+      {
+        "key": "field_brg_community_partner_cta_label",
+        "label": "Button label",
+        "name": "brg_community_partner_cta_label",
+        "type": "text",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Get in touch"
+      },
+      {
+        "key": "field_brg_community_partner_cta_href",
+        "label": "Button link",
+        "name": "brg_community_partner_cta_href",
+        "type": "url",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "/contact/"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the community-partner section. Generated — do not hand-edit; edit sections.json + rerun kit/build-acf.py."
+  }
+]

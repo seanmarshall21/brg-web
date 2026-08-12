@@ -1,0 +1,36 @@
+# Auto-deploy the WordPress mu-plugin FILES on push, so you never hand-drop them again.
+# (WPCode snippets live in the DB and can't be deployed this way — that's why the ACF
+#  loader + embed plugin are mu-plugin FILES: brg-acf.php auto-registers ACF from Netlify,
+#  and this Action copies both PHP files to /wp-content/mu-plugins/ over SSH.)
+#
+# ── ONE-TIME SETUP (repo → Settings → Secrets and variables → Actions) ──────────
+#   WP_SSH_HOST          your host, e.g. ssh.blacktoprestaurantgroup.com  (DreamHost gives you one)
+#   WP_SSH_USER          the SSH user
+#   WP_SSH_KEY           a PRIVATE SSH key whose public half is authorized on the host
+#   WP_MU_PLUGINS_PATH   absolute path, e.g. /home/USER/blacktoprestaurantgroup.com/wp-content/mu-plugins
+#   (add the key to the host with DreamHost's "Manage SSH keys" / ~/.ssh/authorized_keys)
+#
+# ⚠️ TRADE-OFF: this deploys to the LIVE site on every push to these files — it removes the
+#    manual "verify before dropping it in" gate. If you'd rather keep a gate, delete the `push:`
+#    block below and run it manually from the Actions tab (workflow_dispatch stays either way).
+name: Deploy mu-plugins to WordPress
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'website/wp-mu-plugin/**' ]
+  workflow_dispatch: {}        # manual "Run workflow" button — also the safe-gate option
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy mu-plugin files over SSH
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.WP_SSH_HOST }}
+          username: ${{ secrets.WP_SSH_USER }}
+          key: ${{ secrets.WP_SSH_KEY }}
+          source: "website/wp-mu-plugin/*.php"
+          target: ${{ secrets.WP_MU_PLUGINS_PATH }}
+          strip_components: 2   # drop "website/wp-mu-plugin/" so files land directly in mu-plugins/
