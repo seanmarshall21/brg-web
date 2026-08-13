@@ -23,8 +23,8 @@ permission to read — read everything, write only yours.
 
 | Owner | Territory |
 |---|---|
-| **conti** (Controller) | Infrastructure and contracts: `website/wp-mu-plugin/`, `website/wp-snippets/`, `website/acf/`, `kit/`, `scripts/`, `.github/`, `.githooks/`, `netlify.toml`, `website/pages.json`, `website/sections.json`, `docs/`, `SHORTCODES.md`, and the root coordination docs (`MANIFESTO.md`, `STATUS.md`, `HANDOFF.md`, `CLAUDE.md`, …) |
-| **finn** (Finesser) | The build: the five page `embed.html` fragments, `website/sections/` (fragments **and** each section's `slots.json`), `website/assets/brgw.{css,js}`, `website/assets/vendor/` |
+| **conti** (Controller) | Infrastructure and contracts: `website/wp-mu-plugin/`, `website/wp-snippets/`, `kit/`, `scripts/`, `.github/`, `.githooks/`, `netlify.toml`, `website/pages.json`, `website/sections.json`, `docs/`, `SHORTCODES.md`, and the root coordination docs (`MANIFESTO.md`, `STATUS.md`, `HANDOFF.md`, `CLAUDE.md`, …) |
+| **finn** (Finesser) | The build: the five page `embed.html` fragments, `website/sections/` (fragments **and** each section's `slots.json`), `website/acf/` (generated from them), `website/assets/brgw.{css,js}`, `website/assets/vendor/` |
 | **expo** (Explorer) | Content strategy + the two unbuilt pages. Specs only: `notes/explorer.md`, `notes/explorer/` |
 | **dee** / **dum** (helpers) | Side tasks and prep: `notes/dee.md` + `work/dee/`, `notes/dum.md` + `work/dum/` |
 | **shared (`*`)** | `notes/roundtable.md`, `notes/tasks.json`, `notes/log/`, `.gitignore`, `work/README.md` |
@@ -35,6 +35,13 @@ permission to read — read everything, write only yours.
 version bump that moves `SHORTCODES.md`, `docs/`, and the plugin together. Its `.bnav*` classes
 are deliberately namespaced away from Finn's `.brgw-*` for that reason. The history scan is what
 caught this; the first draft of the map had it filed under Finn.
+
+**Generated output is owned by whoever owns its input.** `website/acf/` is generated from Finn's
+`slots.json` files, so it is Finn's — even though the generator (`kit/build-acf.py`) is Conti's.
+Any other arrangement is unsatisfiable: `pre-push` requires the regenerated groups in the same
+push as the `slots.json` that moved them, so the person who can edit the input must be able to
+commit the output. The same rule keeps `SHORTCODES.md` and `docs/` with Conti — their input,
+`kit/registry.json`, is Conti's.
 
 **A slot and its `{{token}}` ship together**, so `website/sections/<id>/slots.json` lives beside
 the fragment in Finn's territory rather than inside Conti's `sections.json`. Splitting a wiring

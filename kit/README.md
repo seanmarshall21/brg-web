@@ -102,6 +102,17 @@ assertion against the real source, a derivation instead of a constant. Where tha
 possible — prose, rationale, this paragraph — say *when* it was true and *who* checked it, so the
 next reader knows what to re-verify rather than trusting it.
 
+**A blind tool is worse than a stale pointer, because only one of them announces itself.** The
+instrument you verify with is itself a claim about what it can see. Three times on 2026-08-13 a
+check reported cleanly on a case it structurally could not match: a `grep -c` for a phrase that
+was line-wrapped in the markdown (reported the rule absent when it was present); a survey regex
+`<p[^>]*>[^<]*</p>` that cannot match a paragraph containing inline tags (so a half-editable
+section was invisible, and stayed invisible until someone read the file); and the strip regex that
+matched underscores but not hyphens. **A stale pointer is wrong; a blind tool is *confidently*
+wrong.** Before trusting a negative result, ask what the instrument cannot see — and prefer a
+technique with a degraded mode (a loose pattern that returns something imprecise) over one that is
+silently found-or-not.
+
 **A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
 number, a field name, a commit — each asserts *where something lives*, and that moves while the
 fact stays true. Four instances on 2026-08-13: a patch written against `embed.html:63` before the

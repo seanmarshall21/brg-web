@@ -30,7 +30,6 @@ conti	CLAUDE.md
 conti	README.md
 conti	website/wp-mu-plugin/
 conti	website/wp-snippets/
-conti	website/acf/
 conti	website/pages.json
 conti	website/sections.json
 conti	website/BUILD-SPEC.md
@@ -52,6 +51,15 @@ finn	website/our-restaurants/
 finn	website/team/
 finn	website/community/
 finn	website/careers/
+# GENERATED OUTPUT IS OWNED BY THE OWNER OF ITS INPUT. website/acf/ is generated from
+# each section's slots.json by kit/build-acf.py — the generator is conti's, the INPUT is
+# finn's, so the OUTPUT is finn's too. Anything else is unsatisfiable: pre-push requires
+# the regenerated groups in the same push as the slots.json that moved them, so whoever
+# can edit the input must be able to commit the output. (Caught by the gate itself on its
+# first day — finn had to use FC_ALLOW_CROSS to satisfy a rule only finn could satisfy.)
+# The same rule keeps SHORTCODES.md + docs/ with conti: their input, kit/registry.json,
+# is conti's.
+finn	website/acf/
 finn	website/sections/
 # ↑ includes each section's slots.json. A slot and its {{token}} MUST ship in the same
 # commit, which is impossible if one half lives in conti's sections.json — so the
