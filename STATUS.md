@@ -60,13 +60,18 @@ Contract = SPEC-001 §4: CSS scoped under `.brgw-sec--<id>`, root carries `revea
 morphing hamburger + staggered drawer. Attributes: `layout` (left/split/center/compact),
 `left`/`right` (+ More overflow drawer), `sticky` (pin/hide), `bg` (solid/none/frost), `bgcolor`, `opacity`.
 
-## ACF-editable sections
-Sections declare `slots` in `sections.json` → `kit/build-acf.py` generates per-section
-`website/acf/brg-<id>.acf.json` + the combined `website/acf/all.acf.json` → `brg-acf.php`
-registers the "Section Content" options page and fetches those groups from Netlify. So a field
-change is: edit `sections.json` → run the generator → push. **No import step, ever.**
-Fill precedence: shortcode attr > ACF option > default. Field name = `brg_<id_with_underscores>_<slot>`.
-`community-partner` is the only section with slots declared today (the worked example).
+## ACF-editable sections — chain verified end to end 2026-08-12
+A section declares its slots in **`website/sections/<id>/slots.json`** (beside the fragment, so a
+slot and its `{{token}}` ship in one commit) → `kit/build-acf.py` generates
+`website/acf/brg-<id>.acf.json` + the combined `all.acf.json` → `brg-acf.php` registers the
+**Section Content** options page and **fetches those groups from Netlify**. A field change is:
+edit `slots.json` → run the generator → push. **No import step, ever.** Fill precedence:
+shortcode attr > ACF option > default. Field name = `brg_<id_with_underscores>_<slot>`.
+Verified: ACF Pro 6.8.7 active and the Section Content menu is registered in wp-admin.
+
+`python3 kit/build-acf.py --check` proves every slot has a `{{token}}` and vice versa — both
+halves fail silently otherwise. **It is currently red:** `community-partner` declares four slots
+with no tokens in its fragment, so those fields edit nothing. That's Finn's `acf-slot-tokens`.
 
 ## Deploying the WordPress side (no longer a hand-drop)
 `.github/workflows/deploy-mu-plugins.yml` SCPs `website/wp-mu-plugin/*.php` to the server on
@@ -77,10 +82,9 @@ run 31670042632 — v2.4.0 → v2.5.0, verified live on all five pages.** Manual
 is still available from the Actions tab.
 
 ## Open items
-1. **Confirm ACF Pro is active** so `brg-acf.php` can do its job. The file is now on the server
-   (the Action put it there), but nothing yet proves ACF Pro is installed — if it isn't, the
-   loader is inert and every section silently renders its defaults, which is exactly what a
-   correct page looks like. Check for a **Section Content** menu in wp-admin.
+1. **Wire the sections for ACF** (`acf-slot-tokens`, Finn). The loader, the options page and the
+   plugin fill are all live and proven; what's missing is `{{tokens}}` + `slots.json` per section.
+   Until then `build-acf.py --check` stays red and the one declared field group edits nothing.
 2. ~~Verify the live plugin version.~~ **Done — v2.5.0 live**, all five pages, cache-busted.
 3. ~~Menu assignment.~~ **Done** — "BRG — Primary" is assigned and serving Home / Our Restaurants
    / Team / Community / Careers, with `current-menu-item` resolving.
@@ -101,10 +105,13 @@ New page = add its slug to `website/pages.json` + push. New section = add it to 
 + drop `website/sections/<id>/embed.html`.
 
 ## Gotchas (learned)
-- **Never `git add -A` / `git add notes/` from a shared checkout** — it sweeps another chat's
-  in-flight files. Stage your own pathspec (MANIFESTO §Working protocol).
-- **Netlify deploy ≠ WP plugin update.** Pushing does not update the PHP; that's the manual drop
-  (or the deploy Action, once its secrets exist). ACF *data* does auto-update.
+- **Never `git add -A` / `git add notes/`** — it sweeps files that aren't yours. Clone-per-chat
+  plus the territory hook makes this hard to do by accident now, but stage your own pathspec.
+- **Anything committed under `website/` deploys to the public CDN.** Prep and reference material
+  go in `work/` or `website/mocks/` (gitignored) — this has bitten twice.
+- **Netlify deploy ≠ WP plugin update** — but the Action closes that gap now: a push touching
+  `website/wp-mu-plugin/**` deploys the PHP and verifies the version on the server. ACF field
+  data auto-updates separately, via the loader's fetch.
 - **Oxygen shortcodes must be signed** after a host/domain move, or the builder goes blank (also
   needs PHP 8.2 + 512M memory). See memory `oxygen-site-migration-checklist`.
 - **Put `[brg_*]` in an Oxygen _Shortcode_ element / WP Shortcode block — not a Text element.**
