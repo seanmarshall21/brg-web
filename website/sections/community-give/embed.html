@@ -6,7 +6,14 @@
      Slides alternate side: odd slides put the copy panel left / image right, even slides
      reverse it — that alternation is the comp's rhythm, so it's driven by :nth-child
      rather than per-slide markup. Consumes the SHARED .brgw-slider engine in brgw.js
-     (auto-advance, dots, swipe) — no second slider. -->
+     (auto-advance, dots, swipe) — no second slider.
+
+     ACF-editable (slots.json beside this file): the lede — as THREE slots around the inline
+     <b>, so no field ever carries HTML — and the teal banner. The spaces either side of the
+     <b> are in the markup on purpose: ACF trims on save, so a default ending in a space
+     would lose it and the words would run together. The three slides stay as code: three is
+     not a design constant (the shared slider makes its own dots and would take a fourth,
+     and the panel colours come from :nth-child, not the count). -->
 <section class="brgw-sec brgw-sec--community-give reveal" aria-label="How we give back">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
@@ -48,10 +55,10 @@
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146"></span>
 
   <div class="intro">
-    <p class="lede anim-up">At BRG, community isn't a marketing initiative &mdash; <b class="blanco">it's in our DNA.</b> When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.</p>
+    <p class="lede anim-up">{{lede_1}} <b class="blanco">{{lede_emphasis}}</b> {{lede_2}}</p>
   </div>
 
-  <span class="banner blanco anim-up">How we give back</span>
+  <span class="banner blanco anim-up">{{banner}}</span>
 
   <div class="brgw-slider" data-autoplay="6500">
     <div class="brgw-slider__track">

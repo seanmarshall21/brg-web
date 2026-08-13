@@ -1,0 +1,28 @@
+{
+  "_note": "Slots for [brg_community-give]. Declared beside the fragment so a slot and its {{token}} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\n\nTHE LEDE IS THREE SLOTS, NOT ONE, because it wraps an inline <b class=\"blanco\">. Same technique as community-stats' label lines: keep the structural markup in the fragment and slot the text around it, so no field ever has to carry HTML. A single `html`/wysiwyg slot would return <p>-wrapped content nested inside <p class=\"lede\">.\n\nAnd the SPACES EITHER SIDE OF THE <b> LIVE IN THE MARKUP, not at the edges of the defaults. ACF trims whitespace on save, so a default ending in a trailing space would silently lose it the first time someone edits the field and the words would run together — `initiative —it's in our DNA.` Whitespace that the sentence depends on is structural, so it belongs in the fragment.\n\nDELIBERATELY NOT WIRED: the three slider slides. Three is not a design constant — the shared .brgw-slider generates its dots per slide and would take a fourth happily, and the odd/even panel colours come from :nth-child rather than the count. Numbering them would bake the slide count into the fragment while looking editable. The seam badge and the parallax images are decorative and stay as code; the stand-in photography is tracked separately as `real-photography`.",
+
+  "lede_1": {
+    "type": "textarea",
+    "label": "Lede — before the emphasis",
+    "doc": "Opening clause, ending at the em dash. The space before the emphasised phrase is in the markup, so do not add a trailing space here. Write the em dash as a literal —.",
+    "default": "At BRG, community isn't a marketing initiative —"
+  },
+  "lede_emphasis": {
+    "type": "text",
+    "label": "Lede — emphasised phrase",
+    "doc": "Rendered in the display face, slightly larger, mid-sentence. Short — a clause, not a sentence.",
+    "default": "it's in our DNA."
+  },
+  "lede_2": {
+    "type": "textarea",
+    "label": "Lede — after the emphasis",
+    "doc": "The rest of the paragraph. The space after the emphasised phrase is in the markup, so start straight in with a capital.",
+    "default": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home."
+  },
+  "banner": {
+    "type": "text",
+    "label": "Teal banner",
+    "doc": "The rotated teal band straddling the white intro and the dark slider. Sized to its content (width:max-content, capped at 92%) so length is forgiving, but it renders at up to 3rem — past ~28 characters it starts wrapping and the rotation reads badly.",
+    "default": "How we give back"
+  }
+}
