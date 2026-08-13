@@ -1,0 +1,15 @@
+{
+  "_note": "Slots for [brg_home-community]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nTHE <h2> IS NOT WIRED, and this one is structural rather than awaiting anybody: it carries BOTH a hard <br> AND an inline <span class=\"mark\"> marker block. No slot type can hold either — text/textarea escape them into visible markup, and html is an ACF wysiwyg that returns <p>-wrapped content. The field cannot express the design. Same call as careers-apply's heading. The two image plates and their counter-signed parallax are motion/photography and stay as code; the stand-in photography is tracked as `real-photography`.",
+  "body_1": {
+    "type": "textarea",
+    "label": "Body copy — first paragraph",
+    "doc": "Plain text; markup is escaped. Write `—` as a literal em dash.",
+    "default": "We're not a corporation chasing locations — we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling."
+  },
+  "body_2": {
+    "type": "textarea",
+    "label": "Body copy — second paragraph",
+    "doc": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters.",
+    "default": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
+  }
+}

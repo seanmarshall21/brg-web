@@ -1,0 +1,63 @@
+{
+  "_note": "Slots for [brg_our-restaurants-brands]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nSlots are NAMED PER BRAND (`bnb_*`, `odies_*`), deliberately not numbered `brand_1_*`/`brand_2_*`. Numbering would imply a repeater whose length is content, and it isn't: each plate carries its own brand lockup artwork, so a third brand is a BUILD task (new asset, new plate) rather than a content edit. Naming them says that. Same reasoning as home-about's vision/mission — two named things, not two rows.\\n\\nThe brand lockup plates deliberately have NO image reveal: the 2->1.2 counter-scale was cropping the wordmarks, and a brand mark should not be cropped for an effect (2026-08-10). They keep a plain fade-up, and that stays as code.",
+  "bnb_heading": {
+    "type": "text",
+    "label": "Board & Brew — name",
+    "doc": "The brand name. Write `&` as a literal ampersand.",
+    "default": "Board & Brew"
+  },
+  "bnb_body_1": {
+    "type": "textarea",
+    "label": "Board & Brew — first paragraph",
+    "doc": "Write `&` as a literal ampersand.",
+    "default": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool."
+  },
+  "bnb_body_2": {
+    "type": "textarea",
+    "label": "Board & Brew — second paragraph",
+    "doc": "Carries the live location count, so it needs editing whenever that changes. Write `—` as a literal em dash.",
+    "default": "12 locations across San Diego and Orange County — each one a neighborhood staple."
+  },
+  "bnb_cta_label": {
+    "type": "text",
+    "label": "Board & Brew — button label",
+    "doc": "~12 characters.",
+    "default": "Visit Us"
+  },
+  "bnb_cta_href": {
+    "type": "url",
+    "label": "Board & Brew — button link",
+    "doc": "Opens in a new tab; target/rel are in the markup.",
+    "default": "https://boardandbrew.com"
+  },
+  "odies_heading": {
+    "type": "text",
+    "label": "Odie's — name",
+    "doc": "The brand name.",
+    "default": "Odie's Pizza"
+  },
+  "odies_body_1": {
+    "type": "textarea",
+    "label": "Odie's — first paragraph",
+    "doc": "Write `—` as a literal em dash.",
+    "default": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast — think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around."
+  },
+  "odies_body_2": {
+    "type": "textarea",
+    "label": "Odie's — second paragraph",
+    "doc": "Says more locations are coming, so it will need editing when they land.",
+    "default": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way."
+  },
+  "odies_cta_label": {
+    "type": "text",
+    "label": "Odie's — button label",
+    "doc": "~12 characters.",
+    "default": "Visit Us"
+  },
+  "odies_cta_href": {
+    "type": "url",
+    "label": "Odie's — button link",
+    "doc": "Opens in a new tab; target/rel are in the markup.",
+    "default": "https://odiespizza.com"
+  }
+}

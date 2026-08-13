@@ -1,0 +1,9 @@
+{
+  "_note": "Slots for [brg_home-values]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nONLY THE HEADING IS WIRED. The five value cards stay as code, and the evidence is this section's own history: it shipped with SIX values against the old monolith and now has FIVE (no 'Do It Right' — see notes/finesser.md 2026-08-10). A count that has already changed once is the clearest possible proof it is not a design constant, so numbering the cards value_1..value_5 would bake in a number we KNOW moves, while looking editable. Dropping to four or adding a sixth would then be a code change disguised as a content one. If these should be editable, they need real repeater support — conti's option (b), deferred 2026-08-13. The BRG pattern watermark is decorative.",
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "doc": "Sits above the values grid, in the display face. Plain — no marker block, no line break. ~24 characters.",
+    "default": "Our core values"
+  }
+}

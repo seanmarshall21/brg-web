@@ -1,0 +1,21 @@
+{
+  "_note": "Slots for [brg_home-different]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nTHE <h2> IS NOT WIRED, and this one is structural rather than awaiting anybody: it carries BOTH a hard <br> AND an inline <span class=\"mark\"> marker block. No slot type can hold either — text/textarea escape them into visible markup, and html is an ACF wysiwyg that returns <p>-wrapped content. The field cannot express the design. Same call as careers-apply's heading. The three colour plates and their three parallax rates are motion and stay as code.",
+  "body_1": {
+    "type": "textarea",
+    "label": "Body copy — first paragraph",
+    "doc": "Plain text; markup is escaped.",
+    "default": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that."
+  },
+  "body_2": {
+    "type": "textarea",
+    "label": "Body copy — second paragraph",
+    "doc": "Write `—` as a literal em dash.",
+    "default": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work — that energy is contagious. You feel it the moment you walk in."
+  },
+  "body_3": {
+    "type": "textarea",
+    "label": "Body copy — third paragraph",
+    "doc": "Write `—` as a literal em dash.",
+    "default": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."
+  }
+}
