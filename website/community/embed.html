@@ -1,3 +1,19 @@
+<!-- ============================================================================
+     STALE — LEGACY MONOLITH. NOT WHAT THE LIVE SITE RENDERS. DO NOT USE AS A REFERENCE.
+
+     The live /community/ page is built from STACKED SECTIONS ([brg_nav] + [brg_<id>]… +
+     [brg_footer]), not from this whole-page fragment. This file is the pre-SPEC-001 form.
+     It still fetches and still renders, which is exactly what makes it dangerous: it looks
+     like the page and isn't. On 2026-08-13 it caused a false "hero regression" report —
+     home/embed.html's <h1> has no structural <br>, so it free-wraps to FIVE lines, where
+     the live sections/home-hero renders TWO. It also lacks the hand-drawn underline and the
+     doodle cluster the live hero has.
+
+     Screenshot website/sections/<id>/embed.html, never this. Retirement is pending Sean's
+     confirmation that no draft or unlinked WP page still uses [brg_community] — the shortcode
+     stays registered off pages.json, so deleting this file would make such a page render an
+     empty fetch. See notes/finesser.md 2026-08-13.
+     ============================================================================ -->
 <!-- BRG · Community — page fragment. Shortcode: [brg_community] -->
 <section class="brgw" aria-label="Blacktop Restaurant Group — Community">
 <style>

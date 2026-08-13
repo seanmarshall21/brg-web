@@ -95,9 +95,13 @@ export const escUrl = (s) => String(s)                        // esc_url(), near
    it ISN'T declared the strip regex cannot match it, so it survives onto the live page as
    visible `{{cta-label}}` text. Same slip as a missing underscore slot, opposite symptom —
    one deletes copy silently, the other prints a token into a screenshot — and `--check` is
-   blind to both. Hence GRAMMAR (what the layers can see) and ANY (what a human can type). */
-const TOKEN_ANY = /\{\{([^{}]*)\}\}/g;
-const TOKEN_GRAMMAR = /^[a-z0-9_]+$/i;
+   blind to both. Hence GRAMMAR (what the layers can see) and ANY (what a human can type).
+
+   Exported at @dee's ask so the grammar has one definition instead of four. TOKEN_ANY is
+   deliberately LOOSER than the layers it describes — that gap IS the bug class, so anything
+   consuming these should test ANY-matches against GRAMMAR rather than assume they agree. */
+export const TOKEN_ANY = () => /\{\{([^{}]*)\}\}/g;   // factory: /g regexes carry lastIndex
+export const TOKEN_GRAMMAR = /^[a-z0-9_]+$/i;
 
 /* Where a section's slots come from. Deliberately two answers — see SLOTS_MODE. */
 export async function slotsFor(id, manifest, opts = {}) {
@@ -146,7 +150,7 @@ export async function fillSlots(frag, id, manifest, opts = {}) {
   }
 
   // Two distinct failures, deliberately reported apart because the fix differs.
-  const leftover = [...frag.matchAll(TOKEN_ANY)].map((m) => m[1]);
+  const leftover = [...frag.matchAll(TOKEN_ANY())].map((m) => m[1]);
   const strippable = [...new Set(leftover.filter((t) => TOKEN_GRAMMAR.test(t)))];
   const literal = [...new Set(leftover.filter((t) => !TOKEN_GRAMMAR.test(t)))];
   if (strippable.length) {
