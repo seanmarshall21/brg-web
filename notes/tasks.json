@@ -11,6 +11,14 @@
   "version": 1,
   "tasks": [
     {
+      "id": "dee-slot-plugin-check",
+      "title": "A repeatable slot↔plugin check (does the DEPLOYED plugin fill this section's tokens?)",
+      "owner": "dee",
+      "gate": "conti",
+      "status": "doing",
+      "note": "Assigned 2026-08-13. Closes the gap that caused the v2.5.0 bug: build-acf.py --check compares two files that both live in git and stayed green while the live render was wrong. Build in work/dee/slot-plugin-check/ against plugin v2.6.0; 'which source won' (slots.json vs inline) is part of the answer. Use finn's compose.mjs, don't fork it. Graduation into kit/ or .githooks/ is conti's call later."
+    },
+    {
       "id": "dee-dum-clones",
       "title": "Start Dee and Dum (helper chats) when there's side work for them",
       "owner": "sean",
@@ -32,15 +40,15 @@
       "owner": "finn",
       "gate": "none",
       "status": "doing",
-      "note": "UNBLOCKED + STEP 2 LANDED 2026-08-13 (501afbe). conti shipped plugin v2.6.0: vcc_fill_slots() fetches sections/<id>/slots.json first, falls back to the inline block, skips _-prefixed keys. community-partner is wired and live — verified against DEPLOYED CDN bytes (slots.json 200 with cta_label/cta_href/sub, fragment carries exactly those three tokens, compose.mjs --live --stack renders 'Want to partner with us?' -> the mailto). Three slots, not conti's four: this band has no heading, and conti has confirmed that shape. --check is at 1 problem, the BOTH conflict. AWAITING conti step 3 (delete the inline block + rerun build-acf.py). Finn asked conti to WAIT for one successful slots.json fetch first: vcc_fetch never caches failures (good, no stale-empty window) but _stale is only written on SUCCESS, so until slots.json has succeeded once a transient blip falls back to inline — and with inline deleted the same blip strips the tokens and renders EMPTY. The live CTA is the free discriminator: 'Want to partner with us?' -> mailto = slots.json fired; 'Get in touch' -> /contact/ = fallback fired, do NOT delete. REMAINING: 14 singular wirings + community-stats flattened, per conti's ruling (c) 2026-08-13 — card sets in team-members/careers-posts stay as code; numbered slots there would bake the row count in while looking editable. The tenth crew member is the tell that (b) real repeaters has earned itself."
+      "note": "UNBLOCKED AND PROVEN TWICE 2026-08-13. Plugin v2.6.0 (conti): vcc_fill_slots() fetches sections/<id>/slots.json first, falls back to the inline block, skips _-prefixed keys. community-partner wired by finn (501afbe) — 3 slots not 4: this band has no heading, and the legacy inline block declared one the markup never had plus a cta_label contradicting the live button, which is drift and the best argument for keeping slots beside the fragment. Verified against DEPLOYED CDN bytes by finn (slots.json 200, fragment carries exactly those tokens, compose renders the mailto) and live by conti. Inline block deleted (e22941f) after priming _stale; --check GREEN. community-stats wired + primed + verified (515ece9): 12 slots — figures AND labels, since the unit is undecided and splitting them would still have needed a push. RULING (c): singular copy per section; team-members + careers-posts card sets stay code; community-stats flattened. REMAINING: the non-hero singular wirings. Rules carried forward: (1) prime each new slots.json with a live page load BEFORE deleting any fallback — vcc_fetch writes _stale only on success; (2) defaults must be exact production copy; (3) a text default needs a LITERAL & , never &amp; , or it double-escapes and shows as visible text. OPEN, SEAN'S GATE: whether the five heroes' Blanco display headlines should be editable at all — finn's read (conti agrees) is ledes/taglines/CTAs yes, display headlines no, because valid copy can silently rewrap and break a composition built to the comp's two lines, and neither --check nor the fill can see a layout failure."
     },
     {
       "id": "acf-check-on-push",
       "title": "Wire `build-acf.py --check` into .githooks/pre-push once it's green",
       "owner": "conti",
       "gate": "conti",
-      "status": "blocked",
-      "note": "Blocked on acf-slot-tokens. Wiring a gate that fails on day one just teaches everyone to use --no-verify. Flip it on once --check is green. NOTE 2026-08-13 (finn): --check is necessary but NOT sufficient — it proves slot<->{{token}}, not slot<->plugin, and it stayed quiet while the live render was wrong. Worth saying so in kit/README.md when this lands, so a green check isn't read as 'the section renders'."
+      "status": "todo",
+      "note": "--check went GREEN 2026-08-13, so this is no longer blocked on a red gate. Hold until the remaining sections are wired, then wire it into .githooks/pre-push. Remember what it does NOT prove: slot<->plugin. dee is building that complement in work/dee/slot-plugin-check/."
     },
     {
       "id": "deploy-action-auth",
@@ -112,7 +120,7 @@
       "owner": "sean",
       "gate": "sean",
       "status": "todo",
-      "note": "STRATEGY DELIVERED 2026-08-13: notes/explorer/content-gaps.md §2. Key finding — the grid's own border rules (border-right except :nth-child(2n), border-bottom except :nth-last-child(-n+2)) mean 3 cells BREAKS STRUCTURALLY (cell 3 sits alone in the left column with a rule pointing at empty space); 2 and 4 are both clean. So sean needs ONE more number or THREE, never two. Recommended: keep the org count and event count as `N+` floors, and REPLACE 'meals/dollars donated' rather than fill it (a soft philanthropy dollar figure is the number that gets quoted back at you) with TEAM HEADCOUNT across SD & OC — HR has it today, zero research, so `12` + headcount is a clean shippable 2-cell section NOW. Recommendation to conti/sean: drop this from `launch`'s blockers — it degrades to 2 cells instead of blocking."
+      "note": "THE PATH IS NOW OPEN 2026-08-13: all four figures AND their labels are ACF fields, live and verified. Sean edits them in wp-admin → Section Content → Community — by the numbers, with NO push and no code change. Three figures still read XX; figure 3's label says 'meals/dollars' because the unit was never decided, so whoever supplies that number sets the label in the same edit. This is the first place the ACF work pays off visibly."
     },
     {
       "id": "careers-posts-urls",
