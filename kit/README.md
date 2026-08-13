@@ -74,6 +74,16 @@ while a `{{token}}` with no slot is stripped on render, so that copy simply disa
 checks the same class of bug with `tools/acf-readers.py --strict` — their coupling is field → PHP
 reader, ours is slot → `{{token}}`.
 
+### Read this before the traps below
+
+**`--check` proves the two halves agree with *each other*. Every trap in this list is a way they
+can agree and still be wrong.** That is not a criticism of the check — it is the limit of what
+any repo-side comparison can know. Five instances found on 2026-08-13 alone: a declaration that
+had drifted from its own markup, the `_stale` ordering, the `&`/`&amp;` double-escape, a slot
+name that is legal to the check and illegal to WordPress, and the runtime reading slots from a
+file the check never looks at. In every one, both halves matched perfectly and the page was
+wrong. **Green means "consistent", never "correct" — confirm the live render.**
+
 > **`--check` is necessary but not sufficient — it cannot see the runtime.** It compares declared
 > slots to `{{tokens}}`, and both of those live in this repo. It says nothing about whether the
 > *deployed plugin* reads slots from where they are now declared. That gap is not hypothetical:
@@ -145,29 +155,40 @@ Two limits, both measured, both capable of making you report a bug that isn't th
 rewrap check is a fold check, which is why the fallback covers the case that matters. (Limits
 measured by Finn, 2026-08-13, after the fallback nearly produced a second false alarm.)
 
-## The token grammar — one definition, four implementations
+## The token grammar — TWO grammars, five implementations
 
-**`{{` + `[a-z0-9_-]+` + `}}`, case-insensitive.** Slot names are **underscores** by convention;
-`-` is in the class only so a typo can be *seen* and *stripped*, never so it can be used.
+They were one thing until plugin v2.6.1. Widening the strip split them, and treating them as one
+name afterwards is itself a bug (Finn hit exactly that and split the constant):
 
-This grammar cannot be shared as one literal — it lives in three languages. So it is **defined
-here** and duplicated at exactly four sites, each of which cites this section. **Change one and
-you must change all four:**
+| | Pattern | Meaning |
+|---|---|---|
+| **STRIPPABLE** | `[a-z0-9_-]+` | what the plugin removes at render, and what `--check` must *see* in a fragment in order to report it |
+| **SLOT&nbsp;NAME** | `[a-z0-9_]+` | what a slot may legally be **called** — narrower, because the name becomes the ACF field name `brg_<id>_<slot>`, and a hyphen there is a hyphen in a WordPress meta key |
 
-| Site | What it does |
-|---|---|
-| `website/wp-mu-plugin/vc-clients-embed.php` (strip, in `vcc_fill_slots`) | removes leftover tokens at render |
-| `kit/build-acf.py` (`used` in `check()`) | finds tokens in a fragment |
-| `notes/finesser/compose.mjs` (`TOKEN_GRAMMAR`) | Finn's harness |
-| `work/dee/slot-plugin-check/slotcheck.mjs` (`STRIP_RE`) | Dee's live checker |
+Neither can be shared as one literal — they live in three languages. So they are **defined here**
+and duplicated at five sites, each citing this section. **Change one and you must change all:**
+
+| Site | Which | What it does |
+|---|---|---|
+| `vc-clients-embed.php` (strip, in `vcc_fill_slots`) | STRIPPABLE | removes leftover tokens at render |
+| `kit/build-acf.py` (`used` in `check()`) | STRIPPABLE | finds tokens in a fragment |
+| `kit/build-acf.py` (`SLOT_NAME`) | SLOT NAME | **rejects** an illegal slot name — check *and* generate |
+| `notes/finesser/compose.mjs` (`TOKEN_STRIPPABLE` / `TOKEN_SLOT_NAME`) | both | Finn's harness |
+| `work/dee/slot-plugin-check/slotcheck.mjs` (`STRIP_RE`) | STRIPPABLE | Dee's live checker |
 
 **Why `-` was added (v2.6.1).** It used to be underscores only, so an undeclared `{{cta_label}}`
 was silently stripped while an undeclared `{{cta-label}}` was **neither stripped nor filled** —
 the visitor read raw template syntax on a live page. Both the strip and `--check` now match it:
-the check *sees* the typo (and reports it as orphaned, since no slot can be named that way), and
-the runtime *removes* it. A missing line of copy is a defect; `{{cta-label}}` in front of a
-customer is a worse one. Found by Dee with fixtures, after it had been invisible to every tool
-we had.
+the check *sees* the typo and reports it, and the runtime *removes* it. A missing line of copy is
+a defect; `{{cta-label}}` in front of a customer is a worse one. Found by Dee with fixtures.
+
+**And why the split was then necessary.** Widening `used` removed the very disagreement that used
+to expose a hyphenated *slot name*: declare `cta-label` and write `{{cta-label}}`, and both sides
+now agree perfectly — `--check` went **green** while generating the ACF field
+`brg_community_partner_cta-label`, which `get_field()` cannot read. The convention had nothing
+enforcing it. `build-acf.py` now rejects an illegal slot name in **both** `--check` and
+generation (generation exits rather than emit a broken field name). Spotted by Finn as a side
+effect of my own fix, and closed with a fixture that reproduces it.
 
 **Divergence between the four is the real risk, not the regex.** Dee's `slotcheck --selftest`
 asserts the JS matches the PHP; run it after any plugin change. Dee's tool also caught Finn's

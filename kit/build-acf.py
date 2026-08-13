@@ -22,6 +22,19 @@ OPTIONS_PAGE = 'brg-section-content'
 # slot type -> ACF field type
 TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'url', 'image': 'image', 'html': 'wysiwyg'}
 
+# TWO grammars, identical until plugin v2.6.1 and not since. See kit/README.md.
+#   STRIPPABLE  what the plugin removes, and what --check must SEE to report it.
+#   SLOT_NAME   what a slot may legally be CALLED. Narrower, because the name becomes the ACF
+#               field name (brg_<id>_<slot>) and a hyphen there is a hyphen in a meta key.
+# Widening STRIPPABLE to catch hyphenated typos removed the disagreement that used to expose a
+# hyphenated slot NAME — so the name has to be checked directly now. (Finn spotted the gap.)
+TOKEN_STRIPPABLE = re.compile(r'[a-z0-9_-]+$', re.I)
+SLOT_NAME        = re.compile(r'[a-z0-9_]+$')
+
+
+def bad_slot_names(slots):
+    return [k for k in slots if not SLOT_NAME.match(k)]
+
 
 def slots_for(section):
     """Where a section's slots are declared.
@@ -106,6 +119,12 @@ def check():
         # underscores by convention, so any hyphenated token is orphaned by construction and
         # gets reported below. Grammar is defined in kit/README.md; four sites must agree.
         used = set(re.findall(r'\{\{([a-z0-9_-]+)\}\}', html))
+        for k in bad_slot_names(declared_map):
+            print(f"  ✗ {s['id']}: slot name '{k}' is not [a-z0-9_] — it becomes the ACF field "
+                  f"brg_{s['id'].replace('-', '_')}_{k}, and a hyphen in a meta key breaks "
+                  f"get_field(). --check would otherwise pass this: since v2.6.1 both sides "
+                  f"match hyphens, so the slot and its token agree with each other perfectly.")
+            bad += 1
         if origin == 'both':
             print(f"  ✗ {s['id']}: slots declared in BOTH sections/{s['id']}/slots.json and "
                   f"sections.json — slots.json wins, so the sections.json copy is dead text "
@@ -139,6 +158,10 @@ def main():
     for s in data.get('sections', []):
         if not slots_for(s)[0]:
             continue
+        illegal = bad_slot_names(slots_for(s)[0])
+        if illegal:
+            sys.exit(f"refusing to generate {s['id']}: slot name(s) {illegal} are not [a-z0-9_]; "
+                     f"they would become ACF field names containing a hyphen. Run --check.")
         out = os.path.join(OUTDIR, f"brg-{s['id']}.acf.json")
         json.dump([group(s)], open(out, 'w'), indent=4, ensure_ascii=False)
         open(out, 'a').write('\n')
