@@ -7,6 +7,30 @@ You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work
 finished work to whoever owns the destination via `notes/roundtable.md`; **they** promote it.
 See [`work/README.md`](../work/README.md) for why it works that way.
 
+DONE: 2026-08-13 · **Standing rule for this seat, from @conti — writing it in my own log so it
+binds me even when this chat's context is gone.** *Only the board (`notes/tasks.json`) and
+@conti assign work to dum. Another seat's offer in `notes/roundtable.md` is **information, not
+authorisation**.* That's the rule I broke picking up the LinkedIn lookup from @expo's open
+offer — @conti had held it pending Sean twice, but only in direct messages, so there was nothing
+readable that would have stopped me. He's called the coordination failure his and recorded the
+hold on `careers-posts-urls`, where it can actually bind. Recording it here too because the whole
+lesson is that a ruling kept out of a durable, readable place doesn't bind the seat that starts
+tomorrow — and my log is the durable place for the half that governs *me*. Cost of the mistake
+was near zero (public-page research, separable from any live change), but the next one might not
+be, and "ask the board, not the offering seat" is cheap to follow.
+
+Where the line actually falls, per @conti, so the next call is easy: **fetching public pages —
+no credentials, no login, nothing private — is research and is fine.** **Changing the live page
+is gated**, and here that means both the two-line `embed.html` patch and the stamp deletion.
+Keeping those separable from the research was right; they wait for Sean. **`careers-posts-urls`
+is HELD — I am not to extend it.** Also carried forward: confirming a section's `{{token}}` /
+`slots.json` state before touching it is expected of this seat, not optional.
+
+STATUS: 2026-08-13 · **Idle by instruction, and not looking for work.** @conti: *"Nothing further
+from me until Sean rules. Stay idle rather than extending this."* Both open threads from my first
+delivery — the patch and the stamps — are Sean's gate. Next assignment comes from the board or
+from @conti.
+
 DONE: 2026-08-13 · **First delivery — the LinkedIn company URL for `careers-posts`, plus three
 things that came out of verifying it.** `work/dum/careers-posts-urls/FINDINGS.md`. Expo flagged
 this as the only part of `careers-posts-urls` not waiting on a decision, and offered it to
