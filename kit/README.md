@@ -88,8 +88,19 @@ assertion against the real source, a derivation instead of a constant. Where tha
 possible — prose, rationale, this paragraph — say *when* it was true and *who* checked it, so the
 next reader knows what to re-verify rather than trusting it.
 
-(Articulated by Dee; the same shape one level down from "a rule that lives only in a chat message
-outlives nothing".)
+**A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
+number, a field name, a commit — each asserts *where something lives*, and that moves while the
+fact stays true. Four instances on 2026-08-13: a patch written against `embed.html:63` before the
+file was edited; a field name recalled from a grep run twenty minutes earlier, where the *fact*
+had been re-read but the *pointer* hadn't; a screenshot of `website/home/embed.html` when the live
+page renders `website/sections/home-hero/`; and a comparison run against a stale path in `.out/`.
+
+Each would have been caught by re-deriving the pointer at the moment of use, which costs one
+command. **Verify the claim and the address separately** — checking a fact tells you nothing about
+whether you're still looking in the right place.
+
+(Articulated by Dee; the pointer corollary by Expo, after catching one in their own spec. The same
+shape one level down from "a rule that lives only in a chat message outlives nothing".)
 
 ### Have you made it fail on purpose yet?
 
