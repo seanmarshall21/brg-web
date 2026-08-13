@@ -1,0 +1,21 @@
+{
+  "_note": "Slots for [brg_community-partner]. Declared HERE, beside the fragment, so a slot and its {{token}} ship in one commit (MANIFESTO 'A slot and its {{token}} ship together'). Generated into website/acf/ by `python3 kit/build-acf.py`; NEVER hand-edit an acf.json. Every default below is the exact production copy, so the rendered page is unchanged until someone edits it in WordPress. Shape follows the MARKUP, not the legacy inline `slots` in sections.json: this band's question IS the button label, there is no separate heading, and the link is a mailto — see notes/finesser.md 2026-08-13.",
+  "cta_label": {
+    "type": "text",
+    "label": "Button label",
+    "doc": "The question on the black button. This band has no separate heading — the button is the headline.",
+    "default": "Want to partner with us?"
+  },
+  "cta_href": {
+    "type": "url",
+    "label": "Button link",
+    "doc": "Where the button goes. A mailto: is fine — that is what ships today.",
+    "default": "mailto:hello@blacktoprg.com?subject=Community%20partnership"
+  },
+  "sub": {
+    "type": "textarea",
+    "label": "Sub copy",
+    "doc": "One line beneath the button. Plain text — markup is escaped.",
+    "default": "Whether you're a nonprofit, school, or local organization — we'd love to talk."
+  }
+}
