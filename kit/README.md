@@ -159,9 +159,19 @@ node notes/finesser/compose.mjs --live --stack
 
 Two limits, both measured, both capable of making you report a bug that isn't there:
 
-1. **Compose with `--live`.** Without it, asset URLs are rewritten to `/assets/…`, which under
-   `file://` resolves to *filesystem root* — so every image, font and doodle 404s. A missing
-   collage then reads as a broken section.
+1. **Compose with `--live` — but know exactly what it means.** Without it, asset URLs are
+   rewritten to `/assets/…`, which under `file://` resolves to *filesystem root*, so every image,
+   font and doodle 404s and a missing collage reads as a broken section. **But `--live` means
+   "everything from the CDN" — the fragment and `slots.json` as well as the assets. So it can
+   never verify an unpushed local change:** both sides of your comparison are the deployed file,
+   and it will report "identical" for the one reason that proves nothing. That has now produced
+   two false verifications, one of which was reported as done. Use `--live` to look at what IS
+   deployed; compose locally to check what you have just written.
+
+   **Strongest option of all, when the page is gated and you have the password:** save the live
+   WordPress HTML (`curl` with the gate cookie) and screenshot *that*. The plugin inlines the CSS
+   and fragments carry absolute CDN URLs, so it renders faithfully — and it is the real plugin
+   output rather than any reconstruction of it.
 2. **`--window-size` height is the VIEWPORT, not a page-height crop.** It is not
    `captureBeyondViewport`: it changes every `vh` unit, media query and IntersectionObserver
    result. Faithful at 900 and 2600; **at 5200 the home hero collage vanishes entirely.** Tall
