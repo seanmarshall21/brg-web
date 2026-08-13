@@ -91,6 +91,25 @@ next reader knows what to re-verify rather than trusting it.
 (Articulated by Dee; the same shape one level down from "a rule that lives only in a chat message
 outlives nothing".)
 
+### Have you made it fail on purpose yet?
+
+The companion rule, and the one that catches the first. A new check must be **made to fail on
+the condition it exists to detect**, before it is trusted — because a gate that never fires and
+a gate that works look identical from a green result.
+
+Both gates shipped on 2026-08-13 nearly failed this test in the same way, and the shared mistake
+is worth stating as one thing: **the fixture didn't contain the condition it was supposed to
+detect.** One deleted a generated file from the *working tree* when the real failure is stale
+*committed* output — so regeneration simply restored a correct commit and the check was right to
+stay quiet. The other compared against the CDN while the change under test was local — so both
+sides of the diff were the same deployed file and "identical" was guaranteed.
+
+Neither was a bug in the check. Both were fixtures that couldn't fail. So: **the question to ask
+of a new check is not "does it pass" but "have I made it fail on purpose yet"** — and if you
+can't construct the failing case, you don't yet understand what you're checking.
+
+(Finn's formulation, after we each did it once in the same afternoon.)
+
 ### Read this before the traps below
 
 **`--check` proves the two halves agree with *each other*. Every trap in this list is a way they
