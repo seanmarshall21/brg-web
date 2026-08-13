@@ -1,0 +1,86 @@
+[
+    {
+        "key": "group_brg_home_different",
+        "title": "Home — a different kind of restaurant company — Content",
+        "fields": [
+            {
+                "key": "field_brg_home_different_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "**Home — a different kind of restaurant company — Content**\nSource: `brg-web/website/acf/brg-home-different.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_different_body_1",
+                "label": "Body copy — first paragraph",
+                "name": "brg_home_different_body_1",
+                "type": "textarea",
+                "instructions": "Plain text; markup is escaped.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that."
+            },
+            {
+                "key": "field_brg_home_different_body_2",
+                "label": "Body copy — second paragraph",
+                "name": "brg_home_different_body_2",
+                "type": "textarea",
+                "instructions": "Write `—` as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work — that energy is contagious. You feel it the moment you walk in."
+            },
+            {
+                "key": "field_brg_home_different_body_3",
+                "label": "Body copy — third paragraph",
+                "name": "brg_home_different_body_3",
+                "type": "textarea",
+                "instructions": "Write `—` as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the home-different section. Generated — do not hand-edit; edit sections/home-different/slots.json + rerun kit/build-acf.py."
+    }
+]

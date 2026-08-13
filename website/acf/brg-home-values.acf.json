@@ -1,0 +1,56 @@
+[
+    {
+        "key": "group_brg_home_values",
+        "title": "Home — core values — Content",
+        "fields": [
+            {
+                "key": "field_brg_home_values_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "**Home — core values — Content**\nSource: `brg-web/website/acf/brg-home-values.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_values_heading",
+                "label": "Heading",
+                "name": "brg_home_values_heading",
+                "type": "text",
+                "instructions": "Sits above the values grid, in the display face. Plain — no marker block, no line break. ~24 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Our core values"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the home-values section. Generated — do not hand-edit; edit sections/home-values/slots.json + rerun kit/build-acf.py."
+    }
+]

@@ -1,0 +1,191 @@
+[
+    {
+        "key": "group_brg_our_restaurants_brands",
+        "title": "Our Restaurants — brands — Content",
+        "fields": [
+            {
+                "key": "field_brg_our_restaurants_brands_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "**Our Restaurants — brands — Content**\nSource: `brg-web/website/acf/brg-our-restaurants-brands.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_heading",
+                "label": "Board & Brew — name",
+                "name": "brg_our_restaurants_brands_bnb_heading",
+                "type": "text",
+                "instructions": "The brand name. Write `&` as a literal ampersand.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Board & Brew"
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_body_1",
+                "label": "Board & Brew — first paragraph",
+                "name": "brg_our_restaurants_brands_bnb_body_1",
+                "type": "textarea",
+                "instructions": "Write `&` as a literal ampersand.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool."
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_body_2",
+                "label": "Board & Brew — second paragraph",
+                "name": "brg_our_restaurants_brands_bnb_body_2",
+                "type": "textarea",
+                "instructions": "Carries the live location count, so it needs editing whenever that changes. Write `—` as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "12 locations across San Diego and Orange County — each one a neighborhood staple."
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_cta_label",
+                "label": "Board & Brew — button label",
+                "name": "brg_our_restaurants_brands_bnb_cta_label",
+                "type": "text",
+                "instructions": "~12 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Visit Us"
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_cta_href",
+                "label": "Board & Brew — button link",
+                "name": "brg_our_restaurants_brands_bnb_cta_href",
+                "type": "url",
+                "instructions": "Opens in a new tab; target/rel are in the markup.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "https://boardandbrew.com"
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_heading",
+                "label": "Odie's — name",
+                "name": "brg_our_restaurants_brands_odies_heading",
+                "type": "text",
+                "instructions": "The brand name.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Odie's Pizza"
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_body_1",
+                "label": "Odie's — first paragraph",
+                "name": "brg_our_restaurants_brands_odies_body_1",
+                "type": "textarea",
+                "instructions": "Write `—` as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast — think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around."
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_body_2",
+                "label": "Odie's — second paragraph",
+                "name": "brg_our_restaurants_brands_odies_body_2",
+                "type": "textarea",
+                "instructions": "Says more locations are coming, so it will need editing when they land.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way."
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_cta_label",
+                "label": "Odie's — button label",
+                "name": "brg_our_restaurants_brands_odies_cta_label",
+                "type": "text",
+                "instructions": "~12 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Visit Us"
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_cta_href",
+                "label": "Odie's — button link",
+                "name": "brg_our_restaurants_brands_odies_cta_href",
+                "type": "url",
+                "instructions": "Opens in a new tab; target/rel are in the markup.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "https://odiespizza.com"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the our-restaurants-brands section. Generated — do not hand-edit; edit sections/our-restaurants-brands/slots.json + rerun kit/build-acf.py."
+    }
+]

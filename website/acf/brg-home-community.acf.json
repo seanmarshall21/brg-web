@@ -1,0 +1,71 @@
+[
+    {
+        "key": "group_brg_home_community",
+        "title": "Home — born in San Diego — Content",
+        "fields": [
+            {
+                "key": "field_brg_home_community_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "**Home — born in San Diego — Content**\nSource: `brg-web/website/acf/brg-home-community.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_community_body_1",
+                "label": "Body copy — first paragraph",
+                "name": "brg_home_community_body_1",
+                "type": "textarea",
+                "instructions": "Plain text; markup is escaped. Write `—` as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're not a corporation chasing locations — we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling."
+            },
+            {
+                "key": "field_brg_home_community_body_2",
+                "label": "Body copy — second paragraph",
+                "name": "brg_home_community_body_2",
+                "type": "textarea",
+                "instructions": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the home-community section. Generated — do not hand-edit; edit sections/home-community/slots.json + rerun kit/build-acf.py."
+    }
+]
