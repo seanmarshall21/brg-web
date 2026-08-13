@@ -91,7 +91,19 @@
   font-family:'Blanco Cavelary','Montserrat',cursive;text-transform:uppercase;
   font-size:clamp(1.3rem,3vw,2.2rem);padding:.1em .5em;transform:rotate(-2deg);}
 .brgw-hero{position:relative;background:var(--bg2);text-align:center;
-  padding:clamp(90px,15vh,170px) var(--pad) clamp(56px,8vh,90px);}
+  padding:clamp(90px,15vh,170px) var(--pad) clamp(56px,8vh,90px);
+  /* Doodle band offsets. The hero doodles are CHROME, not content, so they are anchored to
+     the padding band with a LENGTH rather than a percentage of the hero's height.
+     They used to be top:20-22% / bottom:16-18%, which tracked hero height — safe only while
+     the headline height was fixed by code. The moment the headline becomes an ACF field, a
+     longer one grows the hero and drags the top doodle down into the first line of type:
+     measured 2026-08-13, top-left fell y≈232→275 between a 3-line and a 5-line headline and
+     ended up level with the headline instead of clear above it. Documenting that coupling
+     would have asked an editor in wp-admin to check a rendered page they cannot see, so
+     Conti's ruling was to remove it instead. Values reproduce the previous rendered offsets
+     at 1440×1200 (164px / 134px) and now scale with the viewport like the padding does. */
+  --brgw-doodle-top:clamp(90px,13.7vh,164px);
+  --brgw-doodle-bottom:clamp(70px,11.2vh,134px);}
 .brgw-hero h1{font-size:clamp(2.4rem,6.4vw,5.4rem);text-transform:uppercase;max-width:18ch;margin:0 auto 8px;}
 .brgw-hero .sub{max-width:52ch;margin:26px auto 0;opacity:.9;line-height:1.6;font-size:clamp(1rem,1.3vw,1.2rem);}
 
