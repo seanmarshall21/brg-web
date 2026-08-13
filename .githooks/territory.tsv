@@ -72,7 +72,19 @@ finn	notes/finesser/
 *	website/mocks/
 *	website/page-*.png
 
-# ── expo — research, specs, proposals. No production code. ─────────────────
-# Retired earlier on 2026-08-12 and reinstated the same day at Sean's call.
+# ── expo — content strategy + the two unbuilt pages. Specs, not code. ──────
+# Retired earlier on 2026-08-12, reinstated and re-scoped the same day (Sean).
 expo	notes/explorer.md
 expo	notes/explorer/
+
+# ── dee / dum — side tasks and prep work ───────────────────────────────────
+# They own a staging area and their own log, nothing in production. Finished work
+# is PROMOTED by whoever owns the destination — see work/README.md.
+# work/ is deliberately OUTSIDE website/: the publish dir deploys to the public
+# CDN, so prep work staged in there would ship to the internet. That has already
+# happened twice in this repo (website/page-*.png, and mocks/ before it was ignored).
+dee	notes/dee.md
+dee	work/dee/
+dum	notes/dum.md
+dum	work/dum/
+*	work/README.md

@@ -11,12 +11,20 @@
   "version": 1,
   "tasks": [
     {
-      "id": "expo-clone",
-      "title": "Stand up Expo's clone",
+      "id": "dee-dum-clones",
+      "title": "Start Dee and Dum (helper chats) when there's side work for them",
       "owner": "sean",
       "gate": "none",
       "status": "todo",
-      "note": "Expo reinstated 2026-08-12 after being retired the same morning. Territory (notes/explorer.md + notes/explorer/) and the kickoff prompt are ready in HANDOFF.md. Clone, ./.githooks/install.sh expo warn, hand over website/mocks/."
+      "note": "Territory, logs, work/ staging area and kickoff prompts are all in place (2026-08-12). Clones not created yet — `git clone` + `./.githooks/install.sh dee warn`. They own work/<chat>/ and their log only; finished work is promoted by the destination's owner. Skip the mocks/ hand-off unless a task needs it."
+    },
+    {
+      "id": "expo-clone",
+      "title": "Start Expo — held until Finn is rolling",
+      "owner": "sean",
+      "gate": "none",
+      "status": "blocked",
+      "note": "Clone is READY at ~/Documents/GitHub/brg-web-expo (fc.chat=expo, warn, mocks handed over). Sean's call: hold until Finn is rolling. Re-scoped 2026-08-12 from generic research to content strategy + the two unbuilt pages; kickoff prompt in HANDOFF.md."
     },
     {
       "id": "acf-slot-tokens",
@@ -88,7 +96,7 @@
       "owner": "sean",
       "gate": "sean",
       "status": "todo",
-      "note": "Both sections ship with stand-ins (bg/skater.webp, bg/surfer.webp). They read as composed, so this isn't visibly broken — which is exactly why it will be forgotten."
+      "note": "Both sections ship with stand-ins (bg/skater.webp, bg/surfer.webp). They read as composed, so this isn't visibly broken — which is exactly why it will be forgotten. Expo owns the brief for what these should show, as of 2026-08-12."
     },
     {
       "id": "team-content",
@@ -104,7 +112,7 @@
       "owner": "sean",
       "gate": "sean",
       "status": "todo",
-      "note": "Literal XX is live behind the gate today. Blocks unlocking /community/."
+      "note": "Literal XX is live behind the gate today. Blocks unlocking /community/. Expo owns the strategy here as of 2026-08-12 — including what the page should do if the real number never arrives."
     },
     {
       "id": "careers-posts-urls",
@@ -112,15 +120,15 @@
       "owner": "sean",
       "gate": "sean",
       "status": "todo",
-      "note": "'View job' points at /careers/. The '834 followers' / '2mo' stamps are copied from the comp and will quietly become false — keep by hand, delete, or wire to real data."
+      "note": "'View job' points at /careers/. The '834 followers' / '2mo' stamps are copied from the comp and will quietly become false — keep by hand, delete, or wire to real data. Expo owns the recommendation on the stamps, as of 2026-08-12."
     },
     {
       "id": "press-contact-pages",
       "title": "Build the Press & Gallery and Contact pages",
-      "owner": "unassigned",
+      "owner": "expo",
       "gate": "conti",
-      "status": "todo",
-      "note": "Named in the nav IA but never built. Needs a section plan before it needs a builder."
+      "status": "blocked",
+      "note": "Expo's remit as of 2026-08-12. Press comps: website/mocks/build-spec/page-7.png; spec in website/BUILD-SPEC.md §2.6. Contact was never designed, only listed in the nav — it needs a design decision before a section plan. Blocked on expo-clone."
     },
     {
       "id": "nav-gaps",

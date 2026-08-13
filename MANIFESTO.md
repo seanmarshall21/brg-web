@@ -25,8 +25,9 @@ permission to read — read everything, write only yours.
 |---|---|
 | **conti** (Controller) | Infrastructure and contracts: `website/wp-mu-plugin/`, `website/wp-snippets/`, `website/acf/`, `kit/`, `scripts/`, `.github/`, `.githooks/`, `netlify.toml`, `website/pages.json`, `website/sections.json`, `docs/`, `SHORTCODES.md`, and the root coordination docs (`MANIFESTO.md`, `STATUS.md`, `HANDOFF.md`, `CLAUDE.md`, …) |
 | **finn** (Finesser) | The build: the five page `embed.html` fragments, `website/sections/` (fragments **and** each section's `slots.json`), `website/assets/brgw.{css,js}`, `website/assets/vendor/` |
-| **expo** (Explorer) | Research and specs only: `notes/explorer.md`, `notes/explorer/` |
-| **shared (`*`)** | `notes/roundtable.md`, `notes/tasks.json`, `notes/log/`, `.gitignore` |
+| **expo** (Explorer) | Content strategy + the two unbuilt pages. Specs only: `notes/explorer.md`, `notes/explorer/` |
+| **dee** / **dum** (helpers) | Side tasks and prep: `notes/dee.md` + `work/dee/`, `notes/dum.md` + `work/dum/` |
+| **shared (`*`)** | `notes/roundtable.md`, `notes/tasks.json`, `notes/log/`, `.gitignore`, `work/README.md` |
 | **unowned** | `website/assets/media/`, `website/mocks/` — inputs, not authored code. Whoever needs them edits them. |
 
 **One exception worth knowing:** `website/assets/brgw-nav.{css,js}` is **conti's**, despite the
@@ -39,11 +40,20 @@ caught this; the first draft of the map had it filed under Finn.
 the fragment in Finn's territory rather than inside Conti's `sections.json`. Splitting a wiring
 across two owners' files is what makes `build-acf.py --check` unenforceable in practice.
 
-**Expo (Explorer) owns research and specs** — `notes/explorer.md` + `notes/explorer/`, and
-nothing else. Proposals only, never production code: Expo logs a `PLAN:`, Conti approves with a
-`DECISION:`, Finn builds it. *(Expo was retired earlier on 2026-08-12 and reinstated the same
-day at Sean's call. Work that doesn't need a standing chat still belongs on the board as a task
-rather than as a role.)*
+**Expo (Explorer) owns forward work: content strategy and the two unbuilt pages** — the Press &
+Gallery and Contact designs from the original 7-page IA, and the content gaps holding up launch
+(the real copy behind the `XX` stats, the stand-in photography on `home-community` and
+`home-different`, the placeholder LinkedIn URLs). Specs and proposals only, never production
+code: Expo logs a `PLAN:`, Conti approves with a `DECISION:`, Finn builds it. *(Expo was retired
+on 2026-08-12, then reinstated and re-scoped the same day. Sean holds it until Finn is rolling —
+the seat is defined here so it can be started cold.)*
+
+**Dee and Dum are helper chats for side tasks and prep.** They own a staging folder and a log,
+and **nothing in production**: they build in `work/<chat>/`, then hand it over in
+`notes/roundtable.md` and the destination's owner promotes it into their own territory, under
+their own review. `work/` sits **outside `website/`** on purpose — the publish dir deploys to the
+public CDN, and half-finished work has no business on a public URL. See
+[`work/README.md`](work/README.md).
 
 **Two gates.** Every change passes one of them before it ships:
 - **Conti** gates plan and integration — does this fit the architecture, does it break a
@@ -109,6 +119,8 @@ is for).
 | Controller | **BRG Controller** — "Conti" | `conti` | `notes/controller.md` |
 | Finesser | **BRG Finesser** — "Finn" | `finn` | `notes/finesser.md` |
 | Explorer | **BRG Explorer** — "Expo" | `expo` | `notes/explorer.md` |
+| Helper | **BRG Dee** | `dee` | `notes/dee.md` |
+| Helper | **BRG Dum** | `dum` | `notes/dum.md` |
 
 ## Shared coordination files
 - **`notes/roundtable.md`** — the cross-chat thread. Newest first, sign every entry, address
