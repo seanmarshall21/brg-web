@@ -6,9 +6,14 @@
 # ── ONE-TIME SETUP (repo → Settings → Secrets and variables → Actions) ──────────
 #   WP_SSH_HOST          your host, e.g. ssh.blacktoprestaurantgroup.com  (DreamHost gives you one)
 #   WP_SSH_USER          the SSH user
-#   WP_SSH_KEY           a PRIVATE SSH key whose public half is authorized on the host
+#   WP_SSH_PASSWORD      that user's SSH password
 #   WP_MU_PLUGINS_PATH   absolute path, e.g. /home/USER/blacktoprestaurantgroup.com/wp-content/mu-plugins
-#   (add the key to the host with DreamHost's "Manage SSH keys" / ~/.ssh/authorized_keys)
+#
+# AUTH: password, not key (Sean's call 2026-08-12 — DreamHost user already has one).
+# If this ever moves to key auth, swap `password:` back to `key:` and store the PRIVATE
+# key in WP_SSH_KEY, with its public half in the host's ~/.ssh/authorized_keys. Key auth
+# is the stronger option: a password travels to the host on every run and is reusable by
+# anyone who obtains it, where a deploy key can be scoped and revoked on its own.
 #
 # ⚠️ TRADE-OFF: this deploys to the LIVE site on every push to these files — it removes the
 #    manual "verify before dropping it in" gate. If you'd rather keep a gate, delete the `push:`
@@ -30,7 +35,21 @@ jobs:
         with:
           host: ${{ secrets.WP_SSH_HOST }}
           username: ${{ secrets.WP_SSH_USER }}
-          key: ${{ secrets.WP_SSH_KEY }}
+          password: ${{ secrets.WP_SSH_PASSWORD }}
           source: "website/wp-mu-plugin/*.php"
           target: ${{ secrets.WP_MU_PLUGINS_PATH }}
           strip_components: 2   # drop "website/wp-mu-plugin/" so files land directly in mu-plugins/
+
+      # scp succeeding only proves bytes moved. This proves WordPress got the version
+      # we think it did — the whole failure mode being fixed here is a stale plugin
+      # sitting on the server while the repo says otherwise.
+      - name: Confirm the deployed version matches the repo
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.WP_SSH_HOST }}
+          username: ${{ secrets.WP_SSH_USER }}
+          password: ${{ secrets.WP_SSH_PASSWORD }}
+          script: |
+            cd "${{ secrets.WP_MU_PLUGINS_PATH }}"
+            ls -l vc-clients-embed.php brg-acf.php
+            grep -m1 "VCC_VERSION', '" vc-clients-embed.php || true
