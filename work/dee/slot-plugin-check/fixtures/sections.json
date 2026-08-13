@@ -1,0 +1,47 @@
+{
+  "sections": [
+    {
+      "id": "ok-wired",
+      "slots": {
+        "heading": {
+          "type": "text",
+          "default": "stale inline copy"
+        },
+        "sub": {
+          "type": "textarea",
+          "default": "stale inline copy"
+        }
+      }
+    },
+    {
+      "id": "orphan-token"
+    },
+    {
+      "id": "hyphen-token"
+    },
+    {
+      "id": "inert-slot"
+    },
+    {
+      "id": "doc-keys-only",
+      "slots": {
+        "heading": {
+          "type": "text",
+          "default": "From the inline block"
+        }
+      }
+    },
+    {
+      "id": "inline-fallback",
+      "slots": {
+        "heading": {
+          "type": "text",
+          "default": "From the inline block"
+        }
+      }
+    },
+    {
+      "id": "bad-key"
+    }
+  ]
+}

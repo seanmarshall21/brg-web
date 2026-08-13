@@ -1,0 +1,2 @@
+{ "heading": { "type": "text", "default": "Real heading" },
+  "cta_href": { "type": "url", "default": "mailto:hello@blacktoprg.com" } }
