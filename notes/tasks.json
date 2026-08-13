@@ -31,8 +31,8 @@
       "title": "Wire the sections for ACF: {{tokens}} in the fragment + slots.json beside it",
       "owner": "finn",
       "gate": "none",
-      "status": "todo",
-      "note": "Was scoped to community-partner (4 slots declared, zero {{tokens}} — the field group is inert). Now the broader job Sean assigned: wire each section that should be editable. Per section: put {{tokens}} in embed.html, declare them in website/sections/<id>/slots.json (BOTH files are yours as of 2026-08-12 — no Conti round-trip), run `python3 kit/build-acf.py`, verify with `--check`. Nobody hand-writes an acf.json and there is no import step. Defaults must be the real production copy so the page is byte-identical until someone edits in WP. Start with community-partner and delete its now-legacy inline `slots` from sections.json via a roundtable ask."
+      "status": "blocked",
+      "note": "BLOCKED 2026-08-13 on conti: the deployed plugin never reads slots.json. vcc_fill_slots() (vc-clients-embed.php:158-197) sources slots ONLY from the inline `slots` in sections.json (:161-168) — the 2026-08-12 DECISION moved the declaration and build-acf.py but not the runtime fill, and --check can't see the gap (it compares slots to {{tokens}}; both are finn's). Measured via compose.mjs --slots=live|local: proposed fill is render-identical, deployed v2.5.0 renders the CTA as `Get in touch` -> /contact/, and after the inline block is deleted :196 strips the tokens and the copy renders EMPTY. So community-partner is wired + verified but DELIBERATELY UNPUSHED. Order: (1) conti patches the plugin to prefer sections/<id>/slots.json with inline as fallback — backward-compatible, ships alone; (2) finn pushes tokens + slots.json in one commit; (3) conti deletes the inline block and reruns build-acf.py. Patch + corrected 3-slot shape (conti's suggested 4 substitutions don't fit the markup) in notes/roundtable.md. This gates all 18 sections. Open question for sean: team-members/careers-posts/community-stats are repeater-shaped and the generator's TYPE map has no repeater — flatten to numbered slots or change kit/."
     },
     {
       "id": "acf-check-on-push",
@@ -40,7 +40,7 @@
       "owner": "conti",
       "gate": "conti",
       "status": "blocked",
-      "note": "Blocked on acf-slot-tokens. Wiring a gate that fails on day one just teaches everyone to use --no-verify. Flip it on once --check is green."
+      "note": "Blocked on acf-slot-tokens. Wiring a gate that fails on day one just teaches everyone to use --no-verify. Flip it on once --check is green. NOTE 2026-08-13 (finn): --check is necessary but NOT sufficient — it proves slot<->{{token}}, not slot<->plugin, and it stayed quiet while the live render was wrong. Worth saying so in kit/README.md when this lands, so a green check isn't read as 'the section renders'."
     },
     {
       "id": "deploy-action-auth",

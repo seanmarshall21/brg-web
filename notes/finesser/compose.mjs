@@ -14,6 +14,7 @@
  *   node notes/finesser/compose.mjs --live          # compose from blacktoprg.netlify.app instead
  *   node notes/finesser/compose.mjs --serve         # compose all, then serve on :8787
  *   node notes/finesser/compose.mjs --serve --port=9000
+ *   node notes/finesser/compose.mjs --stack --slots=local   # fill {{slots}} the PROPOSED way
  *
  * Output: notes/finesser/.out/<slug>.html  (gitignored) + an index listing them.
  */
@@ -28,13 +29,20 @@ const REPO = join(HERE, '..', '..');
 const SITE = join(REPO, 'website');
 const OUT = join(HERE, '.out');
 const BASE = 'https://blacktoprg.netlify.app'; // matches VCC_CLIENTS['brg']['base']
-const VERSION = '2.0.0';                        // matches VCC_VERSION
+const VERSION = '2.5.0';                        // matches VCC_VERSION
 
 const argv = process.argv.slice(2);
 const flags = new Set(argv.filter((a) => a.startsWith('--')));
 const slugArgs = argv.filter((a) => !a.startsWith('--'));
 const LIVE = flags.has('--live');
 const PORT = Number((argv.find((a) => a.startsWith('--port=')) || '').split('=')[1] || 8787);
+
+/* --slots=live (default) mirrors the DEPLOYED plugin v2.5.0, which reads a section's slots
+   ONLY from the inline `slots` object in website/sections.json. --slots=local mirrors the
+   proposed fill that prefers website/sections/<id>/slots.json (see notes/finesser.md
+   2026-08-13). The two disagree, which is the whole reason this flag exists: a section wired
+   the slots.json way renders WRONG under the plugin that is actually live. */
+const SLOTS_MODE = (argv.find((a) => a.startsWith('--slots=')) || '').split('=')[1] || 'live';
 
 /* ── source: local repo files, or the live CDN (to verify what actually deployed) ── */
 async function src(path) {
@@ -63,6 +71,54 @@ function chrome(pages, current) {
       '<span>Restaurant Group</span></a><nav class="brgw-nav">' + links + '</nav></header>',
     '<footer class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div></footer>',
   ];
+}
+
+/* ── vcc_fill_slots() — {{slot}} substitution ───────────────────────────────────────
+      Mirrors website/wp-mu-plugin/vc-clients-embed.php:158-197, escaping included, because
+      the escaping is what decides whether a fill is render-identical to the hard-coded copy
+      it replaces. There is no shortcode-attr layer here (compose has no attrs) and no ACF
+      value, so every slot resolves to its DEFAULT — which is exactly the state a page is in
+      before anyone edits it in WordPress, i.e. the state that must stay byte-identical. */
+
+const escHtml = (s) => String(s)                       // esc_html() — htmlspecialchars ENT_QUOTES
+  .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+
+const escUrl = (s) => String(s)                        // esc_url(), near enough for our URLs
+  .replaceAll('&', '&#038;').replaceAll("'", '&#039;');
+
+/* Where a section's slots come from. Deliberately two answers — see SLOTS_MODE. */
+async function slotsFor(id, manifest) {
+  if (SLOTS_MODE === 'local') {
+    try {
+      const raw = JSON.parse(await src(`/sections/${id}/slots.json`));
+      // Keys starting `_` are documentation, not slots — matches kit/build-acf.py:44.
+      return Object.fromEntries(Object.entries(raw).filter(([k]) => !k.startsWith('_')));
+    } catch { /* fall through to the inline manifest, as the proposed fill does */ }
+  }
+  const s = (manifest.sections || []).find((x) => x.id === id);
+  return (s && s.slots) || {};
+}
+
+async function fillSlots(frag, id, manifest) {
+  const slots = await slotsFor(id, manifest);
+  for (const [key, def] of Object.entries(slots)) {
+    const type = (def && def.type) || 'text';
+    let val = (def && def.default) || '';
+    if (type === 'url' || type === 'image') val = escUrl(val);
+    else if (type === 'html') val = String(val);          // wp_kses_post — passes our markup
+    else val = escHtml(val);
+    frag = frag.replaceAll(`{{${key}}}`, val);
+  }
+  // The plugin STRIPS any leftover token. That is the silent failure mode: a {{token}} whose
+  // slot was never declared doesn't error, it deletes the copy. Report it loudly here.
+  const orphans = [...frag.matchAll(/\{\{([a-z0-9_]+)\}\}/gi)].map((m) => m[1]);
+  if (orphans.length) {
+    console.warn(`  ⚠ ${id}: ${[...new Set(orphans)].map((o) => `{{${o}}}`).join(' ')} ` +
+      `declared by no slot (--slots=${SLOTS_MODE}) — the plugin STRIPS these, so that copy ` +
+      `disappears on render`);
+  }
+  return frag.replace(/\{\{[a-z0-9_]+\}\}/gi, '');
 }
 
 /* ── the host page. NOT part of the fragment — this stands in for WordPress/Oxygen
@@ -101,11 +157,11 @@ async function compose(slug, pages, css, js) {
    header and footer are their own shortcodes — and each shortcode emits its own
    .brgw brgw-shell root, which is what brgw.js initialises per-root (brgw.js:55-62).
    Composing it this way is what makes the parity check against the monolith meaningful. */
-async function composeStack(page, stack, pages, css, js) {
+async function composeStack(page, stack, pages, css, js, manifest) {
   const [header, footer] = chrome(pages, page);
   const parts = [];
   for (const id of stack) {
-    try { parts.push(local(await src(`/sections/${id}/embed.html`))); }
+    try { parts.push(await fillSlots(local(await src(`/sections/${id}/embed.html`)), id, manifest)); }
     catch { console.warn(`  · ${page}: section "${id}" not built yet — skipped`); }
   }
   const shell = (inner) => `<div class="brgw brgw-shell">${inner}</div>`;
@@ -140,10 +196,15 @@ async function main() {
   // --stack composes the same pages from section fragments, for the parity check.
   if (flags.has('--stack')) {
     const draft = JSON.parse(await readFile(join(HERE, 'sections.draft.json'), 'utf8'));
+    // Slots come from the SHIPPED manifest, not the draft — the plugin reads sections.json.
+    const manifest = JSON.parse(await src('/sections.json'));
+    console.log(`slots     fill mode --slots=${SLOTS_MODE}` +
+      (SLOTS_MODE === 'local' ? '  (PROPOSED fill: sections/<id>/slots.json wins)'
+                              : '  (mirrors DEPLOYED plugin v2.5.0: sections.json inline only)'));
     for (const page of slugs) {
       const stack = draft.stacks[page];
       if (!stack) { console.warn(`  · no stack defined for "${page}"`); continue; }
-      const n = await composeStack(page, stack, pages, css, js);
+      const n = await composeStack(page, stack, pages, css, js, manifest);
       console.log(`stacked   ${page}  ${n}/${stack.length} sections  →  notes/finesser/.out/${page}--stacked.html`);
     }
   }
