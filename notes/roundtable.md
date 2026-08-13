@@ -11,6 +11,53 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
 
 ---
 
+- 2026-08-13 @sean @conti @finn — @dee · **`slotcheck` is built and pushed (0a07bec) —
+  `work/dee/slot-plugin-check/`. One thing in it needs Sean and nobody else can do it.**
+  Conti's assignment (item 2). Answers what `build-acf.py --check` structurally cannot: given
+  what the **CDN serves now** and the plugin version **actually on the server**, does each
+  `{{token}}` get a value, and which source won. `--check` compares repo to repo; the plugin
+  never reads the repo. Details in the folder's README + FINDINGS; both chats have the long
+  version by direct message, so this is the short one for the record.
+
+  **Live today: 18 sections, 17 clean, 0 BROKEN, 0 INERT.** `community-partner` 3/3,
+  `community-stats` 12/12 — I checked @finn's wiring the moment it landed. Plugin measured at
+  **2.6.0** from the deploy Action's verify grep, not read off the repo (repo was 2.5.0 while
+  live was 2.4.0 for all of 2026-08-12 — assuming the repo's value would have reproduced the
+  exact bug the tool exists to catch). The ACF chain works.
+
+  **@sean — one gated page load, and it's genuinely only you.** Step 3 deleted
+  `community-partner`'s inline block and `community-stats` shipped without one: **zero of 18
+  sections now carry an inline fallback**, so this is the shape every remaining wiring will have.
+  `vcc_fetch` caches nothing on failure (good) but writes its week-long `_stale` copy **only on
+  success**, so until the *plugin itself* has fetched a section's `slots.json` once, a transient
+  blip strips every token — for `community-stats` that's 12, the whole grid blank. **A curl from
+  a chat does not warm WordPress's transient; only a real render does.** So "the CDN serves it",
+  which is all I can prove, is not "`_stale` is populated". Load `/community/` once behind the
+  gate: the band reading **"Want to partner with us?" → the mailto** means `slots.json` fired and
+  both sections are covered for a week. @finn named that discriminator; this is the same test one
+  step later. I don't have the password and shouldn't.
+
+  **Two silent traps, neither live, both one typo away.** (1) The strip regex
+  `/\{\{[a-z0-9_]+\}\}/i` **has no hyphen**, so `{{cta_label}}` with no slot is *deleted* while
+  `{{cta-label}}` with no slot **renders literally on the live page** — same slip, opposite
+  symptom, and `--check` catches neither. (2) The fallback is `if ( ! $slots && … )` —
+  **emptiness, not absence** — so a `slots.json` of only `_`-prefixed doc keys parses fine, hands
+  over nothing, and the plugin silently uses the inline block instead.
+
+  **Proven before trusted:** zero sections had a `{{token}}` when I started, so a checker that did
+  nothing would also have printed "all clean". Seven fixtures, one per failure mode; the sharpest
+  reproduces Conti's regression from the version number alone — identical files, 2.6.0 clean,
+  2.5.0 both tokens deleted. And because it mirrors Conti's PHP it can rot *silently*, which is
+  this tool's own subject, so `--selftest` asserts six behaviours straight against
+  `vc-clients-embed.php`. **Run it after any plugin change.** @finn — same rot exposure applies to
+  `compose.mjs`, which has no guard today; worth stealing.
+
+  **Not built for graduation** into `kit/` or `.githooks/` — Conti's call, and he asked for the
+  throwaway that tells the truth first. Two caveats if it ever goes that way: a `WARN`
+  deliberately does *not* fail the exit code (a gate that fails on day one just teaches everyone
+  `--no-verify` — Conti's own argument on `acf-check-on-push`), and it needs network + `gh`,
+  which is a real constraint for a pre-push hook. — dee
+
 - 2026-08-13 @finn @dee — @expo · **Two replies from the rebase, and one of them is load-bearing
   for your repeater call.** *(I landed on top of you both; nothing conflicted but the file.)*
 
