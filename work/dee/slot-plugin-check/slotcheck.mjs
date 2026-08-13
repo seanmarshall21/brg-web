@@ -231,13 +231,20 @@ const F = {
      created it wrote `_stale` too (120s << 1 week, so it cannot have outlived it); and the
      failure path can only return `_stale` by reading it. */
   NOFALLBACK: (n) => ({ level: 'WARN', msg: `slots.json is the ONLY source — the inline block in sections.json is gone, so there is no fallback. vcc_fetch writes its week-long \`_stale\` copy only on a successful fetch, so until this section has been rendered once, a transient CDN blip strips all ${n} token(s) and the copy renders EMPTY. Prime it by loading the WP page server-side (curl through the gate counts); after that \`_stale\` covers it for a week. This tool reads the CDN, so it cannot see whether priming has happened — check the rendered page.` }),
-  /* Promoted from WARN to a failing verdict on @finn's prompt, and the reasoning is that every
-     other guard passes it: the token fills (str_replace is literal), and `build-acf.py --check`
-     goes GREEN because `used` matches hyphens too, so declared and used agree on both sides.
-     What breaks is downstream and silent — the generated ACF field name brg_<id>_cta-label is
-     not a legal field name, so the field does not save and the slot is uneditable in wp-admin.
-     That is the INERT symptom reached by a different route, so it gets INERT's severity. */
-  BADKEY: (k) => ({ level: 'INERT', msg: `slot name(s) ${k.join(', ')} are outside [a-z0-9_] — they FILL correctly and \`build-acf.py --check\` passes them green, but the generated ACF field name (brg_<id>_<name>) inherits the character and will not save, so the slot is uneditable in wp-admin. Rename with underscores.` }),
+  /* Failing verdict, not a warning: the symptom is a slot that looks healthy and is not
+     editable. The token fills (str_replace is literal), so nothing about the render says so.
+     NOTE on the justification: when this was promoted, the argument was "every other guard
+     passes it green". @conti closed that hole the same hour (761706c) — `build-acf.py --check`
+     now reports an illegal slot name and generation refuses outright. So the ORIGINAL REASON IS
+     GONE and the conclusion survives on a different one: --check reads the REPO, this reads the
+     CDN, so a hand-written slots.json pushed without running the generator is still caught here
+     and nowhere else. Kept deliberately as a second line, not as a duplicate. */
+  BADKEY: (k) => ({ level: 'INERT', msg: `slot name(s) ${k.join(', ')} are outside [a-z0-9_] — they FILL correctly, so nothing about the render says so, but the generated ACF field name (brg_<id>_<name>) inherits the character and will not save: the slot is uneditable in wp-admin. \`build-acf.py\` refuses these at the repo (761706c); this catches one that reached the CDN without passing through the generator. Rename with underscores.` }),
+  /* Both sources present. The plugin takes slots.json (:182 only falls back when EMPTY), so the
+     inline block is dead text that still reads like the source — the failure being that someone
+     edits the copy that is no longer used and cannot see why nothing changed. @conti's --check
+     catches this in the repo (origin == 'both'); this is the same defect seen from the CDN. */
+  BOTHSRC: () => ({ level: 'WARN', msg: 'slots are declared in BOTH sections/<id>/slots.json and the inline block in sections.json. slots.json wins, so the inline copy is dead text that still reads as the source — edit it and nothing happens. Delete the inline one.' }),
 };
 
 async function main() {
@@ -264,6 +271,7 @@ async function main() {
     if (a.inert.length) findings.push(F.INERT(a.inert));
     if (a.badKeys.length) findings.push(F.BADKEY(a.badKeys));
     if (r.source === 'slots.json' && !r.hasInline && a.used.length) findings.push(F.NOFALLBACK(a.used.length));
+    if (r.source === 'slots.json' && r.hasInline) findings.push(F.BOTHSRC());
     if (a.stripped.length && !r.source) findings.push(F.NOSRC());
     out.push({ id, source: r.source, notes: r.notes, ...a, findings });
   }

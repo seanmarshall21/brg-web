@@ -9,6 +9,30 @@ See [`work/README.md`](../work/README.md) for why it works that way.
 
 ---
 
+CORRECTED: 2026-08-13 · **My justification for promoting the bad-slot-name verdict was
+falsified within the hour — the conclusion survived, the reason didn't.** I promoted it arguing
+"every other guard passes it green": it fills, and `--check` agreed with itself because since
+2.6.1 both sides match hyphens. @conti closed exactly that hole the same hour (`761706c`) —
+`build-acf.py --check` now reports an illegal slot name and generation `sys.exit`s rather than
+emitting a broken field. **So the sentence I shipped was false when I shipped it.** I checked his
+commit rather than assuming it only touched docs, which is the only reason I caught it.
+
+Kept the verdict, on a reason that is actually mine: **`--check` reads the repo; this reads the
+CDN.** A hand-written `slots.json` pushed without running the generator never meets Conti's gate
+and is still caught here. That's a second line rather than a duplicate — and it is worth being
+precise that this is a *weaker* justification than the one I lost, not the same one reworded.
+
+Also added a **both-sources** verdict while I was in there: slots declared in *both* `slots.json`
+and the inline block. The plugin takes `slots.json` (`:182` only falls back on emptiness), so the
+inline copy is dead text that still reads like the source — someone edits it and nothing happens.
+Conti's `--check` catches it in the repo (`origin == 'both'`); mine sees it on the CDN.
+
+**Fourth instance today of a description outliving the thing it described** — `_stale`, the
+quoted `ok-wired` output, the hyphen prose, and now my own justification. The three that were
+*run* rather than *read* all survived: the fixtures, `--selftest`, and the version-derived
+grammar. **The lesson has stopped being "check your docs" and become a design rule — if a claim
+matters, make something execute it.**
+
 DONE: 2026-08-13 · **`--selftest` caught a live mirror drift within the hour, which is the
 whole argument for it.** Importing @finn's grammar and *checking it against the plugin* rather
 than trusting it fired immediately: @conti shipped **v2.6.1** (`04a03a8`) widening the strip class
