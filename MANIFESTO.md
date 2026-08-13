@@ -24,20 +24,26 @@ permission to read — read everything, write only yours.
 | Owner | Territory |
 |---|---|
 | **conti** (Controller) | Infrastructure and contracts: `website/wp-mu-plugin/`, `website/wp-snippets/`, `website/acf/`, `kit/`, `scripts/`, `.github/`, `.githooks/`, `netlify.toml`, `website/pages.json`, `website/sections.json`, `docs/`, `SHORTCODES.md`, and the root coordination docs (`MANIFESTO.md`, `STATUS.md`, `HANDOFF.md`, `CLAUDE.md`, …) |
-| **finn** (Finesser) | The build: the five page `embed.html` fragments, `website/sections/`, `website/assets/brgw.{css,js}`, `website/assets/vendor/` |
+| **finn** (Finesser) | The build: the five page `embed.html` fragments, `website/sections/` (fragments **and** each section's `slots.json`), `website/assets/brgw.{css,js}`, `website/assets/vendor/` |
+| **expo** (Explorer) | Research and specs only: `notes/explorer.md`, `notes/explorer/` |
+| **shared (`*`)** | `notes/roundtable.md`, `notes/tasks.json`, `notes/log/`, `.gitignore` |
+| **unowned** | `website/assets/media/`, `website/mocks/` — inputs, not authored code. Whoever needs them edits them. |
 
 **One exception worth knowing:** `website/assets/brgw-nav.{css,js}` is **conti's**, despite the
 `brgw-` prefix — it's the body of the `[brg_nav]` shortcode, and every commit to it is a nav
 version bump that moves `SHORTCODES.md`, `docs/`, and the plugin together. Its `.bnav*` classes
 are deliberately namespaced away from Finn's `.brgw-*` for that reason. The history scan is what
 caught this; the first draft of the map had it filed under Finn.
-| **shared (`*`)** | `notes/roundtable.md`, `notes/tasks.json`, `notes/log/`, `.gitignore` |
-| **unowned** | `website/assets/media/`, `website/mocks/` — inputs, not authored code. Whoever needs them edits them. |
 
-**No standing research chat.** Expo is retired; `notes/explorer.md` + `notes/explorer/` are
-archive — read them, don't extend them. Research is now a *task* in `notes/tasks.json`, picked
-up by whichever chat is doing the work that needs it. A question that needed a standing chat to
-answer was usually a question nobody had scoped.
+**A slot and its `{{token}}` ship together**, so `website/sections/<id>/slots.json` lives beside
+the fragment in Finn's territory rather than inside Conti's `sections.json`. Splitting a wiring
+across two owners' files is what makes `build-acf.py --check` unenforceable in practice.
+
+**Expo (Explorer) owns research and specs** — `notes/explorer.md` + `notes/explorer/`, and
+nothing else. Proposals only, never production code: Expo logs a `PLAN:`, Conti approves with a
+`DECISION:`, Finn builds it. *(Expo was retired earlier on 2026-08-12 and reinstated the same
+day at Sean's call. Work that doesn't need a standing chat still belongs on the board as a task
+rather than as a role.)*
 
 **Two gates.** Every change passes one of them before it ships:
 - **Conti** gates plan and integration — does this fit the architecture, does it break a
@@ -102,7 +108,7 @@ is for).
 |---|---|---|---|
 | Controller | **BRG Controller** — "Conti" | `conti` | `notes/controller.md` |
 | Finesser | **BRG Finesser** — "Finn" | `finn` | `notes/finesser.md` |
-| ~~Explorer~~ | retired 2026-08-12 | — | `notes/explorer.md` (archive) |
+| Explorer | **BRG Explorer** — "Expo" | `expo` | `notes/explorer.md` |
 
 ## Shared coordination files
 - **`notes/roundtable.md`** — the cross-chat thread. Newest first, sign every entry, address

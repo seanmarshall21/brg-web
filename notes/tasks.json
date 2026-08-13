@@ -11,12 +11,20 @@
   "version": 1,
   "tasks": [
     {
+      "id": "expo-clone",
+      "title": "Stand up Expo's clone",
+      "owner": "sean",
+      "gate": "none",
+      "status": "todo",
+      "note": "Expo reinstated 2026-08-12 after being retired the same morning. Territory (notes/explorer.md + notes/explorer/) and the kickoff prompt are ready in HANDOFF.md. Clone, ./.githooks/install.sh expo warn, hand over website/mocks/."
+    },
+    {
       "id": "acf-slot-tokens",
-      "title": "Add the four {{tokens}} to community-partner so its ACF fields actually do something",
+      "title": "Wire the sections for ACF: {{tokens}} in the fragment + slots.json beside it",
       "owner": "finn",
       "gate": "none",
       "status": "todo",
-      "note": "The one worked ACF example is inert: 4 slots declared, field group generated, options page will list them — and zero {{tokens}} in the fragment, so editing them changes nothing and gives no error. Defaults in sections.json are the exact current copy, so the page is byte-identical until someone edits in WP. Verify with `python3 kit/build-acf.py --check`. Found 2026-08-12 by porting fc-brands' acf-readers.py idea."
+      "note": "Was scoped to community-partner (4 slots declared, zero {{tokens}} — the field group is inert). Now the broader job Sean assigned: wire each section that should be editable. Per section: put {{tokens}} in embed.html, declare them in website/sections/<id>/slots.json (BOTH files are yours as of 2026-08-12 — no Conti round-trip), run `python3 kit/build-acf.py`, verify with `--check`. Nobody hand-writes an acf.json and there is no import step. Defaults must be the real production copy so the page is byte-identical until someone edits in WP. Start with community-partner and delete its now-legacy inline `slots` from sections.json via a roundtable ask."
     },
     {
       "id": "acf-check-on-push",
@@ -24,7 +32,7 @@
       "owner": "conti",
       "gate": "conti",
       "status": "blocked",
-      "note": "Blocked on acf-slot-tokens — wiring a gate that fails on day one just teaches everyone to use --no-verify."
+      "note": "Blocked on acf-slot-tokens. Wiring a gate that fails on day one just teaches everyone to use --no-verify. Flip it on once --check is green."
     },
     {
       "id": "deploy-action-auth",
@@ -55,8 +63,8 @@
       "title": "Install website/wp-mu-plugin/brg-acf.php on the site (needs ACF Pro)",
       "owner": "sean",
       "gate": "sean",
-      "status": "doing",
-      "note": "brg-acf.php is ON the server as of 2026-08-12 (the Action put it there — 3206 bytes, confirmed by ls). What is NOT confirmed is ACF Pro: without it the loader is inert and every section renders its defaults, which looks identical to a correct page. Check wp-admin for a 'Section Content' menu."
+      "status": "done",
+      "note": "DONE 2026-08-12 — VERIFIED: ACF Pro 6.8.7 active, and the 'Section Content' menu is in wp-admin, which is OUR options page, so brg-acf.php deployed AND ran AND registered. The full chain works: sections.json/slots.json -> build-acf.py -> all.acf.json on Netlify -> loader fetch -> options page."
     },
     {
       "id": "finn-clone",
@@ -72,7 +80,7 @@
       "owner": "conti",
       "gate": "sean",
       "status": "blocked",
-      "note": "Approved by Sean 2026-08-12; blocked on finn-clone. Warn mode since 2026-08-12; the history scan found one real collision (d4e5f31) and it's structurally impossible now. Flip after Finn has a few clean commits — and flip BOTH at once: a one-sided flip just moves the accident to the unguarded side. Each clone needs `git config fc.enforce block` locally (it is not a tracked setting)."
+      "note": "Approved by Sean 2026-08-12. Warn mode everywhere. Flip after Finn (and now Expo) have a few clean commits — and flip ALL clones at once: a partial flip just moves the accident to an unguarded side. Each clone needs `git config fc.enforce block` locally (not a tracked setting)."
     },
     {
       "id": "real-photography",

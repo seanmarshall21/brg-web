@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""Generate a per-section ACF field group (acf.json) from each section's `slots` in
-website/sections.json. Pattern from fc-brands: each editable section ships an acf.json you
-import once under ACF -> Tools; the fields attach to the ONE "Section Content" options page
-(menu_slug must equal each group's location value). The plugin fills the fragment's {{slots}}
-from these fields (attr > ACF option > default). Run: python3 kit/build-acf.py
+"""Generate the ACF field groups that make sections editable in WordPress.
+
+Slots are declared per section in **website/sections/<id>/slots.json** (beside the fragment
+that uses them), and this generates website/acf/brg-<id>.acf.json plus the combined
+all.acf.json. brg-acf.php fetches that combined file from Netlify and registers it — so
+there is NO manual import: declare a slot, run this, push.
+
+  python3 kit/build-acf.py           regenerate
+  python3 kit/build-acf.py --check   every slot has a {{token}} and vice versa
 
   Field name convention (must match the plugin): brg_<section-id with _>_<slot>
-  Location: options_page == brg-section-content  (see wp-snippets/brg-section-content-options.php)
+  Location: options_page == brg-section-content  (registered by wp-mu-plugin/brg-acf.php)
 """
 import json, os, re, sys
 
@@ -17,6 +21,29 @@ OPTIONS_PAGE = 'brg-section-content'
 
 # slot type -> ACF field type
 TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'url', 'image': 'image', 'html': 'wysiwyg'}
+
+
+def slots_for(section):
+    """Where a section's slots are declared.
+
+    PREFERRED: website/sections/<id>/slots.json — sits beside the fragment, in the SAME
+    territory, so whoever writes the {{token}} declares the slot in the same commit. That
+    is the property the whole --check exists to protect, and it is impossible to hold when
+    the two halves live in two people's files.
+
+    LEGACY: a `slots` object on the section in website/sections.json (conti's file). Still
+    read, so nothing breaks, but it makes every wiring a cross-territory request.
+    """
+    sid = section['id']
+    local = os.path.join(ROOT, 'website', 'sections', sid, 'slots.json')
+    inline = section.get('slots') or {}
+    if os.path.exists(local):
+        with open(local, encoding='utf-8') as fh:
+            declared = json.load(fh) or {}
+        # Strip a leading "_note"-style key so the file can document itself.
+        declared = {k: v for k, v in declared.items() if not k.startswith('_')}
+        return declared, ('both' if inline else 'local')
+    return inline, ('inline' if inline else 'none')
 
 def field(section_id, slot, defn):
     name = 'brg_' + section_id.replace('-', '_') + '_' + slot
@@ -34,11 +61,11 @@ def field(section_id, slot, defn):
 
 def group(section):
     sid, title = section['id'], section.get('title', section['id'])
-    slots = section.get('slots', {})
+    slots, _ = slots_for(section)
     msg = {
         'key': 'field_brg_' + sid.replace('-', '_') + '_msg', 'label': '', 'name': '', 'type': 'message',
         'message': (f"**{title} — Content**\nSource: `brg-web/website/acf/brg-{sid}.acf.json` "
-                    f"(generated from sections.json). Edits here fill the section's `{{{{slots}}}}` "
+                    f"(generated). Edits here fill the section's `{{{{slots}}}}` "
                     f"— shortcode attributes still override, and blank falls back to the built-in default."),
         'new_lines': 'wpautop', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
         'wrapper': {'width': '', 'class': '', 'id': ''},
@@ -50,7 +77,7 @@ def group(section):
         'location': [[{'param': 'options_page', 'operator': '==', 'value': OPTIONS_PAGE}]],
         'menu_order': 0, 'position': 'normal', 'style': 'default', 'label_placement': 'top',
         'instruction_placement': 'label', 'hide_on_screen': '', 'active': True,
-        'description': f"Editable content for the {sid} section. Generated — do not hand-edit; edit sections.json + rerun kit/build-acf.py.",
+        'description': f"Editable content for the {sid} section. Generated — do not hand-edit; edit sections/{sid}/slots.json + rerun kit/build-acf.py.",
     }
 
 def check():
@@ -73,8 +100,14 @@ def check():
     for s in data.get('sections', []):
         frag = os.path.join(ROOT, 'website', 'sections', s['id'], 'embed.html')
         html = open(frag, encoding='utf-8').read() if os.path.exists(frag) else ''
-        declared = set((s.get('slots') or {}).keys())
+        declared_map, origin = slots_for(s)
+        declared = set(declared_map.keys())
         used = set(re.findall(r'\{\{([a-z0-9_]+)\}\}', html))
+        if origin == 'both':
+            print(f"  ✗ {s['id']}: slots declared in BOTH sections/{s['id']}/slots.json and "
+                  f"sections.json — slots.json wins, so the sections.json copy is dead text "
+                  f"that still reads as the source. Delete the inline one.")
+            bad += 1
         if not declared and not used:
             continue
         for slot in sorted(declared - used):
@@ -82,12 +115,12 @@ def check():
                   f"the ACF field will edit nothing")
             bad += 1
         for tok in sorted(used - declared):
-            print(f"  ✗ {s['id']}: token {{{{{tok}}}}} has no slot in sections.json — "
+            print(f"  ✗ {s['id']}: token {{{{{tok}}}}} is declared nowhere — "
                   f"the plugin strips it, so that copy disappears on render")
             bad += 1
     if bad:
-        print(f"\n{bad} slot/token mismatch(es). Fix by adding the {{{{token}}}} to the fragment "
-              f"(Finn) or the slot to website/sections.json (Conti) — they ship together.")
+        print(f"\n{bad} problem(s). A slot and its {{{{token}}}} ship together — declare slots in "
+              f"website/sections/<id>/slots.json, beside the fragment that uses them.")
     else:
         print("acf slots ↔ fragment tokens: OK")
     return bad
@@ -101,20 +134,20 @@ def main():
     os.makedirs(OUTDIR, exist_ok=True)
     made = []
     for s in data.get('sections', []):
-        if not s.get('slots'):
+        if not slots_for(s)[0]:
             continue
         out = os.path.join(OUTDIR, f"brg-{s['id']}.acf.json")
         json.dump([group(s)], open(out, 'w'), indent=4, ensure_ascii=False)
         open(out, 'a').write('\n')
-        made.append((s['id'], os.path.relpath(out, ROOT), len(s['slots'])))
+        made.append((s['id'], os.path.relpath(out, ROOT), len(slots_for(s)[0])))
     # Combined file the auto-loader (brg-acf.php) fetches from Netlify and registers — so
     # field changes go live on push, no manual import.
-    all_groups = [group(s) for s in data.get('sections', []) if s.get('slots')]
+    all_groups = [group(s) for s in data.get('sections', []) if slots_for(s)[0]]
     json.dump(all_groups, open(os.path.join(OUTDIR, 'all.acf.json'), 'w'), indent=2, ensure_ascii=False)
     open(os.path.join(OUTDIR, 'all.acf.json'), 'a').write('\n')
 
     if not made:
-        print("No sections declare slots yet — add a `slots` object to a section in website/sections.json.")
+        print("No sections declare slots yet — add website/sections/<id>/slots.json next to a fragment.")
     for sid, path, n in made:
         print(f"  {sid:22} {n} field(s) -> {path}")
     print(f"\n{len(made)} field group(s) → also combined into website/acf/all.acf.json "

@@ -53,6 +53,9 @@ finn	website/team/
 finn	website/community/
 finn	website/careers/
 finn	website/sections/
+# ↑ includes each section's slots.json. A slot and its {{token}} MUST ship in the same
+# commit, which is impossible if one half lives in conti's sections.json — so the
+# declaration sits beside the fragment, in the same territory as the markup that uses it.
 finn	website/assets/brgw*
 finn	website/assets/vendor/
 finn	notes/finesser.md
@@ -69,6 +72,7 @@ finn	notes/finesser/
 *	website/mocks/
 *	website/page-*.png
 
-# ── archive — Expo is retired (2026-08-12). Read, don't extend. ─────────────
-conti	notes/explorer.md
-conti	notes/explorer/
+# ── expo — research, specs, proposals. No production code. ─────────────────
+# Retired earlier on 2026-08-12 and reinstated the same day at Sean's call.
+expo	notes/explorer.md
+expo	notes/explorer/

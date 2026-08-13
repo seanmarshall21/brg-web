@@ -1,81 +1,124 @@
-# BRG — Controller (Conti) Handoff
+# BRG — chat handoff & kickoff prompts
 
-Boot doc for a fresh **BRG Controller** chat, replacing the previous one (context full).
-Everything durable lives in the repo — this is the on-ramp, not the source of truth.
+Boot doc for a **new BRG chat**. Everything durable lives in the repo — this is the on-ramp,
+not the source of truth. Read `CLAUDE.md` → `MANIFESTO.md` → `STATUS.md` before acting.
 
-## You are Conti (the Controller)
-Source of truth for `seanmarshall21/brg-web` (cloned at `~/Documents/GitHub/brg-web`, `gh`
-authed). You own direction, sign-off, `STATUS.md`, `pages.json`, `sections.json`, the WP plugin,
-the `kit/` pipeline, and reconciliation. Finn (build) and Expo (specs) clear shared changes
-through you. **Sean is redefining how the sub-chats are set up — take his new instructions for
-that over the old model when he gives them.**
+## Setting up a chat's clone (do this first, once per chat)
 
-## Read these first (in order)
-1. `MANIFESTO.md` — roles, ownership, shared-token contract, protocol, nicknames (Conti/Finn/Expo).
-2. `STATUS.md` — living snapshot.
-3. `notes/controller.md` — my decision log (newest first) — the real running history.
-4. `notes/finesser.md`, `notes/explorer.md` — what Finn/Expo last did.
-5. `SHORTCODES.md` + `docs/shortcode-index.html` — the shortcode/attribute reference (GENERATED — see below).
-6. `GO-LIVE.md` — the WP-pages runbook. `notes/upstream-fc-brands.md` — the Temper drift ledger.
+Each chat gets **its own local clone**. Never a shared checkout, never a cloud-synced folder
+(Dropbox/iCloud/Drive/OneDrive corrupt `.git`, and it surfaces long after the damage).
+
+```bash
+git clone git@github.com:seanmarshall21/brg-web.git ~/Documents/GitHub/brg-web-<chat>
+cd ~/Documents/GitHub/brg-web-<chat>
+./.githooks/install.sh <chat> warn        # chat = conti | finn | expo
+```
+
+Then hand the chat `website/mocks/` (107MB of Figma exports). It is **gitignored** — it sits
+inside the Netlify publish dir, so committing it would deploy it to the public CDN. A fresh
+clone has none of it, and without it `website/BUILD-SPEC.md` and most of `notes/finesser.md`
+point at files that don't exist. Copy it from an existing clone:
+
+```bash
+rsync -a ~/Documents/GitHub/brg-web/website/mocks/ ~/Documents/GitHub/brg-web-<chat>/website/mocks/
+```
+
+---
+
+## Kickoff prompt — Conti (Controller)
+
+> You are **BRG Controller ("Conti")**, source of truth for `seanmarshall21/brg-web`. Your clone
+> is `~/Documents/GitHub/brg-web` (`gh` authed, `fc.chat=conti`). `git pull`, then read
+> `CLAUDE.md`, `MANIFESTO.md`, `STATUS.md`, `notes/roundtable.md`, `notes/tasks.json`, and
+> `notes/controller.md` before acting.
+>
+> You own **infrastructure and contracts**: the WP mu-plugins, `wp-snippets/`, `website/acf/`,
+> `kit/`, `scripts/`, `.github/`, `.githooks/`, `netlify.toml`, `pages.json`, `sections.json`,
+> `docs/`, `SHORTCODES.md`, and the root coordination docs. You gate **plan and integration**
+> (Sean gates design and content). You do not edit other chats' files — ask in
+> `notes/roundtable.md` or open a task instead.
+>
+> Log decisions to `notes/controller.md`, keep `STATUS.md` current, stage your own pathspec,
+> end commits with `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`, and push with
+> `git push origin HEAD:main`. Ask Sean for the site gate password when you need to verify a
+> live page; never put it in the repo.
+
+## Kickoff prompt — Finn (Finesser)
+
+> You are **BRG Finesser ("Finn")**, the hands-on build chat for `seanmarshall21/brg-web`. Your
+> clone is `~/Documents/GitHub/brg-web-finn` (`fc.chat=finn`). `git pull`, then read `CLAUDE.md`,
+> `MANIFESTO.md`, `STATUS.md`, `notes/roundtable.md` (there are messages addressed to you),
+> `notes/tasks.json`, `notes/finesser.md`, and `notes/finesser/HANDOFF.md` — the previous Finn
+> wrote that last one for you specifically.
+>
+> You own **the build**: the five page `embed.html` fragments, `website/sections/` (fragments
+> **and** each section's `slots.json`), `website/assets/brgw.{css,js}`, and
+> `website/assets/vendor/`. Note `brgw-nav.{css,js}` is **not** yours — it's the body of the
+> `[brg_nav]` shortcode and belongs to Conti.
+>
+> Consume the shared reveal engine, slider and doodle system — never rebuild them. Compose-test
+> the way the plugin renders (shared CSS → nav → fragment → footer → shared JS) and screenshot
+> before you call anything done. A pre-commit hook warns if you stage someone else's file; if
+> you genuinely need a change outside your territory, ask in `notes/roundtable.md`.
+>
+> Log to `notes/finesser.md`, push with `git push origin HEAD:main`, and end commits with
+> `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
+>
+> **Your first task is `acf-slot-tokens` in `notes/tasks.json`** — see the ACF loop below.
+
+## Kickoff prompt — Expo (Explorer)
+
+> You are **BRG Explorer ("Expo")** for `seanmarshall21/brg-web`. Your clone is
+> `~/Documents/GitHub/brg-web-expo` (`fc.chat=expo`). `git pull`, then read `CLAUDE.md`,
+> `MANIFESTO.md`, `STATUS.md`, `notes/roundtable.md`, `notes/tasks.json`, and `notes/explorer.md`
+> — which is your own back-catalogue: SPEC-001 (stacking sections), SPEC-002 (section inventory),
+> SPEC-003 (hand-drawn underlines), SPEC-004 (pen-stroke underline) are all in `notes/explorer/`
+> and several of them shipped.
+>
+> You produce **specs, research and proposals — not production code.** Direction, sitemap,
+> content structure, new sections and features, and the open design questions. Log proposals as
+> `PLAN:` in `notes/explorer.md`; Conti approves with a `DECISION:` and Finn builds it. You own
+> `notes/explorer.md` and `notes/explorer/` and nothing else.
+>
+> Push with `git push origin HEAD:main` and end commits with
+> `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
+>
+> **Live openers:** `press-contact-pages` (two designed-but-never-built pages — the comps are in
+> `website/mocks/build-spec/page-7.png` and the 7-page IA they came from), and the content gaps
+> blocking launch in `notes/tasks.json`.
+
+---
+
+## The ACF loop (read this before wiring a section)
+
+Making a section editable in WordPress is **three files, and two of them are Finn's**:
+
+1. **`website/sections/<id>/embed.html`** — put `{{tokens}}` where the editable copy is.
+2. **`website/sections/<id>/slots.json`** — declare those same slots (`type`/`label`/`default`).
+   Defaults must be the **real production copy**, so the page is byte-identical until someone
+   edits it in WP.
+3. `python3 kit/build-acf.py` — regenerates `website/acf/`. **Nobody hand-writes an acf.json**,
+   and there is **no import step**: `brg-acf.php` fetches the combined file from Netlify and
+   registers it, so a field change goes live on push.
+
+`python3 kit/build-acf.py --check` proves the two halves match. They fail *silently* otherwise:
+a slot with no `{{token}}` gives WordPress a field that edits nothing, and a `{{token}}` with no
+slot is stripped on render, so that copy vanishes.
 
 ## The system (one breath)
-Pages/sections are HTML fragments on Netlify (`blacktoprg.netlify.app`, publish dir `website/`),
-pulled natively (no iframe) into WordPress (`blacktoprestaurantgroup.com`) by the mu-plugin
-`website/wp-mu-plugin/vc-clients-embed.php`. Edit a fragment → `git push` → live in ~60s. Nav is
-a **WordPress menu**. Commit with `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`; stage
-your own pathspec, never `git add -A` from a subdir.
 
-## Where things stand (2026-08-11)
-- **Plugin: live at v2.4.0.** Shortcodes: `[brg_<slug>]` pages · `[brg_<id>]`/`[brg_section]`
-  sections · `[brg_nav]` · `[brg_footer]` · `[vc_embed]`. Verify a page carries `<!-- vc_embed
-  brg/… v2.4.0 -->` (I saw a stale `v2.1.0` on section markers once — check the cache with
-  `?brg_refresh=1`).
-- **Nav (`[brg_nav]`, assets `website/assets/brgw-nav.css`/`.js`):** WP-menu-driven, **fixed**
-  (not sticky — each shortcode has its own short wrapper), pen-stroke teal marker underline,
-  morphing hamburger + staggered drawer. Attributes: `layout` (left/split/center/compact),
-  `left`/`right` (+ More overflow drawer), `sticky` (pin/hide), `bg` (solid/none/frost),
-  `bgcolor`, `opacity`. Menu location **"BRG — Primary"** (Appearance → Menus → Manage Locations).
-- **Sections:** `website/sections.json` (18 ids). Heroes + `careers-apply` + `careers-positions`
-  live; the rest are being harvested by Finn from the Figma exports in `website/mocks/`. Contract
-  = SPEC-001 §4 (scoped `.brgw-sec--<id>`, root `reveal`, no `.brgw` wrapper). **Cross-section
-  bleed rule** (+ shared-chrome exception) is in `notes/controller.md`.
-- **Assets:** everything graphic is in `website/assets/media/` and live on the CDN (icons SVG,
-  `bg/` incl. crown + responsive `bg/base/base-*.webp` hero collage, `bkgnds/` patterns, logos).
-  Sean's rule: anything NOT exported is a CSS/styling decision, not a missing asset.
-- **ACF-editable sections:** `{{slot}}` fill in the plugin; `kit/build-acf.py` generates per-
-  section `acf.json` + a combined `website/acf/all.acf.json` from each section's `slots` in
-  `sections.json`; **`website/wp-mu-plugin/brg-acf.php`** (install once) registers the "Section
-  Content" options page + fetches & registers the field groups from Netlify. Only `community-partner`
-  declares slots today (the worked example).
-- **Docs pipeline:** `kit/registry.json` is the source of truth; `python3 kit/build.py` regenerates
-  `SHORTCODES.md` + `docs/shortcode-index.html` with per-component `version` + `contract` hash
-  (`--check` for drift, `--restamp` to bump). Don't hand-edit those two docs.
-- **Automation:** ACF changes go live on push (brg-acf.php fetches data — safe). Plugin *code*
-  can't be fetched-and-run (RCE); `.github/workflows/deploy-mu-plugins.yml` SCPs the mu-plugin
-  files on push once Sean adds 4 SSH secrets (`WP_SSH_HOST/USER/KEY`, `WP_MU_PLUGINS_PATH`).
-- **Password gate:** `website/wp-snippets/brg-password-gate.php` (`[brg_password]` + auto-gate).
-  The 5 pages are password-protected. **Sean has the gate password — he'll give it to you
-  directly; it is deliberately NOT in the repo.**
+Sections are HTML fragments on Netlify (`blacktoprg.netlify.app`, publish dir `website/`), pulled
+natively (no iframe) into WordPress (`blacktoprestaurantgroup.com`) by the mu-plugin
+`website/wp-mu-plugin/vc-clients-embed.php`. Edit a fragment → push → live in ~60s. Nav is a
+**WordPress menu**. The mu-plugins deploy themselves on push via
+`.github/workflows/deploy-mu-plugins.yml` — **do not hand-drop PHP any more.**
 
-## Open threads (pick up here)
-1. **Menu assignment** — confirm a WP menu is assigned to "BRG — Primary" (was showing the
-   "Assign a menu…" fallback). Until then `[brg_nav]` has no items.
-2. **Finn** is harvesting the 11 `todo` sections from `website/mocks/`; each goes live behind its
-   already-placed shortcode on push.
-3. **Expo** owes the **pen-stroke underline** study (make the marker underline look hand-drawn).
-4. **One-time automation setup:** install `brg-acf.php`; add the 4 SSH secrets for the plugin Action.
-5. **Nav IA:** "Our Story" = the Home page (`/brg-home/`); **Press & Gallery** + **Contact** are
-   new pages not built yet.
-6. **Launch:** point the site root at `/brg-home/` and retire the Oxygen "Coming Soon" splash when Sean's ready.
-7. **Temper master reference:** `fc-brands` is read-only upstream; re-pull + `--check` its
-   `registry.json` against `notes/upstream-fc-brands.md` before reusing a component.
+Shortcodes: `[brg_<slug>]` pages · `[brg_<id>]` / `[brg_section]` sections · `[brg_nav]` ·
+`[brg_footer]` · `[vc_embed]`. `SHORTCODES.md` and `docs/shortcode-index.html` are **generated**
+from `kit/registry.json` — run `python3 kit/build.py` in the same commit as any shortcode change.
 
-## Kickoff prompt for the new chat (paste this)
-> You are **BRG Controller ("Conti")**, source of truth for `seanmarshall21/brg-web` (cloned at
-> `~/Documents/GitHub/brg-web`, `gh` authed). `git pull`, then read `HANDOFF.md`, `MANIFESTO.md`,
-> `STATUS.md`, and all `notes/*.md` before acting. You own direction, sign-off, `STATUS.md`,
-> `pages.json`/`sections.json`, the WP plugin, and the `kit/` pipeline. Log decisions to
-> `notes/controller.md`; keep `STATUS.md` current; stage your own pathspec and end commits with
-> `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`. Sean is redefining how the sub-chats
-> are set up — follow his new instructions for that. Ask him for the site gate password when you
-> need to verify live pages.
+## What a chat can't do
+
+Use the WordPress login, create the Netlify↔GitHub link, enter secrets, or edit native
+Oxygen/builder layouts. Those are Sean's, one-time. Placing a shortcode on a WP page is also his.
+Everything after that is push-to-deploy.

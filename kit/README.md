@@ -47,9 +47,24 @@ section generically — and **no manual import**, which is where we diverge from
    upload it by hand. *(This superseded the old `brg-section-content-options.php` WPCode snippet,
    which no longer exists.)*
 2. **Fragment:** the section's `embed.html` uses `{{slot}}` tokens (`{{heading}}`, `{{image}}`, …).
-3. **Declare:** add a `slots` object to that section in `sections.json` (`type`/`label`/`default`);
-   run `build-acf.py`; push. **That's the whole loop — there is no import step.** The loader
-   re-fetches and the fields update themselves.
+3. **Declare:** write `website/sections/<id>/slots.json` — **beside the fragment, same owner** —
+   then run `build-acf.py` and push. **That's the whole loop; there is no import step.** The
+   loader re-fetches and the fields update themselves.
+   ```jsonc
+   // website/sections/community-partner/slots.json
+   {
+     "_note": "keys starting with _ are ignored — use them for comments",
+     "heading":   { "type": "text",     "label": "Heading",      "default": "Want to partner with us?" },
+     "sub":       { "type": "textarea", "label": "Sub copy",     "default": "…" },
+     "cta_label": { "type": "text",     "label": "Button label", "default": "Get in touch" },
+     "cta_href":  { "type": "url",      "label": "Button link",  "default": "/contact/" }
+   }
+   ```
+   Types: `text` · `textarea` · `url` · `image` · `html`. **Defaults must be the real production
+   copy**, never placeholders — the compose harness can't see WP-stored values, so a default
+   compose-test is only representative if the defaults are what the page actually says.
+   *(A `slots` object inline in `sections.json` still works and is read as a fallback, but it
+   splits a wiring across two owners' files. `--check` flags a section that declares both.)*
 4. Editors change fields under **Section Content**; the plugin fills the slots.
    **Precedence: shortcode attr > ACF value > built-in default.** Field name = `brg_<id>_<slot>`.
 
