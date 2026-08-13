@@ -35,6 +35,14 @@
       "note": "DONE 2026-08-13 — Expo started and delivered its first three specs (SPEC-005 Press, SPEC-006 Contact, SPEC-007 content gaps). Clone at ~/Documents/GitHub/brg-web-expo, fc.chat=expo, warn, hooks wired, mocks present. Re-scoped 2026-08-12 from generic research to content strategy + the two unbuilt pages."
     },
     {
+      "id": "retire-monoliths",
+      "title": "Retire the five legacy monolith fragments (website/<slug>/embed.html)",
+      "owner": "sean",
+      "gate": "conti",
+      "status": "blocked",
+      "note": "Found 2026-08-13 (finn). All five are materially STALE while STATUS said they 'still exist and still work'. website/home/embed.html's <h1> has no structural <br>, so it free-wraps to FIVE lines where the live sections/home-hero renders TWO, and it lacks the hand-drawn underline and the doodle cluster. A duplicate that renders a different design while described as working is worse than no duplicate: it caused a false hero-regression report the same day. MITIGATED NOW — finn banded all five with a loud stale banner (a52675f) naming the live form and that divergence, so the trap is signposted. BLOCKED ON SEAN for one fact only: does any DRAFT, private, or unlinked WP page still use the page-level [brg_<slug>] form? Conti confirmed zero of the five LIVE pages do (every one is nav + sections + footer), but the shortcode stays registered off pages.json, so deleting a fragment would make such a page render an empty fetch. Yes -> leave banded. No -> finn deletes the five fragments, conti fixes the STATUS line either way."
+    },
+    {
       "id": "acf-slot-tokens",
       "title": "Wire the sections for ACF: {{tokens}} in the fragment + slots.json beside it",
       "owner": "finn",
