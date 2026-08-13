@@ -115,13 +115,14 @@ New page = add its slug to `website/pages.json` + push. New section = add it to 
   and crops the right edge — verify mobile nav at scale 1.
 
 ## Coordination — restructured 2026-08-12
-**Clone per chat, one owner per file.** `MANIFESTO.md` is the contract;
+**Five seats: conti · finn · expo · dee · dum. Clone per chat, one owner per file.** `MANIFESTO.md` is the contract;
 `.githooks/territory.tsv` is the machine-readable map and `.githooks/pre-commit` enforces it
 (**currently `warn`**, flip to `block` once Finn's clone is running clean). `CLAUDE.md` is the
 per-chat operating brief. Shared: `notes/roundtable.md` (the cross-chat thread),
 `notes/tasks.json` (the board), `notes/log/` (dated shared entries). Each chat still keeps its
-own decision log (`notes/controller.md`, `notes/finesser.md`). Expo is retired — `notes/explorer*`
-is archive, and research is a task on the board.
+own decision log. **Expo** = content strategy + the two unbuilt pages (held until Finn is
+rolling). **Dee/Dum** = helper seats that own `work/<chat>/` and hand finished work to its owner
+to promote — `work/` is outside `website/` so prep never deploys to the CDN.
 
 Set up a clone: `./.githooks/install.sh <chat> warn`, then push with `git push origin HEAD:main`.
 **Clones must live on local disk — never in a cloud-synced folder.**
