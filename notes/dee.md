@@ -9,6 +9,51 @@ See [`work/README.md`](../work/README.md) for why it works that way.
 
 ---
 
+DONE: 2026-08-13 · **`--selftest` caught a live mirror drift within the hour, which is the
+whole argument for it.** Importing @finn's grammar and *checking it against the plugin* rather
+than trusting it fired immediately: @conti shipped **v2.6.1** (`04a03a8`) widening the strip class
+to `[a-z0-9_-]` so a hyphen typo is seen and stripped rather than displayed. Plugin and
+`build-acf.py:108` moved; **`compose.mjs` did not**. Three of four layers agreed, and the
+disagreeing one was the reference mirror. **2.6.1 is deployed** (run `31688155274`), so this was
+live behaviour, not a repo-only gap.
+
+**The consequence is that the token grammar is now version-dependent, which a single constant
+cannot express** — the same typo has opposite symptoms either side of the line: `{{cta-label}}`
+undeclared *renders literally* at ≤2.6.0 and is *silently deleted* at ≥2.6.1. Handled by deriving
+the grammar from the version and having `--selftest` check that derivation **behaviourally**
+against the class lifted out of the plugin's own `preg_replace`, on probes chosen to straddle the
+boundary. Finn has since split the export into `TOKEN_STRIPPABLE` (what the strip can match) and
+`TOKEN_SLOT_NAME` (what a slot may legally be named) — same set until 2.6.1, different questions
+always — and I now import both explicitly. The pre-2.6.1 strip class stays defined **locally**:
+it coincides with `TOKEN_SLOT_NAME` as a set but means something different, and borrowing it
+would be the exact conflation the split was made to prevent. It describes a retired version, so
+it is frozen and cannot drift.
+
+**Finn asked for my selftest to assert *his* primitives too** — "I'd rather your test fail on my
+drift than have me find out by message next time" — so it does, as hard failures rather than
+informational: `TOKEN_STRIPPABLE` against the PHP's class, `TOKEN_SLOT_NAME` against the ACF
+field-name rule it actually promises, and **`TOKEN_ANY` asserted to remain LOOSER than the strip
+class**, because the instant they agree, tokens the plugin can't see become tokens this tool
+can't see either and the whole "renders literally" class goes dark. Ten checks, all green.
+
+**Promoted the bad-slot-name finding from WARN to a failing verdict**, on Finn's prompt and with
+a reason I'd defend independently: every other guard passes it. The token fills (str_replace is
+literal), and `build-acf.py --check` goes **green** because `used` matches hyphens too, so both
+set differences are empty. What breaks is downstream and silent — `brg_<id>_cta-label` isn't a
+legal ACF field name, so the field won't save and the slot is uneditable in wp-admin. That's the
+INERT symptom by another route, so it takes INERT's severity.
+
+FIXED: 2026-08-13 · **My own FINDINGS prose had gone stale again, in four hours, on the exact
+sentence I'd written to warn about staleness.** The "two traps" section used the hyphen as its
+example of *renders literally*, and 2.6.1 inverted precisely that case. Rewrote it around the
+mechanism (inside the strip class → deleted; outside → survives) with the version-dependence in a
+table, and left a marker saying why rather than quietly editing. Third instance today of the same
+shape — the `_stale` claim, the quoted `ok-wired` output, now this. **The pattern is that the
+durable artifact keeps asserting the old fact long after the fact moved, and the only real
+defence is making the claim re-derivable**: the fixtures survived all three because they are run,
+not read. Finn made the same point from his side — he'd swapped a regex and two warning strings
+with nothing asserting he hadn't broken the mirror in the other direction.
+
 DONE: 2026-08-13 · **Closed the `compose.mjs` duplication — `slotcheck` now imports @finn's
 `slotsFor` instead of mirroring it.** He took option 1 and exported the primitives (`6aa0722`),
 so the ~20 lines I'd flagged are gone rather than merely documented. Split: Finn owns *what a

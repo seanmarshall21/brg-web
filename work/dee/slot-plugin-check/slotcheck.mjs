@@ -39,7 +39,7 @@ import { promisify } from 'node:util';
    two would drift silently, which is the thing this tool exists to catch. The split: Finn owns
    "what are this section's slots", this file owns "at what plugin version, from which source,
    and is that a problem". His escaping stays his — byte-parity is compose.mjs's job, not mine. */
-import { slotsFor } from '../../../notes/finesser/compose.mjs';
+import { slotsFor, TOKEN_ANY, TOKEN_STRIPPABLE, TOKEN_SLOT_NAME } from '../../../notes/finesser/compose.mjs';
 
 const pexec = promisify(execFile);
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -51,6 +51,24 @@ const BASE = 'https://blacktoprg.netlify.app'; // = VCC_CLIENTS['brg']['base']
 /* The version at which vcc_fill_slots() learned to read sections/<id>/slots.json.
    Below this, slots come from the inline `slots` block in sections.json and NOTHING else. */
 const SLOTS_JSON_SINCE = '2.6.0';
+
+/* The version at which the strip grammar widened to include `-` (v2.6.1, 04a03a8). This makes
+   the GRAMMAR version-dependent, which a single exported constant cannot express — so it is
+   derived from the version here rather than imported wholesale. The behavioural difference is
+   real and it inverts the symptom of the same typo:
+     ≤2.6.0   {{cta-label}} undeclared → outside the strip class → RENDERS LITERALLY (visible)
+     ≥2.6.1   {{cta-label}} undeclared → inside it → STRIPPED (silent copy loss)
+   @finn has since split the export in two (3d417f7) because the single name meant two things
+   after 2.6.1, so this uses the explicit ones: TOKEN_STRIPPABLE = what the plugin's strip can
+   match; TOKEN_SLOT_NAME = what a slot may legally be NAMED, since the name becomes an ACF
+   field name. Identical sets until 2.6.1, different questions always.
+   The pre-2.6.1 strip class is defined locally and deliberately NOT borrowed from
+   TOKEN_SLOT_NAME: the two coincide as sets but mean different things, and conflating them is
+   the exact mistake the split was made to prevent. It describes a retired version, so it is
+   frozen history and cannot drift. */
+const HYPHEN_STRIPPED_SINCE = '2.6.1';
+const STRIPPABLE_PRE_261 = /^[a-z0-9_]+$/i;
+const grammarFor = (v) => (cmp(v, HYPHEN_STRIPPED_SINCE) >= 0 ? TOKEN_STRIPPABLE : STRIPPABLE_PRE_261);
 
 const argv = process.argv.slice(2);
 const flag = (n, d) => (argv.find((a) => a.startsWith(`--${n}=`)) || '').split('=')[1] || d;
@@ -165,10 +183,13 @@ async function resolveSlots(id, manifest, version) {
    php :191-217: str_replace every declared slot, THEN preg_replace away anything still
    matching /\{\{[a-z0-9_]+\}\}/i. Order matters, and so does that character class — it has
    no hyphen, which produces two DIFFERENT silent failures rather than one. */
-const STRIP_RE = /\{\{[a-z0-9_]+\}\}/gi;
-const TOKENISH_RE = /\{\{[^}\s]{1,64}\}\}/g;   // anything token-SHAPED, hyphens and all
-
-function analyse(frag, slots) {
+/* The grammar is @finn's, imported (compose.mjs a52675f) — it was hard-coded in four places
+   that all shared its blind spot, which is precisely why the hyphen case was invisible to every
+   guard we own. TOKEN_ANY is a factory because a /g regex carries lastIndex between calls.
+   The looseness is load-bearing: ANY matches what a human can TYPE, GRAMMAR matches what the
+   plugin / build-acf.py / compose.mjs can SEE, and the gap between them IS the bug class — so
+   these are tested against each other, never assumed to agree. */
+function analyse(frag, slots, grammar) {
   const declared = Object.keys(slots);
   let filled = frag;
   const used = [];
@@ -176,18 +197,22 @@ function analyse(frag, slots) {
     const tok = `{{${k}}}`;
     if (filled.includes(tok)) { used.push(k); filled = filled.split(tok).join('[filled]'); }
   }
-  const leftover = [...new Set([...filled.matchAll(TOKENISH_RE)].map((m) => m[0]))];
-  const stripped = leftover.filter((t) => new RegExp(`^${STRIP_RE.source}$`, 'i').test(t));
-  const literal = leftover.filter((t) => !stripped.includes(t));
+  // Deduped on the inner name; `{{x}}` twice is one problem, not two.
+  const leftover = [...new Set([...filled.matchAll(TOKEN_ANY())].map((m) => m[1]))];
+  const stripped = leftover.filter((n) => grammar.test(n)).map((n) => `{{${n}}}`);
+  const literal = leftover.filter((n) => !grammar.test(n)).map((n) => `{{${n}}}`);
   const inert = declared.filter((k) => !used.includes(k));
-  const badKeys = declared.filter((k) => !/^[a-z0-9_]+$/.test(k));
+  /* A slot NAME is a different question from whether a token is strippable: the name becomes
+     an ACF field name brg_<id>_<key>, so a hyphen is invalid there regardless of what the
+     plugin's strip can match. @finn's TOKEN_SLOT_NAME, explicitly, not the strip grammar. */
+  const badKeys = declared.filter((k) => !TOKEN_SLOT_NAME.test(k));
   return { declared, used, stripped, literal, inert, badKeys };
 }
 
 /* ── Findings ─────────────────────────────────────────────────────────────────────────── */
 const F = {
   STRIPPED: (t) => ({ level: 'BROKEN', msg: `${t.join(' ')} — declared by no slot the plugin can see, so the plugin DELETES this copy on render. Silent and destructive: the page loses text, nothing errors.` }),
-  LITERAL: (t) => ({ level: 'BROKEN', msg: `${t.join(' ')} — matches no slot AND does not match the strip regex /{{[a-z0-9_]+}}/, so it is neither filled nor removed. It renders LITERALLY on the live page. (Almost always a hyphen where an underscore belongs.)` }),
+  LITERAL: (t, g) => ({ level: 'BROKEN', msg: `${t.join(' ')} — matches no slot AND falls outside the deployed plugin's strip class ${g}, so it is neither filled nor removed. It renders LITERALLY on the live page — a token printed into the design. Usually whitespace or punctuation inside the braces.` }),
   INERT: (k) => ({ level: 'INERT', msg: `slot(s) ${k.join(', ')} have no {{token}} in the fragment — WordPress shows the field, an editor types into it, and nothing changes on the page.` }),
   BLIND: (v) => ({ level: 'BROKEN', msg: `slots.json is served but the DEPLOYED plugin (${v}) reads only the inline block. This is the 2026-08-13 regression: if the inline block is then removed, every token is stripped and the copy renders empty.` }),
   NOSRC: () => ({ level: 'INFO', msg: 'has {{tokens}} but no slot source at all — every token is stripped, so this copy is currently missing from the page.' }),
@@ -206,7 +231,13 @@ const F = {
      created it wrote `_stale` too (120s << 1 week, so it cannot have outlived it); and the
      failure path can only return `_stale` by reading it. */
   NOFALLBACK: (n) => ({ level: 'WARN', msg: `slots.json is the ONLY source — the inline block in sections.json is gone, so there is no fallback. vcc_fetch writes its week-long \`_stale\` copy only on a successful fetch, so until this section has been rendered once, a transient CDN blip strips all ${n} token(s) and the copy renders EMPTY. Prime it by loading the WP page server-side (curl through the gate counts); after that \`_stale\` covers it for a week. This tool reads the CDN, so it cannot see whether priming has happened — check the rendered page.` }),
-  BADKEY: (k) => ({ level: 'WARN', msg: `slot key(s) ${k.join(', ')} are not [a-z0-9_]+ — the generated ACF field name (brg_<id>_<key>) inherits the odd character, and a hyphenated token is outside the plugin's strip regex.` }),
+  /* Promoted from WARN to a failing verdict on @finn's prompt, and the reasoning is that every
+     other guard passes it: the token fills (str_replace is literal), and `build-acf.py --check`
+     goes GREEN because `used` matches hyphens too, so declared and used agree on both sides.
+     What breaks is downstream and silent — the generated ACF field name brg_<id>_cta-label is
+     not a legal field name, so the field does not save and the slot is uneditable in wp-admin.
+     That is the INERT symptom reached by a different route, so it gets INERT's severity. */
+  BADKEY: (k) => ({ level: 'INERT', msg: `slot name(s) ${k.join(', ')} are outside [a-z0-9_] — they FILL correctly and \`build-acf.py --check\` passes them green, but the generated ACF field name (brg_<id>_<name>) inherits the character and will not save, so the slot is uneditable in wp-admin. Rename with underscores.` }),
 };
 
 async function main() {
@@ -225,10 +256,10 @@ async function main() {
     const frag = await fetchOne(`/sections/${encodeURIComponent(id)}/embed.html`);
     if (frag === '') { out.push({ id, findings: [{ level: 'INFO', msg: 'no fragment served at this origin — skipped' }], skipped: true }); continue; }
     const r = await resolveSlots(id, manifest, dep.version);
-    const a = analyse(frag, r.slots);
+    const a = analyse(frag, r.slots, grammarFor(dep.version));
     const findings = [];
     if (a.stripped.length) findings.push(F.STRIPPED(a.stripped));
-    if (a.literal.length) findings.push(F.LITERAL(a.literal));
+    if (a.literal.length) findings.push(F.LITERAL(a.literal, grammarFor(dep.version).source));
     if (r.jsonPresent && !r.canReadSlotsJson) findings.push(F.BLIND(dep.version));
     if (a.inert.length) findings.push(F.INERT(a.inert));
     if (a.badKeys.length) findings.push(F.BADKEY(a.badKeys));
@@ -306,7 +337,7 @@ async function selftest() {
     ['fetches sections/<id>/slots.json', /'\/sections\/'\s*\.\s*rawurlencode\(\s*\$id\s*\)\s*\.\s*'\/slots\.json'/],
     ['skips `_`-prefixed keys', /strpos\(\s*\(string\)\s*\$k,\s*'_'\s*\)\s*!==\s*0/],
     ['falls back only when $slots is empty', /if\s*\(\s*!\s*\$slots\s*&&/],
-    ['strips leftovers with [a-z0-9_] and no hyphen', /preg_replace\(\s*'\/\\\{\\\{\[a-z0-9_\]\+\\\}\\\}\/i'/],
+    ['strips leftover tokens with a preg_replace', /preg_replace\(\s*'\/\\\{\\\{\[[^\]]+\]\+\\\}\\\}\/i'/],
     ['vcc_fetch returns empty on non-200', /wp_remote_retrieve_response_code\(\s*\$res\s*\)\s*!==\s*200/],
     ['fills with str_replace on a flat key', /str_replace\(\s*'\{\{'\s*\.\s*\$key\s*\.\s*'\}\}'/],
   ];
@@ -316,6 +347,49 @@ async function selftest() {
     const ok = re.test(php);
     if (!ok) bad++;
     console.log(`  ${ok ? '\x1b[32mok  \x1b[0m' : '\x1b[31mSTALE\x1b[0m'} ${what}`);
+  }
+
+  /* The grammar is imported from @finn now, so the assertion that matters is no longer "does my
+     copy match the PHP" but "does HIS constant still describe conti's PHP". Behavioural, not
+     textual: lift the character class out of the plugin's own strip regex and check the two
+     agree on probes chosen to straddle the boundary — `cta-label` is the one that matters, since
+     the whole hyphen bug class lives in whether the class contains `-`. */
+  const phpClass = php.match(/preg_replace\(\s*'\/\\\{\\\{\[([^\]]+)\]\+\\\}\\\}\/i'/)?.[1];
+  if (!phpClass) { bad++; console.log('  \x1b[31mSTALE\x1b[0m could not find the strip regex to compare TOKEN_GRAMMAR against'); }
+  else {
+    const phpRe = new RegExp(`^[${phpClass}]+$`, 'i');
+    const probes = ['heading', 'cta_label', 'CTA_LABEL', 'a1', 'cta-label', 'cta label', 'cta.label', ''];
+    const repoV = php.match(/VCC_VERSION'\s*,\s*'([^']+)'/)?.[1] || '0';
+    const mine = grammarFor(repoV);
+    const dis = probes.filter((p) => phpRe.test(p) !== mine.test(p));
+    if (dis.length) { bad++; console.log(`  \x1b[31mSTALE\x1b[0m grammarFor(${repoV}) disagrees with the plugin's [${phpClass}] on: ${dis.map((p) => `"${p}"`).join(', ')}`); }
+    else console.log(`  \x1b[32mok  \x1b[0m grammarFor(${repoV}) matches the plugin's own [${phpClass}]`);
+
+    /* @finn asked for this explicitly: assert HIS exported primitives against the PHP too, so
+       a drift in compose.mjs fails a test rather than arriving as a message. It already caught
+       one — TOKEN_GRAMMAR was the pre-2.6.1 class for a few hours after 2.6.1 shipped. These
+       are hard failures now, not informational: compose.mjs is the reference mirror, and a
+       reference that has silently stopped describing the plugin is worse than no reference. */
+    const fdis = probes.filter((p) => phpRe.test(p) !== TOKEN_STRIPPABLE.test(p));
+    if (fdis.length) { bad++; console.log(`  \x1b[31mSTALE\x1b[0m compose.mjs TOKEN_STRIPPABLE disagrees with the plugin's [${phpClass}] on: ${fdis.map((p) => `"${p}"`).join(', ')}`); }
+    else console.log(`  \x1b[32mok  \x1b[0m compose.mjs TOKEN_STRIPPABLE matches the plugin's [${phpClass}]`);
+
+    /* TOKEN_SLOT_NAME is NOT checked against the strip class — they are different questions and
+       coincided only until 2.6.1. It is checked for what it actually promises: no hyphen, since
+       the whole point is that a slot name becomes an ACF field name. */
+    const nameOk = !TOKEN_SLOT_NAME.test('cta-label') && TOKEN_SLOT_NAME.test('cta_label');
+    if (!nameOk) { bad++; console.log('  \x1b[31mSTALE\x1b[0m compose.mjs TOKEN_SLOT_NAME no longer excludes hyphens — ACF field names would pass validation they should fail'); }
+    else console.log('  \x1b[32mok  \x1b[0m compose.mjs TOKEN_SLOT_NAME still excludes hyphens (ACF field-name rule)');
+
+    /* TOKEN_ANY must stay LOOSER than the strip class. The instant they agree, a token the
+       plugin cannot see also becomes one this tool cannot see, and the whole class of
+       "renders literally" findings goes dark. @finn made the same point from his side. */
+    const anyLooser = ['bad.name', 'cta label', 'a b'].every((probe) => {
+      const m = [...`{{${probe}}}`.matchAll(TOKEN_ANY())];
+      return m.length === 1 && !phpRe.test(probe);
+    });
+    if (!anyLooser) { bad++; console.log('  \x1b[31mSTALE\x1b[0m TOKEN_ANY is no longer looser than the strip class — out-of-grammar tokens would stop being detected'); }
+    else console.log('  \x1b[32mok  \x1b[0m TOKEN_ANY is still looser than the strip class (the gap IS the bug class)');
   }
   const v = php.match(/VCC_VERSION'\s*,\s*'([^']+)'/)?.[1];
   console.log(`\n  repo plugin version ${v} · slots.json support assumed from ${SLOTS_JSON_SINCE}\n`);

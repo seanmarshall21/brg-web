@@ -69,15 +69,73 @@ rule — Finn ships a section, Conti does a gated render before it counts as saf
 fallback, but never whether priming has happened. That lives in WordPress's transients. The
 `WARN` is therefore a prompt to check the rendered page, not a claim that the section is exposed.
 
+## The selftest caught a live mirror drift — 2026-08-13, within the hour
+
+**This is the tool doing the job it was built for, on the reference implementations rather than
+on a section.** Importing @finn's `TOKEN_GRAMMAR` and *checking it against the plugin* rather
+than trusting it immediately surfaced a real divergence:
+
+@conti shipped **v2.6.1** (`04a03a8`), widening the strip class from `[a-z0-9_]` to
+`[a-z0-9_-]` — deliberately, so a hyphen typo is *seen and stripped* rather than displayed. Three
+of the four layers moved with it:
+
+| layer | class | state |
+|---|---|---|
+| plugin `:224` | `[a-z0-9_-]` | updated |
+| `kit/build-acf.py:108` | `[a-z0-9_-]` | updated |
+| `compose.mjs` `TOKEN_GRAMMAR` | `[a-z0-9_]` | **stale** |
+| `slotcheck` | derived per version | now correct |
+
+**And 2.6.1 is deployed** — Action run `31688155274`, verified on the server. So this is live
+behaviour, not a repo-only difference.
+
+**The consequence is that the grammar is now version-dependent, which a single constant cannot
+express.** The same typo has opposite symptoms either side of the boundary:
+
+```
+$ node slotcheck.mjs --from=fixtures --plugin=2.6.0 hyphen-token
+    BROKEN {{cta-label}} — falls outside the strip class ^[a-z0-9_]+$ … renders LITERALLY
+
+$ node slotcheck.mjs --from=fixtures --plugin=2.6.1 hyphen-token
+    BROKEN {{cta-label}} — declared by no slot the plugin can see, so the plugin DELETES this copy
+```
+
+Fixed here by deriving the grammar from the version (`grammarFor`) and having `--selftest` check
+that derivation **behaviourally** against the class lifted out of the plugin's own `preg_replace`.
+Reported to @finn; his constant is flagged as `DRIFT` rather than as a failure, because it is
+accurately the pre-2.6.1 form and that is precisely what `grammarFor` uses for that branch.
+
+Worth noting what this cost: **nothing.** The check was already written, and it fired on a change
+made by someone else, in someone else's file, minutes after they made it. That is the argument
+for a mirror that can tell you it has drifted.
+
+Live impact today: **none.** No section on the CDN has a hyphenated or whitespaced token —
+`--json` reports zero `literal` and zero `stripped` across all 18.
+
 ## Two traps the checker found that nothing else was looking for
 
 Neither is live today. Both are one typo away, and both are silent.
 
-**1. A hyphen in a token is a different bug from a missing slot.** The strip regex is
-`/\{\{[a-z0-9_]+\}\}/i` — **no hyphen in the character class.** So `{{cta_label}}` with no slot is
-*deleted* (copy vanishes), but `{{cta-label}}` with no slot is *neither filled nor deleted* — it
-**renders literally on the live page** as `{{cta-label}}`. Same typo class, opposite symptom, and
-the second one is the kind of thing that ends up in a screenshot. Fixture: `hyphen-token`.
+**1. A token can fall outside what the plugin's strip can see, and then it renders literally.**
+*(Rewritten — the original text used the hyphen as the example, and v2.6.1 inverted exactly that
+case four hours later. Left as a marker of how fast this rots: the trap is real, the example
+moved.)*
+
+The strip is `preg_replace('/\{\{[<class>]+\}\}/i', …)`, so an undeclared token is **deleted** if
+its name is inside `<class>` and **survives onto the page** if it is not. Two opposite symptoms
+from one slip, and `--check` is blind to both.
+
+Which side a hyphen lands on is **version-dependent**, which is the part worth carrying:
+
+| deployed | `{{cta-label}}` undeclared | `{{bad.name}}` undeclared |
+|---|---|---|
+| ≤ 2.6.0 | renders literally | renders literally |
+| ≥ 2.6.1 | **stripped** — copy vanishes silently | renders literally |
+
+So at the version actually deployed today, the remaining "renders literally" cases are tokens
+with whitespace or punctuation inside the braces — `{{ heading }}`, `{{bad.name}}`. Fixtures:
+`hyphen-token` (flips symptom across the boundary — run it at both versions) and `spaced-token`
+(literal at every version, since whitespace is in no strip class).
 
 **2. `slots.json` can exist, parse, and still hand over nothing.** The fallback at `:182` is
 `if ( ! $slots && … )` — it triggers on **emptiness, not absence**. A `slots.json` containing only

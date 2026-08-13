@@ -42,6 +42,9 @@
     },
     {
       "id": "bad-key"
+    },
+    {
+      "id": "spaced-token"
     }
   ]
 }

@@ -103,8 +103,26 @@ tool predicted — `slotsFor()` returned `{}` on a parse-success-but-empty-after
 instead of falling through, diverging from PHP's `if ( ! $slots && … )` at `:182`. Found by the
 tool built to find exactly that, in the reference implementation, on day one.
 
-**Still module-private in `compose.mjs`:** `TOKEN_ANY` and `TOKEN_GRAMMAR`. That grammar is
-hard-coded in *four* places now (the plugin's strip `:217`, `build-acf.py:105`, Finn's check,
-and this file) and they share its blind spot, so it is the next thing worth centralising. Asked;
-not urgent. Until then `--selftest` asserts this file's copy against the PHP directly, which is
-the same guarantee by a different route.
+**The grammar is imported too** (`TOKEN_ANY`, `TOKEN_GRAMMAR`, `compose.mjs` `a52675f`) — but
+**not trusted**, and that distinction earned itself within the hour.
+
+`TOKEN_ANY()` is a factory because a `/g` regex carries `lastIndex` between calls. The looseness
+is load-bearing: **ANY matches what a human can type, GRAMMAR matches what the plugin can see,
+and the gap between them is the bug class.** They are tested against each other, never assumed to
+agree — the moment they agree, the hyphen case goes invisible again.
+
+**The grammar is now version-dependent, so a single constant cannot express it.** v2.6.1
+(`04a03a8`) widened the plugin's strip class to `[a-z0-9_-]`, which *inverts the symptom* of the
+same typo:
+
+| deployed | `{{cta-label}}` undeclared |
+|---|---|
+| ≤ 2.6.0 | outside the strip class → **renders literally** on the page (visible) |
+| ≥ 2.6.1 | inside it → **stripped** (silent copy loss) |
+
+So `grammarFor(version)` derives it here, and `--selftest` checks that derivation against the
+class lifted out of the plugin's own `preg_replace` — behaviourally, on probes chosen to straddle
+the boundary, not by string comparison. Finn's `TOKEN_GRAMMAR` is reported **separately** as
+`DRIFT` rather than as a failure: it is accurately the pre-2.6.1 form, which is exactly what
+`grammarFor` uses for that branch, so it is still doing real work. That comparison is what caught
+the drift — see FINDINGS.

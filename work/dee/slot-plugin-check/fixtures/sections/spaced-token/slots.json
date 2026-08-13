@@ -1,0 +1,2 @@
+{ "heading": { "type": "text", "default": "Real heading" },
+  "sub": { "type": "textarea", "default": "Real sub" } }
