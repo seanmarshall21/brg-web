@@ -122,6 +122,16 @@ is for).
 | Helper | **BRG Dee** | `dee` | `notes/dee.md` |
 | Helper | **BRG Dum** | `dum` | `notes/dum.md` |
 
+## The channel (Atlas) — where Sean watches
+A live feed, project slug **`brg-web`**. Every seat posts itself in when it starts, uses its
+existing name exactly, and posts what a colleague would say out loud — landed, blocked, starting
+something big. `needs_you` is a push to his phone and is reserved for genuinely stuck. Mechanics
+and the seat-name table are in `CLAUDE.md`; the full doc is `~/atlas/docs/CHANNEL.md`.
+
+**It does not replace anything here.** The repo stays the durable record: decisions in
+`notes/controller.md`, work on the board, argument in `notes/roundtable.md`. Land it in the repo,
+then say in the channel that you did — so nobody polls a file to find out something moved.
+
 ## Shared coordination files
 - **`notes/roundtable.md`** — the cross-chat thread. Newest first, sign every entry, address
   people with `@`. This is where a chat asks another for something.

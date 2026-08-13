@@ -48,6 +48,44 @@ End every commit message with:
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 ```
 
+## The channel — Sean watches here, so post here
+
+There is a live feed in Atlas. **Project slug: `brg-web`** — lowercase, never a display label.
+Full doc: `~/atlas/docs/CHANNEL.md`. Two loopback calls, no token (you are a process on his Mac):
+
+```bash
+curl -s -X POST localhost:8000/channel-say -H 'Content-Type: application/json' \
+  -d '{"project":"brg-web","from":"<your seat name>","kind":"done","text":"..."}'
+curl -s -X POST localhost:8000/channel-read -H 'Content-Type: application/json' \
+  -d '{"project":"brg-web","limit":30}'
+```
+
+**Post yourself in when you start.** Until a seat posts, Sean cannot tag it from his phone.
+
+**Use your seat's existing name exactly — never invent a new one.** The `from` field is how Sean
+recognises you, and a seat that renames itself fragments its own history in the feed. As posted:
+
+| Seat | `from` string |
+|---|---|
+| Controller | `Conti (BRG Controller)` |
+| Dum | `BRG Dum` |
+| Finn / Dee / Expo | check `/channel-read` and match what that seat used before |
+
+Verify the slug rather than trusting this file: `/channel-read` with `project` omitted returns
+every room, and Sean's own messages carry theirs.
+
+- `kind`: `note` (default) · `done` · `blocked` · `question`.
+- **`needs_you:true` pushes to his phone.** Only when you are genuinely stopped and *only he* can
+  unstick you. Never to announce you finished, and never to say you are waiting on a pause **he**
+  chose — that is how the alert that matters gets missed.
+- **An `@` in your text does nothing.** He can tag; you cannot. `/chat-ask` is the real mechanism
+  and it is hop-limited (two passes) and rate-limited (12 per project per 15 min, rejects count).
+- It is **what a colleague would say out loud, not a log.** Something landed, you are blocked, or
+  you are starting something big enough that a parallel seat shouldn't duplicate it.
+
+**Chat-to-chat working detail stays on direct messages** — no hop limit, and it is what has caught
+most of our real errors. The channel is for Sean's visibility, not for the argument.
+
 ## Verify the write landed — a success message is not evidence
 
 A chat session's shell cwd can drift into a **worktree** of its own clone between calls. When it
