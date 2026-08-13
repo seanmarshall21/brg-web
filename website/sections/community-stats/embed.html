@@ -1,6 +1,10 @@
 <!-- BRG · section: community-stats  →  [brg_community-stats]
      Light section, 2×2 with hairline rules and no outer border — same rule technique as
-     home-values. Figures are Blanco teal; three are still XX pending real numbers. -->
+     home-values. Figures are Blanco teal.
+     ACF-editable (slots.json beside this file): all four figures AND their labels, so the
+     three XX figures are now fixable in wp-admin with no push. Each label is TWO text slots,
+     not one — the <br> stays here in the markup because the comp's two-line rhythm is layout,
+     not content, and a single rich-text slot would arrive wrapped in <p> and break `.cell p`. -->
 <section class="brgw-sec brgw-sec--community-stats reveal" aria-label="Community by the numbers">
 <style>
 .brgw-sec--community-stats{background:var(--white);color:var(--ink);
@@ -21,9 +25,9 @@
 .brgw-sec--community-stats .cell p{font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.5;opacity:.86;}
 </style>
   <div class="grid">
-    <div class="cell anim-up"><span class="fig blanco brgw-pulse">12</span><p>locations embedded in<br>SD &amp; OC communities</p></div>
-    <div class="cell anim-up"><span class="fig blanco brgw-pulse">XX</span><p>local organizations<br>supported annually</p></div>
-    <div class="cell anim-up"><span class="fig blanco brgw-pulse">XX</span><p>meals/dollars<br>donated</p></div>
-    <div class="cell anim-up"><span class="fig blanco brgw-pulse">XX</span><p>giveback events<br>per year</p></div>
+    <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_1_fig}}</span><p>{{stat_1_line1}}<br>{{stat_1_line2}}</p></div>
+    <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_2_fig}}</span><p>{{stat_2_line1}}<br>{{stat_2_line2}}</p></div>
+    <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_3_fig}}</span><p>{{stat_3_line1}}<br>{{stat_3_line2}}</p></div>
+    <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_4_fig}}</span><p>{{stat_4_line1}}<br>{{stat_4_line2}}</p></div>
   </div>
 </section>
