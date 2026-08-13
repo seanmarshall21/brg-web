@@ -1,0 +1,27 @@
+{
+  "_note": "Slots for [brg_careers-positions]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`, which double-escape into visible entity text.\\n\\nThe <h2> IS wired: it is a CTA-band heading, not a hero display headline, and it carries no structural <br> and no inline markup — same shape as team-apply's, which Conti approved. The surfer cutout bleeding off the right edge is decorative and stays as code.",
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "doc": "Display face on the yellow band, up to ~3.5rem. Wraps freely. ~30 characters keeps it to two lines.",
+    "default": "Ready to join the crew?"
+  },
+  "sub": {
+    "type": "textarea",
+    "label": "Sub copy",
+    "doc": "One line beneath the heading. Plain text; markup is escaped. Write `&` and `—` as literal characters.",
+    "default": "Browse our open roles below — from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co."
+  },
+  "cta_label": {
+    "type": "text",
+    "label": "Button label",
+    "doc": "Black button on the yellow band. ~18 characters.",
+    "default": "Open Positions"
+  },
+  "cta_href": {
+    "type": "url",
+    "label": "Button link",
+    "doc": "Defaults to the in-page anchor for the roles list.",
+    "default": "/careers/#roles"
+  }
+}

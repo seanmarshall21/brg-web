@@ -1,0 +1,33 @@
+{
+  "_note": "Slots for [brg_home-about]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`, which double-escape into visible entity text.\\n\\nThe Vision/Mission pair IS flattened into named slots, and that is consistent with leaving careers-apply's offer list and community-give's slides as code. The test has been 'is the count a design constant?' — here it is fixed by MEANING rather than layout: a company has one vision and one mission, so `vision_*`/`mission_*` can never be the wrong number in the way `offer_5` could. They are two named things, not two rows of a repeater.\\n\\nNOT WIRED: the photograph and its alt text. The image is real photography rather than a stand-in, and editing alt text while the image it describes stays hard-coded would let the two drift apart — they should become editable together or not at all. Its data-brgw-img reveal and parallax are motion hooks and stay as code.",
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "doc": "Sits above the vision/mission pair, in the display face. ~24 characters.",
+    "default": "What we're about"
+  },
+  "vision_label": {
+    "type": "text",
+    "label": "Vision — label",
+    "doc": "The small caps label above the vision statement.",
+    "default": "Our Vision"
+  },
+  "vision_text": {
+    "type": "textarea",
+    "label": "Vision — statement",
+    "doc": "Display face, large. Short — it is a slogan, not a paragraph.",
+    "default": "Make your day great!"
+  },
+  "mission_label": {
+    "type": "text",
+    "label": "Mission — label",
+    "doc": "The small caps label above the mission statement.",
+    "default": "Our Mission"
+  },
+  "mission_text": {
+    "type": "textarea",
+    "label": "Mission — statement",
+    "doc": "Display face, large. One sentence; past ~90 characters it starts to unbalance the column against the photo.",
+    "default": "To amp up our communities by creating real connections and rad experiences."
+  }
+}
