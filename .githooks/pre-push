@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+# BRG pre-push checks — cheap, and each one exists because something broke once.
+#
+#   1. kit/build.py --check   generated docs (SHORTCODES.md, docs/shortcode-index.html)
+#                             must match kit/registry.json, and a moved contract must
+#                             carry a version bump. Docs drift is silent otherwise.
+#   2. node --check           every changed .js/.mjs parses. brgw.js is INLINED into
+#                             the WP page — a syntax error takes the page down, not
+#                             just the script.
+#   3. php -l                 every changed .php parses. A fatal in an mu-plugin is a
+#                             white screen on the live site.
+#
+# A missing interpreter prints SKIPPED and does not fail the push — this repo has no
+# local PHP, and a check you can't run is not a reason to be unable to ship.
+#
+# Bypass (deliberately loud): git push --no-verify
+
+set -uo pipefail
+
+fail=0
+say() { printf '  %-26s %s\n' "$1" "$2"; }
+
+echo "pre-push checks"
+
+# ── Work out what's actually being pushed ────────────────────────────────────
+# git feeds us "<local ref> <local sha> <remote ref> <remote sha>" on stdin.
+range=""
+while read -r _local_ref local_sha _remote_ref remote_sha; do
+  [ -z "${local_sha:-}" ] && continue
+  case "$local_sha" in *[!0]*) ;; *) continue ;; esac   # deleting a ref — nothing to check
+  case "$remote_sha" in
+    *[!0]*) range="$remote_sha..$local_sha" ;;          # normal update
+    *)                                                  # new branch / no remote yet
+      if git rev-parse --verify -q origin/main >/dev/null; then
+        range="origin/main..$local_sha"
+      else
+        range="$local_sha"
+      fi
+      ;;
+  esac
+done
+
+if [ -z "$range" ]; then
+  # Invoked without the stdin protocol (or nothing parsed) — fall back to the
+  # only thing that's reliably meaningful here.
+  if git rev-parse --verify -q origin/main >/dev/null; then
+    range="origin/main..HEAD"
+  else
+    range="HEAD"
+  fi
+fi
+
+changed=$(git diff --name-only --diff-filter=ACMR "$range" 2>/dev/null || git show --name-only --pretty=format: "$range" 2>/dev/null)
+
+# ── 1. generated docs ────────────────────────────────────────────────────────
+if [ -f kit/build.py ]; then
+  if command -v python3 >/dev/null 2>&1; then
+    if out=$(python3 kit/build.py --check 2>&1); then
+      say "kit/build.py --check" "OK"
+    else
+      say "kit/build.py --check" "FAILED"
+      echo "$out" | sed 's/^/      /'
+      echo "      → run: python3 kit/build.py   (and --restamp if a contract moved)"
+      fail=1
+    fi
+  else
+    say "kit/build.py --check" "SKIPPED (no python3)"
+  fi
+fi
+
+# ── 2. JavaScript ────────────────────────────────────────────────────────────
+js=$(echo "$changed" | grep -E '\.(js|mjs)$' || true)
+if [ -n "$js" ]; then
+  if command -v node >/dev/null 2>&1; then
+    n=0
+    while IFS= read -r f; do
+      [ -f "$f" ] || continue
+      if ! out=$(node --check "$f" 2>&1); then
+        say "node --check" "FAILED  $f"
+        echo "$out" | sed 's/^/      /'
+        fail=1
+      fi
+      n=$((n + 1))
+    done <<< "$js"
+    [ "$fail" -eq 0 ] && say "node --check" "OK ($n file(s))"
+  else
+    say "node --check" "SKIPPED (no node)"
+  fi
+fi
+
+# ── 3. PHP ───────────────────────────────────────────────────────────────────
+php=$(echo "$changed" | grep -E '\.php$' || true)
+if [ -n "$php" ]; then
+  if command -v php >/dev/null 2>&1; then
+    n=0
+    while IFS= read -r f; do
+      [ -f "$f" ] || continue
+      if ! out=$(php -l "$f" 2>&1); then
+        say "php -l" "FAILED  $f"
+        echo "$out" | sed 's/^/      /'
+        fail=1
+      fi
+      n=$((n + 1))
+    done <<< "$php"
+    [ "$fail" -eq 0 ] && say "php -l" "OK ($n file(s))"
+  else
+    say "php -l" "SKIPPED (no php) — $(echo "$php" | wc -l | tr -d ' ') changed .php UNVERIFIED"
+  fi
+fi
+
+if [ "$fail" -ne 0 ]; then
+  echo
+  echo "  push refused. Fix the above, or bypass with: git push --no-verify"
+  exit 1
+fi
+
+exit 0

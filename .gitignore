@@ -1,8 +1,40 @@
 .DS_Store
 notes/finesser/.out/
 
-# Design mocks — high-res Figma exports (~88MB) used only as build reference.
+# Per-machine agent/editor config — local to whoever's clone this is.
+.claude/
+
+# Design mocks — high-res Figma exports (~107MB) used only as build reference.
 # Kept LOCAL: they sit inside the Netlify publish dir, so committing them would
-# deploy 88MB to the public CDN and bloat the repo. All chats share this checkout,
-# so Finn still reads them from website/mocks/ — they just aren't versioned/deployed.
+# deploy 107MB to the public CDN and bloat the repo. Each chat's clone gets its
+# own copy from Sean; they are build INPUT, not source.
 website/mocks/
+
+# ── The "Coming Soon" splash build (2026-06) ────────────────────────────────
+# A separate, finished piece of work: the Oxygen splash page, assembled from
+# Figma frames. It has nothing to do with the section/fragment site under
+# website/ — different assets, different namespace (.brg-cs), different target.
+# It was never committed, and it shouldn't be: ~60MB of source SVG, fonts and
+# photography for a page that is about to be retired at launch, sitting at the
+# repo ROOT where a stray `git add -A` would sweep it in.
+#
+# It is still on disk in this clone. If it ever needs to be versioned it wants
+# its own repo, not this one.
+#
+# EVERY PATTERN HERE IS ROOT-ANCHORED (leading /) ON PURPOSE. A bare `assets/`
+# would also match `website/assets/` — gitignore matches at any depth — and
+# would then silently swallow every new file Finn adds to the real asset dir.
+/index.html
+/blocks.html
+/build.py
+/README-splash.md
+/OXYGEN-BUILD-GUIDE.md
+/OXYGEN-IMPLEMENTATION.md
+/assets/
+/css/
+/components/
+/splash/
+/oxygen/
+/new-project-starter/
+/brg-coming-soon-package*/
+/brg-coming-soon-package*.zip

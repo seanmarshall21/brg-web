@@ -3,8 +3,9 @@
 _Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-08-12 (Conti) — 18/18 sections built · plugin **v2.5.0 in repo**
-(live version unverified — pages are password-gated) · nav v2.4.0 · ACF + deploy automation written, not yet switched on
+**Last updated:** 2026-08-12 (Conti) — 18/18 sections built and **verified rendering live** ·
+plugin **v2.4.0 live, v2.5.0 in repo** · nav assigned and live · chats restructured to
+clone-per-chat + territory hook
 
 ## What this project is
 The Blacktop Restaurant Group (BRG) marketing site for Vivo Creative. Pages are built as
@@ -41,9 +42,11 @@ commit as any shortcode change (`--check` in CI-spirit, `--restamp` to bump). Do
 | community | `/community/` | stacked sections | live, gated |
 | careers | `/careers/` | stacked sections | live, gated |
 
-All five return HTTP 200; content is behind the password gate, so the `vc_embed` version marker
-can't be read without the password. Legacy monolith fragments (`website/<slug>/embed.html`) still
-exist and still work, but the stacked form is the current shape.
+**Verified behind the gate 2026-08-12:** all five render every one of their sections, **zero
+literal `[brg_` tokens**, nav present with 5 items and the active state resolving. Every
+shortcode reports **`v2.4.0`** — so the live plugin is v2.4.0 while the repo holds v2.5.0, and
+the **ACF-aware slot fill is written but not running on the site.** Legacy monolith fragments
+(`website/<slug>/embed.html`) still exist and still work, but the stacked form is the current shape.
 
 ## Sections — 18/18 built
 `website/sections.json` (Controller-owned) lists all 18, every one `status: live` and every
@@ -71,10 +74,10 @@ Fill precedence: shortcode attr > ACF option > default. Field name = `brg_<id_wi
    (b) add 4 repo secrets — `WP_SSH_HOST`, `WP_SSH_USER`, `WP_SSH_KEY`, `WP_MU_PLUGINS_PATH` —
    so `.github/workflows/deploy-mu-plugins.yml` SCPs the mu-plugin files on push.
    Until (b), plugin **v2.5.0 still needs a manual drop** into `/wp-content/mu-plugins/`.
-2. **Verify the live plugin version.** Needs the gate password (deliberately not in the repo —
-   Sean supplies it). Expect `<!-- vc_embed brg/… v2.5.0 -->`; bust cache with `?brg_refresh=1`.
-3. **Menu assignment** — confirm a WP menu is assigned to "BRG — Primary" (Appearance → Menus →
-   Manage Locations). Until then `[brg_nav]` has no items.
+2. ~~Verify the live plugin version.~~ **Done 2026-08-12 — live is v2.4.0.** Re-verify after
+   the v2.5.0 drop; bust cache with `?brg_refresh=1`.
+3. ~~Menu assignment.~~ **Done** — "BRG — Primary" is assigned and serving Home / Our Restaurants
+   / Team / Community / Careers, with `current-menu-item` resolving.
 4. **Real content still outstanding:** team headshots + quotes, three of four community stats
    (still `XX`), real photography for `home-community` (2 plates) and `home-different` (3 plates),
    real LinkedIn job URLs for `careers-posts` (its follower counts / age stamps are hand-maintained
@@ -105,9 +108,17 @@ New page = add its slug to `website/pages.json` + push. New section = add it to 
 - **Headless screenshots:** `--force-device-scale-factor=2` widens `innerWidth` past `--window-size`
   and crops the right edge — verify mobile nav at scale 1.
 
-## Coordination
-`MANIFESTO.md` = roles/ownership/protocol. `HANDOFF.md` = the boot doc for a fresh Controller chat.
-Each chat logs to its own `notes/*.md`; `notes/controller.md` is the running decision history.
+## Coordination — restructured 2026-08-12
+**Clone per chat, one owner per file.** `MANIFESTO.md` is the contract;
+`.githooks/territory.tsv` is the machine-readable map and `.githooks/pre-commit` enforces it
+(**currently `warn`**, flip to `block` once Finn's clone is running clean). `CLAUDE.md` is the
+per-chat operating brief. Shared: `notes/roundtable.md` (the cross-chat thread),
+`notes/tasks.json` (the board), `notes/log/` (dated shared entries). Each chat still keeps its
+own decision log (`notes/controller.md`, `notes/finesser.md`). Expo is retired — `notes/explorer*`
+is archive, and research is a task on the board.
+
+Set up a clone: `./.githooks/install.sh <chat> warn`, then push with `git push origin HEAD:main`.
+**Clones must live on local disk — never in a cloud-synced folder.**
 
 ## Key links
 Repo: github.com/seanmarshall21/brg-web · Live: blacktoprestaurantgroup.com · CDN: blacktoprg.netlify.app

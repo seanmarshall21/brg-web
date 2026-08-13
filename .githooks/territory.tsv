@@ -1,0 +1,74 @@
+# BRG territory map — one owner per file.
+#
+# Format:  <owner><TAB><path pattern>
+#   owner    a chat id (`git config fc.chat`), or `*` = any chat may write
+#   pattern  ends in `/`  → directory prefix
+#            contains `*` → fnmatch glob
+#            otherwise    → exact path
+#
+# LONGEST PATTERN WINS, so a specific row always beats the directory it sits in.
+# A path that matches NO row is unmapped: always allowed, but reported — that
+# report is the point, it's how a new top-level thing gets noticed instead of
+# quietly landing outside the map.
+#
+# Enforced by .githooks/pre-commit. Install: ./.githooks/install.sh <chat> [warn|block]
+
+# ── conti — infrastructure, contracts, coordination ─────────────────────────
+conti	.github/
+conti	.githooks/
+conti	kit/
+conti	scripts/
+conti	docs/
+conti	netlify.toml
+conti	SHORTCODES.md
+conti	MANIFESTO.md
+conti	STATUS.md
+conti	HANDOFF.md
+conti	KICKOFF.md
+conti	GO-LIVE.md
+conti	CLAUDE.md
+conti	README.md
+conti	website/wp-mu-plugin/
+conti	website/wp-snippets/
+conti	website/acf/
+conti	website/pages.json
+conti	website/sections.json
+conti	website/BUILD-SPEC.md
+conti	notes/controller.md
+conti	notes/upstream-fc-brands.md
+conti	reference/
+
+# The nav component is Conti's, NOT Finn's, despite the brgw- prefix. It is the
+# body of the [brg_nav] shortcode: every one of its commits is a nav version bump
+# that also moves SHORTCODES.md + docs/ + the plugin. `.bnav*` is deliberately
+# namespaced away from Finn's `.brgw-*` in brgw.css for exactly this reason.
+# (These rows are longer than `website/assets/brgw*` below, so they win.)
+conti	website/assets/brgw-nav.css
+conti	website/assets/brgw-nav.js
+
+# ── finn — the build: page fragments, sections, shared engine ───────────────
+finn	website/home/
+finn	website/our-restaurants/
+finn	website/team/
+finn	website/community/
+finn	website/careers/
+finn	website/sections/
+finn	website/assets/brgw*
+finn	website/assets/vendor/
+finn	notes/finesser.md
+finn	notes/finesser/
+
+# ── shared — every chat writes here, nobody owns it ─────────────────────────
+*	notes/roundtable.md
+*	notes/tasks.json
+*	notes/log/
+*	.gitignore
+
+# ── unowned — inputs, not authored code. Whoever needs them, edits them. ────
+*	website/assets/media/
+*	website/mocks/
+*	website/page-*.png
+
+# ── archive — Expo is retired (2026-08-12). Read, don't extend. ─────────────
+conti	notes/explorer.md
+conti	notes/explorer/

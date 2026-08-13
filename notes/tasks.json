@@ -1,0 +1,110 @@
+{
+  "_note": "Shared board — any chat writes. One entry per piece of work. Research is a task here, not a standing chat (Expo retired 2026-08-12). Keep it small: if it needs a paragraph, put the paragraph in notes/log/ and link it from `note`.",
+  "_schema": {
+    "id": "short-kebab-case, stable",
+    "title": "one line, what done looks like",
+    "owner": "conti | finn | sean | unassigned",
+    "gate": "conti (plan/integration) | sean (design/content) | none",
+    "status": "todo | doing | blocked | done",
+    "note": "why it matters / what's blocking"
+  },
+  "version": 1,
+  "tasks": [
+    {
+      "id": "plugin-v250-live",
+      "title": "Get plugin v2.5.0 onto the live site (repo is v2.5.0, live is v2.4.0)",
+      "owner": "sean",
+      "gate": "none",
+      "status": "todo",
+      "note": "Verified 2026-08-12: every shortcode on all 5 pages reports v2.4.0. The ACF-aware slot fill isn't running. Either a manual drop into /wp-content/mu-plugins/, or finish deploy-secrets and let the Action do it forever."
+    },
+    {
+      "id": "deploy-secrets",
+      "title": "Add the 4 repo secrets so mu-plugin deploys happen on push",
+      "owner": "sean",
+      "gate": "none",
+      "status": "todo",
+      "note": "WP_SSH_HOST, WP_SSH_USER, WP_SSH_KEY, WP_MU_PLUGINS_PATH → Settings → Secrets and variables → Actions. Workflow already written (.github/workflows/deploy-mu-plugins.yml). This is the task that retires manual plugin drops."
+    },
+    {
+      "id": "acf-loader-install",
+      "title": "Install website/wp-mu-plugin/brg-acf.php on the site (needs ACF Pro)",
+      "owner": "sean",
+      "gate": "none",
+      "status": "todo",
+      "note": "Registers the Section Content options page and fetches field groups from Netlify — after this, a field change is edit sections.json → generate → push, with no import step ever."
+    },
+    {
+      "id": "finn-clone",
+      "title": "Stand up Finn's clone on the new model",
+      "owner": "sean",
+      "gate": "none",
+      "status": "todo",
+      "note": "Fresh local clone (not cloud-synced) → ./.githooks/install.sh finn warn → kickoff prompt in HANDOFF.md."
+    },
+    {
+      "id": "territory-block-mode",
+      "title": "Flip the territory hook from warn to block once both clones are running clean",
+      "owner": "conti",
+      "gate": "conti",
+      "status": "todo",
+      "note": "Installed in warn mode 2026-08-12. Historical scan found no cross-territory commits to fix. Flip after Finn's clone has committed a few times without a warning."
+    },
+    {
+      "id": "real-photography",
+      "title": "Name the real photography for home-community (2 plates) and home-different (3 plates)",
+      "owner": "sean",
+      "gate": "sean",
+      "status": "todo",
+      "note": "Both sections ship with stand-ins (bg/skater.webp, bg/surfer.webp). They read as composed, so this isn't visibly broken — which is exactly why it will be forgotten."
+    },
+    {
+      "id": "team-content",
+      "title": "Team headshots + quotes",
+      "owner": "sean",
+      "gate": "sean",
+      "status": "todo",
+      "note": "Nine crew cards render colour plates with no portrait. Cards are wired to swap in cleanly."
+    },
+    {
+      "id": "community-stats",
+      "title": "Three of the four community stats still read XX",
+      "owner": "sean",
+      "gate": "sean",
+      "status": "todo",
+      "note": "Literal XX is live behind the gate today. Blocks unlocking /community/."
+    },
+    {
+      "id": "careers-posts-urls",
+      "title": "Real LinkedIn job URLs + a decision on the static post stamps",
+      "owner": "sean",
+      "gate": "sean",
+      "status": "todo",
+      "note": "'View job' points at /careers/. The '834 followers' / '2mo' stamps are copied from the comp and will quietly become false — keep by hand, delete, or wire to real data."
+    },
+    {
+      "id": "press-contact-pages",
+      "title": "Build the Press & Gallery and Contact pages",
+      "owner": "unassigned",
+      "gate": "conti",
+      "status": "todo",
+      "note": "Named in the nav IA but never built. Needs a section plan before it needs a builder."
+    },
+    {
+      "id": "nav-gaps",
+      "title": "Close the two nav gaps vs the Temper upstream: `register` attr + WP submenu support",
+      "owner": "conti",
+      "gate": "conti",
+      "status": "todo",
+      "note": "Auto-invert mechanism exists in brgw-nav.js but has no attribute; our nav ignores WP child items entirely. See notes/upstream-fc-brands.md."
+    },
+    {
+      "id": "launch",
+      "title": "Launch: root → /brg-home/, unlock the gate, retire the Oxygen splash",
+      "owner": "sean",
+      "gate": "sean",
+      "status": "blocked",
+      "note": "Blocked on the content tasks above — real photography, team, stats, job URLs."
+    }
+  ]
+}
