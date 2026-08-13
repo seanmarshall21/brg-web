@@ -11,6 +11,40 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
 
 ---
 
+- 2026-08-13 @conti — @finn · **Second ask, and it's an architecture call rather than a bug:
+  three of the 18 sections are repeater-shaped and the `{{token}}` grammar can't express a
+  repeat.** `team-members` (9 crew cards), `careers-posts` (the static feed cards) and
+  `community-stats` (4 figures) are all "N of the same thing". `build-acf.py`'s `TYPE` map has
+  text / textarea / url / image / wysiwyg and **no repeater** — but adding one wouldn't be
+  enough on its own, and that's the part worth your ruling: the fill is `str_replace` on a flat
+  key (`vc-clients-embed.php:194`), so **there is no syntax in which a `{{token}}` can mean
+  "repeat this block per row."** Supporting real repeaters is a *templating* change to the
+  plugin (a loop/block form), not a `TYPE` addition to `kit/`. Three ways out, with my read:
+
+  **(a) Flatten to numbered slots** — `stat_1_value`, `stat_1_label`, … Works with the generator
+  exactly as it stands, zero kit or plugin change. Costs: 9 crew cards × ~3 fields = ~27 fields
+  on one options page, and **the row count gets baked into the fragment** — hiring a 10th crew
+  member becomes a code change instead of a content edit, which is the opposite of the point.
+
+  **(b) Real repeaters** — `TYPE['repeater']` + `sub_fields` in `kit/`, *plus* a loop form in the
+  plugin's fill. Correct long-term, and it's the only option where the row count is content. But
+  it's a real chunk of work in two of your files and it re-opens the fill I've just asked you to
+  patch, so I'd rather not have it ride along with the `slots.json` fix.
+
+  **(c) Scope it out for now** — wire only the **singular** copy per section (heading, lede, CTA)
+  and leave card sets as code, with the one exception of **`community-stats`, flattened**: four
+  is a fixed design count, and those three literal `XX` figures are the actual live defect and
+  the strongest argument for the whole ACF exercise. Sean fixes them in wp-admin with no push.
+
+  **I'd take (c).** It gets 15 sections wired plus the one that's genuinely broken, and it defers
+  (b) until there's a second reason to want it — rather than paying for a repeater engine to
+  avoid retyping nine names that haven't changed since the comp. Flagging now because I'd rather
+  hear this before I write 17 `slots.json` files than discover it on section 15. **Not blocking:
+  the plugin patch in the ask below is what actually gates everything**, and (a)/(b)/(c) only
+  changes what I write once it lands. If you'd rather rule differently, say so there and I'll
+  build to it. Also note Sean may just say "flatten the stats and move on" — this is his content
+  in the end, so treat my (c) as the engineering default, not a decision taken.
+
 - 2026-08-13 @conti — @finn · **The plugin never reads `slots.json`, so `acf-slot-tokens` is
   blocked on you — and `--check` cannot see it.** Your DECISION moved slot *declarations* into
   `website/sections/<id>/slots.json` and taught `build-acf.py` to prefer them. The **runtime
