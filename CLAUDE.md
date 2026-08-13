@@ -48,6 +48,18 @@ End every commit message with:
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 ```
 
+## Verify the write landed — a success message is not evidence
+
+A chat session's shell cwd can drift into a **worktree** of its own clone between calls. When it
+does, a write can silently no-op — the anchor text doesn't exist on that older commit — while the
+tool still reports success. It printed "logged" and committed nothing. Before trusting an edit:
+assert the anchor exists, use absolute paths, and check `git status` in the tree you meant.
+
+This generalises past the cwd case, and it was the most common failure of 2026-08-13: **the thing
+that reports success is not the thing that did the work.** A green check, a "composed" line, a
+clean diff — each is a claim about the work, and claims go stale. See `kit/README.md`,
+"If a claim matters, make something run it".
+
 ## Things that will bite you
 
 - **`SHORTCODES.md` and `docs/shortcode-index.html` are generated.** Edit `kit/registry.json`,
