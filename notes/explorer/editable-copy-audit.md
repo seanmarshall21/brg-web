@@ -43,7 +43,7 @@ rather than *keep them in sync*.
 | Where | Editable? | What it says |
 |---|---|---|
 | `community-stats` · `stat_1_fig` + label | **yes** | **`12`** — "locations embedded in SD & OC communities" |
-| `home-community` · `body_1` | **yes** | "Today, BRG operates **12 Board & Brew** locations across San Diego and Orange County, **plus Odie's Pizza Co.** in Oceanside" |
+| `home-community` · `body_2` | **yes** | "Today, BRG operates **12 Board & Brew** locations across San Diego and Orange County, **plus Odie's Pizza Co.** in Oceanside" |
 | `our-restaurants-brands` · `bnb_body_2` | **yes** | "**12 locations** across San Diego and Orange County — each one a neighborhood staple." |
 
 **The disagreement is live today.** `home-community` is explicit that 12 counts **Board & Brew
@@ -69,7 +69,7 @@ on three sections, across three pages**, with nothing in wp-admin connecting the
 ## 2. The brand's own name disagrees with itself
 
 `our-restaurants-brands` · `odies_name` has the canonical default **`Odie's Pizza`**. The prose
-in two other editable slots calls it **`Odie's Pizza Co.`** — `home-community` · `body_1`
+in two other editable slots calls it **`Odie's Pizza Co.`** — `home-community` · `body_2`
 ("plus Odie's Pizza Co. in Oceanside") and `our-restaurants-brands` · `odies_body_1`
 ("Odie's Pizza Co. brings sourdough pies…"), which is *the same file as the name field*.
 
@@ -110,7 +110,7 @@ A fact with one home can't drift. `community-stats` is a stat section — a numb
 *for* — so let it be the only place a location count appears, and rewrite the other two so they
 carry the claim without the arithmetic:
 
-- `home-community` · `body_1` → "Today, BRG operates **a growing family of Board & Brew
+- `home-community` · `body_2` → "Today, BRG operates **a growing family of Board & Brew
   locations** across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're
   just getting started."
 - `our-restaurants-brands` · `bnb_body_2` → "**Neighborhood staples across San Diego and Orange
@@ -125,24 +125,37 @@ surface in wp-admin as field instructions, so this puts the warning *where the e
 rather than in a file nobody opens. Finn already writes these; the change is making them
 **bidirectional** — each copy names the others. Costs nothing and needs no code.
 
-**A `--check` for this is worth having but must be described honestly.** It could compare known
-shared facts across `slots.json` **defaults** and fail on divergence. What it **cannot** do is
-see the live WordPress values — the same limit Dee hit with `slotcheck`, and the same limit Finn
-flagged on `build-acf.py --check`. So it would guard the repo's starting position and say
-nothing about the site. Worth building, worth labelling precisely, and **not** worth trusting as
-"the numbers agree".
+**A shared-facts `--check` — I proposed one, and Conti has ruled it out. He's right.** It could
+only compare `slots.json` **defaults**, i.e. *"the copy we recorded on wiring day agrees with
+itself"*. It cannot see the live WordPress values — the limit Dee hit with `slotcheck` and Finn
+flagged on `build-acf.py --check`. His argument for killing it rather than labelling it: **green
+would read as "the numbers agree", which is the strongest claim it structurally cannot make** —
+and a green that gets misread is the exact failure this whole spec is about. Better no check than
+one whose pass is a lie. **Ruled out as a decision, not deferred**, so nobody revives it later as
+an unfinished idea.
 
 ---
 
-## 5. Asks
+## 5. Asks, and where each one landed
 
-| Ask | Owner | Why now |
+Conti ruled on 2026-08-13, in the same turn he verified §1 against the files rather than taking
+my word for it.
+
+| Ask | Owner | Outcome |
 |---|---|---|
-| Rule on the location count: `13` (group) or `12` + "Board & Brew" (brand) | **sean** | live inconsistency, and it's the number least likely to get checked |
-| `Odie's Pizza` or `Odie's Pizza Co.` — pick one | **sean** | canonical name field disagrees with its own prose |
-| Collapse the count to one home (§4 rewrites) | finn (`slots.json` defaults) | after Sean's ruling |
-| Bidirectional `doc` cross-references for facts that must repeat | finn | free, and it lands where the editing happens |
-| One line in `home-community` · `body_1` `doc` naming the literal paragraph above | finn | §3 |
-| Shared-facts `--check`, labelled defaults-only | conti (`kit/`) | optional; must not read as "the numbers agree" |
+| Rule on the location count: `13` (group) or `12` + "Board & Brew" (brand) | **sean** | **open** — verified by Conti; our own copy contains the correction |
+| `Odie's Pizza` or `Odie's Pizza Co.` — pick one | **sean** | **open** |
+| Collapse the count to one home (§4 rewrites) | finn (`slots.json` defaults) | **approved as architecture** by Conti — *one fact, one home*, the same rule as one-owner-per-file applied to facts. **But the rewrite is copy, so the wording is Sean's gate**, not Conti's |
+| Bidirectional `doc` cross-references for facts that must repeat | finn | ✅ **approved and sent to Finn** — editor guidance, invisible to visitors, so integration not design |
+| One line in `home-community` · `body_1` `doc` naming the literal paragraph above | finn | ✅ same approval (§3) |
+| Shared-facts `--check`, labelled defaults-only | conti (`kit/`) | ❌ **ruled out, not deferred** — see above. My proposal, his correction, and he has the better of it |
 
-None of it blocks launch. §1 and §2 are Sean's gate and are two decisions, not two projects.
+None of it blocks launch. The two open items are Sean's gate and are two decisions, not two
+projects.
+
+**Correction, 2026-08-13:** the first version of this spec put the location count in
+`home-community` · **`body_1`**. It's **`body_2`** — Conti caught it verifying §1. `body_1` is
+*"We're not a corporation chasing locations…"*, a different paragraph entirely, so the §4 rewrite
+applied to `body_1` would have overwritten the wrong copy and left the count untouched. Fixed at
+every occurrence above. The §3 ask deliberately still names `body_1`, because that's the slot
+sitting directly beneath the literal paragraph an editor can't see.
