@@ -60,14 +60,14 @@ animation. The one honest difference: the leading round cap presents as a flat v
 its first ~5px of travel. On a 95px line that is ~5% of the sweep, at speed, in a 5px-tall shape.
 
 **And it fixes something that's wrong today.** `.brgw-uline` currently animates
-`transform:scaleX(0)→scaleX(1)` ([brgw.css:78–82](../../website/assets/brgw.css)). On the old CSS
+`transform:scaleX(0)→scaleX(1)` ([brgw.css:82–86](../../website/assets/brgw.css) — was `:78–82` when this was written; the rule moved, the claim didn't). On the old CSS
 blob that was fine. Applied to these files it would **squash the round caps into ellipses** for the
 whole transition — the shape is horizontally distorted at every frame except the last. A clip wipe
 never distorts the artwork; it uncovers it. So swapping `scaleX` → `clip-path` is the correct move
 regardless of which option we pick.
 
 ```css
-/* brgw.css — replaces the scaleX rule at :78–82 */
+/* brgw.css — replaces the scaleX rule at :82–86 (was :78–82 when written) */
 .brgw-uline{display:block;width:min(340px,62%);margin:16px auto 0;
   clip-path:inset(0 100% 0 0);}                     /* hidden at first paint, same as today */
 .brgw-uline svg{display:block;width:100%;height:auto;}

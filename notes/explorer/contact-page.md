@@ -138,19 +138,33 @@ which the MANIFESTO's one-engine rule pushes back on — and the 12 locations al
 
 ---
 
-## 3. What this fixes that's already broken
+## 3. ~~What this fixes that's already broken~~ — RESOLVED, and not by this page
 
-**`sections.json` has a latent dead link to a page that doesn't exist.** `community-partner`'s
-slot default is `"cta_href": { "default": "/contact/" }`
-([`website/sections.json:27`](../../website/sections.json)). Today that's harmless — the shipped
-fragment hardcodes `mailto:hello@blacktoprg.com?subject=Community%20partnership` and has no
-`{{tokens}}`, so nothing reads the default. But it activates the moment the `acf-slot-tokens`
-work lands: Conti measured exactly this on 2026-08-13 (roundtable) — with tokens in place, the
-deployed v2.5.0 renders that CTA as **`Get in touch` → `/contact/`**.
+**Struck 2026-08-13, same day, after re-verifying the pointer rather than the claim.** I argued
+here that shipping Contact would defuse a live hazard: `community-partner`'s slot default was
+`"cta_href": { "default": "/contact/" }` in `sections.json`, harmless only because the fragment
+had no `{{tokens}}` to read it, and due to activate the instant `acf-slot-tokens` landed — Conti
+measured that render on 2026-08-13 and got `Get in touch` → `/contact/`. A 404 with a timer.
 
-So the default is a **404 with a timer on it**. Two ways to defuse it, and they're both cheap:
-either ship Contact, or change the default to the mailto. Conti's file either way — flagging it
-here because it's the same class of problem as SPEC-007's stamps: a fact that isn't wrong yet.
+**It's gone.** The inline block was deleted from `sections.json` and
+`community-partner/slots.json` now defaults `cta_href` to
+`mailto:hello@blacktoprg.com?subject=Community%20partnership` — the second of the two fixes I
+offered. So the hazard is closed and **this section no longer argues for anything.**
+
+Two things worth keeping rather than just deleting:
+
+**It was fixed incidentally, not deliberately.** Neither `501afbe` (Finn wiring the tokens) nor
+the commit that removed the inline block mentions `/contact/` or a dead link. It evaporated as a
+side effect of the standing rule that **slot defaults must be real production copy, never
+aspirational** — the fragment shipped the mailto, so the default became the mailto. That rule is
+in `sections.json`'s own `_note` and came out of [SPEC-001 §5](stacking-sections.md); it is
+doing more work than its one line suggests. **The hazard returns the moment anyone writes a
+default describing where a link *should* go rather than where it *does*.**
+
+**And it weakens my own recommendation, so I'd rather say so than quietly drop the line.**
+"Shipping Contact fixes an existing broken link" was one of three arguments for building Contact
+before Press (§5). It's void. The other two stand and are the stronger pair anyway: Contact needs
+**no content BRG has to go and produce**, and it closes the nav gap the 7-page IA always had.
 
 ---
 
@@ -176,4 +190,6 @@ Short list, and none of it is hard — which is the point:
 
 No photography. No numbers. No headshots. **Contact is the only unbuilt thing on this project
 that isn't blocked on content BRG has to go and produce** — which is a decent argument for
-building it first, ahead of Press, purely to close the nav gap and kill the latent 404 in §3.
+building it first, ahead of Press, purely to close the nav gap the 7-page IA always had.
+*(This used to read "…and kill the latent 404 in §3." That hazard was closed on 2026-08-13 —
+see §3. The case for Contact-first is one argument lighter than when I wrote it.)*
