@@ -8,7 +8,7 @@ from these fields (attr > ACF option > default). Run: python3 kit/build-acf.py
   Field name convention (must match the plugin): brg_<section-id with _>_<slot>
   Location: options_page == brg-section-content  (see wp-snippets/brg-section-content-options.php)
 """
-import json, os
+import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECTIONS = os.path.join(ROOT, 'website', 'sections.json')
@@ -53,7 +53,50 @@ def group(section):
         'description': f"Editable content for the {sid} section. Generated — do not hand-edit; edit sections.json + rerun kit/build-acf.py.",
     }
 
+def check():
+    """Every declared slot must have a matching {{token}} in its fragment, and vice versa.
+
+    This is the one coupling the generator cannot enforce by construction: sections.json and
+    the fragment are edited by different people in different clones, and both halves fail
+    SILENTLY. A slot with no token produces a working WordPress field that edits nothing —
+    the editor types, saves, sees no change, and has no error to go on. A token with no slot
+    is worse: the plugin strips leftover {{tokens}} on render, so the copy just vanishes.
+
+    (fc-brands hits the same class of bug and checks it with tools/acf-readers.py --strict.
+    Their coupling is field → PHP reader; ours is slot → {{token}}, because BRG needs no
+    per-section PHP.)
+
+    Returns the number of mismatches. Exit code 1 when non-zero.
+    """
+    data = json.load(open(SECTIONS))
+    bad = 0
+    for s in data.get('sections', []):
+        frag = os.path.join(ROOT, 'website', 'sections', s['id'], 'embed.html')
+        html = open(frag, encoding='utf-8').read() if os.path.exists(frag) else ''
+        declared = set((s.get('slots') or {}).keys())
+        used = set(re.findall(r'\{\{([a-z0-9_]+)\}\}', html))
+        if not declared and not used:
+            continue
+        for slot in sorted(declared - used):
+            print(f"  ✗ {s['id']}: slot '{slot}' has no {{{{{slot}}}}} in the fragment — "
+                  f"the ACF field will edit nothing")
+            bad += 1
+        for tok in sorted(used - declared):
+            print(f"  ✗ {s['id']}: token {{{{{tok}}}}} has no slot in sections.json — "
+                  f"the plugin strips it, so that copy disappears on render")
+            bad += 1
+    if bad:
+        print(f"\n{bad} slot/token mismatch(es). Fix by adding the {{{{token}}}} to the fragment "
+              f"(Finn) or the slot to website/sections.json (Conti) — they ship together.")
+    else:
+        print("acf slots ↔ fragment tokens: OK")
+    return bad
+
+
 def main():
+    if '--check' in sys.argv:
+        sys.exit(1 if check() else 0)
+
     data = json.load(open(SECTIONS))
     os.makedirs(OUTDIR, exist_ok=True)
     made = []

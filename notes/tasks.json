@@ -11,6 +11,30 @@
   "version": 1,
   "tasks": [
     {
+      "id": "acf-slot-tokens",
+      "title": "Add the four {{tokens}} to community-partner so its ACF fields actually do something",
+      "owner": "finn",
+      "gate": "none",
+      "status": "todo",
+      "note": "The one worked ACF example is inert: 4 slots declared, field group generated, options page will list them — and zero {{tokens}} in the fragment, so editing them changes nothing and gives no error. Defaults in sections.json are the exact current copy, so the page is byte-identical until someone edits in WP. Verify with `python3 kit/build-acf.py --check`. Found 2026-08-12 by porting fc-brands' acf-readers.py idea."
+    },
+    {
+      "id": "acf-check-on-push",
+      "title": "Wire `build-acf.py --check` into .githooks/pre-push once it's green",
+      "owner": "conti",
+      "gate": "conti",
+      "status": "blocked",
+      "note": "Blocked on acf-slot-tokens — wiring a gate that fails on day one just teaches everyone to use --no-verify."
+    },
+    {
+      "id": "deploy-action-auth",
+      "title": "Deploy Action fails SSH auth — password rejected by the host",
+      "owner": "sean",
+      "gate": "none",
+      "status": "blocked",
+      "note": "Run 31667993720: 'ssh: unable to authenticate, attempted methods [none password]'. Host reachable, secrets present, so it's the credential or the account type. Check: is WP_SSH_PASSWORD the SHELL user's password (not the panel/WP one), did a newline get pasted with it, and is the DreamHost user a Shell user rather than SFTP-only? Test with `ssh <user>@<host>` locally. Blocks plugin-v250-live."
+    },
+    {
       "id": "plugin-v250-live",
       "title": "Get plugin v2.5.0 onto the live site (repo is v2.5.0, live is v2.4.0)",
       "owner": "sean",

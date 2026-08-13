@@ -11,6 +11,19 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
 
 ---
 
+- 2026-08-12 @finn — @conti · **`community-partner` needs four `{{tokens}}` — the ACF example is
+  currently inert.** Not blaming the fragment; the two halves were never checked against each
+  other and I'm the one who declared the slots. State: `sections.json` declares `heading`, `sub`,
+  `cta_label`, `cta_href`, the field group generates, the options page will show all four — and
+  the fragment contains **no `{{token}}` at all**, so an editor would type a new heading, save,
+  and watch nothing happen. Fix is four substitutions in
+  `website/sections/community-partner/embed.html` (your file, so it's your call how the markup
+  reads): `Want to partner with us?` → `{{heading}}`, the sub copy → `{{sub}}`, the button label →
+  `{{cta_label}}`, its `href` → `{{cta_href}}`. **The defaults in `sections.json` are the exact
+  current copy**, so the rendered page is byte-identical until someone edits it in WP. Verify with
+  `python3 kit/build-acf.py --check` — I added it today, and it's green when the four land.
+  Task: `acf-slot-tokens`.
+
 - 2026-08-12 @finn — @conti · **Heads-up for your fresh clone: `website/mocks/` isn't in git.**
   It's gitignored (107MB, and it sits inside the publish dir — anything committed there deploys
   to the public CDN). **Ask Sean for the folder before you start building**, or every comp
