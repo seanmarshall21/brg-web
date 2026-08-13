@@ -15,8 +15,8 @@
       "title": "pre-push: regenerate website/acf/ and fail if the committed output differs",
       "owner": "conti",
       "gate": "conti",
-      "status": "todo",
-      "note": "Found 2026-08-13 the hard way: community-stats was wired, rendering, --check green and slotcheck clean, but its field group had never been generated — so all.acf.json on the CDN carried one group and TWELVE fields did not exist in WordPress. Sean had been told he could edit those figures; he could not. Nothing we had could see it, because every check compares the repo (or the CDN) to itself and none compares generated output to what the generator would produce NOW. This is the structural cost of slots living in finn's territory while website/acf/ lives in conti's: a wiring is not done when the section renders, it is done when the FIELD EXISTS. Fix is one line — regenerate, diff, fail on difference."
+      "status": "done",
+      "note": "Folded into acf-check-on-push and shipped in the same hook (839d7e4)."
     },
     {
       "id": "dee-slot-plugin-check",
@@ -55,16 +55,16 @@
       "title": "Wire the sections for ACF: {{tokens}} in the fragment + slots.json beside it",
       "owner": "finn",
       "gate": "none",
-      "status": "doing",
-      "note": "16/16 wirable sections WIRED 2026-08-13, 61 slots, `build-acf.py --check` GREEN. Verify any time with `node notes/finesser/verify-wiring.mjs` (exits 1 on a change) — all 16 render EXACTLY what they rendered before wiring. team-members and careers-posts stay as code per conti's repeater ruling (c). ONE THING OUTSTANDING: the four free-wrapping hero display headlines (our-restaurants/team/community/careers) are HELD on SEAN's design gate. Conti recommended wiring them and then told finn to; finn refused because MANIFESTO puts design at Sean's gate and conti had said so themselves — a peer cannot grant it. Conti agreed on reflection. Everything not depending on that ruling IS wired, so it is a ~5min change when Sean answers: each slots.json already carries the measured budget (~50 chars as a HINT not a limit; careers-hero is 4 lines at 42 chars where community-hero is 3 at 43; 4 lines the ceiling). home-hero's headline stays code REGARDLESS — structural <br>. RULES SETTLED: singular copy yes. A card set stays code unless its count is a design constant (community-stats' 2x2 grid yes; careers-apply's offers, community-give's 3 slides, home-values' 5 values no — home-values had SIX before it had five, which is the proof). Counts fixed by MEANING get named not numbered (home-about vision/mission, our-restaurants-brands bnb_/odies_). Copy wrapping inline markup gets slotted AROUND it, never an html/wysiwyg slot. Whitespace a sentence depends on lives in the markup because ACF trims on save. text/textarea defaults take a LITERAL & and —, never the entity. PER SECTION conti must still: run build-acf.py, prime with one gated load, verify the render."
+      "status": "blocked",
+      "note": "COMPLETE except the four held hero headlines — 16 sections, 61 slots, 62 ACF fields, all generated/primed/verified live on v2.6.1 (2026-08-13). --check green, all 16 pass finn's verify-wiring.mjs. Hard cases all proven: slots split around inline markup (team-hero, careers-hero, community-give), a slot inside an anchor carrying target/rel (our-restaurants-brands — noopener survived), literal & single-escaped throughout. LEFT AS CODE ON PURPOSE, structural not pending: home-hero/home-community/home-different/careers-apply headings (hard <br> and/or inline <span class=mark> — no slot type can hold either); home-values (its count already changed 6->5, so numbering would bake in a number we KNOW moves — needs real repeaters); team-members + careers-posts card sets; our-restaurants-brands named per brand rather than numbered, since a third brand is a build task not a content edit. BLOCKED ON SEAN: the four hero <h1>s. Budget pre-written in each slots.json; yes = ~5 min, no = finn changes 'awaiting Sean' to 'declined, stays code' so the next reader isn't misled."
     },
     {
       "id": "acf-check-on-push",
       "title": "Wire `build-acf.py --check` into .githooks/pre-push once it's green",
       "owner": "conti",
       "gate": "conti",
-      "status": "todo",
-      "note": "UNBLOCKED 2026-08-13: --check is green with all 16 sections wired, so the gate no longer fails on day one. NOTE it proves slot<->{{token}} and NOT slot<->plugin or slot<->ACF-group — see the traps table in kit/README.md. Worth pairing with `node notes/finesser/verify-wiring.mjs` (finn's, exits 1) which proves each wired section still renders what it rendered before wiring."
+      "status": "done",
+      "note": "DONE 2026-08-13. .githooks/pre-push now runs build-acf.py --check AND regenerates website/acf/ and fails if the committed output differs. The second is the one that matters: it is the only check that can see a section wired on finn's side of the territory line with no field group generated on conti's — the community-stats failure, which rendered perfectly while twelve fields did not exist in WordPress. Proved with a fixture built from that exact case (stale COMMITTED output, not a dirty working tree — the first fixture passed because regeneration simply restored a correct commit). Uses git status --porcelain so a brand-new untracked group file is caught too."
     },
     {
       "id": "deploy-action-auth",
