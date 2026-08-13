@@ -21,7 +21,7 @@ you dictate → Claude edits repo under website/ → push → Netlify auto-deplo
 ```
 - **Repo:** `seanmarshall21/brg-web` (private; `gh` authed). Publish dir `website/`.
 - **Netlify:** `blacktoprg.netlify.app` (auto-deploys on push to `main`).
-- **WP plugin:** `website/wp-mu-plugin/vc-clients-embed.php` (**v2.5.0** in repo, must-use).
+- **WP plugin:** `website/wp-mu-plugin/vc-clients-embed.php` (**v2.6.1**, must-use, deployed by the Action).
 - **ACF loader:** `website/wp-mu-plugin/brg-acf.php` (install once; fetches field groups from Netlify).
 - **Password gate:** `website/wp-snippets/brg-password-gate.php`. All 5 pages are locked today.
 - **Shared assets (inlined once per page):** `assets/brgw.css` + `brgw.js` (tokens, reveal engine,
@@ -76,28 +76,40 @@ shortcode attr > ACF option > default. Field name = `brg_<id_with_underscores>_<
 Verified: ACF Pro 6.8.7 active and the Section Content menu is registered in wp-admin.
 
 `python3 kit/build-acf.py --check` proves every slot has a `{{token}}` and vice versa — both
-halves fail silently otherwise. **It is currently red:** `community-partner` declares four slots
-with no tokens in its fragment, so those fields edit nothing. That's Finn's `acf-slot-tokens`.
+halves fail silently otherwise. **Green as of 2026-08-13**, with **16 sections wired / 62 fields
+live**, and it now runs in `pre-push` alongside a regenerate-and-diff of `website/acf/`. That
+second check is the one that matters: slots are Finn's and `website/acf/` is Conti's, so a wiring
+can be complete on one side of the territory line and absent on the other — `community-stats`
+shipped exactly that way, rendering perfectly while twelve fields didn't exist in WordPress.
+
+**Left as code on purpose**, each for a different reason worth keeping distinct: headings carrying
+a hard `<br>` or an inline `<span class="mark">` (no slot type can hold either — `home-hero`,
+`home-community`, `home-different`, `careers-apply`); `home-values`, whose count *already moved*
+6→5, so numbering would bake in a number we know changes; `team-members` and `careers-posts` card
+sets; and `our-restaurants-brands`, named per brand rather than numbered because a third brand is
+a build task, not a content edit. See `kit/README.md` for the traps — every one is a way the two
+halves can agree and the page still be wrong.
 
 ## Deploying the WordPress side (no longer a hand-drop)
 `.github/workflows/deploy-mu-plugins.yml` SCPs `website/wp-mu-plugin/*.php` to the server on
 every push that touches them, then SSHes back in and greps `VCC_VERSION` out of the deployed
 file — because scp succeeding only proves bytes moved. Auth is password (`WP_SSH_HOST`,
 `WP_SSH_USER`, `WP_SSH_PASSWORD`, `WP_MU_PLUGINS_PATH`). **First successful deploy: 2026-08-12,
-run 31670042632 — v2.4.0 → v2.5.0, verified live on all five pages.** Manual `workflow_dispatch`
+run 31670042632 — v2.4.0 → v2.5.0; now on **v2.6.1**, each version verified live.** Manual `workflow_dispatch`
 is still available from the Actions tab.
 
 ## Open items
-1. **Wire the sections for ACF** (`acf-slot-tokens`, Finn). The loader, the options page and the
-   plugin fill are all live and proven; what's missing is `{{tokens}}` + `slots.json` per section.
-   Until then `build-acf.py --check` stays red and the one declared field group edits nothing.
+1. ~~Wire the sections for ACF.~~ **Done** — 16 sections, 62 fields live. The four hero `<h1>`s
+   were approved as editable by Sean on 2026-08-13 and are the last piece.
 2. ~~Verify the live plugin version.~~ **Done — v2.5.0 live**, all five pages, cache-busted.
 3. ~~Menu assignment.~~ **Done** — "BRG — Primary" is assigned and serving Home / Our Restaurants
    / Team / Community / Careers, with `current-menu-item` resolving.
 4. **Real content still outstanding:** team headshots + quotes, three of four community stats
    (still `XX`), real photography for `home-community` (2 plates) and `home-different` (3 plates),
-   real LinkedIn job URLs for `careers-posts` (its follower counts / age stamps are hand-maintained
-   and will silently go stale).
+   `careers-posts`' job links — **paused by Sean 2026-08-13, patch prepared** in
+   `work/dum/careers-posts-urls/`. Its "834 followers" stamp cannot be verified by anyone (the
+   count is behind a login wall) and a third live opening is already missing from the page, so the
+   hand-maintained feed has demonstrably failed once.
 5. **Nav gaps vs the Temper upstream:** `register` attr (auto-invert — mechanism exists, no attr)
    and WP submenu/dropdown support. Deferred, see `notes/upstream-fc-brands.md`.
 6. **New pages not built:** Press & Gallery, Contact.
@@ -107,8 +119,9 @@ is still available from the Actions tab.
 ```
 git pull → edit under website/ → git add <your pathspec> && git commit && git push → verify live
 ```
-New page = add its slug to `website/pages.json` + push. New section = add it to `website/sections.json`
-+ drop `website/sections/<id>/embed.html`.
+New section = add it to `website/sections.json` + drop `website/sections/<id>/embed.html` + place
+its `[brg_<id>]` on the WP page. **`pages.json` is empty and stays that way** — whole-page
+monoliths are retired; a new *page* is a new stack of sections, not a new manifest entry.
 
 ## Gotchas (learned)
 - **Never `git add -A` / `git add notes/`** — it sweeps files that aren't yours. Clone-per-chat
