@@ -112,13 +112,35 @@ reader, ours is slot → `{{token}}`.
 > **When two sources disagree, the live page tells you which one won** — that divergence is the
 > free discriminator. Use it before deleting any fallback.
 
-> **A hyphenated token renders literally on the live page.** The strip regex is
-> `/\{\{[a-z0-9_]+\}\}/i` — underscores only. So an undeclared `{{cta_label}}` is silently
-> removed, but an undeclared `{{cta-label}}` is **not stripped and not filled**: the visitor sees
-> the raw `{{cta-label}}`. It is the fourth member of this family and the only one whose symptom
-> is *visible* rather than silent, which makes it the least dangerous of the four — but neither
-> `--check` nor the compose harness saw it until Dee built fixtures for it. **Use underscores in
-> slot names.** (Dee found it; Finn's harness now warns.)
+## The token grammar — one definition, four implementations
+
+**`{{` + `[a-z0-9_-]+` + `}}`, case-insensitive.** Slot names are **underscores** by convention;
+`-` is in the class only so a typo can be *seen* and *stripped*, never so it can be used.
+
+This grammar cannot be shared as one literal — it lives in three languages. So it is **defined
+here** and duplicated at exactly four sites, each of which cites this section. **Change one and
+you must change all four:**
+
+| Site | What it does |
+|---|---|
+| `website/wp-mu-plugin/vc-clients-embed.php` (strip, in `vcc_fill_slots`) | removes leftover tokens at render |
+| `kit/build-acf.py` (`used` in `check()`) | finds tokens in a fragment |
+| `notes/finesser/compose.mjs` (`TOKEN_GRAMMAR`) | Finn's harness |
+| `work/dee/slot-plugin-check/slotcheck.mjs` (`STRIP_RE`) | Dee's live checker |
+
+**Why `-` was added (v2.6.1).** It used to be underscores only, so an undeclared `{{cta_label}}`
+was silently stripped while an undeclared `{{cta-label}}` was **neither stripped nor filled** —
+the visitor read raw template syntax on a live page. Both the strip and `--check` now match it:
+the check *sees* the typo (and reports it as orphaned, since no slot can be named that way), and
+the runtime *removes* it. A missing line of copy is a defect; `{{cta-label}}` in front of a
+customer is a worse one. Found by Dee with fixtures, after it had been invisible to every tool
+we had.
+
+**Divergence between the four is the real risk, not the regex.** Dee's `slotcheck --selftest`
+asserts the JS matches the PHP; run it after any plugin change. Dee's tool also caught Finn's
+mirror returning `{}` instead of falling through on an empty-after-`_`-filtering `slots.json` —
+a checker built to catch silent divergence finding one in its own reference implementation on
+day one is the best argument for keeping the selftest honest.
 
 > **Anything carrying structural markup cannot be a `text` slot.** `text`/`textarea` are
 > `esc_html`'d, so a `<br>` becomes a visible `&lt;br&gt;`; `html` maps to an ACF wysiwyg, which

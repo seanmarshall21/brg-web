@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.6.0
+ * Version: 2.6.1
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.6.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.6.1' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -214,7 +214,14 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
             else                         $val = esc_html( (string) $val );
             $frag = str_replace( '{{' . $key . '}}', $val, $frag );
         }
-        return preg_replace( '/\{\{[a-z0-9_]+\}\}/i', '', $frag ); // strip any leftover tokens
+        // Strip any leftover tokens. The class includes `-` deliberately: slot names are
+        // underscores by convention, so a hyphenated token is always a typo — but before v2.6.1
+        // this regex didn't match one, so `{{cta-label}}` reached the VISITOR as raw template
+        // syntax. A missing line of copy is a defect; template syntax on a live page is a worse
+        // one. The typo itself is caught before deploy by build-acf.py --check.
+        // GRAMMAR IS DEFINED IN kit/README.md — it is duplicated in build-acf.py and both
+        // compose harnesses, and all four must agree.
+        return preg_replace( '/\{\{[a-z0-9_-]+\}\}/i', '', $frag );
     }
 }
 

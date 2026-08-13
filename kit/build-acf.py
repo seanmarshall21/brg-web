@@ -102,7 +102,10 @@ def check():
         html = open(frag, encoding='utf-8').read() if os.path.exists(frag) else ''
         declared_map, origin = slots_for(s)
         declared = set(declared_map.keys())
-        used = set(re.findall(r'\{\{([a-z0-9_]+)\}\}', html))
+        # `-` is in the class so --check can SEE a hyphenated token at all. Slot names are
+        # underscores by convention, so any hyphenated token is orphaned by construction and
+        # gets reported below. Grammar is defined in kit/README.md; four sites must agree.
+        used = set(re.findall(r'\{\{([a-z0-9_-]+)\}\}', html))
         if origin == 'both':
             print(f"  ✗ {s['id']}: slots declared in BOTH sections/{s['id']}/slots.json and "
                   f"sections.json — slots.json wins, so the sections.json copy is dead text "
