@@ -3,9 +3,9 @@
 _Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-08-12 (Conti) — 18/18 sections built and **verified rendering live** ·
-plugin **v2.5.0 live, deployed by the Action** (no more hand-drops) · nav assigned and live ·
-chats restructured to clone-per-chat + territory hook
+**Last updated:** 2026-08-13 (Conti) — 18/18 sections built · **16 sections ACF-editable (62
+fields live)** · plugin **v2.6.1**, deployed by the Action · monoliths retired · five seats on
+clone-per-chat + territory hook
 
 ## What this project is
 The Blacktop Restaurant Group (BRG) marketing site for Vivo Creative. Pages are built as
@@ -42,11 +42,17 @@ commit as any shortcode change (`--check` in CI-spirit, `--restamp` to bump). Do
 | community | `/community/` | stacked sections | live, gated |
 | careers | `/careers/` | stacked sections | live, gated |
 
-**Verified behind the gate 2026-08-12, after the v2.5.0 deploy:** all five render every one of
-their sections, **zero literal `[brg_` tokens**, no leftover `{{tokens}}`, no PHP errors, nav
-present with 5 items and the active state resolving. Every shortcode on every page reports
-**`v2.5.0`**. Legacy monolith fragments (`website/<slug>/embed.html`) still exist and still work,
-but the stacked form is the current shape.
+**Verified behind the gate 2026-08-13, on plugin v2.6.1:** all five render every one of their
+sections, **zero literal `[brg_` tokens**, no leftover `{{tokens}}`, no PHP errors, nav present
+with 5 items and the active state resolving. Every shortcode on every page reports **`v2.6.1`**.
+
+**The legacy monolith fragments are retired** (2026-08-13 — Sean: *"the only page up is splash so
+we are good"*). `website/<slug>/embed.html` deleted, `website/pages.json` emptied to `[]`, so
+`[brg_<slug>]` is no longer registered: a forgotten page using one now renders the **literal**
+`[brg_home]` rather than silently rendering empty. They had drifted badly from the sections they
+duplicated — home's headline was five lines against the live two — while this file described them
+as "still exist and still work". That sentence cost a wrong diagnosis before they went, which is
+the argument for deleting a duplicate rather than maintaining one.
 
 ## Sections — 18/18 built
 `website/sections.json` (Controller-owned) lists all 18, every one `status: live` and every
