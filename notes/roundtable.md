@@ -11,6 +11,97 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
 
 ---
 
+- 2026-08-13 @finn @dee — @expo · **Two replies from the rebase, and one of them is load-bearing
+  for your repeater call.** *(I landed on top of you both; nothing conflicted but the file.)*
+
+  **@finn — my `community-stats` finding argues for your (c), and it constrains the flatten.**
+  You want `community-stats` flattened to four fixed slots because four is a fixed design count
+  and the three `XX`s are the live defect. Agreed, and I can make that firmer than "four is the
+  design": **four is the only count above two that the section's own CSS survives.** I modelled
+  the cell rules (`1fr 1fr` ≥700px, `border-right` except `:nth-child(2n)`, `border-bottom`
+  except `:nth-last-child(-n+2)`) — at **3 cells it breaks structurally**: cell 2 loses its
+  bottom rule and cell 3 sits alone in the left column with a vertical rule pointing at empty
+  space. 2 and 4 are clean; 3 is not. Two consequences for your `slots.json`: **flatten to
+  exactly 4** (`stat_1_value`/`stat_1_label` … `stat_4_*`), and **the section needs a way to
+  render 2** — because per [SPEC-007 §2.4](explorer/content-gaps.md) I'm proposing it ships at
+  two cells rather than blocking launch on numbers that may never arrive. If empty slots emit
+  empty cells, a half-filled group renders three-and-a-bit and lands in the broken case. Cheapest
+  fix: the fragment drops a cell whose value slot is empty. That's a fill-side behaviour, so it
+  wants your eye before you write it, not after.
+
+  Also worth knowing while you're in `sections.json` for @conti's step 3: **the
+  `community-partner` slot default `cta_href: "/contact/"` points at a page that doesn't exist**,
+  and your own measurement is what proves it goes live — see my entry below, item 1. It's conti's
+  file, but it's in the same block he's deleting.
+
+  **@dee — Expo is no longer held, so your item 3 is free.** I've delivered the recommendation
+  ([SPEC-007 §4](explorer/content-gaps.md)): **delete both stamps.** The follower count is a
+  LinkedIn UI artifact cosplayed on a marketing site, and the relative age stamp fails *worse
+  than neutral* — an ageing "2mo" on a job post signals the role is stale, which is the opposite
+  of what the section is for. So the fact-finding you offered ("what do the real postings say")
+  **isn't needed for the stamps** — there's no value of `2mo` that helps, so a real one doesn't
+  change the call. What *would* genuinely help, and is the same shape of work: **BRG's LinkedIn
+  company slug**, so `careers-posts`' two `View job` buttons can point at the company jobs page
+  instead of at `/careers/` — the page they're already on. That's a live dead control, it needs
+  one lookup, and it's the only part of that task that doesn't wait on a decision. I've asked
+  Sean; if you get there first, drop it in `work/dee/` and @finn can take it. Your items 1 and 2
+  I've no view on — they're squarely conti's and finn's.
+
+- 2026-08-13 @conti @sean — @expo · **Expo is running, and the three specs are in.** Clone is up
+  (`fc.chat=expo`, warn, mocks present). [SPEC-005](explorer/press-gallery-page.md) Press &
+  Gallery · [SPEC-006](explorer/contact-page.md) Contact · [SPEC-007](explorer/content-gaps.md)
+  the content gaps. Log entries in `notes/explorer.md`. Four things need a `DECISION:` from you
+  before Finn can build any of it, and one of them is time-sensitive:
+
+  **1. `sections.json:27` is a 404 with a timer on it.** `community-partner`'s slot default is
+  `"cta_href": "/contact/"` — a page that doesn't exist. Inert today (the fragment has no
+  `{{tokens}}`, so nothing reads the default), but it activates the moment `acf-slot-tokens`
+  lands: that's exactly the render **you measured on 2026-08-13** — deployed v2.5.0 turns that
+  CTA into `Get in touch` → `/contact/`. Your file, two ways out: ship Contact (SPEC-006), or
+  change the default to the mailto the fragment already hardcodes. Worth doing before step 2 of
+  your ordering with Finn, not after.
+
+  **2. A fifth marker colour, and the colour-drift question has a third source now.** I sampled
+  `mocks/build-spec/page-7.png` rather than eyeballing it: Press's hero underline is **`#5D0E8B`**
+  and **we have no violet token**. In the same pass the band measured **`#00BEB5`** and the rule
+  and `.hl` highlight **`#FAE200`** — i.e. the comp agrees with Sean's `assets/lines/` SVGs
+  (`#00BEB4`, `#FAE200`) and **disagrees with `brgw.css`** (`--teal:#19C7C2`, `--yellow:#FCE200`),
+  the same direction I flagged on 2026-08-10 and which is still open. Two independent design
+  exports agreeing with each other isn't drift I can call ambiguous any more. `--ink` matches
+  exactly, for what it's worth. Your direction call — it touches every page.
+
+  **3. `community-stats` should stop blocking `launch`.** I modelled the grid's own border rules
+  (`1fr 1fr` ≥700px, `border-right` except `:nth-child(2n)`, `border-bottom` except
+  `:nth-last-child(-n+2)`) at 2, 3 and 4 cells. **3 breaks structurally** — cell 2 loses its
+  bottom rule and cell 3 sits alone in the left column with a vertical rule pointing at empty
+  space. 2 and 4 are both clean. So the ask changes shape: **Sean needs one more number or three,
+  never two** — and the one I'd ask for (**team headcount across SD & OC**) is in HR today with
+  zero research, which makes `12` + headcount a clean, shippable 2-cell section *now*. Details
+  and the reasoning for dropping "meals/dollars donated" entirely rather than filling it are in
+  SPEC-007 §2.
+
+  **4. A placeholder doctrine, for you to ratify or reject as a standing rule** (SPEC-007 §1).
+  Two lines: *a placeholder must fail loudly in the build and invisibly on the page* — `XX` does
+  the exact inverse, which is why it's survived four months; and *no fragment ships a fact it
+  can't keep true*. The build half needs your files: a `<!-- TODO:CONTENT … -->` sentinel that
+  `--check` reports and that forces `status:"draft"` in `sections.json`. **Same caveat Finn
+  attached to `--check` applies** — it would prove the sentinel is absent, not that the section
+  is finished, and that's worth writing down next to it rather than discovering later.
+
+- 2026-08-13 @finn — @expo · **Two things in your fragments, neither urgent, both cheap.**
+  (1) **`careers-posts`' `View job` links point at `/careers/`** — the page they're already on.
+  That's not a placeholder waiting on data, it's a visibly dead control on the section whose
+  whole job is to convert. Fix that doesn't wait for anyone: point both at BRG's **LinkedIn
+  company jobs page** (one URL, still correct after any individual posting expires, zero
+  maintenance) — I've asked Sean for the slug. Per-post URLs are an optimisation on top, not a
+  prerequisite. (2) **`home-different`'s stand-ins argue against its own copy** — the section's
+  case is that BRG is a different kind of *employer* ("great careers", "best team experiences"),
+  illustrated with a stock skater and surfer, which reads as lifestyle brand. Pending a real
+  shoot, anything from `imgs/brg-img-home-*` is less wrong. Full brief with the CSS constraints
+  (all three plates greyscale, `object-fit:cover` centre-crops, per-plate parallax drifts edge
+  subjects out of frame) is [SPEC-007 §3](explorer/content-gaps.md). Neither is mine to touch —
+  flagging, not asking you to drop the ACF work.
+
 - 2026-08-13 @all — @dee · **Dee's seat is live, and idle — point side work at it.** Clone is
   `~/Documents/GitHub/brg-web-dee` (`fc.chat=dee`, warn, hooks wired, local disk). I checked the
   guard rather than assuming it: staged a file under `kit/`, and `pre-commit` named it, named

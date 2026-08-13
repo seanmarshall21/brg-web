@@ -23,8 +23,8 @@
       "title": "Start Expo — held until Finn is rolling",
       "owner": "sean",
       "gate": "none",
-      "status": "blocked",
-      "note": "Clone is READY at ~/Documents/GitHub/brg-web-expo (fc.chat=expo, warn, mocks handed over). Sean's call: hold until Finn is rolling. Re-scoped 2026-08-12 from generic research to content strategy + the two unbuilt pages; kickoff prompt in HANDOFF.md."
+      "status": "done",
+      "note": "DONE 2026-08-13 — Expo started and delivered its first three specs (SPEC-005 Press, SPEC-006 Contact, SPEC-007 content gaps). Clone at ~/Documents/GitHub/brg-web-expo, fc.chat=expo, warn, hooks wired, mocks present. Re-scoped 2026-08-12 from generic research to content strategy + the two unbuilt pages."
     },
     {
       "id": "acf-slot-tokens",
@@ -96,7 +96,7 @@
       "owner": "sean",
       "gate": "sean",
       "status": "todo",
-      "note": "Both sections ship with stand-ins (bg/skater.webp, bg/surfer.webp). They read as composed, so this isn't visibly broken — which is exactly why it will be forgotten. Expo owns the brief for what these should show, as of 2026-08-12."
+      "note": "BRIEF DELIVERED 2026-08-13: notes/explorer/content-gaps.md §3, plate by plate, with the constraints the CSS already imposes — all three home-different plates are greyscale, but only home-community's LARGE plate is in colour (it carries all the warmth); object-fit:cover centre-crops so deliver loose; each plate parallaxes independently so edge subjects drift out of frame; >=1600px long edge for the big plates. Sharper than 'stand-ins pending': home-different's skater/surfer ACTIVELY CONTRADICT its copy — the section argues BRG is a different kind of EMPLOYER and illustrates it with lifestyle stock. All three plates should be crew at work, candid. Worth swapping to imgs/brg-img-home-* even before a shoot; a phone photo of the real crew beats good stock, because the section's claim is authenticity. Not a launch blocker — wrong, not broken."
     },
     {
       "id": "team-content",
@@ -112,7 +112,7 @@
       "owner": "sean",
       "gate": "sean",
       "status": "todo",
-      "note": "Literal XX is live behind the gate today. Blocks unlocking /community/. Expo owns the strategy here as of 2026-08-12 — including what the page should do if the real number never arrives."
+      "note": "STRATEGY DELIVERED 2026-08-13: notes/explorer/content-gaps.md §2. Key finding — the grid's own border rules (border-right except :nth-child(2n), border-bottom except :nth-last-child(-n+2)) mean 3 cells BREAKS STRUCTURALLY (cell 3 sits alone in the left column with a rule pointing at empty space); 2 and 4 are both clean. So sean needs ONE more number or THREE, never two. Recommended: keep the org count and event count as `N+` floors, and REPLACE 'meals/dollars donated' rather than fill it (a soft philanthropy dollar figure is the number that gets quoted back at you) with TEAM HEADCOUNT across SD & OC — HR has it today, zero research, so `12` + headcount is a clean shippable 2-cell section NOW. Recommendation to conti/sean: drop this from `launch`'s blockers — it degrades to 2 cells instead of blocking."
     },
     {
       "id": "careers-posts-urls",
@@ -120,7 +120,7 @@
       "owner": "sean",
       "gate": "sean",
       "status": "todo",
-      "note": "'View job' points at /careers/. The '834 followers' / '2mo' stamps are copied from the comp and will quietly become false — keep by hand, delete, or wire to real data. Expo owns the recommendation on the stamps, as of 2026-08-12."
+      "note": "RECOMMENDATION DELIVERED 2026-08-13: notes/explorer/content-gaps.md §4. These are TWO problems, not one. (1) The 'View job' links point at /careers/ — the page they're already on — so it's a live DEAD CONTROL, not pending data. Fix that needs no one: point both at BRG's LinkedIn company jobs page (one URL, correct after any posting expires, zero maintenance). Needs the company slug from sean. (2) DELETE both stamps. The follower count is a LinkedIn UI artifact cosplayed on a marketing site that BRG doesn't control; the relative age stamp fails WORSE than neutral, because an ageing '2mo' on a job post signals the role is stale — the opposite of the section's purpose. The fragment's own comment confirms .meta deletes with no layout consequence. Cards still read as LinkedIn via the avatar, the #hiring colour and the blue outline button. Also recommends RULING OUT the LinkedIn API (BUILD-SPEC §4.1c) for good — it needs a server-side fetch and our sections are static HTML on a CDN."
     },
     {
       "id": "press-contact-pages",
@@ -128,7 +128,7 @@
       "owner": "expo",
       "gate": "conti",
       "status": "blocked",
-      "note": "Expo's remit as of 2026-08-12. Press comps: website/mocks/build-spec/page-7.png; spec in website/BUILD-SPEC.md §2.6. Contact was never designed, only listed in the nav — it needs a design decision before a section plan. Blocked on expo-clone."
+      "note": "SECTION PLANS DELIVERED 2026-08-13: notes/explorer/press-gallery-page.md (SPEC-005) and contact-page.md (SPEC-006). Now blocked on conti's DECISION, then it's finn's build. Press = 4 sections (the comp's 5 bands build as 4 — the seam badge is owned by press-articles bleeding UP, not a section); net-new code is only the article card interior + the gallery tile, everything else re-skins careers-positions / careers-posts / team-members / hero-page. Contact = 3 sections, ZERO new archetypes, and it is the only unbuilt thing not blocked on content BRG must produce — so build it first. Both need pages.json + sections.json + kit/registry.json entries (conti) and a WP menu item (sean), taking the nav 5 -> 7. Open decisions: the Press hero underline is #5D0E8B and no violet token exists; there is no line-press-* or line-contact-* artwork; press@ address or route via Contact; press-articles must be held out of stacks.press until >=2 REAL articles exist."
     },
     {
       "id": "nav-gaps",
@@ -144,7 +144,7 @@
       "owner": "sean",
       "gate": "sean",
       "status": "blocked",
-      "note": "Blocked on the content tasks above — real photography, team, stats, job URLs."
+      "note": "Blocked on the content tasks above — real photography, team, stats, job URLs. PROPOSED 2026-08-13 (expo, needs a DECISION): three of those four should stop blocking. community-stats degrades to a clean 2-cell grid (content-gaps.md §2.4); the photography is wrong, not broken, so it ships marked and gets replaced (§3.4); the job URLs are fixable this week with one LinkedIn company URL (§4.1). If all three are accepted, launch is blocked on team headshots + quotes and nothing else."
     }
   ]
 }

@@ -17,6 +17,9 @@ Controller writes a `DECISION:` 👍 in `notes/controller.md` and the Finesser b
 | SPEC-002 | [`section-inventory.md`](section-inventory.md) | The 14 section archetypes already living in the 5 page fragments | **proposed** 2026-08-09 — harvest order superseded by SPEC-001 §7 (Careers 5 first) |
 | SPEC-003 | [`hand-drawn-lines.md`](hand-drawn-lines.md) | Sean's `assets/lines/` underlines — why DrawSVG can't animate them, the clip-wipe that can, nav + hero wiring | **partly superseded** by SPEC-004 (centerlines recovered → draw beats wipe; GSAP-cost argument corrected) |
 | SPEC-004 | [`pen-stroke-underline.md`](pen-stroke-underline.md) | Pen-stroke underline replacing `.brgw-uline` — 4 variants studied, real centerlines, GSAP load call | **proposed** 2026-08-10 · study: [`studies/pen-stroke-underline.html`](studies/pen-stroke-underline.html) |
+| SPEC-005 | [`press-gallery-page.md`](press-gallery-page.md) | Press & Gallery — section plan for the designed-but-unbuilt page (4 sections, comp `mocks/build-spec/page-7.png`) | **proposed** 2026-08-13 |
+| SPEC-006 | [`contact-page.md`](contact-page.md) | Contact — section plan for the never-designed page; the form-vs-routing decision that gates it | **proposed** 2026-08-13 |
+| SPEC-007 | [`content-gaps.md`](content-gaps.md) | The launch-blocking content gaps — the `XX` stats, the stand-in photography, the `careers-posts` stamps + a placeholder doctrine | **proposed** 2026-08-13 |
 
 ## Studies
 Standalone sandbox pages. Not production, not on the CDN, not referenced by any fragment.
