@@ -140,10 +140,48 @@ export async function slotsFor(id, manifest, opts = {}) {
   return (s && s.slots) || {};
 }
 
+/* A wiring is NOT done when the section renders — it is done when the FIELD EXISTS.
+   `website/acf/` is generated (conti's, by kit/build-acf.py) and the loader fetches
+   all.acf.json, so a section can have a perfect slots.json + {{tokens}}, render correctly,
+   pass build-acf.py --check, pass @dee's checker, and still have NO editable field in
+   WordPress — because nobody ran the generator. That happened to community-stats on
+   2026-08-13: twelve fields did not exist while I was telling Sean he could edit the XX
+   figures. Nothing in the render can show it, which is why it needs its own check. */
+async function acfGroupFor(id, opts = {}) {
+  const read = opts.read || src;
+  try {
+    const groups = JSON.parse(await read('/acf/all.acf.json'));
+    return groups.find((g) => g.key === 'group_brg_' + id.replace(/-/g, '_')) || null;
+  } catch { return undefined; }        // undefined = couldn't read; null = read, absent
+}
+
 export async function fillSlots(frag, id, manifest, opts = {}) {
   const mode = opts.mode || SLOTS_MODE;
   const warn = opts.onWarn || ((m) => console.warn(m));
   const slots = await slotsFor(id, manifest, opts);
+
+  // Only meaningful for the slots.json path — the legacy inline form predates the generator.
+  if (mode === 'local' && Object.keys(slots).length) {
+    const group = await acfGroupFor(id, opts);
+    if (group === null) {
+      warn(`  ⚠ ${id}: declares ${Object.keys(slots).length} slot(s) but website/acf/ has NO ` +
+        `group_brg_${id.replace(/-/g, '_')} — the fields DO NOT EXIST in WordPress, so this ` +
+        `section is not actually editable. Renders fine, --check green. Ask @conti to run ` +
+        `python3 kit/build-acf.py (website/acf/ is theirs).`);
+    } else if (group) {
+      const declared = Object.keys(slots).sort();
+      const generated = group.fields.filter((f) => f.type !== 'message')
+        .map((f) => f.name.replace('brg_' + id.replace(/-/g, '_') + '_', '')).sort();
+      const missing = declared.filter((k) => !generated.includes(k));
+      const extra = generated.filter((k) => !declared.includes(k));
+      if (missing.length || extra.length) {
+        warn(`  ⚠ ${id}: website/acf/ is STALE vs slots.json` +
+          (missing.length ? ` — no field for ${missing.join(', ')}` : '') +
+          (extra.length ? ` — field(s) ${extra.join(', ')} no longer declared` : '') +
+          `. Regenerate: python3 kit/build-acf.py`);
+      }
+    }
+  }
 
   // A hyphen in a DECLARED slot name doesn't break the render (str_replace is literal) but it
   // does produce an ACF field name with a hyphen in it — brg_<id>_cta-label — so flag it here
