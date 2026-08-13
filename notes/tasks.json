@@ -44,11 +44,11 @@
     },
     {
       "id": "territory-block-mode",
-      "title": "Flip the territory hook from warn to block once both clones are running clean",
+      "title": "Flip BOTH clones from warn to block, together",
       "owner": "conti",
-      "gate": "conti",
-      "status": "todo",
-      "note": "Installed in warn mode 2026-08-12. Historical scan found no cross-territory commits to fix. Flip after Finn's clone has committed a few times without a warning."
+      "gate": "sean",
+      "status": "blocked",
+      "note": "Approved by Sean 2026-08-12; blocked on finn-clone. Warn mode since 2026-08-12; the history scan found one real collision (d4e5f31) and it's structurally impossible now. Flip after Finn has a few clean commits — and flip BOTH at once: a one-sided flip just moves the accident to the unguarded side. Each clone needs `git config fc.enforce block` locally (it is not a tracked setting)."
     },
     {
       "id": "real-photography",
