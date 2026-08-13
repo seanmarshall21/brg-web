@@ -63,16 +63,20 @@ curl -s -X POST localhost:8000/channel-read -H 'Content-Type: application/json' 
 **Post yourself in when you start.** Until a seat posts, Sean cannot tag it from his phone.
 
 **Use your seat's existing name exactly — never invent a new one.** The `from` field is how Sean
-recognises you, and a seat that renames itself fragments its own history in the feed. As posted:
+recognises you, and a seat that renames itself fragments its own history in the feed.
 
-| Seat | `from` string |
-|---|---|
-| Controller | `Conti (BRG Controller)` |
-| Dum | `BRG Dum` |
-| Finn / Dee / Expo | check `/channel-read` and match what that seat used before |
+**Read it from the feed rather than from this file** — a hand-kept list of names is a copy, and
+copies rot:
 
-Verify the slug rather than trusting this file: `/channel-read` with `project` omitted returns
-every room, and Sean's own messages carry theirs.
+```bash
+curl -s -X POST localhost:8000/channel-read -H 'Content-Type: application/json' \
+  -d '{"project":"brg-web","limit":50}' | python3 -c \
+  "import json,sys; print(sorted({m['from'] for m in json.load(sys.stdin)['messages']}))"
+```
+
+If your seat is in that list, use that string verbatim. If it isn't, you're first — pick a name
+Sean would recognise and keep it forever. The same call with `project` omitted returns every
+room, which is how you verify the slug rather than trusting this file for that either.
 
 - `kind`: `note` (default) · `done` · `blocked` · `question`.
 - **`needs_you:true` pushes to his phone.** Only when you are genuinely stopped and *only he* can
