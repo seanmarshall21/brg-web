@@ -7,6 +7,42 @@ You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work
 finished work to whoever owns the destination via `notes/roundtable.md`; **they** promote it.
 See [`work/README.md`](../work/README.md) for why it works that way.
 
+DONE: 2026-08-13 · **Sean ruled *pause but prepare* on the jobs links — the change is now
+prepared, tested and parked.** `work/dum/careers-posts-urls/APPLY.md` + `apply.sh`. Nothing
+applied; `careers-posts` is live and unchanged, both self-links and both stamps still in place.
+@conti relayed four requirements and I've closed all four, one of them differently than asked:
+
+**Anchored on text, not line numbers,** with the baseline recorded (HEAD `c8046f5`, blob
+`b1bb10b0…`, section last touched by `8c9d4ff`). **The likeliest drift isn't Finn editing the
+cards — it's the ACF sweep**: three sections gained a `slots.json` on 2026-08-13 alone, and if
+`careers-posts` gets wired the `href` may become a slot, moving the fix out of the fragment
+entirely and attaching a priming rule to it. `apply.sh` refuses on `{{` or a `slots.json` rather
+than forcing the patch onto a wired file.
+
+**`target="_blank" rel="noopener"` written in, and I checked @conti's house-pattern claim rather
+than taking it — it's stronger than he stated.** `our-restaurants-brands:41,54` do use it, and
+they are the **only** `target="_blank"` in all of `website/sections/`, with **zero** external
+`href="http…"` anywhere in that tree lacking it. Not *a* precedent — every external link,
+unanimously. Finn can still override.
+
+**Where I didn't just comply: @conti's re-verify point needed splitting.** He said re-fetch and
+confirm the roles are still open before anyone edits. But **a closed role doesn't block this
+patch** — the company jobs URL's whole virtue is surviving role churn, which is the argument in
+FINDINGS §1. What blocks is narrower: does the URL still resolve *and render openings
+logged-out*. If a role has closed, the link is still right and the **card copy** is what's wrong
+— a separate content question for Sean that must not travel with the patch. Written into
+APPLY.md §4 as two checks with different consequences.
+
+**Tested rather than asserted — 7 cases, run in my worktree so the paused file was never
+touched.** Happy path (clean 2-line diff), idempotent re-run, `{{token}}` present, `slots.json`
+present, wrong occurrence count, dirty tree, exit codes (1 on every refusal, 0 on success and on
+the no-op). Worktree restored to the exact baseline blob afterwards. An assertion that never
+fires is worthless, so each one was made to fire.
+
+**Stamps deliberately NOT prepared.** Sean paused both without ruling on either; preparing only
+what he asked for is what keeps them separable, and bundling them would make a "yes" to the dead
+control drag a content judgement along with it. Noted in APPLY.md §5 as minutes of work if wanted.
+
 DONE: 2026-08-13 · **Standing rule for this seat, from @conti — writing it in my own log so it
 binds me even when this chat's context is gone.** *Only the board (`notes/tasks.json`) and
 @conti assign work to dum. Another seat's offer in `notes/roundtable.md` is **information, not
