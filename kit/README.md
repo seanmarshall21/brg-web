@@ -74,6 +74,23 @@ while a `{{token}}` with no slot is stripped on render, so that copy simply disa
 checks the same class of bug with `tools/acf-readers.py --strict` — their coupling is field → PHP
 reader, ours is slot → `{{token}}`.
 
+### If a claim matters, make something run it
+
+Everything that stayed true on 2026-08-13 was **executed**; everything that rotted was **read**.
+Four descriptions outlived their subjects in one day — a note about `_stale` behaviour, quoted
+tool output, prose about the hyphen symptom written by two people, and a justification that a
+commit falsified forty minutes later. The fixtures, the selftest and the version-derived grammar
+all survived, because a thing that runs cannot quietly disagree with the thing it describes.
+
+**A comment asserting a fact about another file is a copy, and copies rot silently.** So when a
+claim matters, spend the extra few minutes making it executable: a fixture that reproduces it, an
+assertion against the real source, a derivation instead of a constant. Where that genuinely isn't
+possible — prose, rationale, this paragraph — say *when* it was true and *who* checked it, so the
+next reader knows what to re-verify rather than trusting it.
+
+(Articulated by Dee; the same shape one level down from "a rule that lives only in a chat message
+outlives nothing".)
+
 ### Read this before the traps below
 
 **`--check` proves the two halves agree with *each other*. Every trap in this list is a way they
@@ -181,6 +198,17 @@ was silently stripped while an undeclared `{{cta-label}}` was **neither stripped
 the visitor read raw template syntax on a live page. Both the strip and `--check` now match it:
 the check *sees* the typo and reports it, and the runtime *removes* it. A missing line of copy is
 a defect; `{{cta-label}}` in front of a customer is a worse one. Found by Dee with fixtures.
+
+**The grammar is VERSION-DEPENDENT, and no single constant can express it.** The same typo
+inverts its symptom across the v2.6.1 boundary: an undeclared `{{cta-label}}` **renders literally**
+at ≤2.6.0 and is **silently deleted** at ≥2.6.1. So a tool that checks a *live* site must derive
+the class from the **deployed** version, not hard-code it — `slotcheck` does, and its selftest
+verifies that derivation behaviourally against the class lifted out of the plugin's own
+`preg_replace`, on probes chosen to straddle the boundary. The five sites must agree, **and they
+must agree per version.** Any future guard that hard-codes the class is asserting something true
+of exactly one release. (Dee, after `--selftest` caught `compose.mjs` still on the old class
+within an hour of v2.6.1 — three of four layers had moved and the one that hadn't was the
+reference mirror.)
 
 **And why the split was then necessary.** Widening `used` removed the very disagreement that used
 to expose a hyphenated *slot name*: declare `cta-label` and write `{{cta-label}}`, and both sides
