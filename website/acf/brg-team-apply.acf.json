@@ -1,0 +1,101 @@
+[
+    {
+        "key": "group_brg_team_apply",
+        "title": "Team — join the crew — Content",
+        "fields": [
+            {
+                "key": "field_brg_team_apply_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "**Team — join the crew — Content**\nSource: `brg-web/website/acf/brg-team-apply.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_team_apply_heading",
+                "label": "Heading",
+                "name": "brg_team_apply_heading",
+                "type": "text",
+                "instructions": "The question, in the display face at up to 3.5rem. Wraps inside 20ch by design, so length is forgiving — but past ~60 characters it starts pushing the band taller than the comp's proportions.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Want to be part of the team?"
+            },
+            {
+                "key": "field_brg_team_apply_sub",
+                "label": "Sub copy",
+                "name": "brg_team_apply_sub",
+                "type": "textarea",
+                "instructions": "One paragraph beneath the heading, capped at 60ch. Plain text; markup is escaped.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience."
+            },
+            {
+                "key": "field_brg_team_apply_cta_label",
+                "label": "Button label",
+                "name": "brg_team_apply_cta_label",
+                "type": "text",
+                "instructions": "Black button on the teal band. ~18 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Apply Today"
+            },
+            {
+                "key": "field_brg_team_apply_cta_href",
+                "label": "Button link",
+                "name": "brg_team_apply_cta_href",
+                "type": "url",
+                "instructions": "Where the button goes. Defaults to the careers page.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "/careers/"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the team-apply section. Generated — do not hand-edit; edit sections/team-apply/slots.json + rerun kit/build-acf.py."
+    }
+]
