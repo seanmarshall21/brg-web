@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.5.0
+ * Version: 2.6.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.5.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.6.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -153,12 +153,33 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
     }
 }
 
-/* ── Fill {{slot}} tokens in a section fragment from sections.json + shortcode atts.
-      Whitelisted by the manifest; escaped by declared type. Leftover tokens stripped. ── */
+/* ── Fill {{slot}} tokens in a section fragment. Slots come from sections/<id>/slots.json,
+      falling back to the inline `slots` block in sections.json. Whitelisted by the declaration;
+      escaped by declared type. Leftover tokens stripped. ── */
 if ( ! function_exists( 'vcc_fill_slots' ) ) {
     function vcc_fill_slots( $frag, $id, $atts, $cfg, $ttl ) {
         $slots = array();
-        if ( isset( $cfg['sections'] ) ) {
+        // PREFERRED: website/sections/<id>/slots.json — beside the fragment, same owner as the
+        // {{tokens}}, so a slot and its token ship in one commit. Mirrors kit/build-acf.py
+        // slots_for(). It lives inside the publish dir, so it is already served by the CDN.
+        //
+        // This was missed when the declarations moved (v2.5.0 read sections.json ONLY). The
+        // failure mode was silent and destructive rather than merely wrong: with slots declared
+        // in slots.json and the inline block gone, the plugin finds zero slots and :196 strips
+        // every {{token}} — an empty button and an empty line of copy on the live page.
+        $base = rtrim( $cfg['base'], '/' );
+        $cttl = $ttl > 0 ? $ttl : VCC_TTL;
+        $raw  = vcc_fetch( $base . '/sections/' . rawurlencode( $id ) . '/slots.json', $cttl );
+        if ( $raw ) {
+            $d = json_decode( $raw, true );
+            if ( is_array( $d ) ) {
+                foreach ( $d as $k => $v ) {
+                    // `_`-prefixed keys are documentation, not slots (build-acf.py does the same).
+                    if ( strpos( (string) $k, '_' ) !== 0 ) $slots[ $k ] = $v;
+                }
+            }
+        }
+        if ( ! $slots && isset( $cfg['sections'] ) ) {
             $man  = vcc_fetch( rtrim( $cfg['base'], '/' ) . $cfg['sections'], $ttl > 0 ? $ttl : VCC_TTL );
             $data = $man ? json_decode( $man, true ) : null;
             if ( is_array( $data ) && ! empty( $data['sections'] ) && is_array( $data['sections'] ) ) {

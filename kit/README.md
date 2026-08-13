@@ -75,6 +75,16 @@ while a `{{token}}` with no slot is stripped on render, so that copy simply disa
 checks the same class of bug with `tools/acf-readers.py --strict` — their coupling is field → PHP
 reader, ours is slot → `{{token}}`.
 
+> **`--check` is necessary but not sufficient — it cannot see the runtime.** It compares declared
+> slots to `{{tokens}}`, and both of those live in this repo. It says nothing about whether the
+> *deployed plugin* reads slots from where they are now declared. That gap is not hypothetical:
+> when declarations moved to `slots.json`, plugin v2.5.0 still read `sections.json` only, so a
+> `slots.json`-declared section would have rendered with **every token stripped** — an empty
+> button and an empty line of copy — while `--check` stayed green the whole time. Fixed in
+> **v2.6.0** (`vcc_fill_slots()` prefers `slots.json`, falls back to inline). The rule this
+> leaves behind: a green `--check` means the two halves *in git* agree; confirm the third on the
+> live page.
+
 ## Rules
 - **Edit `registry.json`, never the generated files.**
 - **Defaults must match the code** — `shortcode_atts()` in `vc-clients-embed.php` and the
