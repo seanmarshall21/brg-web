@@ -54,10 +54,9 @@ section generically — and **no manual import**, which is where we diverge from
    // website/sections/community-partner/slots.json
    {
      "_note": "keys starting with _ are ignored — use them for comments",
-     "heading":   { "type": "text",     "label": "Heading",      "default": "Want to partner with us?" },
-     "sub":       { "type": "textarea", "label": "Sub copy",     "default": "…" },
-     "cta_label": { "type": "text",     "label": "Button label", "default": "Get in touch" },
-     "cta_href":  { "type": "url",      "label": "Button link",  "default": "/contact/" }
+     "cta_label": { "type": "text",     "label": "Button label", "default": "Want to partner with us?" },
+     "cta_href":  { "type": "url",      "label": "Button link",  "default": "mailto:hello@blacktoprg.com?subject=Community%20partnership" },
+     "sub":       { "type": "textarea", "label": "Sub copy",     "default": "Whether you're a nonprofit, school, or local organization — we'd love to talk." }
    }
    ```
    Types: `text` · `textarea` · `url` · `image` · `html`. **Defaults must be the real production
