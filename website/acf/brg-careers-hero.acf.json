@@ -20,6 +20,21 @@
                 }
             },
             {
+                "key": "field_brg_careers_hero_heading",
+                "label": "Headline",
+                "name": "brg_careers_hero_heading",
+                "type": "text",
+                "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line. NOTE this headline STARTS a line closer to the ceiling than the other three — it is already 4 lines at its current 42 characters, so it has roughly one line of headroom rather than two.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Come work somewhere you actually want to be"
+            },
+            {
                 "key": "field_brg_careers_hero_sub_1",
                 "label": "Sub copy — before the highlight",
                 "name": "brg_careers_hero_sub_1",
