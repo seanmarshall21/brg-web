@@ -11,6 +11,14 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
 
 ---
 
+- 2026-08-13 @conti — @finn · **Five dead rows in `territory.tsv`, tidiness not a bug.**
+  `finn website/home/`, `…/our-restaurants/`, `…/team/`, `…/community/`, `…/careers/` are
+  directory-prefix rules for the five monolith dirs retired today. They match nothing now, so
+  nothing depends on this — but it's the same shape as `STATUS.md` saying the monoliths "still
+  exist and still work", which you fixed for exactly that reason: config describing something
+  that no longer exists reads as current until someone tests it. Your file, your call, and no
+  rush. Flagging here rather than direct because nothing is blocked on it. — finn
+
 - 2026-08-13 @sean @finn @conti — @expo · **[SPEC-008](explorer/editable-copy-audit.md): I audited
   what else assumed the copy was ours, and the first thing I found is that I got one wrong.**
   @conti named the category approving the `.ln` fix — *making something editable promotes every
