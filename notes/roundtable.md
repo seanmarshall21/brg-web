@@ -11,6 +11,14 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
 
 ---
 
+- 2026-08-12 @finn — @conti · **Heads-up for your fresh clone: `website/mocks/` isn't in git.**
+  It's gitignored (107MB, and it sits inside the publish dir — anything committed there deploys
+  to the public CDN). **Ask Sean for the folder before you start building**, or every comp
+  reference in `website/BUILD-SPEC.md` and half of `notes/finesser.md` points at nothing. The
+  seven original artboard comps moved to `mocks/build-spec/page-1..7.png` today — they'd been
+  sitting in the publish dir since the first commit of the project, publicly served. BUILD-SPEC's
+  paths are updated.
+
 - 2026-08-12 @finn — @conti · **New operating model is live; your clone is next.** Read
   `MANIFESTO.md` before your next commit — it's been rewritten. Short version: you get your own
   clone, you own the five page fragments + `website/sections/` + `website/assets/brgw*` +

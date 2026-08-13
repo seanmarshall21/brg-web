@@ -4,7 +4,13 @@ Blueprint for the full Blacktop Restaurant Group marketing site, derived from
 `BRG_Website_260617.ai` (7 artboards, 1920px desktop comps). This document drives
 two things: (1) your **Figma responsive** pass, and (2) my **Oxygen + ACF** build.
 
-Page renders for reference live next to this file: `page-1.png` … `page-7.png`.
+Page renders for reference: **`mocks/build-spec/page-1.png` … `page-7.png`** — the seven
+original artboards, referenced by number throughout this document.
+
+> **They are not in the repo.** They live under `website/mocks/`, which is gitignored: it sits
+> inside the Netlify publish dir, so anything committed there deploys to the public CDN. These
+> seven spent the whole project served at `blacktoprg.netlify.app/page-N.png` before that was
+> caught (2026-08-12). **A fresh clone won't have them — ask Sean for the `mocks/` folder.**
 
 > **Pages 5 and 6 are the same page** (Careers). Page 6 just shows the "Open
 > Positions" state expanded, with the designer note *"OPEN POSITIONS button
@@ -54,7 +60,7 @@ Page renders for reference live next to this file: `page-1.png` … `page-7.png`
 
 ## 2. Pages (sections top → bottom)
 
-### 2.1 Our Story (Home) — `page-1.png`
+### 2.1 Our Story (Home) — `mocks/build-spec/page-1.png`
 1. **Hero** (static) — "WE'RE IN THE BUSINESS OF MAKING **YOUR DAY GREAT.**"
    sub "From a classic Board & Brew sandwich to a slice at Odie's — we're here for
    the moments that matter." · "GOOD FOOD. REAL PEOPLE. RAD EXPERIENCE." ·
@@ -70,7 +76,7 @@ Page renders for reference live next to this file: `page-1.png` … `page-7.png`
 
 **Dynamic:** Core Values (repeater). Vision/Mission strings (Options, so easy to tweak).
 
-### 2.2 Brands — `page-3.png` (comp pg 2)
+### 2.2 Brands — `mocks/build-spec/page-3.png` (comp pg 2)
 1. **Hero** (static) — "TWO BRANDS. ONE STANDARD. ZERO COMPROMISES." + intro.
 2. **Brand rows** → **DYNAMIC (CPT: `brand`)** — Board & Brew, Odie's Pizza (repeatable):
    fields: brand card image/logo, name, description (rich), **Visit Us** URL, location count.
@@ -78,7 +84,7 @@ Page renders for reference live next to this file: `page-1.png` … `page-7.png`
 
 **Dynamic:** `brand` CPT (2 now, room to grow).
 
-### 2.3 Team — `page-4.png`
+### 2.3 Team — `mocks/build-spec/page-4.png`
 1. **Hero** (static) — "MEET THE CREW" + intro "…strong opinions about **sandwiches**."
 2. **Intro band** (static) — "WE WORK HARD, WE HAVE FUN, AND WE TAKE CARE OF OUR PEOPLE".
 3. **Team grid** → **DYNAMIC (CPT: `team_member`)** — 9 shown, repeatable:
@@ -90,7 +96,7 @@ Page renders for reference live next to this file: `page-1.png` … `page-7.png`
 
 **Dynamic:** `team_member` CPT (photo, name, title, quote, color, order).
 
-### 2.4 Community — `page-4.png`(comp pg 4)
+### 2.4 Community — `mocks/build-spec/page-4.png`(comp pg 4)
 1. **Hero** (static) — "GREAT FOOD, GREAT PEOPLE, EPIC COMMUNITIES." + intro (orange underline).
 2. **"It's in our DNA"** intro paragraph (static).
 3. **How We Give Back** → **DYNAMIC (repeater/CPT: `giveback_program`)** —
@@ -104,7 +110,7 @@ Page renders for reference live next to this file: `page-1.png` … `page-7.png`
 
 **Dynamic:** `giveback_program` (title, body, gallery) + Stats repeater.
 
-### 2.5 Careers — `page-5.png` / `page-6.png`
+### 2.5 Careers — `mocks/build-spec/page-5.png` / `mocks/build-spec/page-6.png`
 1. **Hero** (static) — "COME WORK SOMEWHERE YOU ACTUALLY WANT TO BE" + intro "…**LET'S TALK.**"
 2. **What it's like to work here** (static body) + **WE OFFER** bullets →
    **DYNAMIC (repeater)** {bullet text} (4 now). **APPLY TODAY** button.
@@ -116,7 +122,7 @@ Page renders for reference live next to this file: `page-1.png` … `page-7.png`
 
 **Dynamic:** "We offer" bullets (repeater) + Jobs (LinkedIn — see decision).
 
-### 2.6 Press & Gallery — `page-7.png`
+### 2.6 Press & Gallery — `mocks/build-spec/page-7.png`
 1. **Hero** (static) — "IN THE PRESS & BEHIND THE SCENES" (purple underline) + intro.
 2. **Articles** → **DYNAMIC (CPT: `press_article`)** — repeatable rows:
    {thumbnail image, title, outlet, external URL}. (2 shown, "ARTICLE" placeholders.)
