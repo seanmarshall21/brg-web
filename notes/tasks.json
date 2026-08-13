@@ -31,40 +31,40 @@
       "title": "Deploy Action fails SSH auth — password rejected by the host",
       "owner": "sean",
       "gate": "none",
-      "status": "blocked",
-      "note": "Run 31667993720: 'ssh: unable to authenticate, attempted methods [none password]'. Host reachable, secrets present, so it's the credential or the account type. Check: is WP_SSH_PASSWORD the SHELL user's password (not the panel/WP one), did a newline get pasted with it, and is the DreamHost user a Shell user rather than SFTP-only? Test with `ssh <user>@<host>` locally. Blocks plugin-v250-live."
+      "status": "done",
+      "note": "RESOLVED 2026-08-12. Sean updated WP_SSH_PASSWORD; run 31670042632 succeeded. The rejected value was the credential, not the workflow — the host had been offering password auth all along."
     },
     {
       "id": "plugin-v250-live",
       "title": "Get plugin v2.5.0 onto the live site (repo is v2.5.0, live is v2.4.0)",
       "owner": "sean",
       "gate": "none",
-      "status": "todo",
-      "note": "Verified 2026-08-12: every shortcode on all 5 pages reports v2.4.0. The ACF-aware slot fill isn't running. Either a manual drop into /wp-content/mu-plugins/, or finish deploy-secrets and let the Action do it forever."
+      "status": "done",
+      "note": "DONE 2026-08-12 by the Action, not by hand — run 31670042632. Deployed file greps as VCC_VERSION 2.5.0; all 5 live pages report v2.5.0 cache-busted, zero literal shortcodes, no leftover {{tokens}}, no PHP errors. The ACF-aware slot fill is now running."
     },
     {
       "id": "deploy-secrets",
       "title": "Add the 4 repo secrets so mu-plugin deploys happen on push",
       "owner": "sean",
       "gate": "none",
-      "status": "todo",
-      "note": "WP_SSH_HOST, WP_SSH_USER, WP_SSH_KEY, WP_MU_PLUGINS_PATH → Settings → Secrets and variables → Actions. Workflow already written (.github/workflows/deploy-mu-plugins.yml). This is the task that retires manual plugin drops."
+      "status": "done",
+      "note": "DONE 2026-08-12 — password auth (WP_SSH_PASSWORD), not a deploy key. mu-plugin changes now deploy on push. This is the task that retired manual plugin drops."
     },
     {
       "id": "acf-loader-install",
       "title": "Install website/wp-mu-plugin/brg-acf.php on the site (needs ACF Pro)",
       "owner": "sean",
-      "gate": "none",
-      "status": "todo",
-      "note": "Registers the Section Content options page and fetches field groups from Netlify — after this, a field change is edit sections.json → generate → push, with no import step ever."
+      "gate": "sean",
+      "status": "doing",
+      "note": "brg-acf.php is ON the server as of 2026-08-12 (the Action put it there — 3206 bytes, confirmed by ls). What is NOT confirmed is ACF Pro: without it the loader is inert and every section renders its defaults, which looks identical to a correct page. Check wp-admin for a 'Section Content' menu."
     },
     {
       "id": "finn-clone",
       "title": "Stand up Finn's clone on the new model",
-      "owner": "sean",
+      "owner": "conti",
       "gate": "none",
-      "status": "todo",
-      "note": "Fresh local clone (not cloud-synced) → ./.githooks/install.sh finn warn → kickoff prompt in HANDOFF.md."
+      "status": "done",
+      "note": "DONE 2026-08-12 — ~/Documents/GitHub/brg-web-finn, fc.chat=finn, warn mode, hooks wired, local disk (checked ~/Documents isn't iCloud-redirected). website/mocks/ handed over (55 entries / 112MB) since it's gitignored and a fresh clone gets none of it. Guard tested in the reverse direction. Kickoff prompt in HANDOFF.md; briefing at the top of notes/roundtable.md."
     },
     {
       "id": "territory-block-mode",

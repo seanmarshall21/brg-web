@@ -4,8 +4,8 @@ _Living snapshot so any chat/machine can pick up where we are. The **Controller*
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
 **Last updated:** 2026-08-12 (Conti) — 18/18 sections built and **verified rendering live** ·
-plugin **v2.4.0 live, v2.5.0 in repo** · nav assigned and live · chats restructured to
-clone-per-chat + territory hook
+plugin **v2.5.0 live, deployed by the Action** (no more hand-drops) · nav assigned and live ·
+chats restructured to clone-per-chat + territory hook
 
 ## What this project is
 The Blacktop Restaurant Group (BRG) marketing site for Vivo Creative. Pages are built as
@@ -42,11 +42,11 @@ commit as any shortcode change (`--check` in CI-spirit, `--restamp` to bump). Do
 | community | `/community/` | stacked sections | live, gated |
 | careers | `/careers/` | stacked sections | live, gated |
 
-**Verified behind the gate 2026-08-12:** all five render every one of their sections, **zero
-literal `[brg_` tokens**, nav present with 5 items and the active state resolving. Every
-shortcode reports **`v2.4.0`** — so the live plugin is v2.4.0 while the repo holds v2.5.0, and
-the **ACF-aware slot fill is written but not running on the site.** Legacy monolith fragments
-(`website/<slug>/embed.html`) still exist and still work, but the stacked form is the current shape.
+**Verified behind the gate 2026-08-12, after the v2.5.0 deploy:** all five render every one of
+their sections, **zero literal `[brg_` tokens**, no leftover `{{tokens}}`, no PHP errors, nav
+present with 5 items and the active state resolving. Every shortcode on every page reports
+**`v2.5.0`**. Legacy monolith fragments (`website/<slug>/embed.html`) still exist and still work,
+but the stacked form is the current shape.
 
 ## Sections — 18/18 built
 `website/sections.json` (Controller-owned) lists all 18, every one `status: live` and every
@@ -68,14 +68,20 @@ change is: edit `sections.json` → run the generator → push. **No import step
 Fill precedence: shortcode attr > ACF option > default. Field name = `brg_<id_with_underscores>_<slot>`.
 `community-partner` is the only section with slots declared today (the worked example).
 
+## Deploying the WordPress side (no longer a hand-drop)
+`.github/workflows/deploy-mu-plugins.yml` SCPs `website/wp-mu-plugin/*.php` to the server on
+every push that touches them, then SSHes back in and greps `VCC_VERSION` out of the deployed
+file — because scp succeeding only proves bytes moved. Auth is password (`WP_SSH_HOST`,
+`WP_SSH_USER`, `WP_SSH_PASSWORD`, `WP_MU_PLUGINS_PATH`). **First successful deploy: 2026-08-12,
+run 31670042632 — v2.4.0 → v2.5.0, verified live on all five pages.** Manual `workflow_dispatch`
+is still available from the Actions tab.
+
 ## Open items
-1. **Human, one-time — the two things that unblock automation:**
-   (a) install `website/wp-mu-plugin/brg-acf.php` (needs ACF Pro);
-   (b) add 4 repo secrets — `WP_SSH_HOST`, `WP_SSH_USER`, `WP_SSH_KEY`, `WP_MU_PLUGINS_PATH` —
-   so `.github/workflows/deploy-mu-plugins.yml` SCPs the mu-plugin files on push.
-   Until (b), plugin **v2.5.0 still needs a manual drop** into `/wp-content/mu-plugins/`.
-2. ~~Verify the live plugin version.~~ **Done 2026-08-12 — live is v2.4.0.** Re-verify after
-   the v2.5.0 drop; bust cache with `?brg_refresh=1`.
+1. **Confirm ACF Pro is active** so `brg-acf.php` can do its job. The file is now on the server
+   (the Action put it there), but nothing yet proves ACF Pro is installed — if it isn't, the
+   loader is inert and every section silently renders its defaults, which is exactly what a
+   correct page looks like. Check for a **Section Content** menu in wp-admin.
+2. ~~Verify the live plugin version.~~ **Done — v2.5.0 live**, all five pages, cache-busted.
 3. ~~Menu assignment.~~ **Done** — "BRG — Primary" is assigned and serving Home / Our Restaurants
    / Team / Community / Careers, with `current-menu-item` resolving.
 4. **Real content still outstanding:** team headshots + quotes, three of four community stats
