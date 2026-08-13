@@ -91,12 +91,26 @@ reader, ours is slot → `{{token}}`.
 > on a page that is supposed to be uncached, which reads as "my edit didn't deploy". Add
 > `?brg_refresh=1` to the URL to force both. (Found by Finn reading the fill, 2026-08-13.)
 
-> **Before deleting a section's legacy inline `slots`, load the page once so `slots.json` succeeds.**
-> `vcc_fetch` writes its week-long `_stale` copy *only on success*, so a URL that has never
-> succeeded has no last-good fallback. Delete the inline block first and a single network blip
-> returns `''` → zero slots → every `{{token}}` stripped → empty button, empty copy. One
-> successful fetch makes a blip degrade to last-good instead. **The live page tells you which
-> source won** whenever the two disagree — that divergence is the test.
+> **Every new section must be rendered live once before it can be considered safe — "priming".**
+> `vcc_fetch` writes its week-long `_stale` copy *only on success* (`:85`), so a `slots.json` that
+> has never been fetched has no last-good fallback. **No section carries an inline fallback any
+> more**, so until that first successful fetch a single network blip returns `''` → zero slots →
+> every `{{token}}` stripped. On `community-stats` that is 12 tokens: the whole grid blank.
+>
+> Priming needs a **real render of the WordPress page** — `blacktoprestaurantgroup.com/<page>/`,
+> which runs the plugin server-side. Fetching the *CDN* file warms nothing. The client doesn't
+> matter: `curl` of the WP page primes exactly as a browser does. The pages are gated, so this
+> falls to whoever has the password (Conti).
+>
+> **A correctly-filled live render is itself the proof that priming happened.** All three paths
+> through `vcc_fetch` imply `_stale` exists: the success path writes it; the failure path can only
+> return content by *reading* it; and a primary-cache hit returns early without touching it, but
+> `VCC_TTL` is 120s (`:36`) against a one-week `_stale` — so a primary hit is at most two minutes
+> old and the call that created it wrote `_stale` in the same breath. You do not need a separate
+> check. (Reasoning: Dee, 2026-08-13.)
+>
+> **When two sources disagree, the live page tells you which one won** — that divergence is the
+> free discriminator. Use it before deleting any fallback.
 
 ## Rules
 - **Edit `registry.json`, never the generated files.**
