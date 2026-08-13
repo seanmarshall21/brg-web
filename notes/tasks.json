@@ -15,8 +15,8 @@
       "title": "Start Dee and Dum (helper chats) when there's side work for them",
       "owner": "sean",
       "gate": "none",
-      "status": "todo",
-      "note": "Territory, logs, work/ staging area and kickoff prompts are all in place (2026-08-12). Clones not created yet — `git clone` + `./.githooks/install.sh dee warn`. They own work/<chat>/ and their log only; finished work is promoted by the destination's owner. Skip the mocks/ hand-off unless a task needs it."
+      "status": "doing",
+      "note": "DEE IS UP 2026-08-13: ~/Documents/GitHub/brg-web-dee, fc.chat=dee, warn, hooks wired, local disk, guard tested in the reverse direction (staged a kit/ file, hook named conti as owner, warn-mode exit 0, nothing committed). No mocks/ hand-off — no task has needed it yet. Dee is IDLE: work/dee/ is empty and no task on this board is owned by dee, so side work has to be pointed at it. DUM not created yet — `git clone` + `./.githooks/install.sh dum warn`. They own work/<chat>/ and their log only; finished work is promoted by the destination's owner. Note for territory-block-mode: dee is now a fourth clone that has to flip with the rest."
     },
     {
       "id": "expo-clone",
