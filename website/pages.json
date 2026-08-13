@@ -1,7 +1,1 @@
-[
-  { "slug": "home",            "title": "Home",            "status": "live", "url": "/brg-home/" },
-  { "slug": "our-restaurants", "title": "Our Restaurants", "status": "live" },
-  { "slug": "team",            "title": "Team",            "status": "live" },
-  { "slug": "community",       "title": "Community",       "status": "live" },
-  { "slug": "careers",         "title": "Careers",         "status": "live" }
-]
+[]
