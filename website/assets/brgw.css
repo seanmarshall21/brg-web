@@ -43,10 +43,14 @@
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:20px solid var(--yellow);
   display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,2vw,28px);
   flex-wrap:nowrap;padding:16px clamp(16px,4vw,48px);font-family:'Montserrat',system-ui,sans-serif;}
-/* Real brand lockup. The plugin still emits the old <b>BLACKTOP</b><span>Restaurant Group</span>
-   text markup, so rather than block on a plugin change we swap the artwork in via CSS and keep
+/* Real brand lockup. vcc_chrome() emits a text lockup — <b>BLACKTOP</b><span>Restaurant
+   Group</span> — so rather than block on a plugin change we swap the artwork in via CSS and keep
    the text as the accessible name (indented out of view, still read by screen readers).
-   When the chrome moves into v2.1.0, this becomes a plain <img> and these hacks come out. */
+   Still true at plugin v2.6.0 (checked 2026-08-13). This can become a plain <img> whenever
+   vcc_chrome() emits one; no version is promised, because the last comment here named v2.1.0
+   and we shipped four releases past it with the technique still load-bearing.
+   NOTE this styles the LEGACY chrome, the header vcc_chrome() builds for the monolith
+   [brg_<slug>] form. The five live pages use [brg_nav], which is Conti's .bnav* component. */
 .brgw-logo{text-decoration:none;display:block;overflow:hidden;flex:0 0 auto;
   width:clamp(104px,7vw,134px);aspect-ratio:413/67;
   background:url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-nav-sm.svg') left center/contain no-repeat;

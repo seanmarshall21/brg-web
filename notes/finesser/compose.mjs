@@ -14,7 +14,7 @@
  *   node notes/finesser/compose.mjs --live          # compose from blacktoprg.netlify.app instead
  *   node notes/finesser/compose.mjs --serve         # compose all, then serve on :8787
  *   node notes/finesser/compose.mjs --serve --port=9000
- *   node notes/finesser/compose.mjs --stack --slots=local   # fill {{slots}} the PROPOSED way
+ *   node notes/finesser/compose.mjs --stack --slots=live     # reproduce the v2.5.0 slot-fill bug
  *
  * Output: notes/finesser/.out/<slug>.html  (gitignored) + an index listing them.
  */
@@ -29,7 +29,7 @@ const REPO = join(HERE, '..', '..');
 const SITE = join(REPO, 'website');
 const OUT = join(HERE, '.out');
 const BASE = 'https://blacktoprg.netlify.app'; // matches VCC_CLIENTS['brg']['base']
-const VERSION = '2.5.0';                        // matches VCC_VERSION
+const VERSION = '2.6.0';                        // matches VCC_VERSION
 
 const argv = process.argv.slice(2);
 const flags = new Set(argv.filter((a) => a.startsWith('--')));
@@ -37,12 +37,12 @@ const slugArgs = argv.filter((a) => !a.startsWith('--'));
 const LIVE = flags.has('--live');
 const PORT = Number((argv.find((a) => a.startsWith('--port=')) || '').split('=')[1] || 8787);
 
-/* --slots=live (default) mirrors the DEPLOYED plugin v2.5.0, which reads a section's slots
-   ONLY from the inline `slots` object in website/sections.json. --slots=local mirrors the
-   proposed fill that prefers website/sections/<id>/slots.json (see notes/finesser.md
-   2026-08-13). The two disagree, which is the whole reason this flag exists: a section wired
-   the slots.json way renders WRONG under the plugin that is actually live. */
-const SLOTS_MODE = (argv.find((a) => a.startsWith('--slots=')) || '').split('=')[1] || 'live';
+/* --slots=local (default) mirrors the DEPLOYED plugin, v2.6.0 onward: a section's slots come
+   from website/sections/<id>/slots.json, with the inline `slots` block in sections.json as a
+   fallback, and `_`-prefixed keys skipped. --slots=live is the HISTORICAL v2.5.0 fill, which
+   read the inline block ONLY. Kept, not deleted: it reproduces the regression that v2.6.0
+   fixed, and a fill bug is invisible unless you can render both ways and diff. */
+const SLOTS_MODE = (argv.find((a) => a.startsWith('--slots=')) || '').split('=')[1] || 'local';
 
 /* ── source: local repo files, or the live CDN (to verify what actually deployed) ── */
 async function src(path) {
@@ -94,7 +94,7 @@ async function slotsFor(id, manifest) {
       const raw = JSON.parse(await src(`/sections/${id}/slots.json`));
       // Keys starting `_` are documentation, not slots — matches kit/build-acf.py:44.
       return Object.fromEntries(Object.entries(raw).filter(([k]) => !k.startsWith('_')));
-    } catch { /* fall through to the inline manifest, as the proposed fill does */ }
+    } catch { /* fall through to the inline manifest, as the deployed fill does on !$slots */ }
   }
   const s = (manifest.sections || []).find((x) => x.id === id);
   return (s && s.slots) || {};
@@ -199,8 +199,8 @@ async function main() {
     // Slots come from the SHIPPED manifest, not the draft — the plugin reads sections.json.
     const manifest = JSON.parse(await src('/sections.json'));
     console.log(`slots     fill mode --slots=${SLOTS_MODE}` +
-      (SLOTS_MODE === 'local' ? '  (PROPOSED fill: sections/<id>/slots.json wins)'
-                              : '  (mirrors DEPLOYED plugin v2.5.0: sections.json inline only)'));
+      (SLOTS_MODE === 'local' ? '  (DEPLOYED plugin v2.6.0+: sections/<id>/slots.json wins)'
+                              : '  (HISTORICAL v2.5.0 fill: sections.json inline ONLY)'));
     for (const page of slugs) {
       const stack = draft.stacks[page];
       if (!stack) { console.warn(`  · no stack defined for "${page}"`); continue; }
