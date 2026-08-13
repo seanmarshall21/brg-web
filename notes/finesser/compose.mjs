@@ -29,7 +29,7 @@ const REPO = join(HERE, '..', '..');
 const SITE = join(REPO, 'website');
 const OUT = join(HERE, '.out');
 const BASE = 'https://blacktoprg.netlify.app'; // matches VCC_CLIENTS['brg']['base']
-const VERSION = '2.6.0';                        // matches VCC_VERSION
+const VERSION = '2.6.1';                        // matches VCC_VERSION
 
 const argv = process.argv.slice(2);
 const flags = new Set(argv.filter((a) => a.startsWith('--')));
@@ -87,21 +87,36 @@ export const escHtml = (s) => String(s)                       // esc_html() — 
 export const escUrl = (s) => String(s)                        // esc_url(), near enough for our URLs
   .replaceAll('&', '&#038;').replaceAll("'", '&#039;');
 
-/* The token grammar, in one place because THREE layers independently hard-code it and all
-   three share its blind spot: the plugin's strip (vc-clients-embed.php:217),
-   kit/build-acf.py:105, and the orphan check below. All are [a-z0-9_] — no hyphen.
-   Consequence, found by @dee 2026-08-13 and verified against the source: the fill is a
-   literal str_replace (:215), so a HYPHENATED token fills fine when it's declared, but when
-   it ISN'T declared the strip regex cannot match it, so it survives onto the live page as
-   visible `{{cta-label}}` text. Same slip as a missing underscore slot, opposite symptom —
-   one deletes copy silently, the other prints a token into a screenshot — and `--check` is
-   blind to both. Hence GRAMMAR (what the layers can see) and ANY (what a human can type).
+/* The token grammar. THREE things are being described here and they are NOT the same set —
+   conflating them is what hid the hyphen bug, so they get three names.
 
-   Exported at @dee's ask so the grammar has one definition instead of four. TOKEN_ANY is
-   deliberately LOOSER than the layers it describes — that gap IS the bug class, so anything
-   consuming these should test ANY-matches against GRAMMAR rather than assume they agree. */
-export const TOKEN_ANY = () => /\{\{([^{}]*)\}\}/g;   // factory: /g regexes carry lastIndex
-export const TOKEN_GRAMMAR = /^[a-z0-9_]+$/i;
+   History, because the names only make sense with it: until plugin v2.6.1 every layer was
+   [a-z0-9_], so a HYPHENATED undeclared token could be neither filled nor stripped and
+   rendered as visible `{{cta-label}}` to the visitor. @dee found it 2026-08-13; @conti
+   widened the plugin's strip AND build-acf.py's `used` regex to [a-z0-9_-] in v2.6.1. So the
+   symptom changed: a hyphenated undeclared token now VANISHES like any other orphan instead
+   of printing itself on the page. The hyphen is in the class so a mistake is catchable,
+   never so it is usable — slot names stay underscores.
+
+   - TOKEN_ANY        what a human can type. Deliberately LOOSER than the layers below; the
+                      gap between it and STRIPPABLE is the bug class, so test one against the
+                      other rather than assuming they agree. Factory, because a /g regex
+                      carries lastIndex and a shared instance lets two callers corrupt each
+                      other's matchAll position.
+   - TOKEN_STRIPPABLE what the plugin's strip can match (vc-clients-embed.php:224, v2.6.1+)
+                      and what build-acf.py:108 can see. Orphans in here vanish silently.
+   - TOKEN_SLOT_NAME  what a slot may legally be NAMED. Still underscore-only, because the
+                      name becomes an ACF field name (brg_<id>_<slot>). This is the one hole
+                      left: a slots.json that declares `cta-label` matches the fragment's
+                      `{{cta-label}}` on BOTH sides, so `--check` goes green while generating
+                      an invalid field name. The warning below is currently the only guard.
+
+   TOKEN_GRAMMAR is kept as a deprecated alias of TOKEN_SLOT_NAME — same value it always had,
+   so @dee's import cannot change behaviour silently. Choose STRIPPABLE or SLOT_NAME instead. */
+export const TOKEN_ANY = () => /\{\{([^{}]*)\}\}/g;
+export const TOKEN_STRIPPABLE = /^[a-z0-9_-]+$/i;
+export const TOKEN_SLOT_NAME = /^[a-z0-9_]+$/i;
+export const TOKEN_GRAMMAR = TOKEN_SLOT_NAME;   // deprecated — see above
 
 /* Where a section's slots come from. Deliberately two answers — see SLOTS_MODE. */
 export async function slotsFor(id, manifest, opts = {}) {
@@ -134,9 +149,11 @@ export async function fillSlots(frag, id, manifest, opts = {}) {
   // does produce an ACF field name with a hyphen in it — brg_<id>_cta-label — so flag it here
   // rather than letting it surface as a field that won't save.
   for (const key of Object.keys(slots)) {
-    if (!TOKEN_GRAMMAR.test(key)) {
-      warn(`  ⚠ ${id}: slot name '${key}' is outside [a-z0-9_] — it fills, but it generates ` +
-        `an invalid ACF field name (brg_… _${key}). Rename it with underscores.`);
+    if (!TOKEN_SLOT_NAME.test(key)) {
+      warn(`  ⚠ ${id}: slot name '${key}' is outside [a-z0-9_] — it FILLS (str_replace is ` +
+        `literal) and build-acf.py --check goes GREEN, because the name matches on both ` +
+        `sides. But it generates an invalid ACF field name (brg_…_${key}). This warning is ` +
+        `the only guard on it. Rename it with underscores.`);
     }
   }
 
@@ -151,18 +168,22 @@ export async function fillSlots(frag, id, manifest, opts = {}) {
 
   // Two distinct failures, deliberately reported apart because the fix differs.
   const leftover = [...frag.matchAll(TOKEN_ANY())].map((m) => m[1]);
-  const strippable = [...new Set(leftover.filter((t) => TOKEN_GRAMMAR.test(t)))];
-  const literal = [...new Set(leftover.filter((t) => !TOKEN_GRAMMAR.test(t)))];
+  const strippable = [...new Set(leftover.filter((t) => TOKEN_STRIPPABLE.test(t)))];
+  const literal = [...new Set(leftover.filter((t) => !TOKEN_STRIPPABLE.test(t)))];
   if (strippable.length) {
+    const hy = strippable.filter((t) => !TOKEN_SLOT_NAME.test(t));
     warn(`  ⚠ ${id}: ${strippable.map((o) => `{{${o}}}`).join(' ')} declared by no slot ` +
-      `(--slots=${mode}) — the plugin STRIPS these, so that copy disappears on render`);
+      `(--slots=${mode}) — the plugin STRIPS these, so that copy disappears on render` +
+      (hy.length ? `. ${hy.map((o) => `{{${o}}}`).join(' ')} contains a hyphen, so it can ` +
+        `NEVER be declared legally (slot names are underscore-only) — it is orphaned by ` +
+        `construction, not by omission.` : ''));
   }
   if (literal.length) {
-    warn(`  ⚠ ${id}: ${literal.map((o) => `{{${o}}}`).join(' ')} is outside the [a-z0-9_] ` +
-      `token grammar — the strip regex CANNOT match it, so if it stays undeclared it renders ` +
-      `LITERALLY on the live page. Use underscores.`);
+    warn(`  ⚠ ${id}: ${literal.map((o) => `{{${o}}}`).join(' ')} is outside [a-z0-9_-] — even ` +
+      `the widened v2.6.1 strip CANNOT match it, so it renders LITERALLY to the visitor.`);
   }
-  return frag.replace(/\{\{[a-z0-9_]+\}\}/gi, '');
+  // Mirrors the v2.6.1 strip at vc-clients-embed.php:224 — [a-z0-9_-], hyphen included.
+  return frag.replace(/\{\{[a-z0-9_-]+\}\}/gi, '');
 }
 
 /* ── the host page. NOT part of the fragment — this stands in for WordPress/Oxygen
