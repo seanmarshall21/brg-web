@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "_note": "Section manifest for SPEC-001 stacking sections. RATIFIED by Conti 2026-08-10 from Finn's notes/finesser/sections.draft.json (transcribed from the live pages). The plugin registers [brg_<id>] for EVERY entry, so a page never shows a literal shortcode; status:todo renders an invisible comment until its fragment lands at website/sections/<id>/embed.html. `stacks` documents per-page shortcode order (the harness reads it; the plugin ignores it). Slot defaults, when added, must be REAL production copy.",
+  "_note": "Section manifest for SPEC-001 stacking sections. RATIFIED by Conti 2026-08-10 from Finn's notes/finesser/sections.draft.json; statuses reconciled to disk by Conti 2026-08-12 — all 18 fragments now exist, so every entry is live. The plugin registers [brg_<id>] for EVERY entry, so a page never shows a literal shortcode; status is documentation only (the plugin renders whatever fragment is on the CDN, and an absent one renders an invisible comment). `stacks` documents per-page shortcode order (the harness reads it; the plugin ignores it). Slot defaults, when added, must be REAL production copy.",
   "sections": [
     { "id": "home-hero",              "title": "Home — hero",                                   "group": "hero",      "status": "live", "summary": "Photo hero on the skater plate: display headline, lede, yellow tagline, CTA, marker underline." },
     { "id": "our-restaurants-hero",   "title": "Our Restaurants — hero",                        "group": "hero",      "status": "live", "summary": "Type hero, teal marker underline, asterisk + bolt doodles." },
@@ -10,23 +10,23 @@
     { "id": "careers-apply",          "title": "Careers — what it's like",                      "group": "editorial", "status": "live", "summary": "Light section: pink-marked headline, two columns (copy + asterisk-bulleted offer list), seam badge, yellow CTA." },
     { "id": "careers-positions",      "title": "Careers — open positions",                      "group": "cta",       "status": "live", "summary": "Yellow band with tonal watermark, black CTA, surfer cutout bleeding off the right edge." },
 
-    { "id": "home-community",         "title": "Home — born in San Diego",                      "group": "editorial", "status": "todo" },
-    { "id": "home-about",             "title": "Home — what we're about",                       "group": "editorial", "status": "todo" },
-    { "id": "home-different",         "title": "Home — a different kind of restaurant company", "group": "editorial", "status": "todo" },
-    { "id": "home-values",            "title": "Home — core values",                            "group": "grid",      "status": "todo" },
-    { "id": "our-restaurants-brands", "title": "Our Restaurants — brands",                      "group": "grid",      "status": "todo" },
-    { "id": "team-members",           "title": "Team — crew grid",                              "group": "grid",      "status": "todo" },
-    { "id": "team-apply",             "title": "Team — join the crew",                          "group": "cta",       "status": "todo" },
-    { "id": "community-give",         "title": "Community — how we give back",                  "group": "slider",    "status": "todo" },
-    { "id": "community-stats",        "title": "Community — by the numbers",                    "group": "grid",      "status": "todo" },
-    { "id": "community-partner",      "title": "Community — partner with us",                   "group": "cta",       "status": "todo",
+    { "id": "home-community",         "title": "Home — born in San Diego",                      "group": "editorial", "status": "live", "summary": "Two image plates with counter-signed parallax; stand-in photography pending Sean's real two." },
+    { "id": "home-about",             "title": "Home — what we're about",                       "group": "editorial", "status": "live", "summary": "Lede + photo with image-reveal and parallax." },
+    { "id": "home-different",         "title": "Home — a different kind of restaurant company", "group": "editorial", "status": "live", "summary": "Three image plates (yellow/black/white grounds) at three parallax rates; stand-in photography." },
+    { "id": "home-values",            "title": "Home — core values",                            "group": "grid",      "status": "live", "summary": "Core-values grid over the BRG pattern watermark." },
+    { "id": "our-restaurants-brands", "title": "Our Restaurants — brands",                      "group": "grid",      "status": "live", "summary": "Board & Brew / Odie's brand lockup plates (plain fade-up — no image reveal, it cropped the wordmarks)." },
+    { "id": "team-members",           "title": "Team — crew grid",                              "group": "grid",      "status": "live", "summary": "Nine crew cards; headshots still colour plates pending real portraits." },
+    { "id": "team-apply",             "title": "Team — join the crew",                          "group": "cta",       "status": "live", "summary": "CTA band; owns the BRG-cluster doodle that bleeds DOWN into the shared footer (bleed-rule exception)." },
+    { "id": "community-give",         "title": "Community — how we give back",                  "group": "slider",    "status": "live", "summary": "Consumes the shared .brgw-slider; sides alternate via :nth-child. Owns the teal banner." },
+    { "id": "community-stats",        "title": "Community — by the numbers",                    "group": "grid",      "status": "live", "summary": "Stat grid; three of four numbers still read XX pending real figures." },
+    { "id": "community-partner",      "title": "Community — partner with us",                   "group": "cta",       "status": "live", "summary": "CTA band. The worked ACF example — its slots drive website/acf/brg-community-partner.acf.json.",
       "slots": {
         "heading":   { "type": "text",     "label": "Heading",      "default": "Want to partner with us?" },
         "sub":       { "type": "textarea", "label": "Sub copy",     "default": "Whether you're a nonprofit, school, or local organization — we'd love to talk." },
         "cta_label": { "type": "text",     "label": "Button label", "default": "Get in touch" },
         "cta_href":  { "type": "url",      "label": "Button link",  "default": "/contact/" }
       } },
-    { "id": "careers-posts",          "title": "Careers — LinkedIn posts",                      "group": "feed",      "status": "todo" }
+    { "id": "careers-posts",          "title": "Careers — LinkedIn posts",                      "group": "feed",      "status": "live", "summary": "Static marketing cards (not a live LinkedIn feed). Follower counts / '2mo' stamps are hand-maintained; 'View job' points at /careers/ until real URLs land." }
   ],
   "stacks": {
     "home":            ["home-hero", "home-community", "home-about", "home-different", "home-values"],
