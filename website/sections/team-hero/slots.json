@@ -1,0 +1,21 @@
+{
+  "_note": "Slots for [brg_team-hero]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd, so write literal characters, never `&amp;` or `&mdash;`.\\n\\nTHE <h1> IS NOT WIRED: Whether the hero display headline should be an ACF field at all is Sean's design gate and is still open as of 2026-08-13 — Conti recommended wiring it, but a peer cannot grant a call the MANIFESTO puts at Sean's gate.\\n\\nTHE SUB IS SPLIT AROUND ITS INLINE <span>, not carried by one field. The highlighted word is a pink inline <span style=\"color:var(--pink)\">. Same technique as community-give's lede and community-stats' label lines: keep the structural markup in the fragment and slot the text around it, so no field ever has to hold HTML. An `html`/wysiwyg slot would return <p>-wrapped content nested inside <p class=\"sub\">. The space before the <span> lives in the MARKUP because ACF trims on save — a default ending in a trailing space would silently lose it and the words would run together.",
+  "sub_1": {
+    "type": "textarea",
+    "label": "Sub copy — before the pink word",
+    "doc": "Opening clause. The space before the pink word is in the markup, so no trailing space here.",
+    "default": "We're operators, leaders, community builders — and yes, we all have strong opinions about"
+  },
+  "sub_highlight": {
+    "type": "text",
+    "label": "Sub copy — the pink word",
+    "doc": "Rendered in brand pink, mid-sentence. One word or a very short phrase.",
+    "default": "sandwiches"
+  },
+  "sub_2": {
+    "type": "textarea",
+    "label": "Sub copy — after the pink word",
+    "doc": "The rest of the sentence. Starts immediately after the pink word with no space, so begin with the punctuation.",
+    "default": ". This is the team behind the brands."
+  }
+}

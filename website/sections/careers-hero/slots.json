@@ -1,0 +1,15 @@
+{
+  "_note": "Slots for [brg_careers-hero]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd, so write literal characters, never `&amp;` or `&mdash;`.\\n\\nTHE <h1> IS NOT WIRED: Whether the hero display headline should be an ACF field at all is Sean's design gate and is still open as of 2026-08-13 — Conti recommended wiring it, but a peer cannot grant a call the MANIFESTO puts at Sean's gate.\\n\\nTHE SUB IS SPLIT AROUND ITS INLINE <span>, not carried by one field. The closing phrase sits in a highlighted <span class=\"hl\"> marker block. Same technique as community-give's lede and community-stats' label lines: keep the structural markup in the fragment and slot the text around it, so no field ever has to hold HTML. An `html`/wysiwyg slot would return <p>-wrapped content nested inside <p class=\"sub\">. The space before the <span> lives in the MARKUP because ACF trims on save — a default ending in a trailing space would silently lose it and the words would run together.",
+  "sub_1": {
+    "type": "textarea",
+    "label": "Sub copy — before the highlight",
+    "doc": "Everything up to and including the em dash. The space before the highlight is in the markup, so no trailing space here.",
+    "default": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —"
+  },
+  "sub_highlight": {
+    "type": "text",
+    "label": "Sub copy — highlighted phrase",
+    "doc": "Sits in the yellow marker block that closes the sentence. Short — it is a highlight, not a clause.",
+    "default": "let's talk."
+  }
+}
