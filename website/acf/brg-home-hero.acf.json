@@ -1,0 +1,71 @@
+[
+    {
+        "key": "group_brg_home_hero",
+        "title": "Home — hero — Content",
+        "fields": [
+            {
+                "key": "field_brg_home_hero_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "**Home — hero — Content**\nSource: `brg-web/website/acf/brg-home-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_hero_sub",
+                "label": "Sub copy",
+                "name": "brg_home_hero_sub",
+                "type": "textarea",
+                "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write `&` and `—` as literal characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "From a classic Board & Brew sandwich to a slice at Odie's — we're here for the moments that matter."
+            },
+            {
+                "key": "field_brg_home_hero_tagline",
+                "label": "Yellow tagline",
+                "name": "brg_home_hero_tagline",
+                "type": "text",
+                "instructions": "The short line beneath the sub, in the display face. White, not yellow, per the comp. ~40 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Good food. Real people. Rad experience."
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the home-hero section. Generated — do not hand-edit; edit sections/home-hero/slots.json + rerun kit/build-acf.py."
+    }
+]

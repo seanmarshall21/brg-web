@@ -1,5 +1,335 @@
 [
   {
+    "key": "group_brg_home_hero",
+    "title": "Home — hero — Content",
+    "fields": [
+      {
+        "key": "field_brg_home_hero_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Home — hero — Content**\nSource: `brg-web/website/acf/brg-home-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_home_hero_sub",
+        "label": "Sub copy",
+        "name": "brg_home_hero_sub",
+        "type": "textarea",
+        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write `&` and `—` as literal characters.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "From a classic Board & Brew sandwich to a slice at Odie's — we're here for the moments that matter."
+      },
+      {
+        "key": "field_brg_home_hero_tagline",
+        "label": "Yellow tagline",
+        "name": "brg_home_hero_tagline",
+        "type": "text",
+        "instructions": "The short line beneath the sub, in the display face. White, not yellow, per the comp. ~40 characters.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Good food. Real people. Rad experience."
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the home-hero section. Generated — do not hand-edit; edit sections/home-hero/slots.json + rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_our_restaurants_hero",
+    "title": "Our Restaurants — hero — Content",
+    "fields": [
+      {
+        "key": "field_brg_our_restaurants_hero_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Our Restaurants — hero — Content**\nSource: `brg-web/website/acf/brg-our-restaurants-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_our_restaurants_hero_sub",
+        "label": "Sub copy",
+        "name": "brg_our_restaurants_hero_sub",
+        "type": "textarea",
+        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for."
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the our-restaurants-hero section. Generated — do not hand-edit; edit sections/our-restaurants-hero/slots.json + rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_team_hero",
+    "title": "Team — hero — Content",
+    "fields": [
+      {
+        "key": "field_brg_team_hero_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Team — hero — Content**\nSource: `brg-web/website/acf/brg-team-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_team_hero_sub_1",
+        "label": "Sub copy — before the pink word",
+        "name": "brg_team_hero_sub_1",
+        "type": "textarea",
+        "instructions": "Opening clause. The space before the pink word is in the markup, so no trailing space here.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "We're operators, leaders, community builders — and yes, we all have strong opinions about"
+      },
+      {
+        "key": "field_brg_team_hero_sub_highlight",
+        "label": "Sub copy — the pink word",
+        "name": "brg_team_hero_sub_highlight",
+        "type": "text",
+        "instructions": "Rendered in brand pink, mid-sentence. One word or a very short phrase.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "sandwiches"
+      },
+      {
+        "key": "field_brg_team_hero_sub_2",
+        "label": "Sub copy — after the pink word",
+        "name": "brg_team_hero_sub_2",
+        "type": "textarea",
+        "instructions": "The rest of the sentence. Starts immediately after the pink word with no space, so begin with the punctuation.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": ". This is the team behind the brands."
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the team-hero section. Generated — do not hand-edit; edit sections/team-hero/slots.json + rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_community_hero",
+    "title": "Community — hero — Content",
+    "fields": [
+      {
+        "key": "field_brg_community_hero_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Community — hero — Content**\nSource: `brg-web/website/acf/brg-community-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_community_hero_sub",
+        "label": "Sub copy",
+        "name": "brg_community_hero_sub",
+        "type": "textarea",
+        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write `—` as a literal em dash.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the community-hero section. Generated — do not hand-edit; edit sections/community-hero/slots.json + rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_careers_hero",
+    "title": "Careers — hero — Content",
+    "fields": [
+      {
+        "key": "field_brg_careers_hero_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Careers — hero — Content**\nSource: `brg-web/website/acf/brg-careers-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_careers_hero_sub_1",
+        "label": "Sub copy — before the highlight",
+        "name": "brg_careers_hero_sub_1",
+        "type": "textarea",
+        "instructions": "Everything up to and including the em dash. The space before the highlight is in the markup, so no trailing space here.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —"
+      },
+      {
+        "key": "field_brg_careers_hero_sub_highlight",
+        "label": "Sub copy — highlighted phrase",
+        "name": "brg_careers_hero_sub_highlight",
+        "type": "text",
+        "instructions": "Sits in the yellow marker block that closes the sentence. Short — it is a highlight, not a clause.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "let's talk."
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the careers-hero section. Generated — do not hand-edit; edit sections/careers-hero/slots.json + rerun kit/build-acf.py."
+  },
+  {
     "key": "group_brg_careers_apply",
     "title": "Careers — what it's like — Content",
     "fields": [

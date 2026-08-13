@@ -1,0 +1,71 @@
+[
+    {
+        "key": "group_brg_careers_hero",
+        "title": "Careers — hero — Content",
+        "fields": [
+            {
+                "key": "field_brg_careers_hero_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "**Careers — hero — Content**\nSource: `brg-web/website/acf/brg-careers-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_careers_hero_sub_1",
+                "label": "Sub copy — before the highlight",
+                "name": "brg_careers_hero_sub_1",
+                "type": "textarea",
+                "instructions": "Everything up to and including the em dash. The space before the highlight is in the markup, so no trailing space here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —"
+            },
+            {
+                "key": "field_brg_careers_hero_sub_highlight",
+                "label": "Sub copy — highlighted phrase",
+                "name": "brg_careers_hero_sub_highlight",
+                "type": "text",
+                "instructions": "Sits in the yellow marker block that closes the sentence. Short — it is a highlight, not a clause.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "let's talk."
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the careers-hero section. Generated — do not hand-edit; edit sections/careers-hero/slots.json + rerun kit/build-acf.py."
+    }
+]
