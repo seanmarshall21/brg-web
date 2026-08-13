@@ -91,6 +91,13 @@ reader, ours is slot → `{{token}}`.
 > on a page that is supposed to be uncached, which reads as "my edit didn't deploy". Add
 > `?brg_refresh=1` to the URL to force both. (Found by Finn reading the fill, 2026-08-13.)
 
+> **An empty `slots.json` now blanks the section.** A file that parses but is empty after
+> `_`-filtering (all `_note`, or a draft) yields zero slots — and with no inline fallback left
+> anywhere, that strips every token rather than falling back. On `community-stats` that is the
+> whole 12-token grid. The rule is emptiness-not-absence: both the plugin (`! $slots`) and every
+> mirror must fall through on *empty*, not merely on *missing*. (Finn's harness diverged from the
+> PHP on exactly this; Dee's checker caught it.)
+
 > **Every new section must be rendered live once before it can be considered safe — "priming".**
 > `vcc_fetch` writes its week-long `_stale` copy *only on success* (`:85`), so a `slots.json` that
 > has never been fetched has no last-good fallback. **No section carries an inline fallback any
@@ -111,6 +118,33 @@ reader, ours is slot → `{{token}}`.
 >
 > **When two sources disagree, the live page tells you which one won** — that divergence is the
 > free discriminator. Use it before deleting any fallback.
+
+## Screenshotting a section (and the two ways it lies)
+
+`shot.mjs` needs Chrome's debug port, which some sessions can't bind. The fallback is headless
+Chrome with `--virtual-time-budget` — no CDP, no server:
+
+```bash
+node notes/finesser/compose.mjs --live --stack
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
+  --hide-scrollbars --virtual-time-budget=6000 --window-size=1440,1500 \
+  --screenshot=out.png "file:///…/notes/finesser/.out/home--stacked.html"
+```
+
+Two limits, both measured, both capable of making you report a bug that isn't there:
+
+1. **Compose with `--live`.** Without it, asset URLs are rewritten to `/assets/…`, which under
+   `file://` resolves to *filesystem root* — so every image, font and doodle 404s. A missing
+   collage then reads as a broken section.
+2. **`--window-size` height is the VIEWPORT, not a page-height crop.** It is not
+   `captureBeyondViewport`: it changes every `vh` unit, media query and IntersectionObserver
+   result. Faithful at 900 and 2600; **at 5200 the home hero collage vanishes entirely.** Tall
+   viewports do reveal below-fold sections, but only because everything is technically in view —
+   so **no height gives you both a real viewport and a full-page reveal.**
+
+**So `--virtual-time-budget` is a fold/section checker; `shot.mjs` is the full-page tool.** A
+rewrap check is a fold check, which is why the fallback covers the case that matters. (Limits
+measured by Finn, 2026-08-13, after the fallback nearly produced a second false alarm.)
 
 ## The token grammar — one definition, four implementations
 
