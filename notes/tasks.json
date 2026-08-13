@@ -136,7 +136,7 @@
       "owner": "sean",
       "gate": "sean",
       "status": "todo",
-      "note": "THE PATH IS NOW OPEN 2026-08-13: all four figures AND their labels are ACF fields, live and verified. Sean edits them in wp-admin → Section Content → Community — by the numbers, with NO push and no code change. Three figures still read XX; figure 3's label says 'meals/dollars' because the unit was never decided, so whoever supplies that number sets the label in the same edit. This is the first place the ACF work pays off visibly."
+      "note": "STAT 1 NEEDS A RULING TOO 2026-08-13 (SPEC-008 §1): I called `12` \"already true\" in SPEC-007 and it is not. home-community says 12 counts BOARD & BREW only with Odie's on top, so BRG is 13 by the site's own arithmetic, while community-stats presents that 12 as BRG's footprint. Sean rules: 13 (group) or 12 relabelled \"Board & Brew locations\". It is also in three separately-editable places now (community-stats stat_1_fig, home-community body_1, our-restaurants-brands bnb_body_2) — recommendation is DELETE two rather than sync three. THE PATH IS NOW OPEN 2026-08-13: all four figures AND their labels are ACF fields, live and verified. Sean edits them in wp-admin → Section Content → Community — by the numbers, with NO push and no code change. Three figures still read XX; figure 3's label says 'meals/dollars' because the unit was never decided, so whoever supplies that number sets the label in the same edit. This is the first place the ACF work pays off visibly."
     },
     {
       "id": "careers-posts-urls",

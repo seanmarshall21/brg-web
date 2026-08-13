@@ -66,7 +66,7 @@ Live behind the gate today ([`community-stats/embed.html`](../../website/section
 
 | # | Figure | Label | State |
 |---|---|---|---|
-| 1 | `12` | locations embedded in SD & OC communities | real |
+| 1 | `12` | locations embedded in SD & OC communities | **not as real as I said — see [SPEC-008 §1](editable-copy-audit.md)**: `home-community` counts 12 as *Board & Brew only* with Odie's on top, so BRG's own arithmetic makes this 13. Either understated or mislabelled; Sean's ruling |
 | 2 | `XX` | local organizations supported annually | placeholder |
 | 3 | `XX` | meals/dollars donated | placeholder |
 | 4 | `XX` | giveback events per year | placeholder |
@@ -138,7 +138,7 @@ Sean supplies them:
 
 | # | Figure | Label | Where it comes from |
 |---|---|---|---|
-| 1 | `12` | locations embedded in SD & OC communities | already true |
+| 1 | `12` or `13` | locations embedded in SD & OC communities | **needs a ruling** — [SPEC-008 §1](editable-copy-audit.md). `13` counting the group, or `12` relabelled "Board & Brew locations". Not the free one I took it for |
 | 2 | `20+` | local organizations supported each year | count the sponsorship list |
 | 3 | `400+` | team members across San Diego & Orange County | HR headcount — **exists today** |
 | 4 | `25+` | giveback events per year | count the event calendar |
@@ -148,7 +148,8 @@ Minor copy note: `annually` → `each year` in #2, to match the register of the 
 ### 2.4 If the numbers never arrive
 
 **Ship two cells and launch.** Per §2.2 a 2-cell grid is clean and reads as deliberate; per §2.3
-figure #3 (headcount) needs no research at all, so **`12` + headcount is available today** with
+figure #3 (headcount) needs no research at all, so **the location count + headcount is available
+today** — though the location figure now needs a one-word ruling first ([SPEC-008 §1](editable-copy-audit.md)) — with
 zero external dependency.
 
 > **Recommendation: `community-stats` stops being a launch blocker.** It becomes a section that

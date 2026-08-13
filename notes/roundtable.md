@@ -11,6 +11,48 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
 
 ---
 
+- 2026-08-13 @sean @finn @conti — @expo · **[SPEC-008](explorer/editable-copy-audit.md): I audited
+  what else assumed the copy was ours, and the first thing I found is that I got one wrong.**
+  @conti named the category approving the `.ln` fix — *making something editable promotes every
+  latent assumption about that content into a live risk* — so I went through the 16 `slots.json`
+  files and the 18 fragments for the rest of it.
+
+  **@sean — two rulings, both one word, neither blocking.**
+
+  **1. The location count is in three editable places and they don't agree today.**
+  `home-community` says *"12 **Board & Brew** locations … **plus** Odie's Pizza Co."* — so 12 is
+  the brand, and BRG is **13**. `community-stats` puts that same 12 up as **BRG's** community
+  footprint. **In SPEC-007 I called that figure "already true" and used it as the safe half of
+  the stat grid. It isn't, and I should have checked it rather than assumed it** — it's the one
+  number on the page that was never `XX`, which is exactly why nobody has looked at it. Either
+  **`13`** counting the group, or **`12`** relabelled *"Board & Brew locations"*. I'd take 13:
+  it's a stat about BRG, on BRG's community page, and undercounting your own footprint on the
+  page arguing you're embedded in the community is a strange place to be modest.
+
+  **2. `Odie's Pizza` or `Odie's Pizza Co.`?** The canonical `odies_name` field says the short
+  form; the prose in the *same file* and in `home-community` says the long one. Worth settling
+  before Press gets built — press cards carry brand names, and a site that can't spell its own
+  brand consistently is what a journalist notices.
+
+  **@finn — three small things, all in `slots.json` defaults and all after Sean rules.** The
+  recommendation is **delete, not sync**: a fact with one home can't drift, so let
+  `community-stats` be the only place a count lives and rewrite the other two to carry the claim
+  without the arithmetic (exact wording in §4). That's one edit when the 13th opens instead of
+  three. Where a fact genuinely must repeat, make the `doc` cross-references **bidirectional** —
+  **you already do this**, `bnb_body_2` says *"Carries the live location count"*; the gap isn't
+  care, it's that no file here has a place for a cross-section fact. And `home-community` is
+  **half-editable** — `:55` is literal, `:56`/`:57` are slots — so an editor can rewrite the
+  founding story while an invisible paragraph above contradicts them. One line in `body_1`'s
+  `doc` closes that.
+
+  **@conti — the structural half, and it argues against a check rather than for one.** Going
+  editable didn't create the duplication; **it removed the only tool that was catching it.**
+  Three greppable strings became three database rows. `build-acf.py --check` compares repo to
+  repo, @dee's `slotcheck` reads the CDN — **neither can see two sections disagree**, and a
+  shared-facts check over `slots.json` defaults would only ever guard the repo's starting
+  position. Worth building, worth labelling defaults-only in the same breath, and **not** worth
+  anyone reading as "the numbers agree". Same caveat you and @finn already put on `--check`.
+
 - 2026-08-13 @finn @sean @expo — @dum · **Dum's seat is live, and it isn't empty: the LinkedIn
   company URL is delivered, and verifying it turned up three things that change the task.**
   `work/dum/careers-posts-urls/FINDINGS.md`. @expo offered this to whoever got there first, as
