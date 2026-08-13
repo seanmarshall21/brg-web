@@ -1,19 +1,75 @@
 {
   "_note": "Slots for [brg_community-stats]. Declared HERE, beside the fragment, so a slot and its {{token}} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Defaults are the exact production copy, so the page is unchanged until someone edits it in WordPress. THIS IS THE FLATTENED CASE, per conti's ruling (c) 2026-08-13: four figures is a design constant, not a content variable, so numbering them is honest here in a way it would NOT be for team-members' nine cards. Each label is two `text` slots with the <br> left in the markup — the comp's two-line rhythm is layout, and a single `html`/wysiwyg slot would come back wrapped in <p> and break `.cell p`. Note `text` slots are esc_html'd on fill, so write a literal `&` here, NOT `&amp;` (which would double-escape and render as the visible text `&amp;`).",
-
-  "stat_1_fig":   { "type": "text", "label": "Stat 1 — figure",        "doc": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. `12`, `40K`, `$1.2M`.", "default": "12" },
-  "stat_1_line1": { "type": "text", "label": "Stat 1 — label, line 1", "doc": "First line under the figure. ~24 characters keeps it on one line.", "default": "locations embedded in" },
-  "stat_1_line2": { "type": "text", "label": "Stat 1 — label, line 2", "doc": "Second line. Write `&` as a plain ampersand.", "default": "SD & OC communities" },
-
-  "stat_2_fig":   { "type": "text", "label": "Stat 2 — figure",        "doc": "Reads XX today — this is one of the three placeholder figures. Replace it here and it goes live with no push.", "default": "XX" },
-  "stat_2_line1": { "type": "text", "label": "Stat 2 — label, line 1", "doc": "First line under the figure.", "default": "local organizations" },
-  "stat_2_line2": { "type": "text", "label": "Stat 2 — label, line 2", "doc": "Second line.", "default": "supported annually" },
-
-  "stat_3_fig":   { "type": "text", "label": "Stat 3 — figure",        "doc": "Reads XX today. Its label says `meals/dollars` because the unit was never decided — once you know the figure, edit the label to match rather than leaving both options in.", "default": "XX" },
-  "stat_3_line1": { "type": "text", "label": "Stat 3 — label, line 1", "doc": "First line. Change `meals/dollars` to whichever the real figure is.", "default": "meals/dollars" },
-  "stat_3_line2": { "type": "text", "label": "Stat 3 — label, line 2", "doc": "Second line.", "default": "donated" },
-
-  "stat_4_fig":   { "type": "text", "label": "Stat 4 — figure",        "doc": "Reads XX today — the third placeholder figure.", "default": "XX" },
-  "stat_4_line1": { "type": "text", "label": "Stat 4 — label, line 1", "doc": "First line under the figure.", "default": "giveback events" },
-  "stat_4_line2": { "type": "text", "label": "Stat 4 — label, line 2", "doc": "Second line.", "default": "per year" }
+  "stat_1_fig": {
+    "type": "text",
+    "label": "Stat 1 — figure",
+    "doc": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. `12`, `40K`, `$1.2M`. CROSS-SECTION FACT — this number also appears in `home-community` -> Body copy second paragraph, and `our-restaurants-brands` -> Board & Brew second paragraph. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
+    "default": "12"
+  },
+  "stat_1_line1": {
+    "type": "text",
+    "label": "Stat 1 — label, line 1",
+    "doc": "First line under the figure. ~24 characters keeps it on one line.",
+    "default": "locations embedded in"
+  },
+  "stat_1_line2": {
+    "type": "text",
+    "label": "Stat 1 — label, line 2",
+    "doc": "Second line. Write `&` as a plain ampersand.",
+    "default": "SD & OC communities"
+  },
+  "stat_2_fig": {
+    "type": "text",
+    "label": "Stat 2 — figure",
+    "doc": "Reads XX today — this is one of the three placeholder figures. Replace it here and it goes live with no push.",
+    "default": "XX"
+  },
+  "stat_2_line1": {
+    "type": "text",
+    "label": "Stat 2 — label, line 1",
+    "doc": "First line under the figure.",
+    "default": "local organizations"
+  },
+  "stat_2_line2": {
+    "type": "text",
+    "label": "Stat 2 — label, line 2",
+    "doc": "Second line.",
+    "default": "supported annually"
+  },
+  "stat_3_fig": {
+    "type": "text",
+    "label": "Stat 3 — figure",
+    "doc": "Reads XX today. Its label says `meals/dollars` because the unit was never decided — once you know the figure, edit the label to match rather than leaving both options in.",
+    "default": "XX"
+  },
+  "stat_3_line1": {
+    "type": "text",
+    "label": "Stat 3 — label, line 1",
+    "doc": "First line. Change `meals/dollars` to whichever the real figure is.",
+    "default": "meals/dollars"
+  },
+  "stat_3_line2": {
+    "type": "text",
+    "label": "Stat 3 — label, line 2",
+    "doc": "Second line.",
+    "default": "donated"
+  },
+  "stat_4_fig": {
+    "type": "text",
+    "label": "Stat 4 — figure",
+    "doc": "Reads XX today — the third placeholder figure.",
+    "default": "XX"
+  },
+  "stat_4_line1": {
+    "type": "text",
+    "label": "Stat 4 — label, line 1",
+    "doc": "First line under the figure.",
+    "default": "giveback events"
+  },
+  "stat_4_line2": {
+    "type": "text",
+    "label": "Stat 4 — label, line 2",
+    "doc": "Second line.",
+    "default": "per year"
+  }
 }

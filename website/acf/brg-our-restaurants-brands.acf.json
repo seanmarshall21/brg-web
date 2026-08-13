@@ -54,7 +54,7 @@
                 "label": "Board & Brew — second paragraph",
                 "name": "brg_our_restaurants_brands_bnb_body_2",
                 "type": "textarea",
-                "instructions": "Carries the live location count, so it needs editing whenever that changes. Write `—` as a literal em dash.",
+                "instructions": "Carries the live location count, so it needs editing whenever that changes. Write `—` as a literal em dash. CROSS-SECTION FACT — this number also appears in `home-community` -> Body copy second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

@@ -623,6 +623,51 @@
         }
       },
       {
+        "key": "field_brg_home_community_intro_1",
+        "label": "Intro — before the emphasis",
+        "name": "brg_home_community_intro_1",
+        "type": "textarea",
+        "instructions": "Opening clause, up to the colon. The space before the bold phrase is in the markup, so no trailing space here.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Blacktop Restaurant Group started with a simple belief:"
+      },
+      {
+        "key": "field_brg_home_community_intro_emphasis",
+        "label": "Intro — bold phrase",
+        "name": "brg_home_community_intro_emphasis",
+        "type": "text",
+        "instructions": "Rendered bold, mid-sentence. A clause, not a paragraph.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "that a great meal is really just an excuse to connect."
+      },
+      {
+        "key": "field_brg_home_community_intro_2",
+        "label": "Intro — after the emphasis",
+        "name": "brg_home_community_intro_2",
+        "type": "textarea",
+        "instructions": "The rest of the paragraph. Carries the founding year, so it needs editing if that is ever restated.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home."
+      },
+      {
         "key": "field_brg_home_community_body_1",
         "label": "Body copy — first paragraph",
         "name": "brg_home_community_body_1",
@@ -642,7 +687,7 @@
         "label": "Body copy — second paragraph",
         "name": "brg_home_community_body_2",
         "type": "textarea",
-        "instructions": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters.",
+        "instructions": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters. CROSS-SECTION FACT — this number also appears in `our-restaurants-brands` -> Board & Brew second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -978,7 +1023,7 @@
         "label": "Board & Brew — second paragraph",
         "name": "brg_our_restaurants_brands_bnb_body_2",
         "type": "textarea",
-        "instructions": "Carries the live location count, so it needs editing whenever that changes. Write `—` as a literal em dash.",
+        "instructions": "Carries the live location count, so it needs editing whenever that changes. Write `—` as a literal em dash. CROSS-SECTION FACT — this number also appears in `home-community` -> Body copy second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1335,7 +1380,7 @@
         "label": "Stat 1 — figure",
         "name": "brg_community_stats_stat_1_fig",
         "type": "text",
-        "instructions": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. `12`, `40K`, `$1.2M`.",
+        "instructions": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. `12`, `40K`, `$1.2M`. CROSS-SECTION FACT — this number also appears in `home-community` -> Body copy second paragraph, and `our-restaurants-brands` -> Board & Brew second paragraph. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {

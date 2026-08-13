@@ -1,5 +1,23 @@
 {
-  "_note": "Slots for [brg_home-community]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nTHE <h2> IS NOT WIRED, and this one is structural rather than awaiting anybody: it carries BOTH a hard <br> AND an inline <span class=\"mark\"> marker block. No slot type can hold either — text/textarea escape them into visible markup, and html is an ACF wysiwyg that returns <p>-wrapped content. The field cannot express the design. Same call as careers-apply's heading. The two image plates and their counter-signed parallax are motion/photography and stay as code; the stand-in photography is tracked as `real-photography`.",
+  "_note": "Slots for [brg_home-community]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nTHE <h2> IS NOT WIRED, and this one is structural rather than awaiting anybody: it carries BOTH a hard <br> AND an inline <span class=\"mark\"> marker block. No slot type can hold either — text/textarea escape them into visible markup, and html is an ACF wysiwyg that returns <p>-wrapped content. The field cannot express the design. Same call as careers-apply's heading. The two image plates and their counter-signed parallax are motion/photography and stay as code; the stand-in photography is tracked as `real-photography`.\\n\\nTHE FIRST PARAGRAPH IS intro_1/intro_emphasis/intro_2, NOT body_0 — and the odd numbering is deliberate. It was missed in the first pass (2026-08-13) because the survey regex used to find text was `<p[^>]*>[^<]*</p>`, which cannot match a paragraph containing inline tags — so the one wrapping <strong> was invisible to the tool and therefore to me. @expo caught it. Rather than renumber body_1/body_2, whose ACF fields are already generated and live, the new paragraph gets its own name: renaming a live field orphans whatever an editor has already typed into it. Cosmetically inconsistent, safe.\\n\\nLeaving it unslotted would have been the worse kind of half-editable: an editor rewrites the founding story in the two paragraphs below while THIS one — which carries the founding claim and the 2013 date — silently contradicts them.",
+  "intro_1": {
+    "type": "textarea",
+    "label": "Intro — before the emphasis",
+    "doc": "Opening clause, up to the colon. The space before the bold phrase is in the markup, so no trailing space here.",
+    "default": "Blacktop Restaurant Group started with a simple belief:"
+  },
+  "intro_emphasis": {
+    "type": "text",
+    "label": "Intro — bold phrase",
+    "doc": "Rendered bold, mid-sentence. A clause, not a paragraph.",
+    "default": "that a great meal is really just an excuse to connect."
+  },
+  "intro_2": {
+    "type": "textarea",
+    "label": "Intro — after the emphasis",
+    "doc": "The rest of the paragraph. Carries the founding year, so it needs editing if that is ever restated.",
+    "default": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home."
+  },
   "body_1": {
     "type": "textarea",
     "label": "Body copy — first paragraph",
@@ -9,7 +27,7 @@
   "body_2": {
     "type": "textarea",
     "label": "Body copy — second paragraph",
-    "doc": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters.",
+    "doc": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters. CROSS-SECTION FACT — this number also appears in `our-restaurants-brands` -> Board & Brew second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
     "default": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
   }
 }

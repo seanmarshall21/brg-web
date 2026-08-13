@@ -24,7 +24,7 @@
                 "label": "Stat 1 — figure",
                 "name": "brg_community_stats_stat_1_fig",
                 "type": "text",
-                "instructions": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. `12`, `40K`, `$1.2M`.",
+                "instructions": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. `12`, `40K`, `$1.2M`. CROSS-SECTION FACT — this number also appears in `home-community` -> Body copy second paragraph, and `our-restaurants-brands` -> Board & Brew second paragraph. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

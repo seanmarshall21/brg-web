@@ -158,8 +158,30 @@
    brgw.js reveals each .reveal section on scroll-in (after Blanco loads). */
 .brgw .anim-head{opacity:0;}
 /* line mask: padded so tall glyphs/apostrophes aren't clipped; negative margin
-   keeps line spacing identical to the text's own line-height. */
-.brgw .ln{display:block;overflow:hidden;padding:.30em .10em .16em;margin:-.30em -.10em -.16em;}
+   keeps line spacing identical to the text's own line-height.
+
+   TOP IS .42em, NOT .30em, AND THE BOTTOM MUST STAY .16em. At .30em the mask held
+   1.034em of ink while Blanco's tallest glyph — É — is 1.132em (Expo measured it against
+   real Blanco in production markup, SPEC-004 §7). Today's copy doesn't clip because none
+   of it contains an accented capital, which was an acceptable risk while every headline
+   lived in git and had been measured. It stopped being acceptable on 2026-08-13, when
+   Sean got a text field for four hero headlines: type CAFÉ or OLÉ and it silently shaved
+   ~0.098em off the top with nothing to indicate why.
+
+   Raising the TOP is safe for the reveal specifically because .ln-i travels up from
+   translateY(160%) and stops at rest — it is never ABOVE rest, so a taller clip box
+   cannot expose it early. THAT REASONING DOES NOT EXTEND TO THE BOTTOM: the traveller
+   arrives from below, so padding-bottom is what keeps it hidden before .is-in fires.
+   Leave it at .16em.
+
+   Verified rather than reasoned: on an unaccented headline the HEADLINE TYPE renders
+   byte-identically before and after — the negative margin cancels the padding exactly, so
+   the text does not move. Two decorative doodle regions do differ by a sub-pixel amount
+   (they carry infinite step-jitter animations and sit against the hero's box), so the
+   whole-page bytes are NOT identical; the type is, which is what the claim is about. On
+   an accented headline the acutes on É were being sheared flat at .30em and render
+   complete at .42em. That fixture is the proof; the rest is just arithmetic. */
+.brgw .ln{display:block;overflow:hidden;padding:.42em .10em .16em;margin:-.42em -.10em -.16em;}
 .brgw .ln-i{display:inline-block;transform:translateY(160%);will-change:transform;}
 .brgw .anim-up{opacity:0;transform:translateY(26px);will-change:opacity,transform;}
 .brgw .anim-cta{clip-path:inset(50% 50% 50% 50%);will-change:clip-path;}
