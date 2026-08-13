@@ -68,6 +68,42 @@ if [ -f kit/build.py ]; then
   fi
 fi
 
+# ── 1b. ACF: slots <-> tokens, and generated groups <-> declarations ─────────
+# Two separate failures, both of which have happened:
+#   --check          a slot with no {{token}} (field edits nothing) or a token with no
+#                    slot (copy vanishes on render).
+#   regenerate+diff  a section wired but its field group NEVER GENERATED. website/acf/ is
+#                    conti's and slots.json is finn's, so a wiring can be complete on one
+#                    side of the territory line and absent on the other. community-stats
+#                    shipped that way: it rendered perfectly, --check was green, and twelve
+#                    fields did not exist in WordPress.
+# The regenerate step REWRITES website/acf/ — that rewrite IS the fix, so on failure just
+# `git add website/acf/` and push again.
+if [ -f kit/build-acf.py ]; then
+  if command -v python3 >/dev/null 2>&1; then
+    if out=$(python3 kit/build-acf.py --check 2>&1); then
+      say "build-acf.py --check" "OK"
+    else
+      say "build-acf.py --check" "FAILED"
+      echo "$out" | sed 's/^/      /'
+      fail=1
+    fi
+    if python3 kit/build-acf.py >/dev/null 2>&1; then
+      if git diff --quiet -- website/acf/ 2>/dev/null; then
+        say "acf groups current" "OK"
+      else
+        say "acf groups current" "STALE — regenerated, now commit them"
+        git diff --name-only -- website/acf/ | sed 's/^/      /'
+        echo "      → these sections would have NO fields in WordPress. Run:"
+        echo "        git add website/acf/ && git commit --amend --no-edit"
+        fail=1
+      fi
+    fi
+  else
+    say "build-acf.py" "SKIPPED (no python3)"
+  fi
+fi
+
 # ── 2. JavaScript ────────────────────────────────────────────────────────────
 js=$(echo "$changed" | grep -E '\.(js|mjs)$' || true)
 if [ -n "$js" ]; then
