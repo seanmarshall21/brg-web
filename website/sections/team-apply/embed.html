@@ -1,5 +1,9 @@
 <!-- BRG · section: team-apply  →  [brg_team-apply]
-     Teal band. Doodle cluster bleeds off the bottom-right corner as in the comp. -->
+     Teal band. Doodle cluster bleeds off the bottom-right corner as in the comp.
+     ACF-editable (slots.json beside this file): heading, sub copy, CTA label + href. The
+     <h2> IS wired here, unlike careers-apply's — it has no structural <br> and no inline
+     span, so it free-wraps inside max-width:20ch and substituted copy behaves like
+     authored copy. The cluster is decorative and stays as code. -->
 <section class="brgw-sec brgw-sec--team-apply reveal" aria-label="Join the team">
 <style>
 .brgw-sec--team-apply{position:relative;background:var(--teal);color:var(--ink);overflow:hidden;
@@ -13,8 +17,8 @@
 .brgw-sec--team-apply .cluster img{width:100%;height:auto;display:block;}
 @media(max-width:760px){ .brgw-sec--team-apply .cluster{display:none;} }
 </style>
-  <h2 class="blanco anim-head" data-head="words">Want to be part of the team?</h2>
-  <p class="sub anim-up">We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience.</p>
-  <a class="btn anim-cta" href="/careers/">Apply Today</a>
+  <h2 class="blanco anim-head" data-head="words">{{heading}}</h2>
+  <p class="sub anim-up">{{sub}}</p>
+  <a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a>
   <span class="cluster" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg" alt="" width="302" height="310"></span>
 </section>

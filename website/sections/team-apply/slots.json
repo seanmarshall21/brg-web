@@ -1,0 +1,28 @@
+{
+  "_note": "Slots for [brg_team-apply]. Declared beside the fragment so a slot and its {{token}} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Defaults are the exact production copy. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters, never `&amp;` or `&mdash;`.\n\nNOTE the <h2> IS wired here, unlike careers-apply's. The rule is not 'display type is never editable' — it is that copy whose layout depends on structural markup stays as code. This heading has no <br> and no inline span: it is a single sentence that free-wraps inside `max-width:20ch` by design, so substituted copy wraps the same way authored copy does. `data-head=\"words\"` is unaffected — brgw.js splits whatever text is in the DOM at runtime.\n\nThe doodle cluster bleeding off the bottom-right corner is decorative and stays as code.",
+
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "doc": "The question, in the display face at up to 3.5rem. Wraps inside 20ch by design, so length is forgiving — but past ~60 characters it starts pushing the band taller than the comp's proportions.",
+    "default": "Want to be part of the team?"
+  },
+  "sub": {
+    "type": "textarea",
+    "label": "Sub copy",
+    "doc": "One paragraph beneath the heading, capped at 60ch. Plain text; markup is escaped.",
+    "default": "We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience."
+  },
+  "cta_label": {
+    "type": "text",
+    "label": "Button label",
+    "doc": "Black button on the teal band. ~18 characters.",
+    "default": "Apply Today"
+  },
+  "cta_href": {
+    "type": "url",
+    "label": "Button link",
+    "doc": "Where the button goes. Defaults to the careers page.",
+    "default": "/careers/"
+  }
+}

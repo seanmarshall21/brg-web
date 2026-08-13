@@ -1,0 +1,34 @@
+{
+  "_note": "Slots for [brg_careers-apply]. Declared beside the fragment so a slot and its {{token}} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Defaults are the exact production copy. Slot names are underscore-only — a hyphen fills fine but generates an invalid ACF field name, and build-acf.py now refuses it (conti 2026-08-13). `text`/`textarea` defaults are esc_html'd on fill, so write a literal `&` and a literal `—`, NEVER `&amp;` or `&mdash;` (both would double-escape and render as visible entity text).\n\nDELIBERATELY NOT WIRED, per conti's ruling (c) 2026-08-13: (1) the <h2> — it carries BOTH a structural <br> and an inline <span class=\"mark\"> for the pink marker block, and no slot type can express either. `text` escapes them into visible markup; `html`/wysiwyg returns <p>-wrapped content. The field could not express the design, so the headline stays as code. (2) the four-item offer <ul> — unlike community-stats' 2x2 grid, four is NOT a design constant here, it is a `display:grid` list that would happily take a fifth. Numbering these slots would bake the row count into the fragment while LOOKING editable, so adding a benefit would become a code change. Left honestly as code.",
+
+  "body_1": {
+    "type": "textarea",
+    "label": "Body copy — first paragraph",
+    "doc": "Left column, opening paragraph. Plain text; markup is escaped. Write an em dash as a literal —, not &mdash;.",
+    "default": "This isn't your average restaurant gig. At BRG, we invest in our people — with real training, real growth paths, and a culture that actually lives up to the hype."
+  },
+  "body_2": {
+    "type": "textarea",
+    "label": "Body copy — second paragraph",
+    "doc": "Left column, second paragraph. The two paragraphs are separate fields because the two-paragraph break is layout, not content.",
+    "default": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around."
+  },
+  "offers_heading": {
+    "type": "text",
+    "label": "Right column heading",
+    "doc": "Sits above the asterisk-bulleted list. Short — it renders in the display face at up to 2.2rem, so ~14 characters keeps it on one line. The list items themselves are not editable; they are code.",
+    "default": "We offer:"
+  },
+  "cta_label": {
+    "type": "text",
+    "label": "Button label",
+    "doc": "Black-bordered button at the foot of the section. ~18 characters.",
+    "default": "Apply Today"
+  },
+  "cta_href": {
+    "type": "url",
+    "label": "Button link",
+    "doc": "Defaults to the in-page anchor for the open-positions section below. A full URL works too.",
+    "default": "#open-positions"
+  }
+}

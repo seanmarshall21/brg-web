@@ -1,7 +1,12 @@
 <!-- BRG · section: careers-apply  →  [brg_careers-apply]
      First LIGHT section: .brgw sets white text on dark, so this one re-grounds to ink.
      The yellow asterisk badge straddles the top edge (half above the section boundary),
-     which is why the root is overflow:visible rather than hidden. -->
+     which is why the root is overflow:visible rather than hidden.
+     ACF-editable (slots.json beside this file): the two body paragraphs, the right-column
+     heading, and the CTA label + href. NOT the <h2> — it carries a structural <br> AND an
+     inline <span class="mark">, neither of which any slot type can express. NOT the offer
+     <ul> either: four is not a design constant here, so numbering the items would bake the
+     row count in while looking editable. Both stay as code on purpose. -->
 <section class="brgw-sec brgw-sec--careers-apply reveal" aria-label="What it's like to work here">
 <style>
 .brgw-sec--careers-apply{position:relative;background:var(--white);color:var(--ink);
@@ -44,11 +49,11 @@
 
   <div class="cols">
     <div>
-      <p class="anim-up">This isn't your average restaurant gig. At BRG, we invest in our people &mdash; with real training, real growth paths, and a culture that actually lives up to the hype.</p>
-      <p class="anim-up">Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around.</p>
+      <p class="anim-up">{{body_1}}</p>
+      <p class="anim-up">{{body_2}}</p>
     </div>
     <div>
-      <h3 class="blanco anim-up">We offer:</h3>
+      <h3 class="blanco anim-up">{{offers_heading}}</h3>
       <ul>
         <li class="anim-up">Competitive pay</li>
         <li class="anim-up">Growth and advancement opportunities across multiple brands and locations</li>
@@ -58,5 +63,5 @@
     </div>
   </div>
 
-  <div class="cta"><a class="btn anim-cta" href="#open-positions">Apply Today</a></div>
+  <div class="cta"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>
