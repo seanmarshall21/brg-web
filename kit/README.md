@@ -112,6 +112,21 @@ reader, ours is slot → `{{token}}`.
 > **When two sources disagree, the live page tells you which one won** — that divergence is the
 > free discriminator. Use it before deleting any fallback.
 
+> **A hyphenated token renders literally on the live page.** The strip regex is
+> `/\{\{[a-z0-9_]+\}\}/i` — underscores only. So an undeclared `{{cta_label}}` is silently
+> removed, but an undeclared `{{cta-label}}` is **not stripped and not filled**: the visitor sees
+> the raw `{{cta-label}}`. It is the fourth member of this family and the only one whose symptom
+> is *visible* rather than silent, which makes it the least dangerous of the four — but neither
+> `--check` nor the compose harness saw it until Dee built fixtures for it. **Use underscores in
+> slot names.** (Dee found it; Finn's harness now warns.)
+
+> **Anything carrying structural markup cannot be a `text` slot.** `text`/`textarea` are
+> `esc_html`'d, so a `<br>` becomes a visible `&lt;br&gt;`; `html` maps to an ACF wysiwyg, which
+> returns `<p>`-wrapped content and breaks any rule styling the element directly. The home hero
+> headline is the worked case: its two-line composition exists *because* of a hard `<br>`, so a
+> headline slot has only two possible outcomes and both lose the design. **If the copy carries a
+> `<br>` that the layout depends on, it stays as code.**
+
 ## Rules
 - **Edit `registry.json`, never the generated files.**
 - **Defaults must match the code** — `shortcode_atts()` in `vc-clients-embed.php` and the
