@@ -20,11 +20,11 @@
         }
       },
       {
-        "key": "field_brg_community_partner_heading",
-        "label": "Heading",
-        "name": "brg_community_partner_heading",
+        "key": "field_brg_community_partner_cta_label",
+        "label": "Button label",
+        "name": "brg_community_partner_cta_label",
         "type": "text",
-        "instructions": "",
+        "instructions": "The question on the black button. This band has no separate heading — the button is the headline.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -35,11 +35,26 @@
         "default_value": "Want to partner with us?"
       },
       {
+        "key": "field_brg_community_partner_cta_href",
+        "label": "Button link",
+        "name": "brg_community_partner_cta_href",
+        "type": "url",
+        "instructions": "Where the button goes. A mailto: is fine — that is what ships today.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "mailto:hello@blacktoprg.com?subject=Community%20partnership"
+      },
+      {
         "key": "field_brg_community_partner_sub",
         "label": "Sub copy",
         "name": "brg_community_partner_sub",
         "type": "textarea",
-        "instructions": "",
+        "instructions": "One line beneath the button. Plain text — markup is escaped.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -48,36 +63,6 @@
           "id": ""
         },
         "default_value": "Whether you're a nonprofit, school, or local organization — we'd love to talk."
-      },
-      {
-        "key": "field_brg_community_partner_cta_label",
-        "label": "Button label",
-        "name": "brg_community_partner_cta_label",
-        "type": "text",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Get in touch"
-      },
-      {
-        "key": "field_brg_community_partner_cta_href",
-        "label": "Button link",
-        "name": "brg_community_partner_cta_href",
-        "type": "url",
-        "instructions": "",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "/contact/"
       }
     ],
     "location": [

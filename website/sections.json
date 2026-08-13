@@ -19,13 +19,7 @@
     { "id": "team-apply",             "title": "Team — join the crew",                          "group": "cta",       "status": "live", "summary": "CTA band; owns the BRG-cluster doodle that bleeds DOWN into the shared footer (bleed-rule exception)." },
     { "id": "community-give",         "title": "Community — how we give back",                  "group": "slider",    "status": "live", "summary": "Consumes the shared .brgw-slider; sides alternate via :nth-child. Owns the teal banner." },
     { "id": "community-stats",        "title": "Community — by the numbers",                    "group": "grid",      "status": "live", "summary": "Stat grid; three of four numbers still read XX pending real figures." },
-    { "id": "community-partner",      "title": "Community — partner with us",                   "group": "cta",       "status": "live", "summary": "CTA band. The worked ACF example — its slots drive website/acf/brg-community-partner.acf.json.",
-      "slots": {
-        "heading":   { "type": "text",     "label": "Heading",      "default": "Want to partner with us?" },
-        "sub":       { "type": "textarea", "label": "Sub copy",     "default": "Whether you're a nonprofit, school, or local organization — we'd love to talk." },
-        "cta_label": { "type": "text",     "label": "Button label", "default": "Get in touch" },
-        "cta_href":  { "type": "url",      "label": "Button link",  "default": "/contact/" }
-      } },
+    { "id": "community-partner",      "title": "Community — partner with us",                   "group": "cta",       "status": "live", "summary": "CTA band. The worked ACF example — slots declared in sections/community-partner/slots.json, beside the fragment." },
     { "id": "careers-posts",          "title": "Careers — LinkedIn posts",                      "group": "feed",      "status": "live", "summary": "Static marketing cards (not a live LinkedIn feed). Follower counts / '2mo' stamps are hand-maintained; 'View job' points at /careers/ until real URLs land." }
   ],
   "stacks": {

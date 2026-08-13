@@ -85,6 +85,19 @@ reader, ours is slot → `{{token}}`.
 > leaves behind: a green `--check` means the two halves *in git* agree; confirm the third on the
 > live page.
 
+> **`ttl="0"` does not make a slot edit appear instantly.** The fragment is fetched fresh on every
+> render, but `slots.json` uses `$ttl > 0 ? $ttl : VCC_TTL` — so on an explicitly *uncached* page
+> the slots are still cached for 120s. Editing a default therefore takes up to two minutes to show
+> on a page that is supposed to be uncached, which reads as "my edit didn't deploy". Add
+> `?brg_refresh=1` to the URL to force both. (Found by Finn reading the fill, 2026-08-13.)
+
+> **Before deleting a section's legacy inline `slots`, load the page once so `slots.json` succeeds.**
+> `vcc_fetch` writes its week-long `_stale` copy *only on success*, so a URL that has never
+> succeeded has no last-good fallback. Delete the inline block first and a single network blip
+> returns `''` → zero slots → every `{{token}}` stripped → empty button, empty copy. One
+> successful fetch makes a blip degrade to last-good instead. **The live page tells you which
+> source won** whenever the two disagree — that divergence is the test.
+
 ## Rules
 - **Edit `registry.json`, never the generated files.**
 - **Defaults must match the code** — `shortcode_atts()` in `vc-clients-embed.php` and the
