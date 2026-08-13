@@ -60,8 +60,22 @@ section generically — and **no manual import**, which is where we diverge from
    }
    ```
    Types: `text` · `textarea` · `url` · `image` · `html`. **Defaults must be the real production
-   copy**, never placeholders — the compose harness can't see WP-stored values, so a default
-   compose-test is only representative if the defaults are what the page actually says.
+   copy — what the page says today, never what it should say.** Two reasons, and the second is
+   the bigger one:
+
+   - The compose harness can't see WP-stored values, so a default compose-test is only
+     representative if the defaults are what the page actually says.
+   - **A default is live copy.** It renders to visitors whenever the ACF field is empty, which is
+     every section until someone edits it. An *aspirational* default therefore ships as a real
+     defect. `community-partner` came within one commit of shipping `/contact/` — a page that
+     does not exist — and was saved only because this rule forced the default to be the mailto
+     the fragment actually carried. Nobody was aiming at that; the rule caught it silently.
+
+   **This rule is weakest exactly where it will next be tested.** Writing a default that describes
+   where a link *should* point is a natural thing to do when wiring a page that doesn't exist yet
+   — which is precisely what Press & Gallery and Contact are. If a slot needs a destination that
+   isn't live, the honest default is the one that works today, and the intended one goes in `doc`.
+   (Hazard found and closed by Expo, SPEC-006 §3.)
    *(A `slots` object inline in `sections.json` still works and is read as a fallback, but it
    splits a wiring across two owners' files. `--check` flags a section that declares both.)*
 4. Editors change fields under **Section Content**; the plugin fills the slots.
