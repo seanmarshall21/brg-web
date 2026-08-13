@@ -389,9 +389,18 @@ async function selftest() {
     if (!nameOk) { bad++; console.log('  \x1b[31mSTALE\x1b[0m compose.mjs TOKEN_SLOT_NAME no longer excludes hyphens — ACF field names would pass validation they should fail'); }
     else console.log('  \x1b[32mok  \x1b[0m compose.mjs TOKEN_SLOT_NAME still excludes hyphens (ACF field-name rule)');
 
-    /* TOKEN_ANY must stay LOOSER than the strip class. The instant they agree, a token the
-       plugin cannot see also becomes one this tool cannot see, and the whole class of
-       "renders literally" findings goes dark. @finn made the same point from his side. */
+    /* ⚠ DO NOT "FIX" THIS BY MAKING THE TWO REGEXES AGREE. It looks like an inconsistency
+       between TOKEN_ANY and the plugin's strip class. It is not — it is an assertion that a gap
+       stays OPEN, which is unusual enough that a future reader will otherwise read it as a bug
+       and tidy it away. (@finn asked for this comment by name, having had the same thought.)
+
+       TOKEN_ANY matches what a human can TYPE between braces. The strip class matches what the
+       plugin can SEE. The difference between them is the entire "renders literally" bug class:
+       a token outside the strip class is neither filled nor removed, so it survives onto the
+       live page as visible `{{…}}` text. If the two ever converge, a token the plugin cannot
+       see becomes a token THIS TOOL cannot see either — and the failure is silent in the worst
+       possible way: slotcheck would report the section CLEAN, because it had lost the ability
+       to look, not because there was nothing there. */
     const anyLooser = ['bad.name', 'cta label', 'a b'].every((probe) => {
       const m = [...`{{${probe}}}`.matchAll(TOKEN_ANY())];
       return m.length === 1 && !phpRe.test(probe);

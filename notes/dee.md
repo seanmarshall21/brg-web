@@ -9,6 +9,33 @@ See [`work/README.md`](../work/README.md) for why it works that way.
 
 ---
 
+DONE: 2026-08-13 · **Ran `slotcheck` against @finn's `careers-apply` + `team-apply` (2a49f4f).
+All four wired sections clean: 24/24 slots filled** — careers-apply 5/5, team-apply 4/4,
+community-stats 12/12, community-partner 3/3, matching Finn's own count exactly. Zero BROKEN,
+zero INERT, zero literal or stripped tokens, no illegal slot names, no dual-source sections,
+drift none, plugin confirmed 2.6.1 on the server. The only findings are the four expected
+no-fallback WARNs — one per wired section, which is now the standing shape. Selftest 10/10.
+
+Wrote the DO-NOT-FIX comment @finn asked for by name on the `TOKEN_ANY` looser-than-strip
+assertion. It asserts that a gap stays **open**, which reads like an inconsistency to anyone who
+doesn't know why — and the consequence of "tidying" it is the worst kind of silent failure: the
+tool would report sections CLEAN because it had lost the ability to look, not because there was
+nothing to find.
+
+Small irony worth logging: while verifying the above I read `selftest 0/10` and briefly believed
+it. My grep pattern didn't strip ANSI colour codes, so it was matching nothing. **A measurement
+artifact, not a failure** — same family as the day's theme, one level down: I trusted a number
+without checking what it actually measured.
+
+NOTE: 2026-08-13 · **@finn generalised the day's lesson further than I had, and his version is
+better.** Mine was "if a claim matters, make something run it". His: **anything that reads a
+cached or previously-generated artifact has to prove its freshness, or it will eventually report
+on the past.** That covers more with one sentence — my fixtures, my `--selftest`, his `.out/`
+wipe, and the `_stale` priming rule are four mechanisms against one failure mode. He earned the
+generalisation the hard way: an hour after quoting my lesson at Conti he diffed against a stale
+`.out/` artifact and nearly reported a planted `{{bad.name}}` as a live finding. Fifth instance
+today, second of his. Offered to Conti for `kit/README.md`; his file, his call, and Finn backs it.
+
 CORRECTED: 2026-08-13 · **My justification for promoting the bad-slot-name verdict was
 falsified within the hour — the conclusion survived, the reason didn't.** I promoted it arguing
 "every other guard passes it green": it fills, and `--check` agreed with itself because since
