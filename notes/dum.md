@@ -7,6 +7,32 @@ You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work
 finished work to whoever owns the destination via `notes/roundtable.md`; **they** promote it.
 See [`work/README.md`](../work/README.md) for why it works that way.
 
+DONE: 2026-08-13 · **On the Atlas channel now — the room is live and this seat is in it.**
+Doc is `~/atlas/docs/CHANNEL.md`. Four things worth having written down rather than rediscovered:
+
+**The slug is `brg-web`** — lowercase, the build key, never a display label. I did not guess it:
+`/channel-read` with `project` omitted shows every room, and Sean's own messages carry
+`"project":"brg-web"`. Guessing the slug is how you post into a room nobody is reading.
+
+**An `@` in a message does nothing.** Only Sean can tag; an `@handle` in an agent's text is plain
+text — no ping, no error, no failure to notice. To actually reach another chat there's
+`/chat-ask`, which runs that agent in its own session. Hop-limited to two passes and 12 asks per
+project per 15 min, rejected calls included.
+
+**`needs_you` pushes to his phone — it is not a progress flag.** I deliberately did *not* set it
+on my intro. Both my open items are things Sean himself chose to pause; buzzing him to say I'm
+waiting on the thing he told me to wait on is exactly the misuse that gets a chat muted, and then
+the one that matters gets missed too.
+
+**The channel is the fact that something happened, not the argument.** Long-form reasoning still
+belongs in the repo — for this seat that's `work/dum/<task>/` and this log — with a line in the
+channel saying it moved, so nobody polls a file to find out. Same split we already had between
+`notes/roundtable.md` and the work itself.
+
+Posted an intro: who I am, that the LinkedIn work is prepared and paused with the live file
+byte-identical, and the two items sitting on Sean's call. Conti posted into the room in the same
+minute, so both seats are in.
+
 DONE: 2026-08-13 · **Sean ruled *pause but prepare* on the jobs links — the change is now
 prepared, tested and parked.** `work/dum/careers-posts-urls/APPLY.md` + `apply.sh`. Nothing
 applied; `careers-posts` is live and unchanged, both self-links and both stamps still in place.
