@@ -21,7 +21,7 @@
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -80,28 +80,62 @@ function chrome(pages, current) {
       value, so every slot resolves to its DEFAULT — which is exactly the state a page is in
       before anyone edits it in WordPress, i.e. the state that must stay byte-identical. */
 
-const escHtml = (s) => String(s)                       // esc_html() — htmlspecialchars ENT_QUOTES
+export const escHtml = (s) => String(s)                       // esc_html() — htmlspecialchars ENT_QUOTES
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
   .replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 
-const escUrl = (s) => String(s)                        // esc_url(), near enough for our URLs
+export const escUrl = (s) => String(s)                        // esc_url(), near enough for our URLs
   .replaceAll('&', '&#038;').replaceAll("'", '&#039;');
 
+/* The token grammar, in one place because THREE layers independently hard-code it and all
+   three share its blind spot: the plugin's strip (vc-clients-embed.php:217),
+   kit/build-acf.py:105, and the orphan check below. All are [a-z0-9_] — no hyphen.
+   Consequence, found by @dee 2026-08-13 and verified against the source: the fill is a
+   literal str_replace (:215), so a HYPHENATED token fills fine when it's declared, but when
+   it ISN'T declared the strip regex cannot match it, so it survives onto the live page as
+   visible `{{cta-label}}` text. Same slip as a missing underscore slot, opposite symptom —
+   one deletes copy silently, the other prints a token into a screenshot — and `--check` is
+   blind to both. Hence GRAMMAR (what the layers can see) and ANY (what a human can type). */
+const TOKEN_ANY = /\{\{([^{}]*)\}\}/g;
+const TOKEN_GRAMMAR = /^[a-z0-9_]+$/i;
+
 /* Where a section's slots come from. Deliberately two answers — see SLOTS_MODE. */
-async function slotsFor(id, manifest) {
-  if (SLOTS_MODE === 'local') {
+export async function slotsFor(id, manifest, opts = {}) {
+  const mode = opts.mode || SLOTS_MODE;
+  const read = opts.read || src;
+  let slots = {};
+  if (mode === 'local') {
     try {
-      const raw = JSON.parse(await src(`/sections/${id}/slots.json`));
+      const raw = JSON.parse(await read(`/sections/${id}/slots.json`));
       // Keys starting `_` are documentation, not slots — matches kit/build-acf.py:44.
-      return Object.fromEntries(Object.entries(raw).filter(([k]) => !k.startsWith('_')));
-    } catch { /* fall through to the inline manifest, as the deployed fill does on !$slots */ }
+      slots = Object.fromEntries(Object.entries(raw).filter(([k]) => !k.startsWith('_')));
+    } catch { /* unreadable / unparseable — same as absent, fall through */ }
   }
+  // The plugin's fallback guard is `if ( ! $slots && … )` (:182) — EMPTINESS, not absence.
+  // So a slots.json that parses but declares nothing real (e.g. still only a `_note` while
+  // it's being drafted) falls back to the inline block exactly as a missing file would.
+  // Mirroring that matters: with zero of 18 sections carrying an inline block any more, the
+  // real-world outcome is that every token gets stripped — the whole section goes blank.
+  if (Object.keys(slots).length) return slots;
   const s = (manifest.sections || []).find((x) => x.id === id);
   return (s && s.slots) || {};
 }
 
-async function fillSlots(frag, id, manifest) {
-  const slots = await slotsFor(id, manifest);
+export async function fillSlots(frag, id, manifest, opts = {}) {
+  const mode = opts.mode || SLOTS_MODE;
+  const warn = opts.onWarn || ((m) => console.warn(m));
+  const slots = await slotsFor(id, manifest, opts);
+
+  // A hyphen in a DECLARED slot name doesn't break the render (str_replace is literal) but it
+  // does produce an ACF field name with a hyphen in it — brg_<id>_cta-label — so flag it here
+  // rather than letting it surface as a field that won't save.
+  for (const key of Object.keys(slots)) {
+    if (!TOKEN_GRAMMAR.test(key)) {
+      warn(`  ⚠ ${id}: slot name '${key}' is outside [a-z0-9_] — it fills, but it generates ` +
+        `an invalid ACF field name (brg_… _${key}). Rename it with underscores.`);
+    }
+  }
+
   for (const [key, def] of Object.entries(slots)) {
     const type = (def && def.type) || 'text';
     let val = (def && def.default) || '';
@@ -110,13 +144,19 @@ async function fillSlots(frag, id, manifest) {
     else val = escHtml(val);
     frag = frag.replaceAll(`{{${key}}}`, val);
   }
-  // The plugin STRIPS any leftover token. That is the silent failure mode: a {{token}} whose
-  // slot was never declared doesn't error, it deletes the copy. Report it loudly here.
-  const orphans = [...frag.matchAll(/\{\{([a-z0-9_]+)\}\}/gi)].map((m) => m[1]);
-  if (orphans.length) {
-    console.warn(`  ⚠ ${id}: ${[...new Set(orphans)].map((o) => `{{${o}}}`).join(' ')} ` +
-      `declared by no slot (--slots=${SLOTS_MODE}) — the plugin STRIPS these, so that copy ` +
-      `disappears on render`);
+
+  // Two distinct failures, deliberately reported apart because the fix differs.
+  const leftover = [...frag.matchAll(TOKEN_ANY)].map((m) => m[1]);
+  const strippable = [...new Set(leftover.filter((t) => TOKEN_GRAMMAR.test(t)))];
+  const literal = [...new Set(leftover.filter((t) => !TOKEN_GRAMMAR.test(t)))];
+  if (strippable.length) {
+    warn(`  ⚠ ${id}: ${strippable.map((o) => `{{${o}}}`).join(' ')} declared by no slot ` +
+      `(--slots=${mode}) — the plugin STRIPS these, so that copy disappears on render`);
+  }
+  if (literal.length) {
+    warn(`  ⚠ ${id}: ${literal.map((o) => `{{${o}}}`).join(' ')} is outside the [a-z0-9_] ` +
+      `token grammar — the strip regex CANNOT match it, so if it stays undeclared it renders ` +
+      `LITERALLY on the live page. Use underscores.`);
   }
   return frag.replace(/\{\{[a-z0-9_]+\}\}/gi, '');
 }
@@ -241,4 +281,11 @@ function serve() {
   });
 }
 
-main().catch((e) => { console.error('compose failed:', e.message); process.exit(1); });
+/* Run only when invoked directly, so the fill primitives above can be imported. @dee needs
+   slotsFor()/fillSlots() for the slot↔plugin check and couldn't import them while main() ran
+   on import — and a second mirror of the same PHP function is the drift this whole tool exists
+   to catch, so importing beats copying. escHtml/escUrl/slotsFor/fillSlots are the exported
+   surface; they take {mode, read, onWarn} so a caller never inherits our argv. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((e) => { console.error('compose failed:', e.message); process.exit(1); });
+}
