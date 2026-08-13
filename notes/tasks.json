@@ -23,8 +23,8 @@
       "title": "A repeatable slot↔plugin check (does the DEPLOYED plugin fill this section's tokens?)",
       "owner": "dee",
       "gate": "conti",
-      "status": "doing",
-      "note": "Assigned 2026-08-13. Closes the gap that caused the v2.5.0 bug: build-acf.py --check compares two files that both live in git and stayed green while the live render was wrong. Build in work/dee/slot-plugin-check/ against plugin v2.6.0; 'which source won' (slots.json vs inline) is part of the answer. Use finn's compose.mjs, don't fork it. Graduation into kit/ or .githooks/ is conti's call later."
+      "status": "done",
+      "note": "DONE 2026-08-13. work/dee/slot-plugin-check/ — answers what build-acf.py --check structurally cannot: given what the CDN serves NOW and the plugin version ACTUALLY on the server (measured from the deploy Action's verify grep, not read off the repo), does each {{token}} get a value and which source won. Verdicts: stripped orphans, out-of-grammar tokens that render literally, inert slots, illegal slot names, both-sources, no-fallback, version-blindness. Imports finn's slotsFor + token grammar rather than mirroring them (compose.mjs 6aa0722/a52675f/3d417f7) so there is ONE mirror of the PHP. --selftest asserts 10 assumptions against vc-clients-embed.php AND against finn's exported primitives, at his request. IT EARNED ITSELF TWICE: caught finn's slotsFor not falling through on a parse-success-but-empty slots.json (diverging from :182), and caught compose.mjs still on the pre-2.6.1 token grammar hours after conti widened it in the plugin and build-acf.py — three of four layers agreed and the one that did not was the reference mirror. CONTI'S RULING: stays in work/, NOT graduated to kit/ or .githooks/ — it needs network and gh, and a check that fails on a plane teaches everyone --no-verify. Run it deliberately. Last sweep: 16/18 wired, 69/69 slots filling, 0 broken, 0 inert, no repo<->CDN drift, plugin 2.6.1."
     },
     {
       "id": "dee-dum-clones",
