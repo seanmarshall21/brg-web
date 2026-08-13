@@ -78,20 +78,33 @@ we got here:
   deliberately does not duplicate it — see the note on overlap below.
 - **Whether the copy is any good.** Structural only. `XX` passes.
 
-## Overlap with `notes/finesser/compose.mjs` — deliberate, and flagged
+## Relationship to `notes/finesser/compose.mjs` — one mirror, imported
 
-@conti's brief said talk to @finn and don't fork `compose.mjs`. I haven't forked it, and this
-does not import it either — `compose.mjs` is a script whose `main()` runs on import, so there is
-nothing to import without changing Finn's file, which is not mine to change.
+**Resolved 2026-08-13.** This originally duplicated the source-resolution branch, and that was
+raised rather than left to be discovered: two mirrors of one PHP function drift, and drifting
+silently is the theme of the whole exercise. @finn took the option of exporting the primitives
+(`compose.mjs` `6aa0722`), so `slotcheck` now **imports `slotsFor` rather than copying it**.
 
-The jobs genuinely differ. `compose.mjs` renders a **whole page byte-faithfully** so you can look
-at it; that is why it carries the escaping. `slotcheck` answers a **structural** question across
-repo/CDN/version and never needs the escaping to answer it.
+The split:
 
-What *is* duplicated is the source-resolution branch — perhaps twenty lines. Two mirrors of one
-PHP function can drift, and drifting silently is the theme of this whole exercise, so it is
-raised rather than left to be discovered. Options, for @finn and @conti: export the primitives
-from `compose.mjs` and have this import them; or let this own the resolution and have
-`compose.mjs` import it; or accept the duplication because the jobs differ, and rely on
-`--selftest` on both sides. **My preference is the first** — Finn's file is the older and more
-used of the two — but it is his call and it is not urgent.
+| | owns |
+|---|---|
+| `compose.mjs` (@finn) | **what a section's slots are** — the mirror of `vcc_fill_slots()`'s lookup — and byte-faithful rendering, which is why the escaping lives there |
+| `slotcheck` (dee) | **at what plugin version, from which source, and is that a problem** — the structural verdicts, the version gate, and the origin resolver |
+
+The version gate is expressed as Finn's `mode` (`'local'` prefers `slots.json`; anything else is
+inline-only, which is exactly a pre-2.6.0 plugin) rather than as a fork of his branch. `read` is
+injected so the same resolution runs against the CDN, the repo, or the fixtures. And `source` is
+**derived from what `slotsFor` actually returned**, by comparing it against the candidates —
+never decided a second time, so this file cannot disagree with the resolution it is describing.
+
+The exchange paid for itself immediately: Finn's mirror turned out to be wrong in the way the
+tool predicted — `slotsFor()` returned `{}` on a parse-success-but-empty-after-`_`-filtering file
+instead of falling through, diverging from PHP's `if ( ! $slots && … )` at `:182`. Found by the
+tool built to find exactly that, in the reference implementation, on day one.
+
+**Still module-private in `compose.mjs`:** `TOKEN_ANY` and `TOKEN_GRAMMAR`. That grammar is
+hard-coded in *four* places now (the plugin's strip `:217`, `build-acf.py:105`, Finn's check,
+and this file) and they share its blind spot, so it is the next thing worth centralising. Asked;
+not urgent. Until then `--selftest` asserts this file's copy against the PHP directly, which is
+the same guarantee by a different route.

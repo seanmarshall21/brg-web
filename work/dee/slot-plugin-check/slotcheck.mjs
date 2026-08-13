@@ -34,6 +34,12 @@ import { execFile } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { promisify } from 'node:util';
+/* Source resolution is @finn's, imported not copied (compose.mjs 6aa0722 exports it for this).
+   It is one PHP function — vcc_fill_slots()'s slots lookup — and it should have one mirror;
+   two would drift silently, which is the thing this tool exists to catch. The split: Finn owns
+   "what are this section's slots", this file owns "at what plugin version, from which source,
+   and is that a problem". His escaping stays his — byte-parity is compose.mjs's job, not mine. */
+import { slotsFor } from '../../../notes/finesser/compose.mjs';
 
 const pexec = promisify(execFile);
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -114,30 +120,39 @@ async function fetchOne(path) {
 async function resolveSlots(id, manifest, version) {
   const canReadSlotsJson = cmp(version, SLOTS_JSON_SINCE) >= 0;
   const notes = [];
-  let slots = {};
-  let source = null;
 
   const rawJson = await fetchOne(`/sections/${encodeURIComponent(id)}/slots.json`);
   const jsonPresent = rawJson !== '';
 
+  /* THE resolution — Finn's mirror, not a second one. `mode:'local'` means "prefer
+     sections/<id>/slots.json"; any other value skips it, which is exactly what a pre-2.6.0
+     plugin does, so the version gate is expressed as the mode rather than as a fork of his
+     logic. `read` is our own origin resolver (CDN / repo / fixtures). */
+  const slots = await slotsFor(id, manifest, {
+    mode: canReadSlotsJson ? 'local' : 'inline-only',
+    read: fetchOne,
+    onWarn: (m) => notes.push(String(m).trim()),
+  });
+
+  /* Diagnostics only — why the resolution came out that way. Deliberately NOT a second
+     decision: `source` is derived from what Finn's slotsFor actually returned, by comparing
+     it to the candidates, so this can never disagree with the resolution it is describing. */
+  let fromJson = {};
   if (canReadSlotsJson && jsonPresent) {
     let d = null;
-    try { d = JSON.parse(rawJson); } catch { notes.push('slots.json is not valid JSON — the plugin json_decodes to null and falls through to the inline block'); }
+    try { d = JSON.parse(rawJson); } catch { notes.push('slots.json is not valid JSON — the plugin json_decodes to null and falls through'); }
     if (d && typeof d === 'object') {
       if (Array.isArray(d)) notes.push('slots.json is a JSON ARRAY, not an object — PHP is_array() accepts it and the keys become 0,1,2…, so the slots are numbered, not named');
-      // `_`-prefixed keys are documentation, not slots (php :178, build-acf.py:44).
       const kept = Object.entries(d).filter(([k]) => !String(k).startsWith('_'));
       if (kept.length !== Object.keys(d).length) notes.push(`${Object.keys(d).length - kept.length} \`_\`-prefixed key(s) correctly ignored as documentation`);
-      if (kept.length) { slots = Object.fromEntries(kept); source = 'slots.json'; }
-      else notes.push('slots.json declares no non-`_` keys, so $slots stays empty and the plugin FALLS BACK to the inline block');
+      fromJson = Object.fromEntries(kept);
+      if (!kept.length) notes.push('slots.json declares no non-`_` keys, so $slots stays empty and the plugin falls back — and with no inline block left anywhere, that fallback now finds NOTHING, so every token strips and the section renders blank');
     }
   }
-
-  // php :182 — `if ( ! $slots && ... )`. The fallback is on EMPTINESS, not on absence.
-  if (!Object.keys(slots).length) {
-    const inline = (manifest.sections || []).find((s) => s.id === id)?.slots;
-    if (inline && Object.keys(inline).length) { slots = inline; source = 'sections.json (inline)'; }
-  }
+  const keys = Object.keys(slots);
+  const sameAsJson = keys.length && keys.length === Object.keys(fromJson).length
+    && keys.every((k) => k in fromJson);
+  const source = !keys.length ? null : sameAsJson ? 'slots.json' : 'sections.json (inline)';
 
   if (jsonPresent && !canReadSlotsJson) {
     notes.push(`slots.json is on the CDN but the deployed plugin is ${version} — it cannot read it (needs ${SLOTS_JSON_SINCE}+)`);

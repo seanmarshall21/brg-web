@@ -9,6 +9,36 @@ See [`work/README.md`](../work/README.md) for why it works that way.
 
 ---
 
+DONE: 2026-08-13 · **Closed the `compose.mjs` duplication — `slotcheck` now imports @finn's
+`slotsFor` instead of mirroring it.** He took option 1 and exported the primitives (`6aa0722`),
+so the ~20 lines I'd flagged are gone rather than merely documented. Split: Finn owns *what a
+section's slots are*; I own *at what plugin version, from which source, and is that a problem*.
+The version gate rides on his `mode` (`'local'` prefers slots.json, anything else is inline-only
+= a pre-2.6.0 plugin) rather than forking his branch, and `read` is injected so the same
+resolution runs against CDN / repo / fixtures. Crucially **`source` is now derived from what
+`slotsFor` actually returned**, by comparing it to the candidates — not decided a second time, so
+this file cannot disagree with the resolution it is describing.
+
+**The fixtures earned their keep on exactly the change they were built for.** Every verdict is
+identical across the import — 3 clean / 4 findings, and the 2.5.0 regression still reproduces.
+Without them, "I refactored the resolution and it still looks fine" would have been an opinion.
+
+**And the exchange paid for itself: Finn's mirror was already wrong**, in the way the tool
+predicts. `slotsFor()` returned `{}` on a parse-success-but-empty-after-`_`-filtering file
+instead of falling through, diverging from `if ( ! $slots && … )` at `:182`. The tool built to
+catch silent divergence caught one in the reference implementation on day one.
+
+FIXED: 2026-08-13 · **My own docs had gone stale, which is the failure I keep warning about.**
+FINDINGS.md quoted a 2.5.0 run of `ok-wired` that no longer reproduced — I'd given that fixture
+an inline fallback *after* writing the doc, so the quoted output was true once and wasn't any
+more. Re-ran and quoted the real text. It is a **better** demo than the one I lost: at 2.5.0
+`ok-wired` fills **2/2 from the inline block while silently ignoring slots.json** — it looks
+healthy and is one `sections.json` deletion (step 3 of the standard wiring order) from blank.
+That is the dangerous shape, and it is the argument for reporting the resolved source on every
+section rather than only the broken ones. Kept the strip-everything shape too, on a fixture with
+no inline block. **Same lesson family as the `_stale` correction: quoted tool output is a copy,
+and copies go stale silently — re-run before shipping the doc.**
+
 DONE: 2026-08-13 · **Built `slotcheck` — @conti's assignment, the slot↔plugin check.**
 `work/dee/slot-plugin-check/`. Answers the question `build-acf.py --check` structurally cannot:
 given what the **CDN serves now** and the plugin version **actually on the server**, does each

@@ -98,17 +98,32 @@ against — the checker would have reported "all clean" whether or not it worked
 against seven synthetic sections in `fixtures/`, one per failure mode: 3 clean, 4 with findings,
 each firing exactly the finding it was built to trigger and nothing else.
 
-The sharpest proof is the regression itself. **Identical files, only the version changed:**
+The sharpest proof is the regression itself. **Identical files, only the version changed** — and
+it reproduces in both of its shapes, which turn out to be different problems:
 
 ```
 $ node slotcheck.mjs --from=fixtures --plugin=2.6.0 ok-wired
   ok-wired   slots from slots.json · 2/2 filled   ok
 
 $ node slotcheck.mjs --from=fixtures --plugin=2.5.0 ok-wired
-  ok-wired   slots from nowhere · 0/0 filled
-    BROKEN {{heading}} {{sub}} — the plugin DELETES this copy on render
+  ok-wired   slots from sections.json (inline) · 2/2 filled
     BROKEN slots.json is served but the DEPLOYED plugin (2.5.0) reads only the inline block
 ```
 
-That is the bug that shipped, reproduced from the version number alone. It is also the case
-`build-acf.py --check` cannot reach in principle, because nothing about it is visible in the repo.
+**That is the dangerous shape, and it is dangerous precisely because it looks fine.** The section
+still fills 2/2 — from the *inline* block, silently, while the `slots.json` someone just wrote is
+ignored. Nothing about the render says so. It is one `sections.json` deletion away from blank,
+and that deletion is step 3 of the standard wiring order. This is why the tool reports the
+resolved source for every section rather than only for broken ones.
+
+Remove the inline block and the same version shows the shape that actually shipped:
+
+```
+$ node slotcheck.mjs --from=fixtures --plugin=2.5.0 orphan-token
+  orphan-token   slots from nowhere · 0/0 filled
+    BROKEN {{heading}} {{never_declared}} — the plugin DELETES this copy on render
+    BROKEN slots.json is served but the DEPLOYED plugin (2.5.0) reads only the inline block
+```
+
+Both are reproduced from the version number alone, and both are cases `build-acf.py --check`
+cannot reach in principle — nothing about either is visible in the repo.
