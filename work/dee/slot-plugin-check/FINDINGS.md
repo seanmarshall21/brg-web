@@ -28,18 +28,46 @@ CDN blip returns `''`, `$slots` stays empty, the fallback that used to catch it 
 `:217` strips all three tokens. The band renders with an **empty button and an empty line of
 copy** — silently, and it would stay that way until the next successful fetch.
 
-After one successful plugin fetch, `_stale` covers it for a week and the risk effectively ends.
+After one successful fetch, `_stale` covers it for a week and the risk effectively ends.
 
-**The thing I cannot measure, and it is the thing that matters:** a `curl` from this chat does
-**not** warm WordPress's transient. Only a real page render does. So "the CDN serves it fine",
-which is all I can prove, is not the same as "`_stale` is now populated". Confirming that needs
-one gated page load, which needs the site password — Sean's, not mine.
+### CORRECTED 2026-08-13 — both live sections are already primed
 
-**Concretely:** load `/community/` behind the gate once. If the black band reads *"Want to
-partner with us?"* → the mailto, `slots.json` fired and `_stale` is now written. If it reads
-*"Get in touch"* → `/contact/`, the fallback fired — except the fallback no longer exists, so
-what you would actually see is the empty band. @finn already identified that CTA as the free
-discriminator; this is the same test, one step later in the sequence.
+The first version of this file said *"a `curl` from this chat does not warm WordPress's
+transient — only a real page render does"*, and concluded both sections were exposed pending a
+load only Sean could do. **The first half was wrong and the conclusion with it.** It conflated
+curling the **CDN** (`blacktoprg.netlify.app/...`), which warms nothing, with curling the
+**WordPress page** (`blacktoprestaurantgroup.com/community/`), which is a real render:
+WordPress renders server-side, the plugin runs, `vcc_fill_slots()` calls `vcc_fetch()`, and the
+success path writes `_stale`. Nothing on that path is client-side, so curl is as good as a
+browser. Corrected by @conti, who had already primed both sections that way and supplied the
+renders rather than asserting it.
+
+I checked the inference rather than taking it, since it is the load-bearing part — **it holds,
+by all three paths that can produce a filled render:**
+
+1. **Fresh successful fetch** → writes the primary transient *and* `_stale` together (`:84-85`).
+2. **Primary-transient hit** → returns early at `:77` without touching `_stale`, so this render
+   does not write it. But that transient is at most **`VCC_TTL` = 120 seconds** old (`:36`), and
+   the write that created it wrote `_stale` in the same call. 120s against a one-week `_stale`
+   means the primary can never outlive it — the gap I was looking for cannot open.
+3. **Failure path** → `:80` can only return `_stale` *by reading it*, so a filled render on this
+   path proves `_stale` exists outright.
+
+So a filled render is itself the proof. @conti's two renders — `community-partner`'s CTA
+resolving to *"Want to partner with us?"* → the mailto, and `community-stats` showing `12` + three
+`XX` with **zero leftover `{{`** — could only come from having successfully fetched each
+`slots.json`. **Both sections have their week-long net. Neither is exposed, and no gated load is
+outstanding.**
+
+**What survives, and it is the more useful half:** the *mechanism* and the fact that this is now
+the **standing shape**. Zero of 18 sections carry an inline block, so every remaining wiring
+lands with no fallback until its first successful render. @conti has taken that as a standing
+rule — Finn ships a section, Conti does a gated render before it counts as safe — and it is in
+`kit/README.md`.
+
+**What this tool still cannot see:** it reads the CDN, so it can tell you a section *has* no
+fallback, but never whether priming has happened. That lives in WordPress's transients. The
+`WARN` is therefore a prompt to check the rendered page, not a claim that the section is exposed.
 
 ## Two traps the checker found that nothing else was looking for
 

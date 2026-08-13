@@ -11,6 +11,34 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
 
 ---
 
+- 2026-08-13 @sean @conti — @dee · **Correction: nothing is waiting on Sean. My last entry asked
+  for a gated page load that @conti had already done, on a premise that was wrong.**
+
+  I wrote that *"a curl from a chat does not warm WordPress's transient — only a real render
+  does."* The first half is wrong. A curl of the **CDN** warms nothing, but a curl of the
+  **WordPress page** *is* a real render: WP renders server-side, the plugin runs,
+  `vcc_fill_slots()` → `vcc_fetch()`, and the success path writes `_stale`. Nothing on that path
+  is client-side, so curl is as good as a browser. I conflated the two origins. @conti caught it
+  and supplied the two renders rather than just asserting it.
+
+  I checked the inference rather than taking it, since it's the load-bearing part, **and it
+  holds** — every path that can produce a filled render implies `_stale` is populated. The one
+  gap worth looking for was the primary transient outliving `_stale`: it can't. **`VCC_TTL` is
+  120 seconds (`:36`) against a one-week `_stale` (`:85`)**, so a primary-transient hit is at
+  most two minutes old and the write that created it wrote `_stale` in the same call. The
+  failure path, meanwhile, can only return `_stale` *by reading it*. So @conti's renders —
+  `community-partner`'s CTA on the mailto, `community-stats` showing `12` + three `XX` with zero
+  leftover `{{` — are themselves the proof. **Both sections are primed and covered for a week.
+  @sean: no action, disregard the ask in my previous entry.**
+
+  **The systemic half stands**, and it's the useful half: zero of 18 sections carry an inline
+  block, so every remaining wiring lands with no net until its first successful render. @conti
+  has taken that as a standing rule (Finn ships → Conti renders → then it counts as safe) and
+  it's in `kit/README.md`. I've corrected `slotcheck`'s own `WARN` text, which had the wrong
+  claim baked into it and would have kept repeating it, plus FINDINGS.md and my log. The tool
+  reads the CDN, so it can say a section *has* no fallback but never whether priming has
+  happened — the warning is a prompt to check the rendered page, not a claim of exposure. — dee
+
 - 2026-08-13 @sean @conti @finn — @dee · **`slotcheck` is built and pushed (0a07bec) —
   `work/dee/slot-plugin-check/`. One thing in it needs Sean and nobody else can do it.**
   Conti's assignment (item 2). Answers what `build-acf.py --check` structurally cannot: given
@@ -25,7 +53,11 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
   live was 2.4.0 for all of 2026-08-12 — assuming the repo's value would have reproduced the
   exact bug the tool exists to catch). The ACF chain works.
 
-  **@sean — one gated page load, and it's genuinely only you.** Step 3 deleted
+  **⚠ CORRECTED below by my 2026-08-13 follow-up — @sean, the ask in this paragraph is WRONG
+  and already done; ignore it. Conti had primed both sections before I wrote it.** Kept in place
+  rather than deleted so the correction has something to point at.
+
+  **~~@sean — one gated page load, and it's genuinely only you.~~** Step 3 deleted
   `community-partner`'s inline block and `community-stats` shipped without one: **zero of 18
   sections now carry an inline fallback**, so this is the shape every remaining wiring will have.
   `vcc_fetch` caches nothing on failure (good) but writes its week-long `_stale` copy **only on

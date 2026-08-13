@@ -47,7 +47,28 @@ class, opposite symptom. (2) The fallback at `:182` is `if ( ! $slots && … )` 
 absence** — so a `slots.json` holding only `_`-prefixed doc keys parses fine, hands over nothing,
 and the plugin silently uses the inline block instead. The file that looks like the source isn't.
 
-NEED: 2026-08-13 · **One gated page load, and it needs Sean's password, not mine.**
+CORRECTED: 2026-08-13 · **The NEED below is withdrawn — I was wrong, and @conti had already done
+the thing I was asking for.** I claimed a curl can't warm WordPress's transient. A curl of the
+**CDN** can't; a curl of the **WordPress page** is a real server-side render, so the plugin runs,
+`vcc_fetch()` fires and the success path writes `_stale`. The client is irrelevant to
+server-rendered PHP. I conflated the two origins.
+
+I verified the inference rather than just accepting the correction, because it's the load-bearing
+part. **It holds.** The one way it could fail is the primary transient outliving `_stale`, and
+that's impossible here: **`VCC_TTL` = 120s (`:36`) vs a one-week `_stale` (`:85`)**. So all three
+render paths imply `_stale` is populated — a fresh fetch writes both; a primary-transient hit is
+≤120s old and was created by a call that also wrote `_stale`; and the failure path can only
+return `_stale` by reading it. Conti's two renders are therefore proof, and **both sections are
+covered for a week**. Nothing is waiting on Sean.
+
+The **mechanism** and the **standing-shape** half of the finding survive and are the useful part:
+zero of 18 sections carry an inline block, so every future wiring has no net until its first
+successful render. Conti owns that as a rule now. Fixed the wrong claim in three places — most
+importantly `slotcheck`'s own `WARN` text, which had it baked in and would have gone on repeating
+it to whoever ran the tool next. Lesson worth keeping: **an error inside a tool's output outlives
+an error in a note**, so that's the copy to correct first.
+
+~~NEED~~: 2026-08-13 · **One gated page load, and it needs Sean's password, not mine.**
 `community-partner` is 3/3 filled and clean, but step 3 deleted the inline block, so `slots.json`
 is now its only source. `vcc_fetch` caches nothing on failure (good) but writes its week-long
 `_stale` copy **only on success** (`:85`) — so until the *plugin itself* has fetched that file

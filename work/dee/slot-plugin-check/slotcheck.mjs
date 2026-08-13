@@ -176,12 +176,21 @@ const F = {
   INERT: (k) => ({ level: 'INERT', msg: `slot(s) ${k.join(', ')} have no {{token}} in the fragment — WordPress shows the field, an editor types into it, and nothing changes on the page.` }),
   BLIND: (v) => ({ level: 'BROKEN', msg: `slots.json is served but the DEPLOYED plugin (${v}) reads only the inline block. This is the 2026-08-13 regression: if the inline block is then removed, every token is stripped and the copy renders empty.` }),
   NOSRC: () => ({ level: 'INFO', msg: 'has {{tokens}} but no slot source at all — every token is stripped, so this copy is currently missing from the page.' }),
-  /* Single point of failure. vcc_fetch() caches nothing on failure (:79-82) and writes the
-     week-long `_stale` copy only on SUCCESS (:85) — so a section whose only source is
-     slots.json, with the inline block deleted, has no fallback at all until the PLUGIN itself
-     has fetched that file successfully once. Before that, any blip means every token is
-     stripped and the copy renders empty. A curl from a chat does not warm WP's transient. */
-  NOFALLBACK: (n) => ({ level: 'WARN', msg: `slots.json is the ONLY source — the inline block in sections.json is gone, so there is no fallback. vcc_fetch writes its week-long \`_stale\` copy only after a successful fetch, so until the PLUGIN (not a curl) has fetched this file once, a transient CDN blip strips all ${n} token(s) and the copy renders EMPTY. After one successful plugin fetch, \`_stale\` covers it for a week.` }),
+  /* Single point of failure, but a narrow and closable one. vcc_fetch() caches nothing on
+     failure (:79-82) and writes the week-long `_stale` copy only on SUCCESS (:85) — so a
+     section whose only source is slots.json, with the inline block deleted, has no net until
+     one successful fetch has happened. Any blip before that strips every token.
+     PRIMING IT IS CHEAP: any server-side render of the WordPress page runs vcc_fill_slots()
+     -> vcc_fetch(), and curl is as good as a browser — WordPress renders server-side, so the
+     client is irrelevant. (An earlier version of this message said a curl could not prime it.
+     That was wrong: it conflated curling the CDN, which warms nothing, with curling the WP
+     page, which is a real render. Corrected by conti 2026-08-13, who had already primed both
+     live sections that way.)
+     A filled render is itself proof that `_stale` is populated, by all three paths: a fresh
+     fetch writes it; a primary-transient hit is at most VCC_TTL=120s old and the write that
+     created it wrote `_stale` too (120s << 1 week, so it cannot have outlived it); and the
+     failure path can only return `_stale` by reading it. */
+  NOFALLBACK: (n) => ({ level: 'WARN', msg: `slots.json is the ONLY source — the inline block in sections.json is gone, so there is no fallback. vcc_fetch writes its week-long \`_stale\` copy only on a successful fetch, so until this section has been rendered once, a transient CDN blip strips all ${n} token(s) and the copy renders EMPTY. Prime it by loading the WP page server-side (curl through the gate counts); after that \`_stale\` covers it for a week. This tool reads the CDN, so it cannot see whether priming has happened — check the rendered page.` }),
   BADKEY: (k) => ({ level: 'WARN', msg: `slot key(s) ${k.join(', ')} are not [a-z0-9_]+ — the generated ACF field name (brg_<id>_<key>) inherits the odd character, and a hyphenated token is outside the plugin's strip regex.` }),
 };
 
