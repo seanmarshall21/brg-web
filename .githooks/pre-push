@@ -89,11 +89,16 @@ if [ -f kit/build-acf.py ]; then
       fail=1
     fi
     if python3 kit/build-acf.py >/dev/null 2>&1; then
-      if git diff --quiet -- website/acf/ 2>/dev/null; then
+      # --porcelain, not `git diff`: a brand-new section's group file is UNTRACKED after
+      # regeneration, and git diff cannot see untracked files. all.acf.json would catch it
+      # anyway (it is the combined file, so it always moves too) — but only by luck, and a
+      # check that works by luck reports the wrong thing the day it doesn't.
+      acfdirty=$(git status --porcelain -- website/acf/ 2>/dev/null)
+      if [ -z "$acfdirty" ]; then
         say "acf groups current" "OK"
       else
         say "acf groups current" "STALE — regenerated, now commit them"
-        git diff --name-only -- website/acf/ | sed 's/^/      /'
+        echo "$acfdirty" | sed 's/^/      /'
         echo "      → these sections would have NO fields in WordPress. Run:"
         echo "        git add website/acf/ && git commit --amend --no-edit"
         fail=1
