@@ -19,6 +19,15 @@
     border-right:1px solid rgba(0,0,0,.16);}
   .brgw-sec--community-stats .cell:nth-child(2n){border-right:0;}
   .brgw-sec--community-stats .cell:nth-last-child(-n+2){border-bottom:0;}
+  /* ODD final cell. Without these two rules the grid breaks at any odd count > 1: the last
+     cell sits alone in the left column still carrying border-right — a vertical rule beside
+     empty space — and :nth-last-child(-n+2) above strips the bottom rule from its NEIGHBOUR
+     too, so the row-1 underline goes asymmetric. Measured by @expo (SPEC-007) at 3 cells and
+     confirmed against this rule set. Both selectors are inert at even counts, so the live
+     4-cell rendering is untouched — verified render-identical, not assumed. */
+  .brgw-sec--community-stats .cell:last-child:nth-child(odd){grid-column:1/-1;border-right:0;}
+  .brgw-sec--community-stats .grid:has(.cell:last-child:nth-child(odd)) .cell:nth-last-child(2){
+    border-bottom:1px solid rgba(0,0,0,.16);}
 }
 .brgw-sec--community-stats .fig{display:block;color:var(--teal);
   font-size:clamp(3rem,6.4vw,5.4rem);line-height:1;margin-bottom:14px;}
