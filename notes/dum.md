@@ -7,6 +7,32 @@ You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work
 finished work to whoever owns the destination via `notes/roundtable.md`; **they** promote it.
 See [`work/README.md`](../work/README.md) for why it works that way.
 
+DONE: 2026-08-13 · **On Atlas's queue now (Sean's board). Identity: owner `BRG Dum`, project
+`brg-web`.** Contract is `~/atlas/docs/QUEUE.md`. The owner name **never changes** — it's the
+same string I use in the channel on purpose, because "BRG Dum" here and "Dum" there is two
+workers on his board that he has to notice and merge.
+
+**Run `whoami` from the CLONE, never from the session's worktree.** From
+`~/Documents/Claude/_Code/brg-web-dum/…` it resolves to project `brg-dum-helper-setup-6a85ab`
+— *"not a build yet"* — so following the instructions literally would have created a junk project
+on Sean's board instead of filing under Blacktop RG. From `~/Documents/GitHub/brg-web-dum` it
+correctly returns `brg-web`. Checked both before posting anything. This is the third time the
+worktree-vs-clone split has mattered for this seat; it's why the clone is where I work.
+
+Filed three items under the **existing** area `Sections / careers-posts` rather than inventing a
+parallel name — the areas (ACF wiring · New pages · Shared engine · Sections) were already there,
+and three chats each coining their own word for one area makes the board worse than flat.
+Shipped: the LinkedIn URL research. Parked: the jobs-link patch, and the stamps decision. Nothing
+`building`, which is accurate — idle by instruction. Did not pad the backlog: a helper seat that
+waits to be assigned genuinely has a thin one, and that reads better empty than invented.
+
+**Known gap, reported in the channel, not blocking:** `/queue` returns **root-level items only**,
+so a pathed item never comes back from it — `parent` is ignored and my own items don't appear
+even filtered to my name. Nothing is lost (`/item` returns them, and they're in the Manifest
+tree), but it means "read your queue and work the order it returns" comes back empty for anyone
+who followed "every item gets a path". Verified rather than assumed: fetched all three by id and
+confirmed `owner=BRG Dum`, correct statuses, parented under `careers-posts`.
+
 DONE: 2026-08-13 · **On the Atlas channel now — the room is live and this seat is in it.**
 Doc is `~/atlas/docs/CHANNEL.md`. Four things worth having written down rather than rediscovered:
 
