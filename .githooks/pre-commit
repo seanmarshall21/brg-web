@@ -22,6 +22,13 @@ from fnmatch import fnmatch
 HERE = os.path.dirname(os.path.abspath(__file__))
 MAP = os.path.join(HERE, "territory.tsv")
 
+# Files that legitimately live at the repo root. Anything else staged there is
+# almost certainly scratch output — see the disclosure guard in main().
+ROOT_ALLOWED = {
+    ".gitignore", "CLAUDE.md", "GO-LIVE.md", "HANDOFF.md", "KICKOFF.md",
+    "MANIFESTO.md", "README.md", "SHORTCODES.md", "STATUS.md", "netlify.toml",
+}
+
 
 def git(*args):
     return subprocess.run(
@@ -67,10 +74,6 @@ def main():
     if not chat:
         return 0  # not a chat clone — nothing to enforce
 
-    if os.environ.get("FC_ALLOW_CROSS") == "1":
-        print("territory: FC_ALLOW_CROSS=1 — check skipped.")
-        return 0
-
     staged = [
         p
         for p in git(
@@ -81,9 +84,59 @@ def main():
     if not staged:
         return 0
 
+    # ── Disclosure guard ──────────────────────────────────────────────────
+    # Everything else in this hook is about the WRONG PERSON editing a file.
+    # This is about the wrong FILE existing at all, which is a different and
+    # worse failure: on 2026-08-13 a cd failed silently, a scratch run wrote a
+    # dump of the live PASSWORD-GATED page into the clone, and only luck and an
+    # untracked status stopped it. `git add -A` is banned in CLAUDE.md but that
+    # ban relies on recall, and the territory check above cannot help — an
+    # untracked file in your OWN territory passes ownership cleanly.
+    #
+    # Wrong answers can be corrected. A live page dump on a public CDN cannot.
+    scratch = []
+    for path in staged:
+        if "/" not in path and path not in ROOT_ALLOWED:
+            scratch.append((path, "new file at the repo root — scratch output lands "
+                                  "where the process ran, and that is usually here"))
+            continue
+        try:
+            with open(path, "rb") as fh:
+                head = fh.read(200_000).lower()
+        except OSError:
+            continue
+        # `startswith`, not `in`: a captured page BEGINS with the doctype. Matching
+        # anywhere made this hook flag its own source, because the literals it
+        # searches for are in it — the detector detected itself on first use.
+        if (head.lstrip().startswith(b"<!doctype html")
+                and b"wp-content" in head
+                and not path.startswith("website/")):
+            scratch.append((path, "looks like a captured WordPress page (doctype + wp-content) "
+                                  "outside website/ — a live-page dump, possibly from behind the gate"))
+
+    if scratch:
+        print()
+        print("DISCLOSURE GUARD: refusing %d staged file(s)." % len(scratch))
+        for path, why in scratch:
+            print("    !  %s" % path)
+            print("       %s" % why)
+        print()
+        print("    This one does not warn. A wrong answer can be corrected; a live page")
+        print("    dump on a public CDN cannot. Move it out of the repo, or add it to")
+        print("    ROOT_ALLOWED in this hook if it genuinely belongs at the root.")
+        print()
+        return 1
+
     rows = load_map()
     if not rows:
-        print("territory: no .githooks/territory.tsv — check skipped.")
+        print("territory: no .githooks/territory.tsv — ownership check skipped.")
+        return 0
+
+    # The override is deliberately BELOW the disclosure guard. FC_ALLOW_CROSS exists
+    # to let someone edit another seat's file after saying so out loud — it is not a
+    # licence to commit a live page dump, and before this reorder it silently was one.
+    if os.environ.get("FC_ALLOW_CROSS") == "1":
+        print("territory: FC_ALLOW_CROSS=1 — ownership check skipped (disclosure guard still ran).")
         return 0
 
     violations, unmapped = [], []

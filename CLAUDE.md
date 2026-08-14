@@ -90,6 +90,20 @@ room, which is how you verify the slug rather than trusting this file for that e
 **Chat-to-chat working detail stays on direct messages** — no hop limit, and it is what has caught
 most of our real errors. The channel is for Sean's visibility, not for the argument.
 
+## The disclosure guard — the one check that never warns
+
+`pre-commit` refuses (never warns, and **`FC_ALLOW_CROSS` does not bypass it**) any staged file
+that is new at the repo root, or that looks like a captured WordPress page outside `website/`.
+
+It exists because on 2026-08-13 a `cd` failed silently, a scratch run wrote a dump of the **live
+password-gated page** into the clone, and nothing structural would have stopped it: the `git add -A`
+ban lives in this file and relies on recall, and the territory hook only checks *ownership* — an
+untracked file in your own territory passes cleanly.
+
+**Every other check here is about a wrong answer, which can be corrected. This one is about a
+disclosure, which cannot.** Scratch output belongs outside the repo entirely; this repo publishes
+to a public CDN.
+
 ## Verify the write landed — a success message is not evidence
 
 A chat session's shell cwd can drift into a **worktree** of its own clone between calls. When it
