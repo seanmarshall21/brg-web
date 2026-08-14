@@ -27,7 +27,7 @@ permission to read — read everything, write only yours.
 | **finn** (Finesser) | The build: the five page `embed.html` fragments, `website/sections/` (fragments **and** each section's `slots.json`), `website/acf/` (generated from them), `website/assets/brgw.{css,js}`, `website/assets/vendor/` |
 | **expo** (Explorer) | Content strategy + the two unbuilt pages. Specs only: `notes/explorer.md`, `notes/explorer/` |
 | **dee** / **dum** (helpers) | Side tasks and prep: `notes/dee.md` + `work/dee/`, `notes/dum.md` + `work/dum/` |
-| **shared (`*`)** | `notes/roundtable.md`, `notes/tasks.json`, `notes/log/`, `.gitignore`, `work/README.md` |
+| **shared (`*`)** | `notes/roundtable.md`, `notes/log/`, `.gitignore`, `work/README.md` |
 | **unowned** | `website/assets/media/`, `website/mocks/` — inputs, not authored code. Whoever needs them edits them. |
 
 **One exception worth knowing:** `website/assets/brgw-nav.{css,js}` is **conti's**, despite the
@@ -79,7 +79,8 @@ No WP login, no re-upload, no builder edits for code changes. The builder is tou
 
 ## Working protocol (every turn, every chat)
 1. `git pull` (rebase — `install.sh` sets `pull.rebase true`).
-2. Read `STATUS.md`, `notes/roundtable.md`, `notes/tasks.json`, and the other chat's log.
+2. **Read your queue on the Atlas board** and work the order it returns — that order is Sean's
+   answer to "what next". Then `STATUS.md`, `notes/roundtable.md`, and the other chat's log.
 3. Do the work — **inside your territory.** Consume the shared utilities in `website/assets/`;
    never hand-roll a parallel reveal engine, slider, or doodle system.
 4. Log it: your own `notes/<role>.md` for decisions, `notes/log/` for anything shared,
@@ -111,7 +112,7 @@ quiet one — an unexplained override in the log is the signal, not the block.
 ## Crossing a territory line
 The hook stops the accident; this stops the argument.
 1. Ask in `notes/roundtable.md`, addressed to the owner (`@finn` / `@conti`).
-2. Or open a task in `notes/tasks.json` with `owner` set to whoever should do it.
+2. Or put it on the Atlas board with `owner` set to whoever should do it.
 3. The owner makes the change in their own clone. That's the default, and it's cheap —
    a request costs one round trip; an unowned edit costs a merge conflict and a bad diff.
 4. **Emergency only:** `FC_ALLOW_CROSS=1`, and say what you did in `notes/roundtable.md`
@@ -142,8 +143,11 @@ then say in the channel that you did — so nobody polls a file to find out some
 ## Shared coordination files
 - **`notes/roundtable.md`** — the cross-chat thread. Newest first, sign every entry, address
   people with `@`. This is where a chat asks another for something.
-- **`notes/tasks.json`** — the board. One entry per piece of work: `id`, `title`, `owner`,
-  `gate` (conti | sean | none), `status` (todo | doing | blocked | done), `note`.
+- **The Atlas board is the board** (project `brg-web`) — not a file in this repo. What's next,
+  who's blocked, what shipped. Sean reorders it, and `waiting_on` puts him on his own status
+  list, which is how he learns he's holding something up without being interrupted. Read it
+  before starting anything and work the order it returns.
+  *(`notes/tasks.json` is retired — it duplicated this and drifted from it within a day.)*
 - **`notes/log/`** — dated shared entries: `YYYY-MM-DD-<chat>-<slug>.md`. One file per entry
   means two chats writing on the same day never touch the same file. Add your own; never edit
   someone else's.

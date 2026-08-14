@@ -98,22 +98,20 @@ file — because scp succeeding only proves bytes moved. Auth is password (`WP_S
 run 31670042632 — v2.4.0 → v2.5.0; now on **v2.6.1**, each version verified live.** Manual `workflow_dispatch`
 is still available from the Actions tab.
 
-## Open items
-1. ~~Wire the sections for ACF.~~ **Done** — 16 sections, 62 fields live. The four hero `<h1>`s
-   were approved as editable by Sean on 2026-08-13 and are the last piece.
-2. ~~Verify the live plugin version.~~ **Done — v2.5.0 live**, all five pages, cache-busted.
-3. ~~Menu assignment.~~ **Done** — "BRG — Primary" is assigned and serving Home / Our Restaurants
-   / Team / Community / Careers, with `current-menu-item` resolving.
-4. **Real content still outstanding:** team headshots + quotes, three of four community stats
-   (still `XX`), real photography for `home-community` (2 plates) and `home-different` (3 plates),
-   `careers-posts`' job links — **paused by Sean 2026-08-13, patch prepared** in
-   `work/dum/careers-posts-urls/`. Its "834 followers" stamp cannot be verified by anyone (the
-   count is behind a login wall) and a third live opening is already missing from the page, so the
-   hand-maintained feed has demonstrably failed once.
-5. **Nav gaps vs the Temper upstream:** `register` attr (auto-invert — mechanism exists, no attr)
-   and WP submenu/dropdown support. Deferred, see `notes/upstream-fc-brands.md`.
-6. **New pages not built:** Press & Gallery, Contact.
-7. **Launch:** point the site root at `/brg-home/`, unlock the gate, retire the Oxygen splash.
+## Where the work is tracked — not here
+
+**This file describes the SYSTEM. It does not track the work.** That split is deliberate: a
+status file that lists tasks has to be reconciled by hand every time anything moves, and on
+2026-08-13 this one was calling the monoliths "still working" hours after they were deleted.
+
+- **What's next, who's blocked, what shipped → the Atlas board** (project `brg-web`). It is
+  Sean's board: he reorders it, `waiting_on` puts him on his own status list, and it pushes to
+  his phone. Read it before starting anything and work the order it returns.
+- **Cross-chat conversation → `notes/roundtable.md`** and the Atlas channel.
+- **Why a decision was made → the owning seat's log** (`notes/controller.md`, `notes/finesser.md`,
+  `notes/explorer.md`).
+- **Traps that cost real time → `kit/README.md`.** Read it before touching the ACF or shortcode
+  pipeline; every entry is an incident someone already had.
 
 ## Deploying (the loop)
 ```

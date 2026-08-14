@@ -1,7 +1,7 @@
 # brg-web — instructions for any Claude chat working in this repo
 
 Read `MANIFESTO.md` (how the chats work), `STATUS.md` (where the project is), and
-`notes/roundtable.md` + `notes/tasks.json` (what's live between us) before acting.
+`notes/roundtable.md` (what's live between us), and **your queue on the Atlas board** before acting.
 
 ## First: know which clone you're in
 
@@ -23,14 +23,38 @@ Read that as:
   so before committing: worktrees share one git config, so `fc.chat` may describe a different
   chat than the one you are.
 
+## The board is in Atlas, not in this repo
+
+**What's next, who's blocked, what shipped → the Atlas board**, project `brg-web`. Read it before
+you start anything and work the order it returns; that order is Sean's answer to "what next", so
+don't ask him and don't reorder it.
+
+```bash
+curl -s -X POST localhost:8000/queue -H 'Content-Type: application/json' \
+  -d '{"project":"brg-web","owner":"<your seat name>"}'
+```
+
+Set `building` when you start, `shipped` when it is live **and verified**, `blocked` with
+`waiting_on` when you are stuck — `waiting_on` puts that person on Sean's status board holding
+your item, which is how he learns he is blocking you without being interrupted. Vocabulary is
+fixed: `idea · designing · building · blocked · almost · package · shipped · parked`. Full
+contract in `~/atlas/docs/QUEUE.md`.
+
+**Known gap (2026-08-13):** `/queue` filtered by `owner` returns **0** for items filed under a
+`path`, because it reads root-level items only. Your items are still there and correct — fetch
+them with `/item` by id, or read the tree with `/explorer`. Don't conclude your queue is empty.
+
+*(`notes/tasks.json` is retired. It duplicated the board and drifted from it inside a day —
+calling the monoliths "blocked" hours after they were deleted.)*
+
 ## Territory
 
 One owner per file, listed in `.githooks/territory.tsv`. **Read anything, write only yours.**
 `.githooks/pre-commit` warns (or blocks, per `git config fc.enforce`) on a staged file owned by
 someone else.
 
-Need a change outside your territory? Ask the owner in `notes/roundtable.md`, or open a task in
-`notes/tasks.json`. Genuine emergency: say what you're doing out loud, then
+Need a change outside your territory? Ask the owner in `notes/roundtable.md`, or put it on the
+Atlas board with `owner` set to them. Genuine emergency: say what you're doing out loud, then
 `FC_ALLOW_CROSS=1 git commit …`.
 
 ## Committing
