@@ -1,13 +1,17 @@
-# PREPARED CHANGE — point `careers-posts`' two `View job` links at the LinkedIn jobs page
+# PREPARED CHANGES for `careers-posts` — the jobs links, and the stamps
 
-**Status: PAUSED BY SEAN, PREPARED AND READY.** *"Let's pause on the jobs links. Just prepare it
-so that we can do that when we are ready."* Nothing here has been applied. `careers-posts` is
-live and unchanged: both `/careers/` self-links and both stamps stay until Sean says go.
+Two separate changes to the same fragment. **Nothing here has been applied**; `careers-posts` is
+live and unchanged (blob `b1bb10b0`). They have different statuses and must not be bundled:
 
-**Owner of the destination: @finn** (`website/sections/` is his). Dum prepared it; Finn applies it
-in his own clone under his own review. See `FINDINGS.md` for the evidence behind it.
+| # | Change | Script | Status |
+|---|---|---|---|
+| 1 | Point the two dead `View job` links at the LinkedIn jobs page | `apply.sh` | ⏸ **Awaiting Sean's go-ahead** — *"pause on the jobs links, just prepare it"* |
+| 2 | Delete the `834 followers` / `2mo` / `5mo` stamps | `apply-stamps.sh` | ✅ **RULED YES by Sean, 2026-08-14** — needs only @finn to apply |
 
-**This is change 1 of 2, and it is deliberately standalone** — see §5.
+**Owner of the destination: @finn** (`website/sections/` is his). Dum prepared both; Finn applies
+them in his own clone under his own review. See `FINDINGS.md` for the evidence behind them.
+
+§§1–4 cover change 1. **§5 covers change 2 and the order to run them in.**
 
 ---
 
@@ -91,21 +95,52 @@ travel with this patch.
 I'm deliberately not re-verifying now — it would only have to be redone. The check belongs at
 apply time.
 
-## 5. Keep this separable from the stamp deletion
+## 5. The stamp deletion — RULED YES, also prepared
 
-Sean paused **both** the jobs links and the `834 followers` / `2mo` / `5mo` stamps without ruling
-on either individually. They are different decisions:
+**Sean ruled on 2026-08-14 01:31**, in the Atlas channel, answering Expo's question *"OK to
+delete the '834 followers' and '2mo' stamps from the careers cards?"* — **"Yes"**.
+
+That answer went to Expo, not to the seat holding this work, so nothing had moved on it. It is
+now prepared as a **separate** script:
+
+```bash
+./work/dum/careers-posts-urls/apply-stamps.sh
+```
+
+Deletes both `.meta` spans and rewrites the header bullet that documents them — left alone, the
+comment would tell the next reader the file has stamps it no longer has, and invite someone to
+put them back. The `.meta` CSS rule is deliberately left in place: two harmless lines, and
+removing them widens the diff past what Sean ruled on.
+
+**This one is not gated.** Sean has ruled; it needs only @finn applying it.
+
+### Order, if you're applying both
+
+They touch different lines and compose cleanly **in either order** — but each asserts a clean
+working tree for the file, so **commit between them**:
+
+```bash
+./work/dum/careers-posts-urls/apply-stamps.sh   # ruled — go
+git add website/sections/careers-posts/embed.html && git commit
+./work/dum/careers-posts-urls/apply.sh          # still awaiting Sean's go-ahead
+```
+
+Running the second on top of the first uncommitted is a refusal, not a corruption — verified.
+
+## 6. Why they stay two changes and not one
+
+They are different decisions, and only one of them is now cleared:
 
 - **This patch** fixes a **live dead control** — a button that navigates to the page it's already
   on. That's a defect, and it's the half with an argument behind it.
 - **The stamp deletion** is a content/design judgement (Expo's SPEC-007 §4 recommends deleting;
   `FINDINGS.md` §3 supplies the evidence that the follower count can't be verified at all).
 
-**Nothing in this folder touches the stamps**, on purpose — so a "yes" to one can't drag the
-other along, and neither can only be taken whole. The stamp change isn't prepared here because it
-wasn't asked for; say the word and it's a few minutes, and it stays a separate file when it is.
+Keeping them apart is what let the stamps ship the moment Sean ruled on them, **without** waiting
+on a jobs-link decision he has not made. Had they been one patch, his "Yes" would have been
+unactionable — that separation is now load-bearing rather than tidy.
 
-## 6. After applying
+## 7. After applying
 
 Not mine to do, listed so nothing is missed:
 

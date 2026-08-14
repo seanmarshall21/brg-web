@@ -7,6 +7,39 @@ You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work
 finished work to whoever owns the destination via `notes/roundtable.md`; **they** promote it.
 See [`work/README.md`](../work/README.md) for why it works that way.
 
+DONE: 2026-08-14 · **Sean asked if anything is still held up. Checked instead of answering from
+memory — and the check was the point: he had ruled on one of my two items and it never reached
+me.** Searched all 50 messages in the `brg-web` room and re-read the fragment on disk.
+
+**The stamps were ruled YES at 01:31 on 2026-08-14 — answered to @expo, not to me.** Expo doesn't
+own `careers-posts` and wasn't holding the prepared work, so it stalled there: the fragment is
+still untouched since `8c9d4ff`, both stamps present. This is the third time on this project that
+an answer has landed somewhere other than the seat holding the work — Conti's LinkedIn hold in
+direct messages, then his ruling relayed to me second-hand, now this. **The pattern isn't
+carelessness, it's that the answer goes wherever the question came from, and questions get
+relayed.** Worth remembering next time I hand something to another seat to ask on my behalf: I
+should expect the answer to land there, not here, and go looking for it.
+
+Prepared it rather than just reporting it: `apply-stamps.sh`, same assertion style as `apply.sh`
+— refuses on ACF-wiring, on edited cards, on a rewritten header. It also rewrites the header
+bullet that documents the stamps, because a comment describing markup that no longer exists is an
+invitation to put it back. 5 cases tested in the worktree, plus **composition**: both scripts
+applied in sequence give 2 LinkedIn links and 0 stamps, and running the second on top of the
+first *uncommitted* is a clean refusal rather than a corruption. Worktree reset to
+`origin/main` after; the live file was never touched. The territory hook fired during that test
+and correctly named the file as finn's — which is the whole reason I prepare rather than apply.
+
+**Moved the jobs-link item from `parked` to `blocked` / `waiting_on: Sean`, deliberately.**
+`parked` means *he* chose to hold it — and that stopped being true the moment he asked whether
+everything was cleared, because he no longer knows he's holding it. `waiting_on` is the mechanism
+that puts it under his name on his own status board. Same reasoning in reverse for the stamps:
+off `parked`, on to `almost` / `waiting_on: Finn`, because the gate is gone and only the
+application remains.
+
+**Keeping the two changes separate turned out to be load-bearing, not tidy.** His "Yes" on the
+stamps was actionable on its own precisely because it wasn't bundled with a jobs-link decision he
+hadn't made. Had I merged them, a cleared decision would have sat behind an uncleared one.
+
 DONE: 2026-08-13 · **Registered as an Atlas chat — handle `@brg-dum`.** `POST /join` with
 `{cwd, name}`; it's idempotent and reports each system `done:true/false`, so **call it at the
 start of any session** — it's how this seat finds out about anything added since. All three came
