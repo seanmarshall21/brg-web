@@ -79,6 +79,17 @@ fi
 #                    fields did not exist in WordPress.
 # The regenerate step REWRITES website/acf/ — that rewrite IS the fix, so on failure just
 # `git add website/acf/` and push again.
+if [ -f kit/build-kit.py ] && command -v python3 >/dev/null 2>&1; then
+  if out=$(python3 kit/build-kit.py --check 2>&1); then
+    say "kit pages --check" "OK"
+  else
+    say "kit pages --check" "STALE"
+    echo "$out" | sed 's/^/      /'
+    echo "      → run: python3 kit/build-kit.py"
+    fail=1
+  fi
+fi
+
 if [ -f kit/build-acf.py ]; then
   if command -v python3 >/dev/null 2>&1; then
     if out=$(python3 kit/build-acf.py --check 2>&1); then

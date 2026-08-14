@@ -1,0 +1,61 @@
+{
+  "_note": "What we are making and how far along it is. Rendered to /kit/builds by kit/build-kit.py. Edit this file, never the generated page. Mirrors temper/notes/builds.json. Sean or any chat may edit — it is shared. `stage` is one of: planned | building | shipped | parked. Keep `what` to one line; put the reasoning in `note`.",
+  "builds": [
+    {
+      "id": "sections",
+      "title": "The 21 section fragments",
+      "stage": "shipped",
+      "what": "Every page composed from stacked section shortcodes rather than one monolith per page.",
+      "note": "18 original + 3 for Contact. The five legacy whole-page fragments were retired on 2026-08-13 — they had drifted from the sections they duplicated while STATUS described them as working."
+    },
+    {
+      "id": "acf",
+      "title": "Editable sections (ACF)",
+      "stage": "shipped",
+      "what": "19 sections editable in wp-admin — 88 fields, no import step, a field change goes live on push.",
+      "note": "Declare a slot in sections/<id>/slots.json, run kit/build-acf.py, push. brg-acf.php fetches the generated groups from Netlify and registers them. Four sections stay as code pending repeaters."
+    },
+    {
+      "id": "repeaters",
+      "title": "Repeater support",
+      "stage": "planned",
+      "what": "Repeating rows so the crew grid, core values, LinkedIn posts and brand plates become editable.",
+      "note": "The last gap in 'anything editable at any point'. Flat slots would bake in a count we know changes — core values already went 6 to 5. Needs a repeater slot type, a repeating fill in the plugin, and a row-template convention."
+    },
+    {
+      "id": "deploy",
+      "title": "Self-deploying WordPress plugin",
+      "stage": "shipped",
+      "what": "A push touching website/wp-mu-plugin/ deploys the PHP and verifies the version that landed on the server.",
+      "note": "scp succeeding only proves bytes moved, so the run SSHes back in and greps VCC_VERSION out of the deployed file. Retired the manual plugin drop entirely."
+    },
+    {
+      "id": "contact",
+      "title": "Contact page",
+      "stage": "building",
+      "what": "Three sections, 19 slots, built and deployed — waiting on the WP page and a form destination.",
+      "note": "No map embed: a third-party map inlined into WordPress means cookies, a consent banner and a second JS engine."
+    },
+    {
+      "id": "press",
+      "title": "Press & Gallery page",
+      "stage": "planned",
+      "what": "The last page from the original seven-artboard IA that has never been built.",
+      "note": "Spec exists. Needs artwork decisions and a violet accent token that does not exist yet."
+    },
+    {
+      "id": "underline",
+      "title": "Hero underline rework",
+      "stage": "planned",
+      "what": "Size the marker to the words it sits under instead of a fixed 340px.",
+      "note": "Approved. Today the careers marker is several times wider than the word it underlines. Two MIT reference implementations supplied; the underlined text must never wrap."
+    },
+    {
+      "id": "launch",
+      "title": "Launch",
+      "stage": "parked",
+      "what": "Point the root at the home page, unlock the password gate, retire the Oxygen splash.",
+      "note": "Parked rather than blocked: the remaining work is content only — team headshots, real photography, LinkedIn job URLs."
+    }
+  ]
+}

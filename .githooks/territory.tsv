@@ -19,7 +19,7 @@ conti	.githooks/
 conti	kit/
 conti	scripts/
 conti	docs/
-conti	website/docs/
+conti	website/kit/
 conti	netlify.toml
 conti	SHORTCODES.md
 conti	MANIFESTO.md
@@ -75,6 +75,7 @@ finn	notes/finesser/
 # ── shared — every chat writes here, nobody owns it ─────────────────────────
 *	notes/roundtable.md
 *	notes/log/
+*	notes/builds.json
 *	.gitignore
 
 # ── unowned — inputs, not authored code. Whoever needs them, edits them. ────

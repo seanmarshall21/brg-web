@@ -1,0 +1,60 @@
+{
+  "_note": "What we learned — discoveries, fixes and decisions that would otherwise only exist in a commit message nobody re-reads. Rendered to /kit/log by kit/build-kit.py. ONE FILE PER WRITER (notes/log/<writer>.json) so two chats writing on the same day never touch the same file. Newest first. Mirrors temper/notes/log/.",
+  "writer": "Conti",
+  "entries": [
+    {
+      "date": "2026-08-13",
+      "title": "A content system nobody can put content into is not done",
+      "what": "Every check we had passed — 19 groups, 88 fields, the plugin reading the right source, defaults rendering — and the options page could not be saved at all. ACF's url field demands an absolute URL with a scheme, one invalid field blocks the whole page, and nine of our eleven link fields were relative paths, anchors or mailtos.",
+      "why": "Everything we verified sat upstream of the database. The first person to press Save found it in ninety seconds. Link slots now generate an ACF text field; the plugin escapes on the slot's declared type, so rendering never changed."
+    },
+    {
+      "date": "2026-08-13",
+      "title": "Green means consistent, never correct",
+      "what": "--check compares declared slots to the tokens in the fragment. Both live in this repo, so it can say nothing about what the deployed plugin does. community-stats rendered perfectly, --check was green, and twelve fields did not exist in WordPress.",
+      "why": "Every trap in kit/README.md is a way the two halves can agree and the page still be wrong. Confirm the live render; a repo-side comparison cannot reach it."
+    },
+    {
+      "date": "2026-08-13",
+      "title": "Have you made it fail on purpose yet?",
+      "what": "Both gates shipped that day nearly failed the same way. One fixture deleted a generated file from the working tree when the real failure is stale committed output, so regeneration restored a correct commit and the check was right to stay quiet. Another compared against the CDN while the change under test was local, so both sides were the same file.",
+      "why": "Neither was a bug in the check — both were fixtures that could not fail. A gate that never fires and a gate that works look identical from a green result."
+    },
+    {
+      "date": "2026-08-13",
+      "title": "Making something editable promotes every latent assumption into a live risk",
+      "what": "Approving editable hero headlines activated a clipping bug that had been harmless for days: the split-text line box holds 1.034em of ink and the display face's tallest accented capital is 1.132em. No current headline contained one.",
+      "why": "It was a fine risk while all the copy was ours and measured. It stopped being fine the moment someone could type into the field. Nobody asked what else assumed the copy was ours."
+    },
+    {
+      "date": "2026-08-13",
+      "title": "A blind tool is worse than a stale pointer",
+      "what": "Three checks reported cleanly on cases they structurally could not match: a grep for a phrase that was line-wrapped, a survey regex that cannot match a paragraph containing inline tags, and a strip regex that matched underscores but not hyphens.",
+      "why": "A stale pointer is wrong; a blind tool is confidently wrong. Before trusting a negative result, ask what the instrument cannot see — and prefer a technique with a degraded mode over one that is silently found-or-not."
+    },
+    {
+      "date": "2026-08-13",
+      "title": "Prefer dissolving a constraint to documenting it",
+      "what": "The stat grid broke at three cells and the fix that suggested itself was a note: one more number or three, never two. That constraint was our CSS imposing on Sean's content. Two rules removed it instead.",
+      "why": "Same shape as the doodles — the answer to 'a longer headline moves the marks' was to stop the marks tracking content height, not to warn an editor about headline length."
+    },
+    {
+      "date": "2026-08-13",
+      "title": "Generated output is owned by whoever owns its input",
+      "what": "The drift gate required regenerated ACF groups in the same commit as the slots.json that moved them, while the territory map said only another seat could commit that output. The rule was unsatisfiable by construction.",
+      "why": "Two of my own mechanisms disagreed and the map was the one that was wrong. Clause added later: when generated output has inputs in more than one territory, whoever moved it commits it, and says so."
+    },
+    {
+      "date": "2026-08-13",
+      "title": "A guard that ships inside the thing it guards cannot protect a stale checkout",
+      "what": "The generators refuse to run from a git worktree. But a drifted shell runs the drifted script — which, in a checkout a hundred commits behind, predates the guard entirely.",
+      "why": "The guard's coverage is a function of how current each checkout happens to be. Correct today, silently degrading, with nothing announcing the moment it stops."
+    },
+    {
+      "date": "2026-08-13",
+      "title": "One fact, one home — including our own tracking",
+      "what": "Progress was tracked in three places: the Atlas board, notes/tasks.json, and a task list inside STATUS.md. They already disagreed — tasks.json called the monoliths blocked hours after they were deleted.",
+      "why": "I wrote the file warning that a duplicated fact always drifts, and maintained an instance of it. Retired to the board; STATUS.md now describes the system and tracks nothing."
+    }
+  ]
+}
