@@ -83,7 +83,7 @@
                 "key": "field_brg_careers_apply_cta_href",
                 "label": "Button link",
                 "name": "brg_careers_apply_cta_href",
-                "type": "url",
+                "type": "text",
                 "instructions": "Defaults to the in-page anchor for the open-positions section below. A full URL works too.",
                 "required": 0,
                 "conditional_logic": 0,

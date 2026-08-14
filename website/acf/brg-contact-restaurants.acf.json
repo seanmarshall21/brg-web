@@ -68,7 +68,7 @@
                 "key": "field_brg_contact_restaurants_cta_href",
                 "label": "Button link",
                 "name": "brg_contact_restaurants_cta_href",
-                "type": "url",
+                "type": "text",
                 "instructions": "Points at the live restaurants page.",
                 "required": 0,
                 "conditional_logic": 0,

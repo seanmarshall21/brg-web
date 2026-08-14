@@ -38,7 +38,7 @@
                 "key": "field_brg_community_partner_cta_href",
                 "label": "Button link",
                 "name": "brg_community_partner_cta_href",
-                "type": "url",
+                "type": "text",
                 "instructions": "Where the button goes. A mailto: is fine — that is what ships today.",
                 "required": 0,
                 "conditional_logic": 0,

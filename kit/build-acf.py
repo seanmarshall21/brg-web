@@ -23,7 +23,19 @@ OUTDIR   = os.path.join(ROOT, 'website', 'acf')
 OPTIONS_PAGE = 'brg-section-content'
 
 # slot type -> ACF field type
-TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'url', 'image': 'image', 'html': 'wysiwyg'}
+# slot type -> ACF FIELD type. Note `url` maps to ACF `text`, deliberately.
+#
+# ACF's `url` field validates for an absolute URL with a scheme and REFUSES to save
+# anything else — and one invalid field blocks the whole options page, so a single
+# relative href makes every section on it uneditable. Our hrefs are legitimately
+# relative (`/careers/`), in-page anchors (`#open-positions`) and mailtos: 9 of the
+# 11 link slots fail that rule. The widget was simply the wrong one.
+#
+# Nothing about rendering changes. The PLUGIN escapes on the slot's declared type
+# from slots.json (`$def['type']`, :53 esc_url), not on the ACF field type — so a
+# slot stays `"type": "url"`, still goes through esc_url(), and mailto/relative/
+# anchor all survive that. Only the admin widget changes.
+TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'text', 'image': 'image', 'html': 'wysiwyg'}
 
 # TWO grammars, identical until plugin v2.6.1 and not since. See kit/README.md.
 #   STRIPPABLE  what the plugin removes, and what --check must SEE to report it.

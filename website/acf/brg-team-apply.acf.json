@@ -68,7 +68,7 @@
                 "key": "field_brg_team_apply_cta_href",
                 "label": "Button link",
                 "name": "brg_team_apply_cta_href",
-                "type": "url",
+                "type": "text",
                 "instructions": "Where the button goes. Defaults to the careers page.",
                 "required": 0,
                 "conditional_logic": 0,
