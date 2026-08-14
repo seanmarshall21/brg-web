@@ -132,6 +132,13 @@ does, a write can silently no-op — the anchor text doesn't exist on that older
 tool still reports success. It printed "logged" and committed nothing. Before trusting an edit:
 assert the anchor exists, use absolute paths, and check `git status` in the tree you meant.
 
+**The drift happens BETWEEN calls, so a `cd` at the top of one command does not protect the calls
+after it.** Only absolute paths do. And **the `kit/` generators are the dangerous case, because
+they write** — a drifted invocation produces generated output from a stale tree's inputs and
+leaves both trees clean and self-consistent, so nothing looks wrong afterwards. They now refuse
+to run outside the clone (`kit/_guard.py`, override `BRG_ALLOW_WORKTREE=1`); that guard exists
+because this happened ten times in one day and was caught by luck the tenth.
+
 This generalises past the cwd case, and it was the most common failure of 2026-08-13: **the thing
 that reports success is not the thing that did the work.** A green check, a "composed" line, a
 clean diff — each is a claim about the work, and claims go stale. See `kit/README.md`,
