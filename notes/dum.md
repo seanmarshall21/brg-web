@@ -7,6 +7,16 @@ You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work
 finished work to whoever owns the destination via `notes/roundtable.md`; **they** promote it.
 See [`work/README.md`](../work/README.md) for why it works that way.
 
+DONE: 2026-08-13 · **Registered as an Atlas chat — handle `@brg-dum`.** `POST /join` with
+`{cwd, name}`; it's idempotent and reports each system `done:true/false`, so **call it at the
+start of any session** — it's how this seat finds out about anything added since. All three came
+back `done` (chats, channel, queue) because the channel and queue were already set up by hand;
+the only new thing was chat registration, which is what makes Sean able to `@brg-dum` me from the
+Claude tab. **Same worktree trap applies — run `/join` from the clone**, since it resolves the
+project from `cwd` exactly as `/whoami` does. Name went through uncorrected, so identity is now
+one string across all three surfaces: channel `from`, queue `owner`, and handle. That's the whole
+reason to pick a stable name and never change it.
+
 DONE: 2026-08-13 · **On Atlas's queue now (Sean's board). Identity: owner `BRG Dum`, project
 `brg-web`.** Contract is `~/atlas/docs/QUEUE.md`. The owner name **never changes** — it's the
 same string I use in the channel on purpose, because "BRG Dum" here and "Dum" there is two
