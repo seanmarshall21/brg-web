@@ -109,7 +109,13 @@ const state={};                                   // id -> {slots:{}, view:'desk
 const enc=o=>encodeURIComponent(btoa(JSON.stringify(o)));
 const st=id=>state[id]||(state[id]={slots:{},view:'desktop'});
 
-function srcFor(id){const s=st(id);const q=Object.keys(s.slots).length?'#'+enc(s.slots):'';return 'preview/'+id+'.html'+q;}
+let BUMP=0;
+// The cache-buster is load-bearing, not hygiene. Changing only the HASH of an iframe src
+// is a fragment navigation: the browser does not re-execute the document, so the fill
+// never re-runs and the preview silently keeps showing the old values while the URL
+// claims otherwise. A distinct query forces a real load — which is also what makes
+// replay work, since replay is just "load it again".
+function srcFor(id){const s=st(id);const q=Object.keys(s.slots).length?'#'+enc(s.slots):'';return 'preview/'+id+'.html?r='+(++BUMP)+q;}
 
 function shortcodeFor(sec){
   const s=st(sec.id), parts=[];
