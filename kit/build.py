@@ -9,6 +9,9 @@ from fc-brands (temper/kit). Edit the registry, then run this — never edit the
 """
 import json, hashlib, sys, os, html, datetime
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _guard import refuse_if_worktree
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REG  = os.path.join(ROOT, 'kit', 'registry.json')
 IDX  = os.path.join(ROOT, 'docs', 'shortcode-index.html')
@@ -123,6 +126,7 @@ def stamp():
     return "registry-generated"   # no wall-clock: keep output deterministic for --check
 
 def main():
+    refuse_if_worktree('kit/build.py')
     mode = sys.argv[1] if len(sys.argv) > 1 else ''
     reg = json.load(open(REG))
     comps = reg['components']

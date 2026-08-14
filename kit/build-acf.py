@@ -14,6 +14,9 @@ there is NO manual import: declare a slot, run this, push.
 """
 import json, os, re, sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _guard import refuse_if_worktree
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECTIONS = os.path.join(ROOT, 'website', 'sections.json')
 OUTDIR   = os.path.join(ROOT, 'website', 'acf')
@@ -149,6 +152,7 @@ def check():
 
 
 def main():
+    refuse_if_worktree('kit/build-acf.py')
     if '--check' in sys.argv:
         sys.exit(1 if check() else 0)
 
