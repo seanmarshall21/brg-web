@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Home — hero — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: home-hero  →  [brg_home-hero]
+     Matches website/mocks/brg_home-hero.
+     The background is ONE pre-composed collage — assets/media/bg/base/base-*.webp — not the
+     four separately-positioned plates this had before. The spray crown is baked into that
+     artwork top-right, so there is no crown asset to extract or place. Shipped at 7 widths
+     via srcset so a phone pulls base-390 rather than the 800KB base-1920.
+     The underline is Sean's hand-drawn line-home-lg.svg, wiped in left→right per SPEC-003
+     (a scaleX would stretch the taper; a clip wipe reveals it at true width). -->
+<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" aria-label="Blacktop Restaurant Group">
+<style>
+.brgw-sec--home-hero{position:relative;overflow:hidden;background:var(--bg2);
+  min-height:88vh;display:grid;place-items:center;
+  padding:clamp(90px,14vh,160px) var(--pad) clamp(70px,10vh,120px);}
+
+.brgw-sec--home-hero .plate{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  z-index:0;opacity:0;filter:grayscale(1) contrast(1.06);transform:scale(1.06);}
+.brgw-sec--home-hero.is-in .plate{
+  animation:brgw-hh-in 2.2s cubic-bezier(.16,.72,.2,1) both, brgw-hh-drift 46s ease-in-out 2.2s infinite;}
+/* Veil + grain: the comp sits the collage well back so the headline carries. */
+.brgw-sec--home-hero .veil{position:absolute;inset:0;z-index:1;
+  background:radial-gradient(125% 95% at 50% 42%, rgba(19,18,16,.58), rgba(19,18,16,.9) 82%);}
+.brgw-sec--home-hero .grit{position:absolute;inset:-4%;z-index:1;opacity:.4;mix-blend-mode:overlay;
+  background:center/cover no-repeat url('https://blacktoprg.netlify.app/assets/media/bg/grit.webp');
+  animation:brgw-hh-drift 52s ease-in-out infinite;}
+
+@keyframes brgw-hh-in{0%{opacity:0;transform:scale(1.16);}100%{opacity:.42;transform:scale(1.06);}}
+@keyframes brgw-hh-drift{0%,100%{transform:scale(1.06) translate3d(0,0,0);}50%{transform:scale(1.09) translate3d(-1%,.7%,0);}}
+
+.brgw-sec--home-hero > *:not(.bg){position:relative;z-index:2;}
+
+/* Icon stack — percentages lifted from the splash so the marks nest identically. */
+.brgw-sec--home-hero .icons{position:relative;margin:0 auto clamp(18px,2.4vw,34px);
+  width:clamp(112px,min(13vw,16vh),190px);aspect-ratio:303/317;}
+.brgw-sec--home-hero .ic{position:absolute;}
+.brgw-sec--home-hero .ic img{width:100%;height:auto;display:block;transform-origin:center;
+  animation:brgw-jit 1.35s steps(1,end) infinite;}
+.brgw-sec--home-hero .ic--smiley{left:37.6%;top:2.4%;width:60.8%;z-index:1;}
+.brgw-sec--home-hero .ic--text  {left:22.2%;top:46.2%;width:77.6%;z-index:2;}
+.brgw-sec--home-hero .ic--bolt  {left:0;    top:24.8%;width:30.8%;z-index:4;}
+.brgw-sec--home-hero .ic--ast   {left:31%;  top:0;    width:18.7%;z-index:5;}
+/* Staggered clocks so the four never tick in unison — that unison is what makes a
+   looping cluster read as one flat sprite instead of four separate marks. */
+.brgw-sec--home-hero .ic--text img{animation-duration:1.15s;}
+.brgw-sec--home-hero .ic--bolt img{animation-duration:1.6s;}
+.brgw-sec--home-hero .ic--ast img{animation:brgw-spin 1.9s steps(1,end) infinite;}
+@media (prefers-reduced-motion:reduce){ .brgw-sec--home-hero .ic img{animation:none!important;} }
+.brgw-sec--home-hero .head{max-width:min(94%,1180px);margin-inline:auto;}
+.brgw-sec--home-hero h1{font-size:clamp(2.3rem,5.4vw,4.7rem);max-width:none;}
+/* Hand-drawn underline, tucked under the tail of line 2 as in the comp. */
+.brgw-sec--home-hero .uline{display:block;width:min(58%,640px);margin:.06em clamp(0px,3vw,66px) 0 auto;
+  height:auto;clip-path:inset(0 100% 0 0);}
+.brgw-sec--home-hero.is-in .uline{clip-path:inset(0 0 0 0);
+  transition:clip-path .85s cubic-bezier(.4,0,.2,1) .6s;}
+.brgw-sec--home-hero .sub{font-size:clamp(1rem,1.3vw,1.24rem);max-width:48ch;margin:clamp(20px,2.8vw,34px) auto 0;}
+/* The comp has the tagline WHITE, not yellow. */
+.brgw-sec--home-hero .tag{font-size:clamp(1.25rem,2.3vw,2.05rem);color:var(--white);margin:12px auto 32px;}
+.brgw-sec--home-hero .btn{border:3px solid var(--ink);}
+
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--home-hero .plate{opacity:.42!important;animation:none!important;transform:none!important;}
+  .brgw-sec--home-hero .grit{animation:none!important;}
+  .brgw-sec--home-hero .uline{clip-path:none!important;}
+}
+</style>
+  <div class="bg" aria-hidden="true">
+    <img class="plate" alt="" decoding="async" data-brgw-parallax=".55"
+      src="https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp"
+      srcset="https://blacktoprg.netlify.app/assets/media/bg/base/base-390.webp 390w,
+              https://blacktoprg.netlify.app/assets/media/bg/base/base-480.webp 480w,
+              https://blacktoprg.netlify.app/assets/media/bg/base/base-768.webp 768w,
+              https://blacktoprg.netlify.app/assets/media/bg/base/base-992.webp 992w,
+              https://blacktoprg.netlify.app/assets/media/bg/base/base-1120.webp 1120w,
+              https://blacktoprg.netlify.app/assets/media/bg/base/base-1440.webp 1440w,
+              https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp 1920w"
+      sizes="100vw" width="1920" height="1340">
+    <div class="grit"></div>
+    <div class="veil"></div>
+  </div>
+
+  <!-- Splash icon cluster: same four marks, same stacking percentages as
+       css/brg-coming-soon.css (.brg-icons/.brg-ic), each jittering on its own clock. -->
+  <div class="icons anim-up" aria-hidden="true">
+    <span class="ic ic--smiley"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-smile.svg" alt="" width="185" height="175"></span>
+    <span class="ic ic--text"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-brg.svg" alt="" width="236" height="171"></span>
+    <span class="ic ic--bolt"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-bolt.svg" alt="" width="94" height="176"></span>
+    <span class="ic ic--ast"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-ast.svg" alt="" width="57" height="55"></span>
+  </div>
+
+  <div class="head">
+    <h1 class="blanco anim-head">We're in the business<br>of making your day great.</h1>
+    <img class="uline anim-up" aria-hidden="true" alt="" width="845" height="28"
+         src="https://blacktoprg.netlify.app/assets/media/lines/line-home-lg.svg">
+  </div>
+  <p class="sub anim-up">{{sub}}</p>
+  <p class="tag blanco anim-up">{{tagline}}</p>
+  <a class="btn anim-cta" href="/our-restaurants/">Explore Our Restaurants</a>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience."};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

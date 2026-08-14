@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Community — by the numbers — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: community-stats  →  [brg_community-stats]
+     Light section, 2×2 with hairline rules and no outer border — same rule technique as
+     home-values. Figures are Blanco teal.
+     ACF-editable (slots.json beside this file): all four figures AND their labels, so the
+     three XX figures are now fixable in wp-admin with no push. Each label is TWO text slots,
+     not one — the <br> stays here in the markup because the comp's two-line rhythm is layout,
+     not content, and a single rich-text slot would arrive wrapped in <p> and break `.cell p`. -->
+<section class="brgw-sec brgw-sec--community-stats reveal" aria-label="Community by the numbers">
+<style>
+.brgw-sec--community-stats{background:var(--white);color:var(--ink);
+  padding:clamp(70px,8vw,116px) var(--pad);}
+.brgw-sec--community-stats .grid{display:grid;grid-template-columns:1fr;
+  max-width:1080px;margin-inline:auto;}
+@media(min-width:700px){ .brgw-sec--community-stats .grid{grid-template-columns:1fr 1fr;} }
+.brgw-sec--community-stats .cell{text-align:center;padding:clamp(28px,3.4vw,52px) clamp(20px,2.6vw,40px);
+  border-top:1px solid rgba(0,0,0,.16);}
+@media(min-width:700px){
+  .brgw-sec--community-stats .cell{border-top:0;border-bottom:1px solid rgba(0,0,0,.16);
+    border-right:1px solid rgba(0,0,0,.16);}
+  .brgw-sec--community-stats .cell:nth-child(2n){border-right:0;}
+  .brgw-sec--community-stats .cell:nth-last-child(-n+2){border-bottom:0;}
+  /* ODD final cell. Without these two rules the grid breaks at any odd count > 1: the last
+     cell sits alone in the left column still carrying border-right — a vertical rule beside
+     empty space — and :nth-last-child(-n+2) above strips the bottom rule from its NEIGHBOUR
+     too, so the row-1 underline goes asymmetric. Measured by @expo (SPEC-007) at 3 cells and
+     confirmed against this rule set. Both selectors are inert at even counts, so the live
+     4-cell rendering is untouched — verified render-identical, not assumed. */
+  .brgw-sec--community-stats .cell:last-child:nth-child(odd){grid-column:1/-1;border-right:0;}
+  .brgw-sec--community-stats .grid:has(.cell:last-child:nth-child(odd)) .cell:nth-last-child(2){
+    border-bottom:1px solid rgba(0,0,0,.16);}
+}
+.brgw-sec--community-stats .fig{display:block;color:var(--teal);
+  font-size:clamp(3rem,6.4vw,5.4rem);line-height:1;margin-bottom:14px;}
+.brgw-sec--community-stats .cell p{font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.5;opacity:.86;}
+</style>
+  <div class="grid">
+    <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_1_fig}}</span><p>{{stat_1_line1}}<br>{{stat_1_line2}}</p></div>
+    <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_2_fig}}</span><p>{{stat_2_line1}}<br>{{stat_2_line2}}</p></div>
+    <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_3_fig}}</span><p>{{stat_3_line1}}<br>{{stat_3_line2}}</p></div>
+    <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_4_fig}}</span><p>{{stat_4_line1}}<br>{{stat_4_line2}}</p></div>
+  </div>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"stat_1_fig": "12", "stat_1_line1": "locations embedded in", "stat_1_line2": "SD & OC communities", "stat_2_fig": "XX", "stat_2_line1": "local organizations", "stat_2_line2": "supported annually", "stat_3_fig": "XX", "stat_3_line1": "meals/dollars", "stat_3_line2": "donated", "stat_4_fig": "XX", "stat_4_line1": "giveback events", "stat_4_line2": "per year"};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

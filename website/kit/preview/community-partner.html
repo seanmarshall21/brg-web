@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Community — partner with us — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: community-partner  →  [brg_community-partner]
+     Short light closer: black button, one line of copy beneath. -->
+<section class="brgw-sec brgw-sec--community-partner reveal" aria-label="Partner with us">
+<style>
+.brgw-sec--community-partner{background:var(--white);color:var(--ink);text-align:center;
+  padding:clamp(30px,4vw,56px) var(--pad) clamp(60px,7vw,96px);}
+.brgw-sec--community-partner .btn{background:var(--ink);color:var(--white);}
+.brgw-sec--community-partner .sub{max-width:62ch;margin:clamp(20px,2.4vw,30px) auto 0;
+  font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.6;opacity:.86;}
+</style>
+  <a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a>
+  <p class="sub anim-up">{{sub}}</p>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"cta_label": "Want to partner with us?", "cta_href": "mailto:hello@blacktoprg.com?subject=Community%20partnership", "sub": "Whether you're a nonprofit, school, or local organization \u2014 we'd love to talk."};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Careers — open positions — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: careers-positions  →  [brg_careers-positions]
+     Yellow band. The surfer cutout bleeds off the right edge AND up over the seam into
+     careers-apply above — in the comp its fin is visible in that section. It lives here
+     rather than there so the overlap paints in the right order: this shell is a later
+     sibling, so it draws on top of the section above without either needing z-index. -->
+<section class="brgw-sec brgw-sec--careers-positions reveal" id="open-positions" aria-label="Open positions">
+<style>
+.brgw-sec--careers-positions{position:relative;background:var(--yellow);color:var(--ink);
+  text-align:center;padding:clamp(58px,6.5vw,86px) var(--pad) clamp(58px,6.5vw,86px);
+  border-bottom:10px solid var(--ink);}
+/* Tonal watermark — the brand mark a shade lighter than the band, as in the comp. */
+.brgw-sec--careers-positions::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:#FFF04D;
+  -webkit-mask:url('https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-blk.svg') 66% 46%/auto 132% no-repeat;
+  mask:url('https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-blk.svg') 66% 46%/auto 132% no-repeat;opacity:.55;}
+.brgw-sec--careers-positions > *{position:relative;z-index:2;}
+
+.brgw-sec--careers-positions h2{font-size:clamp(1.9rem,4.4vw,3.7rem);text-transform:uppercase;
+  max-width:20ch;margin:0 auto;}
+.brgw-sec--careers-positions .sub{max-width:56ch;margin:clamp(20px,2.4vw,32px) auto 0;
+  font-size:clamp(.98rem,1.15vw,1.1rem);line-height:1.6;opacity:.88;}
+.brgw-sec--careers-positions .btn{background:var(--ink);color:var(--white);
+  margin-top:clamp(28px,3.4vw,44px);}
+
+/* Cutout: overflows the top edge on purpose. Hidden under 900px — at phone widths it
+   would cover the copy rather than sit beside it. */
+.brgw-sec--careers-positions .surfer{position:absolute;right:0;bottom:0;z-index:1;
+  width:clamp(220px,26vw,430px);pointer-events:none;}
+.brgw-sec--careers-positions .surfer img{width:100%;height:auto;display:block;
+  filter:grayscale(1) contrast(1.06);}
+@media(max-width:900px){ .brgw-sec--careers-positions .surfer{display:none;} }
+</style>
+  <h2 class="blanco anim-head" data-head="words">{{heading}}</h2>
+  <p class="sub anim-up">{{sub}}</p>
+  <a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a>
+  <span class="surfer" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/imgs/brg-srfr-img-crop.png" alt="" width="578" height="709"></span>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"heading": "Ready to join the crew?", "sub": "Browse our open roles below \u2014 from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co.", "cta_label": "Open Positions", "cta_href": "/careers/#roles"};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

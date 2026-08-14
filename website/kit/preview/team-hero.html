@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Team — hero — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: team-hero  →  [brg_team-hero] -->
+<section class="brgw-sec brgw-sec--team-hero brgw-hero reveal" aria-label="Team">
+<style>
+.brgw-sec--team-hero{overflow:hidden;}
+.brgw-sec--team-hero .brgw-uline{color:var(--pink);}
+</style>
+  <h1 class="blanco anim-head">{{heading}}</h1>
+  <span class="brgw-uline anim-up" aria-hidden="true"></span>
+  <p class="sub anim-up">{{sub_1}} <span style="color:var(--pink)">{{sub_highlight}}</span>{{sub_2}}</p>
+  <span class="brgw-doodle" style="top:var(--brgw-doodle-top);right:9%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg" alt="" width="129" height="207"></span>
+  <span class="brgw-doodle brgw-doodle--b" style="bottom:var(--brgw-doodle-bottom);left:8%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg" alt="" width="215" height="208"></span>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"heading": "Meet the crew", "sub_1": "We're operators, leaders, community builders \u2014 and yes, we all have strong opinions about", "sub_highlight": "sandwiches", "sub_2": ". This is the team behind the brands."};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

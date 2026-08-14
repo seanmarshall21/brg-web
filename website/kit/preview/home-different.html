@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Home — a different kind of restaurant company — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: home-different  →  [brg_home-different]
+     Matches website/mocks/brg_home-different.
+     Owns the white paper-tag BOLT badge at top-left, which bleeds upward over the seam into
+     home-about (bleed rule: lower section owns it). The colour blocks on the right are
+     literal design elements in the comp, not photo placeholders. -->
+<section class="brgw-sec brgw-sec--home-different reveal" aria-label="A different kind of restaurant company">
+<style>
+.brgw-sec--home-different{position:relative;background:#232120;overflow:visible;
+  padding:clamp(88px,10vw,150px) var(--pad) clamp(80px,9vw,130px);}
+/* Grain + a faint oversized graffiti wash top-right, as in the comp. Both stay at top:0 —
+   the section is overflow:visible so the seam badge can bleed up, and a negative top here
+   leaked the watermark into the white section above. */
+.brgw-sec--home-different::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:.5;mix-blend-mode:overlay;
+  background:center/cover no-repeat url('https://blacktoprg.netlify.app/assets/media/bg/grit.webp');}
+.brgw-sec--home-different::after{content:"";position:absolute;right:-4%;top:0;width:52%;height:58%;
+  z-index:0;pointer-events:none;opacity:.13;
+  background:right top/contain no-repeat
+    url('https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-blk@2x.webp');}
+.brgw-sec--home-different > *{position:relative;z-index:2;}
+
+/* Paper tag: white card, tilted, bolt centred — bleeds up over the seam. */
+.brgw-sec--home-different .seam{position:absolute;top:0;left:clamp(24px,7vw,150px);
+  width:clamp(74px,7vw,104px);aspect-ratio:104/128;background:var(--white);
+  transform:translateY(-46%) rotate(-7deg);display:grid;place-items:center;z-index:5;
+  box-shadow:0 10px 26px rgba(0,0,0,.34);}
+.brgw-sec--home-different .seam img{width:40%;height:auto;display:block;filter:invert(1);}
+  /* bolt.svg ships white — invisible on the white tag; the comp's is black. */
+
+.brgw-sec--home-different .grid{display:grid;grid-template-columns:1fr;gap:clamp(44px,5vw,80px);
+  max-width:1500px;margin-inline:auto;align-items:center;}
+@media(min-width:940px){ .brgw-sec--home-different .grid{grid-template-columns:1.02fr .98fr;gap:clamp(48px,6vw,110px);} }
+
+.brgw-sec--home-different h2{font-size:clamp(1.6rem,3.05vw,2.65rem);text-transform:uppercase;
+  margin-bottom:clamp(28px,3.2vw,46px);}
+/* Pink marker block on the opening phrase. */
+.brgw-sec--home-different h2 .mark{display:inline-block;background:var(--pink);color:var(--ink);
+  padding:.03em .2em;transform:rotate(-1.6deg);
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.brgw-sec--home-different p{opacity:.88;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:47ch;}
+.brgw-sec--home-different p + p{margin-top:1.25em;}
+
+/* Three overlapping IMAGE plates, at the comp's block positions. The comp draws them as
+   flat yellow/black/white, but they're image slots — same treatment as home-community.
+   Each keeps its comp colour as the background beneath the photograph, so a missing or
+   slow image still reads as the composition rather than as a hole. */
+.brgw-sec--home-different .blocks{position:relative;aspect-ratio:4/3.2;min-height:280px;}
+.brgw-sec--home-different .blocks .p{position:absolute;display:block;overflow:hidden;}
+.brgw-sec--home-different .blocks .p img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1) contrast(1.05);}
+.brgw-sec--home-different .blocks .y{right:8%;top:0;width:62%;height:60%;background:var(--yellow);}
+.brgw-sec--home-different .blocks .k{right:0;top:34%;width:52%;height:62%;background:#000;z-index:2;}
+.brgw-sec--home-different .blocks .w{left:6%;top:52%;width:26%;height:29%;background:var(--white);z-index:3;}
+</style>
+  <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/svg/icons/bolt.svg" alt="" width="94" height="176"></span>
+
+  <div class="grid">
+    <div>
+      <h2 class="blanco anim-head"><span class="mark">A different kind</span> of<br>restaurant company</h2>
+      <p class="anim-up">{{body_1}}</p>
+      <p class="anim-up">{{body_2}}</p>
+      <p class="anim-up">{{body_3}}</p>
+    </div>
+    <!-- Parallax rates alternate in sign and grow with how far forward the plate sits, so
+         the three separate as you scroll instead of tracking together. Stand-in photography
+         — Sean to name the real three. -->
+    <div class="blocks anim-up">
+      <span class="p y brgw-img" data-brgw-img>
+        <img src="https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp" alt=""
+             width="1600" height="1067" decoding="async" loading="lazy" data-brgw-parallax=".7">
+      </span>
+      <span class="p k brgw-img" data-brgw-img>
+        <img src="https://blacktoprg.netlify.app/assets/media/bg/skater.webp" alt=""
+             width="733" height="1100" decoding="async" loading="lazy" data-brgw-parallax="-1.1">
+      </span>
+      <span class="p w brgw-img" data-brgw-img>
+        <img src="https://blacktoprg.netlify.app/assets/media/bg/surfer.webp" alt=""
+             width="548" height="820" decoding="async" loading="lazy" data-brgw-parallax="1.7">
+      </span>
+    </div>
+  </div>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

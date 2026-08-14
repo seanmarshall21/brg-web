@@ -45,6 +45,113 @@ NAV = [('index.html', 'Build Kit'), ('shortcodes.html', 'Shortcodes'),
 STAGE = {'shipped': ('#19C7C2', 'shipped'), 'building': ('#FCE200', 'building'),
          'planned': ('rgba(244,241,234,.45)', 'planned'), 'parked': ('#F5821F', 'parked')}
 
+KIT_JS = r"""
+const $=(q,r)=>(r||document).querySelector(q), el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const state={};                                   // id -> {slots:{}, view:'desktop'}
+const enc=o=>encodeURIComponent(btoa(JSON.stringify(o)));
+const st=id=>state[id]||(state[id]={slots:{},view:'desktop'});
+
+function srcFor(id){const s=st(id);const q=Object.keys(s.slots).length?'#'+enc(s.slots):'';return 'preview/'+id+'.html'+q;}
+
+function shortcodeFor(sec){
+  const s=st(sec.id), parts=[];
+  for(const k of Object.keys(s.slots)){
+    const v=s.slots[k], d=(sec.slots[k]||{}).default||'';
+    if(v!==d) parts.push(k+'="'+String(v).replace(/"/g,'&quot;')+'"');
+  }
+  return '[brg_'+sec.id+(parts.length?' '+parts.join(' '):'')+']';
+}
+
+function reload(id){const f=document.querySelector('[data-frame="'+id+'"]');if(f)f.src=srcFor(id);
+  const c=document.querySelector('[data-code="'+id+'"]');const sec=SECTIONS.find(x=>x.id===id);
+  if(c)c.textContent=shortcodeFor(sec);
+  if($('#full').classList.contains('open')&&$('#full').dataset.id===id)$('#fullframe').src=srcFor(id);}
+
+function controls(sec,host){
+  const keys=Object.keys(sec.slots);
+  if(!keys.length){host.appendChild(el('p','muted','No editable variables — this section is code by design.'));return;}
+  keys.forEach(k=>{
+    const def=sec.slots[k]||{}, cur=st(sec.id).slots[k]!==undefined?st(sec.id).slots[k]:(def.default||'');
+    const row=el('div','ctl');
+    row.appendChild(el('label',null,esc(def.label||k)+' <em>'+esc(k)+'</em>'));
+    const long=(def.type==='textarea')||String(cur).length>60;
+    const inp=document.createElement(long?'textarea':'input');
+    if(!long)inp.type='text';
+    inp.value=cur; inp.spellcheck=false;
+    inp.addEventListener('input',()=>{st(sec.id).slots[k]=inp.value;clearTimeout(inp._t);inp._t=setTimeout(()=>reload(sec.id),260);});
+    row.appendChild(inp);
+    if(def.doc)row.appendChild(el('p','hint',esc(def.doc)));
+    host.appendChild(row);
+  });
+  const reset=el('button','btn wide','reset to defaults');
+  reset.onclick=()=>{st(sec.id).slots={};host.innerHTML='';controls(sec,host);reload(sec.id);};
+  host.appendChild(reset);
+}
+
+function esc(t){return String(t==null?'':t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+function card(sec){
+  const c=el('div','sec');c.dataset.g=sec.group;
+  c.appendChild(el('h3','', '<span>'+esc(sec.title)+'</span><em>'+esc(sec.group)+(sec.on.length?' · '+esc(sec.on.join(', ')):'')+'</em>'));
+  const wrap=el('div','secbody');
+  // left rail
+  const rail=el('div','rail');
+  const codebox=el('div','codebox');
+  const code=el('code','');code.dataset.code=sec.id;code.textContent=shortcodeFor(sec);
+  const copy=el('button','btn','copy');
+  copy.onclick=()=>{navigator.clipboard.writeText(code.textContent);copy.textContent='copied';setTimeout(()=>copy.textContent='copy',1200);};
+  codebox.appendChild(code);codebox.appendChild(copy);rail.appendChild(codebox);
+  const tabs=el('div','tabs');
+  const tInfo=el('button','tab on','info'), tCust=el('button','tab','customize '+Object.keys(sec.slots).length);
+  tabs.appendChild(tInfo);tabs.appendChild(tCust);rail.appendChild(tabs);
+  const paneInfo=el('div','pane'), paneCust=el('div','pane hide');
+  paneInfo.appendChild(el('p','',esc(sec.summary)));
+  paneInfo.appendChild(el('p','muted','Fragment: <code>sections/'+esc(sec.id)+'/embed.html</code>'));
+  controls(sec,paneCust);
+  tInfo.onclick=()=>{tInfo.classList.add('on');tCust.classList.remove('on');paneInfo.classList.remove('hide');paneCust.classList.add('hide');};
+  tCust.onclick=()=>{tCust.classList.add('on');tInfo.classList.remove('on');paneCust.classList.remove('hide');paneInfo.classList.add('hide');};
+  rail.appendChild(paneInfo);rail.appendChild(paneCust);
+  // preview
+  const prev=el('div','prev');
+  const bar=el('div','bar');
+  const mk=(t,fn,on)=>{const b=el('button','pill'+(on?' on':''),t);b.onclick=()=>{[...bar.querySelectorAll('.pill')].forEach(x=>{if(x.dataset.grp===b.dataset.grp)x.classList.remove('on')});b.classList.add('on');fn();};return b;};
+  const d=mk('desktop',()=>{stage.classList.remove('mob');},true), m=mk('mobile',()=>{stage.classList.add('mob');});
+  d.dataset.grp=m.dataset.grp='v';
+  const rp=el('button','pill','replay');rp.onclick=()=>reload(sec.id);
+  const fu=el('button','pill','full &#8599;');fu.onclick=()=>openFull(sec);
+  bar.appendChild(d);bar.appendChild(m);bar.appendChild(rp);bar.appendChild(fu);
+  const stage=el('div','stage');
+  const fr=document.createElement('iframe');fr.dataset.frame=sec.id;fr.loading='lazy';fr.src=srcFor(sec.id);
+  stage.appendChild(fr);
+  prev.appendChild(bar);prev.appendChild(stage);
+  wrap.appendChild(rail);wrap.appendChild(prev);c.appendChild(wrap);
+  return c;
+}
+
+function openFull(sec){
+  const f=$('#full');f.classList.add('open');f.dataset.id=sec.id;
+  $('#fulltitle').textContent=sec.title;
+  $('#fullframe').src=srcFor(sec.id);
+  const p=$('#fullpanel');p.innerHTML='';
+  p.appendChild(el('h4','','customize'));
+  const box=el('div','');controls(sec,box);p.appendChild(box);
+  const cb=el('div','codebox');const cc=el('code','');cc.dataset.code=sec.id;cc.textContent=shortcodeFor(sec);
+  const cp=el('button','btn','copy');cp.onclick=()=>{navigator.clipboard.writeText(cc.textContent);cp.textContent='copied';setTimeout(()=>cp.textContent='copy',1200);};
+  cb.appendChild(cc);cb.appendChild(cp);p.appendChild(cb);
+  document.body.style.overflow='hidden';
+}
+$('#fullclose').onclick=()=>{$('#full').classList.remove('open');document.body.style.overflow='';};
+$('#fullreplay').onclick=()=>{const id=$('#full').dataset.id;$('#fullframe').src=srcFor(id);};
+$('#fullnew').onclick=()=>{const id=$('#full').dataset.id;window.open(srcFor(id),'_blank');};
+
+const host=$('#kit');
+SECTIONS.forEach(s=>host.appendChild(card(s)));
+document.querySelectorAll('.filters .chip').forEach(ch=>ch.onclick=()=>{
+  document.querySelectorAll('.filters .chip').forEach(x=>x.classList.remove('on'));ch.classList.add('on');
+  const g=ch.dataset.g;document.querySelectorAll('.sec').forEach(s=>s.style.display=(g==='*'||s.dataset.g===g)?'':'none');
+});
+"""
+
 CSS = """
 :root{--yellow:#FCE200;--teal:#19C7C2;--pink:#EC0F8D;--bg:#0f0e0d;--bg2:#17150f;--card:#1c1a16;
 --line:rgba(255,255,255,.10);--ink:#f4f1ea;--dim:rgba(244,241,234,.58);
@@ -91,6 +198,60 @@ padding:5px 10px;border-radius:999px;border:1px solid currentColor;white-space:n
 .entry .when{font-family:var(--mono);font-size:.7rem;color:var(--dim)}
 .entry .what{margin:10px 0 0;font-size:.9rem}
 .entry .why{margin:10px 0 0;font-size:.88rem;color:var(--dim);border-left:2px solid var(--teal);padding-left:12px}
+
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 26px}
+.chip{font:700 .66rem/1 var(--sans);letter-spacing:.11em;text-transform:uppercase;color:var(--dim);
+background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer}
+.chip.on{background:var(--yellow);color:#231F20;border-color:var(--yellow)}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:20px}
+.sec h3{margin:0;padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--line);
+display:flex;justify-content:space-between;gap:14px;align-items:baseline;font-size:1rem;font-weight:800}
+.sec h3 em{font-style:normal;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.secbody{display:grid;grid-template-columns:minmax(260px,320px) 1fr;gap:0;align-items:stretch}
+@media(max-width:900px){.secbody{grid-template-columns:1fr}}
+.rail{padding:16px 18px;border-right:1px solid var(--line);min-width:0}
+@media(max-width:900px){.rail{border-right:0;border-bottom:1px solid var(--line)}}
+.codebox{display:flex;gap:8px;align-items:stretch;margin-bottom:14px}
+.codebox code{flex:1;min-width:0;font-family:var(--mono);font-size:.72rem;background:var(--bg);
+border:1px solid var(--line);border-radius:7px;padding:9px 10px;color:var(--teal);overflow-x:auto;white-space:nowrap}
+.btn{font:700 .64rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px 12px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--teal);color:var(--teal)}.btn.on{background:var(--yellow);color:#231F20;border-color:var(--yellow)}
+.btn.wide{width:100%;margin-top:12px}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--dim);cursor:pointer;
+font:700 .64rem/1 var(--sans);letter-spacing:.11em;text-transform:uppercase;padding:9px 3px;margin-right:10px}
+.tab.on{color:var(--yellow);border-bottom-color:var(--yellow)}
+.pane{font-size:.84rem;color:var(--dim)}.pane.hide{display:none}.pane p{margin:0 0 10px}
+.muted{color:var(--dim);font-size:.76rem}
+.ctl{margin-bottom:12px}
+.ctl label{display:block;font:700 .6rem/1.4 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+.ctl label em{font-style:normal;font-family:var(--mono);text-transform:none;letter-spacing:0;color:rgba(244,241,234,.35)}
+.ctl input,.ctl textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:7px;
+color:var(--ink);font:400 .8rem/1.5 var(--sans);padding:9px 10px;resize:vertical}
+.ctl textarea{min-height:64px}
+.ctl input:focus,.ctl textarea:focus{outline:0;border-color:var(--teal)}
+.hint{margin:5px 0 0;font-size:.7rem;color:rgba(244,241,234,.4)}
+.prev{min-width:0;display:flex;flex-direction:column;background:var(--bg)}
+.bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.pill{font:700 .6rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer}
+.pill.on{background:var(--teal);color:#0b1a19;border-color:var(--teal)}
+.pill:hover{color:var(--ink)}
+.stage{padding:14px;display:flex;justify-content:center;background:repeating-linear-gradient(45deg,#121110,#121110 10px,#141312 10px,#141312 20px)}
+.stage iframe{width:100%;height:560px;border:1px solid var(--line);border-radius:8px;background:#0f0e0d;transition:width .25s}
+.stage.mob iframe{width:390px}
+.full{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column}
+.full.open{display:flex}
+.full header{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--bg2)}
+.full header b{font-size:.9rem;letter-spacing:.02em}
+.full .live{font:700 .58rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--teal);
+border:1px solid var(--teal);border-radius:999px;padding:5px 9px}
+.full .spacer{flex:1}
+.fullbody{flex:1;display:flex;min-height:0}
+.fullbody iframe{flex:1;border:0;background:#0f0e0d}
+#fullpanel{width:310px;border-left:1px solid var(--line);padding:16px;overflow:auto;background:var(--card)}
+#fullpanel h4{margin:0 0 12px;font:800 .64rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
 .foot{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:.76rem;max-width:78ch}
 """
 
@@ -137,62 +298,109 @@ def shell(page, title, lede, body):
            esc(title), lede, body))
 
 
+PREVIEW_TPL = """<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>%(title)s — preview</title>
+<link rel="stylesheet" href="%(cdn)s/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag">%(frag)s</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (DEFAULTS[k] !== undefined ? DEFAULTS[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = '%(cdn)s/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>
+"""
+
+
+def page_previews():
+    """One standalone preview per section, same-origin so the kit can drive it.
+
+    Not an iframe pointed at the CDN fragment: a bare fragment has no brgw.css and no
+    engine, and a section extracted from a composed page is not a page — every
+    split-line heading renders invisible because only brgw.js clears .anim-head.
+    """
+    secs = json.load(open(SECTIONS))
+    outdir = os.path.join(OUTDIR, 'preview')
+    os.makedirs(outdir, exist_ok=True)
+    made = 0
+    for s in secs['sections']:
+        sid = s['id']
+        frag = os.path.join(ROOT, 'website', 'sections', sid, 'embed.html')
+        if not os.path.exists(frag):
+            continue
+        defaults = {k: v.get('default', '') for k, v in slots_of(sid).items()}
+        body = PREVIEW_TPL % {'title': esc(s.get('title', sid)), 'cdn': CDN,
+                              'frag': open(frag, encoding='utf-8').read()}
+        body = body.replace('DEFAULTS[k]', 'D[k]').replace(
+            '(function(){', '(function(){\n  var D = %s;' % json.dumps(defaults))
+        open(os.path.join(outdir, sid + '.html'), 'w').write(body)
+        made += 1
+    return made
+
+
+def slots_of(sid):
+    f = os.path.join(ROOT, 'website', 'sections', sid, 'slots.json')
+    if not os.path.exists(f):
+        return {}
+    return {k: v for k, v in json.load(open(f)).items() if not k.startswith('_')}
+
+
 # ── /kit/ — what we have built ────────────────────────────────────────────────
 def page_kit():
+    """The Build Kit — a sandbox, not an index.
+
+    Every section rendered live, editable, and checkable on mobile before it goes near
+    the site. The variables you set build the shortcode for you, because the plugin takes
+    a slot value as a shortcode attribute (attr > ACF > default), so what you copy is
+    exactly what you previewed.
+    """
     secs = json.load(open(SECTIONS))
-    reg = json.load(open(REGISTRY))
     stacks = secs.get('stacks', {})
     where = {}
     for page, ids in stacks.items():
         for i in ids:
             where.setdefault(i, []).append(page)
 
-    groups = {}
-    for s in secs['sections']:
-        groups.setdefault(s.get('group', 'other'), []).append(s)
+    data = []
+    for x in secs['sections']:
+        sid = x['id']
+        if not os.path.exists(os.path.join(ROOT, 'website', 'sections', sid, 'embed.html')):
+            continue
+        data.append({'id': sid, 'title': x.get('title', sid), 'group': x.get('group', 'other'),
+                     'summary': x.get('summary', ''), 'on': where.get(sid, []),
+                     'slots': slots_of(sid)})
 
-    out = []
-    for g in sorted(groups):
-        out.append('<h2 class="sec">%s — %d</h2><div class="grid">' % (esc(g), len(groups[g])))
-        for s in sorted(groups[g], key=lambda x: x['id']):
-            sid = s['id']
-            slots = os.path.join(ROOT, 'website', 'sections', sid, 'slots.json')
-            n = 0
-            if os.path.exists(slots):
-                n = len([k for k in json.load(open(slots)) if not k.startswith('_')])
-            pages = ', '.join(where.get(sid, [])) or '—'
-            out.append(
-                '<div class="card"><h3>[brg_%s]<em>%s</em></h3><div class="body">'
-                '<p>%s</p><p><strong style="color:var(--ink)">on:</strong> %s &nbsp;·&nbsp; '
-                '<strong style="color:var(--ink)">editable fields:</strong> %s</p>'
-                '<p><a href="%s/sections/%s/embed.html">fragment</a></p>'
-                '</div></div>'
-                % (esc(sid), esc(s.get('title', '')), esc(s.get('summary', '')),
-                   esc(pages), n if n else 'none yet', CDN, esc(sid)))
-        out.append('</div>')
+    groups = sorted({d['group'] for d in data})
+    chips = ''.join('<button class="chip" data-g="%s">%s</button>' % (esc(g), esc(g)) for g in groups)
 
-    chrome = [c for c in reg['components'] if c['id'] in ('nav', 'footer')]
-    out.append('<h2 class="sec">chrome — on every page</h2><div class="grid">')
-    for c in chrome:
-        out.append('<div class="card"><h3>[%s]<em>v%s</em></h3><div class="body"><p>%s</p></div></div>'
-                   % (esc(c.get('shortcode', c['id'])), esc(c.get('version', 1)),
-                      esc(c.get('summary') or c.get('description') or '')))
-    out.append('</div>')
+    lede = ('<p class="lede">Every section rendered live — <strong>edit the variables, watch it '
+            'update, check it on mobile, then copy the shortcode it builds for you.</strong> '
+            'The plugin takes a slot value as a shortcode attribute, so what you copy is exactly '
+            'what you previewed. Nothing here touches the site.</p>'
+            '<div class="filters"><button class="chip on" data-g="*">all</button>%s</div>' % chips)
 
-    out.append('<h2 class="sec">shared systems</h2><div class="grid">')
-    for f, d in [('assets/brgw.css', 'Brand tokens, the reveal engine, the shared slider, doodle loops.'),
-                 ('assets/brgw.js', 'Self-inits every .brgw root. One engine only — never add a second.'),
-                 ('assets/brgw-nav.css', 'The .bnav component: white bar, yellow rule, marker underline.'),
-                 ('assets/brgw-nav.js', 'Distributes items per layout, builds the More drawer and the mobile takeover.')]:
-        out.append('<div class="card"><h3>%s</h3><div class="body"><p>%s</p>'
-                   '<p><a href="%s/%s">source</a></p></div></div>' % (esc(f), esc(d), CDN, f))
-    out.append('</div>')
-
-    lede = ('<p class="lede">Everything built for Blacktop, and where it is used. Each section is one '
-            'shortcode; a page is a stack of them between <code>[brg_nav]</code> and '
-            '<code>[brg_footer]</code>. <strong>Generated from <code>website/sections.json</code></strong>, '
-            'so this page cannot drift from what is actually deployed.</p>')
-    return shell('index.html', 'Build Kit', lede, ''.join(out))
+    body = ('<div id="kit"></div>'
+            '<div id="full" class="full"><header><b id="fulltitle"></b>'
+            '<span class="live">live</span><div class="spacer"></div>'
+            '<button class="btn" id="fullreplay">replay</button>'
+            '<button class="btn" id="fullnew">new tab &#8599;</button>'
+            '<button class="btn on" id="fullclose">close &times;</button></header>'
+            '<div class="fullbody"><iframe id="fullframe"></iframe>'
+            '<aside id="fullpanel"></aside></div></div>'
+            '<script>const SECTIONS=' + json.dumps(data) + ';const CDN=' + json.dumps(CDN) + ';</script>'
+            '<script>' + KIT_JS + '</script>')
+    return shell('index.html', 'Build Kit', lede, body)
 
 
 # ── /kit/shortcodes — how to place it ─────────────────────────────────────────
@@ -315,6 +523,8 @@ def main():
     refuse_if_worktree('kit/build-kit.py')
     check = '--check' in sys.argv
     os.makedirs(OUTDIR, exist_ok=True)
+    if not check:
+        print('  /kit/preview/       %d section previews' % page_previews())
     stale = []
     for name, fn in PAGES.items():
         new = fn()

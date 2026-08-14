@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact — hero — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: contact-hero  →  [brg_contact-hero]
+     Built from Expo SPEC-006 §2.1. Same shape as community-hero — heading, marker underline,
+     sub, two doodles — reusing .brgw-hero from brgw.css, so this fragment carries only what
+     differs: the marker colour and which doodles.
+     Marker is PINK, reused from team-hero rather than inventing a colour. The markers are
+     hand-drawn artwork, so a new colour is a new export from Sean; six pages sharing five
+     colours is a system, seven colours is a palette. Expo's recommendation, and it is Sean's
+     to overrule.
+     Doodles are the BRG mark + smiley — the only pair not already used by another hero, and
+     the friendliest two, which suits a page whose whole job is "talk to us". -->
+<section class="brgw-sec brgw-sec--contact-hero brgw-hero reveal" aria-label="Contact">
+<style>
+.brgw-sec--contact-hero{overflow:hidden;}
+.brgw-sec--contact-hero .brgw-uline{color:var(--pink);}
+</style>
+  <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
+  <span class="brgw-uline anim-up" aria-hidden="true"></span>
+  <p class="sub anim-up">{{sub}}</p>
+  <span class="brgw-doodle" style="top:var(--brgw-doodle-top);left:9%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg" alt="" width="265" height="192"></span>
+  <span class="brgw-doodle brgw-doodle--c" style="bottom:var(--brgw-doodle-bottom);right:8%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg" alt="" width="215" height="208"></span>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"heading": "Let's talk.", "sub": "Whatever you need \u2014 a story, a partnership, a job, or just to tell us how we did \u2014 here's who to ask."};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

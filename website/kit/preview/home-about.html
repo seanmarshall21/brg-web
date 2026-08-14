@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Home — what we're about — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: home-about  →  [brg_home-about]
+     Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
+     re-grounds to ink. Full-bleed colour photograph on the left half, content on the right;
+     below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
+<section class="brgw-sec brgw-sec--home-about reveal" aria-label="What we're about">
+<style>
+.brgw-sec--home-about{background:var(--white);color:var(--ink);}
+.brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
+@media(min-width:940px){ .brgw-sec--home-about .grid{grid-template-columns:1fr 1fr;} }
+
+.brgw-sec--home-about .shot{position:relative;min-height:clamp(260px,46vw,620px);overflow:hidden;}
+/* Scale + reveal are owned by the GSAP layer (data-brgw-img); the CSS here only
+   guarantees the picture is visible and correctly cropped if that layer never loads. */
+.brgw-sec--home-about .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+
+.brgw-sec--home-about .body{display:flex;flex-direction:column;justify-content:center;
+  gap:clamp(26px,3vw,44px);padding:clamp(52px,6vw,90px) var(--pad);text-align:center;}
+/* Yellow marker block behind the section title, rotated as in the comp. */
+.brgw-sec--home-about h2{display:inline-block;align-self:center;background:var(--yellow);color:var(--ink);
+  font-size:clamp(1.7rem,3.4vw,3rem);text-transform:uppercase;padding:.04em .3em;
+  transform:rotate(-1.6deg);}
+.brgw-sec--home-about .lbl{display:inline-block;align-self:center;background:var(--teal);color:var(--white);
+  font-weight:700;font-size:clamp(.66rem,.82vw,.76rem);letter-spacing:.22em;text-transform:uppercase;
+  padding:9px 20px;}
+.brgw-sec--home-about .big{font-size:clamp(1.35rem,2.5vw,2.05rem);text-transform:uppercase;
+  max-width:22ch;margin-inline:auto;}
+.brgw-sec--home-about .pair{display:grid;gap:clamp(14px,1.6vw,22px);}
+</style>
+  <div class="grid">
+    <div class="shot brgw-img" data-brgw-img>
+      <img src="https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp"
+           alt="Friends walking the Oceanside pier at golden hour" width="1600" height="1067"
+           decoding="async" loading="lazy" data-brgw-parallax="1.1">
+    </div>
+    <div class="body">
+      <h2 class="blanco anim-head">{{heading}}</h2>
+      <div class="pair">
+        <span class="lbl anim-up">{{vision_label}}</span>
+        <div class="big blanco anim-up">{{vision_text}}</div>
+      </div>
+      <div class="pair">
+        <span class="lbl anim-up">{{mission_label}}</span>
+        <div class="big blanco anim-up">{{mission_text}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"heading": "What we're about", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences."};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

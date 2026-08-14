@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Team — crew grid — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: team-members  →  [brg_team-members]
+     Matches the Team comp (mocks/BRG - Team.png, y 916–3486 @1x).
+     Light section. Owns the yellow smiley seam badge, bleeding upward.
+     Nine crew cards: coloured plate + portrait + tilted black name bar + pull quote.
+     Card colours come from the comp; portraits are placeholders until headshots land. -->
+<section class="brgw-sec brgw-sec--team-members reveal" aria-label="The crew">
+<style>
+.brgw-sec--team-members{position:relative;background:var(--white);color:var(--ink);overflow:visible;
+  padding:clamp(78px,8.5vw,124px) var(--pad) clamp(74px,8vw,116px);text-align:center;}
+.brgw-sec--team-members .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
+  transform:translate(-50%,-50%);z-index:5;}
+.brgw-sec--team-members .seam img{width:100%;height:auto;display:block;}
+
+.brgw-sec--team-members .lede{max-width:74ch;margin:0 auto clamp(26px,3vw,40px);
+  font-size:clamp(.98rem,1.15vw,1.1rem);line-height:1.6;opacity:.9;}
+.brgw-sec--team-members .banner{display:inline-block;background:var(--yellow);color:var(--ink);
+  font-size:clamp(1.1rem,2.4vw,2rem);text-transform:uppercase;padding:.1em .5em;
+  margin-bottom:clamp(42px,5vw,74px);}
+
+.brgw-sec--team-members .grid{display:grid;grid-template-columns:1fr;gap:clamp(34px,3.4vw,54px);
+  max-width:1320px;margin-inline:auto;}
+@media(min-width:640px){ .brgw-sec--team-members .grid{grid-template-columns:1fr 1fr;} }
+@media(min-width:1000px){ .brgw-sec--team-members .grid{grid-template-columns:repeat(3,1fr);} }
+
+.brgw-sec--team-members figure{margin:0;}
+/* Coloured plate behind the cut-out portrait; --c is set per card inline. */
+.brgw-sec--team-members .card{position:relative;background:var(--c,var(--teal));aspect-ratio:4/4.4;
+  overflow:hidden;}
+.brgw-sec--team-members .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:top center;}
+/* Tilted name bar, sitting over the bottom of the plate. */
+.brgw-sec--team-members .bar{position:absolute;left:-3%;right:-3%;bottom:6%;background:#000;
+  transform:rotate(-2.2deg);padding:10px 8px 12px;z-index:2;}
+.brgw-sec--team-members .nm{display:block;color:var(--yellow);font-size:clamp(1rem,1.5vw,1.35rem);
+  text-transform:uppercase;line-height:1;}
+.brgw-sec--team-members .ti{display:block;color:var(--white);font-size:clamp(.58rem,.7vw,.66rem);
+  letter-spacing:.18em;text-transform:uppercase;margin-top:6px;opacity:.9;}
+.brgw-sec--team-members figcaption{margin-top:16px;font-size:clamp(.84rem,.95vw,.92rem);
+  line-height:1.5;opacity:.78;font-style:italic;}
+
+/* Scattered doodles between the cards, positioned as in the comp. */
+.brgw-sec--team-members .dood{position:absolute;z-index:4;pointer-events:none;}
+.brgw-sec--team-members .dood img{width:100%;height:auto;display:block;}
+.brgw-sec--team-members .d1{top:20%;left:2%;width:clamp(38px,4vw,64px);}
+.brgw-sec--team-members .d2{top:46%;left:35%;width:clamp(44px,5vw,78px);}
+.brgw-sec--team-members .d3{top:44%;left:6%;width:clamp(48px,5.2vw,84px);}
+.brgw-sec--team-members .d4{top:26%;right:5%;width:clamp(46px,5vw,80px);}
+.brgw-sec--team-members .d5{bottom:26%;right:22%;width:clamp(56px,6.4vw,104px);}
+@media(max-width:760px){ .brgw-sec--team-members .dood{display:none;} }
+</style>
+  <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-smile.svg" alt="" width="150" height="145"></span>
+
+  <p class="lede anim-up">Behind every great restaurant is a team that genuinely gives a damn. Our leadership crew brings decades of food &amp; beverage experience, a shared obsession with hospitality, and enough personality to fill a very loud dinner table.</p>
+  <span class="banner blanco anim-up">We work hard, we have fun, and we take care of our people</span>
+
+  <span class="dood d1" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg" alt="" width="122" height="118"></span>
+  <span class="dood d2" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-blk.svg" alt="" width="151" height="145"></span>
+  <span class="dood d3" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg" alt="" width="215" height="208"></span>
+  <span class="dood d4" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg" alt="" width="129" height="207"></span>
+  <span class="dood d5" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg" alt="" width="265" height="192"></span>
+
+  <div class="grid">
+    <figure class="anim-up"><div class="card" style="--c:var(--teal)"><span class="bar"><span class="nm blanco">Craig Applegate</span><span class="ti">CEO</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:var(--orange)"><span class="bar"><span class="nm blanco">Clayton Wheeler</span><span class="ti">CEO</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:#2BB3E3"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:#6C2BB8"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:var(--yellow)"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:var(--pink)"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:#F4736B"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:#22B34B"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:#E02020"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+  </div>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

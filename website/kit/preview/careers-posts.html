@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Careers — LinkedIn posts — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: careers-posts  →  [brg_careers-posts]
+     Matches the Careers Extd comp (mocks/BRG - Careers Extd.png, y 2328–4813 @1x).
+
+     STATIC cards, not a LinkedIn embed or feed. The comp is a hand-built mockup — its third
+     card is a duplicate of the first — so these are marketing renderings of BRG's own posts,
+     maintained here. Each post is one <article>; add, remove or reorder them freely.
+
+     Two things to know before this goes in front of anyone:
+      · "834 followers" and the "2mo"/"5mo" stamps are copied from the comp. They are STATIC
+        and will go stale. Either keep them current by hand, drop them (the <time> and
+        .meta spans can be deleted with no layout consequence), or wire them to real data.
+      · The "View job" links point at /careers/ until the real LinkedIn job URLs are supplied. -->
+<section class="brgw-sec brgw-sec--careers-posts reveal" aria-label="Latest openings on LinkedIn">
+<style>
+.brgw-sec--careers-posts{position:relative;background:var(--white);color:var(--ink);overflow:hidden;
+  padding:clamp(66px,7.6vw,110px) var(--pad) clamp(70px,8vw,116px);}
+/* Pale graffiti wash behind the cards, as in the comp. */
+.brgw-sec--careers-posts::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:.5;background:center/cover no-repeat
+    url('https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp');}
+.brgw-sec--careers-posts > *{position:relative;z-index:2;}
+
+.brgw-sec--careers-posts .feed{display:grid;gap:clamp(24px,2.8vw,42px);
+  max-width:760px;margin-inline:auto;}
+.brgw-sec--careers-posts .post{background:var(--white);border:1px solid rgba(0,0,0,.14);
+  border-radius:12px;padding:clamp(18px,1.8vw,26px);box-shadow:0 2px 10px rgba(0,0,0,.05);
+  font-size:clamp(.9rem,1vw,.98rem);line-height:1.5;}
+.brgw-sec--careers-posts .who{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.brgw-sec--careers-posts .av{flex:0 0 auto;width:clamp(34px,3.2vw,44px);aspect-ratio:1;border-radius:50%;
+  background:center/contain no-repeat
+    url('https://blacktoprg.netlify.app/assets/media/svg/favicon.svg');}
+.brgw-sec--careers-posts .nm{font-weight:700;display:block;line-height:1.25;}
+.brgw-sec--careers-posts .meta{display:block;font-size:.82em;opacity:.6;}
+.brgw-sec--careers-posts .body p + p{margin-top:.9em;}
+.brgw-sec--careers-posts .mention{color:#5B4BC4;font-weight:600;}
+.brgw-sec--careers-posts .tag{color:#0A66C2;font-weight:600;}
+
+/* Nested job card */
+.brgw-sec--careers-posts .job{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  margin-top:16px;padding:clamp(14px,1.4vw,20px);border:1px solid rgba(0,0,0,.12);border-radius:10px;}
+.brgw-sec--careers-posts .job .av{width:clamp(38px,3.4vw,50px);}
+.brgw-sec--careers-posts .job .txt{flex:1 1 220px;min-width:0;}
+.brgw-sec--careers-posts .job .ttl{font-weight:700;display:block;}
+.brgw-sec--careers-posts .job .sub{display:block;font-size:.9em;opacity:.68;line-height:1.4;}
+.brgw-sec--careers-posts .view{flex:0 0 auto;border:1px solid #0A66C2;color:#0A66C2;background:none;
+  border-radius:999px;padding:9px 22px;font-weight:700;text-decoration:none;font-size:.94em;
+  transition:background .15s ease,color .15s ease;}
+.brgw-sec--careers-posts .view:hover{background:#0A66C2;color:var(--white);}
+</style>
+  <div class="feed">
+    <article class="post anim-up">
+      <div class="who">
+        <span class="av" aria-hidden="true"></span>
+        <span><span class="nm">Blacktop Restaurant Group</span><span class="meta">834 followers &middot; 2mo</span></span>
+      </div>
+      <div class="body">
+        <p><span class="mention">Blacktop Restaurant Group</span> isn't just about great food&mdash;it's about great people! We are looking for a People and Culture Manager who can own the employee lifecycle, coach managers, and help maintain our totally EPIC culture that actually makes people excited to show up to work.</p>
+        <p>If you thrive on team-first vibes, compliance smarts, and getting stuff done, apply below.</p>
+      </div>
+      <div class="job">
+        <span class="av" aria-hidden="true"></span>
+        <span class="txt"><span class="ttl">People &amp; Culture Manager</span><span class="sub">Job by Blacktop Restaurant Group<br>San Diego, California, United States (On-site)</span></span>
+        <a class="view" href="/careers/">View job</a>
+      </div>
+    </article>
+
+    <article class="post anim-up">
+      <div class="who">
+        <span class="av" aria-hidden="true"></span>
+        <span><span class="nm">Blacktop Restaurant Group</span><span class="meta">834 followers &middot; 5mo</span></span>
+      </div>
+      <div class="body">
+        <p>We're <span class="tag">#hiring</span>. Know anyone who might be interested in joining our rad People &amp; Culture department?</p>
+      </div>
+      <div class="job">
+        <span class="av" aria-hidden="true"></span>
+        <span class="txt"><span class="ttl">Payroll &amp; HRIS Manager</span><span class="sub">Job by Blacktop Restaurant Group<br>San Diego, California, United States (On-site)</span></span>
+        <a class="view" href="/careers/">View job</a>
+      </div>
+    </article>
+  </div>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {};
+  var raw = document.getElementById('frag').innerHTML;
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>
