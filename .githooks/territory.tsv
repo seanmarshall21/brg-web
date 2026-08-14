@@ -36,6 +36,8 @@ conti	website/sections.json
 conti	website/BUILD-SPEC.md
 conti	notes/controller.md
 conti	notes/upstream-fc-brands.md
+# Retired stub pointing at the Atlas board. Conti's so nobody revives it as a board.
+conti	notes/tasks.json
 conti	reference/
 
 # The nav component is Conti's, NOT Finn's, despite the brgw- prefix. It is the
