@@ -1,0 +1,58 @@
+<!-- BRG · section: contact-routes  →  [brg_contact-routes]
+     Built from Expo SPEC-006 §2.2. The page's actual content: a switchboard, not a form.
+     Reuses home-values' hairline-rule grid — dividers BETWEEN cells, nothing on the outside —
+     at community-stats' 2-col width. The only new behaviour is that each label is a link.
+
+     ODD-COUNT SAFE. The two rules at the foot of the grid block are the ones I added to
+     community-stats (6021c32): a 2-col grid whose last cell is odd would otherwise leave that
+     cell alone in the left column still carrying border-right — a rule beside empty space —
+     and strip the bottom rule from its neighbour too. Carried here deliberately rather than
+     copied later, because a FIFTH route is already foreseeable: Sean asked for phone links and
+     no number exists yet, so the phone card drops in as a 5th cell the day he supplies one.
+     Both rules are inert at four cells.
+
+     Two of the four destinations are already live and proven — the general mailto and the
+     partnership mailto both work on community-partner today. Careers points at a live page.
+     Only the press route is provisional, pending SPEC-005. -->
+<section class="brgw-sec brgw-sec--contact-routes reveal" aria-label="Who to contact">
+<style>
+.brgw-sec--contact-routes{background:var(--white);color:var(--ink);
+  padding:clamp(64px,7.5vw,104px) var(--pad) clamp(70px,8vw,116px);}
+.brgw-sec--contact-routes h2{font-size:clamp(1.9rem,4vw,3.2rem);text-transform:uppercase;
+  text-align:center;max-width:20ch;margin:0 auto clamp(34px,4vw,60px);}
+
+.brgw-sec--contact-routes .grid{display:grid;grid-template-columns:1fr;
+  max-width:1080px;margin-inline:auto;}
+@media(min-width:700px){ .brgw-sec--contact-routes .grid{grid-template-columns:1fr 1fr;} }
+.brgw-sec--contact-routes .cell{padding:clamp(26px,3vw,44px) clamp(20px,2.6vw,40px);
+  border-top:1px solid rgba(0,0,0,.16);}
+@media(min-width:700px){
+  .brgw-sec--contact-routes .cell{border-top:0;border-bottom:1px solid rgba(0,0,0,.16);
+    border-right:1px solid rgba(0,0,0,.16);}
+  .brgw-sec--contact-routes .cell:nth-child(2n){border-right:0;}
+  .brgw-sec--contact-routes .cell:nth-last-child(-n+2){border-bottom:0;}
+  /* See the header note — keeps an odd final cell from stranding a rule beside empty space. */
+  .brgw-sec--contact-routes .cell:last-child:nth-child(odd){grid-column:1/-1;border-right:0;}
+  .brgw-sec--contact-routes .grid:has(.cell:last-child:nth-child(odd)) .cell:nth-last-child(2){
+    border-bottom:1px solid rgba(0,0,0,.16);}
+}
+/* The label IS the link. Teal to match .lbl elsewhere; the underline is drawn on a
+   pseudo-element so it can wipe in on hover without shifting the text baseline. */
+.brgw-sec--contact-routes .lbl{display:inline-block;position:relative;color:var(--teal);
+  text-decoration:none;font-size:clamp(1.3rem,2.2vw,1.9rem);text-transform:uppercase;
+  margin-bottom:12px;}
+.brgw-sec--contact-routes .lbl::after{content:"";position:absolute;left:0;right:0;bottom:-2px;
+  height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;
+  transition:transform .24s cubic-bezier(.4,0,.2,1);}
+.brgw-sec--contact-routes .lbl:hover::after,
+.brgw-sec--contact-routes .lbl:focus-visible::after{transform:scaleX(1);}
+.brgw-sec--contact-routes .cell p{font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.55;opacity:.86;}
+</style>
+  <h2 class="blanco anim-head">{{heading}}</h2>
+  <div class="grid">
+    <div class="cell anim-up"><a class="lbl blanco" href="{{route_1_href}}">{{route_1_label}}</a><p>{{route_1_text}}</p></div>
+    <div class="cell anim-up"><a class="lbl blanco" href="{{route_2_href}}">{{route_2_label}}</a><p>{{route_2_text}}</p></div>
+    <div class="cell anim-up"><a class="lbl blanco" href="{{route_3_href}}">{{route_3_label}}</a><p>{{route_3_text}}</p></div>
+    <div class="cell anim-up"><a class="lbl blanco" href="{{route_4_href}}">{{route_4_label}}</a><p>{{route_4_text}}</p></div>
+  </div>
+</section>

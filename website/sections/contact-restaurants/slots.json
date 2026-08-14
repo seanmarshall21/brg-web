@@ -1,0 +1,27 @@
+{
+  "_note": "Slots for [brg_contact-restaurants]. NEW SECTION, Contact page, built from Expo SPEC-006. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\n\nClosing band. Exists to catch the hole in the routing above: the most likely reason a stranger lands on a restaurant group's Contact page is that they want one restaurant's address or hours, and none of the four cards serve them.\n\nNo map embed, deliberately — a third-party map inside a fragment that gets inlined into WordPress means cookies, a consent banner and a second JS engine. The locations already live on /our-restaurants/.",
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "doc": "Display face on the teal band, free-wrapping inside 20ch.",
+    "default": "Looking for a restaurant?"
+  },
+  "sub": {
+    "type": "textarea",
+    "label": "Sub copy",
+    "doc": "One line beneath the heading. Write `&` as a literal ampersand.",
+    "default": "Addresses, hours, and every Board & Brew and Odie's location in one place."
+  },
+  "cta_label": {
+    "type": "text",
+    "label": "Button label",
+    "doc": "~18 characters.",
+    "default": "Our Restaurants"
+  },
+  "cta_href": {
+    "type": "url",
+    "label": "Button link",
+    "doc": "Points at the live restaurants page.",
+    "default": "/our-restaurants/"
+  }
+}

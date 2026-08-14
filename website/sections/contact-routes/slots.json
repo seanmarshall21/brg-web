@@ -1,0 +1,81 @@
+{
+  "_note": "Slots for [brg_contact-routes]. NEW SECTION, Contact page, built from Expo SPEC-006. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\n\nFOUR ROUTES, and the count is deliberate: it fits the 1 / 2x2 grid cleanly, and a switchboard with too many buttons is the thing a switchboard exists to prevent. Numbered slots are honest here for the same reason community-stats' are — the grid is a fixed design, not a feed.\n\nA FIFTH is already foreseeable. Sean asked for phone links and no number exists yet, so a `Call us` card drops in as route_5 the day he supplies one; the fragment's CSS already handles an odd cell count, so that is an additive change with no layout work.\n\nTwo destinations are LIVE AND PROVEN today: route_1's general mailto and route_3's partnership mailto both work on community-partner. route_4 points at a live page. Only route_2 (press) is provisional, pending the Press page — if that page never ships, point it at a mailto.\n\nDeliberately excluded per Expo, each for a reason: catering (belongs to the brand sites), guest complaints (a corporate address is the WRONG destination for a bad meal in Oceanside — slow, and the wrong team), and a phone number that rings an office nobody answers, which is worse than no number.",
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "doc": "Sits above the card grid. ~28 characters keeps it to one line.",
+    "default": "Who do you need?"
+  },
+  "route_1_label": {
+    "type": "text",
+    "label": "Route 1 — label",
+    "doc": "The teal link text. Short — it is a button, not a sentence.",
+    "default": "General"
+  },
+  "route_1_href": {
+    "type": "url",
+    "label": "Route 1 — link",
+    "doc": "LIVE AND PROVEN — this mailto already works on community-partner.",
+    "default": "mailto:hello@blacktoprg.com"
+  },
+  "route_1_text": {
+    "type": "textarea",
+    "label": "Route 1 — one-liner",
+    "doc": "One line under the label.",
+    "default": "Anything that doesn't fit the boxes below."
+  },
+  "route_2_label": {
+    "type": "text",
+    "label": "Route 2 — label",
+    "doc": "The teal link text.",
+    "default": "Press & media"
+  },
+  "route_2_href": {
+    "type": "url",
+    "label": "Route 2 — link",
+    "doc": "PROVISIONAL — points at the Press page, which is not built yet. If Press never ships, change this to a mailto rather than leaving a dead link.",
+    "default": "/press/#inquiries"
+  },
+  "route_2_text": {
+    "type": "textarea",
+    "label": "Route 2 — one-liner",
+    "doc": "One line under the label.",
+    "default": "Press kit, high-res imagery, interviews, or a comment on a story."
+  },
+  "route_3_label": {
+    "type": "text",
+    "label": "Route 3 — label",
+    "doc": "The teal link text.",
+    "default": "Partnerships & giveback"
+  },
+  "route_3_href": {
+    "type": "url",
+    "label": "Route 3 — link",
+    "doc": "LIVE AND PROVEN — the same mailto community-partner uses, subject line included.",
+    "default": "mailto:hello@blacktoprg.com?subject=Community%20partnership"
+  },
+  "route_3_text": {
+    "type": "textarea",
+    "label": "Route 3 — one-liner",
+    "doc": "One line under the label.",
+    "default": "Nonprofits, schools, and local organizations."
+  },
+  "route_4_label": {
+    "type": "text",
+    "label": "Route 4 — label",
+    "doc": "The teal link text.",
+    "default": "Careers"
+  },
+  "route_4_href": {
+    "type": "url",
+    "label": "Route 4 — link",
+    "doc": "Points at the live careers page.",
+    "default": "/careers/"
+  },
+  "route_4_text": {
+    "type": "textarea",
+    "label": "Route 4 — one-liner",
+    "doc": "One line under the label. Write `&` as a literal ampersand.",
+    "default": "Open roles across Board & Brew and Odie's."
+  }
+}

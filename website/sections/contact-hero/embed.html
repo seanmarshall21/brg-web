@@ -1,0 +1,21 @@
+<!-- BRG · section: contact-hero  →  [brg_contact-hero]
+     Built from Expo SPEC-006 §2.1. Same shape as community-hero — heading, marker underline,
+     sub, two doodles — reusing .brgw-hero from brgw.css, so this fragment carries only what
+     differs: the marker colour and which doodles.
+     Marker is PINK, reused from team-hero rather than inventing a colour. The markers are
+     hand-drawn artwork, so a new colour is a new export from Sean; six pages sharing five
+     colours is a system, seven colours is a palette. Expo's recommendation, and it is Sean's
+     to overrule.
+     Doodles are the BRG mark + smiley — the only pair not already used by another hero, and
+     the friendliest two, which suits a page whose whole job is "talk to us". -->
+<section class="brgw-sec brgw-sec--contact-hero brgw-hero reveal" aria-label="Contact">
+<style>
+.brgw-sec--contact-hero{overflow:hidden;}
+.brgw-sec--contact-hero .brgw-uline{color:var(--pink);}
+</style>
+  <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
+  <span class="brgw-uline anim-up" aria-hidden="true"></span>
+  <p class="sub anim-up">{{sub}}</p>
+  <span class="brgw-doodle" style="top:var(--brgw-doodle-top);left:9%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg" alt="" width="265" height="192"></span>
+  <span class="brgw-doodle brgw-doodle--c" style="bottom:var(--brgw-doodle-bottom);right:8%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg" alt="" width="215" height="208"></span>
+</section>

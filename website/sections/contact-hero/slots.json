@@ -1,0 +1,15 @@
+{
+  "_note": "Slots for [brg_contact-hero]. NEW SECTION, Contact page, built from Expo SPEC-006. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\n\nMarker underline is PINK and that is CSS, not a slot — reused from team-hero rather than inventing a sixth colour, because the markers are hand-drawn artwork and a new colour is a new export from Sean. Expo's recommendation; Sean's to overrule.\n\nThe <h1> IS wired: it free-wraps inside max-width:18ch with no structural <br> and no inline span, so substituted copy behaves like authored copy — same test that made the other four hero headlines editable. NOTE the no-wrap constraint Sean gave for underlined text is not yet enforced in markup anywhere; that is tracked separately and will apply here too.",
+  "heading": {
+    "type": "text",
+    "label": "Headline",
+    "doc": "Display face, wraps inside 18ch. Under ~50 characters is a hint not a limit — word length drives the break more than character count. Short is the point here: it is a sign-off, not a sentence.",
+    "default": "Let's talk."
+  },
+  "sub": {
+    "type": "textarea",
+    "label": "Sub copy",
+    "doc": "Does real work: it tells the visitor this page is a switchboard, so the cards below read as an answer rather than a runaround. Write `—` as a literal em dash.",
+    "default": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask."
+  }
+}

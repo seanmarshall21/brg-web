@@ -1,0 +1,26 @@
+<!-- BRG · section: contact-restaurants  →  [brg_contact-restaurants]
+     Built from Expo SPEC-006 §2.3. Closing band, re-skin of community-partner's shape.
+
+     This section exists to catch a hole in the routing above: the single most likely reason a
+     stranger lands on a restaurant group's Contact page is that they want ONE restaurant's
+     address or hours, and none of the four route cards serve them.
+
+     NO MAP EMBED, deliberately (BUILD-SPEC §2.7 floats one). A third-party map is a script
+     inside a fragment that gets inlined into WordPress — cookies, a consent banner, and a
+     second JS engine, which the MANIFESTO's one-engine rule pushes back on. The 12 locations
+     already live on /our-restaurants/, so a link is the right size for this. -->
+<section class="brgw-sec brgw-sec--contact-restaurants reveal" aria-label="Looking for a restaurant?">
+<style>
+.brgw-sec--contact-restaurants{background:var(--teal);color:var(--ink);text-align:center;
+  padding:clamp(56px,6.4vw,88px) var(--pad);}
+.brgw-sec--contact-restaurants h2{font-size:clamp(1.8rem,4.2vw,3.5rem);text-transform:uppercase;
+  max-width:20ch;margin:0 auto;}
+.brgw-sec--contact-restaurants .sub{max-width:60ch;margin:clamp(18px,2.2vw,28px) auto 0;
+  font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.6;}
+.brgw-sec--contact-restaurants .btn{background:var(--ink);color:var(--white);
+  margin-top:clamp(26px,3vw,40px);}
+</style>
+  <h2 class="blanco anim-head" data-head="words">{{heading}}</h2>
+  <p class="sub anim-up">{{sub}}</p>
+  <a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a>
+</section>
