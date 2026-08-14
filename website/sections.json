@@ -2,31 +2,187 @@
   "version": 1,
   "_note": "Section manifest for SPEC-001 stacking sections. RATIFIED by Conti 2026-08-10 from Finn's notes/finesser/sections.draft.json; statuses reconciled to disk by Conti 2026-08-12 — all 18 fragments now exist, so every entry is live. The plugin registers [brg_<id>] for EVERY entry, so a page never shows a literal shortcode; status is documentation only (the plugin renders whatever fragment is on the CDN, and an absent one renders an invisible comment). `stacks` documents per-page shortcode order (the harness reads it; the plugin ignores it). Slot defaults, when added, must be REAL production copy.",
   "sections": [
-    { "id": "home-hero",              "title": "Home — hero",                                   "group": "hero",      "status": "live", "summary": "Photo hero on the skater plate: display headline, lede, yellow tagline, CTA, marker underline." },
-    { "id": "our-restaurants-hero",   "title": "Our Restaurants — hero",                        "group": "hero",      "status": "live", "summary": "Type hero, teal marker underline, asterisk + bolt doodles." },
-    { "id": "team-hero",              "title": "Team — hero",                                   "group": "hero",      "status": "live", "summary": "Type hero, pink marker underline, bolt + smiley doodles." },
-    { "id": "community-hero",         "title": "Community — hero",                              "group": "hero",      "status": "live", "summary": "Type hero, orange marker underline, bolt + asterisk doodles." },
-    { "id": "careers-hero",           "title": "Careers — hero",                                "group": "hero",      "status": "live", "summary": "Type hero, teal marker underline, highlighted 'let's talk', asterisk + smiley doodles." },
-    { "id": "careers-apply",          "title": "Careers — what it's like",                      "group": "editorial", "status": "live", "summary": "Light section: pink-marked headline, two columns (copy + asterisk-bulleted offer list), seam badge, yellow CTA." },
-    { "id": "careers-positions",      "title": "Careers — open positions",                      "group": "cta",       "status": "live", "summary": "Yellow band with tonal watermark, black CTA, surfer cutout bleeding off the right edge." },
-
-    { "id": "home-community",         "title": "Home — born in San Diego",                      "group": "editorial", "status": "live", "summary": "Two image plates with counter-signed parallax; stand-in photography pending Sean's real two." },
-    { "id": "home-about",             "title": "Home — what we're about",                       "group": "editorial", "status": "live", "summary": "Lede + photo with image-reveal and parallax." },
-    { "id": "home-different",         "title": "Home — a different kind of restaurant company", "group": "editorial", "status": "live", "summary": "Three image plates (yellow/black/white grounds) at three parallax rates; stand-in photography." },
-    { "id": "home-values",            "title": "Home — core values",                            "group": "grid",      "status": "live", "summary": "Core-values grid over the BRG pattern watermark." },
-    { "id": "our-restaurants-brands", "title": "Our Restaurants — brands",                      "group": "grid",      "status": "live", "summary": "Board & Brew / Odie's brand lockup plates (plain fade-up — no image reveal, it cropped the wordmarks)." },
-    { "id": "team-members",           "title": "Team — crew grid",                              "group": "grid",      "status": "live", "summary": "Nine crew cards; headshots still colour plates pending real portraits." },
-    { "id": "team-apply",             "title": "Team — join the crew",                          "group": "cta",       "status": "live", "summary": "CTA band; owns the BRG-cluster doodle that bleeds DOWN into the shared footer (bleed-rule exception)." },
-    { "id": "community-give",         "title": "Community — how we give back",                  "group": "slider",    "status": "live", "summary": "Consumes the shared .brgw-slider; sides alternate via :nth-child. Owns the teal banner." },
-    { "id": "community-stats",        "title": "Community — by the numbers",                    "group": "grid",      "status": "live", "summary": "Stat grid; three of four numbers still read XX pending real figures." },
-    { "id": "community-partner",      "title": "Community — partner with us",                   "group": "cta",       "status": "live", "summary": "CTA band. The worked ACF example — slots declared in sections/community-partner/slots.json, beside the fragment." },
-    { "id": "careers-posts",          "title": "Careers — LinkedIn posts",                      "group": "feed",      "status": "live", "summary": "Static marketing cards (not a live LinkedIn feed). Follower counts / '2mo' stamps are hand-maintained; 'View job' points at /careers/ until real URLs land." }
+    {
+      "id": "home-hero",
+      "title": "Home — hero",
+      "group": "hero",
+      "status": "live",
+      "summary": "Photo hero on the skater plate: display headline, lede, yellow tagline, CTA, marker underline."
+    },
+    {
+      "id": "our-restaurants-hero",
+      "title": "Our Restaurants — hero",
+      "group": "hero",
+      "status": "live",
+      "summary": "Type hero, teal marker underline, asterisk + bolt doodles."
+    },
+    {
+      "id": "team-hero",
+      "title": "Team — hero",
+      "group": "hero",
+      "status": "live",
+      "summary": "Type hero, pink marker underline, bolt + smiley doodles."
+    },
+    {
+      "id": "community-hero",
+      "title": "Community — hero",
+      "group": "hero",
+      "status": "live",
+      "summary": "Type hero, orange marker underline, bolt + asterisk doodles."
+    },
+    {
+      "id": "careers-hero",
+      "title": "Careers — hero",
+      "group": "hero",
+      "status": "live",
+      "summary": "Type hero, teal marker underline, highlighted 'let's talk', asterisk + smiley doodles."
+    },
+    {
+      "id": "careers-apply",
+      "title": "Careers — what it's like",
+      "group": "editorial",
+      "status": "live",
+      "summary": "Light section: pink-marked headline, two columns (copy + asterisk-bulleted offer list), seam badge, yellow CTA."
+    },
+    {
+      "id": "careers-positions",
+      "title": "Careers — open positions",
+      "group": "cta",
+      "status": "live",
+      "summary": "Yellow band with tonal watermark, black CTA, surfer cutout bleeding off the right edge."
+    },
+    {
+      "id": "home-community",
+      "title": "Home — born in San Diego",
+      "group": "editorial",
+      "status": "live",
+      "summary": "Two image plates with counter-signed parallax; stand-in photography pending Sean's real two."
+    },
+    {
+      "id": "home-about",
+      "title": "Home — what we're about",
+      "group": "editorial",
+      "status": "live",
+      "summary": "Lede + photo with image-reveal and parallax."
+    },
+    {
+      "id": "home-different",
+      "title": "Home — a different kind of restaurant company",
+      "group": "editorial",
+      "status": "live",
+      "summary": "Three image plates (yellow/black/white grounds) at three parallax rates; stand-in photography."
+    },
+    {
+      "id": "home-values",
+      "title": "Home — core values",
+      "group": "grid",
+      "status": "live",
+      "summary": "Core-values grid over the BRG pattern watermark."
+    },
+    {
+      "id": "our-restaurants-brands",
+      "title": "Our Restaurants — brands",
+      "group": "grid",
+      "status": "live",
+      "summary": "Board & Brew / Odie's brand lockup plates (plain fade-up — no image reveal, it cropped the wordmarks)."
+    },
+    {
+      "id": "team-members",
+      "title": "Team — crew grid",
+      "group": "grid",
+      "status": "live",
+      "summary": "Nine crew cards; headshots still colour plates pending real portraits."
+    },
+    {
+      "id": "team-apply",
+      "title": "Team — join the crew",
+      "group": "cta",
+      "status": "live",
+      "summary": "CTA band; owns the BRG-cluster doodle that bleeds DOWN into the shared footer (bleed-rule exception)."
+    },
+    {
+      "id": "community-give",
+      "title": "Community — how we give back",
+      "group": "slider",
+      "status": "live",
+      "summary": "Consumes the shared .brgw-slider; sides alternate via :nth-child. Owns the teal banner."
+    },
+    {
+      "id": "community-stats",
+      "title": "Community — by the numbers",
+      "group": "grid",
+      "status": "live",
+      "summary": "Stat grid; three of four numbers still read XX pending real figures."
+    },
+    {
+      "id": "community-partner",
+      "title": "Community — partner with us",
+      "group": "cta",
+      "status": "live",
+      "summary": "CTA band. The worked ACF example — slots declared in sections/community-partner/slots.json, beside the fragment."
+    },
+    {
+      "id": "careers-posts",
+      "title": "Careers — LinkedIn posts",
+      "group": "feed",
+      "status": "live",
+      "summary": "Static marketing cards (not a live LinkedIn feed). Follower counts / '2mo' stamps are hand-maintained; 'View job' points at /careers/ until real URLs land."
+    },
+    {
+      "id": "contact-hero",
+      "title": "Contact — hero",
+      "group": "hero",
+      "status": "live",
+      "summary": "Hero with the pink marker underline reused from team-hero; no sixth colour invented."
+    },
+    {
+      "id": "contact-routes",
+      "title": "Contact — where to send it",
+      "group": "grid",
+      "status": "live",
+      "summary": "2x2 routing grid. Carries the odd-count rules from 6021c32 up front, so a fifth card is additive rather than a layout job. route_2 is provisional pending Press."
+    },
+    {
+      "id": "contact-restaurants",
+      "title": "Contact — visit a restaurant",
+      "group": "cta",
+      "status": "live",
+      "summary": "Teal CTA band closing to /our-restaurants/. No map embed: a third-party map inlined into WP means cookies, a consent banner and a second JS engine."
+    }
   ],
   "stacks": {
-    "home":            ["home-hero", "home-community", "home-about", "home-different", "home-values"],
-    "our-restaurants": ["our-restaurants-hero", "our-restaurants-brands"],
-    "team":            ["team-hero", "team-members", "team-apply"],
-    "community":       ["community-hero", "community-give", "community-stats", "community-partner"],
-    "careers":         ["careers-hero", "careers-apply", "careers-positions", "careers-posts"]
+    "home": [
+      "home-hero",
+      "home-community",
+      "home-about",
+      "home-different",
+      "home-values"
+    ],
+    "our-restaurants": [
+      "our-restaurants-hero",
+      "our-restaurants-brands"
+    ],
+    "team": [
+      "team-hero",
+      "team-members",
+      "team-apply"
+    ],
+    "community": [
+      "community-hero",
+      "community-give",
+      "community-stats",
+      "community-partner"
+    ],
+    "careers": [
+      "careers-hero",
+      "careers-apply",
+      "careers-positions",
+      "careers-posts"
+    ],
+    "contact": [
+      "contact-hero",
+      "contact-routes",
+      "contact-restaurants"
+    ]
   }
 }

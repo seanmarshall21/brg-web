@@ -1657,5 +1657,407 @@
     "hide_on_screen": "",
     "active": true,
     "description": "Editable content for the community-partner section. Generated — do not hand-edit; edit sections/community-partner/slots.json + rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_contact_hero",
+    "title": "Contact — hero — Content",
+    "fields": [
+      {
+        "key": "field_brg_contact_hero_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Contact — hero — Content**\nSource: `brg-web/website/acf/brg-contact-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_contact_hero_heading",
+        "label": "Headline",
+        "name": "brg_contact_hero_heading",
+        "type": "text",
+        "instructions": "Display face, wraps inside 18ch. Under ~50 characters is a hint not a limit — word length drives the break more than character count. Short is the point here: it is a sign-off, not a sentence.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Let's talk."
+      },
+      {
+        "key": "field_brg_contact_hero_sub",
+        "label": "Sub copy",
+        "name": "brg_contact_hero_sub",
+        "type": "textarea",
+        "instructions": "Does real work: it tells the visitor this page is a switchboard, so the cards below read as an answer rather than a runaround. Write `—` as a literal em dash.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask."
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the contact-hero section. Generated — do not hand-edit; edit sections/contact-hero/slots.json + rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_contact_routes",
+    "title": "Contact — where to send it — Content",
+    "fields": [
+      {
+        "key": "field_brg_contact_routes_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Contact — where to send it — Content**\nSource: `brg-web/website/acf/brg-contact-routes.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_contact_routes_heading",
+        "label": "Heading",
+        "name": "brg_contact_routes_heading",
+        "type": "text",
+        "instructions": "Sits above the card grid. ~28 characters keeps it to one line.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Who do you need?"
+      },
+      {
+        "key": "field_brg_contact_routes_route_1_label",
+        "label": "Route 1 — label",
+        "name": "brg_contact_routes_route_1_label",
+        "type": "text",
+        "instructions": "The teal link text. Short — it is a button, not a sentence.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "General"
+      },
+      {
+        "key": "field_brg_contact_routes_route_1_href",
+        "label": "Route 1 — link",
+        "name": "brg_contact_routes_route_1_href",
+        "type": "url",
+        "instructions": "LIVE AND PROVEN — this mailto already works on community-partner.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "mailto:hello@blacktoprg.com"
+      },
+      {
+        "key": "field_brg_contact_routes_route_1_text",
+        "label": "Route 1 — one-liner",
+        "name": "brg_contact_routes_route_1_text",
+        "type": "textarea",
+        "instructions": "One line under the label.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Anything that doesn't fit the boxes below."
+      },
+      {
+        "key": "field_brg_contact_routes_route_2_label",
+        "label": "Route 2 — label",
+        "name": "brg_contact_routes_route_2_label",
+        "type": "text",
+        "instructions": "The teal link text.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Press & media"
+      },
+      {
+        "key": "field_brg_contact_routes_route_2_href",
+        "label": "Route 2 — link",
+        "name": "brg_contact_routes_route_2_href",
+        "type": "url",
+        "instructions": "PROVISIONAL — points at the Press page, which is not built yet. If Press never ships, change this to a mailto rather than leaving a dead link.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "/press/#inquiries"
+      },
+      {
+        "key": "field_brg_contact_routes_route_2_text",
+        "label": "Route 2 — one-liner",
+        "name": "brg_contact_routes_route_2_text",
+        "type": "textarea",
+        "instructions": "One line under the label.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Press kit, high-res imagery, interviews, or a comment on a story."
+      },
+      {
+        "key": "field_brg_contact_routes_route_3_label",
+        "label": "Route 3 — label",
+        "name": "brg_contact_routes_route_3_label",
+        "type": "text",
+        "instructions": "The teal link text.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Partnerships & giveback"
+      },
+      {
+        "key": "field_brg_contact_routes_route_3_href",
+        "label": "Route 3 — link",
+        "name": "brg_contact_routes_route_3_href",
+        "type": "url",
+        "instructions": "LIVE AND PROVEN — the same mailto community-partner uses, subject line included.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "mailto:hello@blacktoprg.com?subject=Community%20partnership"
+      },
+      {
+        "key": "field_brg_contact_routes_route_3_text",
+        "label": "Route 3 — one-liner",
+        "name": "brg_contact_routes_route_3_text",
+        "type": "textarea",
+        "instructions": "One line under the label.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Nonprofits, schools, and local organizations."
+      },
+      {
+        "key": "field_brg_contact_routes_route_4_label",
+        "label": "Route 4 — label",
+        "name": "brg_contact_routes_route_4_label",
+        "type": "text",
+        "instructions": "The teal link text.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Careers"
+      },
+      {
+        "key": "field_brg_contact_routes_route_4_href",
+        "label": "Route 4 — link",
+        "name": "brg_contact_routes_route_4_href",
+        "type": "url",
+        "instructions": "Points at the live careers page.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "/careers/"
+      },
+      {
+        "key": "field_brg_contact_routes_route_4_text",
+        "label": "Route 4 — one-liner",
+        "name": "brg_contact_routes_route_4_text",
+        "type": "textarea",
+        "instructions": "One line under the label. Write `&` as a literal ampersand.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Open roles across Board & Brew and Odie's."
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the contact-routes section. Generated — do not hand-edit; edit sections/contact-routes/slots.json + rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_contact_restaurants",
+    "title": "Contact — visit a restaurant — Content",
+    "fields": [
+      {
+        "key": "field_brg_contact_restaurants_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "**Contact — visit a restaurant — Content**\nSource: `brg-web/website/acf/brg-contact-restaurants.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_contact_restaurants_heading",
+        "label": "Heading",
+        "name": "brg_contact_restaurants_heading",
+        "type": "text",
+        "instructions": "Display face on the teal band, free-wrapping inside 20ch.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Looking for a restaurant?"
+      },
+      {
+        "key": "field_brg_contact_restaurants_sub",
+        "label": "Sub copy",
+        "name": "brg_contact_restaurants_sub",
+        "type": "textarea",
+        "instructions": "One line beneath the heading. Write `&` as a literal ampersand.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Addresses, hours, and every Board & Brew and Odie's location in one place."
+      },
+      {
+        "key": "field_brg_contact_restaurants_cta_label",
+        "label": "Button label",
+        "name": "brg_contact_restaurants_cta_label",
+        "type": "text",
+        "instructions": "~18 characters.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Our Restaurants"
+      },
+      {
+        "key": "field_brg_contact_restaurants_cta_href",
+        "label": "Button link",
+        "name": "brg_contact_restaurants_cta_href",
+        "type": "url",
+        "instructions": "Points at the live restaurants page.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "/our-restaurants/"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the contact-restaurants section. Generated — do not hand-edit; edit sections/contact-restaurants/slots.json + rerun kit/build-acf.py."
   }
 ]
