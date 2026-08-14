@@ -1827,7 +1827,7 @@
         "label": "Route 2 — link",
         "name": "brg_contact_routes_route_2_href",
         "type": "url",
-        "instructions": "PROVISIONAL — points at the Press page, which is not built yet. If Press never ships, change this to a mailto rather than leaving a dead link.",
+        "instructions": "Points at the general inbox with a press subject line, the same pattern as route_3's proven partnership mailto. INTENDED DESTINATION is /press/#inquiries — switch it back the day the Press page ships (Expo SPEC-005). It is a mailto today because a slot default is LIVE COPY, so an aspirational default ships as a real defect: /press/ does not exist, and a dead link on a page whose whole job is routing people correctly is worse than a slightly generic destination.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1835,7 +1835,7 @@
           "class": "",
           "id": ""
         },
-        "default_value": "/press/#inquiries"
+        "default_value": "mailto:hello@blacktoprg.com?subject=Press%20enquiry"
       },
       {
         "key": "field_brg_contact_routes_route_2_text",
