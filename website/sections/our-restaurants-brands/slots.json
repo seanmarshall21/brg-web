@@ -33,8 +33,8 @@
   "odies_heading": {
     "type": "text",
     "label": "Odie's — name",
-    "doc": "The brand name.",
-    "default": "Odie's Pizza"
+    "doc": "The brand name. CANONICAL FORM — Sean 2026-08-13: the official name carries the Co. at the end. Body copy is deliberately NOT swept to match; he asked that prose follow whatever copy is provided, and both forms are in use interchangeably. So this field is the one place the official name is asserted — change it here, leave the paragraphs alone.",
+    "default": "Odie's Pizza Co."
   },
   "odies_body_1": {
     "type": "textarea",

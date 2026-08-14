@@ -1068,7 +1068,7 @@
         "label": "Odie's — name",
         "name": "brg_our_restaurants_brands_odies_heading",
         "type": "text",
-        "instructions": "The brand name.",
+        "instructions": "The brand name. CANONICAL FORM — Sean 2026-08-13: the official name carries the Co. at the end. Body copy is deliberately NOT swept to match; he asked that prose follow whatever copy is provided, and both forms are in use interchangeably. So this field is the one place the official name is asserted — change it here, leave the paragraphs alone.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1076,7 +1076,7 @@
           "class": "",
           "id": ""
         },
-        "default_value": "Odie's Pizza"
+        "default_value": "Odie's Pizza Co."
       },
       {
         "key": "field_brg_our_restaurants_brands_odies_body_1",
