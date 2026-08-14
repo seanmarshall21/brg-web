@@ -102,6 +102,26 @@ assertion against the real source, a derivation instead of a constant. Where tha
 possible — prose, rationale, this paragraph — say *when* it was true and *who* checked it, so the
 next reader knows what to re-verify rather than trusting it.
 
+**A visual check is not evidence until it has a control.** Two screenshots of the *same file*
+differ wherever a webfont load races or antialiasing shifts. So before trusting any difference,
+shoot the same input twice: if the control pair differs, a pixel diff can prove nothing in either
+direction and you must measure **geometry** instead — and then check the geometry detector too,
+because a naive one reads centred label text as a vertical rule, and a naive horizontal one reads
+the page's white background as a rule 700 times over. Both happened on 2026-08-13.
+
+**Knowing a rule is not the same as noticing it applies.** The `--live` trap was documented in
+this file in the morning and caught its own author twice more the same day — reached for because
+the fonts were wanted, not because anyone thought about where the fragment comes from. A written
+rule fires on recall; the failure happens on a day you are thinking about something else. That is
+the argument for a check that runs over one that reads well.
+
+**Prefer dissolving a constraint to documenting it.** The stat grid broke at three cells, and the
+fix that suggested itself was a note to Sean: *one more number or three, never two.* But that
+constraint was our CSS imposing on his content. Two rules removed it instead. Same shape as the
+doodles: the answer to "a longer headline moves the marks" was to stop the marks tracking content
+height, not to warn an editor about headline length. **If a rule you are about to write down
+constrains what someone else may do, check first whether you can delete the reason for it.**
+
 **A blind tool is worse than a stale pointer, because only one of them announces itself.** The
 instrument you verify with is itself a claim about what it can see. Three times on 2026-08-13 a
 check reported cleanly on a case it structurally could not match: a `grep -c` for a phrase that
