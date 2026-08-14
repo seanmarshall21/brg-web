@@ -58,10 +58,18 @@ mislabelled. Two clean fixes, and it's a content call, not a code one:
 - **`13`** / "locations across SD & OC communities", counting the group; or
 - **`12`** / "**Board & Brew** locations embedded in SD & OC communities", counting the brand.
 
-I'd take the first: it's a stat about **BRG**, on BRG's community page, and undercounting your
-own footprint on the page arguing you're embedded in the community is a strange place to be
-modest. Either way it needs saying out loud, because it's the number Sean is least likely to
-check — it's the one that was never `XX`.
+> **RULED, 2026-08-13 — Sean: *"Put it at 12 right now."*** (Relayed by Finn; I have it
+> second-hand, so flagged as relayed rather than heard.) **The number is settled at 12 and my
+> recommendation of 13 is withdrawn** — recorded rather than deleted, because it was the wrong
+> half of the question to push. What the ruling settles is the **figure**. What it does *not*
+> settle is what 12 **counts**, and that's the half that actually carries the defect: at `12`
+> the label *"locations embedded in SD & OC communities"* still reads as the group while
+> `home-community` says 12 is Board & Brew with Odie's on top. **So the remaining ask is a
+> labelling question, not a 12-vs-13 one** — and it must be put to Sean that way, or it reads as
+> relitigating a call he's already made.
+
+Either way it needed saying out loud, because it's the number Sean is least likely to check —
+it's the one that was never `XX`.
 
 **And the maintenance cost is now real:** opening a 13th Board & Brew is **three separate edits,
 on three sections, across three pages**, with nothing in wp-admin connecting them.

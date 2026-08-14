@@ -66,7 +66,7 @@ Live behind the gate today ([`community-stats/embed.html`](../../website/section
 
 | # | Figure | Label | State |
 |---|---|---|---|
-| 1 | `12` | locations embedded in SD & OC communities | **not as real as I said — see [SPEC-008 §1](editable-copy-audit.md)**: `home-community` counts 12 as *Board & Brew only* with Odie's on top, so BRG's own arithmetic makes this 13. Either understated or mislabelled; Sean's ruling |
+| 1 | `12` | locations embedded in SD & OC communities | **figure ruled 12** (Sean, 2026-08-13). The label is the open half — [SPEC-008 §1](editable-copy-audit.md): `home-community` counts 12 as *Board & Brew only*, so at 12 the group-sounding label is the thing to fix |
 | 2 | `XX` | local organizations supported annually | placeholder |
 | 3 | `XX` | meals/dollars donated | placeholder |
 | 4 | `XX` | giveback events per year | placeholder |
@@ -138,7 +138,7 @@ Sean supplies them:
 
 | # | Figure | Label | Where it comes from |
 |---|---|---|---|
-| 1 | `12` or `13` | locations embedded in SD & OC communities | **needs a ruling** — [SPEC-008 §1](editable-copy-audit.md). `13` counting the group, or `12` relabelled "Board & Brew locations". Not the free one I took it for |
+| 1 | `12` | locations embedded in SD & OC communities | **figure RULED 12** by Sean 2026-08-13 (*"Put it at 12 right now"*, relayed via Finn). The **label** is still open — [SPEC-008 §1](editable-copy-audit.md): at 12 it reads as the group while `home-community` says 12 is Board & Brew. Not the free one I took it for |
 | 2 | `20+` | local organizations supported each year | count the sponsorship list |
 | 3 | `400+` | team members across San Diego & Orange County | HR headcount — **exists today** |
 | 4 | `25+` | giveback events per year | count the event calendar |
@@ -149,7 +149,7 @@ Minor copy note: `annually` → `each year` in #2, to match the register of the 
 
 **Ship two cells and launch.** Per §2.2 a 2-cell grid is clean and reads as deliberate; per §2.3
 figure #3 (headcount) needs no research at all, so **the location count + headcount is available
-today** — though the location figure now needs a one-word ruling first ([SPEC-008 §1](editable-copy-audit.md)) — with
+today** — the count is ruled at 12, only its label is open ([SPEC-008 §1](editable-copy-audit.md)) — with
 zero external dependency.
 
 > **Recommendation: `community-stats` stops being a launch blocker.** It becomes a section that
