@@ -11,6 +11,22 @@
   "version": 1,
   "tasks": [
     {
+      "id": "wp-page-cleanup",
+      "title": "Three live WP pages are wrong: literal shortcode, and two duplicates showing the wrong sections",
+      "owner": "sean",
+      "gate": "sean",
+      "status": "todo",
+      "note": "Found 2026-08-13 by checking the live site rather than the repo. (1) /our-restaurants-solo/ renders a literal [brg_our-restaurants ttl=\"0\"] to visitors — retired shortcode. (2) /contact/ renders the our-restaurants sections. (3) /press-gallery/ renders the our-restaurants sections. All three are page-composition in Oxygen, which is Sean's side of the credential boundary."
+    },
+    {
+      "id": "acf-repeaters",
+      "title": "Repeater support: the only thing standing between us and 'all content editable'",
+      "owner": "conti",
+      "gate": "conti",
+      "status": "todo",
+      "note": "fc-brands' ACF doc (acf-content.html) uses have_rows()/get_sub_field() for repeating content. We have none — slots are flat scalars only. That is exactly why four sections are still code: team-members (9 crew cards), home-values (its count already moved 6->5), careers-posts, our-restaurants-brands. Numbering flat slots would bake in a count we KNOW changes, so the answer is repeaters, not more slots. Needs: a repeater slot type in build-acf.py, a repeating fill in the plugin, and a fragment convention for the row template. Sean's stated goal is that anything is editable at any point, and this is the gap."
+    },
+    {
       "id": "acf-generated-drift",
       "title": "pre-push: regenerate website/acf/ and fail if the committed output differs",
       "owner": "conti",
@@ -31,8 +47,8 @@
       "title": "Start Dee and Dum (helper chats) when there's side work for them",
       "owner": "sean",
       "gate": "none",
-      "status": "doing",
-      "note": "BOTH HELPER SEATS ARE NOW UP — this task is effectively done; leaving it `doing` for sean to close. DEE IS UP 2026-08-13: ~/Documents/GitHub/brg-web-dee, fc.chat=dee, warn, hooks wired, local disk, guard tested in the reverse direction. Dee is no longer idle — work/dee/slot-plugin-check/ is delivered (0a07bec). DUM IS UP 2026-08-13: ~/Documents/GitHub/brg-web-dum, fc.chat=dum, warn, hooks wired, local disk, verified from git config not from the path (--git-common-dir=.git, a real clone). Guard tested in BOTH directions — staged a kit/ file (hook named conti as owner, quoted the rule, warn-mode exit 0) AND a work/dum/ file (passed silently); a hook that warned on everything or nothing would look identical from one probe. Nothing committed either way. No mocks/ hand-off to either helper — no task has needed it yet. First dum delivery: work/dum/careers-posts-urls/ (the LinkedIn company URL, see careers-posts-urls). They own work/<chat>/ and their log only; finished work is promoted by the destination's owner. NOTE FOR territory-block-mode: there are now FIVE clones to flip together (conti, finn, expo, dee, dum), not four."
+      "status": "done",
+      "note": "Both helper seats up and delivering; closing."
     },
     {
       "id": "expo-clone",
@@ -47,16 +63,16 @@
       "title": "Retire the five legacy monolith fragments (website/<slug>/embed.html)",
       "owner": "sean",
       "gate": "conti",
-      "status": "blocked",
-      "note": "Found 2026-08-13 (finn). All five are materially STALE while STATUS said they 'still exist and still work'. website/home/embed.html's <h1> has no structural <br>, so it free-wraps to FIVE lines where the live sections/home-hero renders TWO, and it lacks the hand-drawn underline and the doodle cluster. A duplicate that renders a different design while described as working is worse than no duplicate: it caused a false hero-regression report the same day. MITIGATED NOW — finn banded all five with a loud stale banner (a52675f) naming the live form and that divergence, so the trap is signposted. BLOCKED ON SEAN for one fact only: does any DRAFT, private, or unlinked WP page still use the page-level [brg_<slug>] form? Conti confirmed zero of the five LIVE pages do (every one is nav + sections + footer), but the shortcode stays registered off pages.json, so deleting a fragment would make such a page render an empty fetch. Yes -> leave banded. No -> finn deletes the five fragments, conti fixes the STATUS line either way."
+      "status": "done",
+      "note": "DONE 2026-08-13 — Sean ruled retire; five fragments deleted, pages.json emptied. CONSEQUENCE NOW VISIBLE LIVE: /our-restaurants-solo/ renders the literal [brg_our-restaurants ttl=\"0\"]. That is the deregistration working AS DESIGNED (loud rather than a silent empty fetch) but it is on a live page. Fix is Sean's: delete that page, or replace the token with [brg_our-restaurants-hero] + [brg_our-restaurants-brands]."
     },
     {
       "id": "acf-slot-tokens",
       "title": "Wire the sections for ACF: {{tokens}} in the fragment + slots.json beside it",
       "owner": "finn",
       "gate": "none",
-      "status": "doing",
-      "note": "HERO HEADLINES ARE NO LONGER BLOCKED ON SEAN — verified live 2026-08-13 by dee (slotcheck, deployed plugin 2.6.1, read from the CDN not the repo): all five hero sections carry slots and fill — home-hero 2, our-restaurants-hero 2, team-hero 4, community-hero 2, careers-hero 3. Sean approved, finn wired, it shipped; the 'BLOCKED ON SEAN' below is stale and was showing on Sean's board as an outstanding ask against him. Board total is now 16 sections / 69 slots, not 62. Only team-members and careers-posts remain code-only and both are deliberate per conti's ruling (c). @finn — your task, your note: reword or reopen as you see fit, I only added this line because it was misreporting Sean as the holder. ---- ORIGINAL NOTE FOLLOWS ---- COMPLETE except the four held hero headlines — 16 sections, 62 slots, 62 ACF fields, all generated/primed/verified live on v2.6.1 (2026-08-13). --check green, all 16 pass finn's verify-wiring.mjs. Hard cases all proven: slots split around inline markup (team-hero, careers-hero, community-give), a slot inside an anchor carrying target/rel (our-restaurants-brands — noopener survived), literal & single-escaped throughout. LEFT AS CODE ON PURPOSE, structural not pending: home-hero/home-community/home-different/careers-apply headings (hard <br> and/or inline <span class=mark> — no slot type can hold either); home-values (its count already changed 6->5, so numbering would bake in a number we KNOW moves — needs real repeaters); team-members + careers-posts card sets; our-restaurants-brands named per brand rather than numbered, since a third brand is a build task not a content edit. BLOCKED ON SEAN: the four hero <h1>s. Budget pre-written in each slots.json; yes = ~5 min, no = finn changes 'awaiting Sean' to 'declined, stays code' so the next reader isn't misled."
+      "status": "done",
+      "note": "DONE — 19 sections, 88 fields live, incl. the 4 hero headlines Sean approved and the 3 Contact sections. Remaining code-only sections all need REPEATERS, which we do not have: team-members (9 cards), home-values (count already moved 6->5), careers-posts, our-restaurants-brands. That is now its own task."
     },
     {
       "id": "acf-check-on-push",
@@ -149,10 +165,10 @@
     {
       "id": "press-contact-pages",
       "title": "Build the Press & Gallery and Contact pages",
-      "owner": "expo",
+      "owner": "finn",
       "gate": "conti",
-      "status": "blocked",
-      "note": "SECTION PLANS DELIVERED 2026-08-13: notes/explorer/press-gallery-page.md (SPEC-005) and contact-page.md (SPEC-006). Now blocked on conti's DECISION, then it's finn's build. Press = 4 sections (the comp's 5 bands build as 4 — the seam badge is owned by press-articles bleeding UP, not a section); net-new code is only the article card interior + the gallery tile, everything else re-skins careers-positions / careers-posts / team-members / hero-page. Contact = 3 sections, ZERO new archetypes, and it is the only unbuilt thing not blocked on content BRG must produce — so build it first. Both need pages.json + sections.json + kit/registry.json entries (conti) and a WP menu item (sean), taking the nav 5 -> 7. Open decisions: the Press hero underline is #5D0E8B and no violet token exists; there is no line-press-* or line-contact-* artwork; press@ address or route via Contact; press-articles must be held out of stacks.press until >=2 REAL articles exist."
+      "status": "doing",
+      "note": "Contact BUILT and deployed (3 sections, 19 slots, registered, field groups live). Press NOT built — Expo has SPEC-005 but it needs artwork decisions. LIVE STATE 2026-08-13: /contact/ and /press-gallery/ both exist in WP but BOTH render the our-restaurants sections — they look duplicated from that page and the shortcodes were never swapped. Contact needs [brg_contact-hero]+[brg_contact-routes]+[brg_contact-restaurants]."
     },
     {
       "id": "nav-gaps",
