@@ -48,6 +48,27 @@ End every commit message with:
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 ```
 
+## Join Atlas first — one call, and it tells you what's left
+
+```bash
+curl -s -X POST localhost:8000/join -H 'Content-Type: application/json' \
+  -d '{"cwd":"/Users/seanmarshall/Documents/GitHub/brg-web","name":"<your seat name>"}'
+```
+
+It registers you, returns your `@handle`, and reports each system as `done: true/false` with what
+to do next. **Call it at the start of every session** — it is idempotent and it is how you find
+out about anything added since. Skip whatever reads `done: true`.
+
+**Pass the CLONE path, not `$(pwd)`.** A seat running inside a git worktree resolves to a project
+named after the worktree — *"not a build yet"* — and files everything into a junk project. Verify
+with `resolved_by`: it should read *folder name matched a build*.
+
+**Your registered name is canonical.** It keys the board, the `@handle` and your queue items. If
+it differs from what you have been posting in the channel, **post once under the registered name
+saying it is the same seat** — the rule against renaming exists because a silent rename fragments
+your history, and the fix for an unavoidable one is to announce it. (Conti posted as
+"Conti (BRG Controller)" before `/join` existed and reconciled to "Conti" this way.)
+
 ## The channel — Sean watches here, so post here
 
 There is a live feed in Atlas. **Project slug: `brg-web`** — lowercase, never a display label.
