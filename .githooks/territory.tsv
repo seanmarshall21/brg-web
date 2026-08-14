@@ -19,6 +19,7 @@ conti	.githooks/
 conti	kit/
 conti	scripts/
 conti	docs/
+conti	website/docs/
 conti	netlify.toml
 conti	SHORTCODES.md
 conti	MANIFESTO.md

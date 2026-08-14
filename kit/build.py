@@ -3,7 +3,7 @@
 of truth), and stamps each component with a version + contract hash. Pattern borrowed
 from fc-brands (temper/kit). Edit the registry, then run this — never edit the docs by hand.
 
-  python3 kit/build.py            regenerate SHORTCODES.md + docs/shortcode-index.html
+  python3 kit/build.py            regenerate SHORTCODES.md + website/docs/shortcode-index.html
   python3 kit/build.py --restamp  bump version + re-hash any component whose contract moved
   python3 kit/build.py --check    exit 1 if a contract moved un-bumped, or the docs are stale
 """
@@ -14,7 +14,11 @@ from _guard import refuse_if_worktree
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REG  = os.path.join(ROOT, 'kit', 'registry.json')
-IDX  = os.path.join(ROOT, 'docs', 'shortcode-index.html')
+# Published under website/ ON PURPOSE: website/ is the Netlify publish dir, so this is
+# the only path that makes the visual index reachable. It lived in docs/ and 404'd for
+# its whole life — generated every build, readable by nobody without a checkout.
+# fc-brands publishes theirs the same way (temperfest.netlify.app/kit/shortcodes.html).
+IDX  = os.path.join(ROOT, 'website', 'docs', 'shortcode-index.html')
 MD   = os.path.join(ROOT, 'SHORTCODES.md')
 E    = html.escape
 
