@@ -102,6 +102,21 @@ assertion against the real source, a derivation instead of a constant. Where tha
 possible — prose, rationale, this paragraph — say *when* it was true and *who* checked it, so the
 next reader knows what to re-verify rather than trusting it.
 
+**A section extracted from a composed page is not a page.** Pull one fragment into a minimal
+hand-rolled HTML file and you lose `brgw.js` — and **only `brgw.js` clears `.anim-head{opacity:0}`;
+no CSS does.** So every split-line heading renders invisible, and the repro shows a missing
+heading that is present and correct on the real page. `shot.mjs` handles this; anything hand-rolled
+does not. The tell is the contradiction: a heading styled at 3.1rem *and* absent is not a finding,
+it is a broken instrument. (Finn, 2026-08-13, one sentence from reporting a live heading as
+invisible.)
+
+**A selector derived from a section id can silently match zero.** SPEC-001 §4 says a fragment
+scopes its CSS under `.brgw-sec--<id>`, but `our-restaurants-brands` is scoped under
+`.brgw-sec--or-brands`. Nothing breaks today because the name is unique — but anything that walks
+section ids and builds a selector from them (both `--check` and `slotcheck` walk ids) will match
+nothing and report clean. A convention that is *usually* followed is worse than one that is
+enforced, because the exception is invisible exactly where it matters.
+
 **A visual check is not evidence until it has a control.** Two screenshots of the *same file*
 differ wherever a webfont load races or antialiasing shifts. So before trusting any difference,
 shoot the same input twice: if the control pair differs, a pixel diff can prove nothing in either
