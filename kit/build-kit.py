@@ -40,7 +40,8 @@ OUTDIR   = os.path.join(ROOT, 'website', 'kit')
 CDN      = 'https://blacktoprg.netlify.app'
 
 NAV = [('index.html', 'Build Kit'), ('shortcodes.html', 'Shortcodes'),
-       ('status.html', 'Status'), ('builds.html', 'Builds'), ('log.html', 'Log')]
+       ('status.html', 'Status'), ('builds.html', 'Builds'), ('log.html', 'Log'),
+       ('list.html', 'All Shortcodes')]
 
 STAGE = {'shipped': ('#19C7C2', 'shipped'), 'building': ('#FCE200', 'building'),
          'planned': ('rgba(244,241,234,.45)', 'planned'), 'parked': ('#F5821F', 'parked')}
@@ -521,8 +522,85 @@ def page_log():
     return shell('log.html', 'Log', lede, ''.join(out))
 
 
+# ── /kit/list — the quick view: every page, every shortcode ───────────────────
+def page_list():
+    """One screen answering "what exists and where does it go".
+
+    The Shortcodes page documents the attribute surface of each shortcode TYPE.
+    This is the opposite question: the actual inventory, by page, so you can see a
+    whole stack at once and copy it in order.
+    """
+    secs = json.load(open(SECTIONS))
+    reg = json.load(open(REGISTRY))
+    stacks = secs.get('stacks', {})
+    byid = {x['id']: x for x in secs['sections']}
+    where = {}
+    for page, ids in stacks.items():
+        for i in ids:
+            where.setdefault(i, []).append(page)
+
+    rows = []
+    for x in secs['sections']:
+        sid = x['id']
+        rows.append({'code': '[brg_%s]' % sid, 'id': sid, 'title': x.get('title', sid),
+                     'type': x.get('group', 'other'), 'on': where.get(sid, []),
+                     'built': os.path.exists(os.path.join(ROOT, 'website', 'sections', sid, 'embed.html'))})
+    for c in reg['components']:
+        if c['id'] in ('nav', 'footer'):
+            rows.append({'code': '[%s]' % c.get('shortcode', c['id']), 'id': c['id'],
+                         'title': c.get('summary') or c['id'], 'type': 'chrome',
+                         'on': ['every page'], 'built': True})
+
+    # by page — the stack in order, copyable whole
+    out = ['<h2 class="sec">by page — the full stack, in order</h2>']
+    for page, ids in stacks.items():
+        stack = ['[brg_nav]'] + ['[brg_%s]' % i for i in ids] + ['[brg_footer]']
+        lines = ''.join(
+            '<tr><td><code>[brg_%s]</code></td><td>%s</td><td>%s</td></tr>'
+            % (esc(i), esc(byid.get(i, {}).get('title', '')), esc(byid.get(i, {}).get('group', '')))
+            for i in ids)
+        out.append(
+            '<div class="card"><h3>%s<em>%d sections</em></h3>'
+            '<div class="body"><div class="codebox"><code>%s</code>'
+            '<button class="btn" data-copy="%s">copy stack</button></div></div>'
+            '<table><tr><th>shortcode</th><th>section</th><th>type</th></tr>%s</table></div>'
+            % (esc(page), len(ids), esc(' '.join(stack)), esc(' '.join(stack)), lines))
+
+    # by type
+    types = {}
+    for r in rows:
+        types.setdefault(r['type'], []).append(r)
+    out.append('<h2 class="sec">by type</h2><div class="grid">')
+    for t in sorted(types):
+        li = ''.join('<tr><td><code>%s</code></td><td>%s</td></tr>' % (esc(r['code']), esc(', '.join(r['on']) or '—'))
+                     for r in sorted(types[t], key=lambda r: r['id']))
+        out.append('<div class="card"><h3>%s<em>%d</em></h3><table>'
+                   '<tr><th>shortcode</th><th>used on</th></tr>%s</table></div>' % (esc(t), len(types[t]), li))
+    out.append('</div>')
+
+    # flat A-Z, the copy-one-thing view
+    out.append('<h2 class="sec">everything, A–Z</h2><div class="card"><table>'
+               '<tr><th>shortcode</th><th>what</th><th>type</th><th>used on</th></tr>')
+    for r in sorted(rows, key=lambda r: r['code']):
+        out.append('<tr><td><code>%s</code></td><td>%s</td><td>%s</td><td>%s</td></tr>'
+                   % (esc(r['code']), esc(r['title'])[:70], esc(r['type']), esc(', '.join(r['on']) or '—')))
+    out.append('</table></div>')
+
+    lede = ('<p class="lede">Everything that exists and where it goes. <strong>%d section shortcodes '
+            'across %d pages, plus the two chrome shortcodes.</strong> The Shortcodes tab documents '
+            'what each one <em>accepts</em>; this one is the inventory. Copy a whole page stack in '
+            'order, or a single shortcode. <strong>If a shortcode is not on this page it does not '
+            'exist</strong> — placing it renders the raw text on the live site.</p>'
+            % (len(secs['sections']), len(stacks)))
+    body = ''.join(out) + ('<script>document.addEventListener("click",function(e){'
+                           'var b=e.target.closest("[data-copy]");if(!b)return;'
+                           'navigator.clipboard.writeText(b.dataset.copy);'
+                           'var t=b.textContent;b.textContent="copied";setTimeout(function(){b.textContent=t},1200);});</script>')
+    return shell('list.html', 'All Shortcodes', lede, body)
+
+
 PAGES = {'index.html': page_kit, 'shortcodes.html': page_shortcodes,
-         'status.html': page_status, 'builds.html': page_builds, 'log.html': page_log}
+         'status.html': page_status, 'builds.html': page_builds, 'log.html': page_log, 'list.html': page_list}
 
 
 def main():
@@ -548,7 +626,7 @@ def main():
             sys.exit(1)
         print('kit pages: up to date')
     else:
-        print('\n5 pages → website/kit/  (live at %s/kit/)' % CDN)
+        print('\n%d pages → website/kit/  (live at %s/kit/)' % (len(PAGES), CDN))
 
 
 if __name__ == '__main__':
