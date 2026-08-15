@@ -1,5 +1,9 @@
 {
   "_note": "Slots for [brg_our-restaurants-brands]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nSlots are NAMED PER BRAND (`bnb_*`, `odies_*`), deliberately not numbered `brand_1_*`/`brand_2_*`. Numbering would imply a repeater whose length is content, and it isn't: each plate carries its own brand lockup artwork, so a third brand is a BUILD task (new asset, new plate) rather than a content edit. Naming them says that. Same reasoning as home-about's vision/mission — two named things, not two rows.\\n\\nThe brand lockup plates deliberately have NO image reveal: the 2->1.2 counter-scale was cropping the wordmarks, and a brand mark should not be cropped for an effect (2026-08-10). They keep a plain fade-up, and that stays as code.",
+  "_baseline": {
+    "rev": "7d4e200",
+    "why": "Sean 2026-08-13 ruled the canonical name carries the Co. — odies_heading went from Odie's Pizza to Odie's Pizza Co. A deliberate approved copy change, verified rendering on one line."
+  },
   "bnb_heading": {
     "type": "text",
     "label": "Board & Brew — name",

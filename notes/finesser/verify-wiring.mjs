@@ -31,7 +31,7 @@ import { readFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { readdirSync, existsSync } from 'node:fs';
+import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import { fillSlots } from './compose.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -39,7 +39,7 @@ const REPO = join(HERE, '..', '..');
 const SITE = join(REPO, 'website');
 const BASE = 'https://blacktoprg.netlify.app';
 
-const git = (...a) => execFileSync('git', a, { cwd: REPO, encoding: 'utf8' });
+const git = (...a) => execFileSync('git', a, { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 const read = (p) => readFile(join(SITE, p.replace(/^\//, '')), 'utf8');
 
 /* Decode the entity forms esc_html introduces, and nothing else. */
@@ -58,34 +58,72 @@ const element = (s) => {
 const norm = (s) => decode(element(s).replaceAll('/assets/', `${BASE}/assets/`)
   .replaceAll(`${BASE}${BASE}`, BASE));
 
-/* The fragment as it stood immediately BEFORE this section was wired. */
+/* The fragment as it stood immediately BEFORE this section was wired — or, once a section has
+   had an APPROVED copy change since, as it stood at the rev that change landed.
+
+   Re-baselining exists because without it this check goes permanently red the first time
+   anyone deliberately edits a default, and a gate that is always red is one everyone learns to
+   skip. That is not hypothetical: Sean's "Odie's Pizza Co." ruling and my own odd-count CSS fix
+   both changed a wired section on purpose, and both are correct.
+
+   To re-baseline, add to the section's slots.json (the `_` prefix means build-acf.py ignores it):
+     "_baseline": { "rev": "<sha of the approved change>", "why": "<who approved it and why>" }
+   Both sides are then filled with the slots.json of their own rev, so a post-wiring baseline
+   compares like for like. Pre-wiring baselines have no slots.json, where filling is a no-op. */
 function baseline(id) {
   const frag = `website/sections/${id}/embed.html`;
+  const declared = JSON.parse(readFileSync(join(SITE, 'sections', id, 'slots.json'), 'utf8'));
+  const pinned = declared._baseline && declared._baseline.rev;
   const added = git('log', '--diff-filter=A', '--format=%H', '--', `website/sections/${id}/slots.json`)
     .trim().split('\n').filter(Boolean).pop();
   // No commit yet => the wiring is uncommitted, so HEAD still holds the pre-wiring fragment.
-  const rev = added ? `${added}^` : 'HEAD';
-  return { rev, html: git('show', `${rev}:${frag}`) };
+  const rev = pinned || (added ? `${added}^` : 'HEAD');
+  let slotsAtRev = null;
+  try { slotsAtRev = JSON.parse(git('show', `${rev}:website/sections/${id}/slots.json`)); }
+  catch { /* pre-wiring rev has no slots.json — filling is then a no-op, as intended */ }
+  try {
+    return { rev, html: git('show', `${rev}:${frag}`), slotsAtRev };
+  } catch (e) {
+    // A section BORN wired — fragment and slots.json in the same first commit — has no
+    // pre-wiring state, so "renders what it rendered before" is vacuous rather than false.
+    // The Contact sections are the first of these; before this, every wired section had
+    // existed unwired first, and that assumption was silently baked in. It surfaced as the
+    // whole verifier CRASHING on all 19, which is worse than the check not existing: a
+    // verifier that dies looks like a broken command rather than an unverified change, and
+    // I pushed once while it was in that state.
+    if (/exists on disk, but not in/.test(String(e.stderr || e))) return { rev, html: null, slotsAtRev };
+    throw e;
+  }
 }
 
 const ids = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const targets = ids.length ? ids : readdirSync(join(SITE, 'sections'))
   .filter((d) => existsSync(join(SITE, 'sections', d, 'slots.json'))).sort();
 
-let bad = 0;
+let bad = 0, born = 0;
 for (const id of targets) {
   const manifest = JSON.parse(await read('/sections.json'));
   const live = await fillSlots(await read(`/sections/${id}/embed.html`), id, manifest,
     { mode: 'local', read, onWarn: (m) => console.warn(m) });
-  const { rev, html } = baseline(id);
-  const ok = norm(html) === norm(live);
+  const { rev, html, slotsAtRev } = baseline(id);
+  if (html === null) {
+    born++;
+    console.log(`  – ${id.padEnd(22)} ${'born wired'.padEnd(13)} no pre-wiring state to compare`);
+    continue;
+  }
+  const was = slotsAtRev
+    ? await fillSlots(html, id, manifest, { mode: 'local', read: async (p) =>
+        p.endsWith(`/sections/${id}/slots.json`) ? JSON.stringify(slotsAtRev) : read(p),
+        onWarn: () => {} })
+    : html;
+  const ok = norm(was) === norm(live);
   if (!ok) bad++;
   console.log(`  ${ok ? '✓' : '✗'} ${id.padEnd(22)} vs ${rev.padEnd(10)} ${ok ? 'render-identical' : 'CHANGED'}`);
   if (!ok) {
     // Only report lines with no counterpart anywhere on the other side. An index-based diff
     // reports every line after an insertion, which drowns the actual change — that is how the
     // doc-comment shift first showed up here as "the whole file changed".
-    const a = norm(html).split('\n'), b = norm(live).split('\n');
+    const a = norm(was).split('\n'), b = norm(live).split('\n');
     const bSet = new Set(b), aSet = new Set(a);
     a.filter((l) => !bSet.has(l)).forEach((l) => console.log(`      - ${l}`));
     b.filter((l) => !aSet.has(l)).forEach((l) => console.log(`      + ${l}`));
@@ -93,5 +131,9 @@ for (const id of targets) {
 }
 console.log(bad
   ? `\n${bad} section(s) CHANGED. A wiring must leave the page identical until someone edits it in WP.`
-  : `\n${targets.length} section(s): every wired section renders exactly what it rendered before wiring.`);
+  : `\n${targets.length - born} of ${targets.length} section(s): every section that HAD a pre-wiring `
+    + `state renders exactly what it rendered before wiring.`
+    + (born ? `\n${born} born wired — nothing to compare, so this check says nothing about them. `
+            + `Their slot↔token match still needs build-acf.py --check, and their appearance still `
+            + `needs a look.` : ''));
 process.exit(bad ? 1 : 0);

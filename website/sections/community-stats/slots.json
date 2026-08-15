@@ -1,5 +1,9 @@
 {
   "_note": "Slots for [brg_community-stats]. Declared HERE, beside the fragment, so a slot and its {{token}} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Defaults are the exact production copy, so the page is unchanged until someone edits it in WordPress. THIS IS THE FLATTENED CASE, per conti's ruling (c) 2026-08-13: four figures is a design constant, not a content variable, so numbering them is honest here in a way it would NOT be for team-members' nine cards. Each label is two `text` slots with the <br> left in the markup — the comp's two-line rhythm is layout, and a single `html`/wysiwyg slot would come back wrapped in <p> and break `.cell p`. Note `text` slots are esc_html'd on fill, so write a literal `&` here, NOT `&amp;` (which would double-escape and render as the visible text `&amp;`).",
+  "_baseline": {
+    "rev": "6021c32",
+    "why": "Odd-count grid rules added (Expo SPEC-007 found the 3-cell break; I verified against my own rule set). Both selectors are inert at even counts and the 4-cell rendering was proved unchanged by measuring rule geometry, so this is a deliberate structural change with no visual effect — not a regression."
+  },
   "stat_1_fig": {
     "type": "text",
     "label": "Stat 1 — figure",
