@@ -612,7 +612,7 @@ def main():
     stale = []
     for name, fn in PAGES.items():
         new = fn()
-        path = os.path.join(OUTDIR, name)
+        path = os.path.join(OUTDIR, name)  # now.html is hand-written and not in PAGES, so untouched
         old = open(path).read() if os.path.exists(path) else None
         if check:
             if old != new:

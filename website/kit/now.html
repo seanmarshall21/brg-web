@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f0e0d">
+<title>BRG — where we're at</title>
+<style>
+:root{--yellow:#FCE200;--teal:#19C7C2;--pink:#EC0F8D;--orange:#F5821F;
+--bg:#0f0e0d;--card:#1a1815;--card2:#211e1a;--line:rgba(255,255,255,.10);
+--ink:#f4f1ea;--dim:rgba(244,241,234,.55);
+--mono:"SFMono-Regular",Menlo,Consolas,monospace;--sans:"Montserrat",system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;
+-webkit-font-smoothing:antialiased}
+header{position:sticky;top:0;z-index:9;background:rgba(15,14,13,.96);backdrop-filter:blur(10px);
+border-top:4px solid var(--yellow);border-bottom:1px solid var(--line);padding:14px 16px 0}
+.brand{display:flex;align-items:baseline;gap:9px;margin-bottom:12px}
+.brand b{background:var(--yellow);color:#231F20;font-weight:800;padding:.08em .38em;font-size:.9rem}
+.brand span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.brand .when{margin-left:auto;font-family:var(--mono);font-size:.62rem;color:var(--dim)}
+nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;font:800 .64rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;
+color:var(--dim);background:var(--card);border:1px solid var(--line);border-radius:999px;
+padding:10px 14px;cursor:pointer}
+nav button.on{background:var(--yellow);color:#231F20;border-color:var(--yellow)}
+main{padding:18px 16px 60px;max-width:760px;margin:0 auto}
+.page{display:none}.page.on{display:block}
+h2{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+margin:26px 0 10px;font-weight:800}
+h2:first-child{margin-top:0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:10px}
+.tile.hot{border-color:rgba(236,15,141,.5);background:linear-gradient(180deg,rgba(236,15,141,.09),var(--card))}
+.tile.ok{border-color:rgba(25,199,194,.35)}
+.tile h3{margin:0 0 5px;font-size:.98rem;font-weight:800;letter-spacing:-.01em}
+.tile p{margin:0;font-size:.85rem;color:var(--dim)}
+.tile p+p{margin-top:7px}
+.tile a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(25,199,194,.35)}
+.row{display:flex;align-items:center;gap:10px}
+.row .grow{flex:1;min-width:0}
+.pill{flex:0 0 auto;font:800 .56rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;
+padding:6px 9px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.pill.you{color:var(--pink)}.pill.done{color:var(--teal)}.pill.wait{color:var(--orange)}
+.pill.mine{color:var(--dim)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin-bottom:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 12px;text-align:center}
+.stat b{display:block;font-size:1.5rem;font-weight:800;line-height:1.1;letter-spacing:-.02em}
+.stat span{font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
+.stat.g b{color:var(--teal)}.stat.r b{color:var(--pink)}.stat.y b{color:var(--yellow)}
+code{font-family:var(--mono);font-size:.74rem;background:rgba(255,255,255,.06);
+border:1px solid var(--line);border-radius:5px;padding:.14em .4em;word-break:break-all}
+.mini{font-size:.72rem;color:var(--dim);margin:10px 2px 0}
+ul{margin:7px 0 0;padding-left:18px;font-size:.84rem;color:var(--dim)}li{margin-bottom:4px}
+</style></head><body>
+
+<header>
+  <div class="brand"><b>BLACKTOP</b><span>status</span><span class="when">14 Aug</span></div>
+  <nav>
+    <button class="on" data-p="now">Needs you</button>
+    <button data-p="site">The site</button>
+    <button data-p="content">Content</button>
+    <button data-p="built">What's built</button>
+    <button data-p="tools">Tools</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ───────────── NEEDS YOU ───────────── -->
+<section class="page on" id="now">
+  <div class="stats">
+    <div class="stat r"><b>2</b><span>broken live</span></div>
+    <div class="stat y"><b>2</b><span>decisions</span></div>
+    <div class="stat"><b>3</b><span>content gaps</span></div>
+  </div>
+
+  <h2>Broken on the live site</h2>
+  <div class="tile hot">
+    <div class="row"><div class="grow"><h3>/our-restaurants-solo/</h3></div><span class="pill you">2 min</span></div>
+    <p>Shows <code>[brg_our-restaurants]</code> as raw text to visitors — a retired shortcode.</p>
+    <p><strong>Fix:</strong> delete the page, or swap that token for <code>[brg_our-restaurants-hero]</code> + <code>[brg_our-restaurants-brands]</code>.</p>
+  </div>
+  <div class="tile hot">
+    <div class="row"><div class="grow"><h3>/press-gallery/</h3></div><span class="pill you">2 min</span></div>
+    <p>Shows three raw tokens for sections that <strong>don't exist yet</strong> — Press has never been built.</p>
+    <p><strong>Fix:</strong> unpublish the page until Press is built.</p>
+  </div>
+
+  <h2>Decisions</h2>
+  <div class="tile">
+    <div class="row"><div class="grow"><h3>Contact form — where do submissions go?</h3></div><span class="pill you">you</span></div>
+    <p>A WordPress form plugin you install, or a hosted endpoint we wire with one URL. Finn can't install a plugin, and won't guess — a form posting nowhere looks like it works while losing every enquiry.</p>
+  </div>
+  <div class="tile">
+    <div class="row"><div class="grow"><h3>Underline animation</h3></div><span class="pill you">you</span></div>
+    <p>Expo needs to know: stop, or go with the second (pure-CSS) option?</p>
+  </div>
+
+  <h2>The two-minute test that proves everything</h2>
+  <div class="tile">
+    <h3>Edit a word in wp-admin</h3>
+    <p><strong>Section Content</strong> → any section → change a word → save → reload the page.</p>
+    <p>The bug that blocked you is fixed. Until this passes, the whole content system is unproven where it matters — everything we've verified sits upstream of the database.</p>
+  </div>
+</section>
+
+<!-- ───────────── THE SITE ───────────── -->
+<section class="page" id="site">
+  <div class="stats">
+    <div class="stat g"><b>6</b><span>pages good</span></div>
+    <div class="stat r"><b>2</b><span>broken</span></div>
+    <div class="stat"><b>21</b><span>sections</span></div>
+  </div>
+
+  <h2>Live and correct</h2>
+  <div class="tile ok"><div class="row"><div class="grow"><h3>Home</h3><p>5 sections</p></div><span class="pill done">ok</span></div></div>
+  <div class="tile ok"><div class="row"><div class="grow"><h3>Brands</h3><p>2 sections</p></div><span class="pill done">ok</span></div></div>
+  <div class="tile ok"><div class="row"><div class="grow"><h3>Team</h3><p>3 sections</p></div><span class="pill done">ok</span></div></div>
+  <div class="tile ok"><div class="row"><div class="grow"><h3>Community</h3><p>4 sections</p></div><span class="pill done">ok</span></div></div>
+  <div class="tile ok"><div class="row"><div class="grow"><h3>Careers</h3><p>4 sections</p></div><span class="pill done">ok</span></div></div>
+  <div class="tile ok"><div class="row"><div class="grow"><h3>Contact</h3><p>3 sections — you placed these today</p></div><span class="pill done">new</span></div></div>
+
+  <h2>Not right</h2>
+  <div class="tile hot"><div class="row"><div class="grow"><h3>Our Restaurants (solo)</h3><p>Raw shortcode showing</p></div><span class="pill you">fix</span></div></div>
+  <div class="tile hot"><div class="row"><div class="grow"><h3>Press &amp; Gallery</h3><p>Raw tokens · page never built</p></div><span class="pill you">fix</span></div></div>
+
+  <p class="mini">All pages are password-gated. Launch = point the root at Home, unlock, retire the splash.</p>
+</section>
+
+<!-- ───────────── CONTENT ───────────── -->
+<section class="page" id="content">
+  <h2>Only you can supply these</h2>
+  <div class="tile">
+    <div class="row"><div class="grow"><h3>Team headshots &amp; quotes</h3></div><span class="pill you">you</span></div>
+    <p>Nine crew cards render coloured plates with no portrait. Cards are wired to swap in cleanly.</p>
+  </div>
+  <div class="tile">
+    <div class="row"><div class="grow"><h3>Real photography — 5 plates</h3></div><span class="pill you">you</span></div>
+    <p>Two on Home / Born in San Diego, three on A Different Kind. Currently stand-ins that read as composed, which is why it's easy to forget.</p>
+  </div>
+  <div class="tile">
+    <div class="row"><div class="grow"><h3>LinkedIn job links</h3></div><span class="pill wait">paused</span></div>
+    <p>Prepared and ready to apply on your word. A third opening is already live and missing from the page, so the hand-maintained list has failed once already.</p>
+  </div>
+
+  <h2>You can fix this one yourself now</h2>
+  <div class="tile ok">
+    <div class="row"><div class="grow"><h3>The three <code>XX</code> stats</h3></div><span class="pill done">no push needed</span></div>
+    <p>Community → by the numbers. All four figures <em>and</em> their labels are editable in wp-admin. Change them and they're live.</p>
+    <p>One to settle: the <strong>12</strong> is Board &amp; Brew's count, but the stat presents it as the group's. You said leave it — noted, just so it's not a surprise later.</p>
+  </div>
+</section>
+
+<!-- ───────────── WHAT'S BUILT ───────────── -->
+<section class="page" id="built">
+  <div class="stats">
+    <div class="stat g"><b>19</b><span>editable sections</span></div>
+    <div class="stat g"><b>88</b><span>editable fields</span></div>
+    <div class="stat"><b>2.6.1</b><span>plugin</span></div>
+  </div>
+
+  <h2>Done</h2>
+  <div class="tile ok"><h3>Every section built</h3><p>21 sections across 6 pages. Pages are stacks of shortcodes — no page templates to maintain.</p></div>
+  <div class="tile ok"><h3>Editable content</h3><p>19 sections editable in wp-admin. Change a field, it's live. No push, no import step, ever.</p></div>
+  <div class="tile ok"><h3>Self-deploying plugin</h3><p>A push updates WordPress and the run verifies the version that actually landed on the server. No more manual drops.</p></div>
+  <div class="tile ok"><h3>Contact page</h3><p>Built, deployed, placed. Waiting only on where the form submits.</p></div>
+
+  <h2>Next</h2>
+  <div class="tile">
+    <div class="row"><div class="grow"><h3>Repeaters</h3></div><span class="pill mine">mine</span></div>
+    <p>The last gap in "anything editable at any point". Crew cards, core values, LinkedIn posts and brand plates are still code because a fixed number of fields would bake in a count we know changes — core values already went 6 → 5.</p>
+  </div>
+  <div class="tile">
+    <div class="row"><div class="grow"><h3>Press &amp; Gallery</h3></div><span class="pill wait">specced</span></div>
+    <p>The last page from the original seven. Needs artwork decisions from you.</p>
+  </div>
+  <div class="tile">
+    <div class="row"><div class="grow"><h3>Hero underlines</h3></div><span class="pill wait">specced</span></div>
+    <p>Size the marker to the words rather than a fixed width. Today the Careers marker is several times wider than the word under it.</p>
+  </div>
+</section>
+
+<!-- ───────────── TOOLS ───────────── -->
+<section class="page" id="tools">
+  <h2>The kit — open on desktop</h2>
+  <div class="tile">
+    <h3><a href="https://blacktoprg.netlify.app/kit/">Build Kit</a></h3>
+    <p>Every section rendered live. Edit the variables, check it on mobile, replay the animation, and it builds the shortcode for you to copy.</p>
+  </div>
+  <div class="tile">
+    <h3><a href="https://blacktoprg.netlify.app/kit/list.html">All Shortcodes</a></h3>
+    <p>What exists and where it goes. Copy a whole page's stack in order. If it's not on that list, it doesn't exist — which is what's wrong with Press right now.</p>
+  </div>
+  <div class="tile">
+    <h3><a href="https://blacktoprg.netlify.app/kit/shortcodes.html">Shortcode reference</a></h3>
+    <p>Every attribute and default.</p>
+  </div>
+  <div class="tile">
+    <h3><a href="https://blacktoprg.netlify.app/kit/builds.html">Builds</a> · <a href="https://blacktoprg.netlify.app/kit/log.html">Log</a> · <a href="https://blacktoprg.netlify.app/kit/status.html">Status</a></h3>
+    <p>What we're making, what we learned, what's live.</p>
+  </div>
+
+  <h2>Who's working</h2>
+  <div class="tile">
+    <ul>
+      <li><strong>Conti</strong> — plugin, manifests, sign-off</li>
+      <li><strong>Finn</strong> — sections and the shared engine</li>
+      <li><strong>Expo</strong> — content strategy, the unbuilt pages</li>
+      <li><strong>Dee / Dum</strong> — checks and prep</li>
+    </ul>
+    <p class="mini">Everything is on the Atlas board. Nothing is waiting on me that isn't listed here.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+document.querySelectorAll('nav button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('nav button').forEach(function(x){x.classList.remove('on')});
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});
+    b.classList.add('on');
+    document.getElementById(b.dataset.p).classList.add('on');
+    window.scrollTo(0,0);
+  });
+});
+</script>
+</body></html>
