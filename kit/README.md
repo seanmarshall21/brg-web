@@ -117,6 +117,22 @@ section ids and builds a selector from them (both `--check` and `slotcheck` walk
 nothing and report clean. A convention that is *usually* followed is worse than one that is
 enforced, because the exception is invisible exactly where it matters.
 
+**The smaller the effect, the more the instrument needs proving before the result does.** The
+mobile overflow was **7px**. Three instruments returned confident, wrong answers about it before
+one worked: a CSS probe pinned with `right:0`, which measures the viewport and therefore can never
+detect overflow; a scrollbar detector that fired on both runs because it was reading a bright
+image; and stacked strips that showed two different states as identical. Only reading
+`documentElement.scrollWidth` in a real browser produced a number. A 7px question does not survive
+a 10px instrument — and none of those three announced their own resolution.
+
+**A crashed check reads as a broken command, not as an unverified change.** `verify-wiring.mjs`
+crashed on all 19 sections after Contact shipped — the three Contact sections are the first ever
+*born wired*, so there is no pre-wiring state to diff against and `git show <rev>^` died. It was
+run mid-commit, piped to `tail -1`, and the error tail was taken for a result. The fix is not just
+handling the case: the summary now says explicitly that the check proves **nothing** about those
+three, rather than staying quiet and letting them look covered. **Silence from a checker is not a
+pass.** (Finn, who flagged it rather than quietly fixing it.)
+
 **A visual check is not evidence until it has a control.** Two screenshots of the *same file*
 differ wherever a webfont load races or antialiasing shifts. So before trusting any difference,
 shoot the same input twice: if the control pair differs, a pixel diff can prove nothing in either
