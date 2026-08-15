@@ -90,6 +90,36 @@
 .brgw-banner{display:inline-block;background:var(--yellow);color:var(--ink);
   font-family:'Blanco Cavelary','Montserrat',cursive;text-transform:uppercase;
   font-size:clamp(1.3rem,3vw,2.2rem);padding:.1em .5em;transform:rotate(-2deg);}
+/* Contain every section horizontally. Sean hit horizontal scroll on mobile; Conti traced it
+   to `span.ln`, the reveal engine's split-text line box, whose margin:-.42em -.10em -.16em
+   pulls each line ~3px past its heading on each side. Measured at a 375 viewport:
+   home-different rendered 390 wide — .ln right edge 377 against an h2 edge of 374.
+
+   THREE things about this rule are deliberate.
+
+   `clip`, NOT `hidden`. Only `clip` permits overflow-y:visible on the other axis; `hidden`
+   forces the other axis to `auto`, which would break every seam badge that bleeds upward and
+   team-apply's doodle bleeding down into the footer. `clip` also creates no scroll container,
+   so it cannot break position:sticky or a ScrollTrigger pin inside a section.
+
+   TWO classes, not one. `.brgw-sec{}` alone silently loses — eight fragments set
+   `overflow:visible` on their own `.brgw-sec--<id>`, which is equally specific and comes
+   later. Worth knowing generally: a shared-engine rule aimed at `.brgw-sec` can be
+   out-specified by any section's own scoped CSS.
+
+   AND IT IS VISUALLY NEUTRAL, which I checked rather than assumed, because this now
+   out-specifies eight sections that deliberately opted out. Four position decorative elements
+   BEYOND their own left/right edge — team-members' `.bar` at left/right:-3%, home-community's
+   `::before` at left:-6% and its `.cluster` at right:-2%, home-different's `::after` at
+   right:-4%. Every one of those sections is a full-viewport-width block, so the part beyond
+   its edge is beyond the VIEWPORT too and was never visible. Clipping removes the scroll
+   without removing anything anyone could see. Vertical bleeds are untouched by construction.
+
+   Not fixed at the page level (`html,body{overflow-x:clip}`) — Sean tried that and it did not
+   hold, because the overflow originates in a section whose own CSS opts out of clipping.
+   Fixing it at the section root also means a future section cannot reintroduce it. */
+.brgw .brgw-sec{overflow-x:clip;}
+
 .brgw-hero{position:relative;background:var(--bg2);text-align:center;
   padding:clamp(90px,15vh,170px) var(--pad) clamp(56px,8vh,90px);
   /* Doodle band offsets. The hero doodles are CHROME, not content, so they are anchored to
