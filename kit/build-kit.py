@@ -41,7 +41,13 @@ CDN      = 'https://blacktoprg.netlify.app'
 
 NAV = [('index.html', 'Build Kit'), ('shortcodes.html', 'Shortcodes'),
        ('status.html', 'Status'), ('builds.html', 'Builds'), ('log.html', 'Log'),
-       ('list.html', 'All Shortcodes')]
+       ('list.html', 'All Shortcodes'),
+       # lab.html is HAND-AUTHORED and deliberately not generated — it is content, not a
+       # rendering of a source of truth, so there is nothing for it to drift from. Safe
+       # because this generator only makedirs(exist_ok=True) and never wipes OUTDIR.
+       # Authored by Expo, reviewed and pushed by Conti. The assert below stops this pill
+       # becoming a dead link if the file ever goes missing.
+       ('lab.html', 'Lab')]
 
 STAGE = {'shipped': ('#19C7C2', 'shipped'), 'building': ('#FCE200', 'building'),
          'planned': ('rgba(244,241,234,.45)', 'planned'), 'parked': ('#F5821F', 'parked')}
@@ -607,6 +613,11 @@ def main():
     refuse_if_worktree('kit/build-kit.py')
     check = '--check' in sys.argv
     os.makedirs(OUTDIR, exist_ok=True)
+    # A nav pill pointing at a file we do not produce must fail loudly, not ship broken.
+    for href, label in NAV:
+        if href not in PAGES and not os.path.exists(os.path.join(OUTDIR, href)):
+            sys.exit('kit: NAV lists %s (%s) but no generator makes it and it is not on '
+                     'disk — a dead nav pill. Restore the file or drop it from NAV.' % (href, label))
     if not check:
         print('  /kit/preview/       %d section previews' % page_previews())
     stale = []
