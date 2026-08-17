@@ -1,12 +1,10 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- BRG kit — Lab.  DELIBERATELY NOT GENERATED. Do not fold this into kit/build-kit.py.
-     Every other page under website/kit/ is generated because it mirrors a source of truth
-     (registry.json, sections.json, the log) and must never drift from it. This page has no
-     source to drift from — the variants ARE the content, hand-written HTML + JS. Putting
-     them inside a Python generator would make them harder to read and change and buy nothing.
-     Safe because build-kit.py only makedirs(exist_ok=True) on website/kit/ — it does not wipe
-     the directory, so this file survives regeneration. Verified by conti 2026-08-17.
+     Every other page under website/kit/ is generated because it mirrors a source of truth and
+     must never drift from it. This page has no source to drift from — the variants ARE the
+     content. Safe because build-kit.py only makedirs(exist_ok=True) on website/kit/; it does
+     not wipe the directory, so this file survives regeneration. Verified by conti 2026-08-17.
      The "Lab" pill in nav.kit IS generated; build-kit.py asserts this file exists so a dead
      nav link fails the build rather than shipping.
      Authored by expo (notes/explorer/studies/lab.html), reviewed and pushed by conti. -->
@@ -86,12 +84,12 @@ color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
 .u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
 pointer-events:none;color:inherit}
 /* standalone (not wrapping text): needs its own box, or it collapses to zero width */
-.u.blk{display:block;width:min(78%,520px);height:.5em;margin:.5em auto 0;font-size:inherit}
+.u.blk{display:block;width:min(78%,520px);height:.34em;margin:.06em auto 0;font-size:inherit}
 .u.blk .box{top:0;margin-top:0;height:100%}
 .u .box svg{width:100%;height:100%;display:block;overflow:visible}
 /* draw: stroked centreline, dashoffset */
 .u.draw .box path{fill:none;stroke:currentColor;stroke-width:10;stroke-linecap:round;
-pathLength:1;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .u.draw.on .box path{stroke-dashoffset:0}
 /* wipe: Sean's filled artwork, clip-path */
 .u.wipe .box svg{clip-path:inset(0 100% 0 0);transition:clip-path var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
@@ -104,14 +102,17 @@ pathLength:1;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset
 .mk::before{content:"";position:absolute;inset:0;background:var(--mkc,var(--teal));z-index:-1;
 transform-origin:left center;transform:scaleX(0);transition:transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .mk.on::before{transform:scaleX(1)}
-.mk .t{opacity:0;transition:opacity .28s ease var(--tdelay,.42s)}
-.mk.on .t{opacity:1}
+.mk .tw{display:inline-block;overflow:hidden;padding:.42em .10em .16em;margin:-.42em -.10em -.16em;
+vertical-align:bottom}
+.mk .t{display:inline-block;transform:translateY(130%);
+transition:transform calc(var(--dur,.72s)*.72) var(--ease,cubic-bezier(.22,.61,.36,1)) var(--tdelay,.36s)}
+.mk.on .t{transform:translateY(0)}
 .mk.tilt{transform:rotate(-1.8deg)}
 .mk.tiltin{transform:rotate(0deg);transition:transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .mk.tiltin.on{transform:rotate(-1.8deg)}
 .mk.together .t{transition-delay:0s}
-.mk.textfirst::before{transition-delay:var(--tdelay,.42s)}
 .mk.textfirst .t{transition-delay:0s}
+.mk.textfirst::before{transition-delay:var(--tdelay,.36s)}
 
 /* nav sample */
 .navbar{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
@@ -122,13 +123,13 @@ letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:4px 0}
 .navbar a .box svg{width:100%;height:100%;display:block}
 .navbar a .box path{fill:var(--teal);stroke:none}
 .navbar a .box svg{clip-path:inset(0 100% 0 0);transition:clip-path .34s cubic-bezier(.4,0,.2,1)}
-.navbar a:hover .box svg,.navbar a.act .box svg{clip-path:inset(0 0 0 0)}
+.navbar a.act .box svg,.navbar a.lit .box svg{clip-path:inset(0 0 0 0)}
+/* exit continues left-to-right: the LEFT edge sweeps right, rather than retracting the way it came */
+.navbar a.unlit .box svg{clip-path:inset(0 0 0 100%)}
+.navbar a.reset .box svg{clip-path:inset(0 100% 0 0);transition:none}
 .navbar.fade a .box svg{clip-path:none;opacity:0;transition:opacity .34s}
 .navbar.fade a:hover .box svg,.navbar.fade a.act .box svg{opacity:1}
 
-.scratch{background:rgba(252,226,0,.11);border:1px solid var(--yellow);border-radius:10px;
-padding:12px 15px;margin:0 0 20px;font-size:.85rem;color:var(--ink)}
-.scratch b{color:var(--yellow)}
 .summary{margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
 .summary textarea{width:100%;height:200px;background:var(--bg2);color:var(--ink);border:1px solid var(--line);
 border-radius:9px;font:400 .76rem/1.6 var(--mono);padding:13px;resize:vertical}
@@ -147,9 +148,6 @@ border-radius:9px;font:400 .76rem/1.6 var(--mono);padding:13px;resize:vertical}
 </header>
 
 <main>
-<div class="scratch" role="note"><b>Scratchpad.</b> Nothing on this page is live, and none of it
-is on the site. These are working versions being tried out — the real build is under
-<a href="builds.html">Builds</a>.</div>
 <h1>Underline &amp; highlight — working versions</h1>
 <p class="lede">Not shipped. These are the variants for the three pieces, each one an open
 question made visible so it can be picked rather than described. <strong>Approve or deny any card
@@ -175,21 +173,27 @@ fire on entry and replay on demand.</p>
 </div>
 
 <h2 class="sec">A · Hero underline — the mechanism</h2>
-<p class="secq"><strong>The one that decides whether you re-export anything.</strong> Your ten line
-files are filled outlines, not strokes — so a true pen-draw needs a re-export, while a wipe works on
-the artwork exactly as it is. Watch the leading edge mid-animation: that is the whole difference.</p>
+<p class="secq"><strong>A2 and A4 were broken, not slow — my bug.</strong> I had <code>pathLength</code>
+in a CSS block, and it is an SVG <em>attribute</em>; as CSS it is silently ignored, so the dash was
+one user-unit long against a path thousands of units long and nothing appeared to move. Fixed —
+they animate now, so the A1-vs-A2 comparison is finally a fair one. <strong>A3, A5 and A6 answer
+your other question:</strong> they are the same wipe as A1 on different words and different strokes.</p>
 <div class="grid" id="gA"></div>
 
-<h2 class="sec">B · Hero underline — timing</h2>
-<p class="secq">When it fires, relative to the headline's split-text reveal.</p>
+<h2 class="sec">B · Hero underline — timing <span style="color:var(--dim);font-weight:400;letter-spacing:0;text-transform:none">· settled</span></h2>
+<p class="secq"><strong>B1 approved, B2 dropped.</strong> Fires after the whole headline. Your note
+was that it sat too far from the text — the gap is tightened here, so this card is now about
+checking the distance rather than the timing.</p>
 <div class="grid" id="gB"></div>
 
-<h2 class="sec">C · Highlight box — order</h2>
-<p class="secq">The box wipes and the words land. Which comes first changes the feel completely.</p>
+<h2 class="sec">C · Highlight box — order <span style="color:var(--dim);font-weight:400;letter-spacing:0;text-transform:none">· rebuilt</span></h2>
+<p class="secq"><strong>C1 approved and rebuilt to your sequence; C2, C3 and C4 dropped.</strong>
+The words now rise in <em>halfway through</em> the box rather than waiting for it, so the two
+overlap into one move. C5 is the same thing on the yellow banner.</p>
 <div class="grid" id="gC"></div>
 
 <h2 class="sec">D · Nav — hover behaviour</h2>
-<p class="secq">Hover the items. The active page (Careers) stays lit throughout.</p>
+<p class="secq">Hover the items. Careers is the active page and stays lit. <strong>Rebuilt to your note:</strong> the stroke now enters left-to-right <em>and exits left-to-right</em> — the left edge sweeps out rather than retracting the way it came. D2 removed.</p>
 <div class="grid" id="gD"></div>
 
 <div class="summary">
@@ -202,7 +206,8 @@ the artwork exactly as it is. Watch the leading edge mid-animation: that is the 
 
 <script>
 const L = {"line-careers-lg": {"vb": "0 0 1122 31", "d": "M1113.98 6.83936C1037.94 4.51136 961.881 2.75438 885.811 1.60938C812.621 0.508377 739.423 -0.0306549 666.225 0.00134513C594.649 0.0333451 523.074 0.610339 451.507 1.72034C381.556 2.80634 311.614 4.40038 241.685 6.47138C172.15 8.53138 102.629 11.0623 33.1268 14.0143C24.4948 14.3813 15.8618 14.7544 7.23076 15.1334C-2.38424 15.5554 -2.43624 30.5574 7.23076 30.1334C76.6858 27.0834 146.159 24.4393 215.647 22.2643C285.452 20.0793 355.272 18.3644 425.1 17.1534C496.467 15.9164 567.843 15.2053 639.221 15.0383C712.144 14.8673 785.069 15.2614 857.986 16.2164C933.704 17.2084 1009.41 18.8044 1085.11 20.9794C1094.73 21.2564 1104.36 21.5423 1113.98 21.8373C1123.61 22.1323 1123.63 7.13234 1113.98 6.83734L1113.98 6.83936Z"}, "line-home-lg": {"vb": "0 0 845 28", "d": "M7.24511 24.0247C115.3 18.9347 223.466 15.9748 331.641 15.2048C439.806 14.4348 547.992 15.8248 656.097 19.3848C716.643 21.3748 777.159 24.0547 837.645 27.4047C847.315 27.9347 847.285 12.9347 837.645 12.4047C729.64 6.4347 621.515 2.59474 513.36 0.944743C405.204 -0.705257 297.009 -0.195218 188.874 2.48478C128.307 3.98478 67.7612 6.1747 7.24511 9.0247C-2.38495 9.4747 -2.44508 24.4847 7.24511 24.0247Z"}, "line-team-lg": {"vb": "0 0 647 25", "d": "M7.2299 21.8885C89.3729 18.0125 171.591 15.7555 253.824 15.1615C336.049 14.5675 418.285 15.6185 500.468 18.3195C546.863 19.8445 593.239 21.9005 639.587 24.4665C649.232 25.0005 649.202 9.99854 639.587 9.46654C557.484 4.92054 475.294 1.99353 393.075 0.728534C310.856 -0.535466 228.612 -0.155462 146.408 1.87454C99.9979 3.02054 53.6019 4.69854 7.22889 6.88654C-2.38211 7.34054 -2.43711 22.3425 7.22889 21.8865L7.2299 21.8885Z"}, "line-community-lg": {"vb": "0 0 841 28", "d": "M7.21045 24.0257C114.749 18.9355 222.396 15.9754 330.054 15.2054C437.702 14.4353 545.37 15.8254 652.958 19.3855C713.215 21.3756 773.441 24.0557 833.638 27.4059C843.262 27.9359 843.232 12.9353 833.638 12.4053C726.15 6.43504 618.542 2.59487 510.904 0.9448C403.266 -0.705264 295.588 -0.195267 187.97 2.48484C127.694 3.9849 67.437 6.17502 7.21045 9.02514C-2.37354 9.47515 -2.43338 24.4857 7.21045 24.0257Z"}, "line-careers-nav": {"vb": "0 0 104 7", "d": "M2.41125 5.82631C28.1543 4.83831 53.9282 4.73531 79.6782 5.53131C86.9882 5.75731 94.2952 6.05732 101.599 6.42632C104.815 6.58832 104.806 1.58832 101.599 1.42632C75.8692 0.126318 50.0962 -0.288685 24.3372 0.196315C17.0272 0.334315 9.71825 0.545312 2.41125 0.826312C-0.795746 0.949312 -0.811746 5.95031 2.41125 5.82631Z"}};
-const sv = (k,mode) => {const l=L[k];return '<svg viewBox="'+l.vb+'" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="'+l.d+'"/></svg>';};
+// pathLength MUST be an attribute — as CSS it is silently ignored, which left A2/A4 dead.
+const sv = (k) => {const l=L[k];return '<svg viewBox="'+l.vb+'" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path pathLength="1" d="'+l.d+'"/></svg>';};
 
 const CARDS=[
  {g:'gA',id:'A1',t:'Wipe — your artwork, untouched',
@@ -211,43 +216,35 @@ const CARDS=[
  {g:'gA',id:'A2',t:'Draw — stroked centreline',
   why:'A true pen-draw with a live rounded tip. Needs the five files re-exported as strokes rather than filled outlines (or the centreline derived).',
   html:'<p class="head blanco">Come work somewhere<br><span class="u draw" data-k="line-careers-lg">you actually want to be</span></p>'},
- {g:'gA',id:'A3',t:'Wipe — home stroke, yellow',
-  why:'The same wipe on line-home-lg.svg, which you drew narrower. Shows the artwork carrying its own width — no measuring of text.',
+ {g:'gA',id:'A3',t:'Same as A1 — different stroke, different words',
+  why:'ANSWERING YOUR QUESTION: there is NO mechanical difference between A1 and A3. Identical wipe, identical code. A1 is line-careers-lg.svg (1122×31) under the careers headline; A3 is line-home-lg.svg (845×28) in yellow under the home one. It is here to show the artwork carrying its own width — nothing measures the text.',
   html:'<p class="head blanco">We’re in the business<br>of <span class="u wipe" data-k="line-home-lg" style="color:var(--yellow)">making your day great.</span></p>'},
  {g:'gA',id:'A4',t:'Draw — careers, direction corrected',
   why:'line-careers-lg.svg is authored right-to-left, so a naive draw writes backwards. This one is flipped so it always writes left-to-right.',
   html:'<p class="head blanco">Come work somewhere<br><span class="u draw rtl" data-k="line-careers-lg">you actually want to be</span></p>'},
 
+ {g:'gA',id:'A5',t:'A1 on the Team headline',
+  why:'Same wipe again, line-team-lg.svg in pink. Third headline, third stroke, one mechanism.',
+  html:'<p class="head blanco">The crew behind<br><span class="u wipe" data-k="line-team-lg" style="color:var(--pink)">every single day.</span></p>'},
+ {g:'gA',id:'A6',t:'A1 on a long headline',
+  why:'Stress test: more words than the stroke was drawn for. The artwork stretches to the span — watch whether it thins out at this width.',
+  html:'<p class="head blanco">Great food, great people,<br><span class="u wipe" data-k="line-community-lg" style="color:var(--orange)">epic communities everywhere.</span></p>'},
+
  {g:'gB',id:'B1',t:'After the whole headline',
   why:'Every line lands, then the stroke draws. Reads as a signature at the end.',
   html:'<p class="head blanco" data-split>Come work somewhere you actually want to be</p><span class="u wipe blk" data-k="line-careers-lg" data-delay="whole"></span>',split:true,delay:'whole'},
- {g:'gB',id:'B2',t:'Right after its own line',
-  why:'The stroke chases the final line in immediately. Quicker, less of a beat.',
-  html:'<p class="head blanco" data-split>Come work somewhere you actually want to be</p><span class="u wipe blk" data-k="line-careers-lg" data-delay="line"></span>',split:true,delay:'line'},
-
+ 
  {g:'gC',id:'C1',t:'Box first, then words',
-  why:'The block wipes in empty, then the text fades over it. Your description.',
-  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt"><span class="t">for community.</span></span></p>'},
- {g:'gC',id:'C2',t:'Words first, then box',
-  why:'The words are there and the highlight sweeps in behind them, like marking up a page.',
-  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt textfirst"><span class="t">for community.</span></span></p>'},
- {g:'gC',id:'C3',t:'Together',
-  why:'Box and words arrive as one. Fastest, least theatrical.',
-  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt together"><span class="t">for community.</span></span></p>'},
- {g:'gC',id:'C4',t:'Box first + rotates in',
-  why:'C1, but the tilt animates from square rather than being static. Watch whether it reads as playful or as a wobble.',
-  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tiltin"><span class="t">for community.</span></span></p>'},
- {g:'gC',id:'C5',t:'Yellow banner — What we’re about',
-  why:'The same mechanism on the banner rather than the inline mark, to check one behaviour covers both.',
-  html:'<p class="head blanco"><span class="mk tilt" style="--mkc:var(--yellow)"><span class="t">What we’re about</span></span></p>'},
+  why:'REBUILT to your note. "Born in San Diego. Built" lands first, the box starts as "Built" finishes, and the words rise in HALFWAY through the box rather than waiting for it — so it reads as one fluid move. Text rises from a mask, same as the headline, not a fade.',
+  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt"><span class="tw"><span class="t">for community.</span></span></span></p>'},
+    {g:'gC',id:'C5',t:'Yellow banner — What we’re about',
+  why:'Now identical to C1, as you asked — box in, words rising halfway through. It was not showing the full move before because the text only faded; it now rides the same mask.',
+  html:'<p class="head blanco"><span class="mk tilt" style="--mkc:var(--yellow)"><span class="tw"><span class="t">What we’re about</span></span></span></p>'},
 
  {g:'gD',id:'D1',t:'Draw in, un-draw out',
   why:'Leaving reverses the stroke back out, as the Osmo pen does.',
   html:'<div class="navbar"><a href="#">Our Story</a><a href="#">Team</a><a href="#" class="act">Careers</a><a href="#">Community</a></div>'},
- {g:'gD',id:'D2',t:'Draw in, fade out',
-  why:'Leaving fades the stroke rather than reversing it. Calmer with a lot of items.',
-  html:'<div class="navbar fade"><a href="#">Our Story</a><a href="#">Team</a><a href="#" class="act">Careers</a><a href="#">Community</a></div>'},
-];
+ ];
 
 const V = JSON.parse(localStorage.getItem('brg-lab')||'{}');
 const el = (h)=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstElementChild;};
@@ -268,6 +265,15 @@ CARDS.forEach(c=>{
   });
   card.querySelectorAll('.navbar a').forEach(a=>{
     a.insertAdjacentHTML('beforeend','<span class="box" aria-hidden="true">'+sv('line-careers-nav')+'</span>');
+    if(a.classList.contains('act')) return;
+    const svg=a.querySelector('.box svg');
+    a.addEventListener('mouseenter',()=>{a.classList.remove('unlit');a.classList.add('lit');});
+    a.addEventListener('mouseleave',()=>{a.classList.remove('lit');a.classList.add('unlit');});
+    svg.addEventListener('transitionend',()=>{
+      if(!a.classList.contains('unlit'))return;
+      a.classList.add('reset');a.classList.remove('unlit');
+      void svg.offsetWidth; requestAnimationFrame(()=>a.classList.remove('reset'));
+    });
   });
   const st=V[c.id]||{};
   if(st.v==='yes'){card.classList.add('approved');card.querySelector('.yes').classList.add('on');}
@@ -318,7 +324,7 @@ document.head.appendChild(s);
 const R=document.documentElement;
 const dur=document.getElementById('dur'),durv=document.getElementById('durv');
 dur.oninput=()=>{R.style.setProperty('--dur',dur.value+'ms');
-  R.style.setProperty('--tdelay',Math.round(dur.value*.58)+'ms');durv.textContent=dur.value+'ms';};
+  R.style.setProperty('--tdelay',Math.round(dur.value*.5)+'ms');durv.textContent=dur.value+'ms';};
 document.getElementById('ease').onchange=e=>R.style.setProperty('--ease',e.target.value);
 document.getElementById('col').onchange=e=>applyColour(e.target.value);
 document.querySelectorAll('#vp button').forEach(b=>b.onclick=()=>{
