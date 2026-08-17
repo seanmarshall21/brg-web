@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- BRG kit — Lab.  DELIBERATELY NOT GENERATED. Do not fold this into kit/build-kit.py.
+     Every other page under website/kit/ is generated because it mirrors a source of truth
+     (registry.json, sections.json, the log) and must never drift from it. This page has no
+     source to drift from — the variants ARE the content, hand-written HTML + JS. Putting
+     them inside a Python generator would make them harder to read and change and buy nothing.
+     Safe because build-kit.py only makedirs(exist_ok=True) on website/kit/ — it does not wipe
+     the directory, so this file survives regeneration. Verified by conti 2026-08-17.
+     The "Lab" pill in nav.kit IS generated; build-kit.py asserts this file exists so a dead
+     nav link fails the build rather than shipping.
+     Authored by expo (notes/explorer/studies/lab.html), reviewed and pushed by conti. -->
+<title>Underline Lab</title>
+<style>
+@font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprg.netlify.app/assets/media/fonts/BlancoCavelary.woff2') format('woff2');font-weight:400;font-display:block}
+:root{--yellow:#FCE200;--teal:#19C7C2;--pink:#EC0F8D;--orange:#F5821F;--violet:#8B2FC9;
+--bg:#0f0e0d;--bg2:#17150f;--card:#1c1a16;--line:rgba(255,255,255,.10);
+--ink:#f4f1ea;--dim:rgba(244,241,234,.58);--ok:#4ADE80;--no:#F87171;
+--mono:"SFMono-Regular",Menlo,Consolas,monospace;--sans:"Montserrat",system-ui,sans-serif;}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+-webkit-font-smoothing:antialiased;line-height:1.55}
+a{color:var(--teal)}
+.blanco{font-family:'Blanco Cavelary',var(--sans),cursive;font-weight:400}
+header.top{position:sticky;top:0;z-index:5;background:rgba(15,14,13,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+border-top:5px solid var(--yellow);border-bottom:1px solid var(--line);padding:18px clamp(20px,4vw,56px);
+display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.brand b{background:var(--yellow);color:#231F20;font-weight:800;padding:.1em .4em}
+.brand span{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-left:8px}
+nav.kit{display:flex;gap:6px;flex-wrap:wrap}
+nav.kit a{font:700 .68rem/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--dim);
+text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 15px;background:var(--card)}
+nav.kit a.on{background:var(--yellow);color:#231F20;border-color:var(--yellow)}
+.ver{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--dim);
+border:1px solid var(--line);border-radius:999px;padding:7px 13px;white-space:nowrap}
+main{padding:26px clamp(20px,4vw,56px) 72px;max-width:1500px}
+h1{font-size:1.6rem;margin:0 0 6px;font-weight:800;letter-spacing:-.01em}
+.lede{max-width:74ch;color:var(--dim);font-size:.94rem;margin:0 0 22px}
+.lede strong{color:var(--ink)}
+h2.sec{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);
+margin:40px 0 6px;padding-bottom:9px;border-bottom:1px solid var(--line);font-weight:800}
+.secq{color:var(--dim);font-size:.86rem;margin:0 0 16px;max-width:74ch}
+
+/* global control bar */
+.bar{position:sticky;top:74px;z-index:4;display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.bar label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
+display:flex;align-items:center;gap:7px}
+.bar input[type=range]{width:104px;accent-color:var(--teal)}
+.bar select,.bar button{font:600 .72rem var(--sans);background:var(--card);color:var(--ink);
+border:1px solid var(--line);border-radius:7px;padding:7px 11px;cursor:pointer}
+.bar button:hover,.seg button:hover{border-color:var(--ink)}
+.bar .val{font-family:var(--mono);font-size:.7rem;color:var(--teal);min-width:44px}
+.seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.seg button{border:0;border-radius:0;background:var(--card)}
+.seg button.on{background:var(--yellow);color:#231F20}
+button:focus-visible,select:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:16px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+display:flex;flex-direction:column}
+.card.approved{border-color:var(--ok)}
+.card.denied{border-color:var(--no);opacity:.62}
+.card h3{margin:0;font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--yellow);
+padding:12px 14px;background:var(--bg2);border-bottom:1px solid var(--line);
+display:flex;align-items:center;gap:9px}
+.card h3 .id{background:var(--yellow);color:#231F20;border-radius:4px;padding:1px 6px;font-weight:800}
+.card .why{padding:11px 14px 0;color:var(--dim);font-size:.8rem;margin:0}
+.stage{padding:20px 14px;display:grid;place-items:center;min-height:150px;background:#000;
+margin:12px 14px;border-radius:8px;overflow:hidden;text-align:center}
+.stage.mob{max-width:390px;margin-inline:auto;width:100%}
+.head{font-size:clamp(1rem,2.4vw,1.75rem);line-height:1.12;text-transform:uppercase;margin:0;color:#fff}
+.stage.mob .head{font-size:1rem}
+.foot{display:flex;gap:7px;align-items:center;padding:0 14px 13px;flex-wrap:wrap}
+.foot button{font:700 .66rem var(--sans);letter-spacing:.09em;text-transform:uppercase;
+background:var(--bg2);color:var(--dim);border:1px solid var(--line);border-radius:999px;
+padding:7px 12px;cursor:pointer}
+.foot .yes.on{background:var(--ok);color:#0f0e0d;border-color:var(--ok)}
+.foot .no.on{background:var(--no);color:#0f0e0d;border-color:var(--no)}
+.foot .replay{margin-left:auto;color:var(--ink)}
+.foot input{flex:1 1 100%;background:var(--bg);border:1px solid var(--line);border-radius:7px;
+color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
+.foot input::placeholder{color:var(--dim)}
+
+/* ── the underline mechanisms ── */
+.u{position:relative;display:inline-block}
+.u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
+pointer-events:none;color:inherit}
+/* standalone (not wrapping text): needs its own box, or it collapses to zero width */
+.u.blk{display:block;width:min(78%,520px);height:.5em;margin:.5em auto 0;font-size:inherit}
+.u.blk .box{top:0;margin-top:0;height:100%}
+.u .box svg{width:100%;height:100%;display:block;overflow:visible}
+/* draw: stroked centreline, dashoffset */
+.u.draw .box path{fill:none;stroke:currentColor;stroke-width:10;stroke-linecap:round;
+pathLength:1;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.u.draw.on .box path{stroke-dashoffset:0}
+/* wipe: Sean's filled artwork, clip-path */
+.u.wipe .box svg{clip-path:inset(0 100% 0 0);transition:clip-path var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.u.wipe.on .box svg{clip-path:inset(0 0 0 0)}
+.u.wipe .box path{fill:currentColor;stroke:none}
+.u.rtl.draw .box svg{transform:scaleX(-1)}
+
+/* highlight box */
+.mk{position:relative;display:inline-block;padding:.03em .22em;color:#231F20;isolation:isolate}
+.mk::before{content:"";position:absolute;inset:0;background:var(--mkc,var(--teal));z-index:-1;
+transform-origin:left center;transform:scaleX(0);transition:transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.mk.on::before{transform:scaleX(1)}
+.mk .t{opacity:0;transition:opacity .28s ease var(--tdelay,.42s)}
+.mk.on .t{opacity:1}
+.mk.tilt{transform:rotate(-1.8deg)}
+.mk.tiltin{transform:rotate(0deg);transition:transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.mk.tiltin.on{transform:rotate(-1.8deg)}
+.mk.together .t{transition-delay:0s}
+.mk.textfirst::before{transition-delay:var(--tdelay,.42s)}
+.mk.textfirst .t{transition-delay:0s}
+
+/* nav sample */
+.navbar{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.navbar a{position:relative;color:#fff;text-decoration:none;font:700 .64rem var(--sans);
+letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:4px 0}
+.navbar a:hover{opacity:1}
+.navbar a .box{position:absolute;left:0;right:0;top:100%;height:7px;margin-top:1px;color:var(--teal)}
+.navbar a .box svg{width:100%;height:100%;display:block}
+.navbar a .box path{fill:var(--teal);stroke:none}
+.navbar a .box svg{clip-path:inset(0 100% 0 0);transition:clip-path .34s cubic-bezier(.4,0,.2,1)}
+.navbar a:hover .box svg,.navbar a.act .box svg{clip-path:inset(0 0 0 0)}
+.navbar.fade a .box svg{clip-path:none;opacity:0;transition:opacity .34s}
+.navbar.fade a:hover .box svg,.navbar.fade a.act .box svg{opacity:1}
+
+.scratch{background:rgba(252,226,0,.11);border:1px solid var(--yellow);border-radius:10px;
+padding:12px 15px;margin:0 0 20px;font-size:.85rem;color:var(--ink)}
+.scratch b{color:var(--yellow)}
+.summary{margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
+.summary textarea{width:100%;height:200px;background:var(--bg2);color:var(--ink);border:1px solid var(--line);
+border-radius:9px;font:400 .76rem/1.6 var(--mono);padding:13px;resize:vertical}
+.note{color:var(--dim);font-size:.78rem;max-width:78ch;margin-top:12px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="brand"><b>BRG</b><span>Build Kit</span></div>
+  <nav class="kit">
+    <a href="index.html">Build Kit</a><a href="shortcodes.html">Shortcodes</a>
+    <a href="status.html">Status</a><a href="builds.html">Builds</a>
+    <a href="log.html">Log</a><a class="on" href="lab.html">Lab</a>
+  </nav>
+  <span class="ver">working — not live</span>
+</header>
+
+<main>
+<div class="scratch" role="note"><b>Scratchpad.</b> Nothing on this page is live, and none of it
+is on the site. These are working versions being tried out — the real build is under
+<a href="builds.html">Builds</a>.</div>
+<h1>Underline &amp; highlight — working versions</h1>
+<p class="lede">Not shipped. These are the variants for the three pieces, each one an open
+question made visible so it can be picked rather than described. <strong>Approve or deny any card
+and leave a note</strong> — your choices are saved in this browser and collected into a
+pasteable summary at the bottom. Every card has its own <strong>Replay</strong>; the scroll ones
+fire on entry and replay on demand.</p>
+
+<div class="bar">
+  <span class="seg" id="vp"><button data-vp="desk" class="on">Desktop</button><button data-vp="mob">Mobile 390</button></span>
+  <label>Speed <input type="range" id="dur" min="200" max="1600" step="20" value="720"><span class="val" id="durv">720ms</span></label>
+  <label>Easing <select id="ease">
+    <option value="cubic-bezier(.22,.61,.36,1)">ease-out (default)</option>
+    <option value="cubic-bezier(.65,0,.35,1)">ease-in-out</option>
+    <option value="linear">linear</option>
+    <option value="cubic-bezier(.34,1.56,.64,1)">overshoot</option>
+  </select></label>
+  <label>Colour <select id="col">
+    <option value="--teal">teal</option><option value="--yellow">yellow</option>
+    <option value="--pink">pink</option><option value="--orange">orange</option>
+    <option value="--violet">violet (Press)</option>
+  </select></label>
+  <button id="replayAll">Replay all</button>
+</div>
+
+<h2 class="sec">A · Hero underline — the mechanism</h2>
+<p class="secq"><strong>The one that decides whether you re-export anything.</strong> Your ten line
+files are filled outlines, not strokes — so a true pen-draw needs a re-export, while a wipe works on
+the artwork exactly as it is. Watch the leading edge mid-animation: that is the whole difference.</p>
+<div class="grid" id="gA"></div>
+
+<h2 class="sec">B · Hero underline — timing</h2>
+<p class="secq">When it fires, relative to the headline's split-text reveal.</p>
+<div class="grid" id="gB"></div>
+
+<h2 class="sec">C · Highlight box — order</h2>
+<p class="secq">The box wipes and the words land. Which comes first changes the feel completely.</p>
+<div class="grid" id="gC"></div>
+
+<h2 class="sec">D · Nav — hover behaviour</h2>
+<p class="secq">Hover the items. The active page (Careers) stays lit throughout.</p>
+<div class="grid" id="gD"></div>
+
+<div class="summary">
+  <h2 class="sec" style="margin-top:0">Your verdicts</h2>
+  <textarea id="out" readonly></textarea>
+  <p class="note">Copy this back into the chat and I'll build to it. Saved in this browser only —
+  nothing is sent anywhere.</p>
+</div>
+</main>
+
+<script>
+const L = {"line-careers-lg": {"vb": "0 0 1122 31", "d": "M1113.98 6.83936C1037.94 4.51136 961.881 2.75438 885.811 1.60938C812.621 0.508377 739.423 -0.0306549 666.225 0.00134513C594.649 0.0333451 523.074 0.610339 451.507 1.72034C381.556 2.80634 311.614 4.40038 241.685 6.47138C172.15 8.53138 102.629 11.0623 33.1268 14.0143C24.4948 14.3813 15.8618 14.7544 7.23076 15.1334C-2.38424 15.5554 -2.43624 30.5574 7.23076 30.1334C76.6858 27.0834 146.159 24.4393 215.647 22.2643C285.452 20.0793 355.272 18.3644 425.1 17.1534C496.467 15.9164 567.843 15.2053 639.221 15.0383C712.144 14.8673 785.069 15.2614 857.986 16.2164C933.704 17.2084 1009.41 18.8044 1085.11 20.9794C1094.73 21.2564 1104.36 21.5423 1113.98 21.8373C1123.61 22.1323 1123.63 7.13234 1113.98 6.83734L1113.98 6.83936Z"}, "line-home-lg": {"vb": "0 0 845 28", "d": "M7.24511 24.0247C115.3 18.9347 223.466 15.9748 331.641 15.2048C439.806 14.4348 547.992 15.8248 656.097 19.3848C716.643 21.3748 777.159 24.0547 837.645 27.4047C847.315 27.9347 847.285 12.9347 837.645 12.4047C729.64 6.4347 621.515 2.59474 513.36 0.944743C405.204 -0.705257 297.009 -0.195218 188.874 2.48478C128.307 3.98478 67.7612 6.1747 7.24511 9.0247C-2.38495 9.4747 -2.44508 24.4847 7.24511 24.0247Z"}, "line-team-lg": {"vb": "0 0 647 25", "d": "M7.2299 21.8885C89.3729 18.0125 171.591 15.7555 253.824 15.1615C336.049 14.5675 418.285 15.6185 500.468 18.3195C546.863 19.8445 593.239 21.9005 639.587 24.4665C649.232 25.0005 649.202 9.99854 639.587 9.46654C557.484 4.92054 475.294 1.99353 393.075 0.728534C310.856 -0.535466 228.612 -0.155462 146.408 1.87454C99.9979 3.02054 53.6019 4.69854 7.22889 6.88654C-2.38211 7.34054 -2.43711 22.3425 7.22889 21.8865L7.2299 21.8885Z"}, "line-community-lg": {"vb": "0 0 841 28", "d": "M7.21045 24.0257C114.749 18.9355 222.396 15.9754 330.054 15.2054C437.702 14.4353 545.37 15.8254 652.958 19.3855C713.215 21.3756 773.441 24.0557 833.638 27.4059C843.262 27.9359 843.232 12.9353 833.638 12.4053C726.15 6.43504 618.542 2.59487 510.904 0.9448C403.266 -0.705264 295.588 -0.195267 187.97 2.48484C127.694 3.9849 67.437 6.17502 7.21045 9.02514C-2.37354 9.47515 -2.43338 24.4857 7.21045 24.0257Z"}, "line-careers-nav": {"vb": "0 0 104 7", "d": "M2.41125 5.82631C28.1543 4.83831 53.9282 4.73531 79.6782 5.53131C86.9882 5.75731 94.2952 6.05732 101.599 6.42632C104.815 6.58832 104.806 1.58832 101.599 1.42632C75.8692 0.126318 50.0962 -0.288685 24.3372 0.196315C17.0272 0.334315 9.71825 0.545312 2.41125 0.826312C-0.795746 0.949312 -0.811746 5.95031 2.41125 5.82631Z"}};
+const sv = (k,mode) => {const l=L[k];return '<svg viewBox="'+l.vb+'" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="'+l.d+'"/></svg>';};
+
+const CARDS=[
+ {g:'gA',id:'A1',t:'Wipe — your artwork, untouched',
+  why:'Your line-careers-lg.svg exactly as exported, revealed with a clip-path. No re-export, nothing to redraw. The leading edge is a flat vertical cut.',
+  html:'<p class="head blanco">Come work somewhere<br><span class="u wipe" data-k="line-careers-lg">you actually want to be</span></p>'},
+ {g:'gA',id:'A2',t:'Draw — stroked centreline',
+  why:'A true pen-draw with a live rounded tip. Needs the five files re-exported as strokes rather than filled outlines (or the centreline derived).',
+  html:'<p class="head blanco">Come work somewhere<br><span class="u draw" data-k="line-careers-lg">you actually want to be</span></p>'},
+ {g:'gA',id:'A3',t:'Wipe — home stroke, yellow',
+  why:'The same wipe on line-home-lg.svg, which you drew narrower. Shows the artwork carrying its own width — no measuring of text.',
+  html:'<p class="head blanco">We’re in the business<br>of <span class="u wipe" data-k="line-home-lg" style="color:var(--yellow)">making your day great.</span></p>'},
+ {g:'gA',id:'A4',t:'Draw — careers, direction corrected',
+  why:'line-careers-lg.svg is authored right-to-left, so a naive draw writes backwards. This one is flipped so it always writes left-to-right.',
+  html:'<p class="head blanco">Come work somewhere<br><span class="u draw rtl" data-k="line-careers-lg">you actually want to be</span></p>'},
+
+ {g:'gB',id:'B1',t:'After the whole headline',
+  why:'Every line lands, then the stroke draws. Reads as a signature at the end.',
+  html:'<p class="head blanco" data-split>Come work somewhere you actually want to be</p><span class="u wipe blk" data-k="line-careers-lg" data-delay="whole"></span>',split:true,delay:'whole'},
+ {g:'gB',id:'B2',t:'Right after its own line',
+  why:'The stroke chases the final line in immediately. Quicker, less of a beat.',
+  html:'<p class="head blanco" data-split>Come work somewhere you actually want to be</p><span class="u wipe blk" data-k="line-careers-lg" data-delay="line"></span>',split:true,delay:'line'},
+
+ {g:'gC',id:'C1',t:'Box first, then words',
+  why:'The block wipes in empty, then the text fades over it. Your description.',
+  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt"><span class="t">for community.</span></span></p>'},
+ {g:'gC',id:'C2',t:'Words first, then box',
+  why:'The words are there and the highlight sweeps in behind them, like marking up a page.',
+  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt textfirst"><span class="t">for community.</span></span></p>'},
+ {g:'gC',id:'C3',t:'Together',
+  why:'Box and words arrive as one. Fastest, least theatrical.',
+  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt together"><span class="t">for community.</span></span></p>'},
+ {g:'gC',id:'C4',t:'Box first + rotates in',
+  why:'C1, but the tilt animates from square rather than being static. Watch whether it reads as playful or as a wobble.',
+  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tiltin"><span class="t">for community.</span></span></p>'},
+ {g:'gC',id:'C5',t:'Yellow banner — What we’re about',
+  why:'The same mechanism on the banner rather than the inline mark, to check one behaviour covers both.',
+  html:'<p class="head blanco"><span class="mk tilt" style="--mkc:var(--yellow)"><span class="t">What we’re about</span></span></p>'},
+
+ {g:'gD',id:'D1',t:'Draw in, un-draw out',
+  why:'Leaving reverses the stroke back out, as the Osmo pen does.',
+  html:'<div class="navbar"><a href="#">Our Story</a><a href="#">Team</a><a href="#" class="act">Careers</a><a href="#">Community</a></div>'},
+ {g:'gD',id:'D2',t:'Draw in, fade out',
+  why:'Leaving fades the stroke rather than reversing it. Calmer with a lot of items.',
+  html:'<div class="navbar fade"><a href="#">Our Story</a><a href="#">Team</a><a href="#" class="act">Careers</a><a href="#">Community</a></div>'},
+];
+
+const V = JSON.parse(localStorage.getItem('brg-lab')||'{}');
+const el = (h)=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstElementChild;};
+
+CARDS.forEach(c=>{
+  const card = el(`<div class="card" id="card-${c.id}">
+    <h3><span class="id">${c.id}</span> ${c.t}</h3>
+    <p class="why">${c.why}</p>
+    <div class="stage">${c.html}</div>
+    <div class="foot">
+      <button class="yes">Approve</button><button class="no">Deny</button>
+      <button class="replay">Replay</button>
+      <input placeholder="note on ${c.id} — optional">
+    </div></div>`);
+  document.getElementById(c.g).appendChild(card);
+  card.querySelectorAll('.u').forEach(u=>{
+    u.insertAdjacentHTML('beforeend','<span class="box" aria-hidden="true">'+sv(u.dataset.k)+'</span>');
+  });
+  card.querySelectorAll('.navbar a').forEach(a=>{
+    a.insertAdjacentHTML('beforeend','<span class="box" aria-hidden="true">'+sv('line-careers-nav')+'</span>');
+  });
+  const st=V[c.id]||{};
+  if(st.v==='yes'){card.classList.add('approved');card.querySelector('.yes').classList.add('on');}
+  if(st.v==='no'){card.classList.add('denied');card.querySelector('.no').classList.add('on');}
+  if(st.n) card.querySelector('input').value=st.n;
+  const save=()=>{localStorage.setItem('brg-lab',JSON.stringify(V));render();};
+  card.querySelector('.yes').onclick=()=>{V[c.id]={...(V[c.id]||{}),v:V[c.id]?.v==='yes'?'':'yes'};
+    card.classList.toggle('approved',V[c.id].v==='yes');card.classList.remove('denied');
+    card.querySelector('.yes').classList.toggle('on',V[c.id].v==='yes');card.querySelector('.no').classList.remove('on');save();};
+  card.querySelector('.no').onclick=()=>{V[c.id]={...(V[c.id]||{}),v:V[c.id]?.v==='no'?'':'no'};
+    card.classList.toggle('denied',V[c.id].v==='no');card.classList.remove('approved');
+    card.querySelector('.no').classList.toggle('on',V[c.id].v==='no');card.querySelector('.yes').classList.remove('on');save();};
+  card.querySelector('input').oninput=e=>{V[c.id]={...(V[c.id]||{}),n:e.target.value};
+    localStorage.setItem('brg-lab',JSON.stringify(V));render();};
+  card.querySelector('.replay').onclick=()=>play(card,c);
+});
+
+function play(card,c){
+  card.querySelectorAll('.u,.mk').forEach(x=>x.classList.remove('on'));
+  const head=card.querySelector('[data-split]');
+  if(head && !head.dataset.done){ split(head); head.dataset.done='1'; }
+  if(head) head.querySelectorAll('.ln-i').forEach(i=>i.classList.remove('in'));
+  void card.offsetWidth;
+  let base=0;
+  if(head){
+    const lines=[...head.querySelectorAll('.ln-i')];
+    lines.forEach((i,n)=>setTimeout(()=>i.classList.add('in'),n*85));
+    base = c.delay==='whole' ? lines.length*85+160 : Math.max(0,(lines.length-1)*85+160);
+  }
+  setTimeout(()=>card.querySelectorAll('.u,.mk').forEach(x=>x.classList.add('on')),base);
+}
+function split(h){
+  const words=h.textContent.trim().split(/\s+/);
+  h.innerHTML=words.map(w=>'<span class="w" style="display:inline-block">'+w+'</span>').join(' ');
+  const ws=[...h.querySelectorAll('.w')],lines=[];let cur=[],top=null;
+  ws.forEach(s=>{const t=s.offsetTop;if(top===null)top=t;
+    if(Math.abs(t-top)>4){lines.push(cur);cur=[];top=t;}cur.push(s.textContent);});
+  if(cur.length)lines.push(cur);
+  h.innerHTML=lines.map(a=>'<span class="ln"><span class="ln-i">'+a.join(' ')+'</span></span>').join('');
+}
+const s=document.createElement('style');
+s.textContent='.ln{display:block;overflow:hidden;padding:.42em .10em .16em;margin:-.42em -.10em -.16em}'+
+'.ln-i{display:inline-block;transform:translateY(160%);transition:transform .62s cubic-bezier(.22,.61,.36,1)}'+
+'.ln-i.in{transform:translateY(0)}';
+document.head.appendChild(s);
+
+/* controls */
+const R=document.documentElement;
+const dur=document.getElementById('dur'),durv=document.getElementById('durv');
+dur.oninput=()=>{R.style.setProperty('--dur',dur.value+'ms');
+  R.style.setProperty('--tdelay',Math.round(dur.value*.58)+'ms');durv.textContent=dur.value+'ms';};
+document.getElementById('ease').onchange=e=>R.style.setProperty('--ease',e.target.value);
+document.getElementById('col').onchange=e=>applyColour(e.target.value);
+document.querySelectorAll('#vp button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#vp button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.querySelectorAll('.stage').forEach(s=>s.classList.toggle('mob',b.dataset.vp==='mob'));});
+document.getElementById('replayAll').onclick=()=>CARDS.forEach(c=>play(document.getElementById('card-'+c.id),c));
+
+/* scroll trigger, once per card */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){const c=CARDS.find(x=>'card-'+x.id===e.target.id);play(e.target,c);io.unobserve(e.target);}
+}),{threshold:.45});
+CARDS.forEach(c=>io.observe(document.getElementById('card-'+c.id)));
+
+function render(){
+  const yes=[],no=[],notes=[];
+  CARDS.forEach(c=>{const v=V[c.id];if(!v)return;
+    if(v.v==='yes')yes.push(c.id+' — '+c.t);
+    if(v.v==='no')no.push(c.id+' — '+c.t);
+    if(v.n)notes.push(c.id+': '+v.n);});
+  document.getElementById('out').value =
+    'UNDERLINE LAB — verdicts\n\nAPPROVED\n'+(yes.length?yes.map(x=>'  '+x).join('\n'):'  (none yet)')+
+    '\n\nDENIED\n'+(no.length?no.map(x=>'  '+x).join('\n'):'  (none yet)')+
+    '\n\nNOTES\n'+(notes.length?notes.map(x=>'  '+x).join('\n'):'  (none yet)')+
+    '\n\nSettings: '+dur.value+'ms · '+document.getElementById('ease').selectedOptions[0].text;
+}
+/* strokes inherit .head's white otherwise — apply the default colour on load */
+function applyColour(v){
+  document.querySelectorAll('.stage .u').forEach(u=>{if(!u.getAttribute('style'))u.style.color='var('+v+')';});
+  document.querySelectorAll('.mk').forEach(m=>{if(!m.style.getPropertyValue('--mkc'))m.style.setProperty('--mkc','var('+v+')');});
+}
+applyColour(document.getElementById('col').value);
+render();
+</script>
