@@ -99,6 +99,33 @@ async function frag(id){
   return html.replace(/\{\{([a-z0-9_-]+)\}\}/gi,(m,k)=>d[k]!==undefined?d[k]:'');
 }
 
+/* Nothing was ever arming the variants — they sit in their start state (wipe fully
+   clipped, draw fully un-drawn), which renders as NO UNDERLINE AT ALL. That is what
+   Sean saw: the real page with the variant present but never fired.
+
+   The fix hooks the PRODUCTION trigger rather than adding a second observer of our own:
+   brgw.js puts .is-in on a .reveal root when it scrolls into view, so watching for that
+   means the mechanism fires exactly when the real section fires — which is the thing
+   being evaluated. A second observer with its own threshold would test our timing, not
+   the site's. */
+function armTriggers(root){
+  const light=el=>el.querySelectorAll('.u,.mk').forEach(x=>x.classList.add('on'));
+  root.querySelectorAll('.reveal.is-in').forEach(light);
+  new MutationObserver(ms=>ms.forEach(mu=>{
+    const t=mu.target;
+    if(t.classList && t.classList.contains('is-in')) light(t);
+  })).observe(root,{subtree:true,attributes:true,attributeFilter:['class']});
+  // Safety net: if the engine never fires (reduced-motion, a JS error, a fragment that
+  // is not a .reveal root) the underline would stay invisible forever and read as a
+  // broken variant. Better to show it late than to show nothing and be believed.
+  setTimeout(()=>{const n=root.querySelectorAll('.u:not(.on),.mk:not(.on)');
+    if(n.length){n.forEach(x=>x.classList.add('on'));
+      $('#root').insertAdjacentHTML('afterbegin','<div class="note" style="background:#2a1c17;'
+      +'border-color:#5a2e1e"><b>Trigger did not fire.</b> Shown anyway after 2.5s — the '
+      +'animation you are seeing started late, so judge the look and not the timing.</div>');}
+  },2500);
+}
+
 function applyVariant(scope){
   if(!card) return;
   const m=card.html.match(/<span class="(u[^"]*)"([^>]*)>/);
@@ -140,6 +167,7 @@ function applyVariant(scope){
   const parts=await Promise.all(STACK.map(frag));
   $('#root').innerHTML=NAV+parts.join('\n');
   applyVariant($('#root'));
+  armTriggers($('#root'));
   // The D group is nav hover. The real nav already injects .bnav-uline and already draws
   // in and un-draws out on hover — so on this page a D variant is not swapped in, you are
   // looking at the production behaviour. Saying so beats faking a swap and calling it a test.
