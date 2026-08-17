@@ -1,0 +1,60 @@
+/* Shared mechanisms — loaded by lab.html AND lab-full.html.
+   ONE definition on purpose: two copies of the thing being compared would drift,
+   and comparing them fairly is the entire point of the page.
+   Hand-authored, deliberately not generated. */
+/* Replay reset: everything here animates with a TRANSITION, not @keyframes, so
+   removing .on transitions BACKWARDS over the full duration and a replay picks up
+   mid-reverse. void offsetWidth restarts a keyframe animation and does nothing for
+   a transition — the only reliable reset is to suppress transitions, commit the
+   start state, then re-enable. */
+.noanim,.noanim *{transition:none !important}
+/* ── the underline mechanisms ── */
+.u{position:relative;display:inline-block}
+.u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
+pointer-events:none;color:inherit}
+/* standalone (not wrapping text): needs its own box, or it collapses to zero width */
+.u.blk{display:block;width:min(78%,520px);height:.34em;margin:.06em auto 0;font-size:inherit}
+.u.blk .box{top:0;margin-top:0;height:100%}
+.u .box svg{width:100%;height:100%;display:block;overflow:visible}
+/* draw: stroked centreline, dashoffset */
+.u.draw .box path{fill:none;stroke:currentColor;stroke-width:10;stroke-linecap:round;
+stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.u.draw.on .box path{stroke-dashoffset:0}
+/* wipe: Sean's filled artwork, clip-path */
+.u.wipe .box svg{clip-path:inset(0 100% 0 0);transition:clip-path var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.u.wipe.on .box svg{clip-path:inset(0 0 0 0)}
+.u.wipe .box path{fill:currentColor;stroke:none}
+.u.rtl.draw .box svg{transform:scaleX(-1)}
+
+/* highlight box */
+.mk{position:relative;display:inline-block;padding:.03em .22em;color:#231F20;isolation:isolate}
+.mk::before{content:"";position:absolute;inset:0;background:var(--mkc,var(--teal));z-index:-1;
+transform-origin:left center;transform:scaleX(0);transition:transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.mk.on::before{transform:scaleX(1)}
+.mk .tw{display:inline-block;overflow:hidden;padding:.42em .10em .16em;margin:-.42em -.10em -.16em;
+vertical-align:bottom}
+.mk .t{display:inline-block;transform:translateY(130%);
+transition:transform calc(var(--dur,.72s)*.72) var(--ease,cubic-bezier(.22,.61,.36,1)) var(--tdelay,.36s)}
+.mk.on .t{transform:translateY(0)}
+.mk.tilt{transform:rotate(-1.8deg)}
+.mk.tiltin{transform:rotate(0deg);transition:transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.mk.tiltin.on{transform:rotate(-1.8deg)}
+.mk.together .t{transition-delay:0s}
+.mk.textfirst .t{transition-delay:0s}
+.mk.textfirst::before{transition-delay:var(--tdelay,.36s)}
+
+/* nav sample */
+.navbar{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.navbar a{position:relative;color:#fff;text-decoration:none;font:700 .64rem var(--sans);
+letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:4px 0}
+.navbar a:hover{opacity:1}
+.navbar a .box{position:absolute;left:0;right:0;top:100%;height:7px;margin-top:1px;color:var(--teal)}
+.navbar a .box svg{width:100%;height:100%;display:block}
+.navbar a .box path{fill:var(--teal);stroke:none}
+.navbar a .box svg{clip-path:inset(0 100% 0 0);transition:clip-path .34s cubic-bezier(.4,0,.2,1)}
+.navbar a.act .box svg,.navbar a.lit .box svg{clip-path:inset(0 0 0 0)}
+/* exit continues left-to-right: the LEFT edge sweeps right, rather than retracting the way it came */
+.navbar a.unlit .box svg{clip-path:inset(0 0 0 100%)}
+.navbar a.reset .box svg{clip-path:inset(0 100% 0 0);transition:none}
+.navbar.fade a .box svg{clip-path:none;opacity:0;transition:opacity .34s}
+.navbar.fade a:hover .box svg,.navbar.fade a.act .box svg{opacity:1}
