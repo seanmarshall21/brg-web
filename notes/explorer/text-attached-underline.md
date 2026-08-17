@@ -16,9 +16,33 @@ heroes we'd most want a text-attached underline on are exactly the ones running 
 
 ---
 
+> **RULED 2026-08-17 — Sean: not random, and the strokes are his, not Osmo's.**
+> *"It doesn't need to be random. It just needs to follow the same ones that are in the prototype
+> sample from Figma that I exported."* That answers §6's open question and changes what we take
+> from the pen. **We take the draw technique, not the artwork.**
+>
+> His exports are already in the repo — `website/assets/media/lines/line-<page>-lg.svg`, five hero
+> shapes and five nav ones, one per page. So each page draws **its own fixed mark**, every time.
+> Osmo's six variants and the random picker both come out.
+>
+> **The one thing this needs, and it's already solved:** those ten files are *filled outline*
+> paths with `fill="none"` on the svg and **zero stroke attributes**
+> ([SPEC-003](hand-drawn-lines.md)), so `stroke-dashoffset` has nothing to dash — forcing a stroke
+> traces the blob's outline out-and-back and reads as a lasso, not a pen. [SPEC-004](pen-stroke-underline.md)
+> already recovered the centerlines (uniform stroke expanded to outline → centerline = leading
+> edge offset by half the cap height) and found two things that change the build:
+> **it's three shapes, not five** — home, our-restaurants and community are the same curve, so one
+> path plus `preserveAspectRatio="none"` covers all three — and **`line-careers-lg.svg` is authored
+> right→left**, so it writes backwards unless drawn from the far end.
+>
+> Cleanest path is still to **re-export the five unexpanded**, as strokes rather than outlines; the
+> derived centerlines are the fallback if that's a nuisance. Everything below stands unchanged —
+> only the source of the path data moves.
+
 ## 1. Which implementation
 
-**Recommend: Osmo's six stroke paths, drawn with `stroke-dashoffset` in CSS. No GSAP.**
+**Recommend: ~~Osmo's six stroke paths~~ Sean's five per-page marks, drawn with
+`stroke-dashoffset` in CSS. No GSAP.**
 
 Not a different effect — *the same effect by another route.* For a single open path,
 `drawSVG:0→100%` and `stroke-dashoffset:1→0` are the same animation; that's already established
@@ -165,7 +189,7 @@ it rather than assuming.
 3. Sean sees that one before it touches five.
 4. Nav swap after, since it's `brgw.css`-only and independent.
 
-**Open for Sean, one question:** the demo's four heroes each use a different stroke variant. Do
-you want the variant **random per load** (as the pen does), or **fixed per page** so a hero
-always draws the same mark? Random is livelier; fixed is a brand decision and makes each page
-recognisable. I'd take fixed per page, random across pages.
+~~**Open for Sean, one question:** random per load, or fixed per page?~~ **Answered 2026-08-17:
+fixed, and using his own Figma exports rather than Osmo's variants** — see the ruling at the top.
+Each page keeps its own mark. The remaining ask is the re-export (§1): five stroke-based SVGs, or
+we derive the centerlines from the filled outlines as SPEC-004 already worked out.
