@@ -81,6 +81,13 @@ padding:7px 12px;cursor:pointer}
 color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
 .foot input::placeholder{color:var(--dim)}
 
+/* Replay reset. Every mechanism below animates with a TRANSITION, not @keyframes —
+   so simply removing .on transitions BACKWARDS over the full duration, and re-adding
+   it catches the element mid-reverse. `void offsetWidth` restarts a keyframe animation;
+   it does nothing for a transition. The only reliable reset is to suppress transitions,
+   commit the start state, then re-enable. */
+.noanim,.noanim *{transition:none !important}
+
 /* ── the underline mechanisms ── */
 .u{position:relative;display:inline-block}
 .u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
@@ -286,11 +293,17 @@ CARDS.forEach(c=>{
 });
 
 function play(card,c){
+  // Snap to the start with transitions OFF, or the reset animates backwards and the
+  // replay begins from wherever the reverse got to — which is what "replay" looked
+  // like it was doing nothing.
+  card.classList.add('noanim');
   card.querySelectorAll('.u,.mk').forEach(x=>x.classList.remove('on'));
   const head=card.querySelector('[data-split]');
   if(head && !head.dataset.done){ split(head); head.dataset.done='1'; }
   if(head) head.querySelectorAll('.ln-i').forEach(i=>i.classList.remove('in'));
-  void card.offsetWidth;
+  void card.offsetWidth;          // commit the reset while transitions are suppressed
+  card.classList.remove('noanim');
+  void card.offsetWidth;          // re-enable before anything is added back
   let base=0;
   if(head){
     const lines=[...head.querySelectorAll('.ln-i')];
