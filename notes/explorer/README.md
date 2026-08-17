@@ -20,6 +20,7 @@ Controller writes a `DECISION:` 👍 in `notes/controller.md` and the Finesser b
 | SPEC-005 | [`press-gallery-page.md`](press-gallery-page.md) | Press & Gallery — section plan for the designed-but-unbuilt page (4 sections, comp `mocks/build-spec/page-7.png`) | **proposed** 2026-08-13 |
 | SPEC-006 | [`contact-page.md`](contact-page.md) | Contact — section plan for the never-designed page; the form-vs-routing decision that gates it | **proposed** 2026-08-13 |
 | SPEC-007 | [`content-gaps.md`](content-gaps.md) | The launch-blocking content gaps — the `XX` stats, the stand-in photography, the `careers-posts` stamps + a placeholder doctrine | **proposed** 2026-08-13 |
+| SPEC-009 | [`text-attached-underline.md`](text-attached-underline.md) | The Osmo underline — nav hover + scroll-in elsewhere, dashoffset over DrawSVG, and the split engine that eats inner markup | **proposed** 2026-08-13 · demo: [Three Underlines](https://claude.ai/code/artifact/b339f004-60aa-4ead-b2ec-0493141ef97c) |
 | SPEC-008 | [`editable-copy-audit.md`](editable-copy-audit.md) | What else assumed the copy was ours — the location count lives in 3 editable places and already disagrees; corrects SPEC-007's claim that `12` was "already true" | **proposed** 2026-08-13 |
 
 ## Studies
