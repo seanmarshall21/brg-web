@@ -1,8 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- BRG kit — Lab.  DELIBERATELY NOT GENERATED. Do not fold into kit/build-kit.py.
-     Authored by expo (notes/explorer/studies/lab.html), reviewed and pushed by conti.
-     Safe because build-kit.py only makedirs on website/kit/ and never wipes it. -->
+<!-- BRG kit — Lab. DELIBERATELY NOT GENERATED; authored by expo, pushed by conti. -->
 <title>Underline Lab</title>
 <style>
 @font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprg.netlify.app/assets/media/fonts/BlancoCavelary.woff2') format('woff2');font-weight:400;font-display:block}
@@ -83,7 +81,7 @@ color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
 .u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
 pointer-events:none;color:inherit}
 /* standalone (not wrapping text): needs its own box, or it collapses to zero width */
-.u.blk{display:block;width:min(78%,520px);height:.34em;margin:.06em auto 0;font-size:inherit}
+.u.blk{display:block;width:min(62%,340px);height:.34em;margin:.5em auto 0;font-size:inherit}
 .u.blk .box{top:0;margin-top:0;height:100%}
 .u .box svg{width:100%;height:100%;display:block;overflow:visible}
 /* draw: stroked centreline, dashoffset */
@@ -101,17 +99,15 @@ stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.7
 .mk::before{content:"";position:absolute;inset:0;background:var(--mkc,var(--teal));z-index:-1;
 transform-origin:left center;transform:scaleX(0);transition:transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .mk.on::before{transform:scaleX(1)}
-.mk .tw{display:inline-block;overflow:hidden;padding:.42em .10em .16em;margin:-.42em -.10em -.16em;
-vertical-align:bottom}
-.mk .t{display:inline-block;transform:translateY(130%);
-transition:transform calc(var(--dur,.72s)*.72) var(--ease,cubic-bezier(.22,.61,.36,1)) var(--tdelay,.36s)}
-.mk.on .t{transform:translateY(0)}
+.mk .tw{display:inline-block}
+.mk .t{display:inline-block;opacity:0;transform:translateY(24%);
+transition:opacity calc(var(--dur,.72s)*.55) var(--ease,cubic-bezier(.22,.61,.36,1)),
+           transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.mk.on .t{opacity:1;transform:translateY(0)}
 .mk.tilt{transform:rotate(-1.8deg)}
 .mk.tiltin{transform:rotate(0deg);transition:transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .mk.tiltin.on{transform:rotate(-1.8deg)}
-.mk.together .t{transition-delay:0s}
-.mk.textfirst .t{transition-delay:0s}
-.mk.textfirst::before{transition-delay:var(--tdelay,.36s)}
+
 
 /* nav sample */
 .navbar{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
@@ -175,21 +171,24 @@ fire on entry and replay on demand.</p>
 <p class="secq"><strong>A2 and A4 were broken, not slow — my bug.</strong> I had <code>pathLength</code>
 in a CSS block, and it is an SVG <em>attribute</em>; as CSS it is silently ignored, so the dash was
 one user-unit long against a path thousands of units long and nothing appeared to move. Fixed —
-they animate now, so the A1-vs-A2 comparison is finally a fair one. <strong>A3, A5 and A6 answer
-your other question:</strong> they are the same wipe as A1 on different words and different strokes.</p>
+they animate now, so the A1-vs-A2 comparison is finally a fair one. <strong>A3 is gone — you asked twice what made it different from A1, and the honest answer is
+nothing.</strong> Same wipe, same code; only the artwork and the words changed. A5 and A6 make
+that point better, so A3 was noise.</p>
 <div class="grid" id="gA"></div>
 
 <h2 class="sec">B · Hero underline — timing <span style="color:var(--dim);font-weight:400;letter-spacing:0;text-transform:none">· now testable</span></h2>
-<p class="secq"><strong>B1 approved, B2 dropped — and the timing is now a dial rather than a
-preset.</strong> Drag it, hit Replay, and the offset rides along in your summary at the bottom, so
-you can hand me a number instead of a description. The vertical gap is tightened too, per your
-earlier note.</p>
+<p class="secq"><strong>Placement is now measured, not guessed.</strong> You said it was wrong in
+all of them — it was: the bar had a hardcoded width that had nothing to do with the words above
+it. It now takes the width of the <em>last line</em> of the headline, like everything else.
+<strong>The timing dial is new</strong> — drag it, hit Replay, and the offset rides along in your
+summary so you can hand me a number rather than a description.</p>
 <div class="grid" id="gB"></div>
 
 <h2 class="sec">C · Highlight box — order <span style="color:var(--dim);font-weight:400;letter-spacing:0;text-transform:none">· rebuilt</span></h2>
-<p class="secq"><strong>C1 approved and rebuilt to your sequence; C2, C3 and C4 dropped.</strong>
-The words now rise in <em>halfway through</em> the box rather than waiting for it, so the two
-overlap into one move. C5 is the same thing on the yellow banner.</p>
+<p class="secq"><strong>Back to simultaneous, as you asked</strong> — the box and its words arrive
+together, after the text before them. <strong>C5 is genuinely fixed this time</strong>, and the
+cause is in its card: my clipping mask collapsed the box height whenever the mark was the whole
+line, so you were seeing a sliver rather than the bar.</p>
 <div class="grid" id="gC"></div>
 
 <h2 class="sec">D · Nav — hover behaviour</h2>
@@ -223,10 +222,7 @@ const CARDS=[
  {g:'gA',id:'A2',t:'Draw — stroked centreline',
   why:'REBUILT to your note. It was stroking the artwork OUTLINE, which traces the shape\'s perimeter — a lasso, not a pen. It now strokes a CENTRELINE derived from your outline: I flattened the curves, took the midpoint between the top and bottom edge at 90 samples, and fitted a smooth path. Measured weight is 15.0 on every hero file and 5.0 on every nav file — dead uniform, which is what makes the centreline recoverable. No re-export needed.',
   html:'<p class="head blanco">Come work somewhere<br><span class="u draw" data-k="line-careers-lg">you actually want to be</span></p>'},
- {g:'gA',id:'A3',t:'Same as A1 — different stroke, different words',
-  why:'ANSWERING YOUR QUESTION: there is NO mechanical difference between A1 and A3. Identical wipe, identical code. A1 is line-careers-lg.svg (1122×31) under the careers headline; A3 is line-home-lg.svg (845×28) in yellow under the home one. It is here to show the artwork carrying its own width — nothing measures the text.',
-  html:'<p class="head blanco">We’re in the business<br>of <span class="u wipe" data-k="line-home-lg" style="color:var(--yellow)">making your day great.</span></p>'},
- {g:'gA',id:'A4',t:'Draw — careers, direction corrected',
+  {g:'gA',id:'A4',t:'Draw — careers, direction corrected',
   why:'Same derived centreline as A2, flipped. line-careers-lg.svg is authored right-to-left, so an unflipped draw writes backwards — this always writes left-to-right.',
   html:'<p class="head blanco">Come work somewhere<br><span class="u draw rtl" data-k="line-careers-lg">you actually want to be</span></p>'},
 
@@ -234,7 +230,7 @@ const CARDS=[
   why:'Same wipe again, line-team-lg.svg in pink. Third headline, third stroke, one mechanism.',
   html:'<p class="head blanco">The crew behind<br><span class="u wipe" data-k="line-team-lg" style="color:var(--pink)">every single day.</span></p>'},
  {g:'gA',id:'A6',t:'A1 on a long headline',
-  why:'Stress test: more words than the stroke was drawn for. The artwork stretches to the span — watch whether it thins out at this width.',
+  why:'REBUILT to your rule — when the line wraps, the stroke now fills only the BOTTOM line, measured from the last text rect rather than the whole block. Resize the card or flip to Mobile 390 to force a different wrap and watch it re-measure.',
   html:'<p class="head blanco">Great food, great people,<br><span class="u wipe" data-k="line-community-lg" style="color:var(--orange)">epic communities everywhere.</span></p>'},
 
  {g:'gB',id:'B1',t:'After the whole headline — with a timing dial',
@@ -243,10 +239,10 @@ const CARDS=[
   split:true,delay:'whole',dial:true},
  
  {g:'gC',id:'C1',t:'Box first, then words',
-  why:'REBUILT to your note. "Born in San Diego. Built" lands first, the box starts as "Built" finishes, and the words rise in HALFWAY through the box rather than waiting for it — so it reads as one fluid move. Text rises from a mask, same as the headline, not a fade.',
+  why:'BACK TO SIMULTANEOUS, as you asked — the box and the words it highlights now animate at the same time, after the text before them. The clipping mask is gone, which also fixes C5.',
   html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt"><span class="tw"><span class="t">for community.</span></span></span></p>'},
     {g:'gC',id:'C5',t:'Yellow banner — What we’re about',
-  why:'Now identical to C1, as you asked — box in, words rising halfway through. It was not showing the full move before because the text only faded; it now rides the same mask.',
+  why:'FIXED, and here is what was wrong: the words sat in an overflow:hidden mask with negative margins, and when the mark is the ENTIRE line — as it is here, unlike C1 — those margins collapsed the box height, so the yellow bar drew as a sliver behind the middle of the text. That is why you kept seeing part of it. Mask removed; identical to C1 now.',
   html:'<p class="head blanco"><span class="mk tilt" style="--mkc:var(--yellow)"><span class="tw"><span class="t">What we’re about</span></span></span></p>'},
 
  {g:'gD',id:'D1',t:'Draw in, un-draw out',
@@ -311,16 +307,40 @@ CARDS.forEach(c=>{
   card.querySelector('.replay').onclick=()=>play(card,c);
 });
 
+// Sean's rule: "if it splits to two lines, it should only fill the width of the bottom one."
+// An inline .u spanning two lines reports one client rect per line, so the last rect IS the
+// last line — measure it and pin the box to it. A .blk bar takes the last .ln instead.
+function fitLastLine(card){
+  card.querySelectorAll('.u').forEach(u=>{
+    const box=u.querySelector('.box'); if(!box) return;
+    box.style.left=box.style.right=box.style.width=box.style.top='';
+    if(u.classList.contains('blk')){
+      const ln=card.querySelector('[data-split] .ln:last-child .ln-i');
+      if(ln){const w=ln.getBoundingClientRect().width;
+        if(w>8){u.style.width=Math.round(w)+'px';}}
+      return;
+    }
+    const r=[...u.getClientRects()];
+    if(r.length<2) return;                       // single line: CSS already fits the span
+    const first=r[0], last=r[r.length-1];
+    box.style.left=Math.round(last.left-first.left)+'px';
+    box.style.right='auto';
+    box.style.width=Math.round(last.width)+'px';
+    box.style.top=Math.round(last.bottom-first.top)+'px';
+  });
+}
+
 function play(card,c){
   card.querySelectorAll('.u,.mk').forEach(x=>x.classList.remove('on'));
   const head=card.querySelector('[data-split]');
   if(head && !head.dataset.done){ split(head); head.dataset.done='1'; }
   if(head) head.querySelectorAll('.ln-i').forEach(i=>i.classList.remove('in'));
+  fitLastLine(card);
   void card.offsetWidth;
   let base=0;
   if(head){
     const lines=[...head.querySelectorAll('.ln-i')];
-    lines.forEach((i,n)=>setTimeout(()=>i.classList.add('in'),n*85));
+    lines.forEach((i,n)=>setTimeout(()=>i.classList.add('in'),n*105));
     base = c.delay==='whole' ? lines.length*85+160 : Math.max(0,(lines.length-1)*85+160);
     const off=card.querySelector('.off'); if(off) base=Math.max(0,base+ +off.value);
   }
@@ -337,7 +357,7 @@ function split(h){
 }
 const s=document.createElement('style');
 s.textContent='.ln{display:block;overflow:hidden;padding:.42em .10em .16em;margin:-.42em -.10em -.16em}'+
-'.ln-i{display:inline-block;transform:translateY(160%);transition:transform .62s cubic-bezier(.22,.61,.36,1)}'+
+'.ln-i{display:inline-block;transform:translateY(160%);transition:transform .78s cubic-bezier(.22,.61,.36,1)}'+
 '.ln-i.in{transform:translateY(0)}';
 document.head.appendChild(s);
 
@@ -345,19 +365,29 @@ document.head.appendChild(s);
 const R=document.documentElement;
 const dur=document.getElementById('dur'),durv=document.getElementById('durv');
 dur.oninput=()=>{R.style.setProperty('--dur',dur.value+'ms');
-  R.style.setProperty('--tdelay',Math.round(dur.value*.5)+'ms');durv.textContent=dur.value+'ms';};
+  durv.textContent=dur.value+'ms';};
 document.getElementById('ease').onchange=e=>R.style.setProperty('--ease',e.target.value);
 document.getElementById('col').onchange=e=>applyColour(e.target.value);
 document.querySelectorAll('#vp button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('#vp button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
-  document.querySelectorAll('.stage').forEach(s=>s.classList.toggle('mob',b.dataset.vp==='mob'));});
+  document.querySelectorAll('.stage').forEach(s=>s.classList.toggle('mob',b.dataset.vp==='mob'));
+  requestAnimationFrame(()=>CARDS.forEach(c=>play(document.getElementById('card-'+c.id),c)));});
+addEventListener('resize',()=>{clearTimeout(window._rt);
+  window._rt=setTimeout(()=>document.querySelectorAll('.card').forEach(fitLastLine),160);});
 document.getElementById('replayAll').onclick=()=>CARDS.forEach(c=>play(document.getElementById('card-'+c.id),c));
 
 /* scroll trigger, once per card */
+// Cards already in view at load used to fire instantly, so the top card never showed the
+// entrance the lower ones did — that is the A1-vs-A5 difference Sean spotted. Hold everything
+// for one beat so every card animates identically whether or not it needed a scroll.
+let armed=false;
 const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){const c=CARDS.find(x=>'card-'+x.id===e.target.id);play(e.target,c);io.unobserve(e.target);}
+  if(!e.isIntersecting)return;
+  const c=CARDS.find(x=>'card-'+x.id===e.target.id); io.unobserve(e.target);
+  armed ? play(e.target,c) : setTimeout(()=>play(e.target,c),340);
 }),{threshold:.45});
 CARDS.forEach(c=>io.observe(document.getElementById('card-'+c.id)));
+setTimeout(()=>armed=true,900);
 
 function render(){
   const yes=[],no=[],notes=[];
