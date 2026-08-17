@@ -93,24 +93,53 @@ async function frag(sec){
   return html.replace(/\{\{([a-z0-9_-]+)\}\}/gi,function(m,k){return d[k]!==undefined?d[k]:'';});
 }
 
-/* Swap ONLY the element under test, carrying the real element's geometry across so the
-   variant occupies exactly the space the original did. */
+/* Swap ONLY the element under test.
+
+   The site's underline is a STANDALONE bar — fixed 340px, centred, with no relationship
+   to the words above it. That is precisely the defect being fixed, so inheriting its
+   geometry (which an earlier version did) made the full page show the current site's
+   problem rather than the variant's answer.
+
+   So: delete the bar, and WRAP the last line of the headline in the mechanism, exactly
+   as the lab card does. An inline wrapper sizes itself to the text it contains, which is
+   the entire point of the change. brgw.js splits the headline into .ln / .ln-i first, so
+   this has to run after that. */
 function applyVariant(scope){
   const m=card.html.match(/<span class="(u[^"]*)"([^>]*)>/);
   const mk=card.html.match(/<span class="(mk[^"]*)"/);
-  if(m) scope.querySelectorAll('.brgw-uline').forEach(function(el){
-    const cs=getComputedStyle(el), s=document.createElement('span');
-    s.className=m[1]+' blk';
+
+  if(m){
     const k=(m[2].match(/data-k="([^"]+)"/)||[])[1];
-    if(k) s.dataset.k=k;
-    s.style.color=cs.color; s.style.width=cs.width; s.style.height=cs.height;
-    s.style.marginTop=cs.marginTop; s.style.marginInline='auto';
-    s.innerHTML='<span class="box" aria-hidden="true">'+sv(k||'line-home-lg')+'</span>';
-    el.replaceWith(s);
-  });
+    scope.querySelectorAll('.brgw-uline').forEach(function(el){
+      const colour=getComputedStyle(el).color;
+      const head=el.closest('section,div').querySelector('.anim-head,h1,h2');
+      el.remove();                                   // the fixed bar goes entirely
+      if(!head) return;
+      const lines=head.querySelectorAll('.ln-i');
+      const target=lines.length?lines[lines.length-1]:head;   // last line, or the whole head
+      const w=document.createElement('span');
+      w.className=m[1];                              // e.g. "u wipe" — inline, hugs the text
+      if(k) w.dataset.k=k;
+      w.style.color=colour;
+      while(target.firstChild) w.appendChild(target.firstChild);
+      target.appendChild(w);
+      w.insertAdjacentHTML('beforeend','<span class="box" aria-hidden="true">'+sv(k||'line-home-lg')+'</span>');
+    });
+  }
+
   if(mk) scope.querySelectorAll('.mark').forEach(function(el){
     el.className=mk[1]; el.innerHTML='<span class="t">'+el.textContent+'</span>';
   });
+}
+
+/* brgw.js splits the headline on its own schedule, so wait for the lines to exist
+   before wrapping one. Polling rather than a fixed delay: a fixed delay is a guess that
+   is wrong on a slow font load, and this is the element the whole page is about. */
+function afterSplit(root,cb){
+  let n=0;
+  const t=setInterval(function(){
+    if(root.querySelector('.anim-head .ln-i') || ++n>60){clearInterval(t); cb();}
+  },50);
 }
 
 /* Transitions are suppressed for the reset, or removing .on animates the thing
@@ -139,7 +168,6 @@ function fire(){
   }else{
     const sec=SECTION[card.g]||'careers-hero';
     $('#root').innerHTML=NAV+(await frag(sec));
-    applyVariant($('#root'));
   }
 
   /* brgw.js self-inits .brgw roots on load, so it must come after the injection. It
@@ -147,7 +175,10 @@ function fire(){
   [CDN+'/assets/brgw.js', CDN+'/assets/brgw-nav.js'].forEach(function(src){
     const s=document.createElement('script'); s.src=src; document.body.appendChild(s);
   });
-  if(card.g!=='gD') setTimeout(fire,700);   /* let the headline reveal start first */
+  if(card.g!=='gD') afterSplit($('#root'),function(){
+    applyVariant($('#root'));      // wrap the line brgw.js has just produced
+    setTimeout(fire,420);          // then fire, once the headline reveal is under way
+  });
 })();
 
 $('#replay').onclick=function(){location.reload();};
