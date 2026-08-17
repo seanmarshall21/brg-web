@@ -1,6 +1,8 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- BRG kit — Lab. DELIBERATELY NOT GENERATED; authored by expo, pushed by conti. -->
+<!-- BRG kit — Lab. DELIBERATELY NOT GENERATED; authored by expo, pushed by conti.
+     Each card carries rev + changed. Bump rev whenever a card's behaviour moves: a
+     stored verdict for an older rev is retired rather than carried forward. -->
 <title>Underline Lab</title>
 <style>
 @font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprg.netlify.app/assets/media/fonts/BlancoCavelary.woff2') format('woff2');font-weight:400;font-display:block}
@@ -49,6 +51,12 @@ button:focus-visible,select:focus-visible{outline:2px solid var(--teal);outline-
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:16px;align-items:start}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;
 display:flex;flex-direction:column}
+.card.moved{border-color:var(--teal)}
+.upd{background:linear-gradient(180deg,rgba(25,199,194,.16),rgba(25,199,194,.05));
+border-bottom:1px solid rgba(25,199,194,.4);padding:10px 14px;display:grid;gap:5px}
+.upd b{font:800 .62rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.upd .was{font-size:.74rem;color:var(--dim);font-style:italic}
+.upd .ch{font-size:.79rem;color:var(--ink)}
 .card.approved{border-color:var(--ok)}
 .card.denied{border-color:var(--no);opacity:.62}
 .card h3{margin:0;font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--yellow);
@@ -216,36 +224,36 @@ const sv = (k,draw) => {const l=L[k];
   return '<svg viewBox="'+l.vb+'" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'+path+'</svg>';};
 
 const CARDS=[
- {g:'gA',id:'A1',t:'Wipe — your artwork, untouched',
+ {g:'gA',id:'A1',rev:4,changed:'Entrance rebuilt. It fired instantly because it sits on screen at load; every card now waits the same beat, so this enters exactly like A5.',t:'Wipe — your artwork, untouched',
   why:'Your line-careers-lg.svg exactly as exported, revealed with a clip-path. No re-export, nothing to redraw. The leading edge is a flat vertical cut.',
   html:'<p class="head blanco">Come work somewhere<br><span class="u wipe" data-k="line-careers-lg">you actually want to be</span></p>'},
- {g:'gA',id:'A2',t:'Draw — stroked centreline',
+ {g:'gA',id:'A2',rev:3,changed:'Rebuilt on a derived CENTRELINE. It was stroking the artwork outline, which traces the perimeter — a lasso, not a pen. Landed in v3; if it still looks like a trace, you are on a cached page.',t:'Draw — stroked centreline',
   why:'REBUILT to your note. It was stroking the artwork OUTLINE, which traces the shape\'s perimeter — a lasso, not a pen. It now strokes a CENTRELINE derived from your outline: I flattened the curves, took the midpoint between the top and bottom edge at 90 samples, and fitted a smooth path. Measured weight is 15.0 on every hero file and 5.0 on every nav file — dead uniform, which is what makes the centreline recoverable. No re-export needed.',
   html:'<p class="head blanco">Come work somewhere<br><span class="u draw" data-k="line-careers-lg">you actually want to be</span></p>'},
-  {g:'gA',id:'A4',t:'Draw — careers, direction corrected',
+  {g:'gA',id:'A4',rev:3,changed:'Same centreline as A2, flipped so it always writes left-to-right.',t:'Draw — careers, direction corrected',
   why:'Same derived centreline as A2, flipped. line-careers-lg.svg is authored right-to-left, so an unflipped draw writes backwards — this always writes left-to-right.',
   html:'<p class="head blanco">Come work somewhere<br><span class="u draw rtl" data-k="line-careers-lg">you actually want to be</span></p>'},
 
- {g:'gA',id:'A5',t:'A1 on the Team headline',
+ {g:'gA',id:'A5',rev:4,changed:'You approved this and asked only for a slower reveal. Done — but the reveal speed is GLOBAL, so this is no longer byte-identical to what you approved. Re-judging it is the honest call.',t:'A1 on the Team headline',
   why:'Same wipe again, line-team-lg.svg in pink. Third headline, third stroke, one mechanism.',
   html:'<p class="head blanco">The crew behind<br><span class="u wipe" data-k="line-team-lg" style="color:var(--pink)">every single day.</span></p>'},
- {g:'gA',id:'A6',t:'A1 on a long headline',
+ {g:'gA',id:'A6',rev:4,changed:'Your rule applied: when the headline wraps, the stroke now fills only the BOTTOM line, measured from the last text rect. Resize the card or flip to Mobile 390 to force a re-measure.',t:'A1 on a long headline',
   why:'REBUILT to your rule — when the line wraps, the stroke now fills only the BOTTOM line, measured from the last text rect rather than the whole block. Resize the card or flip to Mobile 390 to force a different wrap and watch it re-measure.',
   html:'<p class="head blanco">Great food, great people,<br><span class="u wipe" data-k="line-community-lg" style="color:var(--orange)">epic communities everywhere.</span></p>'},
 
- {g:'gB',id:'B1',t:'After the whole headline — with a timing dial',
+ {g:'gB',id:'B1',rev:4,changed:'Placement is measured now, not guessed — the bar takes the width of the last line rather than a hardcoded 520px. Plus a timing dial, so you can hand me a number.',t:'After the whole headline — with a timing dial',
   why:'You said this lines up oddly and you wanted to test it. The slider below moves the stroke relative to the moment the last line lands: negative starts it while the headline is still arriving, positive holds it back. 0 = the instant the last line finishes. Watch the number, then tell me the one you want.',
   html:'<p class="head blanco" data-split>Come work somewhere you actually want to be</p><span class="u wipe blk" data-k="line-careers-lg"></span>',
   split:true,delay:'whole',dial:true},
  
- {g:'gC',id:'C1',t:'Box first, then words',
+ {g:'gC',id:'C1',rev:4,changed:'Back to simultaneous, as you asked: the box and its words animate together, after the text before them. The clipping mask is gone.',t:'Box first, then words',
   why:'BACK TO SIMULTANEOUS, as you asked — the box and the words it highlights now animate at the same time, after the text before them. The clipping mask is gone, which also fixes C5.',
   html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk tilt"><span class="tw"><span class="t">for community.</span></span></span></p>'},
-    {g:'gC',id:'C5',t:'Yellow banner — What we’re about',
+    {g:'gC',id:'C5',rev:4,changed:'Actually fixed, and the cause is named on the card: my clipping mask collapsed the box height whenever the mark was the whole line, so you saw a sliver instead of a bar.',t:'Yellow banner — What we’re about',
   why:'FIXED, and here is what was wrong: the words sat in an overflow:hidden mask with negative margins, and when the mark is the ENTIRE line — as it is here, unlike C1 — those margins collapsed the box height, so the yellow bar drew as a sliver behind the middle of the text. That is why you kept seeing part of it. Mask removed; identical to C1 now.',
   html:'<p class="head blanco"><span class="mk tilt" style="--mkc:var(--yellow)"><span class="tw"><span class="t">What we’re about</span></span></span></p>'},
 
- {g:'gD',id:'D1',t:'Draw in, un-draw out',
+ {g:'gD',id:'D1',rev:1,changed:'',t:'Draw in, un-draw out',
   why:'Leaving reverses the stroke back out, as the Osmo pen does.',
   html:'<div class="navbar"><a href="#">Our Story</a><a href="#">Team</a><a href="#" class="act">Careers</a><a href="#">Community</a></div>'},
  ];
@@ -282,11 +290,28 @@ CARDS.forEach(c=>{
       void svg.offsetWidth; requestAnimationFrame(()=>a.classList.remove('reset'));
     });
   });
-  const st=V[c.id]||{};
+  // A verdict belongs to the version it was given on. If the card has moved since, retire it
+  // rather than carry it forward — a stale approval is the same failure as a stale placeholder.
+  let st=V[c.id]||{};
+  if(st.rev!==undefined && st.rev!==c.rev && (st.v||st.n)){
+    st={rev:c.rev, prevV:st.v||'', prevN:st.n||'', off:st.off};
+    V[c.id]=st; localStorage.setItem('brg-lab',JSON.stringify(V));
+  }
+  if(st.rev===undefined){st.rev=c.rev;V[c.id]=st;}
+  const moved = !!c.changed && (st.prevV||st.prevN||!st.v);
+  if(c.changed){
+    const said = st.prevV==='yes'?'approved it':st.prevV==='no'?'denied it':st.prevN?'asked for a change':'';
+    card.insertAdjacentHTML('afterbegin',
+      '<div class="upd"><b>Updated — needs a fresh look</b>'+
+      (said?'<span class="was">Last time you '+said+(st.prevN?': &ldquo;'+st.prevN.replace(/</g,'&lt;')+'&rdquo;':'')+'</span>':'')+
+      '<span class="ch">'+c.changed+'</span></div>');
+    card.classList.add('moved');
+  }
   if(st.v==='yes'){card.classList.add('approved');card.querySelector('.yes').classList.add('on');}
   if(st.v==='no'){card.classList.add('denied');card.querySelector('.no').classList.add('on');}
   if(st.n) card.querySelector('input').value=st.n;
-  const save=()=>{localStorage.setItem('brg-lab',JSON.stringify(V));render();};
+  const save=()=>{V[c.id].rev=c.rev;localStorage.setItem('brg-lab',JSON.stringify(V));
+    card.classList.remove('moved');const u=card.querySelector('.upd');if(u)u.remove();render();};
   card.querySelector('.yes').onclick=()=>{V[c.id]={...(V[c.id]||{}),v:V[c.id]?.v==='yes'?'':'yes'};
     card.classList.toggle('approved',V[c.id].v==='yes');card.classList.remove('denied');
     card.querySelector('.yes').classList.toggle('on',V[c.id].v==='yes');card.querySelector('.no').classList.remove('on');save();};
@@ -390,14 +415,18 @@ CARDS.forEach(c=>io.observe(document.getElementById('card-'+c.id)));
 setTimeout(()=>armed=true,900);
 
 function render(){
-  const yes=[],no=[],notes=[];
-  CARDS.forEach(c=>{const v=V[c.id];if(!v)return;
+  const yes=[],no=[],notes=[],pend=[];
+  CARDS.forEach(c=>{const v=V[c.id]||{};
+    if(c.changed && !v.v && !v.n) pend.push(c.id+' — '+c.t);
+    if(!v.v&&!v.n&&v.off===undefined)return;
     if(v.v==='yes')yes.push(c.id+' — '+c.t);
     if(v.v==='no')no.push(c.id+' — '+c.t);
     if(v.n)notes.push(c.id+': '+v.n);
     if(v.off!==undefined&&v.off!==0)notes.push(c.id+' timing offset: '+(v.off>0?'+':'')+v.off+'ms');});
   document.getElementById('out').value =
-    'UNDERLINE LAB — verdicts\n\nAPPROVED\n'+(yes.length?yes.map(x=>'  '+x).join('\n'):'  (none yet)')+
+    'UNDERLINE LAB — verdicts\n'+
+    (pend.length?'\nUPDATED, NOT YET RE-JUDGED\n'+pend.map(x=>'  '+x).join('\n')+'\n':'')+
+    '\nAPPROVED\n'+(yes.length?yes.map(x=>'  '+x).join('\n'):'  (none yet)')+
     '\n\nDENIED\n'+(no.length?no.map(x=>'  '+x).join('\n'):'  (none yet)')+
     '\n\nNOTES\n'+(notes.length?notes.map(x=>'  '+x).join('\n'):'  (none yet)')+
     '\n\nSettings: '+dur.value+'ms · '+document.getElementById('ease').selectedOptions[0].text;
