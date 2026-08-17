@@ -109,7 +109,18 @@ function applyVariant(scope){
     s.className=m[1]+' blk anim-up';
     const k=(m[2].match(/data-k="([^"]+)"/)||[])[1];
     if(k) s.dataset.k=k;
-    s.style.color=getComputedStyle(el).color;
+    // Carry the REAL element's geometry across, not just its colour. Otherwise the swap
+    // silently changes layout — .u.blk is 520px wide with a ~1px top margin (tuned for the
+    // card stage) where .brgw-uline is 340px with 16px, so the page ends up testing a
+    // differently-sized element in a different place instead of testing the animation.
+    // Doing it here rather than by tuning .u.blk means the two contexts stop fighting:
+    // whatever the site uses is what the variant inherits, by construction.
+    const cs=getComputedStyle(el);
+    s.style.color=cs.color;
+    s.style.width=cs.width;
+    s.style.height=cs.height;
+    s.style.marginTop=cs.marginTop;
+    s.style.marginInline='auto';
     s.innerHTML='<span class="box" aria-hidden="true">'+sv(k||'line-home-lg')+'</span>';
     el.replaceWith(s);
   });
@@ -129,6 +140,16 @@ function applyVariant(scope){
   const parts=await Promise.all(STACK.map(frag));
   $('#root').innerHTML=NAV+parts.join('\n');
   applyVariant($('#root'));
+  // The D group is nav hover. The real nav already injects .bnav-uline and already draws
+  // in and un-draws out on hover — so on this page a D variant is not swapped in, you are
+  // looking at the production behaviour. Saying so beats faking a swap and calling it a test.
+  if(card.g==='gD'){
+    $('#root').insertAdjacentHTML('afterbegin',
+      '<div class="note" style="background:#2a2417;border-color:#5a4a1e">'
+      +'<b>D variants are not injected here.</b> The nav above is the production one, which '
+      +'already draws in and un-draws out on hover (<code>.bnav-uline</code>). Hover it to see '
+      +'the shipped behaviour — then use the card on the lab page to compare the alternative.</div>');
+  }
   // brgw.js self-inits every .brgw root on load, so it must come AFTER the injection.
   // It brings the split-line headline reveal, the fade-ups and the scroll triggers —
   // which is the whole reason this page composes the real thing.
