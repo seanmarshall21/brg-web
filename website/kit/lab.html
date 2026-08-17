@@ -15,7 +15,7 @@
 @font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprg.netlify.app/assets/media/fonts/BlancoCavelary.woff2') format('woff2');font-weight:400;font-display:block}
 :root{--yellow:#FCE200;--teal:#19C7C2;--pink:#EC0F8D;--orange:#F5821F;--violet:#8B2FC9;
 --bg:#0f0e0d;--bg2:#17150f;--card:#1c1a16;--line:rgba(255,255,255,.10);
---ink:#f4f1ea;--dim:rgba(244,241,234,.58);--ok:#4ADE80;--no:#F87171;
+--ink:#f4f1ea;--dim:rgba(244,241,234,.58);--ok:#4ADE80;--no:#F87171;--adj:#FBBF24;
 --mono:"SFMono-Regular",Menlo,Consolas,monospace;--sans:"Montserrat",system-ui,sans-serif;}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
 -webkit-font-smoothing:antialiased;line-height:1.55}
@@ -60,6 +60,7 @@ button:focus-visible,select:focus-visible{outline:2px solid var(--teal);outline-
 display:flex;flex-direction:column}
 .card.approved{border-color:var(--ok)}
 .card.denied{border-color:var(--no);opacity:.62}
+.card.adjust{border-color:var(--adj)}
 .card h3{margin:0;font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--yellow);
 padding:12px 14px;background:var(--bg2);border-bottom:1px solid var(--line);
 display:flex;align-items:center;gap:9px}
@@ -76,6 +77,7 @@ background:var(--bg2);color:var(--dim);border:1px solid var(--line);border-radiu
 padding:7px 12px;cursor:pointer}
 .foot .yes.on{background:var(--ok);color:#0f0e0d;border-color:var(--ok)}
 .foot .no.on{background:var(--no);color:#0f0e0d;border-color:var(--no)}
+.foot .maybe.on{background:var(--adj);color:#0f0e0d;border-color:var(--adj)}
 .foot .replay{margin-left:auto;color:var(--ink)}
 .foot input{flex:1 1 100%;background:var(--bg);border:1px solid var(--line);border-radius:7px;
 color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
@@ -202,6 +204,8 @@ the artwork exactly as it is. Watch the leading edge mid-animation: that is the 
 <div class="summary">
   <h2 class="sec" style="margin-top:0">Your verdicts</h2>
   <textarea id="out" readonly></textarea>
+  <p style="margin:10px 0 0"><button id="copyAll" style="background:var(--ok);color:#0f0e0d;border:0;
+  border-radius:8px;font:600 .82rem var(--sans);padding:10px 18px;cursor:pointer">Copy all verdicts</button></p>
   <p class="note">Copy this back into the chat and I'll build to it. Saved in this browser only —
   nothing is sent anywhere.</p>
 </div>
@@ -265,7 +269,7 @@ CARDS.forEach(c=>{
     <p class="why">${c.why}</p>
     <div class="stage">${c.html}</div>
     <div class="foot">
-      <button class="yes">Approve</button><button class="no">Deny</button>
+      <button class="yes">Approve</button><button class="maybe">Adjust</button><button class="no">Deny</button>
       <button class="replay">Replay</button>
       <input placeholder="note on ${c.id} — optional">
     </div></div>`);
@@ -277,16 +281,17 @@ CARDS.forEach(c=>{
     a.insertAdjacentHTML('beforeend','<span class="box" aria-hidden="true">'+sv('line-careers-nav')+'</span>');
   });
   const st=V[c.id]||{};
-  if(st.v==='yes'){card.classList.add('approved');card.querySelector('.yes').classList.add('on');}
-  if(st.v==='no'){card.classList.add('denied');card.querySelector('.no').classList.add('on');}
   if(st.n) card.querySelector('input').value=st.n;
   const save=()=>{localStorage.setItem('brg-lab',JSON.stringify(V));render();};
-  card.querySelector('.yes').onclick=()=>{V[c.id]={...(V[c.id]||{}),v:V[c.id]?.v==='yes'?'':'yes'};
-    card.classList.toggle('approved',V[c.id].v==='yes');card.classList.remove('denied');
-    card.querySelector('.yes').classList.toggle('on',V[c.id].v==='yes');card.querySelector('.no').classList.remove('on');save();};
-  card.querySelector('.no').onclick=()=>{V[c.id]={...(V[c.id]||{}),v:V[c.id]?.v==='no'?'':'no'};
-    card.classList.toggle('denied',V[c.id].v==='no');card.classList.remove('approved');
-    card.querySelector('.no').classList.toggle('on',V[c.id].v==='no');card.querySelector('.yes').classList.remove('on');save();};
+  // Three verdicts, driven off one table rather than a handler each — a fourth would
+  // otherwise mean a fourth near-identical copy, which is how the third one drifts.
+  const VERDICTS=[['yes','approved'],['maybe','adjust'],['no','denied']];
+  const paint=()=>{const v=(V[c.id]||{}).v||'';
+    VERDICTS.forEach(([k,cls])=>{card.classList.toggle(cls,v===k);
+      card.querySelector('.'+k).classList.toggle('on',v===k);});};
+  paint();
+  VERDICTS.forEach(([k])=>{card.querySelector('.'+k).onclick=()=>{
+    V[c.id]={...(V[c.id]||{}),v:(V[c.id]||{}).v===k?'':k};paint();save();};});
   card.querySelector('input').oninput=e=>{V[c.id]={...(V[c.id]||{}),n:e.target.value};
     localStorage.setItem('brg-lab',JSON.stringify(V));render();};
   card.querySelector('.replay').onclick=()=>play(card,c);
@@ -345,14 +350,22 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.45});
 CARDS.forEach(c=>io.observe(document.getElementById('card-'+c.id)));
 
+document.addEventListener('click',e=>{
+  if(e.target.id!=='copyAll')return;
+  const t=document.getElementById('out');
+  navigator.clipboard.writeText(t.value).catch(()=>{t.select();document.execCommand('copy');});
+  e.target.textContent='Copied';setTimeout(()=>e.target.textContent='Copy all verdicts',1400);
+});
 function render(){
-  const yes=[],no=[],notes=[];
+  const yes=[],maybe=[],no=[],notes=[];
   CARDS.forEach(c=>{const v=V[c.id];if(!v)return;
     if(v.v==='yes')yes.push(c.id+' — '+c.t);
+    if(v.v==='maybe')maybe.push(c.id+' — '+c.t+(v.n?'  ('+v.n+')':''));
     if(v.v==='no')no.push(c.id+' — '+c.t);
     if(v.n)notes.push(c.id+': '+v.n);});
   document.getElementById('out').value =
     'UNDERLINE LAB — verdicts\n\nAPPROVED\n'+(yes.length?yes.map(x=>'  '+x).join('\n'):'  (none yet)')+
+    '\n\nADJUST / CLARIFY\n'+(maybe.length?maybe.map(x=>'  '+x).join('\n'):'  (none yet)')+
     '\n\nDENIED\n'+(no.length?no.map(x=>'  '+x).join('\n'):'  (none yet)')+
     '\n\nNOTES\n'+(notes.length?notes.map(x=>'  '+x).join('\n'):'  (none yet)')+
     '\n\nSettings: '+dur.value+'ms · '+document.getElementById('ease').selectedOptions[0].text;
