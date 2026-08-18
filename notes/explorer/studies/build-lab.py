@@ -127,6 +127,18 @@ def build():
     assert '"centre"' in lines_js, "lab-lines.js has no centrelines — draw variants would trace outlines"
     (REPO/"notes/explorer/studies/lab-lines.js").write_text(lines_js)
 
+    # Syntax-check everything we emit. The build gated CONTENT and never gated SYNTAX, so an
+    # unescaped apostrophe in a card's `why` reached pre-push instead of failing here.
+    import subprocess, tempfile
+    for name, blob in (("lab-cards.js", js), ("lab-lines.js", lines_js),
+                       ("lab.html<script>", re.search(r"<script>(.*)</script>", kit, re.S).group(1)),
+                       ("artifact<script>", re.search(r"<script>(.*)</script>", art, re.S).group(1))):
+        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
+            f.write(blob); tmp = f.name
+        r = subprocess.run(["node", "--check", tmp], capture_output=True, text=True)
+        if r.returncode:
+            raise SystemExit(f"SYNTAX ERROR in {name}:\n{r.stderr.strip()[:600]}")
+
     ids = re.findall(r"id:'([A-Za-z0-9-]+)'", cards)
     assert len(ids) == len(set(ids)), "duplicate card id"
     print(f"artifact {len(art)//1024}KB · kit {len(kit)//1024}KB · "

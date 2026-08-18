@@ -108,18 +108,23 @@ color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
 .u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
 pointer-events:none;color:inherit}
 /* standalone (not wrapping text): needs its own box, or it collapses to zero width */
-.u.blk{display:block;width:min(62%,340px);height:.34em;margin:.5em auto 0;font-size:inherit}
+.u.blk{position:absolute;height:.34em;font-size:inherit;left:0;width:min(62%,340px)}
+.stage{position:relative}
 .u.blk .box{top:0;margin-top:0;height:100%}
 .u .box svg{width:100%;height:100%;display:block;overflow:visible}
 /* draw: stroked centreline, dashoffset */
 .u.draw .box path{fill:none;stroke:currentColor;stroke-width:.13em;stroke-linecap:round;stroke-linejoin:round;
 stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .u.draw.on .box path{stroke-dashoffset:0}
+.u.slow .box path{transition-duration:1.8s}
 /* wipe: Sean's filled artwork, clip-path */
 .u.wipe .box svg{clip-path:inset(0 100% 0 0);transition:clip-path var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .u.wipe.on .box svg{clip-path:inset(0 0 0 0)}
 .u.wipe .box path{fill:currentColor;stroke:none}
-.u.rtl.draw .box svg{transform:scaleX(-1)}
+/* .rtl removed 2026-08-18. line-careers-lg's OUTLINE is authored right-to-left, but the
+   centreline is derived by sampling x ascending, so every derived path already runs
+   left-to-right. Flipping it was the bug Sean reported as "this line went right to left".
+   SPEC-004's backwards-careers caveat does not apply to derived paths. */
 
 /* ── SALIENT REFERENCE — values transcribed from the theme, not approximated ──
    keyframe + box metrics: css/build/elements/element-highlighted-text.css
@@ -127,12 +132,16 @@ stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.7
 @keyframes salStroke{0%{stroke-dashoffset:1;opacity:0}1%{opacity:1}100%{stroke-dashoffset:0}}
 .u.sal .box{left:0;right:auto;width:100%;height:30%;top:auto;bottom:-20%;margin-top:0}
 .u.sal.sq2 .box{height:50%;bottom:-45%}
-.u.sal .box path{fill:none;stroke:currentColor;stroke-width:.13em;stroke-linecap:round;
+.u.sal .box path{fill:none;stroke:currentColor;stroke-width:var(--salw,.17em);stroke-linecap:round;
   stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
 .u.sal.on .box path{opacity:1;
-  animation:salStroke var(--saldur,1.8s) cubic-bezier(.65,0,.35,1) forwards}
+  animation:salStroke var(--saldur,1.8s) var(--salease,cubic-bezier(.22,.61,.36,1)) forwards}
+/* Salient ships cubic-bezier(.65,0,.35,1) — ease-IN-out. Sean asked for ease-out, so that is
+   the default here and the reference easing is one card over for comparison. */
+.u.sal.refease .box path{--salease:cubic-bezier(.65,0,.35,1)}
 /* Salient highlight: a background-size wipe on a gradient — survives a wrapped line,
    which a single stretched pseudo-element does not. */
+.mk.sal.tilt{transform:rotate(-1.8deg)}
 .mk.sal{background-repeat:no-repeat;background-size:0 80%;background-position:left 90%;
   background-image:linear-gradient(to right,var(--mkc,var(--teal)) 0,var(--mkc,var(--teal)) 100%);
   transition:background-size .9s cubic-bezier(.15,.75,.4,1);color:#fff}
@@ -401,9 +410,19 @@ function fitLastLine(card){
     const box=u.querySelector('.box'); if(!box) return;
     box.style.left=box.style.right=box.style.width=box.style.top='';
     if(u.classList.contains('blk')){
+      // Match the A cards exactly: sit under the LAST LINE at that line's left edge and
+      // width, rather than a centred bar of arbitrary width after the paragraph. That
+      // difference in mechanism is why B "looked different from section A".
       const ln=card.querySelector('[data-split] .ln:last-child .ln-i');
-      if(ln){const w=ln.getBoundingClientRect().width;
-        if(w>8){u.style.width=Math.round(w)+'px';}}
+      const st=u.offsetParent||card.querySelector('.stage');
+      if(ln&&st){
+        const r=ln.getBoundingClientRect(), s=st.getBoundingClientRect();
+        if(r.width>8){
+          u.style.left  = Math.round(r.left-s.left)+'px';
+          u.style.width = Math.round(r.width)+'px';
+          u.style.top   = Math.round(r.bottom-s.top)+'px';
+        }
+      }
       return;
     }
     const r=[...u.getClientRects()];

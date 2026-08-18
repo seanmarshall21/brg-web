@@ -96,18 +96,23 @@ color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
 .u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
 pointer-events:none;color:inherit}
 /* standalone (not wrapping text): needs its own box, or it collapses to zero width */
-.u.blk{display:block;width:min(62%,340px);height:.34em;margin:.5em auto 0;font-size:inherit}
+.u.blk{position:absolute;height:.34em;font-size:inherit;left:0;width:min(62%,340px)}
+.stage{position:relative}
 .u.blk .box{top:0;margin-top:0;height:100%}
 .u .box svg{width:100%;height:100%;display:block;overflow:visible}
 /* draw: stroked centreline, dashoffset */
 .u.draw .box path{fill:none;stroke:currentColor;stroke-width:.13em;stroke-linecap:round;stroke-linejoin:round;
 stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .u.draw.on .box path{stroke-dashoffset:0}
+.u.slow .box path{transition-duration:1.8s}
 /* wipe: Sean's filled artwork, clip-path */
 .u.wipe .box svg{clip-path:inset(0 100% 0 0);transition:clip-path var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .u.wipe.on .box svg{clip-path:inset(0 0 0 0)}
 .u.wipe .box path{fill:currentColor;stroke:none}
-.u.rtl.draw .box svg{transform:scaleX(-1)}
+/* .rtl removed 2026-08-18. line-careers-lg's OUTLINE is authored right-to-left, but the
+   centreline is derived by sampling x ascending, so every derived path already runs
+   left-to-right. Flipping it was the bug Sean reported as "this line went right to left".
+   SPEC-004's backwards-careers caveat does not apply to derived paths. */
 
 /* ── SALIENT REFERENCE — values transcribed from the theme, not approximated ──
    keyframe + box metrics: css/build/elements/element-highlighted-text.css
@@ -115,12 +120,16 @@ stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.7
 @keyframes salStroke{0%{stroke-dashoffset:1;opacity:0}1%{opacity:1}100%{stroke-dashoffset:0}}
 .u.sal .box{left:0;right:auto;width:100%;height:30%;top:auto;bottom:-20%;margin-top:0}
 .u.sal.sq2 .box{height:50%;bottom:-45%}
-.u.sal .box path{fill:none;stroke:currentColor;stroke-width:.13em;stroke-linecap:round;
+.u.sal .box path{fill:none;stroke:currentColor;stroke-width:var(--salw,.17em);stroke-linecap:round;
   stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
 .u.sal.on .box path{opacity:1;
-  animation:salStroke var(--saldur,1.8s) cubic-bezier(.65,0,.35,1) forwards}
+  animation:salStroke var(--saldur,1.8s) var(--salease,cubic-bezier(.22,.61,.36,1)) forwards}
+/* Salient ships cubic-bezier(.65,0,.35,1) — ease-IN-out. Sean asked for ease-out, so that is
+   the default here and the reference easing is one card over for comparison. */
+.u.sal.refease .box path{--salease:cubic-bezier(.65,0,.35,1)}
 /* Salient highlight: a background-size wipe on a gradient — survives a wrapped line,
    which a single stretched pseudo-element does not. */
+.mk.sal.tilt{transform:rotate(-1.8deg)}
 .mk.sal{background-repeat:no-repeat;background-size:0 80%;background-position:left 90%;
   background-image:linear-gradient(to right,var(--mkc,var(--teal)) 0,var(--mkc,var(--teal)) 100%);
   transition:background-size .9s cubic-bezier(.15,.75,.4,1);color:#fff}
@@ -159,6 +168,15 @@ letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:4px 0}
 .navbar.fade a .box svg{clip-path:none;opacity:0;transition:opacity .34s}
 .navbar.fade a:hover .box svg,.navbar.fade a.act .box svg{opacity:1}
 
+.gnote{margin:14px 0 4px;background:var(--bg2);border:1px solid var(--line);border-radius:11px;
+padding:12px 14px;display:grid;gap:7px}
+.gnote label{font:800 .62rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.gnote textarea{width:100%;min-height:56px;background:var(--bg);color:var(--ink);resize:vertical;
+border:1px solid var(--line);border-radius:8px;font:400 .82rem/1.55 var(--sans);padding:9px 11px}
+.gnote textarea::placeholder{color:var(--dim)}
+.gnote.all{border-color:rgba(252,226,0,.45)}
+.gnote.all label{color:var(--yellow)}
+.gnote.all textarea{min-height:92px}
 .summary{margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
 .sumbar{display:flex;align-items:center;gap:11px;margin-top:10px}
 #copyall{font:700 .68rem var(--sans);letter-spacing:.11em;text-transform:uppercase;
@@ -272,23 +290,24 @@ const CARDS=[
   why:'Your line-careers-lg.svg exactly as exported, revealed with a clip-path. No re-export, nothing to redraw. The leading edge is a flat vertical cut.',
   html:'<p class="head blanco">Come work somewhere<br><span class="u wipe" data-k="line-careers-lg">you actually want to be</span></p>'},
  {g:'gA',id:'A2',rev:3,changed:'Rebuilt on a derived CENTRELINE. It was stroking the artwork outline, which traces the perimeter — a lasso, not a pen. Landed in v3; if it still looks like a trace, you are on a cached page.',t:'Draw — stroked centreline',
-  why:'REBUILT to your note. It was stroking the artwork OUTLINE, which traces the shape\'s perimeter — a lasso, not a pen. It now strokes a CENTRELINE derived from your outline: I flattened the curves, took the midpoint between the top and bottom edge at 90 samples, and fitted a smooth path. Measured weight is 15.0 on every hero file and 5.0 on every nav file — dead uniform, which is what makes the centreline recoverable. No re-export needed.',
-  html:'<p class="head blanco">Come work somewhere<br><span class="u draw" data-k="line-careers-lg">you actually want to be</span></p>'},
-  {g:'gA',id:'A4',rev:3,changed:'Same centreline as A2, flipped so it always writes left-to-right.',t:'Draw — careers, direction corrected',
-  why:'Same derived centreline as A2, flipped. line-careers-lg.svg is authored right-to-left, so an unflipped draw writes backwards — this always writes left-to-right.',
-  html:'<p class="head blanco">Come work somewhere<br><span class="u draw rtl" data-k="line-careers-lg">you actually want to be</span></p>'},
-
+  why:'NOW 1.8s to match the reference — you said it was way too fast, and it was running on the global slider while the Salient cards held 1.8s. REBUILT earlier to stroke the derived centreline: it was stroking the artwork OUTLINE, which traces the shape\'s perimeter — a lasso, not a pen. It now strokes a CENTRELINE derived from your outline: I flattened the curves, took the midpoint between the top and bottom edge at 90 samples, and fitted a smooth path. Measured weight is 15.0 on every hero file and 5.0 on every nav file — dead uniform, which is what makes the centreline recoverable. No re-export needed.',
+  html:'<p class="head blanco">Come work somewhere<br><span class="u draw slow" data-k="line-careers-lg">you actually want to be</span></p>'},
+  
  {g:'gA',id:'A5',rev:4,changed:'You approved this and asked only for a slower reveal. Done — but the reveal speed is GLOBAL, so this is no longer byte-identical to what you approved. Re-judging it is the honest call.',t:'A1 on the Team headline',
   why:'Same wipe again, line-team-lg.svg in pink. Third headline, third stroke, one mechanism.',
   html:'<p class="head blanco">The crew behind<br><span class="u wipe" data-k="line-team-lg" style="color:var(--pink)">every single day.</span></p>'},
  {g:'gA',id:'A6',rev:4,changed:'Your rule applied: when the headline wraps, the stroke now fills only the BOTTOM line, measured from the last text rect. Resize the card or flip to Mobile 390 to force a re-measure.',t:'A1 on a long headline',
-  why:'REBUILT to your rule — when the line wraps, the stroke now fills only the BOTTOM line, measured from the last text rect rather than the whole block. Resize the card or flip to Mobile 390 to force a different wrap and watch it re-measure.',
-  html:'<p class="head blanco">Great food, great people,<br><span class="u wipe" data-k="line-community-lg" style="color:var(--orange)">epic communities everywhere.</span></p>'},
+  why:'NOW FORCED TO WRAP (max-width:15ch) so the rule is actually visible — you denied this and you were right, it was not wrapping at desktop width so there was nothing to judge. When the span wraps, the stroke fills only the BOTTOM line, measured from the last text rect rather than the whole block. Resize the card or flip to Mobile 390 to force a different wrap and watch it re-measure.',
+  html:'<p class="head blanco" style="max-width:15ch;margin-inline:auto">Great food, great people, <span class="u wipe" data-k="line-community-lg" style="color:var(--orange)">epic communities everywhere</span></p>'},
 
 {g:'gA',id:'S-A1',rev:1,salient:true,t:'SALIENT — basic-underline, exact',
   changed:'',
-  why:'The reference, transcribed rather than approximated: your centreline stroke in Salient\'s own box (height 30%, sitting 20% below the words), 1.8s, cubic-bezier(.65,0,.35,1) ease-IN-out, round caps. Note the keyframe holds opacity at 0 until 1% — at full dash offset a round cap paints a DOT, and that step hides it. Compare against A2 above, which is the same stroke on our old 0.72s ease-out.',
+  why:'The reference, transcribed rather than approximated: your centreline stroke in Salient\'s own box (height 30%, sitting 20% below the words), 1.8s, round caps — now with EASE-OUT as you asked, rather than Salient's ease-in-out. S-A3 below is the same card with the reference easing, so you can see what we gave up. Note the keyframe holds opacity at 0 until 1% — at full dash offset a round cap paints a DOT, and that step hides it. Compare against A2 above, which is the same stroke on our old 0.72s ease-out.',
   html:'<p class="head blanco">Come work somewhere<br><span class="u sal draw" data-k="line-careers-lg">you actually want to be</span></p>'},
+ {g:'gA',id:'S-A3',rev:1,salient:true,t:'SALIENT — same, with the reference easing',
+  changed:'',
+  why:'S-A1 with Salient\'s own cubic-bezier(.65,0,.35,1) instead of the ease-out you asked for. Side by side you can see what the ease-in gives up: it starts slower, so the stroke reads as being placed rather than flicked. If S-A1 now feels too eager, this is the alternative.',
+  html:'<p class="head blanco">Come work somewhere<br><span class="u sal refease draw" data-k="line-careers-lg">you actually want to be</span></p>'},
  {g:'gA',id:'S-A2',rev:1,salient:true,t:'SALIENT — squiggle-underline-2 box, their path',
   changed:'',
   why:'The second variant running on the same Baked Bear page, using THEIR actual path data and box (height 50%, 45% below). It is a two-pass stroke — right, back, right again — so it reads as a scribble rather than a rule. This is what "multiple slight variations of this one" looks like in practice: same mechanism, different path and box.',
@@ -296,7 +315,7 @@ const CARDS=[
 
  {g:'gB',id:'S-B1',rev:1,salient:true,t:'SALIENT — fires only when FULLY on screen',
   changed:'',
-  why:'THE ONE THAT EXPLAINS "not anytime before". Salient waits for bottom-in-view — the whole element on screen — where brgw.js fires at 16% visible. This card is observed at threshold 1.0; B1 above uses our current 0.45. Scroll them both past slowly and the difference is the whole complaint. NOTE: no full-page view for this card, deliberately — lab-full.html fires on a timer and has no scroll observation, so a full view here would play identically to B1 and quietly misrepresent the one thing this card exists to show.',
+  why:'STROKE THICKENED to .17em, per your note. THE ONE THAT EXPLAINS "not anytime before". Salient waits for bottom-in-view — the whole element on screen — where brgw.js fires at 16% visible. This card is observed at threshold 1.0; B1 above uses our current 0.45. Scroll them both past slowly and the difference is the whole complaint. NOTE: no full-page view for this card, deliberately — lab-full.html fires on a timer and has no scroll observation, so a full view here would play identically to B1 and quietly misrepresent the one thing this card exists to show.',
   thresh:1, nofull:true,
   html:'<p class="head blanco" data-split>Come work somewhere you actually want to be</p><span class="u sal blk draw" data-k="line-careers-lg"></span>',
   split:true,delay:'whole'},
@@ -312,11 +331,11 @@ const CARDS=[
    {g:'gC',id:'S-C1',rev:1,salient:true,t:'SALIENT — highlight, background-size wipe',
   changed:'',
   why:'The /menu/ hero treatment, transcribed: a linear-gradient on the words with background-size going 0 to 100% at 80% height, 0.9s cubic-bezier(.15,.75,.4,1), anchored at left 90%. The words stay visible throughout and the block sweeps in behind them. Better than the scaled box in C1 for one concrete reason — a background survives a wrapped line, a single stretched element does not. Deliberately faster than the 1.8s stroke.',
-  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk sal"><span class="tw"><span class="t">for community.</span></span></span></p>'},
+  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk sal tilt"><span class="tw"><span class="t">for community.</span></span></span></p>'},
  {g:'gC',id:'S-C2',rev:1,salient:true,t:'SALIENT — highlight on the full line',
   changed:'',
   why:'Same wipe where the mark IS the whole line, which is the case that broke C5. Yellow, as on What we\'re about.',
-  html:'<p class="head blanco"><span class="mk sal" style="--mkc:var(--yellow);color:#231F20"><span class="tw"><span class="t">What we\u2019re about</span></span></span></p>'},
+  html:'<p class="head blanco"><span class="mk sal tilt" style="--mkc:var(--yellow);color:#231F20"><span class="tw"><span class="t">What we\u2019re about</span></span></span></p>'},
 
  {g:'gC',id:'C5',rev:4,changed:'Actually fixed, and the cause is named on the card: my clipping mask collapsed the box height whenever the mark was the whole line, so you saw a sliver instead of a bar.',t:'Yellow banner — What we’re about',
   why:'FIXED, and here is what was wrong: the words sat in an overflow:hidden mask with negative margins, and when the mark is the ENTIRE line — as it is here, unlike C1 — those margins collapsed the box height, so the yellow bar drew as a sliver behind the middle of the text. That is why you kept seeing part of it. Mask removed; identical to C1 now.',
@@ -328,6 +347,28 @@ const CARDS=[
  ];
 
 const V = JSON.parse(localStorage.getItem('brg-lab')||'{}');
+// Group + overall notes live under reserved keys so a card id can never collide with a
+// group id. They deliberately do NOT expire with a card's rev: a judgement about a SET
+// ("the timing is the problem across all of these") is not invalidated by one card moving.
+V._g = V._g || {}; 
+const GROUPS = ['gA','gB','gC','gD'];
+function groupLabel(id){
+  const grid=document.getElementById(id); if(!grid) return id;
+  let n=grid.previousElementSibling;
+  while(n && !(n.tagName==='H2' && n.classList.contains('sec'))) n=n.previousElementSibling;
+  return n ? (n.firstChild.textContent||'').trim() : id;
+}
+function noteBox(host, key, label, ph, extra){
+  const box=document.createElement('div');
+  box.className='gnote'+(extra||'');
+  box.innerHTML='<label></label><textarea placeholder="'+ph+'"></textarea>';
+  box.querySelector('label').textContent=label;
+  const ta=box.querySelector('textarea');
+  ta.value = key==='_all' ? (V._all||'') : (V._g[key]||'');
+  ta.oninput=()=>{ if(key==='_all') V._all=ta.value; else V._g[key]=ta.value;
+    localStorage.setItem('brg-lab',JSON.stringify(V)); render(); };
+  host.after(box);
+}
 const el = (h)=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstElementChild;};
 
 CARDS.forEach(c=>{
@@ -336,7 +377,7 @@ CARDS.forEach(c=>{
     <p class="why">${c.why}</p>
     <div class="stage">${c.html}</div>
     <div class="foot">
-      <button class="yes">Approve</button><button class="no">Deny</button>
+      <button class="yes">Approve</button><button class="maybe">Adjust</button><button class="no">Deny</button>
       <button class="replay">Replay</button>
       ${c.nofull?'':`<a class="full" href="lab-full.html?v=${c.id}" target="_blank" rel="noopener">Full page \u2197</a>`}
       ${c.dial?`<label class="dial">Stroke timing
@@ -422,9 +463,19 @@ function fitLastLine(card){
     const box=u.querySelector('.box'); if(!box) return;
     box.style.left=box.style.right=box.style.width=box.style.top='';
     if(u.classList.contains('blk')){
+      // Match the A cards exactly: sit under the LAST LINE at that line's left edge and
+      // width, rather than a centred bar of arbitrary width after the paragraph. That
+      // difference in mechanism is why B "looked different from section A".
       const ln=card.querySelector('[data-split] .ln:last-child .ln-i');
-      if(ln){const w=ln.getBoundingClientRect().width;
-        if(w>8){u.style.width=Math.round(w)+'px';}}
+      const st=u.offsetParent||card.querySelector('.stage');
+      if(ln&&st){
+        const r=ln.getBoundingClientRect(), s=st.getBoundingClientRect();
+        if(r.width>8){
+          u.style.left  = Math.round(r.left-s.left)+'px';
+          u.style.width = Math.round(r.width)+'px';
+          u.style.top   = Math.round(r.bottom-s.top)+'px';
+        }
+      }
       return;
     }
     const r=[...u.getClientRects()];
@@ -477,6 +528,19 @@ s.textContent='.ln{display:block;overflow:hidden;padding:.42em .10em .16em;margi
 '.ln-i.in{transform:translateY(0)}';
 document.head.appendChild(s);
 
+GROUPS.forEach(g=>{
+  const grid=document.getElementById(g); if(!grid) return;
+  noteBox(grid, g, groupLabel(g)+' — notes on this section',
+    'Anything true of these as a group — pacing, placement, which direction you want to go.');
+});
+{
+  const sum=document.querySelector('.summary');
+  const anchor=document.createElement('div'); sum.before(anchor);
+  noteBox(anchor, '_all', 'Overall review',
+    'The whole picture — what is working, what is not, what you want next.', ' all');
+  anchor.remove();
+}
+
 /* controls */
 const R=document.documentElement;
 const dur=document.getElementById('dur'),durv=document.getElementById('durv');
@@ -517,20 +581,30 @@ function render(){
     if(c.changed && !v.v && !v.n) pend.push(c.id+' — '+c.t);
     if(!v.v&&!v.n&&v.off===undefined)return;
     if(v.v==='yes')yes.push(c.id+' — '+c.t);
-    // An Adjust carries its note on the same line: "keep this, change that" is one thought,
-    // and splitting it across two blocks is what makes it read like a Deny.
     if(v.v==='maybe')adj.push(c.id+' — '+c.t+(v.n?'\n      → '+v.n:''));
     if(v.v==='no')no.push(c.id+' — '+c.t);
     if(v.n&&v.v!=='maybe')notes.push(c.id+': '+v.n);
     if(v.off!==undefined&&v.off!==0)notes.push(c.id+' timing offset: '+(v.off>0?'+':'')+v.off+'ms');});
+
   const blk=(t,a)=>'\n'+t+'\n'+(a.length?a.map(x=>'  '+x).join('\n'):'  (none yet)');
+  // Free text is omitted entirely when empty. Four "(none yet)" blocks would bury the one
+  // or two he actually wrote — the opposite of the right default for verdicts.
+  const free=(t,s)=>s&&s.trim()?'\n'+t+'\n  → '+s.trim().replace(/\n/g,'\n    ')+'\n':'';
+
+  // Group notes lead: the general judgement first, then the per-card specifics under it,
+  // then the summing-up. That is the order he would brief it out loud.
+  let groups='';
+  GROUPS.forEach(g=>{ groups += free(groupLabel(g), V._g[g]); });
+
   document.getElementById('out').value =
     'UNDERLINE LAB — verdicts\n'+
     (pend.length?'\nUPDATED, NOT YET RE-JUDGED\n'+pend.map(x=>'  '+x).join('\n')+'\n':'')+
+    groups+
     blk('APPROVED',yes)+
     blk('ADJUST — keep it, but change this',adj)+
     blk('DENIED',no)+
     blk('NOTES',notes)+
+    free('OVERALL', V._all)+
     '\n\nSettings: '+dur.value+'ms · '+document.getElementById('ease').selectedOptions[0].text;
 }
 /* strokes inherit .head's white otherwise — apply the default colour on load */

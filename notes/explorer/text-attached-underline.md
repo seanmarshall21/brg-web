@@ -175,6 +175,96 @@ adopting on that ground alone.
 **Timing: 0.9s `cubic-bezier(.15,.75,.4,1)`** — a strong ease-out, and notably *faster* than the
 1.8s stroke. The two are not meant to match.
 
+## 0.4 Ours or Salient's? — the recommendation, and it is neither wholesale
+
+Sean, 2026-08-17: *"any suggestions of why one type might work better universally than another."*
+
+**Recommendation: Salient's *mechanism*, our *geometry*.** They are not competing implementations
+— they differ on exactly two axes, and the better answer on each comes from a different side.
+
+| | Salient | Ours | Take |
+|---|---|---|---|
+| Draw | CSS keyframe on `stroke-dashoffset` | same | **either** — identical output |
+| Attachment | SVG inside the `<em>`, `width:100%` | same | **either** |
+| Wrapped line | stroke spans **both** lines | **bottom line only** | **ours** — Sean's rule, and it is the correct one |
+| Slant on the highlight | none | `rotate(-1.8deg)` | **ours** — it is the BRG mark, and its absence is what he flagged on S-C1/S-C2 |
+| Highlight reveal | `background-size` on a gradient | scaled pseudo-element | **Salient's** — a background survives `box-decoration-break` across a wrapped line; a stretched box does not |
+| Trigger | fully on screen | 16% visible | **Salient's** — this is the whole *"not anytime before"* |
+| Easing | ease-in-out | — | **ease-out**, per Sean; neither default |
+
+**Why "better coded" is the wrong frame, and what the real difference is.** Salient's code is not
+cleaner in any way that survives being lifted out of Salient — most of its length is WPBakery
+plumbing, `data-exp` presets and per-instance style generation we have no use for. **What is
+genuinely better is that its behaviour is parameterised**: variant, colour, tightness and delay
+are all attributes on the element, and nothing about the effect is hard-coded per instance.
+
+**That is the thing to copy — and it is the same thing §0.5 is about.** So the honest answer to
+*"is theirs better?"* is: **their separation of effect from configuration is better; their
+geometry is not.** Take the first, keep ours for the second.
+
+## 0.5 The variable contract — what becomes a shortcode attribute
+
+Sean's overall note is a list of things he needs control of. Grouped into what a section author
+sets, because **this is the deliverable that turns a demo into a component.**
+
+| Attribute | Values | Default | Answers |
+|---|---|---|---|
+| `mark` | `none` · `underline` · `highlight` | `none` | which effect |
+| `mark_words` | **see §0.6 — the unsolved one** | last line | *"what words get underlined"* |
+| `mark_shape` | `careers` · `home` · `team` · `community` · `restaurants` | per page | which stroke |
+| `mark_color` | token name or hex | page accent | *"what colours they are"* |
+| `text_color` | `dark` · `light` · `#hex` | `dark` | *"change the colour of the text inside the highlight"* — his words |
+| `mark_speed` | ms | `1800` underline · `900` highlight | *"the speed"* / *"animation speed"* |
+| `mark_ease` | `out` · `in-out` · `linear` | `out` | his ruling on S-A1 |
+| `mark_delay` | ms, ± against the headline landing | `0` | *"the location"* in time |
+| `mark_trigger` | `full` · `partial` · `hover` | `full` (nav: `hover`) | *"entrance"* |
+| `mark_wrap` | `last-line` · `all-lines` | `last-line` | *"what happens if the line breaks"* |
+| `mark_replay` | `once` · `every` | `once` | *"exit"* — see below |
+
+**Three of his list deliberately do not become attributes, and it is worth saying why:**
+
+- **"Entrance and exit"** — there is **no exit** on a scroll-in mark, and there should not be.
+  Salient destroys the waypoint after firing; ours unobserves. An underline that un-draws when
+  you scroll away draws attention to itself twice for one piece of content. Exit exists only on
+  **nav hover**, where it is a state, not an entrance. `mark_replay` covers the real question.
+- **"Animations if there are any"** — the doodles and plates are already per-section art
+  direction, not a mark property. Folding them in would make this attribute set the whole
+  section's animation config.
+- **"The location"** spatially — `height`/`bottom` are per-shape geometry (Salient ships five
+  presets for exactly this reason). Exposing them as attributes invites a section author to
+  nudge a stroke off its baseline. **Ship the five shapes with fixed boxes; expose only the
+  shape choice.**
+
+## 0.6 The unsolved one: which words get the mark, when the copy is ACF-editable
+
+Sean: *"Considering this is going to be an ACF, we need to understand how or what we're going to
+do to pick what the text that gets underlined is."* **This is the hardest question in the spec and
+it has no good answer yet.** [SPEC-009 §3](#) is why: `splitByWords` rebuilds the headline from
+`textContent`, so **an editor cannot put markup in the field** — a `<span>` typed into wp-admin is
+destroyed before it renders.
+
+Four options, ranked:
+
+1. **A delimiter in the field.** `Come work somewhere *you actually want to be*` — the fill step
+   converts `*…*` to the mark span **before** `splitByWords` runs. Editor-friendly, no markup, and
+   it survives the split because the conversion happens first. **Recommended.** Cost: one
+   character becomes reserved, so the `doc` must say so, and a literal asterisk needs escaping.
+2. **A second field** — `heading` plus `heading_mark` naming the substring to mark. Explicit, no
+   reserved characters, but it duplicates text between two fields, and **two fields holding one
+   sentence is the drift shape we have spent two days deleting**.
+3. **Last line, always** — no control at all. What every hero does today. Zero cost, and it is the
+   right *default*, but it cannot express *"Built **for community**"* where the mark sits mid-line.
+4. **Rich-text field with an allowed tag.** ACF can do it; `splitByWords` cannot survive it
+   without the engine change §3 rejects.
+
+**I would ship 3 as the default and 1 as the opt-in**, because they compose: no delimiter present
+→ mark the last line; delimiter present → mark exactly that span. That also answers his *"what
+happens if only half of the text on that line gets the underline"* — with option 1 it is
+expressible; with option 3 it is not.
+
+**This needs Sean's ruling before Finn builds anything**, because it decides the shape of every
+heading field on the site.
+
 ## 1. Which implementation
 
 **Recommend: ~~Osmo's six stroke paths~~ Sean's five per-page marks, drawn with
