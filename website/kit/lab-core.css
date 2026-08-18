@@ -58,3 +58,31 @@ letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:4px 0}
 .navbar a.reset .box svg{clip-path:inset(0 100% 0 0);transition:none}
 .navbar.fade a .box svg{clip-path:none;opacity:0;transition:opacity .34s}
 .navbar.fade a:hover .box svg,.navbar.fade a.act .box svg{opacity:1}
+
+/* ── Salient reference cards (S-*) ───────────────────────────────────────────────
+   Extracted from the built lab rather than retyped, so the two can't disagree about
+   what the reference actually is. Only lab-full.html loads this file — lab.html is
+   self-contained — so these rules exist here purely to let the S-* cards be judged
+   in a real page.
+
+   The stroke is OUR artwork. What comes from Salient is timing and geometry: 1.8s,
+   cubic-bezier(.65,0,.35,1) ease-IN-out, a box at 30% height sitting 20% below the
+   words, round caps. The 1% opacity step is not a flourish — at full dash offset a
+   round cap paints a visible DOT, and that step hides it until the stroke moves.
+
+   --saldur must NOT be driven by any speed control. These cards hold 1.8s or they
+   stop being a comparison. lab-full.html has no speed control today; if one is ever
+   added, exclude .u.sal from it. */
+@keyframes salStroke{0%{stroke-dashoffset:1;opacity:0}1%{opacity:1}100%{stroke-dashoffset:0}}
+.u.sal .box{left:0;right:auto;width:100%;height:30%;top:auto;bottom:-20%;margin-top:0}
+.u.sal.sq2 .box{height:50%;bottom:-45%}
+.u.sal .box path{fill:none;stroke:currentColor;stroke-width:.13em;stroke-linecap:round;
+  stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+.u.sal.on .box path{opacity:1;
+  animation:salStroke var(--saldur,1.8s) cubic-bezier(.65,0,.35,1) forwards}
+.mk.sal{background-repeat:no-repeat;background-size:0 80%;background-position:left 90%;
+  background-image:linear-gradient(to right,var(--mkc,var(--teal)) 0,var(--mkc,var(--teal)) 100%);
+  transition:background-size .9s cubic-bezier(.15,.75,.4,1);color:#fff}
+.mk.sal.on{background-size:100% 80%}
+.mk.sal::before{display:none}
+.mk.sal .t{opacity:1;transform:none;transition:none}
