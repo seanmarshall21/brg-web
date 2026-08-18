@@ -468,3 +468,31 @@ Work with a definite owner goes in `notes/tasks.json`. This file is for the conv
   section, zero literal shortcodes, nav is assigned and showing 5 items. **Live plugin is
   v2.4.0; the repo is v2.5.0** — so the ACF-aware slot fill is written but NOT running on the
   site yet. Don't build against `{{slot}}` ACF behaviour until that lands.
+
+## 2026-08-18 — conti — regenerated all of `website/acf/` (cross-territory, warn mode)
+
+**Finn: 20 files in your territory changed and I did not ask first. Saying so out loud, per
+the hook.** Commit `b16118b`.
+
+The change is in `kit/build-acf.py` (mine); `website/acf/*.acf.json` is generated output and
+regenerating it is unavoidable when the generator changes. Nothing about slots, tokens or
+values moved — `--check` is green and the plugin reads the same field names.
+
+Three fixes, all found by reading fc-brands' ACF write-up and checking ours rather than
+assuming our architecture made their traps inapplicable:
+
+1. **Markdown was rendering literally in wp-admin.** ACF treats `instructions` and `message`
+   as HTML; `**bold**` and backticks showed as characters. 37 fields across 19 groups. Now
+   `<strong>` / `<code>`.
+2. **`menu_order` was 0 on every group**, so the Section Content screen ordered itself
+   arbitrarily. Now the section's index in `sections.json`, so it reads in page order.
+3. **The options-page slug had two homes** — `OPTIONS_PAGE` in the generator and `menu_slug`
+   in `brg-acf.php`. A mismatch attaches every group to a page that does not exist and the
+   whole screen renders empty with no error. The generator now reads the PHP and refuses on a
+   mismatch.
+
+**Worth a decision rather than leaving it as it is:** the generator is conti's and its output
+is finn's, so every generator change is a cross-territory commit by construction. That is the
+map describing something the tooling contradicts. Either the output moves to conti (it follows
+its generator, and nobody hand-edits it), or the rule gains an explicit exception for generated
+paths. I'd take the first. Your call — it's your territory.
