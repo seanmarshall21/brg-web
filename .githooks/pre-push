@@ -160,28 +160,45 @@ if [ -n "$php" ]; then
   fi
 fi
 
-# ── Handoff copies: is the deployed copy the copy that was built? ────────────────
-# WARNS, never blocks. Nothing here can be destroyed by getting it wrong, and today's
-# rule is: refuse when you might destroy something, report when you can only inform.
-# A block would also fire while the owner is mid-edit in their own tree, which is the
-# cries-wolf failure that gets a check muted.
+# ── Drift: one fact held in two places ──────────────────────────────────────────
+# BLOCKS, and the change from warn to block is the point of this incident rather
+# than a tightening for its own sake.
 #
-# Why it exists: website/kit/lab.html sat at v2 for four rounds while v3-v6 were built
-# in notes/explorer/studies/. Expo cannot push to website/kit/ (conti territory) and
-# conti does not watch notes/explorer/ (expo territory), so the handoff is a manual
-# copy and NOTHING checked that the copy happened. Sean reviewed a stale build four
-# times, and one of his reports was blamed on his browser cache — it was not his cache.
-while IFS='|' read -r src dst; do
-  [ -f "$src" ] && [ -f "$dst" ] || continue
-  if ! cmp -s "$src" "$dst"; then
-    say "handoff $(basename "$dst")" "STALE — $dst differs from $src"
-    echo "        cp $src $dst    # then commit it, or ignore if the source is mid-edit"
-  fi
-done <<'PAIRS'
-notes/explorer/studies/lab.html|website/kit/lab.html
-notes/explorer/studies/lab-cards.js|website/kit/lab-cards.js
-notes/explorer/studies/lab-lines.js|website/kit/lab-lines.js
-PAIRS
+# The warn version fired correctly on the push that shipped a stale lab-cards.js —
+# and I never saw it, because my push command ended in `| tail -1` and discarded
+# everything above the last line. Sean then reviewed A5 and A6 with their headline
+# text still tinted, on a fix I had told him was complete. A guard whose only effect
+# is output can be defeated by a pipe; a non-zero exit cannot.
+#
+# This does not contradict "report when you can only inform" — a stale promoted copy
+# is not informational. It put a wrong page in front of the person reviewing it, for
+# several rounds, and the symptom (a partial fix) reads as a failed fix.
+#
+# The register is notes/explorer/studies/drift-register.json (expo's, SPEC-011). One
+# JSON entry adds a pair; there is no second list to keep in step here, which is the
+# whole argument for replacing the three hand-written comparisons this used to hold.
+#
+# Mid-edit escape, because the source owner editing their own file is a legitimate
+# state and blocking that would be the cries-wolf failure:
+#     FC_ALLOW_DRIFT=1 git push …
+DRIFT=notes/explorer/studies/check-drift.py
+if [ -n "${FC_ALLOW_DRIFT:-}" ]; then
+  say "drift" "SKIPPED (FC_ALLOW_DRIFT=1)"
+elif [ ! -f "$DRIFT" ]; then
+  # Expo's territory. A missing checker must not block a push, but silence here would
+  # read as a pass — which is the exact failure this file keeps recording.
+  say "drift" "SKIPPED — $DRIFT not found (register unchecked)"
+elif ! command -v python3 >/dev/null 2>&1; then
+  say "drift" "SKIPPED (no python3)"
+elif out=$(python3 "$DRIFT" --strict 2>&1); then
+  say "drift" "OK"
+else
+  say "drift" "DIVERGED"
+  echo "$out" | sed 's/^/        /'
+  echo "        promote the copy, or FC_ALLOW_DRIFT=1 if the source is mid-edit"
+  fail=1
+fi
+
 
 if [ "$fail" -ne 0 ]; then
   echo
