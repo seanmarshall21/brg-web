@@ -57,6 +57,14 @@
       return { label: a ? a.innerHTML : '', href: href, active: active };
     });
 
+    /* Social items. Optional by construction: no assigned menu means an empty list and
+       no social row, rather than an empty heading sitting in the drawer. */
+    var ssrc = nav.querySelector(':scope > .nav-social-src');
+    var SOCIAL = ssrc ? [].slice.call(ssrc.querySelectorAll(':scope > li')).map(function (li) {
+      var a = li.querySelector(':scope > a');
+      return { label: a ? a.innerHTML : '', href: a ? (a.getAttribute('href') || '#') : '#' };
+    }) : [];
+
     var lay = (nav.className.match(/lay-(left|split|center|compact)/) || [])[1] || 'left';
     var L = Math.max(0, parseInt(nav.dataset.left || '2', 10));
     var R = Math.max(0, parseInt(nav.dataset.right || '2', 10));
@@ -76,11 +84,36 @@
     }
     function openWith(list) {
       dItems.innerHTML = '';
-      list.forEach(function (it, i) {
+      /* ONE counter across every group, not one per group. Restarting it for the social
+         row makes two things animate at once and reads as two menus; continuing it reads
+         as a single cascade, and a section added later joins the sequence for free.
+         (fc-brands' takeover uses the same single-counter rule.) */
+      var i = 0;
+      list.forEach(function (it) {
         var el = mkItem(it);
-        el.style.transitionDelay = (0.14 + i * 0.055) + 's';   // staggered rise-in
+        el.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
         dItems.appendChild(el);
       });
+      if (SOCIAL.length) {
+        var eyebrow = document.createElement('span');
+        eyebrow.className = 'bnav-drawer-eyebrow';
+        eyebrow.textContent = 'Follow';
+        eyebrow.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
+        dItems.appendChild(eyebrow);
+
+        var row = document.createElement('span');
+        row.className = 'bnav-social';
+        row.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
+        SOCIAL.forEach(function (it) {
+          var a = document.createElement('a');
+          a.className = 'bnav-social-link';
+          a.href = it.href;
+          a.innerHTML = it.label;
+          a.setAttribute('rel', 'noopener');
+          row.appendChild(a);
+        });
+        dItems.appendChild(row);
+      }
       void drawer.offsetWidth;                        // paint the hidden start state so the stagger plays
       setDrawer(true);
     }

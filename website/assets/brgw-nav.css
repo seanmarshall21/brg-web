@@ -98,6 +98,23 @@
 .bnav-drawer.open .bnav-item{opacity:1;transform:none;}
 .bnav-drawer .bnav-link{color:#fff;opacity:.92;font-size:clamp(26px,6vw,40px);letter-spacing:.01em;padding:8px 0;white-space:normal;
   font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;text-transform:uppercase;}
+/* ── Social row in the drawer ───────────────────────────────────────────────────
+   Hidden source lists must never render. brgw-nav.js reads .nav-social-src the same
+   way it reads .nav-src; if the existing rule only names .nav-src, adding a second
+   source list puts a raw bulleted menu on every page. */
+.bnav > .nav-social-src{display:none;}
+.bnav-drawer-eyebrow{display:block;margin:26px 0 10px;font:800 .66rem/1 'Montserrat',system-ui,sans-serif;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(35,31,32,.45);}
+.bnav-social{display:flex;flex-wrap:wrap;gap:10px 20px;}
+.bnav-social-link{font:700 .95rem/1 'Montserrat',system-ui,sans-serif;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--ink);text-decoration:none;position:relative;padding-bottom:3px;}
+.bnav-social-link::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;
+  background:var(--acc);transition:right .28s cubic-bezier(.22,.61,.36,1);}
+.bnav-social-link:hover::after,.bnav-social-link:focus-visible::after{right:0;}
+@media (prefers-reduced-motion: reduce){
+  .bnav-social-link::after{transition:none;}
+}
+
 .bnav-drawer .bnav-uline{position:relative;left:0;right:auto;width:min(280px,55%);height:.32em;bottom:.14em;display:block;}
 .bnav-drawer .bnav-uline path{stroke:var(--yellow);stroke-width:9;}
 .bnav-drawer .is-active .bnav-uline path{visibility:visible;stroke-dashoffset:0;}

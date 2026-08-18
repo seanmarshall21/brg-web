@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.7.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.8.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -44,6 +44,7 @@ $GLOBALS['VCC_CLIENTS'] = array(
     'assets'   => array( '/assets/brgw.css', '/assets/brgw.js', '/assets/brgw-nav.css', '/assets/brgw-nav.js' ), // shared, inlined once/page
     // Nav is WordPress-MENU driven (Appearance → Menus). [brg_nav] runs wp_nav_menu() for this location.
     'nav_menu' => 'brg_primary',                    // registered menu location (Manage Locations)
+    'nav_social' => 'brg_social',                   // optional; blank or unassigned = no social row
     'nav_logo' => '/assets/media/logos/logo-brg-nav-sm.svg',
     'home_url' => '/brg-home/',                      // logo link + home
   ),
@@ -390,6 +391,25 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
         $loc  = isset( $cfg['nav_menu'] ) ? $cfg['nav_menu'] : '';
         $logo = isset( $cfg['nav_logo'] ) ? $base . $cfg['nav_logo'] : '';
 
+        /* The SOCIAL menu. brg_social has been a registered location since v2.2 and
+         * nothing ever rendered it — an editor could assign a menu to it and get no
+         * output and no error, which is the silent-failure shape this codebase keeps
+         * paying for. It is emitted as a second hidden source list; brgw-nav.js reads
+         * it and builds the social row in the drawer.
+         *
+         * Content lives in a WP MENU rather than ACF on purpose: these are links with
+         * labels, which is exactly what the menu editor is for, and it means adding a
+         * platform needs no field, no deploy and no chat. */
+        $social = '';
+        $sloc   = isset( $cfg['nav_social'] ) ? $cfg['nav_social'] : '';
+        if ( $sloc && function_exists( 'has_nav_menu' ) && has_nav_menu( $sloc ) ) {
+            $social = wp_nav_menu( array(
+                'theme_location' => $sloc, 'container' => false, 'menu_class' => 'nav-social-src',
+                'echo' => false, 'fallback_cb' => false, 'depth' => 1,
+            ) );
+            if ( ! is_string( $social ) ) $social = '';
+        }
+
         $menu = '';
         if ( $loc && function_exists( 'has_nav_menu' ) && has_nav_menu( $loc ) ) {
             $menu = wp_nav_menu( array(
@@ -432,6 +452,7 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
                 . ( $logo ? '<img src="' . esc_url( $logo ) . '" alt="Blacktop Restaurant Group">' : '' )
                 . '</a>'
                 . $menu                                             // hidden <ul class="nav-src"> source (JS reads it)
+                . $social                                           // hidden <ul class="nav-social-src">, may be empty
                 . '<div class="bnav-grp bnav-grp-a"></div><div class="bnav-grp bnav-grp-b"></div>'
                 . '<button class="bnav-ham" aria-label="Menu"><i></i><i></i></button>'
                 . '</header>';
