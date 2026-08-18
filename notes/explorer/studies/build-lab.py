@@ -107,6 +107,7 @@ def build():
         ("mode:'all'",             'the no-delimiter fallback — an empty mark kills every heading'),
         ('style:false',            'measure-only: a fallback must not STYLE the words'),
         ('--strokec',              'stroke colour routed off the text'),
+        ('function attachBox',     'the single place that knows a .u needs a stroke box'),
         ('function sectionPanel',  'the per-section variable panel'),
     ):
         assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"

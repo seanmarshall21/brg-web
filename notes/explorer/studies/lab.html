@@ -314,6 +314,16 @@ line, so you were seeing a sliver rather than the bar.</p>
 
 
 
+// A .u is not a mark until it carries its stroke. Both the card builder and the section
+// panel need to know that; when only one of them did, Apply produced an element with every
+// class and no SVG, and fitLastLine bailed silently on the missing box.
+function attachBox(u){
+  if(u.classList.contains('mk') || u.querySelector('.box')) return u;
+  u.insertAdjacentHTML('beforeend',
+    '<span class="box" aria-hidden="true">'+sv(u.dataset.k,u.classList.contains('draw'))+'</span>');
+  return u;
+}
+
 const V = JSON.parse(localStorage.getItem('brg-lab')||'{}');
 // Group + overall notes live under reserved keys so a card id can never collide with a
 // group id. They deliberately do NOT expire with a card's rev: a judgement about a SET
@@ -355,7 +365,7 @@ CARDS.forEach(c=>{
     </div></div>`);
   document.getElementById(c.g).appendChild(card);
   card.querySelectorAll('.u').forEach(u=>{
-    u.insertAdjacentHTML('beforeend','<span class="box" aria-hidden="true">'+sv(u.dataset.k,u.classList.contains('draw'))+'</span>');
+    attachBox(u);
   });
   if(c.salient) card.classList.add('sal-card');
   card.querySelectorAll('.navbar a').forEach(a=>{
@@ -428,7 +438,8 @@ CARDS.forEach(c=>{
 // last line — measure it and pin the box to it. A .blk bar takes the last .ln instead.
 function fitLastLine(card){
   card.querySelectorAll('.u').forEach(u=>{
-    const box=u.querySelector('.box'); if(!box) return;
+    const box=u.querySelector('.box');
+    if(!box){ console.error('[lab] .u with no stroke box — attachBox was skipped', u); return; }
     box.style.left=box.style.right=box.style.width=box.style.top='';
     if(u.classList.contains('blk')){
       // Match the A cards exactly: sit under the LAST LINE at that line's left edge and
@@ -555,6 +566,9 @@ function applySection(g){
       if(!plan.style) el.classList.add('measure-only');
       const target = el.querySelector('.t') || el;
       target.textContent = plan.mark;           // never empty — see markPlan
+      attachBox(el);                            // AFTER the text: setting textContent on a
+                                                // .u would wipe the box even if it survived
+                                                // the clone, which it does not (shallow)
       if(plan.before) head.append(plan.before);
       head.append(el);
       if(plan.after)  head.append(plan.after);
