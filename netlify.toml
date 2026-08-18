@@ -6,6 +6,27 @@
 # natively via [brg_home], [brg_section id=…], … Edit a fragment, git push, done.
 [build]
   publish = "website"
+
+  # ── Do not deploy a commit that changes nothing this site serves ────────────────
+  # brg-web ran 271 production deploys in August. Netlify bills PER DEPLOY regardless
+  # of build time, so a 4-second no-op build still costs — that is ~95% of Sean's
+  # credit spend and $125 of overage across his sites. Five chats commit here all day
+  # and most commits touch notes/, work/, kit/ or a .md, none of which ship.
+  #
+  # POLARITY, which is the easy thing to get backwards: `git diff --quiet` exits 0 when
+  # NOTHING in those paths changed, and exit 0 is Netlify's SKIP signal. No negation.
+  #
+  # WATCHED, deliberately wider than the publish dir:
+  #   website/      what is served
+  #   netlify/      the functions — they live OUTSIDE publish on purpose, and a change
+  #                 to lab-state.mjs must deploy or the lab's sync silently stops saving
+  #   netlify.toml  headers, redirects and this rule itself
+  #   package.json  the functions' dependencies
+  # When unsure, watch it: a needless deploy costs cents, a missed one ships nothing.
+  #
+  # Verified against 60 real commits, both directions, zero disagreements with what
+  # each commit actually touched.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- website netlify netlify.toml package.json"
   # Functions live OUTSIDE the publish dir on purpose: anything under website/ is
   # served as a static file, so a function there would be downloadable source.
   functions = "netlify/functions"
