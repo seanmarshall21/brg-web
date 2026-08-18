@@ -28,52 +28,6 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Collapse every section but the first, ON FIRST VISIT ONLY.
- *
- * Six page cards is better than nineteen, but it is still a long screen and you
- * almost always want one of them. So the default is: Home open, the rest closed.
- *
- * The important half is "default". WordPress stores each user's open/closed choices in
- * user meta and this filter only supplies a value when there is nothing stored — so the
- * moment Sean collapses or expands anything, his choice wins and this stops applying,
- * permanently and per user. Forcing the state on every load would be the obvious
- * implementation and it would be maddening: you open Careers, reload, and it has shut
- * itself again.
- *
- * The group keys are read from ACF rather than listed. The generator names them
- * group_brg_page_<page>, and a hardcoded list here would be a second home for something
- * the field groups already know — and it would silently stop matching the day a page is
- * added, leaving that section always open with nothing to say why.
- */
-add_action( 'current_screen', function ( $screen ) {
-	if ( ! $screen ) return;
-	$slug = defined( 'BRG_ACF_PAGE' ) ? BRG_ACF_PAGE : 'brg-section-content';
-	if ( strpos( $screen->id, $slug ) === false ) return;
-	if ( ! function_exists( 'acf_get_field_groups' ) ) return;
-
-	add_filter( 'get_user_option_closedpostboxes_' . $screen->id, function ( $closed ) use ( $slug ) {
-		// An array means this user has toggled something. Theirs beats ours, always.
-		if ( is_array( $closed ) ) return $closed;
-
-		$groups = acf_get_field_groups( array( 'options_page' => $slug ) );
-		if ( ! $groups ) return $closed;
-
-		// Same order the screen renders in (menu_order), so "the first one" is the first
-		// one he sees rather than whichever ACF happened to return first.
-		usort( $groups, function ( $a, $b ) {
-			return ( isset( $a['menu_order'] ) ? $a['menu_order'] : 0 )
-			     <=> ( isset( $b['menu_order'] ) ? $b['menu_order'] : 0 );
-		} );
-
-		$ids = array();
-		foreach ( array_slice( $groups, 1 ) as $g ) {
-			if ( ! empty( $g['key'] ) ) $ids[] = 'acf-' . $g['key'];
-		}
-		return $ids;
-	} );
-} );
-
 add_action( 'admin_head', function () {
 	if ( ! function_exists( 'get_current_screen' ) ) return;
 	$screen = get_current_screen();

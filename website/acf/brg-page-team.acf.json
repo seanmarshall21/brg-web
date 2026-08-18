@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "<strong>Team</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
+                "message": "<strong>Team</strong> — one tab per section. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -177,7 +177,7 @@
                 {
                     "param": "options_page",
                     "operator": "==",
-                    "value": "brg-section-content"
+                    "value": "brg-section-content-team"
                 }
             ]
         ],

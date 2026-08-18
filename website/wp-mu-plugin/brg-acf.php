@@ -34,8 +34,14 @@ if ( ! defined( 'BRG_ACF_PAGE' ) ) define( 'BRG_ACF_PAGE', 'brg-section-content'
 
 add_action( 'acf/init', function () {
 
-    // 1) The one options page every generated group attaches to (menu_slug MUST equal
-    //    each group's location value "brg-section-content" — matched by the generator).
+    // 1) The PARENT options page. Each page of the site then gets its own SUB-page,
+    //    registered in step 2 from the field groups themselves — so the admin sidebar is
+    //    the navigation (Home / Brands / Team / …) instead of one long screen of cards.
+    //
+    //    The first group's location is the parent slug itself, which is the standard WP
+    //    pattern for "clicking the parent lands on the first child": without it WordPress
+    //    adds an auto sub-menu entry repeating the parent's title and pointing at an
+    //    empty page.
     if ( function_exists( 'acf_add_options_page' ) ) {
         acf_add_options_page( array(
             'page_title'      => 'Section Content',
@@ -70,9 +76,38 @@ add_action( 'acf/init', function () {
     }
 
     $groups = $json ? json_decode( $json, true ) : null;
-    if ( is_array( $groups ) ) {
+    if ( ! is_array( $groups ) ) return;
+
+    /* 2) Register a sub-page per distinct options_page in the fetched groups, then the
+     *    groups themselves. DERIVED, never listed: the generator decides which pages
+     *    exist and this follows. A hardcoded list here would be a second home for that
+     *    decision, and its failure mode is the quiet one — a group whose page was never
+     *    registered attaches to nothing and renders NOWHERE, with no error. fc-brands
+     *    names that as the coupling that actually broke their site, twice.
+     *
+     *    Menu label comes off the group title: "Brands — Content" -> "Brands". */
+    if ( function_exists( 'acf_add_options_sub_page' ) ) {
+        $seen = array();
         foreach ( $groups as $g ) {
-            if ( is_array( $g ) && ! empty( $g['key'] ) ) acf_add_local_field_group( $g );
+            if ( empty( $g['location'][0][0]['value'] ) ) continue;
+            $slug = $g['location'][0][0]['value'];
+            if ( $slug === BRG_ACF_PAGE || isset( $seen[ $slug ] ) ) continue;  // parent is already registered
+            $seen[ $slug ] = true;
+            $label = trim( preg_replace( '/\s*—\s*Content\s*$/u', '', (string) $g['title'] ) );
+            acf_add_options_sub_page( array(
+                'page_title'      => $label . ' — Section Content',
+                'menu_title'      => $label !== '' ? $label : $slug,
+                'menu_slug'       => $slug,
+                'parent_slug'     => BRG_ACF_PAGE,
+                'capability'      => 'edit_posts',
+                'autoload'        => true,
+                'update_button'   => 'Save content',
+                'updated_message' => 'Section content saved.',
+            ) );
         }
+    }
+
+    foreach ( $groups as $g ) {
+        if ( is_array( $g ) && ! empty( $g['key'] ) ) acf_add_local_field_group( $g );
     }
 }, 20 );

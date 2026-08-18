@@ -160,7 +160,7 @@ def tab_label(section):
     lbl = (t.split('—', 1)[1].strip() if '—' in t else section['id'].replace('-', ' '))
     return lbl[:1].upper() + lbl[1:] if lbl else section['id']
 
-def page_group(page, label, sections):
+def page_group(page, label, sections, first=False):
     """ONE field group per page, with a TAB per section inside it.
 
     Nineteen groups on one screen is nineteen boxes to scroll past. Six, each with a tab
@@ -175,11 +175,13 @@ def page_group(page, label, sections):
     than a refactor. Tabs are presentation. Groups-of-fields are storage. Only one of them
     is safe to reach for.
     """
+    # first page == the parent slug; the rest hang off it as sub-pages.
+    sub_slug = OPTIONS_PAGE if first else OPTIONS_PAGE + '-' + page
     fields = [{
         'key': 'field_brg_page_' + page.replace('-', '_') + '_msg',
         'label': '', 'name': '', 'type': 'message',
         'message': admin_html(
-            f"**{label}** — one tab per section, in page order. Edits fill that section's "
+            f"**{label}** — one tab per section. Edits fill that section's "
             f"`{{{{slots}}}}` on the live page. Shortcode attributes still override, and a "
             f"blank field falls back to the built-in default."),
         'new_lines': 'wpautop', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
@@ -202,7 +204,13 @@ def page_group(page, label, sections):
         'key': 'group_brg_page_' + page.replace('-', '_'),
         'title': f"{label} — Content",
         'fields': fields,
-        'location': [[{'param': 'options_page', 'operator': '==', 'value': OPTIONS_PAGE}]],
+        # Each page is its OWN options sub-page, so the admin sidebar becomes the
+        # navigation instead of one long screen. The FIRST page shares the parent slug —
+        # standard WP pattern — so clicking "Section Content" lands on Home rather than
+        # an empty parent, and the sidebar reads Home / Brands / Team / … with no
+        # duplicate entry. The loader derives every sub-page from these values, so this
+        # line is the only place the page set is decided.
+        'location': [[{'param': 'options_page', 'operator': '==', 'value': sub_slug}]],
         'menu_order': 0, 'position': 'normal', 'style': 'default', 'label_placement': 'top',
         'instruction_placement': 'label', 'hide_on_screen': '', 'active': True,
         'description': (f"Editable content for the {label} page, one tab per section. "
@@ -329,7 +337,7 @@ def main():
 
     wanted = []
     for order, (page, info) in enumerate(pages.items()):
-        g = page_group(page, info['label'], info['sections'])
+        g = page_group(page, info['label'], info['sections'], first=(order == 0))
         g['menu_order'] = order          # page order on the admin screen
         wanted.append(('page-' + page, g, sum(len(slots_for(x)[0]) for x in info['sections'])))
 
