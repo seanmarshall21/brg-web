@@ -239,6 +239,17 @@ too. My first version put it after the `--check` early return, so `--check` stay
 I reported it fixed — caught because Expo's message asserted my fix covered both and I ran it
 instead of agreeing.
 
+**The guard is deliberately all-or-nothing, and that asymmetry is the rule for where guards
+go.** It fires only when *no* listed section resolves. Delete one directory and `--check` still
+reports OK — but regenerate refuses, naming the group it would drop. That is the right split:
+**refuse when you might destroy something, report when you can only inform.** A `--check` strict
+enough to fail on any missing directory would fire on ordinary work, because a section listed
+before it is built is a legitimate state — it is the state Press is in now. Then it gets muted,
+and a muted guard protects nothing. Verified while arguing about it: the genuinely ambiguous
+case, a `slots.json` present with its `embed.html` missing, is **already red** — every slot
+reports "no `{{token}}` in the fragment". So the only permissive case is the unambiguous one.
+(Expo, arguing me out of the obvious next patch.)
+
 Three guards, each proven by making it fire: refuse to run when *none* of the listed sections'
 directories exist (that is blindness, not emptiness); refuse to write an empty registry over an
 existing one; refuse to *shrink* the set without `--allow-shrink`. And all computation now
