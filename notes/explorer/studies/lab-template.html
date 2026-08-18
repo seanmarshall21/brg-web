@@ -59,6 +59,7 @@ border-bottom:1px solid rgba(25,199,194,.4);padding:10px 14px;display:grid;gap:5
 .upd .ch{font-size:.79rem;color:var(--ink)}
 .card.approved{border-color:var(--ok)}
 .card.denied{border-color:var(--no);opacity:.62}
+.card.adjust{border-color:var(--yellow)}
 .card h3{margin:0;font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--yellow);
 padding:12px 14px;background:var(--bg2);border-bottom:1px solid var(--line);
 display:flex;align-items:center;gap:9px}
@@ -75,6 +76,7 @@ background:var(--bg2);color:var(--dim);border:1px solid var(--line);border-radiu
 padding:7px 12px;cursor:pointer}
 .foot .yes.on{background:var(--ok);color:#0f0e0d;border-color:var(--ok)}
 .foot .no.on{background:var(--no);color:#0f0e0d;border-color:var(--no)}
+.foot .maybe.on{background:var(--yellow);color:#0f0e0d;border-color:var(--yellow)}
 .foot .replay{margin-left:auto;color:var(--ink)}
 .foot .full+*{margin-left:0}
 .foot .full{font:700 .66rem var(--sans);letter-spacing:.09em;text-transform:uppercase;
@@ -158,6 +160,10 @@ letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:4px 0}
 .navbar.fade a:hover .box svg,.navbar.fade a.act .box svg{opacity:1}
 
 .summary{margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
+.sumbar{display:flex;align-items:center;gap:11px;margin-top:10px}
+#copyall{font:700 .68rem var(--sans);letter-spacing:.11em;text-transform:uppercase;
+background:var(--yellow);color:#0f0e0d;border:0;border-radius:999px;padding:9px 17px;cursor:pointer}
+#copied{font-size:.74rem;color:var(--ok)}
 .summary textarea{width:100%;height:200px;background:var(--bg2);color:var(--ink);border:1px solid var(--line);
 border-radius:9px;font:400 .76rem/1.6 var(--mono);padding:13px;resize:vertical}
 .note{color:var(--dim);font-size:.78rem;max-width:78ch;margin-top:12px}
@@ -243,6 +249,7 @@ line, so you were seeing a sliver rather than the bar.</p>
 <div class="summary">
   <h2 class="sec" style="margin-top:0">Your verdicts</h2>
   <textarea id="out" readonly></textarea>
+  <div class="sumbar"><button id="copyall">Copy all</button><span id="copied"></span></div>
   <p class="note">Copy this back into the chat and I'll build to it. Saved in this browser only —
   nothing is sent anywhere.</p>
 </div>
@@ -333,7 +340,7 @@ CARDS.forEach(c=>{
     <p class="why">${c.why}</p>
     <div class="stage">${c.html}</div>
     <div class="foot">
-      <button class="yes">Approve</button><button class="no">Deny</button>
+      <button class="yes">Approve</button><button class="maybe">Adjust</button><button class="no">Deny</button>
       <button class="replay">Replay</button>
       ${c.nofull?'':`<a class="full" href="lab-full.html?v=${c.id}" target="_blank" rel="noopener">Full page \u2197</a>`}
       ${c.dial?`<label class="dial">Stroke timing
@@ -368,24 +375,35 @@ CARDS.forEach(c=>{
   if(st.rev===undefined){st.rev=c.rev;V[c.id]=st;}
   const moved = !!c.changed && (st.prevV||st.prevN||!st.v);
   if(c.changed){
-    const said = st.prevV==='yes'?'approved it':st.prevV==='no'?'denied it':st.prevN?'asked for a change':'';
+    const said = st.prevV==='yes'?'approved it':st.prevV==='maybe'?'marked it Adjust':st.prevV==='no'?'denied it':st.prevN?'asked for a change':'';
     card.insertAdjacentHTML('afterbegin',
       '<div class="upd"><b>Updated — needs a fresh look</b>'+
       (said?'<span class="was">Last time you '+said+(st.prevN?': &ldquo;'+st.prevN.replace(/</g,'&lt;')+'&rdquo;':'')+'</span>':'')+
       '<span class="ch">'+c.changed+'</span></div>');
     card.classList.add('moved');
   }
-  if(st.v==='yes'){card.classList.add('approved');card.querySelector('.yes').classList.add('on');}
-  if(st.v==='no'){card.classList.add('denied');card.querySelector('.no').classList.add('on');}
+  ({yes:'approved',maybe:'adjust',no:'denied'})[st.v] && (()=>{
+    card.classList.add({yes:'approved',maybe:'adjust',no:'denied'}[st.v]);
+    card.querySelector('.'+st.v).classList.add('on');
+  })();
   if(st.n) card.querySelector('input').value=st.n;
   const save=()=>{V[c.id].rev=c.rev;localStorage.setItem('brg-lab',JSON.stringify(V));
     card.classList.remove('moved');const u=card.querySelector('.upd');if(u)u.remove();render();};
-  card.querySelector('.yes').onclick=()=>{V[c.id]={...(V[c.id]||{}),v:V[c.id]?.v==='yes'?'':'yes'};
-    card.classList.toggle('approved',V[c.id].v==='yes');card.classList.remove('denied');
-    card.querySelector('.yes').classList.toggle('on',V[c.id].v==='yes');card.querySelector('.no').classList.remove('on');save();};
-  card.querySelector('.no').onclick=()=>{V[c.id]={...(V[c.id]||{}),v:V[c.id]?.v==='no'?'':'no'};
-    card.classList.toggle('denied',V[c.id].v==='no');card.classList.remove('approved');
-    card.querySelector('.no').classList.toggle('on',V[c.id].v==='no');card.querySelector('.yes').classList.remove('on');save();};
+  // One handler for three exclusive states. Adjust is the one Sean asked for: "sort of right,
+  // don't want to deny it, want to make an edit" — it is only useful if the summary keeps it
+  // distinct from a Deny, so render() gives it its own block.
+  const VERDICTS={yes:'approved',maybe:'adjust',no:'denied'};
+  Object.keys(VERDICTS).forEach(k=>{
+    card.querySelector('.'+k).onclick=()=>{
+      const now = (V[c.id]||{}).v===k ? '' : k;                 // second click clears it
+      V[c.id]={...(V[c.id]||{}),v:now};
+      Object.entries(VERDICTS).forEach(([kk,cls])=>{
+        card.classList.toggle(cls, now===kk);
+        card.querySelector('.'+kk).classList.toggle('on', now===kk);
+      });
+      save();
+    };
+  });
   card.querySelector('input').oninput=e=>{V[c.id]={...(V[c.id]||{}),n:e.target.value};
     localStorage.setItem('brg-lab',JSON.stringify(V));render();};
   const dial=card.querySelector('.off');
@@ -498,20 +516,25 @@ CARDS.forEach(c=>{
 setTimeout(()=>armed=true,900);
 
 function render(){
-  const yes=[],no=[],notes=[],pend=[];
+  const yes=[],adj=[],no=[],notes=[],pend=[];
   CARDS.forEach(c=>{const v=V[c.id]||{};
     if(c.changed && !v.v && !v.n) pend.push(c.id+' — '+c.t);
     if(!v.v&&!v.n&&v.off===undefined)return;
     if(v.v==='yes')yes.push(c.id+' — '+c.t);
+    // An Adjust carries its note on the same line: "keep this, change that" is one thought,
+    // and splitting it across two blocks is what makes it read like a Deny.
+    if(v.v==='maybe')adj.push(c.id+' — '+c.t+(v.n?'\n      → '+v.n:''));
     if(v.v==='no')no.push(c.id+' — '+c.t);
-    if(v.n)notes.push(c.id+': '+v.n);
+    if(v.n&&v.v!=='maybe')notes.push(c.id+': '+v.n);
     if(v.off!==undefined&&v.off!==0)notes.push(c.id+' timing offset: '+(v.off>0?'+':'')+v.off+'ms');});
+  const blk=(t,a)=>'\n'+t+'\n'+(a.length?a.map(x=>'  '+x).join('\n'):'  (none yet)');
   document.getElementById('out').value =
     'UNDERLINE LAB — verdicts\n'+
     (pend.length?'\nUPDATED, NOT YET RE-JUDGED\n'+pend.map(x=>'  '+x).join('\n')+'\n':'')+
-    '\nAPPROVED\n'+(yes.length?yes.map(x=>'  '+x).join('\n'):'  (none yet)')+
-    '\n\nDENIED\n'+(no.length?no.map(x=>'  '+x).join('\n'):'  (none yet)')+
-    '\n\nNOTES\n'+(notes.length?notes.map(x=>'  '+x).join('\n'):'  (none yet)')+
+    blk('APPROVED',yes)+
+    blk('ADJUST — keep it, but change this',adj)+
+    blk('DENIED',no)+
+    blk('NOTES',notes)+
     '\n\nSettings: '+dur.value+'ms · '+document.getElementById('ease').selectedOptions[0].text;
 }
 /* strokes inherit .head's white otherwise — apply the default colour on load */
@@ -520,5 +543,12 @@ function applyColour(v){
   document.querySelectorAll('.mk').forEach(m=>{if(!m.style.getPropertyValue('--mkc'))m.style.setProperty('--mkc','var('+v+')');});
 }
 applyColour(document.getElementById('col').value);
+document.getElementById('copyall').onclick=async()=>{
+  const out=document.getElementById('out'), tick=document.getElementById('copied');
+  try{ await navigator.clipboard.writeText(out.value); }
+  catch(e){ out.removeAttribute('readonly'); out.select(); document.execCommand('copy');
+            out.setAttribute('readonly',''); }      // clipboard API is blocked in some frames
+  tick.textContent='Copied'; setTimeout(()=>tick.textContent='',1600);
+};
 render();
 </script>

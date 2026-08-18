@@ -84,7 +84,22 @@ def build():
 """ + kit)
     assert "__" not in kit.replace("__MACOSX",""), "unfilled token in kit build"
     assert "const CARDS=[" not in kit, "CARDS still inline in the kit build"
-    assert 'href="lab-full.html?v=' in kit, "the Full page entry point is missing"
+    # Features Sean asked for, each of which has already been lost once by a rebuild
+    # silently reverting an edit made to the DEPLOYED file. Losing one must fail the build,
+    # not the review — he has been the regression test three times and cannot tell from
+    # looking that the page has reverted.
+    for needle, what in (
+        ('href="lab-full.html?v=', 'the Full page link'),
+        ('class="maybe"',          'the Adjust verdict button'),
+        ("VERDICTS={yes:",         'the three-state verdict handler'),
+        ('id="copyall"',           'the Copy all button'),
+        ('ADJUST',                 'the Adjust block in the summary'),
+        ('c.nofull?',              'the nofull opt-out'),
+    ):
+        assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"
+    n = kit.count('<button class="yes">')
+    assert kit.count('class="maybe"') == n == kit.count('<button class="no">'), \
+        "verdict buttons are not three-per-card"
     assert "const L = {" not in kit and "const sv =" not in kit, "artwork still inline in the kit build"
     (REPO/"notes/explorer/studies/lab.html").write_text(kit)
 
