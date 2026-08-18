@@ -7,7 +7,9 @@
    mid-reverse. void offsetWidth restarts a keyframe animation and does nothing for
    a transition — the only reliable reset is to suppress transitions, commit the
    start state, then re-enable. */
-.noanim,.noanim *{transition:none !important}
+.noanim,.noanim *{transition:none !important;animation:none !important}
+/* animation as well as transition: the Salient cards draw with a keyframe
+   (salStroke), and suppressing only transitions would let the reset play it. */
 /* ── the underline mechanisms ── */
 .u{position:relative;display:inline-block}
 .u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;

@@ -63,7 +63,8 @@ font:400 .82rem 'Helvetica Neue',Helvetica,Arial,sans-serif}
 
 <div class="wrap" id="wrap">
   <div class="note" id="note">Real section, real <b>brgw.css</b> and <b>brgw.js</b>.
-  <b>Only the underline is the variant.</b> Press <b>Replay</b> to fire it again.</div>
+  <b>Only the underline is the variant.</b> <b>Replay</b> plays the whole entrance from the
+  start &mdash; headline lines rising, then the underline.</div>
   <div class="brgw" id="root"><div class="loading">loading the section&hellip;</div></div>
 </div>
 
@@ -159,14 +160,57 @@ function afterSplit(root,cb){
   },50);
 }
 
-/* Transitions are suppressed for the reset, or removing .on animates the thing
-   backwards and the replay picks up mid-reverse. */
+/* REPLAY PLAYS THE WHOLE ENTRANCE, not just the underline.
+
+   The headline reveal is driven by brgw.js's IntersectionObserver, which calls
+   io.unobserve() the moment it fires — so it is one-shot by design and a reload was
+   the only way to see it again. But a reload plays it during the blank-to-painted
+   flash, so what you actually saw was the tail: the underline alone, arriving on a
+   headline that was already in place. Sean: "it replays like the last half-second."
+
+   So we drive it ourselves. .is-in is what brgw.js toggles and what the CSS keys on
+   (.brgw .reveal.is-in .ln-i{transform:translateY(0);transition:transform .9s}), so
+   removing it returns the lines to translateY(160%) — the true pre-entrance state,
+   which is what "before it comes on the screen" means.
+
+   Order matters and each step is load-bearing:
+     1. .noanim, so the reset does not animate BACKWARDS and get picked up mid-reverse
+     2. drop .is-in and .on — lines back under the mask, underline undrawn
+     3. reflow, drop .noanim, reflow — paint the start state before anything moves
+     4. HOLD, so the pre-state is visible rather than a single frame
+     5. re-add .is-in — lines rise on brgw.js's own 85ms stagger
+     6. fire the underline once the last line has landed */
+function revealMs(scope){
+  /* brgw.js writes the stagger as an inline transition-delay, which survives the
+     class removal — so it can be read while the element is in its reset state, when
+     the computed transition is 'none' because the rule only exists under .is-in. */
+  let max=0;
+  scope.querySelectorAll('.ln-i,.anim-up,.anim-cta').forEach(function(el){
+    max=Math.max(max, parseFloat(el.style.transitionDelay)||0);
+  });
+  return max + 900;                    // + the .9s transform in brgw.css
+}
+
+const HOLD = 520;                      // long enough to register as a start, not a stall
+
 function fire(){
   const r=$('#root');
+  const secs=r.querySelectorAll('.reveal');
+
   r.classList.add('noanim');
   r.querySelectorAll('.u,.mk').forEach(function(x){x.classList.remove('on');});
-  void r.offsetWidth; r.classList.remove('noanim'); void r.offsetWidth;
-  setTimeout(function(){r.querySelectorAll('.u,.mk').forEach(function(x){x.classList.add('on');});},40);
+  secs.forEach(function(sec){sec.classList.remove('is-in');});
+  void r.offsetWidth;
+  r.classList.remove('noanim');
+  void r.offsetWidth;
+
+  const wait=revealMs(r);
+  setTimeout(function(){
+    secs.forEach(function(sec){sec.classList.add('is-in');});
+    setTimeout(function(){
+      r.querySelectorAll('.u,.mk').forEach(function(x){x.classList.add('on');});
+    }, wait);
+  }, HOLD);
 }
 
 (async function(){
@@ -208,11 +252,11 @@ function fire(){
   });
   if(card.g!=='gD') afterSplit($('#root'),function(){
     applyVariant($('#root'));      // wrap the line brgw.js has just produced
-    setTimeout(fire,420);          // then fire, once the headline reveal is under way
+    fire();                        // same path as Replay, so the first view and the button agree
   });
 })();
 
-$('#replay').onclick=function(){location.reload();};
+$('#replay').onclick=fire;   // in place, so the entrance is visible rather than lost to a page load
 document.querySelectorAll('#vp button').forEach(function(b){b.onclick=function(){
   document.querySelectorAll('#vp button').forEach(function(x){x.classList.remove('on');});
   b.classList.add('on'); $('#wrap').classList.toggle('mob',b.dataset.vp==='mob');};});
