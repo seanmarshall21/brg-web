@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "**Home — hero — Content**\nSource: `brg-web/website/acf/brg-home-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "message": "<strong>Home — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -24,7 +24,7 @@
                 "label": "Sub copy",
                 "name": "brg_home_hero_sub",
                 "type": "textarea",
-                "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write `&` and `—` as literal characters.",
+                "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

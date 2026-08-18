@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "**Contact — visit a restaurant — Content**\nSource: `brg-web/website/acf/brg-contact-restaurants.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "message": "<strong>Contact — visit a restaurant — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-restaurants.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -39,7 +39,7 @@
                 "label": "Sub copy",
                 "name": "brg_contact_restaurants_sub",
                 "type": "textarea",
-                "instructions": "One line beneath the heading. Write `&` as a literal ampersand.",
+                "instructions": "One line beneath the heading. Write <code>&</code> as a literal ampersand.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -89,7 +89,7 @@
                 }
             ]
         ],
-        "menu_order": 0,
+        "menu_order": 20,
         "position": "normal",
         "style": "default",
         "label_placement": "top",

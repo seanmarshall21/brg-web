@@ -73,12 +73,53 @@ def slots_for(section):
         return declared, ('both' if inline else 'local')
     return inline, ('inline' if inline else 'none')
 
+def admin_html(text):
+    """ACF renders instructions and message fields as HTML — markdown is not processed.
+
+    The generator wrote `**bold**` and `backticks`, so 37 fields showed literal asterisks and
+    backticks in wp-admin. Found by reading Temper's write-up of the same bug (their 8abb37f)
+    and checking ours rather than assuming we differed. esc_html is 0 and new_lines is wpautop
+    on these fields, so real tags are the correct thing to emit.
+    """
+    import re as _re
+    if not text:
+        return text
+    t = _re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    t = _re.sub(r'`([^`]+)`', r'<code>\1</code>', t)
+    return t
+
+def assert_options_page_agrees():
+    """OPTIONS_PAGE here must equal menu_slug in the loader.
+
+    Two homes for one string: this constant, and 'menu_slug' => '...' in
+    website/wp-mu-plugin/brg-acf.php. A mismatch attaches every group to a page that does not
+    exist, so the whole Section Content screen renders EMPTY with no error anywhere. This is the
+    one coupling Temper says actually fired for them, twice, and cost an hour each time.
+
+    Cannot be deleted — one side is Python, the other PHP — so it is derived-and-asserted
+    instead, which is the next tier down.
+    """
+    php = os.path.join(ROOT, 'website', 'wp-mu-plugin', 'brg-acf.php')
+    if not os.path.exists(php):
+        return
+    import re as _re
+    m = _re.search(r"'menu_slug'\s*=>\s*'([^']+)'", open(php, encoding='utf-8').read())
+    if not m:
+        sys.exit(f"refusing to run: no menu_slug found in {php} — the options page may have "
+                 f"moved, and every group's location points at '{OPTIONS_PAGE}'.")
+    if m.group(1) != OPTIONS_PAGE:
+        sys.exit(f"refusing to run: options page mismatch.\n"
+                 f"  kit/build-acf.py OPTIONS_PAGE = '{OPTIONS_PAGE}'\n"
+                 f"  brg-acf.php menu_slug        = '{m.group(1)}'\n"
+                 f"Groups would attach to a page that does not exist and the Section Content "
+                 f"screen would render empty, with no error.")
+
 def field(section_id, slot, defn):
     name = 'brg_' + section_id.replace('-', '_') + '_' + slot
     t = TYPE.get(defn.get('type', 'text'), 'text')
     f = {
         'key': 'field_' + name, 'label': defn.get('label', slot.replace('_', ' ').title()),
-        'name': name, 'type': t, 'instructions': defn.get('doc', ''), 'required': 0,
+        'name': name, 'type': t, 'instructions': admin_html(defn.get('doc', '')), 'required': 0,
         'conditional_logic': 0, 'wrapper': {'width': '', 'class': '', 'id': ''},
         'default_value': defn.get('default', ''),
     }
@@ -92,9 +133,10 @@ def group(section):
     slots, _ = slots_for(section)
     msg = {
         'key': 'field_brg_' + sid.replace('-', '_') + '_msg', 'label': '', 'name': '', 'type': 'message',
-        'message': (f"**{title} — Content**\nSource: `brg-web/website/acf/brg-{sid}.acf.json` "
-                    f"(generated). Edits here fill the section's `{{{{slots}}}}` "
-                    f"— shortcode attributes still override, and blank falls back to the built-in default."),
+        'message': admin_html(
+            f"**{title} — Content**\nSource: `brg-web/website/acf/brg-{sid}.acf.json` "
+            f"(generated). Edits here fill the section's `{{{{slots}}}}` "
+            f"— shortcode attributes still override, and blank falls back to the built-in default."),
         'new_lines': 'wpautop', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
         'wrapper': {'width': '', 'class': '', 'id': ''},
     }
@@ -103,7 +145,7 @@ def group(section):
         'title': f"{title} — Content",
         'fields': [msg] + [field(sid, k, v) for k, v in slots.items()],
         'location': [[{'param': 'options_page', 'operator': '==', 'value': OPTIONS_PAGE}]],
-        'menu_order': 0, 'position': 'normal', 'style': 'default', 'label_placement': 'top',
+        'menu_order': section.get('_order', 0), 'position': 'normal', 'style': 'default', 'label_placement': 'top',
         'instruction_placement': 'label', 'hide_on_screen': '', 'active': True,
         'description': f"Editable content for the {sid} section. Generated — do not hand-edit; edit sections/{sid}/slots.json + rerun kit/build-acf.py.",
     }
@@ -191,7 +233,11 @@ def assert_tree_visible():
     version put this after the --check early return, so --check stayed blind and I had
     reported it fixed.)
     """
+    assert_options_page_agrees()
     data = json.load(open(SECTIONS))
+    # position in sections.json becomes menu_order, so the admin screen reads in page order
+    for i, sec in enumerate(data.get('sections', [])):
+        sec['_order'] = i
     listed = [s['id'] for s in data.get('sections', [])]
     secdir = os.path.join(ROOT, 'website', 'sections')
     if listed and not any(os.path.isdir(os.path.join(secdir, i)) for i in listed):

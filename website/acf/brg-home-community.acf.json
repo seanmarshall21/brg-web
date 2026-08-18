@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "**Home — born in San Diego — Content**\nSource: `brg-web/website/acf/brg-home-community.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "message": "<strong>Home — born in San Diego — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-community.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -69,7 +69,7 @@
                 "label": "Body copy — first paragraph",
                 "name": "brg_home_community_body_1",
                 "type": "textarea",
-                "instructions": "Plain text; markup is escaped. Write `—` as a literal em dash.",
+                "instructions": "Plain text; markup is escaped. Write <code>—</code> as a literal em dash.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -84,7 +84,7 @@
                 "label": "Body copy — second paragraph",
                 "name": "brg_home_community_body_2",
                 "type": "textarea",
-                "instructions": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters. CROSS-SECTION FACT — this number also appears in `our-restaurants-brands` -> Board & Brew second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
+                "instructions": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write <code>&</code> and <code>—</code> as literal characters. CROSS-SECTION FACT — this number also appears in <code>our-restaurants-brands</code> -> Board & Brew second paragraph, and <code>community-stats</code> -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (<code>doc</code> strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -104,7 +104,7 @@
                 }
             ]
         ],
-        "menu_order": 0,
+        "menu_order": 7,
         "position": "normal",
         "style": "default",
         "label_placement": "top",

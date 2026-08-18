@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "**Community — how we give back — Content**\nSource: `brg-web/website/acf/brg-community-give.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "message": "<strong>Community — how we give back — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-give.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -89,7 +89,7 @@
                 }
             ]
         ],
-        "menu_order": 0,
+        "menu_order": 14,
         "position": "normal",
         "style": "default",
         "label_placement": "top",

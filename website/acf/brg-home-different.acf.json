@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "**Home — a different kind of restaurant company — Content**\nSource: `brg-web/website/acf/brg-home-different.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "message": "<strong>Home — a different kind of restaurant company — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-different.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -39,7 +39,7 @@
                 "label": "Body copy — second paragraph",
                 "name": "brg_home_different_body_2",
                 "type": "textarea",
-                "instructions": "Write `—` as a literal em dash.",
+                "instructions": "Write <code>—</code> as a literal em dash.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -54,7 +54,7 @@
                 "label": "Body copy — third paragraph",
                 "name": "brg_home_different_body_3",
                 "type": "textarea",
-                "instructions": "Write `—` as a literal em dash.",
+                "instructions": "Write <code>—</code> as a literal em dash.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -74,7 +74,7 @@
                 }
             ]
         ],
-        "menu_order": 0,
+        "menu_order": 9,
         "position": "normal",
         "style": "default",
         "label_placement": "top",

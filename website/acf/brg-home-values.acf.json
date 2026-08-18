@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "**Home — core values — Content**\nSource: `brg-web/website/acf/brg-home-values.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "message": "<strong>Home — core values — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-values.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -44,7 +44,7 @@
                 }
             ]
         ],
-        "menu_order": 0,
+        "menu_order": 10,
         "position": "normal",
         "style": "default",
         "label_placement": "top",

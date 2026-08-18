@@ -8,7 +8,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Home — hero — Content**\nSource: `brg-web/website/acf/brg-home-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Home — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -24,7 +24,7 @@
         "label": "Sub copy",
         "name": "brg_home_hero_sub",
         "type": "textarea",
-        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write `&` and `—` as literal characters.",
+        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -77,7 +77,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Our Restaurants — hero — Content**\nSource: `brg-web/website/acf/brg-our-restaurants-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Our Restaurants — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-our-restaurants-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -128,7 +128,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 1,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -146,7 +146,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Team — hero — Content**\nSource: `brg-web/website/acf/brg-team-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Team — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-team-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -227,7 +227,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 2,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -245,7 +245,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Community — hero — Content**\nSource: `brg-web/website/acf/brg-community-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Community — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -276,7 +276,7 @@
         "label": "Sub copy",
         "name": "brg_community_hero_sub",
         "type": "textarea",
-        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write `—` as a literal em dash.",
+        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>—</code> as a literal em dash.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -296,7 +296,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 3,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -314,7 +314,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Careers — hero — Content**\nSource: `brg-web/website/acf/brg-careers-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Careers — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-careers-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -380,7 +380,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 4,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -398,7 +398,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Careers — what it's like — Content**\nSource: `brg-web/website/acf/brg-careers-apply.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Careers — what it's like — Content</strong>\nSource: <code>brg-web/website/acf/brg-careers-apply.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -494,7 +494,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 5,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -512,7 +512,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Careers — open positions — Content**\nSource: `brg-web/website/acf/brg-careers-positions.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Careers — open positions — Content</strong>\nSource: <code>brg-web/website/acf/brg-careers-positions.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -543,7 +543,7 @@
         "label": "Sub copy",
         "name": "brg_careers_positions_sub",
         "type": "textarea",
-        "instructions": "One line beneath the heading. Plain text; markup is escaped. Write `&` and `—` as literal characters.",
+        "instructions": "One line beneath the heading. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -593,7 +593,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 6,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -611,7 +611,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Home — born in San Diego — Content**\nSource: `brg-web/website/acf/brg-home-community.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Home — born in San Diego — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-community.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -672,7 +672,7 @@
         "label": "Body copy — first paragraph",
         "name": "brg_home_community_body_1",
         "type": "textarea",
-        "instructions": "Plain text; markup is escaped. Write `—` as a literal em dash.",
+        "instructions": "Plain text; markup is escaped. Write <code>—</code> as a literal em dash.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -687,7 +687,7 @@
         "label": "Body copy — second paragraph",
         "name": "brg_home_community_body_2",
         "type": "textarea",
-        "instructions": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters. CROSS-SECTION FACT — this number also appears in `our-restaurants-brands` -> Board & Brew second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
+        "instructions": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write <code>&</code> and <code>—</code> as literal characters. CROSS-SECTION FACT — this number also appears in <code>our-restaurants-brands</code> -> Board & Brew second paragraph, and <code>community-stats</code> -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (<code>doc</code> strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -707,7 +707,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 7,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -725,7 +725,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Home — what we're about — Content**\nSource: `brg-web/website/acf/brg-home-about.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Home — what we're about — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-about.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -821,7 +821,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 8,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -839,7 +839,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Home — a different kind of restaurant company — Content**\nSource: `brg-web/website/acf/brg-home-different.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Home — a different kind of restaurant company — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-different.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -870,7 +870,7 @@
         "label": "Body copy — second paragraph",
         "name": "brg_home_different_body_2",
         "type": "textarea",
-        "instructions": "Write `—` as a literal em dash.",
+        "instructions": "Write <code>—</code> as a literal em dash.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -885,7 +885,7 @@
         "label": "Body copy — third paragraph",
         "name": "brg_home_different_body_3",
         "type": "textarea",
-        "instructions": "Write `—` as a literal em dash.",
+        "instructions": "Write <code>—</code> as a literal em dash.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -905,7 +905,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 9,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -923,7 +923,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Home — core values — Content**\nSource: `brg-web/website/acf/brg-home-values.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Home — core values — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-values.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -959,7 +959,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 10,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -977,7 +977,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Our Restaurants — brands — Content**\nSource: `brg-web/website/acf/brg-our-restaurants-brands.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Our Restaurants — brands — Content</strong>\nSource: <code>brg-web/website/acf/brg-our-restaurants-brands.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -993,7 +993,7 @@
         "label": "Board & Brew — name",
         "name": "brg_our_restaurants_brands_bnb_heading",
         "type": "text",
-        "instructions": "The brand name. Write `&` as a literal ampersand.",
+        "instructions": "The brand name. Write <code>&</code> as a literal ampersand.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1008,7 +1008,7 @@
         "label": "Board & Brew — first paragraph",
         "name": "brg_our_restaurants_brands_bnb_body_1",
         "type": "textarea",
-        "instructions": "Write `&` as a literal ampersand.",
+        "instructions": "Write <code>&</code> as a literal ampersand.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1023,7 +1023,7 @@
         "label": "Board & Brew — second paragraph",
         "name": "brg_our_restaurants_brands_bnb_body_2",
         "type": "textarea",
-        "instructions": "Carries the live location count, so it needs editing whenever that changes. Write `—` as a literal em dash. CROSS-SECTION FACT — this number also appears in `home-community` -> Body copy second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
+        "instructions": "Carries the live location count, so it needs editing whenever that changes. Write <code>—</code> as a literal em dash. CROSS-SECTION FACT — this number also appears in <code>home-community</code> -> Body copy second paragraph, and <code>community-stats</code> -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (<code>doc</code> strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1083,7 +1083,7 @@
         "label": "Odie's — first paragraph",
         "name": "brg_our_restaurants_brands_odies_body_1",
         "type": "textarea",
-        "instructions": "Write `—` as a literal em dash.",
+        "instructions": "Write <code>—</code> as a literal em dash.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1148,7 +1148,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 11,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -1166,7 +1166,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Team — join the crew — Content**\nSource: `brg-web/website/acf/brg-team-apply.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Team — join the crew — Content</strong>\nSource: <code>brg-web/website/acf/brg-team-apply.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -1247,7 +1247,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 13,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -1265,7 +1265,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Community — how we give back — Content**\nSource: `brg-web/website/acf/brg-community-give.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Community — how we give back — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-give.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -1346,7 +1346,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 14,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -1364,7 +1364,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Community — by the numbers — Content**\nSource: `brg-web/website/acf/brg-community-stats.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Community — by the numbers — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-stats.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -1380,7 +1380,7 @@
         "label": "Stat 1 — figure",
         "name": "brg_community_stats_stat_1_fig",
         "type": "text",
-        "instructions": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. `12`, `40K`, `$1.2M`. CROSS-SECTION FACT — this number also appears in `home-community` -> Body copy second paragraph, and `our-restaurants-brands` -> Board & Brew second paragraph. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
+        "instructions": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. <code>12</code>, <code>40K</code>, <code>$1.2M</code>. CROSS-SECTION FACT — this number also appears in <code>home-community</code> -> Body copy second paragraph, and <code>our-restaurants-brands</code> -> Board & Brew second paragraph. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (<code>doc</code> strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1410,7 +1410,7 @@
         "label": "Stat 1 — label, line 2",
         "name": "brg_community_stats_stat_1_line2",
         "type": "text",
-        "instructions": "Second line. Write `&` as a plain ampersand.",
+        "instructions": "Second line. Write <code>&</code> as a plain ampersand.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1470,7 +1470,7 @@
         "label": "Stat 3 — figure",
         "name": "brg_community_stats_stat_3_fig",
         "type": "text",
-        "instructions": "Reads XX today. Its label says `meals/dollars` because the unit was never decided — once you know the figure, edit the label to match rather than leaving both options in.",
+        "instructions": "Reads XX today. Its label says <code>meals/dollars</code> because the unit was never decided — once you know the figure, edit the label to match rather than leaving both options in.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1485,7 +1485,7 @@
         "label": "Stat 3 — label, line 1",
         "name": "brg_community_stats_stat_3_line1",
         "type": "text",
-        "instructions": "First line. Change `meals/dollars` to whichever the real figure is.",
+        "instructions": "First line. Change <code>meals/dollars</code> to whichever the real figure is.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1565,7 +1565,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 15,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -1583,7 +1583,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Community — partner with us — Content**\nSource: `brg-web/website/acf/brg-community-partner.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Community — partner with us — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-partner.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -1649,7 +1649,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 16,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -1667,7 +1667,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Contact — hero — Content**\nSource: `brg-web/website/acf/brg-contact-hero.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Contact — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -1698,7 +1698,7 @@
         "label": "Sub copy",
         "name": "brg_contact_hero_sub",
         "type": "textarea",
-        "instructions": "Does real work: it tells the visitor this page is a switchboard, so the cards below read as an answer rather than a runaround. Write `—` as a literal em dash.",
+        "instructions": "Does real work: it tells the visitor this page is a switchboard, so the cards below read as an answer rather than a runaround. Write <code>—</code> as a literal em dash.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1718,7 +1718,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 18,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -1736,7 +1736,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Contact — where to send it — Content**\nSource: `brg-web/website/acf/brg-contact-routes.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Contact — where to send it — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-routes.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -1932,7 +1932,7 @@
         "label": "Route 4 — one-liner",
         "name": "brg_contact_routes_route_4_text",
         "type": "textarea",
-        "instructions": "One line under the label. Write `&` as a literal ampersand.",
+        "instructions": "One line under the label. Write <code>&</code> as a literal ampersand.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1952,7 +1952,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 19,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
@@ -1970,7 +1970,7 @@
         "label": "",
         "name": "",
         "type": "message",
-        "message": "**Contact — visit a restaurant — Content**\nSource: `brg-web/website/acf/brg-contact-restaurants.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Contact — visit a restaurant — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-restaurants.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -2001,7 +2001,7 @@
         "label": "Sub copy",
         "name": "brg_contact_restaurants_sub",
         "type": "textarea",
-        "instructions": "One line beneath the heading. Write `&` as a literal ampersand.",
+        "instructions": "One line beneath the heading. Write <code>&</code> as a literal ampersand.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -2051,7 +2051,7 @@
         }
       ]
     ],
-    "menu_order": 0,
+    "menu_order": 20,
     "position": "normal",
     "style": "default",
     "label_placement": "top",

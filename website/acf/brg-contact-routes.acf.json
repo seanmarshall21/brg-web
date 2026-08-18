@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "**Contact — where to send it — Content**\nSource: `brg-web/website/acf/brg-contact-routes.acf.json` (generated). Edits here fill the section's `{{slots}}` — shortcode attributes still override, and blank falls back to the built-in default.",
+                "message": "<strong>Contact — where to send it — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-routes.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -204,7 +204,7 @@
                 "label": "Route 4 — one-liner",
                 "name": "brg_contact_routes_route_4_text",
                 "type": "textarea",
-                "instructions": "One line under the label. Write `&` as a literal ampersand.",
+                "instructions": "One line under the label. Write <code>&</code> as a literal ampersand.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -224,7 +224,7 @@
                 }
             ]
         ],
-        "menu_order": 0,
+        "menu_order": 19,
         "position": "normal",
         "style": "default",
         "label_placement": "top",
