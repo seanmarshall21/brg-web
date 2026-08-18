@@ -302,6 +302,23 @@ rule one level further in — there the tool could not see; here the test of the
 which failure it had caused, and it passed, which is the direction that never prompts a second
 look.
 
+**A harness that lies to a component gets a true answer to a false question — and it reads as a
+bug in the component.** `lab-full.html` gave every nav item `href="#"`. `brgw-nav.js` marks an
+item active when its tidied href equals the current path, and `#` resolves to the current page —
+so every item matched, every item got `.is-active`, and `.is-active` renders the stroke fully
+drawn. Six active items, six finished underlines, nothing left to animate. **Nothing was wrong
+with the nav.** It was told every page was the current page and it answered correctly.
+
+This is a distinct failure from a stale judgement or a duplicated fact: the component's
+behaviour was right and the *world it was shown* was wrong. Same shape as an `innerWidth: 0`
+reading one layer out — there the instrument lied about the page, here the harness lied to the
+component. The tell is the same both times: **a result that is wrong in a way the component has
+no mechanism to produce.** A nav with no hover cannot draw six hover states; a heading with a
+computed width of zero cannot contain text. When the output is impossible rather than merely
+wrong, suspect the input. (Two instances in `lab-full.html` alone — this and the missing
+`.bnav-grp` divs — because a hand-written stand-in for markup generated elsewhere is a harness
+by another name.)
+
 **A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
 number, a field name, a commit — each asserts *where something lives*, and that moves while the
 fact stays true. Four instances on 2026-08-13: a patch written against `embed.html:63` before the
