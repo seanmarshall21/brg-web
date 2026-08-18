@@ -1,0 +1,361 @@
+[
+    {
+        "key": "group_brg_page_home",
+        "title": "Home — Content",
+        "fields": [
+            {
+                "key": "field_brg_page_home_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "<strong>Home</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_tab_home_hero",
+                "label": "Hero",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_hero_sub",
+                "label": "Sub copy",
+                "name": "brg_home_hero_sub",
+                "type": "textarea",
+                "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "From a classic Board & Brew sandwich to a slice at Odie's — we're here for the moments that matter."
+            },
+            {
+                "key": "field_brg_home_hero_tagline",
+                "label": "Yellow tagline",
+                "name": "brg_home_hero_tagline",
+                "type": "text",
+                "instructions": "The short line beneath the sub, in the display face. White, not yellow, per the comp. ~40 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Good food. Real people. Rad experience."
+            },
+            {
+                "key": "field_brg_tab_home_community",
+                "label": "Born in San Diego",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_community_intro_1",
+                "label": "Intro — before the emphasis",
+                "name": "brg_home_community_intro_1",
+                "type": "textarea",
+                "instructions": "Opening clause, up to the colon. The space before the bold phrase is in the markup, so no trailing space here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Blacktop Restaurant Group started with a simple belief:"
+            },
+            {
+                "key": "field_brg_home_community_intro_emphasis",
+                "label": "Intro — bold phrase",
+                "name": "brg_home_community_intro_emphasis",
+                "type": "text",
+                "instructions": "Rendered bold, mid-sentence. A clause, not a paragraph.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "that a great meal is really just an excuse to connect."
+            },
+            {
+                "key": "field_brg_home_community_intro_2",
+                "label": "Intro — after the emphasis",
+                "name": "brg_home_community_intro_2",
+                "type": "textarea",
+                "instructions": "The rest of the paragraph. Carries the founding year, so it needs editing if that is ever restated.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home."
+            },
+            {
+                "key": "field_brg_home_community_body_1",
+                "label": "Body copy — first paragraph",
+                "name": "brg_home_community_body_1",
+                "type": "textarea",
+                "instructions": "Plain text; markup is escaped. Write <code>—</code> as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're not a corporation chasing locations — we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling."
+            },
+            {
+                "key": "field_brg_home_community_body_2",
+                "label": "Body copy — second paragraph",
+                "name": "brg_home_community_body_2",
+                "type": "textarea",
+                "instructions": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write <code>&</code> and <code>—</code> as literal characters. CROSS-SECTION FACT — this number also appears in <code>our-restaurants-brands</code> -> Board & Brew second paragraph, and <code>community-stats</code> -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (<code>doc</code> strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
+            },
+            {
+                "key": "field_brg_tab_home_about",
+                "label": "What we're about",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_about_heading",
+                "label": "Heading",
+                "name": "brg_home_about_heading",
+                "type": "text",
+                "instructions": "Sits above the vision/mission pair, in the display face. ~24 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "What we're about"
+            },
+            {
+                "key": "field_brg_home_about_vision_label",
+                "label": "Vision — label",
+                "name": "brg_home_about_vision_label",
+                "type": "text",
+                "instructions": "The small caps label above the vision statement.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Our Vision"
+            },
+            {
+                "key": "field_brg_home_about_vision_text",
+                "label": "Vision — statement",
+                "name": "brg_home_about_vision_text",
+                "type": "textarea",
+                "instructions": "Display face, large. Short — it is a slogan, not a paragraph.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Make your day great!"
+            },
+            {
+                "key": "field_brg_home_about_mission_label",
+                "label": "Mission — label",
+                "name": "brg_home_about_mission_label",
+                "type": "text",
+                "instructions": "The small caps label above the mission statement.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Our Mission"
+            },
+            {
+                "key": "field_brg_home_about_mission_text",
+                "label": "Mission — statement",
+                "name": "brg_home_about_mission_text",
+                "type": "textarea",
+                "instructions": "Display face, large. One sentence; past ~90 characters it starts to unbalance the column against the photo.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "To amp up our communities by creating real connections and rad experiences."
+            },
+            {
+                "key": "field_brg_tab_home_different",
+                "label": "A different kind of restaurant company",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_different_body_1",
+                "label": "Body copy — first paragraph",
+                "name": "brg_home_different_body_1",
+                "type": "textarea",
+                "instructions": "Plain text; markup is escaped.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that."
+            },
+            {
+                "key": "field_brg_home_different_body_2",
+                "label": "Body copy — second paragraph",
+                "name": "brg_home_different_body_2",
+                "type": "textarea",
+                "instructions": "Write <code>—</code> as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work — that energy is contagious. You feel it the moment you walk in."
+            },
+            {
+                "key": "field_brg_home_different_body_3",
+                "label": "Body copy — third paragraph",
+                "name": "brg_home_different_body_3",
+                "type": "textarea",
+                "instructions": "Write <code>—</code> as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."
+            },
+            {
+                "key": "field_brg_tab_home_values",
+                "label": "Core values",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_home_values_heading",
+                "label": "Heading",
+                "name": "brg_home_values_heading",
+                "type": "text",
+                "instructions": "Sits above the values grid, in the display face. Plain — no marker block, no line break. ~24 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Our core values"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the Home page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
+    }
+]

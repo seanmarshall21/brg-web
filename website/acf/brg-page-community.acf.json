@@ -1,0 +1,420 @@
+[
+    {
+        "key": "group_brg_page_community",
+        "title": "Community — Content",
+        "fields": [
+            {
+                "key": "field_brg_page_community_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "<strong>Community</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_tab_community_hero",
+                "label": "Hero",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_community_hero_heading",
+                "label": "Headline",
+                "name": "brg_community_hero_heading",
+                "type": "text",
+                "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Great food, great people, epic communities."
+            },
+            {
+                "key": "field_brg_community_hero_sub",
+                "label": "Sub copy",
+                "name": "brg_community_hero_sub",
+                "type": "textarea",
+                "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>—</code> as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."
+            },
+            {
+                "key": "field_brg_tab_community_give",
+                "label": "How we give back",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_community_give_lede_1",
+                "label": "Lede — before the emphasis",
+                "name": "brg_community_give_lede_1",
+                "type": "textarea",
+                "instructions": "Opening clause, ending at the em dash. The space before the emphasised phrase is in the markup, so do not add a trailing space here. Write the em dash as a literal —.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "At BRG, community isn't a marketing initiative —"
+            },
+            {
+                "key": "field_brg_community_give_lede_emphasis",
+                "label": "Lede — emphasised phrase",
+                "name": "brg_community_give_lede_emphasis",
+                "type": "text",
+                "instructions": "Rendered in the display face, slightly larger, mid-sentence. Short — a clause, not a sentence.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "it's in our DNA."
+            },
+            {
+                "key": "field_brg_community_give_lede_2",
+                "label": "Lede — after the emphasis",
+                "name": "brg_community_give_lede_2",
+                "type": "textarea",
+                "instructions": "The rest of the paragraph. The space after the emphasised phrase is in the markup, so start straight in with a capital.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home."
+            },
+            {
+                "key": "field_brg_community_give_banner",
+                "label": "Teal banner",
+                "name": "brg_community_give_banner",
+                "type": "text",
+                "instructions": "The rotated teal band straddling the white intro and the dark slider. Sized to its content (width:max-content, capped at 92%) so length is forgiving, but it renders at up to 3rem — past ~28 characters it starts wrapping and the rotation reads badly.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "How we give back"
+            },
+            {
+                "key": "field_brg_tab_community_stats",
+                "label": "By the numbers",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_community_stats_stat_1_fig",
+                "label": "Stat 1 — figure",
+                "name": "brg_community_stats_stat_1_fig",
+                "type": "text",
+                "instructions": "Short. Rendered in Blanco teal at up to 5.4rem, so 2-4 characters. <code>12</code>, <code>40K</code>, <code>$1.2M</code>. CROSS-SECTION FACT — this number also appears in <code>home-community</code> -> Body copy second paragraph, and <code>our-restaurants-brands</code> -> Board & Brew second paragraph. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (<code>doc</code> strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "12"
+            },
+            {
+                "key": "field_brg_community_stats_stat_1_line1",
+                "label": "Stat 1 — label, line 1",
+                "name": "brg_community_stats_stat_1_line1",
+                "type": "text",
+                "instructions": "First line under the figure. ~24 characters keeps it on one line.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "locations embedded in"
+            },
+            {
+                "key": "field_brg_community_stats_stat_1_line2",
+                "label": "Stat 1 — label, line 2",
+                "name": "brg_community_stats_stat_1_line2",
+                "type": "text",
+                "instructions": "Second line. Write <code>&</code> as a plain ampersand.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "SD & OC communities"
+            },
+            {
+                "key": "field_brg_community_stats_stat_2_fig",
+                "label": "Stat 2 — figure",
+                "name": "brg_community_stats_stat_2_fig",
+                "type": "text",
+                "instructions": "Reads XX today — this is one of the three placeholder figures. Replace it here and it goes live with no push.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "XX"
+            },
+            {
+                "key": "field_brg_community_stats_stat_2_line1",
+                "label": "Stat 2 — label, line 1",
+                "name": "brg_community_stats_stat_2_line1",
+                "type": "text",
+                "instructions": "First line under the figure.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "local organizations"
+            },
+            {
+                "key": "field_brg_community_stats_stat_2_line2",
+                "label": "Stat 2 — label, line 2",
+                "name": "brg_community_stats_stat_2_line2",
+                "type": "text",
+                "instructions": "Second line.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "supported annually"
+            },
+            {
+                "key": "field_brg_community_stats_stat_3_fig",
+                "label": "Stat 3 — figure",
+                "name": "brg_community_stats_stat_3_fig",
+                "type": "text",
+                "instructions": "Reads XX today. Its label says <code>meals/dollars</code> because the unit was never decided — once you know the figure, edit the label to match rather than leaving both options in.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "XX"
+            },
+            {
+                "key": "field_brg_community_stats_stat_3_line1",
+                "label": "Stat 3 — label, line 1",
+                "name": "brg_community_stats_stat_3_line1",
+                "type": "text",
+                "instructions": "First line. Change <code>meals/dollars</code> to whichever the real figure is.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "meals/dollars"
+            },
+            {
+                "key": "field_brg_community_stats_stat_3_line2",
+                "label": "Stat 3 — label, line 2",
+                "name": "brg_community_stats_stat_3_line2",
+                "type": "text",
+                "instructions": "Second line.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "donated"
+            },
+            {
+                "key": "field_brg_community_stats_stat_4_fig",
+                "label": "Stat 4 — figure",
+                "name": "brg_community_stats_stat_4_fig",
+                "type": "text",
+                "instructions": "Reads XX today — the third placeholder figure.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "XX"
+            },
+            {
+                "key": "field_brg_community_stats_stat_4_line1",
+                "label": "Stat 4 — label, line 1",
+                "name": "brg_community_stats_stat_4_line1",
+                "type": "text",
+                "instructions": "First line under the figure.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "giveback events"
+            },
+            {
+                "key": "field_brg_community_stats_stat_4_line2",
+                "label": "Stat 4 — label, line 2",
+                "name": "brg_community_stats_stat_4_line2",
+                "type": "text",
+                "instructions": "Second line.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "per year"
+            },
+            {
+                "key": "field_brg_tab_community_partner",
+                "label": "Partner with us",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_community_partner_cta_label",
+                "label": "Button label",
+                "name": "brg_community_partner_cta_label",
+                "type": "text",
+                "instructions": "The question on the black button. This band has no separate heading — the button is the headline.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Want to partner with us?"
+            },
+            {
+                "key": "field_brg_community_partner_cta_href",
+                "label": "Button link",
+                "name": "brg_community_partner_cta_href",
+                "type": "text",
+                "instructions": "Where the button goes. A mailto: is fine — that is what ships today.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "mailto:hello@blacktoprg.com?subject=Community%20partnership"
+            },
+            {
+                "key": "field_brg_community_partner_sub",
+                "label": "Sub copy",
+                "name": "brg_community_partner_sub",
+                "type": "textarea",
+                "instructions": "One line beneath the button. Plain text — markup is escaped.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Whether you're a nonprofit, school, or local organization — we'd love to talk."
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 3,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the Community page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
+    }
+]

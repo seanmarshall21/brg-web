@@ -1,16 +1,78 @@
 [
     {
-        "key": "group_brg_contact_routes",
-        "title": "Contact — where to send it — Content",
+        "key": "group_brg_page_contact",
+        "title": "Contact — Content",
         "fields": [
             {
-                "key": "field_brg_contact_routes_msg",
+                "key": "field_brg_page_contact_msg",
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "<strong>Contact — where to send it — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-routes.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
+                "message": "<strong>Contact</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_tab_contact_hero",
+                "label": "Hero",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_contact_hero_heading",
+                "label": "Headline",
+                "name": "brg_contact_hero_heading",
+                "type": "text",
+                "instructions": "Display face, wraps inside 18ch. Under ~50 characters is a hint not a limit — word length drives the break more than character count. Short is the point here: it is a sign-off, not a sentence.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Let's talk."
+            },
+            {
+                "key": "field_brg_contact_hero_sub",
+                "label": "Sub copy",
+                "name": "brg_contact_hero_sub",
+                "type": "textarea",
+                "instructions": "Does real work: it tells the visitor this page is a switchboard, so the cards below read as an answer rather than a runaround. Write <code>—</code> as a literal em dash.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask."
+            },
+            {
+                "key": "field_brg_tab_contact_routes",
+                "label": "Where to send it",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -213,6 +275,82 @@
                     "id": ""
                 },
                 "default_value": "Open roles across Board & Brew and Odie's."
+            },
+            {
+                "key": "field_brg_tab_contact_restaurants",
+                "label": "Visit a restaurant",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_contact_restaurants_heading",
+                "label": "Heading",
+                "name": "brg_contact_restaurants_heading",
+                "type": "text",
+                "instructions": "Display face on the teal band, free-wrapping inside 20ch.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Looking for a restaurant?"
+            },
+            {
+                "key": "field_brg_contact_restaurants_sub",
+                "label": "Sub copy",
+                "name": "brg_contact_restaurants_sub",
+                "type": "textarea",
+                "instructions": "One line beneath the heading. Write <code>&</code> as a literal ampersand.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Addresses, hours, and every Board & Brew and Odie's location in one place."
+            },
+            {
+                "key": "field_brg_contact_restaurants_cta_label",
+                "label": "Button label",
+                "name": "brg_contact_restaurants_cta_label",
+                "type": "text",
+                "instructions": "~18 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Our Restaurants"
+            },
+            {
+                "key": "field_brg_contact_restaurants_cta_href",
+                "label": "Button link",
+                "name": "brg_contact_restaurants_cta_href",
+                "type": "text",
+                "instructions": "Points at the live restaurants page.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "/our-restaurants/"
             }
         ],
         "location": [
@@ -224,13 +362,13 @@
                 }
             ]
         ],
-        "menu_order": 19,
+        "menu_order": 5,
         "position": "normal",
         "style": "default",
         "label_placement": "top",
         "instruction_placement": "label",
         "hide_on_screen": "",
         "active": true,
-        "description": "Editable content for the contact-routes section. Generated — do not hand-edit; edit sections/contact-routes/slots.json + rerun kit/build-acf.py."
+        "description": "Editable content for the Contact page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
     }
 ]

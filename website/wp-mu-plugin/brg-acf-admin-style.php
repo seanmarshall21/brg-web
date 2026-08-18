@@ -105,6 +105,35 @@ add_action( 'admin_head', function () {
 	.acf-field-message p { margin: 0 0 6px; color: #4a4f54; font-size: 12.5px; }
 	.acf-field-message p:last-child { margin-bottom: 0; }
 
+	/* ── The tab row is NAVIGATION, not more content ─────────────────────── */
+	.acf-tab-wrap {
+		background: #f7f8f9;
+		border-bottom: 1px solid #e3e5e8;
+	}
+	.acf-tab-wrap .acf-tab-group {
+		padding: 10px 14px 0;
+		border-bottom: 0;
+	}
+	.acf-tab-group li a {
+		border: 1px solid transparent;
+		border-bottom: 0;
+		border-radius: 7px 7px 0 0;
+		padding: 8px 14px;
+		font-size: 13px;
+		font-weight: 600;
+		color: #5b6167;
+		background: transparent;
+	}
+	.acf-tab-group li a:hover { color: #1c1a16; background: #eef0f2; }
+	.acf-tab-group li.active a {
+		background: #fff;
+		border-color: #e3e5e8;
+		color: #1c1a16;
+		box-shadow: inset 0 3px 0 #19C7C2;
+	}
+	/* The first field after a tab shouldn't carry the row rule — the tab is the divider. */
+	.acf-field-tab + .acf-field { border-top: 0; }
+
 	/* ── Inputs ──────────────────────────────────────────────────────────── */
 	.acf-field input[type=text],
 	.acf-field textarea {

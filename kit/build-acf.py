@@ -137,26 +137,77 @@ def field(section_id, slot, defn):
         f.pop('default_value', None)
     return f
 
-def group(section):
-    sid, title = section['id'], section.get('title', section['id'])
-    slots, _ = slots_for(section)
-    msg = {
-        'key': 'field_brg_' + sid.replace('-', '_') + '_msg', 'label': '', 'name': '', 'type': 'message',
+def page_of(section):
+    """Which page a section belongs to, and what that page is called.
+
+    Derived, not listed. The id prefix is the page ('community-partner' -> 'community')
+    and the label is the common prefix of the section titles ('Community — hero' ->
+    'Community'), so adding a page or renaming one needs no edit here. A hardcoded list
+    would be a second home for something sections.json already knows.
+    """
+    sid = section['id']
+    known = ('our-restaurants', 'home', 'team', 'community', 'careers', 'contact')
+    page = next((k for k in known if sid == k or sid.startswith(k + '-')), sid.split('-')[0])
+    title = section.get('title', sid)
+    label = title.split('—')[0].strip() if '—' in title else page.replace('-', ' ').title()
+    return page, label
+
+def tab_label(section):
+    """The bit of the title after the em dash — 'Home — hero' -> 'Hero'."""
+    t = section.get('title', section['id'])
+    # Upper-case the first letter only. .capitalize() lower-cases the rest, which turned
+    # 'born in San Diego' into 'Born in san diego' — proper nouns are the point of a label.
+    lbl = (t.split('—', 1)[1].strip() if '—' in t else section['id'].replace('-', ' '))
+    return lbl[:1].upper() + lbl[1:] if lbl else section['id']
+
+def page_group(page, label, sections):
+    """ONE field group per page, with a TAB per section inside it.
+
+    Nineteen groups on one screen is nineteen boxes to scroll past. Six, each with a tab
+    per section, is the shape Sean asked for and the shape fc-brands uses.
+
+    THIS DOES NOT MOVE ANY DATA, and that is the whole reason it is safe. ACF stores an
+    option by FIELD NAME — `options_brg_home_hero_heading` — and group membership is not
+    part of the key. Field names are untouched here, so every value already typed is
+    still found. That is precisely NOT true of ACF's `group` FIELD type, which restructures
+    children to `{group}_{child}` and orphans everything already saved; fc-brands lost a
+    screen's worth of content that way (their 56a8f5e) and calls it a data migration rather
+    than a refactor. Tabs are presentation. Groups-of-fields are storage. Only one of them
+    is safe to reach for.
+    """
+    fields = [{
+        'key': 'field_brg_page_' + page.replace('-', '_') + '_msg',
+        'label': '', 'name': '', 'type': 'message',
         'message': admin_html(
-            f"**{title} — Content**\nSource: `brg-web/website/acf/brg-{sid}.acf.json` "
-            f"(generated). Edits here fill the section's `{{{{slots}}}}` "
-            f"— shortcode attributes still override, and blank falls back to the built-in default."),
+            f"**{label}** — one tab per section, in page order. Edits fill that section's "
+            f"`{{{{slots}}}}` on the live page. Shortcode attributes still override, and a "
+            f"blank field falls back to the built-in default."),
         'new_lines': 'wpautop', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
         'wrapper': {'width': '', 'class': '', 'id': ''},
-    }
+    }]
+    for sec in sections:
+        sid = sec['id']
+        slots, _ = slots_for(sec)
+        if not slots:
+            continue
+        fields.append({
+            'key': 'field_brg_tab_' + sid.replace('-', '_'),
+            'label': tab_label(sec), 'name': '', 'type': 'tab',
+            'placement': 'top', 'endpoint': 0,
+            'instructions': '', 'required': 0, 'conditional_logic': 0,
+            'wrapper': {'width': '', 'class': '', 'id': ''},
+        })
+        fields.extend(field(sid, k, v) for k, v in slots.items())
     return {
-        'key': 'group_brg_' + sid.replace('-', '_'),
-        'title': f"{title} — Content",
-        'fields': [msg] + [field(sid, k, v) for k, v in slots.items()],
+        'key': 'group_brg_page_' + page.replace('-', '_'),
+        'title': f"{label} — Content",
+        'fields': fields,
         'location': [[{'param': 'options_page', 'operator': '==', 'value': OPTIONS_PAGE}]],
-        'menu_order': section.get('_order', 0), 'position': 'normal', 'style': 'default', 'label_placement': 'top',
+        'menu_order': 0, 'position': 'normal', 'style': 'default', 'label_placement': 'top',
         'instruction_placement': 'label', 'hide_on_screen': '', 'active': True,
-        'description': f"Editable content for the {sid} section. Generated — do not hand-edit; edit sections/{sid}/slots.json + rerun kit/build-acf.py.",
+        'description': (f"Editable content for the {label} page, one tab per section. "
+                        f"Generated — edit website/sections/<id>/slots.json and rerun "
+                        f"kit/build-acf.py."),
     }
 
 def check():
@@ -262,44 +313,42 @@ def main():
         sys.exit(1 if check() else 0)
 
     # ── Compute everything BEFORE writing anything ──────────────────────────────────
-    # The old version wrote inside the loop, so a guard could only ever fire after the
-    # damage. Nothing below touches the disk until every check has passed.
-    wanted = []
-    for s in data.get('sections', []):
-        slots = slots_for(s)[0]
+    # The old loop wrote inside itself, so a guard could only ever fire after the damage.
+    from collections import OrderedDict
+    pages = OrderedDict()
+    for sec in data.get('sections', []):
+        slots = slots_for(sec)[0]
         if not slots:
             continue
         illegal = bad_slot_names(slots)
         if illegal:
-            sys.exit(f"refusing to generate {s['id']}: slot name(s) {illegal} are not [a-z0-9_]; "
-                     f"they would become ACF field names containing a hyphen. Run --check.")
-        wanted.append((s['id'], group(s), len(slots)))
+            sys.exit(f"refusing to generate {sec['id']}: slot name(s) {illegal} are not "
+                     f"[a-z0-9_]; they would become ACF field names containing a hyphen.")
+        page, label = page_of(sec)
+        pages.setdefault(page, {'label': label, 'sections': []})['sections'].append(sec)
+
+    wanted = []
+    for order, (page, info) in enumerate(pages.items()):
+        g = page_group(page, info['label'], info['sections'])
+        g['menu_order'] = order          # page order on the admin screen
+        wanted.append(('page-' + page, g, sum(len(slots_for(x)[0]) for x in info['sections'])))
 
     before = existing_group_ids()
     now = {sid for sid, _, _ in wanted}
     lost = sorted(before - now)
 
-    # ── Refuse to write nothing over something ──────────────────────────────────────
-    # all.acf.json is not a local artifact: brg-acf.php FETCHES it from Netlify, so an
-    # empty one deletes every field group in wp-admin — and the site keeps rendering,
-    # because the plugin falls back to slot defaults. Editors lose everything; visitors
-    # see no change. Nothing downstream would report it.
-    #
-    # pre-push's regenerate-and-diff cannot catch this either: the regeneration produces
-    # the same empty result, so the diff is clean and both trees agree. That is precisely
-    # the "clean and self-consistent" failure CLAUDE.md describes.
     if not wanted and before:
         sys.exit(f"refusing to write an empty field registry over {len(before)} existing "
                  f"group(s).\nEvery section came back with no slots, which is far more "
-                 f"likely to be this script than the repo.\nIf the wiring really was all "
-                 f"removed, delete website/acf/*.acf.json by hand and re-run.")
+                 f"likely to be this script than the repo.")
 
     if lost and '--allow-shrink' not in sys.argv:
         sys.exit(f"refusing to drop {len(lost)} existing field group(s): {', '.join(lost)}\n"
-                 f"Their slots.json is missing or empty. If that is deliberate, re-run with "
-                 f"--allow-shrink and delete the stale website/acf/brg-<id>.acf.json files.")
+                 f"If this is the per-section -> per-page restructure, that is expected: the "
+                 f"19 per-section groups become 6 per-page ones. NO VALUES MOVE — ACF keys "
+                 f"options by FIELD NAME and those are unchanged — but the old files must go.\n"
+                 f"Re-run with --allow-shrink, and delete the stale website/acf/brg-<id>.acf.json.")
 
-    # ── Now write ───────────────────────────────────────────────────────────────────
     os.makedirs(OUTDIR, exist_ok=True)
     made = []
     for sid, grp, n in wanted:
@@ -307,8 +356,6 @@ def main():
         json.dump([grp], open(out, 'w'), indent=4, ensure_ascii=False)
         open(out, 'a').write('\n')
         made.append((sid, os.path.relpath(out, ROOT), n))
-    # Combined file the auto-loader (brg-acf.php) fetches from Netlify and registers — so
-    # field changes go live on push, no manual import.
     json.dump([g for _, g, _ in wanted],
               open(os.path.join(OUTDIR, 'all.acf.json'), 'w'), indent=2, ensure_ascii=False)
     open(os.path.join(OUTDIR, 'all.acf.json'), 'a').write('\n')

@@ -1,0 +1,269 @@
+[
+    {
+        "key": "group_brg_page_careers",
+        "title": "Careers — Content",
+        "fields": [
+            {
+                "key": "field_brg_page_careers_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "<strong>Careers</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_tab_careers_hero",
+                "label": "Hero",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_careers_hero_heading",
+                "label": "Headline",
+                "name": "brg_careers_hero_heading",
+                "type": "text",
+                "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line. NOTE this headline STARTS a line closer to the ceiling than the other three — it is already 4 lines at its current 42 characters, so it has roughly one line of headroom rather than two.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Come work somewhere you actually want to be"
+            },
+            {
+                "key": "field_brg_careers_hero_sub_1",
+                "label": "Sub copy — before the highlight",
+                "name": "brg_careers_hero_sub_1",
+                "type": "textarea",
+                "instructions": "Everything up to and including the em dash. The space before the highlight is in the markup, so no trailing space here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —"
+            },
+            {
+                "key": "field_brg_careers_hero_sub_highlight",
+                "label": "Sub copy — highlighted phrase",
+                "name": "brg_careers_hero_sub_highlight",
+                "type": "text",
+                "instructions": "Sits in the yellow marker block that closes the sentence. Short — it is a highlight, not a clause.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "let's talk."
+            },
+            {
+                "key": "field_brg_tab_careers_apply",
+                "label": "What it's like",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_careers_apply_body_1",
+                "label": "Body copy — first paragraph",
+                "name": "brg_careers_apply_body_1",
+                "type": "textarea",
+                "instructions": "Left column, opening paragraph. Plain text; markup is escaped. Write an em dash as a literal —, not &mdash;.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "This isn't your average restaurant gig. At BRG, we invest in our people — with real training, real growth paths, and a culture that actually lives up to the hype."
+            },
+            {
+                "key": "field_brg_careers_apply_body_2",
+                "label": "Body copy — second paragraph",
+                "name": "brg_careers_apply_body_2",
+                "type": "textarea",
+                "instructions": "Left column, second paragraph. The two paragraphs are separate fields because the two-paragraph break is layout, not content.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around."
+            },
+            {
+                "key": "field_brg_careers_apply_offers_heading",
+                "label": "Right column heading",
+                "name": "brg_careers_apply_offers_heading",
+                "type": "text",
+                "instructions": "Sits above the asterisk-bulleted list. Short — it renders in the display face at up to 2.2rem, so ~14 characters keeps it on one line. The list items themselves are not editable; they are code.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We offer:"
+            },
+            {
+                "key": "field_brg_careers_apply_cta_label",
+                "label": "Button label",
+                "name": "brg_careers_apply_cta_label",
+                "type": "text",
+                "instructions": "Black-bordered button at the foot of the section. ~18 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Apply Today"
+            },
+            {
+                "key": "field_brg_careers_apply_cta_href",
+                "label": "Button link",
+                "name": "brg_careers_apply_cta_href",
+                "type": "text",
+                "instructions": "Defaults to the in-page anchor for the open-positions section below. A full URL works too.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#open-positions"
+            },
+            {
+                "key": "field_brg_tab_careers_positions",
+                "label": "Open positions",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_careers_positions_heading",
+                "label": "Heading",
+                "name": "brg_careers_positions_heading",
+                "type": "text",
+                "instructions": "Display face on the yellow band, up to ~3.5rem. Wraps freely. ~30 characters keeps it to two lines.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Ready to join the crew?"
+            },
+            {
+                "key": "field_brg_careers_positions_sub",
+                "label": "Sub copy",
+                "name": "brg_careers_positions_sub",
+                "type": "textarea",
+                "instructions": "One line beneath the heading. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Browse our open roles below — from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co."
+            },
+            {
+                "key": "field_brg_careers_positions_cta_label",
+                "label": "Button label",
+                "name": "brg_careers_positions_cta_label",
+                "type": "text",
+                "instructions": "Black button on the yellow band. ~18 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Open Positions"
+            },
+            {
+                "key": "field_brg_careers_positions_cta_href",
+                "label": "Button link",
+                "name": "brg_careers_positions_cta_href",
+                "type": "text",
+                "instructions": "Defaults to the in-page anchor for the roles list.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "/careers/#roles"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content"
+                }
+            ]
+        ],
+        "menu_order": 4,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Editable content for the Careers page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
+    }
+]

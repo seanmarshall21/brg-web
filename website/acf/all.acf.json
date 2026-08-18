@@ -1,16 +1,32 @@
 [
   {
-    "key": "group_brg_home_hero",
-    "title": "Home — hero — Content",
+    "key": "group_brg_page_home",
+    "title": "Home — Content",
     "fields": [
       {
-        "key": "field_brg_home_hero_msg",
+        "key": "field_brg_page_home_msg",
         "label": "",
         "name": "",
         "type": "message",
-        "message": "<strong>Home — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Home</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_tab_home_hero",
+        "label": "Hero",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -48,572 +64,15 @@
           "id": ""
         },
         "default_value": "Good food. Real people. Rad experience."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 0,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the home-hero section. Generated — do not hand-edit; edit sections/home-hero/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_our_restaurants_hero",
-    "title": "Our Restaurants — hero — Content",
-    "fields": [
+      },
       {
-        "key": "field_brg_our_restaurants_hero_msg",
-        "label": "",
+        "key": "field_brg_tab_home_community",
+        "label": "Born in San Diego",
         "name": "",
-        "type": "message",
-        "message": "<strong>Our Restaurants — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-our-restaurants-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        }
-      },
-      {
-        "key": "field_brg_our_restaurants_hero_heading",
-        "label": "Headline",
-        "name": "brg_our_restaurants_hero_heading",
-        "type": "text",
-        "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Two brands. One standard. Zero compromises."
-      },
-      {
-        "key": "field_brg_our_restaurants_hero_sub",
-        "label": "Sub copy",
-        "name": "brg_our_restaurants_hero_sub",
-        "type": "textarea",
-        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 1,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the our-restaurants-hero section. Generated — do not hand-edit; edit sections/our-restaurants-hero/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_team_hero",
-    "title": "Team — hero — Content",
-    "fields": [
-      {
-        "key": "field_brg_team_hero_msg",
-        "label": "",
-        "name": "",
-        "type": "message",
-        "message": "<strong>Team — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-team-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        }
-      },
-      {
-        "key": "field_brg_team_hero_heading",
-        "label": "Headline",
-        "name": "brg_team_hero_heading",
-        "type": "text",
-        "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line. This one is far under the budget, so it has the most room of the four.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Meet the crew"
-      },
-      {
-        "key": "field_brg_team_hero_sub_1",
-        "label": "Sub copy — before the pink word",
-        "name": "brg_team_hero_sub_1",
-        "type": "textarea",
-        "instructions": "Opening clause. The space before the pink word is in the markup, so no trailing space here.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "We're operators, leaders, community builders — and yes, we all have strong opinions about"
-      },
-      {
-        "key": "field_brg_team_hero_sub_highlight",
-        "label": "Sub copy — the pink word",
-        "name": "brg_team_hero_sub_highlight",
-        "type": "text",
-        "instructions": "Rendered in brand pink, mid-sentence. One word or a very short phrase.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "sandwiches"
-      },
-      {
-        "key": "field_brg_team_hero_sub_2",
-        "label": "Sub copy — after the pink word",
-        "name": "brg_team_hero_sub_2",
-        "type": "textarea",
-        "instructions": "The rest of the sentence. Starts immediately after the pink word with no space, so begin with the punctuation.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": ". This is the team behind the brands."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 2,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the team-hero section. Generated — do not hand-edit; edit sections/team-hero/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_community_hero",
-    "title": "Community — hero — Content",
-    "fields": [
-      {
-        "key": "field_brg_community_hero_msg",
-        "label": "",
-        "name": "",
-        "type": "message",
-        "message": "<strong>Community — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        }
-      },
-      {
-        "key": "field_brg_community_hero_heading",
-        "label": "Headline",
-        "name": "brg_community_hero_heading",
-        "type": "text",
-        "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Great food, great people, epic communities."
-      },
-      {
-        "key": "field_brg_community_hero_sub",
-        "label": "Sub copy",
-        "name": "brg_community_hero_sub",
-        "type": "textarea",
-        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>—</code> as a literal em dash.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 3,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the community-hero section. Generated — do not hand-edit; edit sections/community-hero/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_careers_hero",
-    "title": "Careers — hero — Content",
-    "fields": [
-      {
-        "key": "field_brg_careers_hero_msg",
-        "label": "",
-        "name": "",
-        "type": "message",
-        "message": "<strong>Careers — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-careers-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        }
-      },
-      {
-        "key": "field_brg_careers_hero_heading",
-        "label": "Headline",
-        "name": "brg_careers_hero_heading",
-        "type": "text",
-        "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line. NOTE this headline STARTS a line closer to the ceiling than the other three — it is already 4 lines at its current 42 characters, so it has roughly one line of headroom rather than two.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Come work somewhere you actually want to be"
-      },
-      {
-        "key": "field_brg_careers_hero_sub_1",
-        "label": "Sub copy — before the highlight",
-        "name": "brg_careers_hero_sub_1",
-        "type": "textarea",
-        "instructions": "Everything up to and including the em dash. The space before the highlight is in the markup, so no trailing space here.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —"
-      },
-      {
-        "key": "field_brg_careers_hero_sub_highlight",
-        "label": "Sub copy — highlighted phrase",
-        "name": "brg_careers_hero_sub_highlight",
-        "type": "text",
-        "instructions": "Sits in the yellow marker block that closes the sentence. Short — it is a highlight, not a clause.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "let's talk."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 4,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the careers-hero section. Generated — do not hand-edit; edit sections/careers-hero/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_careers_apply",
-    "title": "Careers — what it's like — Content",
-    "fields": [
-      {
-        "key": "field_brg_careers_apply_msg",
-        "label": "",
-        "name": "",
-        "type": "message",
-        "message": "<strong>Careers — what it's like — Content</strong>\nSource: <code>brg-web/website/acf/brg-careers-apply.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        }
-      },
-      {
-        "key": "field_brg_careers_apply_body_1",
-        "label": "Body copy — first paragraph",
-        "name": "brg_careers_apply_body_1",
-        "type": "textarea",
-        "instructions": "Left column, opening paragraph. Plain text; markup is escaped. Write an em dash as a literal —, not &mdash;.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "This isn't your average restaurant gig. At BRG, we invest in our people — with real training, real growth paths, and a culture that actually lives up to the hype."
-      },
-      {
-        "key": "field_brg_careers_apply_body_2",
-        "label": "Body copy — second paragraph",
-        "name": "brg_careers_apply_body_2",
-        "type": "textarea",
-        "instructions": "Left column, second paragraph. The two paragraphs are separate fields because the two-paragraph break is layout, not content.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around."
-      },
-      {
-        "key": "field_brg_careers_apply_offers_heading",
-        "label": "Right column heading",
-        "name": "brg_careers_apply_offers_heading",
-        "type": "text",
-        "instructions": "Sits above the asterisk-bulleted list. Short — it renders in the display face at up to 2.2rem, so ~14 characters keeps it on one line. The list items themselves are not editable; they are code.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "We offer:"
-      },
-      {
-        "key": "field_brg_careers_apply_cta_label",
-        "label": "Button label",
-        "name": "brg_careers_apply_cta_label",
-        "type": "text",
-        "instructions": "Black-bordered button at the foot of the section. ~18 characters.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Apply Today"
-      },
-      {
-        "key": "field_brg_careers_apply_cta_href",
-        "label": "Button link",
-        "name": "brg_careers_apply_cta_href",
-        "type": "text",
-        "instructions": "Defaults to the in-page anchor for the open-positions section below. A full URL works too.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "#open-positions"
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 5,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the careers-apply section. Generated — do not hand-edit; edit sections/careers-apply/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_careers_positions",
-    "title": "Careers — open positions — Content",
-    "fields": [
-      {
-        "key": "field_brg_careers_positions_msg",
-        "label": "",
-        "name": "",
-        "type": "message",
-        "message": "<strong>Careers — open positions — Content</strong>\nSource: <code>brg-web/website/acf/brg-careers-positions.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        }
-      },
-      {
-        "key": "field_brg_careers_positions_heading",
-        "label": "Heading",
-        "name": "brg_careers_positions_heading",
-        "type": "text",
-        "instructions": "Display face on the yellow band, up to ~3.5rem. Wraps freely. ~30 characters keeps it to two lines.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Ready to join the crew?"
-      },
-      {
-        "key": "field_brg_careers_positions_sub",
-        "label": "Sub copy",
-        "name": "brg_careers_positions_sub",
-        "type": "textarea",
-        "instructions": "One line beneath the heading. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Browse our open roles below — from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co."
-      },
-      {
-        "key": "field_brg_careers_positions_cta_label",
-        "label": "Button label",
-        "name": "brg_careers_positions_cta_label",
-        "type": "text",
-        "instructions": "Black button on the yellow band. ~18 characters.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "Open Positions"
-      },
-      {
-        "key": "field_brg_careers_positions_cta_href",
-        "label": "Button link",
-        "name": "brg_careers_positions_cta_href",
-        "type": "text",
-        "instructions": "Defaults to the in-page anchor for the roles list.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "",
-          "id": ""
-        },
-        "default_value": "/careers/#roles"
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 6,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the careers-positions section. Generated — do not hand-edit; edit sections/careers-positions/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_home_community",
-    "title": "Home — born in San Diego — Content",
-    "fields": [
-      {
-        "key": "field_brg_home_community_msg",
-        "label": "",
-        "name": "",
-        "type": "message",
-        "message": "<strong>Home — born in San Diego — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-community.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -696,38 +155,15 @@
           "id": ""
         },
         "default_value": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 7,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the home-community section. Generated — do not hand-edit; edit sections/home-community/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_home_about",
-    "title": "Home — what we're about — Content",
-    "fields": [
+      },
       {
-        "key": "field_brg_home_about_msg",
-        "label": "",
+        "key": "field_brg_tab_home_about",
+        "label": "What we're about",
         "name": "",
-        "type": "message",
-        "message": "<strong>Home — what we're about — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-about.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -810,38 +246,15 @@
           "id": ""
         },
         "default_value": "To amp up our communities by creating real connections and rad experiences."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 8,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the home-about section. Generated — do not hand-edit; edit sections/home-about/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_home_different",
-    "title": "Home — a different kind of restaurant company — Content",
-    "fields": [
+      },
       {
-        "key": "field_brg_home_different_msg",
-        "label": "",
+        "key": "field_brg_tab_home_different",
+        "label": "A different kind of restaurant company",
         "name": "",
-        "type": "message",
-        "message": "<strong>Home — a different kind of restaurant company — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-different.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -894,38 +307,15 @@
           "id": ""
         },
         "default_value": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 9,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the home-different section. Generated — do not hand-edit; edit sections/home-different/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_home_values",
-    "title": "Home — core values — Content",
-    "fields": [
+      },
       {
-        "key": "field_brg_home_values_msg",
-        "label": "",
+        "key": "field_brg_tab_home_values",
+        "label": "Core values",
         "name": "",
-        "type": "message",
-        "message": "<strong>Home — core values — Content</strong>\nSource: <code>brg-web/website/acf/brg-home-values.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -959,27 +349,89 @@
         }
       ]
     ],
-    "menu_order": 10,
+    "menu_order": 0,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Editable content for the home-values section. Generated — do not hand-edit; edit sections/home-values/slots.json + rerun kit/build-acf.py."
+    "description": "Editable content for the Home page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
   },
   {
-    "key": "group_brg_our_restaurants_brands",
-    "title": "Our Restaurants — brands — Content",
+    "key": "group_brg_page_our_restaurants",
+    "title": "Our Restaurants — Content",
     "fields": [
       {
-        "key": "field_brg_our_restaurants_brands_msg",
+        "key": "field_brg_page_our_restaurants_msg",
         "label": "",
         "name": "",
         "type": "message",
-        "message": "<strong>Our Restaurants — brands — Content</strong>\nSource: <code>brg-web/website/acf/brg-our-restaurants-brands.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Our Restaurants</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_tab_our_restaurants_hero",
+        "label": "Hero",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_our_restaurants_hero_heading",
+        "label": "Headline",
+        "name": "brg_our_restaurants_hero_heading",
+        "type": "text",
+        "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Two brands. One standard. Zero compromises."
+      },
+      {
+        "key": "field_brg_our_restaurants_hero_sub",
+        "label": "Sub copy",
+        "name": "brg_our_restaurants_hero_sub",
+        "type": "textarea",
+        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for."
+      },
+      {
+        "key": "field_brg_tab_our_restaurants_brands",
+        "label": "Brands",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1148,27 +600,119 @@
         }
       ]
     ],
-    "menu_order": 11,
+    "menu_order": 1,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Editable content for the our-restaurants-brands section. Generated — do not hand-edit; edit sections/our-restaurants-brands/slots.json + rerun kit/build-acf.py."
+    "description": "Editable content for the Our Restaurants page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
   },
   {
-    "key": "group_brg_team_apply",
-    "title": "Team — join the crew — Content",
+    "key": "group_brg_page_team",
+    "title": "Team — Content",
     "fields": [
       {
-        "key": "field_brg_team_apply_msg",
+        "key": "field_brg_page_team_msg",
         "label": "",
         "name": "",
         "type": "message",
-        "message": "<strong>Team — join the crew — Content</strong>\nSource: <code>brg-web/website/acf/brg-team-apply.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Team</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_tab_team_hero",
+        "label": "Hero",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_team_hero_heading",
+        "label": "Headline",
+        "name": "brg_team_hero_heading",
+        "type": "text",
+        "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line. This one is far under the budget, so it has the most room of the four.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Meet the crew"
+      },
+      {
+        "key": "field_brg_team_hero_sub_1",
+        "label": "Sub copy — before the pink word",
+        "name": "brg_team_hero_sub_1",
+        "type": "textarea",
+        "instructions": "Opening clause. The space before the pink word is in the markup, so no trailing space here.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "We're operators, leaders, community builders — and yes, we all have strong opinions about"
+      },
+      {
+        "key": "field_brg_team_hero_sub_highlight",
+        "label": "Sub copy — the pink word",
+        "name": "brg_team_hero_sub_highlight",
+        "type": "text",
+        "instructions": "Rendered in brand pink, mid-sentence. One word or a very short phrase.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "sandwiches"
+      },
+      {
+        "key": "field_brg_team_hero_sub_2",
+        "label": "Sub copy — after the pink word",
+        "name": "brg_team_hero_sub_2",
+        "type": "textarea",
+        "instructions": "The rest of the sentence. Starts immediately after the pink word with no space, so begin with the punctuation.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": ". This is the team behind the brands."
+      },
+      {
+        "key": "field_brg_tab_team_apply",
+        "label": "Join the crew",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1247,27 +791,89 @@
         }
       ]
     ],
-    "menu_order": 13,
+    "menu_order": 2,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Editable content for the team-apply section. Generated — do not hand-edit; edit sections/team-apply/slots.json + rerun kit/build-acf.py."
+    "description": "Editable content for the Team page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
   },
   {
-    "key": "group_brg_community_give",
-    "title": "Community — how we give back — Content",
+    "key": "group_brg_page_community",
+    "title": "Community — Content",
     "fields": [
       {
-        "key": "field_brg_community_give_msg",
+        "key": "field_brg_page_community_msg",
         "label": "",
         "name": "",
         "type": "message",
-        "message": "<strong>Community — how we give back — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-give.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Community</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_tab_community_hero",
+        "label": "Hero",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_community_hero_heading",
+        "label": "Headline",
+        "name": "brg_community_hero_heading",
+        "type": "text",
+        "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Great food, great people, epic communities."
+      },
+      {
+        "key": "field_brg_community_hero_sub",
+        "label": "Sub copy",
+        "name": "brg_community_hero_sub",
+        "type": "textarea",
+        "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>—</code> as a literal em dash.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."
+      },
+      {
+        "key": "field_brg_tab_community_give",
+        "label": "How we give back",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1335,38 +941,15 @@
           "id": ""
         },
         "default_value": "How we give back"
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 14,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the community-give section. Generated — do not hand-edit; edit sections/community-give/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_community_stats",
-    "title": "Community — by the numbers — Content",
-    "fields": [
+      },
       {
-        "key": "field_brg_community_stats_msg",
-        "label": "",
+        "key": "field_brg_tab_community_stats",
+        "label": "By the numbers",
         "name": "",
-        "type": "message",
-        "message": "<strong>Community — by the numbers — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-stats.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1554,38 +1137,15 @@
           "id": ""
         },
         "default_value": "per year"
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 15,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the community-stats section. Generated — do not hand-edit; edit sections/community-stats/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_community_partner",
-    "title": "Community — partner with us — Content",
-    "fields": [
+      },
       {
-        "key": "field_brg_community_partner_msg",
-        "label": "",
+        "key": "field_brg_tab_community_partner",
+        "label": "Partner with us",
         "name": "",
-        "type": "message",
-        "message": "<strong>Community — partner with us — Content</strong>\nSource: <code>brg-web/website/acf/brg-community-partner.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1649,27 +1209,310 @@
         }
       ]
     ],
-    "menu_order": 16,
+    "menu_order": 3,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Editable content for the community-partner section. Generated — do not hand-edit; edit sections/community-partner/slots.json + rerun kit/build-acf.py."
+    "description": "Editable content for the Community page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
   },
   {
-    "key": "group_brg_contact_hero",
-    "title": "Contact — hero — Content",
+    "key": "group_brg_page_careers",
+    "title": "Careers — Content",
     "fields": [
       {
-        "key": "field_brg_contact_hero_msg",
+        "key": "field_brg_page_careers_msg",
         "label": "",
         "name": "",
         "type": "message",
-        "message": "<strong>Contact — hero — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-hero.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
+        "message": "<strong>Careers</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_tab_careers_hero",
+        "label": "Hero",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_careers_hero_heading",
+        "label": "Headline",
+        "name": "brg_careers_hero_heading",
+        "type": "text",
+        "instructions": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line. NOTE this headline STARTS a line closer to the ceiling than the other three — it is already 4 lines at its current 42 characters, so it has roughly one line of headroom rather than two.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Come work somewhere you actually want to be"
+      },
+      {
+        "key": "field_brg_careers_hero_sub_1",
+        "label": "Sub copy — before the highlight",
+        "name": "brg_careers_hero_sub_1",
+        "type": "textarea",
+        "instructions": "Everything up to and including the em dash. The space before the highlight is in the markup, so no trailing space here.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —"
+      },
+      {
+        "key": "field_brg_careers_hero_sub_highlight",
+        "label": "Sub copy — highlighted phrase",
+        "name": "brg_careers_hero_sub_highlight",
+        "type": "text",
+        "instructions": "Sits in the yellow marker block that closes the sentence. Short — it is a highlight, not a clause.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "let's talk."
+      },
+      {
+        "key": "field_brg_tab_careers_apply",
+        "label": "What it's like",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_careers_apply_body_1",
+        "label": "Body copy — first paragraph",
+        "name": "brg_careers_apply_body_1",
+        "type": "textarea",
+        "instructions": "Left column, opening paragraph. Plain text; markup is escaped. Write an em dash as a literal —, not &mdash;.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "This isn't your average restaurant gig. At BRG, we invest in our people — with real training, real growth paths, and a culture that actually lives up to the hype."
+      },
+      {
+        "key": "field_brg_careers_apply_body_2",
+        "label": "Body copy — second paragraph",
+        "name": "brg_careers_apply_body_2",
+        "type": "textarea",
+        "instructions": "Left column, second paragraph. The two paragraphs are separate fields because the two-paragraph break is layout, not content.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around."
+      },
+      {
+        "key": "field_brg_careers_apply_offers_heading",
+        "label": "Right column heading",
+        "name": "brg_careers_apply_offers_heading",
+        "type": "text",
+        "instructions": "Sits above the asterisk-bulleted list. Short — it renders in the display face at up to 2.2rem, so ~14 characters keeps it on one line. The list items themselves are not editable; they are code.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "We offer:"
+      },
+      {
+        "key": "field_brg_careers_apply_cta_label",
+        "label": "Button label",
+        "name": "brg_careers_apply_cta_label",
+        "type": "text",
+        "instructions": "Black-bordered button at the foot of the section. ~18 characters.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Apply Today"
+      },
+      {
+        "key": "field_brg_careers_apply_cta_href",
+        "label": "Button link",
+        "name": "brg_careers_apply_cta_href",
+        "type": "text",
+        "instructions": "Defaults to the in-page anchor for the open-positions section below. A full URL works too.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "#open-positions"
+      },
+      {
+        "key": "field_brg_tab_careers_positions",
+        "label": "Open positions",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_careers_positions_heading",
+        "label": "Heading",
+        "name": "brg_careers_positions_heading",
+        "type": "text",
+        "instructions": "Display face on the yellow band, up to ~3.5rem. Wraps freely. ~30 characters keeps it to two lines.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Ready to join the crew?"
+      },
+      {
+        "key": "field_brg_careers_positions_sub",
+        "label": "Sub copy",
+        "name": "brg_careers_positions_sub",
+        "type": "textarea",
+        "instructions": "One line beneath the heading. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Browse our open roles below — from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co."
+      },
+      {
+        "key": "field_brg_careers_positions_cta_label",
+        "label": "Button label",
+        "name": "brg_careers_positions_cta_label",
+        "type": "text",
+        "instructions": "Black button on the yellow band. ~18 characters.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "Open Positions"
+      },
+      {
+        "key": "field_brg_careers_positions_cta_href",
+        "label": "Button link",
+        "name": "brg_careers_positions_cta_href",
+        "type": "text",
+        "instructions": "Defaults to the in-page anchor for the roles list.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "/careers/#roles"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content"
+        }
+      ]
+    ],
+    "menu_order": 4,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the Careers page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_page_contact",
+    "title": "Contact — Content",
+    "fields": [
+      {
+        "key": "field_brg_page_contact_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "<strong>Contact</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_tab_contact_hero",
+        "label": "Hero",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1707,38 +1550,15 @@
           "id": ""
         },
         "default_value": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 18,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the contact-hero section. Generated — do not hand-edit; edit sections/contact-hero/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_contact_routes",
-    "title": "Contact — where to send it — Content",
-    "fields": [
+      },
       {
-        "key": "field_brg_contact_routes_msg",
-        "label": "",
+        "key": "field_brg_tab_contact_routes",
+        "label": "Where to send it",
         "name": "",
-        "type": "message",
-        "message": "<strong>Contact — where to send it — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-routes.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1941,38 +1761,15 @@
           "id": ""
         },
         "default_value": "Open roles across Board & Brew and Odie's."
-      }
-    ],
-    "location": [
-      [
-        {
-          "param": "options_page",
-          "operator": "==",
-          "value": "brg-section-content"
-        }
-      ]
-    ],
-    "menu_order": 19,
-    "position": "normal",
-    "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
-    "hide_on_screen": "",
-    "active": true,
-    "description": "Editable content for the contact-routes section. Generated — do not hand-edit; edit sections/contact-routes/slots.json + rerun kit/build-acf.py."
-  },
-  {
-    "key": "group_brg_contact_restaurants",
-    "title": "Contact — visit a restaurant — Content",
-    "fields": [
+      },
       {
-        "key": "field_brg_contact_restaurants_msg",
-        "label": "",
+        "key": "field_brg_tab_contact_restaurants",
+        "label": "Visit a restaurant",
         "name": "",
-        "type": "message",
-        "message": "<strong>Contact — visit a restaurant — Content</strong>\nSource: <code>brg-web/website/acf/brg-contact-restaurants.acf.json</code> (generated). Edits here fill the section's <code>{{slots}}</code> — shortcode attributes still override, and blank falls back to the built-in default.",
-        "new_lines": "wpautop",
-        "esc_html": 0,
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -2051,13 +1848,13 @@
         }
       ]
     ],
-    "menu_order": 20,
+    "menu_order": 5,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Editable content for the contact-restaurants section. Generated — do not hand-edit; edit sections/contact-restaurants/slots.json + rerun kit/build-acf.py."
+    "description": "Editable content for the Contact page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
   }
 ]
