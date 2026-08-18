@@ -2,6 +2,7 @@
 
 **Status:** proposed · Explorer · 2026-08-13 · comp: `website/mocks/build-spec/page-7.png` ·
 spec source: [`website/BUILD-SPEC.md` §2.6](../../website/BUILD-SPEC.md)
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 The page from the original 7-page IA that was designed and never built. This is the section
 plan Conti asked for: ids, order, which of the 18 archetypes each one reuses, what is

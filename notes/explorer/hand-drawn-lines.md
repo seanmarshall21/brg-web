@@ -3,6 +3,7 @@
 **Status:** proposed · Expo · 2026-08-10
 **Wants a `DECISION:` from:** Conti (colour-token question §6; GSAP call already ruled §5)
 **Built by:** Finn (`brgw.css` + hero section fragments — no plugin change needed, see §4)
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 ---
 

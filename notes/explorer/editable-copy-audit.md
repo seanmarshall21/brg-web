@@ -2,6 +2,7 @@
 
 **Status:** proposed · Explorer · 2026-08-13 · follows the `.ln` clipping fix
 (`brgw.css:162`, approved by Conti the same day)
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 Conti named the category when he approved that fix: **making something editable doesn't just add
 a feature — it promotes every latent assumption about that content into a live risk.** The `.ln`

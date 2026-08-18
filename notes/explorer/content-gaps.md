@@ -3,6 +3,7 @@
 **Status:** proposed · Explorer · 2026-08-13 · covers tasks `community-stats`,
 `real-photography`, `careers-posts-urls` — [`notes/tasks.json`](../tasks.json) ·
 `launch` is currently `blocked` on all three
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 Three gaps, one shared cause. Each of them is a **fact the site asserts that nobody is
 maintaining**: a number nobody measures, a photograph of nobody who works here, a follower count

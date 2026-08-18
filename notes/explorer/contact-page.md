@@ -3,6 +3,7 @@
 **Status:** proposed · Explorer · 2026-08-13 · **no comp exists** ·
 spec source: [`website/BUILD-SPEC.md` §2.7](../../website/BUILD-SPEC.md) — *"not yet designed.
 In the nav but no comp… Flagging as an open item."*
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 Contact is the other page from the 7-page IA, and unlike Press it was **never designed** — it
 was listed in the nav and nothing else. So this spec can't be "here's the comp, here are the

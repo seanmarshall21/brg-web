@@ -4,6 +4,7 @@
 **Study:** [`studies/pen-stroke-underline.html`](studies/pen-stroke-underline.html) — 7 sections, all verified rendering
 **Wants a `DECISION:` from:** Conti — §6 GSAP load strategy, §7 the DrawSVGPlugin file
 **Built by:** Finn (`brgw.css` + `brgw.js` + hero fragments)
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 ---
 

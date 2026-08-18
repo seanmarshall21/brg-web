@@ -3,6 +3,7 @@
 **Status:** proposed · Explorer · 2026-08-13 · commissioned by Sean via Conti ·
 source: [Osmo, `codepen.io/osmosupply/pen/qEEKRrx`](https://codepen.io/osmosupply/pen/qEEKRrx) (MIT) ·
 demo: **[Three Underlines](https://claude.ai/code/artifact/b339f004-60aa-4ead-b2ec-0493141ef97c)**
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 Sean picked the Osmo pen and set the trigger model: **nav is hover; everything else, hero
 included, fires on scroll-in — after the split-text animation.** That resolves what looked like

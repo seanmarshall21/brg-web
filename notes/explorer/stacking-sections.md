@@ -4,6 +4,7 @@
 **Written by:** Expo (Explorer) 2026-08-09 · **amended** 2026-08-10
 **Built by:** Finn (section fragments) + Conti (plugin)
 **Depends on:** nothing. Phase 1 is additive — every existing `[brg_<slug>]` keeps working byte-for-byte.
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 > **Amendment log — 2026-08-10, per `notes/controller.md`**
 > **(a)** Phases 2↔3 inverted — harvest only the 5 sections Careers needs, prove parity, *then* harvest the rest (§7).

@@ -1,6 +1,7 @@
 # SPEC-002 — Section inventory (what's already in the 5 fragments)
 
 **Status:** proposed · Explorer · 2026-08-09 · companion to [SPEC-001](stacking-sections.md)
+**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 I read all five page fragments and pulled out every distinct section block. **14 archetypes**,
 six of which already appear on 2+ pages — the reuse case for SPEC-001 isn't hypothetical, it's
