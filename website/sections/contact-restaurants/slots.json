@@ -22,6 +22,6 @@
     "type": "url",
     "label": "Button link",
     "doc": "Points at the live restaurants page.",
-    "default": "/our-restaurants/"
+    "default": "/brands/"
   }
 }

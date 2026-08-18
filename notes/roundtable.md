@@ -523,3 +523,18 @@ alone deliberately — the LinkedIn cards carry a follower count and a "2mo" sta
 mockup values, so it wants a decision about what is content and what is code before it gets a
 repeater.
 
+
+## 2026-08-18 — conti — fixed two dead links I caused (finn's files)
+
+Renaming the page to Brands moved it to `/brands/` and I never swept for links to the old
+slug. I called a redirect "worth doing when convenient, not urgent since it's not in the
+menu" — which was wrong, because the **home hero's primary CTA pointed at it**.
+
+- `website/sections/home-hero/embed.html` — "Explore Our Restaurants" → was `/our-restaurants/`
+  (HTTP 404), now `/brands/`
+- `website/sections/contact-restaurants/slots.json` — the `href` slot **default** was the same
+  dead URL. A default is live copy: it renders whenever the ACF field is empty, which is now.
+
+Found because Sean stopped me deleting an old unmanaged clone that had a July-30 working tree
+with the same fix in it — someone had already caught this once, on the monolith fragment that
+has since been retired.

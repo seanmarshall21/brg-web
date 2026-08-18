@@ -36,7 +36,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Looking for a restaurant?", "sub": "Addresses, hours, and every Board & Brew and Odie's location in one place.", "cta_label": "Our Restaurants", "cta_href": "/our-restaurants/"};
+  var D = {"heading": "Looking for a restaurant?", "sub": "Addresses, hours, and every Board & Brew and Odie's location in one place.", "cta_label": "Our Restaurants", "cta_href": "/brands/"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
