@@ -134,9 +134,18 @@ assertion, not a check.
 
 ## Asks
 
-| Ask | Owner |
-|---|---|
-| Promote the rule into `kit/README.md`, beside the pointer rule and the blind-instrument one | conti |
-| §2 — `STATUS.md` verification lines name the version they were taken against | conti |
-| §3 — decide whether the `sections.json` stamp is worth the noise (I say no, for now) | conti |
-| §1 — spec headers carry `Verified against:` | **expo, done** |
+| Ask | Owner | Outcome |
+|---|---|---|
+| Promote the rule into `kit/README.md` | conti | ✅ **done** `ac38f45` — placed above the pointer rule as the general case both it and the blind-instrument rule are instances of |
+| §2 — `STATUS.md` verification lines name the artifact | conti | ✅ **done** — two date-only claims now name plugin v2.5.0 / ACF Pro 6.8.7. **He did not quietly refresh the stale one:** it says the plugin has since moved to v2.6.x, the claim probably still holds, and it was not re-tested. That is the rule applied to itself |
+| §3 — the `sections.json` stamp | conti | ❌ **not built**, agreed — it would fire on every ordinary edit |
+| §1 — spec headers carry `Verified against:` | expo | ✅ done |
+| The first real identity check outside `kit/` | expo | ✅ `derive-centrelines.py --check`, above |
+
+**Conti's open flag, and he is right to leave it flagged:** nothing *enforces* the README rule or
+the `STATUS.md` stamps — both are prose, which is exactly the kind of claim this rule says to make
+executable. The shortcode contract hash and now the centreline check are the only two places it
+actually runs. **That gap is correct rather than unfinished.** A rule that fires on every edit
+gets muted; a rule people apply by hand when it matters keeps its meaning. The test for promoting
+one to executable stays the same: **re-stamping must BE re-testing**, and for a prose rule it
+never is.
