@@ -706,6 +706,105 @@
         "default_value": ". This is the team behind the brands."
       },
       {
+        "key": "field_brg_tab_team_members",
+        "label": "Crew grid",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_team_members_members",
+        "label": "Team members",
+        "name": "brg_team_members_members",
+        "type": "repeater",
+        "instructions": "One row per person, in the order they appear on the page. Drag to reorder. Until the first row is added the page keeps the nine placeholder cards it shows today.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "block",
+        "button_label": "Add member",
+        "min": 0,
+        "max": 0,
+        "collapsed": "",
+        "sub_fields": [
+          {
+            "key": "field_brg_team_members_members_photo",
+            "label": "Headshot",
+            "name": "photo",
+            "type": "image",
+            "instructions": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its colour block.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all"
+          },
+          {
+            "key": "field_brg_team_members_members_name",
+            "label": "Name",
+            "name": "name",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_team_members_members_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_team_members_members_quote",
+            "label": "Quote",
+            "name": "quote",
+            "type": "text",
+            "instructions": "Optional, shown under the card. Leave blank for none.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
         "key": "field_brg_tab_team_apply",
         "label": "Join the crew",
         "name": "",

@@ -1,0 +1,15 @@
+{
+  "_note": "Wired by conti 2026-08-18 at Sean's request — finn owns this file, see notes/roundtable.md.",
+  "members": {
+    "type": "repeater",
+    "label": "Team members",
+    "button": "Add member",
+    "doc": "One row per person, in the order they appear on the page. Drag to reorder. Until the first row is added the page keeps the nine placeholder cards it shows today.",
+    "sub": {
+      "photo": { "type": "image", "label": "Headshot", "doc": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its colour block." },
+      "name":  { "type": "text",  "label": "Name" },
+      "title": { "type": "text",  "label": "Title" },
+      "quote": { "type": "text",  "label": "Quote", "doc": "Optional, shown under the card. Leave blank for none." }
+    }
+  }
+}

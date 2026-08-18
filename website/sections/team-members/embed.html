@@ -47,6 +47,14 @@
 .brgw-sec--team-members .d4{top:26%;right:5%;width:clamp(46px,5vw,80px);}
 .brgw-sec--team-members .d5{bottom:26%;right:22%;width:clamp(56px,6.4vw,104px);}
 @media(max-width:760px){ .brgw-sec--team-members .dood{display:none;} }
+
+.brgw-sec--team-members .grid .card{background-size:cover;background-position:center top;background-repeat:no-repeat}
+/* Colours cycle by position so nobody has to choose one per person. */
+.brgw-sec--team-members .grid figure:nth-child(5n+1) .card{--c:var(--teal)}
+.brgw-sec--team-members .grid figure:nth-child(5n+2) .card{--c:var(--orange)}
+.brgw-sec--team-members .grid figure:nth-child(5n+3) .card{--c:var(--yellow)}
+.brgw-sec--team-members .grid figure:nth-child(5n+4) .card{--c:var(--pink)}
+.brgw-sec--team-members .grid figure:nth-child(5n+5) .card{--c:var(--violet)}
 </style>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-smile.svg" alt="" width="150" height="145"></span>
 
@@ -60,7 +68,10 @@
   <span class="dood d5" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg" alt="" width="265" height="192"></span>
 
   <div class="grid">
-    <figure class="anim-up"><div class="card" style="--c:var(--teal)"><span class="bar"><span class="nm blanco">Craig Applegate</span><span class="ti">CEO</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <!--brg:repeat members-->
+      <figure class="anim-up"><div class="card" style="background-image:url({{members.photo}})"><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span></div><figcaption>{{members.quote}}</figcaption></figure>
+    <!--brg:empty-->
+      <figure class="anim-up"><div class="card" style="--c:var(--teal)"><span class="bar"><span class="nm blanco">Craig Applegate</span><span class="ti">CEO</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:var(--orange)"><span class="bar"><span class="nm blanco">Clayton Wheeler</span><span class="ti">CEO</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:#2BB3E3"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:#6C2BB8"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
@@ -69,5 +80,6 @@
     <figure class="anim-up"><div class="card" style="--c:#F4736B"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:#22B34B"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:#E02020"><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span></div><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <!--/brg:repeat-->
   </div>
 </section>
