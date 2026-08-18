@@ -299,10 +299,25 @@ matters: my first version of this ask proposed preserving *every* word as an ele
 have traded typography site-wide for a decoration. **The narrower change carries almost none of
 that risk**, and it only exists at all on headings that actually use the delimiter.
 
-Finn owns `brgw.js` and has the final call on whether even that is worth it. **"Not worth the
-risk" remains a real answer** — the fallback is last-line-only, which is today's behaviour, and
-the only thing lost is expressing *"Built **for community**"* with the mark mid-line. That would
-be a deliberate limit, and should be recorded as one rather than left looking like an oversight.
+**Ordering — corrected 2026-08-18 on Sean's instruction, because I had it backwards.** I put
+Finn's engine analysis in front of the decision. Sean: *"This is just to see if it's even
+plausible or possible. Let's just get it in there so we can pick the right one, and then we can
+have Finn analyze and make the decision if needed."*
+
+So: **pick the mechanism first, analyse the engine after — and only if the pick needs it.** The
+lab implements the delimiter client-side against a text string, which is enough to judge whether
+the *behaviour* is right. Whether a marked word can survive `splitByWords` is a question about
+**one** of the possible answers, and asking it before the answer is chosen is work that may never
+be needed.
+
+`brgw.js` is Finn's and the call stays his **when it arrives**. **"Not worth the risk" remains a
+real answer** — the fallback is last-line-only, which is today's behaviour, and the only thing
+lost is expressing *"Built **for community**"* with the mark mid-line. That would be a deliberate
+limit and should be recorded as one rather than left looking like an oversight.
+
+**What the lab does and does not de-risk**, stated so a working demo is not read as a clearance:
+it proves the **parse** and the **word selection**. It does not touch the split engine. A green
+lab means the convention is judgeable, not that `brgw.js` is safe to change.
 
 ### Why Sean wanted it
 
