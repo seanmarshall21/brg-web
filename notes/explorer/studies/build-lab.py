@@ -102,6 +102,8 @@ def build():
         ('function noteBox',       'the group / overall note boxes'),
         ("free('OVERALL'",         'the Overall block in the summary'),
         ('src="lab-sync.js"',      'the cross-device sync tag'),
+        ('function parseMark',     'the asterisk delimiter parser'),
+        ('function sectionPanel',  'the per-section variable panel'),
     ):
         assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"
     n = kit.count('<button class="yes">')
