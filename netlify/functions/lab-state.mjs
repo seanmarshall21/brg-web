@@ -38,7 +38,12 @@ export default async (req) => {
   const key = req.headers.get('x-lab-key') || '';
   if (key.length < MIN_KEY) return json(400, { error: `sync key must be at least ${MIN_KEY} characters` });
 
-  const store = getStore('brg-lab');
+  // STRONG consistency, not the default. Netlify Blobs reads are eventually consistent
+  // unless asked otherwise, and the very first round-trip proved it: PUT returned
+  // {"ok":true,"savedAt":...} and the GET a second later returned state:null. The write
+  // had happened; the read had not caught up. A sync tool whose read can miss its own
+  // write is worse than no sync — it looks like the notes were eaten.
+  const store = getStore({ name: 'brg-lab', consistency: 'strong' });
   const name = await blobName(key);
 
   if (req.method === 'GET') {
