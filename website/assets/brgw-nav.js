@@ -31,11 +31,17 @@
      Source sha 118e42fb7e63; regenerate with
      notes/explorer/studies/derive-centrelines.py if the artwork is re-exported.
 
-     vector-effect keeps the stroke an even weight: preserveAspectRatio="none" stretches
-     the box to each menu item's width, which would otherwise thin the line on long items
-     and fatten it on short ones. */
+     NO vector-effect="non-scaling-stroke" here, and that is deliberate rather than an
+     omission. It looks like the right tool — it holds the stroke weight even while the box
+     stretches to each item's width — but it moves DASH lengths into screen space, which
+     defeats pathLength="1". The reveal is a dash animation: pathLength normalises the path
+     to 1 so `stroke-dasharray:1` is one dash covering the whole line. In screen space that
+     becomes a 1-PIXEL dash with 1-pixel gaps, and the underline renders as fragments that
+     shift by a pixel instead of drawing. Sean saw it immediately: "it goes off the path,
+     and then restarts". Weight consistency is not worth losing the animation the mark
+     exists for. */
   var ULINE = '<svg class="bnav-uline" viewBox="0 0 68 7" preserveAspectRatio="none" aria-hidden="true">'
-            + '<path pathLength="1" vector-effect="non-scaling-stroke" d="M0.4 3.7C0.5 3.7 0.9 3.7 1.1 3.7C1.4 3.7 1.6 3.7 1.9 3.7C2.1 3.7 2.1 3.7 2.6 3.6C3.1 3.6 4.0 3.5 4.9 3.5C5.8 3.4 7.1 3.3 7.9 3.3C8.8 3.2 9.3 3.2 10.2 3.1C11.1 3.1 12.3 3.1 13.2 3.0C14.1 3.0 14.6 2.9 15.5 2.9C16.4 2.9 17.6 2.8 18.5 2.8C19.4 2.8 20.0 2.7 20.8 2.7C21.5 2.7 22.2 2.7 23.0 2.6C23.9 2.6 25.2 2.6 26.1 2.6C26.9 2.6 27.5 2.5 28.3 2.5C29.2 2.5 30.5 2.5 31.4 2.5C32.2 2.5 32.7 2.5 33.6 2.5C34.5 2.5 35.8 2.5 36.6 2.5C37.5 2.5 38.0 2.5 38.9 2.5C39.8 2.5 41.1 2.5 41.9 2.6C42.8 2.6 43.3 2.6 44.2 2.6C45.1 2.6 46.3 2.6 47.2 2.7C48.1 2.7 48.7 2.7 49.5 2.7C50.2 2.8 50.9 2.8 51.8 2.8C52.6 2.9 53.9 2.9 54.8 3.0C55.7 3.0 56.2 3.0 57.0 3.1C57.9 3.1 59.2 3.2 60.1 3.2C60.9 3.3 61.5 3.3 62.3 3.4C63.2 3.4 64.7 3.5 65.4 3.6C66.0 3.6 65.9 3.6 66.1 3.6C66.4 3.6 66.6 3.6 66.9 3.6C67.1 3.6 67.5 3.5 67.6 3.5"/></svg>';
+            + '<path pathLength="1" d="M0.4 3.7C0.5 3.7 0.9 3.7 1.1 3.7C1.4 3.7 1.6 3.7 1.9 3.7C2.1 3.7 2.1 3.7 2.6 3.6C3.1 3.6 4.0 3.5 4.9 3.5C5.8 3.4 7.1 3.3 7.9 3.3C8.8 3.2 9.3 3.2 10.2 3.1C11.1 3.1 12.3 3.1 13.2 3.0C14.1 3.0 14.6 2.9 15.5 2.9C16.4 2.9 17.6 2.8 18.5 2.8C19.4 2.8 20.0 2.7 20.8 2.7C21.5 2.7 22.2 2.7 23.0 2.6C23.9 2.6 25.2 2.6 26.1 2.6C26.9 2.6 27.5 2.5 28.3 2.5C29.2 2.5 30.5 2.5 31.4 2.5C32.2 2.5 32.7 2.5 33.6 2.5C34.5 2.5 35.8 2.5 36.6 2.5C37.5 2.5 38.0 2.5 38.9 2.5C39.8 2.5 41.1 2.5 41.9 2.6C42.8 2.6 43.3 2.6 44.2 2.6C45.1 2.6 46.3 2.6 47.2 2.7C48.1 2.7 48.7 2.7 49.5 2.7C50.2 2.8 50.9 2.8 51.8 2.8C52.6 2.9 53.9 2.9 54.8 3.0C55.7 3.0 56.2 3.0 57.0 3.1C57.9 3.1 59.2 3.2 60.1 3.2C60.9 3.3 61.5 3.3 62.3 3.4C63.2 3.4 64.7 3.5 65.4 3.6C66.0 3.6 65.9 3.6 66.1 3.6C66.4 3.6 66.6 3.6 66.9 3.6C67.1 3.6 67.5 3.5 67.6 3.5"/></svg>';
   function tidy(u) { try { return (new URL(u, location.href).pathname.replace(/\/+$/, '') || '/'); } catch (e) { return ''; } }
 
   function enhance(nav) {
