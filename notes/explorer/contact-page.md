@@ -3,7 +3,7 @@
 **Status:** proposed · Explorer · 2026-08-13 · **no comp exists** ·
 spec source: [`website/BUILD-SPEC.md` §2.7](../../website/BUILD-SPEC.md) — *"not yet designed.
 In the nav but no comp… Flagging as an open item."*
-**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
+**Verified against:** `6d55e52` — was `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 Contact is the other page from the 7-page IA, and unlike Press it was **never designed** — it
 was listed in the nav and nothing else. So this spec can't be "here's the comp, here are the
@@ -65,6 +65,49 @@ costs no infrastructure at all.
 > that slots in as a fourth section if Sean wants it, via the WP-plugin path.**
 
 ---
+
+## 1b. RULED 2026-08-18 — paused, placeholder, and the recommendation
+
+**Sean:** *"Let's just pause on the contact form for now and put a placeholder in there. We'll
+make that decision later... check with the client about what they want to use."* Plus:
+*"What do you recommend? Ideally something that's free or one that we build ourselves."*
+
+**So Contact ships now.** Its three sections are built and in `sections.json`; the form is a
+placeholder in the page, not a blocker on it. The plugin choice goes to the client.
+
+### The recommendation: Fluent Forms (free tier), not a self-built form
+
+**Building it ourselves is the option that looks cheapest and isn't**, and the reason is not the
+form — it's everything around it:
+
+| | we build it | a form plugin |
+|---|---|---|
+| The form | easy, a day | done |
+| Spam | **ours forever** — a public POST endpoint is scraped within days | built in |
+| Deliverability | `wp_mail()` on shared hosting **silently lands in spam** | SMTP integration |
+| **Storage** | none unless we build it | **every submission in the database** |
+| GDPR / retention | ours | built in |
+
+**The decisive column is storage, not sending.** No solution makes email delivery reliable — but
+a plugin that **stores every submission** means a lost email is a recoverable enquiry rather than
+a lost customer. A self-built form that emails and stores nothing fails **invisibly**: nobody
+learns that the contact form has been dropping enquiries for a month, because the failure looks
+exactly like nobody having written.
+
+For a restaurant group where the contact page carries partnership and press enquiries, that is
+the whole risk, and it is not a risk we should own for a form that will see a handful of
+submissions a week.
+
+**Why Fluent Forms specifically:** a genuinely capable free tier (not a trial), lighter than the
+alternatives, and no admin upsell nagging. **Contact Form 7** is the other honest free answer —
+ubiquitous and un-monetised, but it stores nothing without an add-on, which loses the one column
+that matters. **WPForms Lite** is free but pushes upgrades hard in wp-admin, which the client sees.
+**Gravity** is paid and worth it if they already hold a licence — **worth asking, because agencies
+often do**, and an existing licence changes the answer.
+
+**One thing that does not change whichever is picked** (§1): the form renders **outside**
+`.brgw-shell`, so it inherits the theme's styling rather than `brgw.css`. Making it match the page
+is real CSS work that currently has no owner.
 
 ## 2. The page, top → bottom
 
