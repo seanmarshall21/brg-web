@@ -241,6 +241,7 @@ line, so you were seeing a sliver rather than the bar.</p>
 </main>
 
 <script>
+/*__LINES_START__*/
 const L = __LINES__;
 // pathLength MUST be an attribute — as CSS it is silently ignored, which left A2/A4 dead.
 // draw=true strokes the DERIVED CENTRELINE (one pen stroke) rather than the artwork's
@@ -251,6 +252,7 @@ const sv = (k,draw) => {const l=L[k];
     ? '<path pathLength="1" vector-effect="non-scaling-stroke" d="'+l.centre+'"/>'
     : '<path d="'+l.d+'"/>';
   return '<svg viewBox="'+l.vb+'" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'+path+'</svg>';};
+/*__LINES_END__*/
 
 /*__CARDS_START__*/
 const CARDS=[
