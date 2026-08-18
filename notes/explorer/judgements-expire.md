@@ -164,6 +164,41 @@ Conti's was a **write** tool treating blindness as emptiness and shipping `[]`. 
 This is what `derive-centrelines.py` now enforces on itself — refuse to run rather than return
 an empty derivation.
 
+### The instrument's own state belongs in the same reading
+
+Conti, verifying the lab live, got a headline that was invisible and `brgw.js` splitting it into
+**8 word-lines instead of 3** — the exact signature of a real layout bug. He was one message from
+reporting it. The cause was **`innerWidth: 0` in the browser pane.** `brgw.js` groups words into
+lines by measuring their positions, so a zero-width viewport wraps every word: a *correct*
+response to a broken measurement. Every DOM number he had collected was real, and every
+conclusion drawn from them was wrong.
+
+What saved it: **`innerWidth` was in the same object as the numbers he was about to report.**
+
+> **When you collect a measurement, collect the instrument's own state alongside it** — in the
+> same read, not as a separate check you might skip. A reading that cannot be sanity-checked
+> against the conditions it was taken under is not evidence.
+
+The tell was an **impossible combination**: a heading with a computed width of `0` that also
+contained text. That is the same shape as `derive-centrelines.py --check` reporting *"source SVG
+is gone"* about data it had itself destroyed — internally consistent, externally absurd. **Look
+for the pair that cannot both be true**; a single suspicious number rarely announces itself.
+
+Smaller, same family: **the browser pane returns a stale frame on the first screenshot after a
+navigate.** His first screenshots of two cards showed an empty page while the DOM was fully
+correct. If you screenshot to verify, take two — the first is a claim about the previous page.
+
+### Externalising a value can surface a bug that hiding it concealed
+
+Worth recording as an argument for the single-source work beyond tidiness. Moving `sv` into a
+shared file **made a latent call-site bug visible**: `lab-full.html` was calling `sv(k)` with one
+argument, so even with correct artwork every draw variant would have rendered the outline. While
+`sv` had one parameter in each copy, the mismatch could not be seen — the copies agreed with
+their own callers and disagreed with each other.
+
+> **Duplication doesn't just risk drift; it hides interface mismatches, because each copy is
+> locally consistent.** Collapsing to one home is a correctness change, not only a maintenance one.
+
 ### And the one with no mechanical fix
 
 I inferred a hook's behaviour from its header comment — remedy: *open the file*. Conti inferred
