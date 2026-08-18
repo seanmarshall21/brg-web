@@ -200,7 +200,12 @@ it; it was never read, because the step name answered the question. It now reads
 version from the repo copy, compares, and exits 1 on a mismatch or a missing constant — proven
 against a fixture pinned to 2.5.0, where the old line exits 0 and the new one exits 1. **When you
 find one of these, check its name first: the more precisely a step claims to verify something,
-the less anyone looks inside it.**
+the less anyone looks inside it.** It now checks **both** mu-plugin files, and checks
+each one twice: the declared version, and a sha256 of the bytes. The version is hand-maintained,
+so it only catches a stale deploy when someone remembered to bump it; the hash catches an edit
+shipped without a bump, and satisfies the test above outright — there is nothing to refresh,
+because re-deriving it *is* re-reading the file. Proven against three fixtures, including the one
+the version check cannot see: same version on both sides, different bytes.
 
 **A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
 number, a field name, a commit — each asserts *where something lives*, and that moves while the

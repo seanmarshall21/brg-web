@@ -48,36 +48,80 @@ jobs:
       # passed whatever it found. Named "Confirm the deployed version matches the repo",
       # it never compared anything: a stale server would have shown its old number in a
       # green run. It read as a check for months. A checker that cannot fail is a display.
-      - name: Read the version this commit expects
+      # BOTH files are checked. brg-acf.php was scp'd and never verified at all, which is
+      # the worse half to leave blind: it is the loader that fetches the ACF field groups
+      # from Netlify, so a stale copy means the editor's fields quietly stop matching the
+      # generated definitions. Its version lives in the plugin header rather than a
+      # constant, so the extraction differs — the comparison does not.
+      - name: Read the versions this commit expects
         id: want
         run: |
           set -euo pipefail
-          v=$(sed -n "s/.*VCC_VERSION', '\([^']*\)'.*/\1/p" \
-                website/wp-mu-plugin/vc-clients-embed.php | head -1)
-          [ -n "$v" ] || { echo "::error::no VCC_VERSION in the repo copy — the constant moved"; exit 1; }
-          echo "v=$v" >> "$GITHUB_OUTPUT"
-          echo "repo expects $v"
+          cd website/wp-mu-plugin
+          embed=$(sed -n "s/.*VCC_VERSION', '\([^']*\)'.*/\1/p" vc-clients-embed.php | head -1)
+          acf=$(sed -n 's/^ \* Version: *//p' brg-acf.php | head -1)
+          [ -n "$embed" ] || { echo "::error::no VCC_VERSION in the repo's vc-clients-embed.php"; exit 1; }
+          [ -n "$acf" ]   || { echo "::error::no Version: header in the repo's brg-acf.php"; exit 1; }
+          echo "embed=$embed" >> "$GITHUB_OUTPUT"
+          echo "acf=$acf"     >> "$GITHUB_OUTPUT"
+          echo "repo expects vc-clients-embed $embed / brg-acf $acf"
+          # A version is hand-maintained, so it only catches a stale deploy when someone
+          # remembered to bump it. The file hash catches one either way and cannot be
+          # forgotten — nothing to bump, and re-deriving it IS re-reading the file.
+          echo "sha_embed=$(sha256sum vc-clients-embed.php | cut -c1-16)" >> "$GITHUB_OUTPUT"
+          echo "sha_acf=$(sha256sum brg-acf.php | cut -c1-16)"            >> "$GITHUB_OUTPUT"
 
-      - name: Confirm the deployed version matches the repo
+      - name: Confirm the deployed versions match the repo
         uses: appleboy/ssh-action@v1.0.3
         env:
-          WANT: ${{ steps.want.outputs.v }}
+          WANT_EMBED: ${{ steps.want.outputs.embed }}
+          WANT_ACF: ${{ steps.want.outputs.acf }}
+          SHA_EMBED: ${{ steps.want.outputs.sha_embed }}
+          SHA_ACF: ${{ steps.want.outputs.sha_acf }}
         with:
           host: ${{ secrets.WP_SSH_HOST }}
           username: ${{ secrets.WP_SSH_USER }}
           password: ${{ secrets.WP_SSH_PASSWORD }}
-          envs: WANT
+          envs: WANT_EMBED,WANT_ACF,SHA_EMBED,SHA_ACF
           script: |
             cd "${{ secrets.WP_MU_PLUGINS_PATH }}"
             ls -l vc-clients-embed.php brg-acf.php
-            got=$(sed -n "s/.*VCC_VERSION', '\([^']*\)'.*/\1/p" vc-clients-embed.php | head -1)
-            echo "server has '$got', repo expects '$WANT'"
-            if [ -z "$got" ]; then
-              echo "::error::no VCC_VERSION on the server — the file is missing or truncated"
-              exit 1
+            bad=0
+            compare() {   # $1 label  $2 what the server has  $3 what the repo expects
+              echo "$1: server '$2', repo '$3'"
+              if [ -z "$2" ]; then
+                echo "::error::$1 has no version on the server — file missing or truncated"
+                bad=1
+              elif [ "$2" != "$3" ]; then
+                echo "::error::$1 deployed '$2' does not match the repo's '$3'"
+                bad=1
+              fi
+            }
+            compare vc-clients-embed.php \
+              "$(sed -n "s/.*VCC_VERSION', '\([^']*\)'.*/\1/p" vc-clients-embed.php | head -1)" \
+              "$WANT_EMBED"
+            compare brg-acf.php \
+              "$(sed -n 's/^ \* Version: *//p' brg-acf.php | head -1)" \
+              "$WANT_ACF"
+
+            # The hash is the check that survives a forgotten version bump. If the host has
+            # neither tool we say so rather than passing quietly — an absent checker that
+            # prints nothing is exactly the failure this whole step was rewritten for.
+            # A function, not a command held in a variable: "$H file" relies on the shell
+            # word-splitting an unquoted expansion, which bash does and zsh does not. The
+            # host's shell is not ours to assume, and the failure would be a spurious red.
+            if command -v sha256sum >/dev/null 2>&1; then
+              digest() { sha256sum "$1" | cut -c1-16; }; have_hash=1
+            elif command -v shasum >/dev/null 2>&1; then
+              digest() { shasum -a 256 "$1" | cut -c1-16; }; have_hash=1
+            else
+              have_hash=0
+              echo "::warning::no sha256sum/shasum on the host — byte check skipped, versions only"
             fi
-            if [ "$got" != "$WANT" ]; then
-              echo "::error::deployed VCC_VERSION '$got' does not match the repo's '$WANT'"
-              exit 1
+            if [ "$have_hash" -eq 1 ]; then
+              compare "vc-clients-embed.php bytes" "$(digest vc-clients-embed.php)" "$SHA_EMBED"
+              compare "brg-acf.php bytes"          "$(digest brg-acf.php)"          "$SHA_ACF"
             fi
-            echo "match"
+
+            [ "$bad" -eq 0 ] || exit 1
+            echo "both files match, by version and by bytes"
