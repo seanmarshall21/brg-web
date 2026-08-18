@@ -105,7 +105,7 @@ color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
 
 /* ── the underline mechanisms ── */
 .u{position:relative;display:inline-block}
-.u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
+.u .box{position:absolute;left:0;right:0;top:100%;margin-top:calc(-.10em + var(--marky,0px));height:.26em;
 pointer-events:none;color:var(--strokec,currentColor)}
 /* standalone (not wrapping text): needs its own box, or it collapses to zero width */
 .u.blk{position:absolute;height:.34em;font-size:inherit;left:0;width:min(62%,340px)}
@@ -134,7 +134,7 @@ stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.7
 @keyframes salStroke{0%{stroke-dashoffset:1;opacity:0}1%{opacity:1}100%{stroke-dashoffset:0}}
 .u.sal .box{left:0;right:auto;width:100%;height:30%;top:auto;bottom:-20%;margin-top:0}
 .u.sal.sq2 .box{height:50%;bottom:-45%}
-.u.sal .box path{fill:none;stroke:currentColor;stroke-width:var(--salw,.17em);stroke-linecap:round;
+.u.sal .box path{fill:none;stroke:currentColor;stroke-width:var(--salw,.22em);stroke-linecap:round;
   stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
 .u.sal.on .box path{opacity:1;
   animation:salStroke var(--saldur,1.8s) var(--salease,cubic-bezier(.22,.61,.36,1)) forwards}
@@ -150,6 +150,11 @@ stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.7
 .mk.sal.on{background-size:100% 80%}
 .mk.sal::before{display:none}
 .mk.sal .t{opacity:1;transform:none;transition:none}
+/* .withtext — Salient's wipe, our text animation. The combination neither side had. */
+.mk.sal.withtext .t{opacity:0;transform:translateY(24%);
+transition:opacity calc(var(--dur,.72s)*.55) var(--ease,cubic-bezier(.22,.61,.36,1)),
+           transform var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
+.mk.sal.withtext.on .t{opacity:1;transform:translateY(0)}
 
 /* highlight box */
 .mk{position:relative;display:inline-block;padding:.03em .22em;color:#231F20;isolation:isolate}
@@ -545,7 +550,7 @@ function secDefaults(g){
     if(u){ const inner=u.textContent; u.replaceWith('*'+inner+'*'); }
     txt=d.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
   }
-  return {text:txt,color:'',speed:'',ease:'',tcolor:''};
+  return {text:txt,color:'',speed:'',ease:'',tcolor:'',yn:''};
 }
 
 function applySection(g){
@@ -556,6 +561,15 @@ function applySection(g){
     if(head && mark && v.text){
       const plan=markPlan(v.text);
       const isMk=mark.classList.contains('mk');
+      // A .blk bar is an EMPTY SIBLING of the headline, not a wrapper around words — it
+      // measures the last line rather than containing anything. Treating it like the inline
+      // marks put the headline text INSIDE an absolutely-positioned bar and left the real bar
+      // empty, which is why section B rendered nothing at all after Apply.
+      if(mark.classList.contains('blk')){
+        head.textContent = parseMark(v.text).before || v.text;   // asterisks are not meaningful
+        delete head.dataset.done;                                // here: the bar takes the last line
+        play(card,c); return;
+      }
       head.textContent='';
       if(isMk && !plan.style){                  // a highlight with no chosen span has no
         head.append(plan.mark);                 // sensible default — show plain text
@@ -577,6 +591,7 @@ function applySection(g){
     if(v.color)  card.querySelectorAll('.u').forEach(u=>u.style.setProperty('--strokec','var('+v.color+')'));
     if(v.color)  card.querySelectorAll('.mk').forEach(m=>m.style.setProperty('--mkc','var('+v.color+')'));
     if(v.tcolor) card.querySelectorAll('.mk').forEach(m=>m.style.color=v.tcolor);
+    if(v.yn!=='' && v.yn!==undefined) card.style.setProperty('--marky',v.yn+'px');
     if(v.speed)  card.style.setProperty('--dur',v.speed+'ms'),card.style.setProperty('--saldur',v.speed+'ms');
     if(v.ease)   card.style.setProperty('--ease',v.ease),card.style.setProperty('--salease',v.ease);
     play(card,c);
@@ -599,6 +614,7 @@ function sectionPanel(g){
        '<option value="--yellow">yellow</option><option value="--pink">pink</option>'+
        '<option value="--orange">orange</option><option value="--violet">violet</option></select></label>'+
      '<label>Speed <input type="number" class="sp" min="200" max="4000" step="50" placeholder="ms"></label>'+
+     '<label>Y nudge <input type="number" class="yn" min="-40" max="40" step="1" placeholder="px"></label>'+
      '<label>Easing <select class="ea">'+
        '<option value="">card default</option>'+
        '<option value="cubic-bezier(.22,.61,.36,1)">ease-out</option>'+
@@ -611,9 +627,9 @@ function sectionPanel(g){
    '</div>';
   grid.before(box);
   const $=s=>box.querySelector(s);
-  $('.tx').value=v.text; $('.co').value=v.color; $('.sp').value=v.speed; $('.ea').value=v.ease; $('.tc').value=v.tcolor;
+  $('.tx').value=v.text; $('.co').value=v.color; $('.sp').value=v.speed; $('.ea').value=v.ease; $('.tc').value=v.tcolor; $('.yn').value=v.yn||'';
   const pull=()=>{ v.text=$('.tx').value; v.color=$('.co').value; v.speed=$('.sp').value;
-                   v.ease=$('.ea').value; v.tcolor=$('.tc').value; };
+                   v.ease=$('.ea').value; v.tcolor=$('.tc').value; v.yn=$('.yn').value; };
   $('.apply').onclick=()=>{ pull(); applySection(g); };
   $('.tx').addEventListener('keydown',e=>{ if(e.key==='Enter'){ pull(); applySection(g); } });
   $('.rst').onclick=()=>{ SECV[g]=secDefaults(g); box.remove(); sectionPanel(g);

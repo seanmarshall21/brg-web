@@ -31,7 +31,7 @@ const CARDS=[
 
  {g:'gB',id:'S-B1',rev:1,salient:true,t:'SALIENT — fires only when FULLY on screen',
   changed:'',
-  why:'STROKE THICKENED to .17em, per your note. THE ONE THAT EXPLAINS "not anytime before". Salient waits for bottom-in-view — the whole element on screen — where brgw.js fires at 16% visible. This card is observed at threshold 1.0; B1 above uses our current 0.45. Scroll them both past slowly and the difference is the whole complaint. NOTE: no full-page view for this card, deliberately — lab-full.html fires on a timer and has no scroll observation, so a full view here would play identically to B1 and quietly misrepresent the one thing this card exists to show.',
+  why:'STROKE THICKENED AGAIN to .22em — you said it was still too thin. THE ONE THAT EXPLAINS "not anytime before". Salient waits for bottom-in-view — the whole element on screen — where brgw.js fires at 16% visible. This card is observed at threshold 1.0; B1 above uses our current 0.45. Scroll them both past slowly and the difference is the whole complaint. NOTE: no full-page view for this card, deliberately — lab-full.html fires on a timer and has no scroll observation, so a full view here would play identically to B1 and quietly misrepresent the one thing this card exists to show.',
   thresh:1, nofull:true,
   html:'<p class="head blanco" data-split>Come work somewhere you actually want to be</p><span class="u sal blk draw" data-k="line-careers-lg"></span>',
   split:true,delay:'whole'},
@@ -53,6 +53,10 @@ const CARDS=[
   why:'Same wipe where the mark IS the whole line, which is the case that broke C5. Yellow, as on What we\'re about.',
   html:'<p class="head blanco"><span class="mk sal tilt" style="--mkc:var(--yellow);color:#231F20"><span class="tw"><span class="t">What we\u2019re about</span></span></span></p>'},
 
+ {g:'gC',id:'S-C3',rev:1,salient:true,t:'SALIENT wipe + OUR text animation',
+  changed:'',
+  why:'YOUR FINDING, BUILT. You said ours look better because the text animates too and Salient\'s does not — and you are right, I had disabled it deliberately to stay faithful to Salient. This is the combination neither side had: Salient\'s background-size wipe, which survives a wrapped line where our scaled box does not, WITH our text rising in. If this reads as well as C1, it is the one to ship — it keeps the behaviour you approved and the mechanism that handles wrapping.',
+  html:'<p class="head blanco">Born in San Diego.<br>Built <span class="mk sal tilt withtext"><span class="tw"><span class="t">for community.</span></span></span></p>'},
  {g:'gC',id:'C5',rev:4,changed:'Actually fixed, and the cause is named on the card: my clipping mask collapsed the box height whenever the mark was the whole line, so you saw a sliver instead of a bar.',t:'Yellow banner — What we’re about',
   why:'FIXED, and here is what was wrong: the words sat in an overflow:hidden mask with negative margins, and when the mark is the ENTIRE line — as it is here, unlike C1 — those margins collapsed the box height, so the yellow bar drew as a sliver behind the middle of the text. That is why you kept seeing part of it. Mask removed; identical to C1 now.',
   html:'<p class="head blanco"><span class="mk tilt" style="--mkc:var(--yellow)"><span class="tw"><span class="t">What we’re about</span></span></span></p>'},
