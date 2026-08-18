@@ -180,6 +180,25 @@ letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:4px 0}
 .navbar.fade a .box svg{clip-path:none;opacity:0;transition:opacity .34s}
 .navbar.fade a:hover .box svg,.navbar.fade a.act .box svg{opacity:1}
 
+
+/* ── per-section variable panel ── */
+.secvars{background:var(--bg2);border:1px solid var(--line);border-radius:12px;
+padding:13px 15px;margin:0 0 16px;display:grid;gap:10px}
+.secvars .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.secvars label{font:800 .6rem var(--sans);letter-spacing:.13em;text-transform:uppercase;
+color:var(--dim);display:flex;align-items:center;gap:7px}
+.secvars input[type=text]{flex:1 1 340px;min-width:0;background:var(--bg);color:var(--ink);
+border:1px solid var(--line);border-radius:8px;padding:9px 11px;font:400 .86rem var(--sans)}
+.secvars input[type=text]:focus{outline:2px solid var(--teal);outline-offset:1px}
+.secvars select,.secvars input[type=number]{background:var(--card);color:var(--ink);
+border:1px solid var(--line);border-radius:7px;padding:7px 10px;font:600 .72rem var(--sans)}
+.secvars input[type=number]{width:82px}
+.secvars .hint{font-size:.72rem;color:var(--dim)}
+.secvars .hint b{color:var(--teal);font-family:var(--mono)}
+.secvars button{font:700 .64rem var(--sans);letter-spacing:.1em;text-transform:uppercase;
+background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;
+padding:7px 13px;cursor:pointer}
+.secvars button.apply{background:var(--yellow);color:#0f0e0d;border-color:var(--yellow)}
 .gnote{margin:14px 0 4px;background:var(--bg2);border:1px solid var(--line);border-radius:11px;
 padding:12px 14px;display:grid;gap:7px}
 .gnote label{font:800 .62rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
@@ -474,6 +493,98 @@ s.textContent='.ln{display:block;overflow:hidden;padding:.42em .10em .16em;margi
 '.ln-i{display:inline-block;transform:translateY(160%);transition:transform .78s cubic-bezier(.22,.61,.36,1)}'+
 '.ln-i.in{transform:translateY(0)}';
 document.head.appendChild(s);
+
+
+// ── §0.6 delimiter, implemented for real so it can be judged before brgw.js changes ──
+// *marked words*   \* is a literal asterisk   a lone * renders literally and marks nothing
+function parseMark(src){
+  const ESC='\u0000';
+  const t=String(src).replace(/\\\*/g,ESC);
+  const m=t.match(/\*([^*]+)\*/);
+  if(!m) return {before:t.replace(new RegExp(ESC,'g'),'*'), mark:'', after:'', ok:false};
+  const i=m.index;
+  const un=s=>s.replace(new RegExp(ESC,'g'),'*');
+  return {before:un(t.slice(0,i)), mark:un(m[1]), after:un(t.slice(i+m[0].length)), ok:true};
+}
+
+const SECV={};                                   // gA -> {text,color,speed,ease,tcolor}
+function secDefaults(g){
+  const first=CARDS.find(c=>c.g===g);
+  const m=first && first.html.match(/<p class="head[^>]*>([\s\S]*?)<\/p>/);
+  let txt='';
+  if(m){ const d=document.createElement('div'); d.innerHTML=m[1];
+    const u=d.querySelector('.u,.mk');
+    if(u){ const inner=u.textContent; u.replaceWith('*'+inner+'*'); }
+    txt=d.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+  }
+  return {text:txt,color:'',speed:'',ease:'',tcolor:''};
+}
+
+function applySection(g){
+  const v=SECV[g]; const grid=document.getElementById(g); if(!grid) return;
+  CARDS.filter(c=>c.g===g).forEach(c=>{
+    const card=document.getElementById('card-'+c.id); if(!card) return;
+    const head=card.querySelector('.head'); const mark=card.querySelector('.u,.mk');
+    if(head && mark && v.text){
+      const p=parseMark(v.text);
+      const el=mark.cloneNode(false);           // keep the card's mechanism classes + data-k
+      el.querySelectorAll && el.replaceChildren();
+      if(mark.classList.contains('mk')) el.innerHTML='<span class="tw"><span class="t"></span></span>';
+      const target = el.querySelector ? (el.querySelector('.t')||el) : el;
+      target.textContent = p.ok ? p.mark : '';
+      head.textContent='';
+      if(p.ok){ head.append(p.before); head.append(el); head.append(p.after); }
+      else    { head.append(p.before); }        // no delimiter: mark falls back to last line
+      if(!p.ok && !mark.classList.contains('blk')) head.append(el);
+      if(head.dataset) delete head.dataset.done;
+    }
+    if(v.color)  card.querySelectorAll('.u').forEach(u=>u.style.color='var('+v.color+')');
+    if(v.color)  card.querySelectorAll('.mk').forEach(m=>m.style.setProperty('--mkc','var('+v.color+')'));
+    if(v.tcolor) card.querySelectorAll('.mk').forEach(m=>m.style.color=v.tcolor);
+    if(v.speed)  card.style.setProperty('--dur',v.speed+'ms'),card.style.setProperty('--saldur',v.speed+'ms');
+    if(v.ease)   card.style.setProperty('--ease',v.ease),card.style.setProperty('--salease',v.ease);
+    play(card,c);
+  });
+}
+
+function sectionPanel(g){
+  const grid=document.getElementById(g); if(!grid) return;
+  SECV[g]=SECV[g]||secDefaults(g);
+  const v=SECV[g];
+  const box=document.createElement('div'); box.className='secvars';
+  box.innerHTML=
+   '<div class="row"><label>Headline</label><input type="text" class="tx"></div>'+
+   '<div class="hint">Wrap the words you want marked in asterisks — <b>*like this*</b>. '+
+   'No asterisks means the mark falls back to the last line, which is what every hero does today. '+
+   '<b>\\*</b> is a literal asterisk; a lone <b>*</b> marks nothing.</div>'+
+   '<div class="row">'+
+     '<label>Colour <select class="co">'+
+       '<option value="">card default</option><option value="--teal">teal</option>'+
+       '<option value="--yellow">yellow</option><option value="--pink">pink</option>'+
+       '<option value="--orange">orange</option><option value="--violet">violet</option></select></label>'+
+     '<label>Speed <input type="number" class="sp" min="200" max="4000" step="50" placeholder="ms"></label>'+
+     '<label>Easing <select class="ea">'+
+       '<option value="">card default</option>'+
+       '<option value="cubic-bezier(.22,.61,.36,1)">ease-out</option>'+
+       '<option value="cubic-bezier(.65,0,.35,1)">ease-in-out (Salient)</option>'+
+       '<option value="linear">linear</option></select></label>'+
+     '<label>Text in highlight <select class="tc">'+
+       '<option value="">card default</option><option value="#231F20">dark</option>'+
+       '<option value="#ffffff">light</option></select></label>'+
+     '<button class="apply">Apply to section</button><button class="rst">Reset</button>'+
+   '</div>';
+  grid.before(box);
+  const $=s=>box.querySelector(s);
+  $('.tx').value=v.text; $('.co').value=v.color; $('.sp').value=v.speed; $('.ea').value=v.ease; $('.tc').value=v.tcolor;
+  const pull=()=>{ v.text=$('.tx').value; v.color=$('.co').value; v.speed=$('.sp').value;
+                   v.ease=$('.ea').value; v.tcolor=$('.tc').value; };
+  $('.apply').onclick=()=>{ pull(); applySection(g); };
+  $('.tx').addEventListener('keydown',e=>{ if(e.key==='Enter'){ pull(); applySection(g); } });
+  $('.rst').onclick=()=>{ SECV[g]=secDefaults(g); box.remove(); sectionPanel(g);
+                          CARDS.filter(c=>c.g===g).forEach(c=>{ const el=document.getElementById('card-'+c.id);
+                            el.removeAttribute('style'); }); location.reload(); };
+}
+GROUPS.forEach(sectionPanel);
 
 GROUPS.forEach(g=>{
   const grid=document.getElementById(g); if(!grid) return;
