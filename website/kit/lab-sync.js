@@ -24,10 +24,18 @@
     }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); });
   }
 
-  /* Save is debounced and last-write-wins. Two devices editing the same second would
-     have one overwrite the other — acceptable for one person moving between devices,
-     and NOT acceptable if this is ever opened to a second reviewer. Say so out loud
-     rather than discovering it as lost notes. */
+  /* Save is debounced and LAST-WRITE-WINS.
+   *
+   * IF YOU ARE HERE TO ADD A SECOND REVIEWER, STOP. This is correct for one person
+   * moving between their own devices, where the two writers are the same intent a few
+   * minutes apart. Two people reviewing at once is a different feature: whoever saves
+   * second silently erases the other's verdicts, and the loss is invisible — no error,
+   * no conflict, the notes are simply not there later. No timeout or debounce fixes
+   * that. It needs a key per reviewer and a merge, and probably a combined view showing
+   * where they disagree, which is the interesting part anyway.
+   *
+   * Written here rather than left in the thread where it was agreed, because the person
+   * who adds reviewer two will read this file and will not have read that thread. */
   var timer = null, pending = false;
   function save() {
     if (!key) return;
