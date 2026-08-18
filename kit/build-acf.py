@@ -119,6 +119,32 @@ def assert_options_page_agrees():
 
 def field(section_id, slot, defn):
     name = 'brg_' + section_id.replace('-', '_') + '_' + slot
+
+    # A repeater is a list of rows, each row a set of sub-fields. The plugin reads it with
+    # get_field(name,'option') and renders the fragment's <!--brg:repeat slot--> block once
+    # per row, so sub-field NAMES are the contract — they key each row and they are what
+    # {{slot.sub}} matches. They are deliberately unprefixed: prefixing would make the
+    # token {{members.brg_team_members_photo}}, which nobody would write correctly twice.
+    if defn.get('type') == 'repeater':
+        subs = defn.get('sub') or {}
+        illegal = bad_slot_names(subs)
+        if illegal:
+            sys.exit(f"refusing to generate {section_id}.{slot}: sub-field name(s) {illegal} "
+                     f"are not [a-z0-9_]. They become ACF meta keys and template tokens.")
+        return {
+            'key': 'field_' + name, 'label': defn.get('label', slot.replace('_', ' ').title()),
+            'name': name, 'type': 'repeater',
+            'instructions': admin_html(defn.get('doc', '')), 'required': 0,
+            'conditional_logic': 0, 'wrapper': {'width': '', 'class': '', 'id': ''},
+            'layout': defn.get('layout', 'block'),
+            'button_label': defn.get('button', 'Add row'),
+            'min': 0, 'max': 0, 'collapsed': '',
+            'sub_fields': [
+                dict(field(section_id, sk, sv), key='field_' + name + '_' + sk, name=sk)
+                for sk, sv in subs.items()
+            ],
+        }
+
     t = TYPE.get(defn.get('type', 'text'), 'text')
     # Short fields pair two to a row; anything that needs room takes the whole row.
     # A label and its link side by side is how they are actually edited — the
@@ -244,6 +270,30 @@ def check():
         # underscores by convention, so any hyphenated token is orphaned by construction and
         # gets reported below. Grammar is defined in kit/README.md; four sites must agree.
         used = set(re.findall(r'\{\{([a-z0-9_-]+)\}\}', html))
+
+        # Repeaters are declared by a <!--brg:repeat name--> BLOCK, not a {{name}} token,
+        # and their contents are {{name.sub}}. Checked here and removed from the scalar sets,
+        # because checking a repeater as a scalar reports every correctly-wired one as an
+        # unwired slot — a check that cries wolf on correct work gets muted, and this is the
+        # only thing standing between a slot and a field that edits nothing.
+        for k, d in list(declared_map.items()):
+            if not (isinstance(d, dict) and d.get('type') == 'repeater'):
+                continue
+            declared.discard(k)
+            if ('<!--brg:repeat ' + k + '-->') not in html:
+                print(f"  ✗ {s['id']}: repeater '{k}' has no <!--brg:repeat {k}--> block in the "
+                      f"fragment — the ACF field would accept rows that render nowhere.")
+                bad += 1
+            elif '<!--/brg:repeat-->' not in html:
+                print(f"  ✗ {s['id']}: repeater '{k}' block is opened and never closed.")
+                bad += 1
+            for sk in (d.get('sub') or {}):
+                if ('{{' + k + '.' + sk + '}}') not in html:
+                    print(f"  ✗ {s['id']}: repeater sub-field '{k}.{sk}' has no "
+                          f"{{{{{k}.{sk}}}}} in the fragment — that column would edit nothing.")
+                    bad += 1
+        # Sub-tokens are not orphans; drop them before the leftover-token check.
+        used = {u for u in used if '.' not in u}
         for k in bad_slot_names(declared_map):
             print(f"  ✗ {s['id']}: slot name '{k}' is not [a-z0-9_] — it becomes the ACF field "
                   f"brg_{s['id'].replace('-', '_')}_{k}, and a hyphen in a meta key breaks "
