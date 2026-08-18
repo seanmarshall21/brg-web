@@ -207,6 +207,26 @@ shipped without a bump, and satisfies the test above outright — there is nothi
 because re-deriving it *is* re-reading the file. Proven against three fixtures, including the one
 the version check cannot see: same version on both sides, different bytes.
 
+**And the sharpest form: a tool that destroys its subject when its own assumption breaks.**
+`build-acf.py` did. A missing `slots.json` reaches `os.path.exists()` and returns a silent
+False, which is indistinguishable from a section declaring no slots — so a run that could not
+see `website/sections/` reported *"No sections declare slots yet"*, wrote `[]` over
+`all.acf.json`, and **exited 0**. That file is not a local artifact: `brg-acf.php` fetches it
+from Netlify, so pushing it deletes every field group in wp-admin while the site keeps
+rendering, because the plugin falls back to slot defaults. Editors lose 62 fields; visitors see
+nothing. Reproduced out of tree — 19 groups to 0, green.
+
+**`pre-push`'s regenerate-and-diff could not have caught it**, which is the part worth sitting
+with: the regeneration produces the same empty result, so the diff is clean and both trees
+agree. A guard that compares a thing to itself cannot see a fault they share.
+
+Three guards, each proven by making it fire: refuse to run when *none* of the listed sections'
+directories exist (that is blindness, not emptiness); refuse to write an empty registry over an
+existing one; refuse to *shrink* the set without `--allow-shrink`. And all computation now
+happens before any write — the old version wrote inside its loop, so a guard could only ever
+have fired after the damage. (Expo hit the same shape in `derive-centrelines.py`; the general
+statement is his: **an instrument is never in scope of what the instrument checks.**)
+
 **A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
 number, a field name, a commit — each asserts *where something lives*, and that moves while the
 fact stays true. Four instances on 2026-08-13: a patch written against `embed.html:63` before the

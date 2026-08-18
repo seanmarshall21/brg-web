@@ -163,31 +163,90 @@ def check():
     return bad
 
 
+def existing_group_ids():
+    """Section ids that already have a generated field group on disk.
+
+    This is what a shrink would destroy, so it is read BEFORE anything is written.
+    """
+    if not os.path.isdir(OUTDIR):
+        return set()
+    return {f[len('brg-'):-len('.acf.json')] for f in os.listdir(OUTDIR)
+            if f.startswith('brg-') and f.endswith('.acf.json')}
+
 def main():
     refuse_if_worktree('kit/build-acf.py')
     if '--check' in sys.argv:
         sys.exit(1 if check() else 0)
 
     data = json.load(open(SECTIONS))
-    os.makedirs(OUTDIR, exist_ok=True)
-    made = []
+    listed = [s['id'] for s in data.get('sections', [])]
+
+    # ── Can this process actually SEE its inputs? ────────────────────────────────────
+    # A missing slots.json is indistinguishable from a section that declares none:
+    # slots_for() reaches os.path.exists(), gets a silent False, and reports "no slots".
+    # So if sections.json names 18 sections and NOT ONE of their directories is on disk,
+    # the honest reading is "I cannot see the tree", never "nobody declared anything".
+    # Without this the generator's own blindness renders as a legitimate empty result.
+    secdir = os.path.join(ROOT, 'website', 'sections')
+    if listed and not any(os.path.isdir(os.path.join(secdir, i)) for i in listed):
+        sys.exit(f"refusing to run: sections.json lists {len(listed)} section(s) and none of "
+                 f"their directories exist under {secdir}.\nThat is this script failing to "
+                 f"find the tree, not the tree being empty — check ROOT and your cwd.")
+
+    # ── Compute everything BEFORE writing anything ──────────────────────────────────
+    # The old version wrote inside the loop, so a guard could only ever fire after the
+    # damage. Nothing below touches the disk until every check has passed.
+    wanted = []
     for s in data.get('sections', []):
-        if not slots_for(s)[0]:
+        slots = slots_for(s)[0]
+        if not slots:
             continue
-        illegal = bad_slot_names(slots_for(s)[0])
+        illegal = bad_slot_names(slots)
         if illegal:
             sys.exit(f"refusing to generate {s['id']}: slot name(s) {illegal} are not [a-z0-9_]; "
                      f"they would become ACF field names containing a hyphen. Run --check.")
-        out = os.path.join(OUTDIR, f"brg-{s['id']}.acf.json")
-        json.dump([group(s)], open(out, 'w'), indent=4, ensure_ascii=False)
+        wanted.append((s['id'], group(s), len(slots)))
+
+    before = existing_group_ids()
+    now = {sid for sid, _, _ in wanted}
+    lost = sorted(before - now)
+
+    # ── Refuse to write nothing over something ──────────────────────────────────────
+    # all.acf.json is not a local artifact: brg-acf.php FETCHES it from Netlify, so an
+    # empty one deletes every field group in wp-admin — and the site keeps rendering,
+    # because the plugin falls back to slot defaults. Editors lose everything; visitors
+    # see no change. Nothing downstream would report it.
+    #
+    # pre-push's regenerate-and-diff cannot catch this either: the regeneration produces
+    # the same empty result, so the diff is clean and both trees agree. That is precisely
+    # the "clean and self-consistent" failure CLAUDE.md describes.
+    if not wanted and before:
+        sys.exit(f"refusing to write an empty field registry over {len(before)} existing "
+                 f"group(s).\nEvery section came back with no slots, which is far more "
+                 f"likely to be this script than the repo.\nIf the wiring really was all "
+                 f"removed, delete website/acf/*.acf.json by hand and re-run.")
+
+    if lost and '--allow-shrink' not in sys.argv:
+        sys.exit(f"refusing to drop {len(lost)} existing field group(s): {', '.join(lost)}\n"
+                 f"Their slots.json is missing or empty. If that is deliberate, re-run with "
+                 f"--allow-shrink and delete the stale website/acf/brg-<id>.acf.json files.")
+
+    # ── Now write ───────────────────────────────────────────────────────────────────
+    os.makedirs(OUTDIR, exist_ok=True)
+    made = []
+    for sid, grp, n in wanted:
+        out = os.path.join(OUTDIR, f"brg-{sid}.acf.json")
+        json.dump([grp], open(out, 'w'), indent=4, ensure_ascii=False)
         open(out, 'a').write('\n')
-        made.append((s['id'], os.path.relpath(out, ROOT), len(slots_for(s)[0])))
+        made.append((sid, os.path.relpath(out, ROOT), n))
     # Combined file the auto-loader (brg-acf.php) fetches from Netlify and registers — so
     # field changes go live on push, no manual import.
-    all_groups = [group(s) for s in data.get('sections', []) if slots_for(s)[0]]
-    json.dump(all_groups, open(os.path.join(OUTDIR, 'all.acf.json'), 'w'), indent=2, ensure_ascii=False)
+    json.dump([g for _, g, _ in wanted],
+              open(os.path.join(OUTDIR, 'all.acf.json'), 'w'), indent=2, ensure_ascii=False)
     open(os.path.join(OUTDIR, 'all.acf.json'), 'a').write('\n')
 
+    if lost:
+        print(f"  dropped (--allow-shrink): {', '.join(lost)}")
     if not made:
         print("No sections declare slots yet — add website/sections/<id>/slots.json next to a fragment.")
     for sid, path, n in made:
