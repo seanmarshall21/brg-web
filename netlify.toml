@@ -6,6 +6,9 @@
 # natively via [brg_home], [brg_section id=…], … Edit a fragment, git push, done.
 [build]
   publish = "website"
+  # Functions live OUTSIDE the publish dir on purpose: anything under website/ is
+  # served as a static file, so a function there would be downloadable source.
+  functions = "netlify/functions"
 
 # ── Keep the raw CDN out of Google ──────────────────────────────────────────────
 # The fragments are the SAME content as the real pages on blacktoprestaurantgroup.com.

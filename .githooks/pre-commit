@@ -24,9 +24,14 @@ MAP = os.path.join(HERE, "territory.tsv")
 
 # Files that legitimately live at the repo root. Anything else staged there is
 # almost certainly scratch output — see the disclosure guard in main().
+# Root files that genuinely belong here. Everything else new at the root is refused,
+# because scratch output lands where the process ran and that is usually here.
+# Adding to this list is a deliberate act — the guard blocked package.json on first
+# commit and this line is the answer to that, not a way around it.
 ROOT_ALLOWED = {
     ".gitignore", "CLAUDE.md", "GO-LIVE.md", "HANDOFF.md", "KICKOFF.md",
     "MANIFESTO.md", "README.md", "SHORTCODES.md", "STATUS.md", "netlify.toml",
+    "package.json", "package-lock.json",   # Netlify Functions deps; nothing here ships to website/
 }
 
 

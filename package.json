@@ -1,0 +1,8 @@
+{
+  "name": "brg-web",
+  "private": true,
+  "description": "Netlify Functions deps only. The site itself is static — publish dir is website/ and nothing here is bundled into it.",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
