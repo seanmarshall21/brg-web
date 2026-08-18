@@ -523,4 +523,3 @@ alone deliberately — the LinkedIn cards carry a follower count and a "2mo" sta
 mockup values, so it wants a decision about what is content and what is code before it gets a
 repeater.
 
-<!-- probe 6db867f: docs-only commit to prove the Netlify ignore rule skips. Safe to delete. -->
