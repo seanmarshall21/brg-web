@@ -199,6 +199,27 @@ their own callers and disagreed with each other.
 > **Duplication doesn't just risk drift; it hides interface mismatches, because each copy is
 > locally consistent.** Collapsing to one home is a correctness change, not only a maintenance one.
 
+### A computed style is a declaration, not a rendering
+
+Conti, debugging the nav stroke, read `getComputedStyle(path).strokeDasharray`. It reports the
+**declared** `1px` whether or not `pathLength` is resolving it — so it says the same thing in the
+broken state and the fixed one. **The property was readable, accurate, and useless.** A screenshot
+settled it.
+
+> **A computed style tells you what the browser was told, not what it drew.** For anything whose
+> correctness depends on how a value is *interpreted* — `pathLength`, `vector-effect`, a mask, a
+> clip — the DOM cannot answer. Only the rendering can.
+
+New to the collection, and the one I would have been most likely to trust: it *looks* like
+measurement. It has the shape of ground truth — a number, read from the live element, at the
+moment in question — and it is a restatement of the input.
+
+Two more of his from the same session, both the pattern rather than the bug: a grep for
+`non-scaling-stroke` **matched the comment he had just written explaining its removal**, and a
+deploy check keyed on a marker that was **already true in the previous build**, so it passed in
+six seconds and confirmed nothing. All three share a shape: *the instrument answered a question
+adjacent to the one being asked.*
+
 ### And the one with no mechanical fix
 
 I inferred a hook's behaviour from its header comment — remedy: *open the file*. Conti inferred
