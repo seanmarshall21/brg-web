@@ -1,7 +1,7 @@
 # SPEC-010 — A judgement expires with the thing it judged
 
 **Status:** proposed · Explorer · 2026-08-17 · rule requested by Sean ·
-**Verified against:** `f8113db`, working tree clean
+**Verified against:** `ee6a5ff` — re-verified 2026-08-17 after the Conti exchange: ran `build-acf.py` against blind, healthy and partially-blind trees in an isolated copy, read `.githooks/pre-push` end to end, re-ran `derive-centrelines.py --check`. Not a refreshed date; the claims below were re-tested.
 
 ---
 
