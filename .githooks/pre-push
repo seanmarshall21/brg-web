@@ -190,7 +190,16 @@ elif [ ! -f "$DRIFT" ]; then
   say "drift" "SKIPPED — $DRIFT not found (register unchecked)"
 elif ! command -v python3 >/dev/null 2>&1; then
   say "drift" "SKIPPED (no python3)"
-elif out=$(python3 "$DRIFT" --strict 2>&1); then
+# --owner: block only on pairs this clone can actually resolve. Expo hit the flaw
+# immediately — the three copy pairs are conti-owned and structurally diverged between
+# their build and my promotion, so a global gate blocks the AUTHOR on something only the
+# PROMOTER may fix. website/kit/ is not theirs to touch. A guard that fires on work you
+# are not allowed to do gets bypassed reflexively, and then it means nothing.
+#
+# The flag is passed unconditionally: check-drift.py reads argv by membership, so an
+# unsupported --owner is ignored and behaves exactly as today. Forward-compatible, and
+# correct the moment expo adds it.
+elif out=$(python3 "$DRIFT" --strict --owner "$(git config fc.chat)" 2>&1); then
   say "drift" "OK"
 else
   say "drift" "DIVERGED"
