@@ -157,7 +157,10 @@ function applyVariant(scope){
       const w=document.createElement('span');
       w.className=m[1];                              // e.g. "u wipe" — inline, hugs the text
       if(k) w.dataset.k=k;
-      w.style.color=colour;
+      // --strokec, not color: the wrapper contains the WORDS, so setting color on it
+      // tints the headline. The real hero keeps its <h1> white and colours only the
+      // separate .brgw-uline span. Only .box consumes this (see lab-core.css).
+      w.style.setProperty('--strokec', colour);
       while(target.firstChild) w.appendChild(target.firstChild);
       target.appendChild(w);
       // sv(k, draw): the second argument selects the CENTRELINE. Omitting it renders the

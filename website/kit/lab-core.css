@@ -17,6 +17,15 @@ pointer-events:none;color:inherit}
 /* standalone (not wrapping text): needs its own box, or it collapses to zero width */
 .u.blk{display:block;width:min(78%,520px);height:.34em;margin:.06em auto 0;font-size:inherit}
 .u.blk .box{top:0;margin-top:0;height:100%}
+/* The stroke's colour must never reach the words. On the real site .brgw-uline is a
+   SEPARATE empty span carrying the colour — careers-hero sets
+   .brgw-sec--careers-hero .brgw-uline{color:var(--teal)} — and the <h1> has no colour
+   rule at all, so the headline is white and only the bar is teal.
+   In the lab the wrapper CONTAINS the words, so setting color on it to drive the stroke
+   tinted the text too. Every underlined word has rendered coloured since this page
+   existed, in screenshots I reported as correct. Route through --strokec, consumed only
+   here, so the words cannot be tinted by construction. */
+.u .box{color:var(--strokec,currentColor)}
 .u .box svg{width:100%;height:100%;display:block;overflow:visible}
 /* draw: stroked centreline, dashoffset */
 .u.draw .box path{fill:none;stroke:currentColor;stroke-width:10;stroke-linecap:round;
