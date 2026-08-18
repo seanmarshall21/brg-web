@@ -35,8 +35,15 @@ independently confirms Sean's "it should never taper" direction against his own 
 import re, json, sys, hashlib, collections
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parents[3]
-SRC  = REPO / "website/assets/media/lines"
+def _repo():
+    """Walk up for the marker rather than assuming a fixed depth. parents[3] was a claim
+    about where this file sits, and moving the file would have made it quietly wrong."""
+    for d in [Path(__file__).resolve()] + list(Path(__file__).resolve().parents):
+        if (d / "website/assets/media/lines").is_dir(): return d
+    return None
+
+REPO = _repo()
+SRC  = (REPO / "website/assets/media/lines") if REPO else None
 OUT  = Path(__file__).with_name("lines-centrelines.json")
 # Anything that BAKES A COPY of the derivation is a second-order instance of the same rule:
 # --check would pass on the JSON while a consumer silently carried last week's paths.
@@ -132,6 +139,11 @@ def centreline(pts, width):
 
 
 def derive():
+    # A tool that destroys what it protects when its own assumption breaks is worse than one
+    # that cannot fail. Regenerating with a missing source dir used to write {} over all ten.
+    if SRC is None or not SRC.is_dir():
+        raise SystemExit("REFUSING TO RUN: cannot find website/assets/media/lines from "
+                         f"{Path(__file__).resolve()} — nothing written.")
     out = {}
     for f in sorted(SRC.glob("*.svg")):
         raw = f.read_bytes(); s = raw.decode()
@@ -175,6 +187,15 @@ def main():
             return 1
         print(f"OK — all {len(fresh)} centrelines match the artwork they were derived from.")
         return 0
+    if not fresh:
+        raise SystemExit(f"REFUSING TO WRITE: no SVGs found in {SRC} — nothing written.")
+    if OUT.exists():
+        had = {k for k in json.loads(OUT.read_text()) if not k.startswith("_")}
+        lost = had - set(fresh)
+        if lost and "--allow-shrink" not in sys.argv:
+            raise SystemExit("REFUSING TO WRITE: this would drop "
+                             f"{len(lost)} existing derivation(s): {', '.join(sorted(lost))}\n"
+                             "If the artwork really was removed, re-run with --allow-shrink.")
     OUT.write_text(json.dumps(fresh, indent=1))
     print("  provenance stamp:", "".join(sorted(v["src_sha"] for v in fresh.values()))[:24], "...")
     for k, v in fresh.items():
