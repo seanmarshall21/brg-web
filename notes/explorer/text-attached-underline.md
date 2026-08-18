@@ -3,7 +3,7 @@
 **Status:** proposed · Explorer · 2026-08-13 · commissioned by Sean via Conti ·
 source: [Osmo, `codepen.io/osmosupply/pen/qEEKRrx`](https://codepen.io/osmosupply/pen/qEEKRrx) (MIT) ·
 demo: **[Three Underlines](https://claude.ai/code/artifact/b339f004-60aa-4ead-b2ec-0493141ef97c)**
-**Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
+**Verified against:** `df1adca` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 Sean picked the Osmo pen and set the trigger model: **nav is hover; everything else, hero
 included, fires on scroll-in — after the split-text animation.** That resolves what looked like
@@ -39,6 +39,72 @@ heroes we'd most want a text-attached underline on are exactly the ones running 
 > Cleanest path is still to **re-export the five unexpanded**, as strokes rather than outlines; the
 > derived centerlines are the fallback if that's a nuisance. Everything below stands unchanged —
 > only the source of the path data moves.
+
+## 0. The reference implementation — measured from a live site we built
+
+**Sean, 2026-08-17:** *"somewhere the underline was used before and is exactly what we are trying
+to do… especially the ones like on the ice cream section."* — [thebakedbear.com](https://www.thebakedbear.com/),
+built on **Salient** (ThemeNectar). Read from the served source, not described.
+
+The "Ice Cream" heading he singled out:
+
+```html
+<div class="nectar-highlighted-text" data-style="scribble" style="color:#0f74b8">
+ <h2><em>Ice Cream<svg class="nectar-scribble basic-underline"
+      viewBox="-400 -55 730 60" preserveAspectRatio="none">
+   <path style="animation-duration:1.8s"
+         d="m -383.25 -6 c 55.25 -22 130.75 -33.5 293.25 -38 c 54.5 -0.5 195 -2.5 401 15"
+         stroke="#7fcaee" pathLength="1" stroke-width="20" fill="none"/>
+ </svg></em></h2>
+</div>
+```
+
+```css
+@keyframes nectarStrokeAnimation{
+  0%  {stroke-dashoffset:1; opacity:0}
+  1%  {opacity:1}                       /* no dot at the start */
+  100%{stroke-dashoffset:0}
+}
+.nectar-highlighted-text .nectar-scribble      {position:absolute;left:0;top:0;z-index:-1}
+.nectar-highlighted-text .nectar-scribble path {stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+.nectar-highlighted-text em.animated .nectar-scribble path{
+  stroke-linecap:round; opacity:1;
+  animation:nectarStrokeAnimation 1.3s cubic-bezier(.65,0,.35,1) forwards}
+body .nectar-scribble.basic-underline     {width:100%;height:30%;top:auto;bottom:-20%}
+body .nectar-scribble.squiggle-underline-2{width:100%;height:50%;top:auto;bottom:-45%}
+```
+
+**What this settles, and what it corrects in this spec.**
+
+| Question | The reference |
+|---|---|
+| Draw or wipe? | **Draw.** `fill="none"`, `stroke`, `stroke-width`, `stroke-linecap:round` — a **centreline**, never a filled outline |
+| `pathLength` | **an attribute**, `pathLength="1"` — exactly the bug that left our A2/A4 dead |
+| Engine | **CSS keyframe on `stroke-dashoffset`. No GSAP, no DrawSVG.** JS only adds a class |
+| Trigger | `.animated` on the `<em>`, added on scroll-in — §2's model, confirmed |
+| Duration | **1.8s** (inline, overriding the 1.3s default). Ours was 0.72s — hence *"slow it down a little bit more"* |
+| Easing | `cubic-bezier(.65,0,.35,1)` — **ease-in-out**, not the ease-out we defaulted to |
+| Sizing | SVG lives **inside the `<em>`** at `width:100%`, so it binds to the words, not the section |
+| Placement | `height:30%; bottom:-20%` of the `<em>` — B1's "placement is wrong" has a number now |
+| Stroke weight | per-instance (`20` here, `7.8`/`11.1` on the squiggles) — authored, not derived |
+
+**Three things worth taking beyond the numbers:**
+
+1. **The `1%{opacity:1}` step.** At `stroke-dashoffset:1` a round cap still paints a dot; holding
+   opacity at 0 for the first 1% hides it. A detail we would have shipped wrong and never traced.
+2. **Two variants are in use on one page** — `basic-underline` under *Ice Cream*, `squiggle-underline-2`
+   under *Fresh Baked* and *one*. That is Sean's *"multiple different slight variations of this
+   one"*, already demonstrated: same mechanism, different path, different `stroke-width` and box.
+3. **One genuine divergence, and it is Sean's improvement, not a mistake to copy.** The SVG is
+   absolutely positioned to the whole `<em>` box, so on a **wrapped** `<em>` it would stretch
+   across both lines. Sean's rule — *"if it splits to two lines, it should only fill the width of
+   the bottom one"* — is stricter than the reference. Ours should keep the stricter behaviour.
+
+**The highlight** (`/menu/` hero) is the same component in a different mode: `data-style="full_text"`,
+the `<em>` carrying `background-image:linear-gradient(to right,COLOR 0,COLOR 100%)` and revealed on
+the same `.animated` class. I have the mechanism and the markup; **the exact background-size timing
+is in Salient's core stylesheet, which I could not reach** — so treat that one as confirmed in
+shape and unconfirmed in numbers.
 
 ## 1. Which implementation
 
