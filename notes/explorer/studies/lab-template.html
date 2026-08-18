@@ -76,6 +76,11 @@ padding:7px 12px;cursor:pointer}
 .foot .yes.on{background:var(--ok);color:#0f0e0d;border-color:var(--ok)}
 .foot .no.on{background:var(--no);color:#0f0e0d;border-color:var(--no)}
 .foot .replay{margin-left:auto;color:var(--ink)}
+.foot .full+*{margin-left:0}
+.foot .full{font:700 .66rem var(--sans);letter-spacing:.09em;text-transform:uppercase;
+color:var(--teal);text-decoration:none;border:1px solid var(--line);border-radius:999px;
+padding:7px 12px;background:var(--bg2)}
+.foot .full:hover{border-color:var(--teal)}
 .foot .dial{flex:1 1 100%;display:flex;align-items:center;gap:9px;font-size:.66rem;
 letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:2px}
 .foot .dial input[type=range]{flex:1;accent-color:var(--teal)}
@@ -320,6 +325,7 @@ CARDS.forEach(c=>{
     <div class="foot">
       <button class="yes">Approve</button><button class="no">Deny</button>
       <button class="replay">Replay</button>
+      ${c.nofull?'':`<a class="full" href="lab-full.html?v=${c.id}" target="_blank" rel="noopener">Full page \u2197</a>`}
       ${c.dial?`<label class="dial">Stroke timing
         <input type="range" class="off" min="-600" max="900" step="25" value="0">
         <b class="offv">0ms</b></label>`:''}
