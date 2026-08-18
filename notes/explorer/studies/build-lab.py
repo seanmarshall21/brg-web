@@ -67,7 +67,11 @@ def build():
     kit = kit.replace("__LINES__", json.dumps(L))
     # CARDS must be defined before the script that consumes it
     # both shared files must load BEFORE the script that consumes them
+    # lab-sync.js FIRST: it may pull remote state and reload, so the earlier it runs the
+    # less work gets thrown away. It is conti's file, self-contained, and degrades to
+    # local-only if absent — but it degrades SILENTLY, hence the gate entry below.
     kit = kit.replace("<script>",
+        '<script src="lab-sync.js"></script>\n'
         '<script src="lab-lines.js"></script>\n<script src="lab-cards.js"></script>\n<script>', 1)
     kit = (f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -97,6 +101,7 @@ def build():
         ('c.nofull?',              'the nofull opt-out'),
         ('function noteBox',       'the group / overall note boxes'),
         ("free('OVERALL'",         'the Overall block in the summary'),
+        ('src="lab-sync.js"',      'the cross-device sync tag'),
     ):
         assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"
     n = kit.count('<button class="yes">')
