@@ -164,6 +164,24 @@ wrong.** Before trusting a negative result, ask what the instrument cannot see �
 technique with a degraded mode (a loose pattern that returns something imprecise) over one that is
 silently found-or-not.
 
+**A judgement about a mutable thing must carry the identity of what it judged, and stop
+counting when that identity changes.** This is the general case; the pointer rule and the
+blind-instrument rule below are instances of it. Four in one day, none of which errored:
+`12` judged "already true" when it was one brand's count presented as the group's; a hazard
+recorded as live that had been fixed incidentally; a line reference that named the right rule
+at the wrong address; and a lab verdict that survived the card being rebuilt underneath it.
+
+**We had already solved this once and never generalised it.** `kit/build.py` hashes each
+component's canonicalised contract, `--check` exits 1 when one moves without a version bump,
+`--restamp` re-hashes. That is exactly this rule — implemented, proven, running on every push,
+and applied to one thing in the repo and nothing else. The mechanism was never the hard part.
+
+**But do not stamp everything.** No identity means a judgement never expires; identity on
+everything means people re-stamp reflexively without re-testing, and **a judgement re-affirmed
+without being re-tested is worse than none** — false authority plus a fresh date. Scope it to
+what actually makes the claim true: `sections.json` hashing every byte of a fragment would fire
+on every ordinary edit, and a check that cries wolf gets muted. (Expo, SPEC-010.)
+
 **A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
 number, a field name, a commit — each asserts *where something lives*, and that moves while the
 fact stays true. Four instances on 2026-08-13: a patch written against `embed.html:63` before the

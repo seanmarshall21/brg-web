@@ -66,14 +66,16 @@ Contract = SPEC-001 §4: CSS scoped under `.brgw-sec--<id>`, root carries `revea
 morphing hamburger + staggered drawer. Attributes: `layout` (left/split/center/compact),
 `left`/`right` (+ More overflow drawer), `sticky` (pin/hide), `bg` (solid/none/frost), `bgcolor`, `opacity`.
 
-## ACF-editable sections — chain verified end to end 2026-08-12
+## ACF-editable sections — chain verified end to end 2026-08-12, against plugin v2.5.0
 A section declares its slots in **`website/sections/<id>/slots.json`** (beside the fragment, so a
 slot and its `{{token}}` ship in one commit) → `kit/build-acf.py` generates
 `website/acf/brg-<id>.acf.json` + the combined `all.acf.json` → `brg-acf.php` registers the
 **Section Content** options page and **fetches those groups from Netlify**. A field change is:
 edit `slots.json` → run the generator → push. **No import step, ever.** Fill precedence:
 shortcode attr > ACF option > default. Field name = `brg_<id_with_underscores>_<slot>`.
-Verified: ACF Pro 6.8.7 active and the Section Content menu is registered in wp-admin.
+Verified 2026-08-12 against ACF Pro 6.8.7 and plugin v2.5.0: the Section Content menu is
+registered in wp-admin. **The plugin has since moved to v2.6.x** — the claim probably still
+holds, but it was not re-tested, and a date alone does not let you tell.
 
 `python3 kit/build-acf.py --check` proves every slot has a `{{token}}` and vice versa — both
 halves fail silently otherwise. **Green as of 2026-08-13**, with **16 sections wired / 62 fields
