@@ -95,6 +95,8 @@ def build():
         ('id="copyall"',           'the Copy all button'),
         ('ADJUST',                 'the Adjust block in the summary'),
         ('c.nofull?',              'the nofull opt-out'),
+        ('function noteBox',       'the group / overall note boxes'),
+        ("free('OVERALL'",         'the Overall block in the summary'),
     ):
         assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"
     n = kit.count('<button class="yes">')

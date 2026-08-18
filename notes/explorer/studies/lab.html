@@ -171,6 +171,15 @@ letter-spacing:.13em;text-transform:uppercase;opacity:.82;padding:4px 0}
 .navbar.fade a .box svg{clip-path:none;opacity:0;transition:opacity .34s}
 .navbar.fade a:hover .box svg,.navbar.fade a.act .box svg{opacity:1}
 
+.gnote{margin:14px 0 4px;background:var(--bg2);border:1px solid var(--line);border-radius:11px;
+padding:12px 14px;display:grid;gap:7px}
+.gnote label{font:800 .62rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.gnote textarea{width:100%;min-height:56px;background:var(--bg);color:var(--ink);resize:vertical;
+border:1px solid var(--line);border-radius:8px;font:400 .82rem/1.55 var(--sans);padding:9px 11px}
+.gnote textarea::placeholder{color:var(--dim)}
+.gnote.all{border-color:rgba(252,226,0,.45)}
+.gnote.all label{color:var(--yellow)}
+.gnote.all textarea{min-height:92px}
 .summary{margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
 .sumbar{display:flex;align-items:center;gap:11px;margin-top:10px}
 #copyall{font:700 .68rem var(--sans);letter-spacing:.11em;text-transform:uppercase;
@@ -275,6 +284,28 @@ line, so you were seeing a sliver rather than the bar.</p>
 
 
 const V = JSON.parse(localStorage.getItem('brg-lab')||'{}');
+// Group + overall notes live under reserved keys so a card id can never collide with a
+// group id. They deliberately do NOT expire with a card's rev: a judgement about a SET
+// ("the timing is the problem across all of these") is not invalidated by one card moving.
+V._g = V._g || {}; 
+const GROUPS = ['gA','gB','gC','gD'];
+function groupLabel(id){
+  const grid=document.getElementById(id); if(!grid) return id;
+  let n=grid.previousElementSibling;
+  while(n && !(n.tagName==='H2' && n.classList.contains('sec'))) n=n.previousElementSibling;
+  return n ? (n.firstChild.textContent||'').trim() : id;
+}
+function noteBox(host, key, label, ph, extra){
+  const box=document.createElement('div');
+  box.className='gnote'+(extra||'');
+  box.innerHTML='<label></label><textarea placeholder="'+ph+'"></textarea>';
+  box.querySelector('label').textContent=label;
+  const ta=box.querySelector('textarea');
+  ta.value = key==='_all' ? (V._all||'') : (V._g[key]||'');
+  ta.oninput=()=>{ if(key==='_all') V._all=ta.value; else V._g[key]=ta.value;
+    localStorage.setItem('brg-lab',JSON.stringify(V)); render(); };
+  host.after(box);
+}
 const el = (h)=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstElementChild;};
 
 CARDS.forEach(c=>{
@@ -424,6 +455,19 @@ s.textContent='.ln{display:block;overflow:hidden;padding:.42em .10em .16em;margi
 '.ln-i.in{transform:translateY(0)}';
 document.head.appendChild(s);
 
+GROUPS.forEach(g=>{
+  const grid=document.getElementById(g); if(!grid) return;
+  noteBox(grid, g, groupLabel(g)+' — notes on this section',
+    'Anything true of these as a group — pacing, placement, which direction you want to go.');
+});
+{
+  const sum=document.querySelector('.summary');
+  const anchor=document.createElement('div'); sum.before(anchor);
+  noteBox(anchor, '_all', 'Overall review',
+    'The whole picture — what is working, what is not, what you want next.', ' all');
+  anchor.remove();
+}
+
 /* controls */
 const R=document.documentElement;
 const dur=document.getElementById('dur'),durv=document.getElementById('durv');
@@ -464,20 +508,30 @@ function render(){
     if(c.changed && !v.v && !v.n) pend.push(c.id+' — '+c.t);
     if(!v.v&&!v.n&&v.off===undefined)return;
     if(v.v==='yes')yes.push(c.id+' — '+c.t);
-    // An Adjust carries its note on the same line: "keep this, change that" is one thought,
-    // and splitting it across two blocks is what makes it read like a Deny.
     if(v.v==='maybe')adj.push(c.id+' — '+c.t+(v.n?'\n      → '+v.n:''));
     if(v.v==='no')no.push(c.id+' — '+c.t);
     if(v.n&&v.v!=='maybe')notes.push(c.id+': '+v.n);
     if(v.off!==undefined&&v.off!==0)notes.push(c.id+' timing offset: '+(v.off>0?'+':'')+v.off+'ms');});
+
   const blk=(t,a)=>'\n'+t+'\n'+(a.length?a.map(x=>'  '+x).join('\n'):'  (none yet)');
+  // Free text is omitted entirely when empty. Four "(none yet)" blocks would bury the one
+  // or two he actually wrote — the opposite of the right default for verdicts.
+  const free=(t,s)=>s&&s.trim()?'\n'+t+'\n  → '+s.trim().replace(/\n/g,'\n    ')+'\n':'';
+
+  // Group notes lead: the general judgement first, then the per-card specifics under it,
+  // then the summing-up. That is the order he would brief it out loud.
+  let groups='';
+  GROUPS.forEach(g=>{ groups += free(groupLabel(g), V._g[g]); });
+
   document.getElementById('out').value =
     'UNDERLINE LAB — verdicts\n'+
     (pend.length?'\nUPDATED, NOT YET RE-JUDGED\n'+pend.map(x=>'  '+x).join('\n')+'\n':'')+
+    groups+
     blk('APPROVED',yes)+
     blk('ADJUST — keep it, but change this',adj)+
     blk('DENIED',no)+
     blk('NOTES',notes)+
+    free('OVERALL', V._all)+
     '\n\nSettings: '+dur.value+'ms · '+document.getElementById('ease').selectedOptions[0].text;
 }
 /* strokes inherit .head's white otherwise — apply the default colour on load */
