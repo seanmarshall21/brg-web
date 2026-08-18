@@ -4,8 +4,27 @@
    pen-stroke marker underline, marks the active item, and builds a More drawer (desktop
    overflow) that doubles as the mobile takeover. No GSAP dep — underline draws via CSS. */
 (function () {
-  var ULINE = '<svg class="bnav-uline" viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true">'
-            + '<path pathLength="1" d="M4,7 C34,3 58,10 88,5 C102,3 114,7 117,6"/></svg>';
+  /* Sean's own nav stroke, not a hand-drawn stand-in.
+     
+     What was here was a path written inline: four vertical direction changes, i.e. a
+     squiggle — the thing he has now said twice he does not want. Meanwhile he had
+     exported five per-page nav strokes months ago and the component referenced none of
+     them (`grep -c "line-.*-nav"` returned 0). "No squiggly lines" was never a change
+     request; it was a request to use the artwork he already supplied. His call today:
+     one stroke for the whole nav rather than one per page — more coherent as chrome.
+
+     This is the CENTRELINE, derived from line-careers-nav.svg, not the file itself.
+     His export is an OUTLINE — a closed shape describing the edge of the stroke — and
+     this CSS paints with `fill:none; stroke:...`, so feeding it the outline would trace
+     the perimeter and draw a lasso rather than a pen. Same defect the lab spent a day on.
+     Source sha 7da87cbe5fef; regenerate with
+     notes/explorer/studies/derive-centrelines.py if the artwork is re-exported.
+
+     vector-effect keeps the stroke an even weight: preserveAspectRatio="none" stretches
+     the box to each menu item's width, which would otherwise thin the line on long items
+     and fatten it on short ones. */
+  var ULINE = '<svg class="bnav-uline" viewBox="0 0 104 7" preserveAspectRatio="none" aria-hidden="true">'
+            + '<path pathLength="1" vector-effect="non-scaling-stroke" d="M0.6 3.4C0.8 3.4 1.3 3.4 1.7 3.3C2.1 3.3 2.3 3.3 2.9 3.3C3.5 3.3 4.2 3.3 5.2 3.2C6.2 3.2 7.5 3.1 8.7 3.1C9.8 3.1 11.0 3.0 12.1 3.0C13.3 3.0 14.4 2.9 15.6 2.9C16.8 2.9 18.1 2.8 19.1 2.8C20.0 2.8 20.4 2.8 21.4 2.8C22.3 2.7 22.7 2.7 24.8 2.7C27.0 2.7 32.0 2.6 34.1 2.6C36.2 2.5 34.9 2.5 37.6 2.5C40.3 2.5 47.6 2.5 50.3 2.5C53.0 2.5 51.0 2.5 53.7 2.5C56.4 2.6 63.7 2.7 66.4 2.7C69.1 2.7 67.8 2.7 69.9 2.8C72.0 2.8 77.0 3.0 79.2 3.0C81.3 3.1 81.5 3.1 82.6 3.1C83.8 3.2 85.1 3.2 86.1 3.2C87.1 3.3 87.4 3.3 88.4 3.4C89.4 3.4 90.7 3.4 91.9 3.5C93.0 3.5 94.2 3.6 95.3 3.6C96.5 3.7 97.8 3.7 98.8 3.8C99.8 3.8 100.5 3.9 101.1 3.9C101.7 4.0 101.9 3.9 102.3 3.9C102.7 4.0 103.2 4.0 103.4 4.0"/></svg>';
   function tidy(u) { try { return (new URL(u, location.href).pathname.replace(/\/+$/, '') || '/'); } catch (e) { return ''; } }
 
   function enhance(nav) {
