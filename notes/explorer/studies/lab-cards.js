@@ -68,16 +68,16 @@ const CARDS=[
 
 // ── E: the shipping form. ONE renderer, attributes only.
 const SHIP=[
- {id:'E1',t:'Underline — wipe (A1, approved)',
+ {id:'E1',t:'Underline — wipe  ✓ SELECTED',
   attrs:{mark:'underline', style:'wipe', shape:'careers', color:'teal', speed:'1800', ease:'out'},
   text:'Come work somewhere *you actually want to be*'},
- {id:'E2',t:'Underline — draw (A2 / S-A1)',
+ {id:'E2',t:'Underline — draw  (alternative)',
   attrs:{mark:'underline', style:'draw', shape:'careers', color:'teal', speed:'1800', ease:'out'},
   text:'Come work somewhere *you actually want to be*'},
- {id:'E3',t:'Highlight — ours (C1, approved)',
+ {id:'E3',t:'Highlight — box  (alternative)',
   attrs:{mark:'highlight', style:'box', color:'teal', text:'dark', speed:'720', ease:'out'},
   text:'Born in San Diego. Built *for community.*'},
- {id:'E4',t:'Highlight — Salient wipe (S-C3, approved)',
+ {id:'E4',t:'Highlight — wipe  ✓ SELECTED',
   attrs:{mark:'highlight', style:'wipe', color:'teal', text:'dark', speed:'900', ease:'out'},
   text:'Born in San Diego. Built *for community.*'},
 ];

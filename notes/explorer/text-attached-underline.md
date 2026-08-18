@@ -3,7 +3,7 @@
 **Status:** proposed · Explorer · 2026-08-13 · commissioned by Sean via Conti ·
 source: [Osmo, `codepen.io/osmosupply/pen/qEEKRrx`](https://codepen.io/osmosupply/pen/qEEKRrx) (MIT) ·
 demo: **[Three Underlines](https://claude.ai/code/artifact/b339f004-60aa-4ead-b2ec-0493141ef97c)**
-**Verified against:** `d68f202` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
+**Verified against:** `8ee500c` — was `d68f202` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 Sean picked the Osmo pen and set the trigger model: **nav is hover; everything else, hero
 included, fires on scroll-in — after the split-text animation.** That resolves what looked like
@@ -201,6 +201,53 @@ are all attributes on the element, and nothing about the effect is hard-coded pe
 **That is the thing to copy — and it is the same thing §0.5 is about.** So the honest answer to
 *"is theirs better?"* is: **their separation of effect from configuration is better; their
 geometry is not.** Take the first, keep ours for the second.
+
+## 0.4b SELECTED — 2026-08-18, on reliability
+
+Sean: *"You select or make variations. At this point the selections are visibly correct and it's
+up to which code is more reliable."* Both read correctly, so the criterion is the code.
+
+### Underline → **wipe** (`clip-path` on the filled artwork)
+
+| | wipe | draw |
+|---|---|---|
+| Moving parts | **1** — `clip-path` | **6** — dasharray, dashoffset, `pathLength` attribute, `vector-effect`, a derived centreline, a tightened `cvb` |
+| Artwork | **Sean's file, as exported** | a **derived** second artifact |
+| Defects this session | **0** | **4** — outline trace · starts offset · too fast · the `vector-effect` failure that broke the nav |
+
+**The decisive one is not the count, it's the derived artifact.** The draw needs a centreline
+computed from the outline, which is a duplication — it sits in the drift register, guarded by
+`derive-centrelines.py --check`, and it **will** go stale, because Sean re-exports artwork. The
+wipe consumes his file directly and has nothing to keep in step. By SPEC-011's ordering that is
+tier 1 against tier 2, and the tier-1 option costs us nothing visually.
+
+Second: `pathLength="1"` + `vector-effect="non-scaling-stroke"` is the pairing that **broke the
+nav** — dash lengths move into screen space and `pathLength` stops resolving. It is currently in
+the lab's draw path and its status there is unresolved. The wipe never touches either property.
+
+**What we give up:** a live rounded leading edge mid-draw, which the wipe renders as a flat
+vertical cut. [SPEC-004](pen-stroke-underline.md) measured that difference at 42% progress. Real,
+and worth less than six fewer failure modes on a mark that appears on every hero.
+
+### Highlight → **background wipe** (Salient's mechanism, our text animation)
+
+Not a close call, and the reason is one line of CSS. Our box is
+`position:absolute; inset:0` on a pseudo-element. On an inline element spanning **two lines**,
+`inset:0` resolves to the **union box** — one rectangle across both lines *and the gap between
+them*. A background paints per line fragment instead.
+
+**Headings are ACF-editable, so wrapping is not hypothetical** — it is what happens the first
+time an editor lengthens one. The box version fails silently and looks like a rendering bug.
+
+**One addition made as part of selecting it:** `box-decoration-break: clone`. Without it a
+background is painted against the unbroken box and then sliced, so the second line starts
+mid-gradient. Salient does not declare it; ours should.
+
+### Net
+
+Both selections are the **fewer-moving-parts** option, and in both cases that also happens to be
+the one Sean approved by eye — E1 is A1, E4 is S-C3. Where visual judgement and structural
+judgement agree, there is nothing left to trade off.
 
 ## 0.5 The variable contract — what becomes a shortcode attribute
 

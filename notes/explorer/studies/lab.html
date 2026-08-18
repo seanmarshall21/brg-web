@@ -148,6 +148,7 @@ stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.7
    which a single stretched pseudo-element does not. */
 .mk.sal.tilt{transform:rotate(-1.8deg)}
 .mk.sal{background-repeat:no-repeat;background-size:0 80%;background-position:left 90%;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;
   background-image:linear-gradient(to right,var(--mkc,var(--teal)) 0,var(--mkc,var(--teal)) 100%);
   transition:background-size .9s cubic-bezier(.15,.75,.4,1);color:#fff}
 .mk.sal.on{background-size:100% 80%}
@@ -302,7 +303,14 @@ line, so you were seeing a sliver rather than the bar.</p>
 <div class="grid" id="gC"></div>
 
 <h2 class="sec">E · As it would ship — one renderer, driven by attributes</h2>
-<p class="secq"><strong>The approved winners, expressed as the shortcode would emit them.</strong>
+<p class="secq"><strong>Selected on reliability, since both read correctly.</strong>
+<strong>E1</strong> (underline, wipe) has <strong>one</strong> moving part against the draw's six,
+uses your artwork directly rather than a derived copy, and produced <strong>zero</strong> defects
+this session against the draw's four. <strong>E4</strong> (highlight, wipe) wins on one specific
+thing: our box is an absolutely-positioned pseudo-element, so on a <strong>wrapped</strong>
+heading it draws a single rectangle across both lines and the gap between them — a background
+paints per line instead. Headings are ACF-editable, so wrapping is not hypothetical.
+<br><br><strong>The winners, expressed as the shortcode would emit them.</strong>
 Every card below is the <em>same</em> renderer reading <code>data-*</code> attributes — no
 per-variant classes, no bespoke markup. The attribute line under each is what a section author
 would actually write. Change a value and only that value changes, which is the whole point of the
