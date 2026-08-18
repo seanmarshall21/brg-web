@@ -103,6 +103,8 @@ def build():
         ("free('OVERALL'",         'the Overall block in the summary'),
         ('src="lab-sync.js"',      'the cross-device sync tag'),
         ('function parseMark',     'the asterisk delimiter parser'),
+        ('function markPlan',      'the mark DECISION (parser alone is not enough)'),
+        ("mode:'all'",             'the no-delimiter fallback — an empty mark kills every heading'),
         ('function sectionPanel',  'the per-section variable panel'),
     ):
         assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"

@@ -564,6 +564,17 @@ function parseMark(src){
   return {before:un(t.slice(0,i)), mark:un(m[1]), after:un(t.slice(i+m[0].length)), ok:true};
 }
 
+// What to DO with a parsed headline. Separated from parseMark so the DECISION is testable:
+// the parser was always right, and the application of an empty range was the bug. No
+// delimiter must mean "mark everything, then let fitLastLine narrow to the last line" —
+// never an empty mark element, which renders as a zero-width stroke and silently removes
+// the underline from every heading that has no asterisks in it, i.e. all of them today.
+function markPlan(src){
+  const p=parseMark(src);
+  return p.ok ? {mode:'span', before:p.before, mark:p.mark, after:p.after}
+              : {mode:'all',  before:'',       mark:p.before, after:''};
+}
+
 const SECV={};                                   // gA -> {text,color,speed,ease,tcolor}
 function secDefaults(g){
   const first=CARDS.find(c=>c.g===g);
@@ -583,17 +594,16 @@ function applySection(g){
     const card=document.getElementById('card-'+c.id); if(!card) return;
     const head=card.querySelector('.head'); const mark=card.querySelector('.u,.mk');
     if(head && mark && v.text){
-      const p=parseMark(v.text);
+      const plan=markPlan(v.text);
       const el=mark.cloneNode(false);           // keep the card's mechanism classes + data-k
-      el.querySelectorAll && el.replaceChildren();
       if(mark.classList.contains('mk')) el.innerHTML='<span class="tw"><span class="t"></span></span>';
-      const target = el.querySelector ? (el.querySelector('.t')||el) : el;
-      target.textContent = p.ok ? p.mark : '';
+      const target = el.querySelector('.t') || el;
+      target.textContent = plan.mark;           // never empty — see markPlan
       head.textContent='';
-      if(p.ok){ head.append(p.before); head.append(el); head.append(p.after); }
-      else    { head.append(p.before); }        // no delimiter: mark falls back to last line
-      if(!p.ok && !mark.classList.contains('blk')) head.append(el);
-      if(head.dataset) delete head.dataset.done;
+      if(plan.before) head.append(plan.before);
+      head.append(el);
+      if(plan.after)  head.append(plan.after);
+      delete head.dataset.done;
     }
     if(v.color)  card.querySelectorAll('.u').forEach(u=>u.style.color='var('+v.color+')');
     if(v.color)  card.querySelectorAll('.mk').forEach(m=>m.style.setProperty('--mkc','var('+v.color+')'));
@@ -612,7 +622,7 @@ function sectionPanel(g){
   box.innerHTML=
    '<div class="row"><label>Headline</label><input type="text" class="tx"></div>'+
    '<div class="hint">Wrap the words you want marked in asterisks — <b>*like this*</b>. '+
-   'No asterisks means the mark falls back to the last line, which is what every hero does today. '+
+   'No asterisks marks the whole headline and the stroke narrows to the last line — what every hero does today. '+
    '<b>\\*</b> is a literal asterisk; a lone <b>*</b> marks nothing.</div>'+
    '<div class="row">'+
      '<label>Colour <select class="co">'+
