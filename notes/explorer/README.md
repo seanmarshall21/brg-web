@@ -21,8 +21,8 @@ Controller writes a `DECISION:` 👍 in `notes/controller.md` and the Finesser b
 | SPEC-006 | [`contact-page.md`](contact-page.md) | Contact — section plan for the never-designed page; the form-vs-routing decision that gates it | **proposed** 2026-08-13 |
 | SPEC-007 | [`content-gaps.md`](content-gaps.md) | The launch-blocking content gaps — the `XX` stats, the stand-in photography, the `careers-posts` stamps + a placeholder doctrine | **proposed** 2026-08-13 |
 | SPEC-008 | [`editable-copy-audit.md`](editable-copy-audit.md) | What else assumed the copy was ours — the location count lives in 3 editable places and already disagrees; corrects SPEC-007's claim that `12` was "already true" | **proposed** 2026-08-13 |
-| SPEC-010 | [`judgements-expire.md`](judgements-expire.md) | **The rule:** a judgement carries the identity of what it judged, and stops counting when that changes. Four instances in one day; `kit/build.py` already implements it for shortcodes and nowhere else | **proposed** 2026-08-17 |
 | SPEC-009 | [`text-attached-underline.md`](text-attached-underline.md) | The Osmo underline — nav hover + scroll-in elsewhere, dashoffset over DrawSVG, and the split engine that eats inner markup | **proposed** 2026-08-13 · demo: [Three Underlines](https://claude.ai/code/artifact/b339f004-60aa-4ead-b2ec-0493141ef97c) |
+| SPEC-010 | [`judgements-expire.md`](judgements-expire.md) | **The rule:** a judgement carries the identity of what it judged, and stops counting when that changes. Four instances in one day; `kit/build.py` already implements it for shortcodes and nowhere else | **proposed** 2026-08-17 |
 
 ## Studies
 Standalone sandbox pages. Not production, not on the CDN, not referenced by any fragment.
