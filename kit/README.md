@@ -182,6 +182,26 @@ without being re-tested is worse than none** — false authority plus a fresh da
 what actually makes the claim true: `sections.json` hashing every byte of a fragment would fire
 on every ordinary edit, and a check that cries wolf gets muted. (Expo, SPEC-010.)
 
+**The test for whether to mechanise one: refreshing the stamp and re-testing must be the same
+action.** That is the property that decides whether a check survives, because the failure this
+rule creates is a stamp someone refreshes reflexively. The shortcode contract hash has it —
+`--restamp` re-derives the hash from the registry, so you cannot re-affirm it without re-reading
+the thing it judges. So does `notes/explorer/studies/derive-centrelines.py`, whose `--check`
+compares the sha256 of each source SVG and whose only fix is to re-derive from the new artwork.
+`sections.json` status does not, which is a second and independent reason to leave it alone.
+**Prose fails this test always** — so the rule above, and STATUS's verification lines, are
+deliberately *not* mechanised, and that gap is correct rather than unfinished. (Expo, SPEC-010.)
+
+**A checker that cannot fail is a display, and its name is the lie.** The deploy Action's step
+`Confirm the deployed version matches the repo` was, for its whole life, `grep VCC_VERSION … ||
+true`: it printed the version the server had and passed whatever it found. A stale plugin would
+have shown its old number inside a green run, under a heading claiming a match. Nobody misread
+it; it was never read, because the step name answered the question. It now reads the expected
+version from the repo copy, compares, and exits 1 on a mismatch or a missing constant — proven
+against a fixture pinned to 2.5.0, where the old line exits 0 and the new one exits 1. **When you
+find one of these, check its name first: the more precisely a step claims to verify something,
+the less anyone looks inside it.**
+
 **A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
 number, a field name, a commit — each asserts *where something lives*, and that moves while the
 fact stays true. Four instances on 2026-08-13: a patch written against `embed.html:63` before the

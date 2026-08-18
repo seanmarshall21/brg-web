@@ -40,16 +40,44 @@ jobs:
           target: ${{ secrets.WP_MU_PLUGINS_PATH }}
           strip_components: 2   # drop "website/wp-mu-plugin/" so files land directly in mu-plugins/
 
-      # scp succeeding only proves bytes moved. This proves WordPress got the version
-      # we think it did — the whole failure mode being fixed here is a stale plugin
-      # sitting on the server while the repo says otherwise.
+      # scp succeeding only proves bytes moved. These two steps prove WordPress got the
+      # version we think it did — the whole failure mode being fixed here is a stale
+      # plugin sitting on the server while the repo says otherwise.
+      #
+      # This step used to be one `grep … || true`, which PRINTED the deployed version and
+      # passed whatever it found. Named "Confirm the deployed version matches the repo",
+      # it never compared anything: a stale server would have shown its old number in a
+      # green run. It read as a check for months. A checker that cannot fail is a display.
+      - name: Read the version this commit expects
+        id: want
+        run: |
+          set -euo pipefail
+          v=$(sed -n "s/.*VCC_VERSION', '\([^']*\)'.*/\1/p" \
+                website/wp-mu-plugin/vc-clients-embed.php | head -1)
+          [ -n "$v" ] || { echo "::error::no VCC_VERSION in the repo copy — the constant moved"; exit 1; }
+          echo "v=$v" >> "$GITHUB_OUTPUT"
+          echo "repo expects $v"
+
       - name: Confirm the deployed version matches the repo
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          WANT: ${{ steps.want.outputs.v }}
         with:
           host: ${{ secrets.WP_SSH_HOST }}
           username: ${{ secrets.WP_SSH_USER }}
           password: ${{ secrets.WP_SSH_PASSWORD }}
+          envs: WANT
           script: |
             cd "${{ secrets.WP_MU_PLUGINS_PATH }}"
             ls -l vc-clients-embed.php brg-acf.php
-            grep -m1 "VCC_VERSION', '" vc-clients-embed.php || true
+            got=$(sed -n "s/.*VCC_VERSION', '\([^']*\)'.*/\1/p" vc-clients-embed.php | head -1)
+            echo "server has '$got', repo expects '$WANT'"
+            if [ -z "$got" ]; then
+              echo "::error::no VCC_VERSION on the server — the file is missing or truncated"
+              exit 1
+            fi
+            if [ "$got" != "$WANT" ]; then
+              echo "::error::deployed VCC_VERSION '$got' does not match the repo's '$WANT'"
+              exit 1
+            fi
+            echo "match"
