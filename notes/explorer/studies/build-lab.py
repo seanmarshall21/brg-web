@@ -108,6 +108,8 @@ def build():
         ('style:false',            'measure-only: a fallback must not STYLE the words'),
         ('--strokec',              'stroke colour routed off the text'),
         ('function attachBox',     'the single place that knows a .u needs a stroke box'),
+        ('function renderShip',    'the attribute-driven renderer — section E'),
+        ('const SHIP=[',           'the shipping-form variants'),
         ("mark.classList.contains('blk')", 'the blk branch — a bar is a sibling, not a wrapper'),
 
         ('function sectionPanel',  'the per-section variable panel'),
