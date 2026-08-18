@@ -104,9 +104,20 @@ async function deployedVersion() {
     const { stdout: log } = await pexec('gh', ['run', 'view', id, '--log'], {
       cwd: REPO, maxBuffer: 64 * 1024 * 1024,
     });
-    // The verify step echoes the deployed line: ... define( 'VCC_VERSION', '2.6.0' );
+    /* The Action's verify step changed (2026-08-18): it no longer echoes VCC_VERSION, it
+       sha256s every deployed file against the repo and prints `<file>: match (<hash16>)`.
+       That is STRONGER evidence, not weaker — a byte-identical file cannot be a different
+       version — so prefer it, and keep the old grep as the fallback for older runs. */
+    const hm = log.match(/out:\s*vc-clients-embed\.php:\s*match\s*\(([0-9a-f]{8,})\)/i);
+    if (hm) {
+      const { createHash } = await import('node:crypto');
+      const local = createHash('sha256').update(await readFile(PHP)).digest('hex').slice(0, hm[1].length);
+      const v = (await readFile(PHP, 'utf8')).match(/VCC_VERSION'\s*,\s*'([^']+)'/)?.[1] || '?';
+      if (local === hm[1]) return { version: v, source: `deployed file is BYTE-IDENTICAL to this working copy (Action run ${id})` };
+      return { version: v, source: `UNVERIFIED — the server's vc-clients-embed.php (${hm[1]}) does NOT match this working copy (${local}); the repo has moved since the last successful deploy`, unverified: true };
+    }
     const m = log.match(/out:.*VCC_VERSION'\s*,\s*'([0-9][^']*)'/);
-    if (!m) throw new Error(`run ${id} has no VCC_VERSION line`);
+    if (!m) throw new Error(`run ${id} reports neither a VCC_VERSION line nor a file-hash match`);
     return { version: m[1], source: `deploy Action run ${id}, verified on the server` };
   } catch (e) {
     const repoV = (await readFile(PHP, 'utf8')).match(/VCC_VERSION'\s*,\s*'([^']+)'/)?.[1] || '?';
@@ -189,9 +200,41 @@ async function resolveSlots(id, manifest, version) {
    The looseness is load-bearing: ANY matches what a human can TYPE, GRAMMAR matches what the
    plugin / build-acf.py / compose.mjs can SEE, and the gap between them IS the bug class — so
    these are tested against each other, never assumed to agree. */
+/* Repeater blocks — plugin v2.7.0 (61b97f8), vc-clients-embed.php:214-256.
+     <!--brg:repeat members-->  row template, {{members.name}} …
+     <!--brg:empty-->           what renders when no rows exist yet
+     <!--/brg:repeat-->
+   The callback REPLACES the whole block before the scalar pass runs, so everything inside
+   it is invisible to the scalar analysis and must be pulled out first. Modelling this was
+   the difference between reporting team-members BROKEN and reporting it correct. */
+const REPEAT_RE = () => /<!--brg:repeat\s+([a-z0-9_]+)-->([\s\S]*?)<!--\/brg:repeat-->/gi;
+
+function analyseRepeats(frag, slots) {
+  const repeats = [];
+  let rest = frag;
+  for (const m of [...frag.matchAll(REPEAT_RE())]) {
+    const [whole, name, body] = m;
+    const hasEmpty = body.includes('<!--brg:empty-->');
+    const tpl = hasEmpty ? body.split('<!--brg:empty-->')[0] : body;
+    const def = slots[name];
+    const isRepeater = !!def && typeof def === 'object' && def.type === 'repeater';
+    const subs = (def && def.sub && typeof def.sub === 'object') ? Object.keys(def.sub) : [];
+    const subRe = new RegExp('\\{\\{' + name + '\\.([a-z0-9_-]+)\\}\\}', 'gi');
+    const used = [...new Set([...tpl.matchAll(subRe)].map((x) => x[1].toLowerCase()))];
+    repeats.push({
+      name, hasEmpty, declared: !!def, isRepeater, subs, used,
+      subOrphans: used.filter((u) => !subs.map((x) => x.toLowerCase()).includes(u)),
+      subInert: subs.filter((sk) => !used.includes(sk.toLowerCase())),
+    });
+    rest = rest.replace(whole, '');
+  }
+  return { repeats, rest };
+}
+
 function analyse(frag, slots, grammar) {
   const declared = Object.keys(slots);
-  let filled = frag;
+  const { repeats, rest } = analyseRepeats(frag, slots);
+  let filled = rest;
   const used = [];
   for (const k of declared) {
     const tok = `{{${k}}}`;
@@ -201,12 +244,14 @@ function analyse(frag, slots, grammar) {
   const leftover = [...new Set([...filled.matchAll(TOKEN_ANY())].map((m) => m[1]))];
   const stripped = leftover.filter((n) => grammar.test(n)).map((n) => `{{${n}}}`);
   const literal = leftover.filter((n) => !grammar.test(n)).map((n) => `{{${n}}}`);
-  const inert = declared.filter((k) => !used.includes(k));
+  // A repeater slot is consumed by its block, not by a {{scalar}} token — not inert.
+  const byRepeat = repeats.filter((r) => r.declared).map((r) => r.name);
+  const inert = declared.filter((k) => !used.includes(k) && !byRepeat.includes(k));
   /* A slot NAME is a different question from whether a token is strippable: the name becomes
      an ACF field name brg_<id>_<key>, so a hyphen is invalid there regardless of what the
      plugin's strip can match. @finn's TOKEN_SLOT_NAME, explicitly, not the strip grammar. */
   const badKeys = declared.filter((k) => !TOKEN_SLOT_NAME.test(k));
-  return { declared, used, stripped, literal, inert, badKeys };
+  return { declared, used, stripped, literal, inert, badKeys, repeats };
 }
 
 /* ── Findings ─────────────────────────────────────────────────────────────────────────── */
@@ -244,6 +289,12 @@ const F = {
      inline block is dead text that still reads like the source — the failure being that someone
      edits the copy that is no longer used and cannot see why nothing changed. @conti's --check
      catches this in the repo (origin == 'both'); this is the same defect seen from the CDN. */
+  /* Repeater verdicts — plugin v2.7.0. Modelling these is what stopped this tool reporting
+     a correctly-wired team-members as BROKEN. */
+  REP_NOEMPTY: (n) => ({ level: 'BROKEN', msg: `repeat block \`${n}\` has no <!--brg:empty--> half. vc-clients-embed.php:236 returns the empty string when no rows exist, so until someone adds the FIRST row in wp-admin this block renders NOTHING — a section that shows cards today would go blank the moment the template landed. The plugin's own comment (:203) calls this out as the regression the empty half exists to prevent.` }),
+  REP_UNDECL: (n) => ({ level: 'BROKEN', msg: `repeat block \`${n}\` has no matching repeater slot in slots.json, so the plugin finds no sub-fields and no ACF rows and the block collapses to its empty half (or to nothing). The repeater can never render a row.` }),
+  REP_SUBORPHAN: (n, t) => ({ level: 'BROKEN', msg: `inside repeat \`${n}\`: ${t.map((x) => `{{${n}.${x}}}`).join(' ')} — not declared under this repeater's \`sub\`, so :252 strips them per row. Silent copy loss inside every card.` }),
+  REP_SUBINERT: (n, t) => ({ level: 'INERT', msg: `repeater \`${n}\` declares sub-field(s) ${t.join(', ')} with no {{${n}.<sub>}} token in the row template — wp-admin shows the input on every row and nothing renders.` }),
   BOTHSRC: () => ({ level: 'WARN', msg: 'slots are declared in BOTH sections/<id>/slots.json and the inline block in sections.json. slots.json wins, so the inline copy is dead text that still reads as the source — edit it and nothing happens. Delete the inline one.' }),
 };
 
@@ -272,6 +323,14 @@ async function main() {
     if (a.badKeys.length) findings.push(F.BADKEY(a.badKeys));
     if (r.source === 'slots.json' && !r.hasInline && a.used.length) findings.push(F.NOFALLBACK(a.used.length));
     if (r.source === 'slots.json' && r.hasInline) findings.push(F.BOTHSRC());
+    for (const rp of a.repeats || []) {
+      if (!rp.hasEmpty) findings.push(F.REP_NOEMPTY(rp.name));
+      if (!rp.isRepeater) findings.push(F.REP_UNDECL(rp.name));
+      else {
+        if (rp.subOrphans.length) findings.push(F.REP_SUBORPHAN(rp.name, rp.subOrphans));
+        if (rp.subInert.length) findings.push(F.REP_SUBINERT(rp.name, rp.subInert));
+      }
+    }
     if (a.stripped.length && !r.source) findings.push(F.NOSRC());
     out.push({ id, source: r.source, notes: r.notes, ...a, findings });
   }
@@ -298,7 +357,8 @@ function report(dep, out) {
   for (const s of out) {
     if (s.skipped) continue;
     const src = s.source ? s.source : 'nowhere';
-    const wired = (s.used?.length || 0) + '/' + ((s.declared?.length) || 0);
+    const wired = (s.used?.length || 0) + '/' + ((s.declared?.length) || 0)
+      + ((s.repeats?.length) ? ` +${s.repeats.length} repeat` : '');
     if (!s.findings.length) {
       clean++;
       console.log(`  ${C.b}${s.id}${C.off}  ${C.dim}slots from ${src} · ${wired} filled${C.off}  \x1b[32mok\x1b[0m`);
@@ -348,6 +408,12 @@ async function selftest() {
     ['strips leftover tokens with a preg_replace', /preg_replace\(\s*'\/\\\{\\\{\[[^\]]+\]\+\\\}\\\}\/i'/],
     ['vcc_fetch returns empty on non-200', /wp_remote_retrieve_response_code\(\s*\$res\s*\)\s*!==\s*200/],
     ['fills with str_replace on a flat key', /str_replace\(\s*'\{\{'\s*\.\s*\$key\s*\.\s*'\}\}'/],
+    // v2.7.0 repeaters. Added AFTER this tool reported a correctly-wired section as BROKEN
+    // because it did not know the feature existed — assertions about old behaviour cannot
+    // see a NEW one, so each new mechanism needs its own anchor here.
+    ['repeat blocks: <!--brg:repeat name--> … <!--/brg:repeat-->', /<!--brg:repeat\\s\+\(\[a-z0-9_\]\+\)-->/],
+    ['repeat blocks split on <!--brg:empty-->', /explode\(\s*'<!--brg:empty-->'/],
+    ['repeater sub-tokens fill as {{name.sub}}', /str_replace\(\s*'\{\{'\s*\.\s*\$name\s*\.\s*'\.'\s*\.\s*\$sk/],
   ];
   let bad = 0;
   console.log('\n\x1b[1mselftest\x1b[0m — does this mirror still match vc-clients-embed.php?\n');

@@ -185,3 +185,32 @@ $ node slotcheck.mjs --from=fixtures --plugin=2.5.0 orphan-token
 
 Both are reproduced from the version number alone, and both are cases `build-acf.py --check`
 cannot reach in principle — nothing about either is visible in the repo.
+
+## 2026-08-18 — the tool reported a false BROKEN, and that is the lesson
+
+`team-members` came back **BROKEN + INERT** on a live sweep: `{{members.photo}}`,
+`{{members.name}}`, `{{members.title}}`, `{{members.quote}}` "render literally on the live page".
+
+**It was wrong.** Plugin **v2.7.0** (`61b97f8`) added real repeaters — a `<!--brg:repeat name-->`
+… `<!--brg:empty-->` … `<!--/brg:repeat-->` block, consumed by `preg_replace_callback` at `:214`
+*before* the scalar pass, with sub-tokens filled per row at `:249`. The section is correctly
+wired. This tool simply did not know the feature existed.
+
+**Why `--selftest` did not catch it.** All ten assertions passed, because every one of them
+asserts a behaviour I already knew about. **An assertion about old behaviour cannot see a new
+one.** That is a real hole in the "mirror that can tell you it has drifted" idea: it detects
+*changed* behaviour, not *added* behaviour. The fix is not cleverer assertions, it is that every
+new mechanism in the mirrored system needs its own anchor — three were added for repeaters.
+
+**What it cost and what saved it.** Nearly a false report of a live breakage to Sean. What
+stopped it was checking the plugin source before reporting, on the same instinct that has paid
+off repeatedly here: the finding is a claim, and a claim about someone else's file gets verified
+against that file first. A tool that cries wolf is worse than no tool, because the next real
+BROKEN gets ignored.
+
+**Also fixed in the same pass: the version probe had silently degraded.** The deploy Action
+stopped echoing `VCC_VERSION` and now sha256s every deployed file against the repo. The old grep
+found nothing, so the tool fell back to reading the repo's own value and honestly labelled itself
+`UNVERIFIED` — the fallback working as designed, but blind. It now reads the hash line and
+compares it to the local file, which is **stronger** evidence than the old grep: a byte-identical
+file cannot be a different version. Deployed is now *proven* 2.7.0, not inferred.
