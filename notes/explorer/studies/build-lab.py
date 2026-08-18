@@ -108,6 +108,8 @@ def build():
         ('style:false',            'measure-only: a fallback must not STYLE the words'),
         ('--strokec',              'stroke colour routed off the text'),
         ('function attachBox',     'the single place that knows a .u needs a stroke box'),
+        ("mark.classList.contains('blk')", 'the blk branch — a bar is a sibling, not a wrapper'),
+        ('l.cvb',                  'the centreline viewBox — without it every draw starts offset'),
         ('function sectionPanel',  'the per-section variable panel'),
     ):
         assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"

@@ -153,7 +153,16 @@ def derive():
         c, sw = centreline(flatten(d), W)
         if not c:
             print(f"  ! {f.name}: no centreline recoverable"); continue
-        out[f.stem] = {"vb": vb, "d": d, "centre": c, "sw": round(sw, 1),
+        # The centreline sits INSIDE the outline's viewBox — the outline has width, the
+        # centreline is its spine, so it starts and ends ~1% in from each edge. Under
+        # preserveAspectRatio="none" that renders as a visible gap at both ends of every
+        # drawn stroke ("starts and ends offset"). Give the centreline its own viewBox,
+        # tightened to its actual extent, so it stretches edge to edge.
+        import re as _re
+        xs = [float(m) for m in _re.findall(r'(-?\d+\.?\d*) -?\d+\.?\d*', c)]
+        vbp = [float(x) for x in vb.split()]
+        cvb = f"{min(xs):.1f} {vbp[1]:.1f} {max(xs)-min(xs):.1f} {vbp[3]:.1f}"
+        out[f.stem] = {"vb": vb, "cvb": cvb, "d": d, "centre": c, "sw": round(sw, 1),
                        "src_sha": hashlib.sha256(raw).hexdigest()[:12]}
     return out
 
@@ -199,7 +208,7 @@ def main():
     OUT.write_text(json.dumps(fresh, indent=1))
     print("  provenance stamp:", "".join(sorted(v["src_sha"] for v in fresh.values()))[:24], "...")
     for k, v in fresh.items():
-        print(f"  {k:22} stroke {v['sw']:5.1f}  src {v['src_sha']}")
+        print(f"  {k:22} stroke {v['sw']:5.1f}  vb {v['vb']:>22}  cvb {v['cvb']:>22}")
     print(f"\nwrote {OUT.name} — {len(fresh)} centrelines")
     return 0
 
