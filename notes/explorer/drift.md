@@ -104,6 +104,25 @@ a correct fix feels like an ending.
 you make them agree. The instance is evidence of a boundary, and boundaries carry more than one
 thing across them.
 
+## A gate must not fire on the steady state
+
+`check-drift.py --strict` blocked **my** push for a divergence only **Conti** can resolve —
+`website/kit/` is his. And the three `copy` pairs diverging is not a fault at all: **it is the
+handoff's steady state**, between the author building and the promoter promoting.
+
+> **A gate that fires on the normal condition is not strict, it is noise** — and an escape hatch
+> typed reflexively on every push is worse than no gate, because the line above it stops being read.
+
+Same argument that kept `build-acf.py --check` permissive on a partially-missing section tree.
+The fix is `--owner`: **everything is reported, only your own pairs can block you.** A divergence
+you cannot fix stays visible rather than being filtered out of sight — you should know the
+deployed copy is stale even when promoting it isn't yours to do.
+
+Conti wired `--owner "$(git config fc.chat)"` into `pre-push` **before I supported the flag**,
+relying on membership-based arg parsing to ignore it until then. Worth recording as a technique:
+**a forward-compatible flag lets two owners land a two-sided change in either order**, with no
+window where one half is waiting on the other and no second commit for either to forget.
+
 ## The register
 
 `notes/explorer/studies/drift-register.json` + `check-drift.py`. Every pair where one fact is
