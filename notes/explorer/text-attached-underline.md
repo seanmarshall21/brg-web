@@ -3,7 +3,7 @@
 **Status:** proposed · Explorer · 2026-08-13 · commissioned by Sean via Conti ·
 source: [Osmo, `codepen.io/osmosupply/pen/qEEKRrx`](https://codepen.io/osmosupply/pen/qEEKRrx) (MIT) ·
 demo: **[Three Underlines](https://claude.ai/code/artifact/b339f004-60aa-4ead-b2ec-0493141ef97c)**
-**Verified against:** `df1adca` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
+**Verified against:** `d68f202` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
 Sean picked the Osmo pen and set the trigger model: **nav is hover; everything else, hero
 included, fires on scroll-in — after the split-text animation.** That resolves what looked like
@@ -235,35 +235,79 @@ sets, because **this is the deliverable that turns a demo into a component.**
   nudge a stroke off its baseline. **Ship the five shapes with fixed boxes; expose only the
   shape choice.**
 
-## 0.6 The unsolved one: which words get the mark, when the copy is ACF-editable
+## 0.6 Which words get the mark — SETTLED
 
-Sean: *"Considering this is going to be an ACF, we need to understand how or what we're going to
-do to pick what the text that gets underlined is."* **This is the hardest question in the spec and
-it has no good answer yet.** [SPEC-009 §3](#) is why: `splitByWords` rebuilds the headline from
-`textContent`, so **an editor cannot put markup in the field** — a `<span>` typed into wp-admin is
-destroyed before it renders.
+**Sean ruled 2026-08-18: asterisks.** Chosen over a second field, a rich-text field, and
+last-line-only. Conti ruled the architecture the same day. This section was the open question in
+the spec; it is now the contract.
 
-Four options, ranked:
+### The principle: measure, don't inject
 
-1. **A delimiter in the field.** `Come work somewhere *you actually want to be*` — the fill step
-   converts `*…*` to the mark span **before** `splitByWords` runs. Editor-friendly, no markup, and
-   it survives the split because the conversion happens first. **Recommended.** Cost: one
-   character becomes reserved, so the `doc` must say so, and a literal asterisk needs escaping.
-2. **A second field** — `heading` plus `heading_mark` naming the substring to mark. Explicit, no
-   reserved characters, but it duplicates text between two fields, and **two fields holding one
-   sentence is the drift shape we have spent two days deleting**.
-3. **Last line, always** — no control at all. What every hero does today. Zero cost, and it is the
-   right *default*, but it cannot express *"Built **for community**"* where the mark sits mid-line.
-4. **Rich-text field with an allowed tag.** ACF can do it; `splitByWords` cannot survive it
-   without the engine change §3 rejects.
+> **The delimiter names which words to MEASURE. It never injects markup into the headline.**
 
-**I would ship 3 as the default and 1 as the opt-in**, because they compose: no delimiter present
-→ mark the last line; delimiter present → mark exactly that span. That also answers his *"what
-happens if only half of the text on that line gets the underline"* — with option 1 it is
-expressible; with option 3 it is not.
+The stroke stays a sibling and sizes itself to the union of the marked words' rects. The headline
+DOM is untouched and the split engine never sees markup. That is what keeps the **ACF question**
+and the **animation question** independent — every alternative couples them, which is why every
+alternative gets harder as either side changes.
 
-**This needs Sean's ruling before Finn builds anything**, because it decides the shape of every
-heading field on the site.
+### The contract
+
+| | |
+|---|---|
+| **Syntax** | `Come work somewhere *you actually want to be*` |
+| **Default** | **No delimiter → mark the last line.** Today's behaviour, unchanged |
+| **Where** | **Client-side, in `brgw.js`.** The plugin must not know what an asterisk means |
+| **Slot type** | Heading slots stay **`type: "text"`**. Not `html` |
+| **Literal asterisk** | `\*` |
+| **Unbalanced** | A lone `*` renders **literally** and marks nothing. It must never swallow the rest of the headline |
+
+**Why client-side, and it is the strongest of the three rulings.** Server-side, the conversion
+would have to run *after* `esc_html` or the span gets escaped with everything else — so
+`vcc_fill_slots` would carry **an exception to its own escaping rule**. That rule is one line and
+completely legible today (`:213-214`); an exception in it is how the next person introduces an
+XSS. A presentation convention belongs where presentation lives.
+
+**Why `text` and not `html`.** `wp_kses_post` permits iframes, styles, tables and
+scripts-by-attribute — an enormous surface for a field whose legitimate content is *a sentence*.
+The delimiter means an editor never needs markup, so granting it would be paying the blast radius
+for a capability the design removes.
+
+**Why not a second field.** Two fields holding one sentence is the drift shape SPEC-008 exists to
+delete — and it fails *silently* when the marked words appear twice in the heading.
+
+### What the engine needs — narrower than first stated
+
+`splitByWords` flattens in **two** places, not one (Conti caught this; I had said one):
+
+```js
+brgw.js:24   var words = el.textContent…            // entry flatten
+brgw.js:31   cur.push(s.textContent);               // line-join flatten
+```
+
+**`:24` is not a problem — asterisks are text and survive it intact.** That is the point of a
+delimiter over markup. The parse happens here: strip the delimiters, record which word indices
+were inside them, tag those `.w` spans.
+
+**Only `:31` needs to change, and only for marked words:**
+
+```js
+cur.push(s.classList.contains('mkw') ? s.outerHTML : s.textContent);
+```
+
+So **unmarked words stay plain text** and their spacing, kerning and wrapping are untouched. This
+matters: my first version of this ask proposed preserving *every* word as an element, which would
+have traded typography site-wide for a decoration. **The narrower change carries almost none of
+that risk**, and it only exists at all on headings that actually use the delimiter.
+
+Finn owns `brgw.js` and has the final call on whether even that is worth it. **"Not worth the
+risk" remains a real answer** — the fallback is last-line-only, which is today's behaviour, and
+the only thing lost is expressing *"Built **for community**"* with the mark mid-line. That would
+be a deliberate limit, and should be recorded as one rather than left looking like an oversight.
+
+### Why Sean wanted it
+
+*"What happens if only half of the text on that line gets the underline or highlight."* With
+last-line-only that is inexpressible. That is the whole case, and it is a good one.
 
 ## 1. Which implementation
 
