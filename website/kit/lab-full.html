@@ -41,6 +41,23 @@ border-radius:999px;padding:6px 12px;cursor:pointer;text-decoration:none}
 .ctl .who{color:var(--labink);margin-right:auto;font-size:.8rem;text-transform:none;letter-spacing:0}
 .ctl .go{border-color:var(--labink);color:var(--labink)}
 .wrap{margin-top:44px}
+/* The production nav is position:fixed;top:0 and the lab's own control bar is
+   fixed;top:0;z-index:9999 — so the bar sat directly on top of the nav and hid it
+   completely. Sean: "I can't see them on the full screen preview because I can't see
+   the header", which makes the whole D group unjudgeable in full view. Push the nav
+   below the bar rather than moving the bar: the nav overlaying the hero is the real
+   site's behaviour and that is the thing under test. */
+.brgw .bnav{top:44px}
+/* In the 390 column the nav would still span the whole window, because position:fixed
+   ignores the .mob wrapper. Pin it to the column instead — left/right rather than a
+   transform, since .bnav animates transform for its sticky hide. */
+.wrap.mob .bnav{left:calc(50% - 195px);right:auto;width:390px}
+/* Nothing paints until the sequence is armed. On first load the wrapper is inserted
+   after brgw.js splits the headline, so there is a window where the box is positioned
+   against a rect that is still settling — Sean on S-A2: "starts beyond where it's
+   supposed to start and disappears and starts at that correct starting point." That is
+   a real first paint at a stale position, not a bug in the variant. */
+#root:not(.armed) .u .box,#root:not(.armed) .mk::before{visibility:hidden}
 .wrap.mob{max-width:390px;margin-left:auto;margin-right:auto;
 border-left:1px solid var(--labline);border-right:1px solid var(--labline)}
 .note{padding:9px 16px;background:#171514;color:var(--labdim);border-bottom:1px solid var(--labline);
@@ -197,6 +214,7 @@ function fire(){
   const r=$('#root');
   const secs=r.querySelectorAll('.reveal');
 
+  r.classList.add('armed');      // first paint is suppressed until here — see .armed in the CSS
   r.classList.add('noanim');
   r.querySelectorAll('.u,.mk').forEach(function(x){x.classList.remove('on');});
   secs.forEach(function(sec){sec.classList.remove('is-in');});
