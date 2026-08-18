@@ -38,6 +38,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[3]
 SRC  = REPO / "website/assets/media/lines"
 OUT  = Path(__file__).with_name("lines-centrelines.json")
+# Anything that BAKES A COPY of the derivation is a second-order instance of the same rule:
+# --check would pass on the JSON while a consumer silently carried last week's paths.
+CONSUMERS = [Path(__file__).with_name("lab.html")]
 SAMPLES, CAP_FLOOR = 90, .45
 
 
@@ -157,6 +160,14 @@ def main():
                 bad.append(f"{k}: SVG changed ({o.get('src_sha')} -> {v['src_sha']}) — derivation is stale")
         for k in old:
             if k not in fresh and not k.startswith("_"): bad.append(f"{k}: source SVG is gone")
+        # consumers that embed the paths must carry the same provenance, or they go stale silently
+        want = "".join(sorted(v["src_sha"] for v in fresh.values()))
+        for c in CONSUMERS:
+            if not c.exists(): continue
+            m = re.search(r"centreline-provenance: ([a-f0-9]+)", c.read_text())
+            if not m:        bad.append(f"{c.name}: embeds the paths but records no provenance stamp")
+            elif m.group(1) != want:
+                bad.append(f"{c.name}: baked from an older derivation — rebuild it")
         if bad:
             print("STALE — the artwork moved under the derivation:")
             for b in bad: print("  " + b)
@@ -165,6 +176,7 @@ def main():
         print(f"OK — all {len(fresh)} centrelines match the artwork they were derived from.")
         return 0
     OUT.write_text(json.dumps(fresh, indent=1))
+    print("  provenance stamp:", "".join(sorted(v["src_sha"] for v in fresh.values()))[:24], "...")
     for k, v in fresh.items():
         print(f"  {k:22} stroke {v['sw']:5.1f}  src {v['src_sha']}")
     print(f"\nwrote {OUT.name} — {len(fresh)} centrelines")
