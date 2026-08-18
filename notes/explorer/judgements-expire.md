@@ -132,6 +132,63 @@ assertion, not a check.
   live-plugin version is already covered by the deploy Action's `VCC_VERSION` grep — which is
   itself an existing instance of this rule, and worth naming as one.
 
+## Addendum — what the Conti exchange added, 2026-08-17
+
+Working the rule turned up **six more defects, five in our own tooling, none found by reading.**
+
+| What | Failure |
+|---|---|
+| `build-acf.py` blind-empty | Couldn't see `website/sections/`, said *"No sections declare slots yet"*, wrote `[]` over 19 field groups, **exit 0** |
+| `derive-centrelines.py` — mine | Missing source dir → wrote `{}` over all ten derivations. **A tool that destroys its subject when its own assumption breaks** |
+| `lab.html` | Bakes a *copy* of the derivation; `--check` went green on the JSON while the page carried last week's paths |
+| Deploy Action `VCC_VERSION` | `\|\| true` swallowed the miss. **Not a stale judgement — one that was never true**, in a step whose name answered the question so precisely nobody opened it |
+| `--check` under blindness | Zero slots and zero tokens is **vacuously true**, so it reported OK |
+| A backgrounded `grep -oE` | Returned nothing, exit 0, for Salient's scribble variants. There are five — `grep` is line-based and the rules span lines |
+
+### Three additions to the rule
+
+**1. Refuse when you might destroy something; report when you can only inform.**
+Damage-capable paths get the strict guard; read-only paths stay permissive. Safe because the
+boundary is itself checked — the ambiguous half-built state is *already* red, so the only case
+left permissive is the unambiguous one.
+
+**2. Two guards that consume the same discovery step are one guard wearing two names.**
+`pre-push` runs `--check` and a regenerate-and-diff; both reach the tree through `slots_for()`.
+One blind read poisons both, so **the fix belongs in the discovery, not in each consumer.**
+*(Correcting myself: I first accepted that regenerate-and-diff "compares a thing to itself". It
+doesn't — the hole is **commit ordering**. The tidier version was wrong.)*
+
+**3. Empty is a finding; blind is a fault. They must never render the same.**
+Conti's was a **write** tool treating blindness as emptiness and shipping `[]`. The `grep` was a
+**read** tool doing the same and reporting "absent". Same defect, opposite ends of the pipe.
+This is what `derive-centrelines.py` now enforces on itself — refuse to run rather than return
+an empty derivation.
+
+### And the one with no mechanical fix
+
+I inferred a hook's behaviour from its header comment — remedy: *open the file*. Conti inferred
+**his own patch's reach from having written it** — no instrument to fix, because he wasn't
+reading anything.
+
+> **The author is the worst-placed person to judge a patch's reach — they read intent, not code.**
+
+So *"I wrote it, so I know what it does"* earns the same suspicion as an authoritative-sounding
+step name, and the defence for both is identical: **run it.** Related, and Conti's:
+**a count is never a finding when you chose the slice.**
+
+### Seventh, and it is this document
+
+`df1adca` was committed with the message *"SPEC-010 addendum: five more defects…"*. **The addendum
+was not in the diff.** The script's anchor did not match, the script printed success
+unconditionally, and I then described the addendum's contents to Sean. Three layers of claim —
+commit message, my report, this file — and only the file was checked, days later, by accident.
+
+> **A script that reports success without verifying its own edit is the same defect as a workflow
+> step that prints a version without comparing it.** Both are checkers that cannot fail.
+
+The write is now asserted: anchor count checked before, content presence and file growth checked
+after, non-zero exit if either fails.
+
 ## Asks
 
 | Ask | Owner | Outcome |
