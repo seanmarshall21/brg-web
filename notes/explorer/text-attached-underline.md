@@ -100,11 +100,80 @@ body .nectar-scribble.squiggle-underline-2{width:100%;height:50%;top:auto;bottom
    across both lines. Sean's rule — *"if it splits to two lines, it should only fill the width of
    the bottom one"* — is stricter than the reference. Ours should keep the stricter behaviour.
 
-**The highlight** (`/menu/` hero) is the same component in a different mode: `data-style="full_text"`,
-the `<em>` carrying `background-image:linear-gradient(to right,COLOR 0,COLOR 100%)` and revealed on
-the same `.animated` class. I have the mechanism and the markup; **the exact background-size timing
-is in Salient's core stylesheet, which I could not reach** — so treat that one as confirmed in
-shape and unconfirmed in numbers.
+### 0.1 The trigger — read from the theme source, and it is the thing we had most wrong
+
+Sean supplied the Salient theme (`~/_claude-local/salient/`, local only — it is a paid licensed
+theme and must never enter `website/`). `js/src/init.js`, `highlightedText()`:
+
+```js
+var $offset = ($fullscreenMarkupBool) ? '500%' : 'bottom-in-view';
+if (nectarDOMInfo.usingMobileBrowser && $offset == 'bottom-in-view') $offset = '85%';
+new Waypoint({ element: $that[0], offset: $offset, handler: function () {
+    $that.find('em').each(function (i) {
+      var $em = $(this);
+      setTimeout(function () { $em.addClass('animated'); }, i * 300);   // stagger
+    });
+    waypoint.destroy();                                                 // fires ONCE
+}});
+```
+
+| | Salient | **`brgw.js` today** |
+|---|---|---|
+| Desktop trigger | **`bottom-in-view`** — the element's *bottom* reaches the viewport, i.e. it is **fully on screen** | `threshold:0.16, rootMargin:'0px 0px -8% 0px'` — fires at **16% visible** |
+| Mobile browsers | `85%` — top reaches 85% down the viewport | same as desktop |
+| Repeat | `waypoint.destroy()` — **once, never again** | `io.unobserve()` — also once ✓ |
+| Multiple spans | staggered **300ms** apart | n/a |
+
+**That first row is the answer to *"it triggers correctly when it's pulled onto the screen and not
+anytime before."*** Ours starts when a sixth of the section has appeared; the reference waits until
+the whole element is in view. Nothing about the stroke was wrong — **we were starting it too early**,
+which is why it never read as "pulled onto the screen".
+
+IntersectionObserver equivalents, since we are not adding Waypoints:
+- desktop `bottom-in-view` → **`threshold: 1.0`** (whole element visible)
+- mobile `85%` → `threshold: 0, rootMargin: '0px 0px -15% 0px'`
+- tall-element guard: an element taller than the viewport can never reach `threshold:1`, so pair it
+  with `rootMargin:'0px 0px -15% 0px'` at `threshold:0` and take whichever fires first.
+
+### 0.2 The five scribble variants — Sean's "slight variations", already drawn
+
+`includes/class-nectar-element-styles.php`. Same mechanism, different path and box:
+
+| Variant | Box on the `<em>` |
+|---|---|
+| **`basic-underline`** — *the one he picked* | `width:100%; height:30%; top:auto; bottom:-20%` |
+| `sketch-underline` | `height:60%; bottom:-15%` |
+| `squiggle-underline` | `height:50%; bottom:-30%` |
+| `squiggle-underline-2` — the two-pass one on *Fresh Baked* | `height:50%; bottom:-45%` |
+| `circle` | `width:130%; height:140%; top:-20%; left:-15%` |
+
+The path data is **per instance**, authored in the builder — not canned in the theme. So
+"variations" means our own strokes in these boxes, which is what Sean's five `line-*-lg.svg` are.
+
+### 0.3 The highlight — full numbers, previously flagged unconfirmed
+
+`css/build/elements/element-highlighted-text.css`:
+
+```css
+.nectar-highlighted-text:not([data-style=text_outline]) em{
+  background-repeat:no-repeat;
+  background-size:0 80%;                       /* → 100% 80% on .animated */
+  background-image:linear-gradient(to right,COLOR 0,COLOR 100%);
+  background-position:left 90%;
+  transition:background-size .9s cubic-bezier(.15,.75,.4,1), opacity .25s ease;
+}
+```
+
+Three tightnesses via `data-exp`: default `80%` @ `left 90%`, `closer` `70%` @ `left 65%`,
+`closest` `60%` @ `left 65%`.
+
+**It is a `background-size` wipe on a gradient, not a scaled pseudo-element** — and that is
+better than my `.mk::before{transform:scaleX()}`, because a background survives
+`box-decoration-break:clone` across a wrapped line where a single stretched box does not. Worth
+adopting on that ground alone.
+
+**Timing: 0.9s `cubic-bezier(.15,.75,.4,1)`** — a strong ease-out, and notably *faster* than the
+1.8s stroke. The two are not meant to match.
 
 ## 1. Which implementation
 
