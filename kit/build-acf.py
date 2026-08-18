@@ -103,24 +103,33 @@ def assert_options_page_agrees():
     if not os.path.exists(php):
         return
     import re as _re
-    m = _re.search(r"'menu_slug'\s*=>\s*'([^']+)'", open(php, encoding='utf-8').read())
+    src = open(php, encoding='utf-8').read()
+    # Read the CONSTANT, not the menu_slug line: menu_slug is now BRG_ACF_PAGE, so a
+    # literal search would find nothing and the check would silently stop checking.
+    m = _re.search(r"define\(\s*'BRG_ACF_PAGE'\s*,\s*'([^']+)'\s*\)", src)
     if not m:
-        sys.exit(f"refusing to run: no menu_slug found in {php} — the options page may have "
-                 f"moved, and every group's location points at '{OPTIONS_PAGE}'.")
+        sys.exit(f"refusing to run: no BRG_ACF_PAGE constant in {php} — the options page may "
+                 f"have moved, and every group's location points at '{OPTIONS_PAGE}'.")
     if m.group(1) != OPTIONS_PAGE:
         sys.exit(f"refusing to run: options page mismatch.\n"
                  f"  kit/build-acf.py OPTIONS_PAGE = '{OPTIONS_PAGE}'\n"
-                 f"  brg-acf.php menu_slug        = '{m.group(1)}'\n"
+                 f"  brg-acf.php BRG_ACF_PAGE     = '{m.group(1)}'\n"
                  f"Groups would attach to a page that does not exist and the Section Content "
                  f"screen would render empty, with no error.")
 
 def field(section_id, slot, defn):
     name = 'brg_' + section_id.replace('-', '_') + '_' + slot
     t = TYPE.get(defn.get('type', 'text'), 'text')
+    # Short fields pair two to a row; anything that needs room takes the whole row.
+    # A label and its link side by side is how they are actually edited — the
+    # alternative is 62 full-width boxes stacked, which is the screen fc-brands
+    # describes as unusable by the third section. Presentation only: wrapper.width
+    # is a CSS width on the field's container and touches nothing about storage.
+    wide = t in ('textarea', 'wysiwyg', 'image')
     f = {
         'key': 'field_' + name, 'label': defn.get('label', slot.replace('_', ' ').title()),
         'name': name, 'type': t, 'instructions': admin_html(defn.get('doc', '')), 'required': 0,
-        'conditional_logic': 0, 'wrapper': {'width': '', 'class': '', 'id': ''},
+        'conditional_logic': 0, 'wrapper': {'width': '' if wide else '50', 'class': '', 'id': ''},
         'default_value': defn.get('default', ''),
     }
     if t == 'image':

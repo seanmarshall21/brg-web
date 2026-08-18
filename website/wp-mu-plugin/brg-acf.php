@@ -20,6 +20,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! defined( 'BRG_ACF_SRC' ) ) define( 'BRG_ACF_SRC', 'https://blacktoprg.netlify.app/acf/all.acf.json' );
 if ( ! defined( 'BRG_ACF_TTL' ) ) define( 'BRG_ACF_TTL', 300 ); // seconds; ?brg_refresh=1 busts it
 
+/* The options page slug. THREE things must agree on this string: this page, every
+ * generated group's location.value, and the screen check in brg-acf-admin-style.php.
+ * fc-brands carries it as three literals and lists the agreement as unenforced — a
+ * mismatch attaches every group to a page that does not exist and the whole screen
+ * renders EMPTY, with no error. It is the one coupling their write-up says actually
+ * fired, twice.
+ *
+ * Here the two PHP copies are DELETED rather than gated: the style file reads this
+ * constant. The third lives in kit/build-acf.py, which cannot import a PHP constant,
+ * so that one is asserted at generation time instead. */
+if ( ! defined( 'BRG_ACF_PAGE' ) ) define( 'BRG_ACF_PAGE', 'brg-section-content' );
+
 add_action( 'acf/init', function () {
 
     // 1) The one options page every generated group attaches to (menu_slug MUST equal
@@ -28,7 +40,7 @@ add_action( 'acf/init', function () {
         acf_add_options_page( array(
             'page_title'      => 'Section Content',
             'menu_title'      => 'Section Content',
-            'menu_slug'       => 'brg-section-content',
+            'menu_slug'       => BRG_ACF_PAGE,
             'capability'      => 'edit_posts',
             'autoload'        => true,
             'icon_url'        => 'dashicons-layout',
