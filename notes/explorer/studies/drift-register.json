@@ -1,0 +1,21 @@
+{
+  "_note": "Every place in this repo where ONE fact is knowingly held TWICE. SPEC-011. A pair that is not registered is invisible to check-drift.py — registering is the point, not the checking. mode: derive|copy|transcribe. owner is who fixes a divergence.",
+  "pairs": [
+    { "id": "lab-html",        "mode": "copy",      "owner": "conti",
+      "a": "notes/explorer/studies/lab.html",      "b": "website/kit/lab.html",
+      "why": "expo authors, conti promotes. One-directional: edits to b are destroyed by the next build." },
+    { "id": "lab-cards",       "mode": "copy",      "owner": "conti",
+      "a": "notes/explorer/studies/lab-cards.js",  "b": "website/kit/lab-cards.js",
+      "why": "same handoff. Must promote WITH lab.html — lab.html links it and half a promotion ships a stale card list." },
+    { "id": "lab-lines",       "mode": "copy",      "owner": "conti",
+      "a": "notes/explorer/studies/lab-lines.js",  "b": "website/kit/lab-lines.js",
+      "why": "same handoff. Holds the artwork + sv(); a stale copy makes every draw variant trace outlines." },
+    { "id": "centrelines",     "mode": "derive",    "owner": "expo",
+      "a": "website/assets/media/lines/*.svg",     "b": "notes/explorer/studies/lines-centrelines.json",
+      "check": "python3 notes/explorer/studies/derive-centrelines.py --check",
+      "why": "b is derived from a and carries src_sha per file. Sean re-exports the artwork, so this WILL drift." },
+    { "id": "salient-values",  "mode": "transcribe","owner": "expo",
+      "a": "~/_claude-local/salient (not in repo)", "b": "notes/explorer/text-attached-underline.md §0 + lab-template.html",
+      "why": "UNGUARDED BY CONSTRUCTION — the source is a licensed theme outside the repo, so no check can compare them. The only defence is that both copies cite the file they came from." }
+  ]
+}
