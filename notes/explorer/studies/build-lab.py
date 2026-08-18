@@ -88,6 +88,9 @@ def build():
 """ + kit)
     assert "__" not in kit.replace("__MACOSX",""), "unfilled token in kit build"
     assert "const CARDS=[" not in kit, "CARDS still inline in the kit build"
+    # SHIP rides inside the CARDS block, so it lands in lab-cards.js — not lab.html.
+    # Gating it against `kit` failed a correct build twice; check the blob that has it.
+    assert "const SHIP=[" in js, "the shipping-form variants are missing from lab-cards.js"
     # Features Sean asked for, each of which has already been lost once by a rebuild
     # silently reverting an edit made to the DEPLOYED file. Losing one must fail the build,
     # not the review — he has been the regression test three times and cannot tell from
@@ -109,7 +112,7 @@ def build():
         ('--strokec',              'stroke colour routed off the text'),
         ('function attachBox',     'the single place that knows a .u needs a stroke box'),
         ('function renderShip',    'the attribute-driven renderer — section E'),
-        ('const SHIP=[',           'the shipping-form variants'),
+
         ("mark.classList.contains('blk')", 'the blk branch — a bar is a sibling, not a wrapper'),
 
         ('function sectionPanel',  'the per-section variable panel'),
