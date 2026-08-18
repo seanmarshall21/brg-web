@@ -360,14 +360,14 @@
   },
   {
     "key": "group_brg_page_our_restaurants",
-    "title": "Our Restaurants — Content",
+    "title": "Brands — Content",
     "fields": [
       {
         "key": "field_brg_page_our_restaurants_msg",
         "label": "",
         "name": "",
         "type": "message",
-        "message": "<strong>Our Restaurants</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
+        "message": "<strong>Brands</strong> — one tab per section, in page order. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
         "new_lines": "wpautop",
         "esc_html": 0,
         "required": 0,
@@ -426,7 +426,7 @@
       },
       {
         "key": "field_brg_tab_our_restaurants_brands",
-        "label": "Brands",
+        "label": "The restaurants",
         "name": "",
         "type": "tab",
         "placement": "top",
@@ -607,7 +607,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Editable content for the Our Restaurants page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
+    "description": "Editable content for the Brands page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
   },
   {
     "key": "group_brg_page_team",

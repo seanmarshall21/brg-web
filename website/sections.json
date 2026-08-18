@@ -11,7 +11,7 @@
     },
     {
       "id": "our-restaurants-hero",
-      "title": "Our Restaurants — hero",
+      "title": "Brands — hero",
       "group": "hero",
       "status": "live",
       "summary": "Type hero, teal marker underline, asterisk + bolt doodles."
@@ -81,7 +81,7 @@
     },
     {
       "id": "our-restaurants-brands",
-      "title": "Our Restaurants — brands",
+      "title": "Brands — the restaurants",
       "group": "grid",
       "status": "live",
       "summary": "Board & Brew / Odie's brand lockup plates (plain fade-up — no image reveal, it cropped the wordmarks)."
