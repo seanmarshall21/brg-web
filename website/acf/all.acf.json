@@ -738,7 +738,7 @@
         "button_label": "Add member",
         "min": 0,
         "max": 0,
-        "collapsed": "",
+        "collapsed": "field_brg_team_members_members_name",
         "sub_fields": [
           {
             "key": "field_brg_team_members_members_photo",

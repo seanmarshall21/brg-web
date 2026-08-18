@@ -139,6 +139,27 @@ add_action( 'admin_head', function () {
 	/* The first field after a tab shouldn't carry the row rule — the tab is the divider. */
 	.acf-field-tab + .acf-field { border-top: 0; }
 
+	/* ── Repeater rows read as separate records, not one long form ────────── */
+	/* Sean: "they blend together too easily." With a headshot, name, title and quote
+	   per person and nothing between them, row two looks like more of row one. ACF
+	   renders rows as table rows, so the separator has to be a border on the cells —
+	   a radius on a <tr> does nothing. */
+	.acf-repeater .acf-row > td { background: #fff; padding-top: 14px; padding-bottom: 16px; }
+	.acf-repeater .acf-row + .acf-row > td { border-top: 3px solid #e6e9ec; }
+	.acf-repeater .acf-row > .acf-row-handle {
+		background: #f4f5f7;
+		border-right: 1px solid #e3e5e8;
+		color: #6b7075;
+		font-weight: 700;
+	}
+	/* The collapsed row is the point of the collapse: it must read as a line, not a bar. */
+	.acf-repeater .acf-row.-collapsed > td { background: #fbfcfd; }
+	.acf-repeater .acf-row.-collapsed .acf-row-handle { background: #eef0f2; }
+	.acf-repeater .acf-row .acf-fields > .acf-field { border-top-color: #f0f2f4; }
+	.acf-repeater > .acf-actions .acf-button { font-weight: 600; }
+	/* An image sub-field renders a large preview; cap it so one row is not a screenful. */
+	.acf-repeater .acf-image-uploader .image-wrap { max-width: 190px; }
+
 	/* ── Inputs ──────────────────────────────────────────────────────────── */
 	.acf-field input[type=text],
 	.acf-field textarea {

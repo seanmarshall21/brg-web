@@ -138,7 +138,14 @@ def field(section_id, slot, defn):
             'conditional_logic': 0, 'wrapper': {'width': '', 'class': '', 'id': ''},
             'layout': defn.get('layout', 'block'),
             'button_label': defn.get('button', 'Add row'),
-            'min': 0, 'max': 0, 'collapsed': '',
+            'min': 0, 'max': 0,
+            # Collapse each row to ONE named line. With nine people the difference between
+            # a scrollable wall of open rows and a list you can read is this setting, and it
+            # has to name a sub-field key: ACF shows that field's value as the row label.
+            # Defaults to the first text sub-field, which is 'name' in practice.
+            'collapsed': ('field_' + name + '_' + defn['collapse']) if defn.get('collapse') else (
+                next(('field_' + name + '_' + k for k, v in subs.items()
+                      if (v or {}).get('type') in (None, 'text')), '')),
             'sub_fields': [
                 dict(field(section_id, sk, sv), key='field_' + name + '_' + sk, name=sk)
                 for sk, sv in subs.items()
