@@ -257,6 +257,29 @@ happens before any write — the old version wrote inside its loop, so a guard c
 have fired after the damage. (Expo hit the same shape in `derive-centrelines.py`; the general
 statement is his: **an instrument is never in scope of what the instrument checks.**)
 
+**Collect the instrument's own state in the same read as the measurement.** Not as a separate
+step you might skip — in the same object. Verifying the lab's full view, every DOM number said
+the headline was broken: invisible, and split into 8 word-lines instead of 3. Every number was
+real and every conclusion from them was wrong, because the browser pane had `innerWidth: 0` and
+the site's line-measurer wraps every word at zero width. It was recoverable only because
+`innerWidth` happened to be in the same object as the data.
+
+**The tell is an impossible pair, not a wrong number.** A heading with a computed width of `0`
+that also contains text cannot both be true. A single wrong value almost never announces itself;
+a contradictory pair does. Same signature as `--check` reporting "source SVG is gone" about data
+it had just destroyed, and as a heading styled at 3.1rem *and* absent: internally consistent,
+externally absurd. When two readings can't both hold, suspect the instrument before the subject.
+(Also: the browser returns a **stale frame on the first screenshot after a navigate** — a claim
+about the previous page. Take two.)
+
+**Duplication doesn't only risk drift — it hides interface mismatches, because each copy is
+locally consistent.** `lab-full.html` called `sv(k)` with one argument while `lab.html` called
+`sv(k, draw)` with two. Every draw variant would have rendered the outline instead of the
+centreline — the exact defect those variants exist to fix. While each copy of `sv` had one
+parameter, the mismatch was **unobservable**: each agreed with its own caller and disagreed only
+with the other. Deleting the copy didn't prevent a future drift, it *surfaced a present bug*.
+That makes one-home-per-fact a correctness rule, not a tidiness one. (Expo, SPEC-010.)
+
 **A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
 number, a field name, a commit — each asserts *where something lives*, and that moves while the
 fact stays true. Four instances on 2026-08-13: a patch written against `embed.html:63` before the
