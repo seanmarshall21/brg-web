@@ -160,6 +160,27 @@ if [ -n "$php" ]; then
   fi
 fi
 
+# ── Handoff copies: is the deployed copy the copy that was built? ────────────────
+# WARNS, never blocks. Nothing here can be destroyed by getting it wrong, and today's
+# rule is: refuse when you might destroy something, report when you can only inform.
+# A block would also fire while the owner is mid-edit in their own tree, which is the
+# cries-wolf failure that gets a check muted.
+#
+# Why it exists: website/kit/lab.html sat at v2 for four rounds while v3-v6 were built
+# in notes/explorer/studies/. Expo cannot push to website/kit/ (conti territory) and
+# conti does not watch notes/explorer/ (expo territory), so the handoff is a manual
+# copy and NOTHING checked that the copy happened. Sean reviewed a stale build four
+# times, and one of his reports was blamed on his browser cache — it was not his cache.
+while IFS='|' read -r src dst; do
+  [ -f "$src" ] && [ -f "$dst" ] || continue
+  if ! cmp -s "$src" "$dst"; then
+    say "handoff $(basename "$dst")" "STALE — $dst differs from $src"
+    echo "        cp $src $dst    # then commit it, or ignore if the source is mid-edit"
+  fi
+done <<'PAIRS'
+notes/explorer/studies/lab.html|website/kit/lab.html
+PAIRS
+
 if [ "$fail" -ne 0 ]; then
   echo
   echo "  push refused. Fix the above, or bypass with: git push --no-verify"
