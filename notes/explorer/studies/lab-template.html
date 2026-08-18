@@ -94,7 +94,7 @@ color:var(--ink);font:400 .76rem var(--sans);padding:7px 10px}
 /* ── the underline mechanisms ── */
 .u{position:relative;display:inline-block}
 .u .box{position:absolute;left:0;right:0;top:100%;margin-top:-.10em;height:.26em;
-pointer-events:none;color:inherit}
+pointer-events:none;color:var(--strokec,currentColor)}
 /* standalone (not wrapping text): needs its own box, or it collapses to zero width */
 .u.blk{position:absolute;height:.34em;font-size:inherit;left:0;width:min(62%,340px)}
 .stage{position:relative}
@@ -105,6 +105,8 @@ pointer-events:none;color:inherit}
 stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .u.draw.on .box path{stroke-dashoffset:0}
 .u.slow .box path{transition-duration:1.8s}
+/* measure-only: the range exists so the stroke can size itself to it, and styles nothing. */
+.u.measure-only{color:inherit}
 /* wipe: Sean's filled artwork, clip-path */
 .u.wipe .box svg{clip-path:inset(0 100% 0 0);transition:clip-path var(--dur,.72s) var(--ease,cubic-bezier(.22,.61,.36,1))}
 .u.wipe.on .box svg{clip-path:inset(0 0 0 0)}
@@ -317,10 +319,10 @@ const CARDS=[
   
  {g:'gA',id:'A5',rev:4,changed:'You approved this and asked only for a slower reveal. Done — but the reveal speed is GLOBAL, so this is no longer byte-identical to what you approved. Re-judging it is the honest call.',t:'A1 on the Team headline',
   why:'Same wipe again, line-team-lg.svg in pink. Third headline, third stroke, one mechanism.',
-  html:'<p class="head blanco">The crew behind<br><span class="u wipe" data-k="line-team-lg" style="color:var(--pink)">every single day.</span></p>'},
+  html:'<p class="head blanco">The crew behind<br><span class="u wipe" data-k="line-team-lg" style="--strokec:var(--pink)">every single day.</span></p>'},
  {g:'gA',id:'A6',rev:4,changed:'Your rule applied: when the headline wraps, the stroke now fills only the BOTTOM line, measured from the last text rect. Resize the card or flip to Mobile 390 to force a re-measure.',t:'A1 on a long headline',
   why:'NOW FORCED TO WRAP (max-width:15ch) so the rule is actually visible — you denied this and you were right, it was not wrapping at desktop width so there was nothing to judge. When the span wraps, the stroke fills only the BOTTOM line, measured from the last text rect rather than the whole block. Resize the card or flip to Mobile 390 to force a different wrap and watch it re-measure.',
-  html:'<p class="head blanco" style="max-width:15ch;margin-inline:auto">Great food, great people, <span class="u wipe" data-k="line-community-lg" style="color:var(--orange)">epic communities everywhere</span></p>'},
+  html:'<p class="head blanco" style="max-width:15ch;margin-inline:auto">Great food, great people, <span class="u wipe" data-k="line-community-lg" style="--strokec:var(--orange)">epic communities everywhere</span></p>'},
 
 {g:'gA',id:'S-A1',rev:1,salient:true,t:'SALIENT — basic-underline, exact',
   changed:'',
@@ -571,8 +573,12 @@ function parseMark(src){
 // the underline from every heading that has no asterisks in it, i.e. all of them today.
 function markPlan(src){
   const p=parseMark(src);
-  return p.ok ? {mode:'span', before:p.before, mark:p.mark, after:p.after}
-              : {mode:'all',  before:'',       mark:p.before, after:''};
+  // style:false means MEASURE ONLY — define the range the stroke sizes to, apply no mark
+  // styling. With an explicit *…* the two coincide, which is why they read as one thing.
+  // Without one they do not: the stroke measures the last line and NOTHING should be styled,
+  // because today nothing is styled except by happening to be the last line.
+  return p.ok ? {mode:'span', before:p.before, mark:p.mark, after:p.after, style:true}
+              : {mode:'all',  before:'',       mark:p.before, after:'',    style:false};
 }
 
 const SECV={};                                   // gA -> {text,color,speed,ease,tcolor}
@@ -595,17 +601,23 @@ function applySection(g){
     const head=card.querySelector('.head'); const mark=card.querySelector('.u,.mk');
     if(head && mark && v.text){
       const plan=markPlan(v.text);
+      const isMk=mark.classList.contains('mk');
+      head.textContent='';
+      if(isMk && !plan.style){                  // a highlight with no chosen span has no
+        head.append(plan.mark);                 // sensible default — show plain text
+        delete head.dataset.done; return;
+      }
       const el=mark.cloneNode(false);           // keep the card's mechanism classes + data-k
-      if(mark.classList.contains('mk')) el.innerHTML='<span class="tw"><span class="t"></span></span>';
+      if(isMk) el.innerHTML='<span class="tw"><span class="t"></span></span>';
+      if(!plan.style) el.classList.add('measure-only');
       const target = el.querySelector('.t') || el;
       target.textContent = plan.mark;           // never empty — see markPlan
-      head.textContent='';
       if(plan.before) head.append(plan.before);
       head.append(el);
       if(plan.after)  head.append(plan.after);
       delete head.dataset.done;
     }
-    if(v.color)  card.querySelectorAll('.u').forEach(u=>u.style.color='var('+v.color+')');
+    if(v.color)  card.querySelectorAll('.u').forEach(u=>u.style.setProperty('--strokec','var('+v.color+')'));
     if(v.color)  card.querySelectorAll('.mk').forEach(m=>m.style.setProperty('--mkc','var('+v.color+')'));
     if(v.tcolor) card.querySelectorAll('.mk').forEach(m=>m.style.color=v.tcolor);
     if(v.speed)  card.style.setProperty('--dur',v.speed+'ms'),card.style.setProperty('--saldur',v.speed+'ms');
@@ -622,7 +634,7 @@ function sectionPanel(g){
   box.innerHTML=
    '<div class="row"><label>Headline</label><input type="text" class="tx"></div>'+
    '<div class="hint">Wrap the words you want marked in asterisks — <b>*like this*</b>. '+
-   'No asterisks marks the whole headline and the stroke narrows to the last line — what every hero does today. '+
+   'No asterisks means today&rsquo;s behaviour: the stroke narrows to the last line and no words are styled. A highlight with no asterisks shows plain text, since there is nothing to highlight. '+
    '<b>\\*</b> is a literal asterisk; a lone <b>*</b> marks nothing.</div>'+
    '<div class="row">'+
      '<label>Colour <select class="co">'+
@@ -734,7 +746,7 @@ function render(){
 }
 /* strokes inherit .head's white otherwise — apply the default colour on load */
 function applyColour(v){
-  document.querySelectorAll('.stage .u').forEach(u=>{if(!u.getAttribute('style'))u.style.color='var('+v+')';});
+  document.querySelectorAll('.stage .u').forEach(u=>{if(!u.style.getPropertyValue('--strokec'))u.style.setProperty('--strokec','var('+v+')');});
   document.querySelectorAll('.mk').forEach(m=>{if(!m.style.getPropertyValue('--mkc'))m.style.setProperty('--mkc','var('+v+')');});
 }
 applyColour(document.getElementById('col').value);

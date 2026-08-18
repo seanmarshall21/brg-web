@@ -105,6 +105,8 @@ def build():
         ('function parseMark',     'the asterisk delimiter parser'),
         ('function markPlan',      'the mark DECISION (parser alone is not enough)'),
         ("mode:'all'",             'the no-delimiter fallback — an empty mark kills every heading'),
+        ('style:false',            'measure-only: a fallback must not STYLE the words'),
+        ('--strokec',              'stroke colour routed off the text'),
         ('function sectionPanel',  'the per-section variable panel'),
     ):
         assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"

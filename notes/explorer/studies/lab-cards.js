@@ -11,10 +11,10 @@ const CARDS=[
   
  {g:'gA',id:'A5',rev:4,changed:'You approved this and asked only for a slower reveal. Done — but the reveal speed is GLOBAL, so this is no longer byte-identical to what you approved. Re-judging it is the honest call.',t:'A1 on the Team headline',
   why:'Same wipe again, line-team-lg.svg in pink. Third headline, third stroke, one mechanism.',
-  html:'<p class="head blanco">The crew behind<br><span class="u wipe" data-k="line-team-lg" style="color:var(--pink)">every single day.</span></p>'},
+  html:'<p class="head blanco">The crew behind<br><span class="u wipe" data-k="line-team-lg" style="--strokec:var(--pink)">every single day.</span></p>'},
  {g:'gA',id:'A6',rev:4,changed:'Your rule applied: when the headline wraps, the stroke now fills only the BOTTOM line, measured from the last text rect. Resize the card or flip to Mobile 390 to force a re-measure.',t:'A1 on a long headline',
   why:'NOW FORCED TO WRAP (max-width:15ch) so the rule is actually visible — you denied this and you were right, it was not wrapping at desktop width so there was nothing to judge. When the span wraps, the stroke fills only the BOTTOM line, measured from the last text rect rather than the whole block. Resize the card or flip to Mobile 390 to force a different wrap and watch it re-measure.',
-  html:'<p class="head blanco" style="max-width:15ch;margin-inline:auto">Great food, great people, <span class="u wipe" data-k="line-community-lg" style="color:var(--orange)">epic communities everywhere</span></p>'},
+  html:'<p class="head blanco" style="max-width:15ch;margin-inline:auto">Great food, great people, <span class="u wipe" data-k="line-community-lg" style="--strokec:var(--orange)">epic communities everywhere</span></p>'},
 
 {g:'gA',id:'S-A1',rev:1,salient:true,t:'SALIENT — basic-underline, exact',
   changed:'',
