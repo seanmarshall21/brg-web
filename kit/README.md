@@ -216,9 +216,28 @@ from Netlify, so pushing it deletes every field group in wp-admin while the site
 rendering, because the plugin falls back to slot defaults. Editors lose 62 fields; visitors see
 nothing. Reproduced out of tree — 19 groups to 0, green.
 
-**`pre-push`'s regenerate-and-diff could not have caught it**, which is the part worth sitting
-with: the regeneration produces the same empty result, so the diff is clean and both trees
-agree. A guard that compares a thing to itself cannot see a fault they share.
+**`pre-push` runs two ACF guards and the blind run defeats both — but not for the reason I
+first wrote, and the correction matters more than the original claim.** I said the
+regenerate-and-diff compares the output to itself. It doesn't: on the *transition* it works
+perfectly. Committed `all.acf.json` holds 19 groups, a blind regeneration writes `[]`,
+`git status --porcelain` is dirty, the push fails. It only goes quiet once the empty file has
+already been **committed** — generator runs blind, `git add website/acf/`, commit, push — at
+which point both sides are `[]` and agree. **So the hole is commit ordering, not
+self-comparison, and that is worse**: ordering is not a property anyone reasons about when
+deciding whether to trust a guard.
+
+**The second guard is the real finding, and it is Expo's.** `--check` proves every slot has a
+token and every token a slot. With zero sections visible that is **vacuously true**, so it
+reports OK. Both guards route through `slots_for()`, so one blind read poisons both. They were
+written to be independent — the comment at `pre-push:102` explains exactly why the porcelain
+check exists separately — and they *are* independent in what they compare. They are not
+independent in **what they can see**. **Two guards that consume the same discovery step are one
+guard wearing two names.**
+
+Which is why the fix belongs in the discovery, upstream of both, and why it runs for `--check`
+too. My first version put it after the `--check` early return, so `--check` stayed blind while
+I reported it fixed — caught because Expo's message asserted my fix covered both and I ran it
+instead of agreeing.
 
 Three guards, each proven by making it fire: refuse to run when *none* of the listed sections'
 directories exist (that is blindness, not emptiness); refuse to write an empty registry over an

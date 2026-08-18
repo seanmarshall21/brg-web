@@ -173,25 +173,38 @@ def existing_group_ids():
     return {f[len('brg-'):-len('.acf.json')] for f in os.listdir(OUTDIR)
             if f.startswith('brg-') and f.endswith('.acf.json')}
 
-def main():
-    refuse_if_worktree('kit/build-acf.py')
-    if '--check' in sys.argv:
-        sys.exit(1 if check() else 0)
+def assert_tree_visible():
+    """Refuse to proceed when this process cannot see the section tree.
 
+    A missing slots.json reaches os.path.exists() and returns a silent False, which is
+    indistinguishable from a section that declares none. So if sections.json names N
+    sections and NOT ONE of their directories is on disk, the honest reading is "I cannot
+    see the tree" — never "nobody declared anything".
+
+    This runs for --check TOO, and that placement is the whole point. Both guards route
+    through slots_for(), so one blind read poisons both: with zero sections visible,
+    "every slot has a token and every token a slot" is VACUOUSLY TRUE and --check reports
+    OK. Two guards that look independent — pre-push runs them as separate steps, for
+    separate reasons — are one guard wearing two names if they share a discovery step.
+    Guarding the discovery is one fix; guarding each consumer would have been two patches
+    for one fault, and would have left the next consumer exposed. (Expo's catch: my first
+    version put this after the --check early return, so --check stayed blind and I had
+    reported it fixed.)
+    """
     data = json.load(open(SECTIONS))
     listed = [s['id'] for s in data.get('sections', [])]
-
-    # ── Can this process actually SEE its inputs? ────────────────────────────────────
-    # A missing slots.json is indistinguishable from a section that declares none:
-    # slots_for() reaches os.path.exists(), gets a silent False, and reports "no slots".
-    # So if sections.json names 18 sections and NOT ONE of their directories is on disk,
-    # the honest reading is "I cannot see the tree", never "nobody declared anything".
-    # Without this the generator's own blindness renders as a legitimate empty result.
     secdir = os.path.join(ROOT, 'website', 'sections')
     if listed and not any(os.path.isdir(os.path.join(secdir, i)) for i in listed):
         sys.exit(f"refusing to run: sections.json lists {len(listed)} section(s) and none of "
                  f"their directories exist under {secdir}.\nThat is this script failing to "
                  f"find the tree, not the tree being empty — check ROOT and your cwd.")
+    return data
+
+def main():
+    refuse_if_worktree('kit/build-acf.py')
+    data = assert_tree_visible()
+    if '--check' in sys.argv:
+        sys.exit(1 if check() else 0)
 
     # ── Compute everything BEFORE writing anything ──────────────────────────────────
     # The old version wrote inside the loop, so a guard could only ever fire after the
