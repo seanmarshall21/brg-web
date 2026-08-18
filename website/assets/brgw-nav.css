@@ -48,7 +48,7 @@
 .bnav-more .pl{color:var(--acc);font-size:1.1em;margin-left:2px;}
 
 /* Pen-stroke marker underline — injected per item; draws on hover AND active */
-.bnav-uline{position:absolute;left:-6%;right:-6%;bottom:2px;width:112%;height:11px;overflow:visible;pointer-events:none;}
+.bnav-uline{position:absolute;left:-6%;right:-6%;bottom:2px;width:112%;height:8px;overflow:visible;pointer-events:none;}
 /* stroke-width is a SCREEN px value now: vector-effect="non-scaling-stroke" on the
    path means the viewBox no longer scales it, so this is the drawn weight directly.
    The artwork's own weight is 5 units in a 7-unit-tall box; at the ~11px the mark

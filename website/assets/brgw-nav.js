@@ -13,18 +13,29 @@
      request; it was a request to use the artwork he already supplied. His call today:
      one stroke for the whole nav rather than one per page — more coherent as chrome.
 
-     This is the CENTRELINE, derived from line-careers-nav.svg, not the file itself.
+     WHY team AND NOT A MID-RANGE ONE. The box is pinned to the item's width and a fixed
+     height, with preserveAspectRatio="none", so the drawing is stretched independently in
+     x and y. Measured against the real menu (48px for Team, 106px for Community — a 2.2x
+     spread), the SPREAD is 2.2x whatever source you choose: it comes from the menu, not
+     the artwork. What the source changes is how exaggerated the curve is on average.
+     The widest source is the worst: line-restaurants (188 units) renders 2.4-5.4x more
+     curved than drawn. line-careers (104) was 1.5-3.4x. line-team (68) is 1.0-2.2x —
+     the NARROWEST source is the most faithful, because a short wide box needs a short
+     wide drawing. With the height at 8px rather than 11 it averages 1.14x, i.e. very
+     close to as-drawn.
+
+     This is the CENTRELINE, derived from line-team-nav.svg, not the file itself.
      His export is an OUTLINE — a closed shape describing the edge of the stroke — and
      this CSS paints with `fill:none; stroke:...`, so feeding it the outline would trace
      the perimeter and draw a lasso rather than a pen. Same defect the lab spent a day on.
-     Source sha 7da87cbe5fef; regenerate with
+     Source sha 118e42fb7e63; regenerate with
      notes/explorer/studies/derive-centrelines.py if the artwork is re-exported.
 
      vector-effect keeps the stroke an even weight: preserveAspectRatio="none" stretches
      the box to each menu item's width, which would otherwise thin the line on long items
      and fatten it on short ones. */
   var ULINE = '<svg class="bnav-uline" viewBox="0 0 104 7" preserveAspectRatio="none" aria-hidden="true">'
-            + '<path pathLength="1" vector-effect="non-scaling-stroke" d="M0.6 3.4C0.8 3.4 1.3 3.4 1.7 3.3C2.1 3.3 2.3 3.3 2.9 3.3C3.5 3.3 4.2 3.3 5.2 3.2C6.2 3.2 7.5 3.1 8.7 3.1C9.8 3.1 11.0 3.0 12.1 3.0C13.3 3.0 14.4 2.9 15.6 2.9C16.8 2.9 18.1 2.8 19.1 2.8C20.0 2.8 20.4 2.8 21.4 2.8C22.3 2.7 22.7 2.7 24.8 2.7C27.0 2.7 32.0 2.6 34.1 2.6C36.2 2.5 34.9 2.5 37.6 2.5C40.3 2.5 47.6 2.5 50.3 2.5C53.0 2.5 51.0 2.5 53.7 2.5C56.4 2.6 63.7 2.7 66.4 2.7C69.1 2.7 67.8 2.7 69.9 2.8C72.0 2.8 77.0 3.0 79.2 3.0C81.3 3.1 81.5 3.1 82.6 3.1C83.8 3.2 85.1 3.2 86.1 3.2C87.1 3.3 87.4 3.3 88.4 3.4C89.4 3.4 90.7 3.4 91.9 3.5C93.0 3.5 94.2 3.6 95.3 3.6C96.5 3.7 97.8 3.7 98.8 3.8C99.8 3.8 100.5 3.9 101.1 3.9C101.7 4.0 101.9 3.9 102.3 3.9C102.7 4.0 103.2 4.0 103.4 4.0"/></svg>';
+            + '<path pathLength="1" vector-effect="non-scaling-stroke" d="M0.4 3.7C0.5 3.7 0.9 3.7 1.1 3.7C1.4 3.7 1.6 3.7 1.9 3.7C2.1 3.7 2.1 3.7 2.6 3.6C3.1 3.6 4.0 3.5 4.9 3.5C5.8 3.4 7.1 3.3 7.9 3.3C8.8 3.2 9.3 3.2 10.2 3.1C11.1 3.1 12.3 3.1 13.2 3.0C14.1 3.0 14.6 2.9 15.5 2.9C16.4 2.9 17.6 2.8 18.5 2.8C19.4 2.8 20.0 2.7 20.8 2.7C21.5 2.7 22.2 2.7 23.0 2.6C23.9 2.6 25.2 2.6 26.1 2.6C26.9 2.6 27.5 2.5 28.3 2.5C29.2 2.5 30.5 2.5 31.4 2.5C32.2 2.5 32.7 2.5 33.6 2.5C34.5 2.5 35.8 2.5 36.6 2.5C37.5 2.5 38.0 2.5 38.9 2.5C39.8 2.5 41.1 2.5 41.9 2.6C42.8 2.6 43.3 2.6 44.2 2.6C45.1 2.6 46.3 2.6 47.2 2.7C48.1 2.7 48.7 2.7 49.5 2.7C50.2 2.8 50.9 2.8 51.8 2.8C52.6 2.9 53.9 2.9 54.8 3.0C55.7 3.0 56.2 3.0 57.0 3.1C57.9 3.1 59.2 3.2 60.1 3.2C60.9 3.3 61.5 3.3 62.3 3.4C63.2 3.4 64.7 3.5 65.4 3.6C66.0 3.6 65.9 3.6 66.1 3.6C66.4 3.6 66.6 3.6 66.9 3.6C67.1 3.6 67.5 3.5 67.6 3.5"/></svg>';
   function tidy(u) { try { return (new URL(u, location.href).pathname.replace(/\/+$/, '') || '/'); } catch (e) { return ''; } }
 
   function enhance(nav) {
