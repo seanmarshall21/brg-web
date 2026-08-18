@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.6.1' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.7.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -188,6 +188,76 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
                 }
             }
         }
+        /* ── REPEATERS ─────────────────────────────────────────────────────────────
+         * Runs BEFORE the scalar pass, because a row template contains {{name.sub}}
+         * tokens that the scalar pass would strip as unknown.
+         *
+         * Grammar, in the fragment:
+         *
+         *   <!--brg:repeat members-->
+         *     <div class="card">{{members.name}} — {{members.title}}</div>
+         *   <!--brg:empty-->
+         *     whatever should render when nobody has been added yet
+         *   <!--/brg:repeat-->
+         *
+         * The brg:empty half is not decoration. Without it, wiring a repeater would take
+         * a section that renders nine cards today to one that renders none the moment the
+         * template lands and before anyone has typed a row — a live regression caused by
+         * shipping the mechanism. With it, the current markup stays put until there is
+         * something to replace it.
+         *
+         * Sub-values are escaped by their DECLARED sub-type, same rule as scalars, so an
+         * image sub-field still goes through esc_url and a text one through esc_html.
+         */
+        if ( strpos( $frag, '<!--brg:repeat' ) !== false ) {
+            $frag = preg_replace_callback(
+                '/<!--brg:repeat\s+([a-z0-9_]+)-->([\s\S]*?)<!--\/brg:repeat-->/i',
+                function ( $m ) use ( $slots, $id ) {
+                    $name = $m[1];
+                    $body = $m[2];
+                    $tpl  = $body;
+                    $empty = '';
+                    if ( strpos( $body, '<!--brg:empty-->' ) !== false ) {
+                        list( $tpl, $empty ) = explode( '<!--brg:empty-->', $body, 2 );
+                    }
+
+                    $def  = isset( $slots[ $name ] ) && is_array( $slots[ $name ] ) ? $slots[ $name ] : array();
+                    $subs = isset( $def['sub'] ) && is_array( $def['sub'] ) ? $def['sub'] : array();
+
+                    $rows = array();
+                    if ( function_exists( 'get_field' ) ) {
+                        $v = get_field( 'brg_' . str_replace( '-', '_', $id ) . '_' . $name, 'option' );
+                        if ( is_array( $v ) ) $rows = $v;
+                    }
+                    if ( ! $rows ) return $empty;
+
+                    $out = '';
+                    foreach ( $rows as $row ) {
+                        if ( ! is_array( $row ) ) continue;
+                        $piece = $tpl;
+                        foreach ( $subs as $sk => $sdef ) {
+                            $stype = is_array( $sdef ) && isset( $sdef['type'] ) ? $sdef['type'] : 'text';
+                            $sval  = isset( $row[ $sk ] ) ? $row[ $sk ] : '';
+                            if ( $stype === 'image' ) {
+                                if ( is_array( $sval ) && isset( $sval['url'] ) ) $sval = $sval['url'];
+                                else if ( is_numeric( $sval ) )                    $sval = wp_get_attachment_image_url( (int) $sval, 'full' );
+                                $sval = esc_url( (string) $sval );
+                            }
+                            else if ( $stype === 'url' )  $sval = esc_url( (string) $sval );
+                            else if ( $stype === 'html' ) $sval = wp_kses_post( (string) $sval );
+                            else                          $sval = esc_html( (string) $sval );
+                            $piece = str_replace( '{{' . $name . '.' . $sk . '}}', $sval, $piece );
+                        }
+                        // Any sub-token the row does not carry is stripped, not left visible.
+                        $piece = preg_replace( '/\{\{' . preg_quote( $name, '/' ) . '\.[a-z0-9_-]+\}\}/i', '', $piece );
+                        $out  .= $piece;
+                    }
+                    return $out;
+                },
+                $frag
+            );
+        }
+
         foreach ( $slots as $key => $def ) {
             $type    = ( is_array( $def ) && isset( $def['type'] ) )    ? $def['type']    : 'text';
             $default = ( is_array( $def ) && isset( $def['default'] ) ) ? $def['default'] : '';

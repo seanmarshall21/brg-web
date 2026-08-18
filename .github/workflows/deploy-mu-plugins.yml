@@ -30,6 +30,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # LINT BEFORE COPYING. These are must-use plugins: a parse error in one is not a
+      # broken feature, it is a white screen on every page of the site, admin included.
+      # Until now the workflow copied first and verified bytes afterwards — which would
+      # have confirmed that a fatally broken file arrived intact. The byte check answers
+      # "did it get there", never "is it valid", and the difference is the whole site.
+      #
+      # It runs here rather than in pre-push because the authoring clone has no PHP at
+      # all, so pre-push reports "php -l SKIPPED — N changed .php UNVERIFIED". A check
+      # that is skipped on the only machine that runs it is not a check.
+      - name: Lint the PHP before anything is deployed
+        run: |
+          set -euo pipefail
+          php -v | head -1
+          fail=0
+          for f in website/wp-mu-plugin/*.php; do
+            if php -l "$f" > /tmp/lint.out 2>&1; then
+              echo "  OK   $f"
+            else
+              echo "::error file=$f::$(tail -1 /tmp/lint.out)"
+              sed 's/^/      /' /tmp/lint.out
+              fail=1
+            fi
+          done
+          [ "$fail" -eq 0 ] || { echo "::error::refusing to deploy — a mu-plugin would fatal the site"; exit 1; }
+
       - name: Copy mu-plugin files over SSH
         uses: appleboy/scp-action@v0.1.7
         with:

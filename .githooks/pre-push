@@ -200,7 +200,19 @@ elif ! command -v python3 >/dev/null 2>&1; then
 # unsupported --owner is ignored and behaves exactly as today. Forward-compatible, and
 # correct the moment expo adds it.
 elif out=$(python3 "$DRIFT" --strict --owner "$(git config fc.chat)" 2>&1); then
-  say "drift" "OK"
+  # Exit 0 answers "may I proceed", NOT "is anything wrong". With --owner, a pair that is
+  # stale but owned by someone else exits 0 — and printing a bare OK over that made the two
+  # states indistinguishable. Expo read `drift OK` with two conti-owned pairs diverged and
+  # told Sean a section had shipped that had not. That window — between their build and my
+  # promotion — is exactly when they most need telling, and it was the one state rendered
+  # as clean. Filtering what BLOCKS you is right; filtering what you are TOLD is not.
+  n=$(printf '%s\n' "$out" | grep -c 'DIVERGED' || true)
+  if [ "${n:-0}" -gt 0 ]; then
+    say "drift" "OK — $n diverged, none yours"
+    printf '%s\n' "$out" | grep 'DIVERGED' | sed 's/^/        /'
+  else
+    say "drift" "OK"
+  fi
 else
   say "drift" "DIVERGED"
   echo "$out" | sed 's/^/        /'
