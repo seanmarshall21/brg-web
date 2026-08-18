@@ -123,6 +123,30 @@ relying on membership-based arg parsing to ignore it until then. Worth recording
 **a forward-compatible flag lets two owners land a two-sided change in either order**, with no
 window where one half is waiting on the other and no second commit for either to forget.
 
+### And then I built exactly the failure I had just written down
+
+`--owner` was right and its rendering was not. `pre-push` does:
+
+```sh
+elif out=$(python3 "$DRIFT" --strict --owner "$(git config fc.chat)" 2>&1); then
+  say "drift" "OK"        # <- $out discarded
+```
+
+So with two `conti`-owned pairs stale, the checker correctly exits 0 — *not mine to fix* — and
+the hook prints **`OK`**, throwing away a report that names both. **"Nothing is stale" and
+"something is stale but not yours" are indistinguishable to the caller.**
+
+That is how I told Sean section E was live when it had never been promoted. I read `drift OK`
+and believed it — **one day after writing that an output-only guard can be defeated by a pipe.**
+This is the same defect one turn further in: not discarded by a pipe, discarded by a branch.
+
+> **A guard must not render "clean" and "not your problem" the same way.** Filtering *what blocks
+> you* is correct; filtering *what you are told* is not. Exit code answers "may I proceed" — it
+> must never be the only carrier of "is anything wrong".
+
+Fix is one line in the hook — print `$out` when it mentions `DIVERGED`, whatever the exit code —
+and it is Conti's file. My side already prints the count; it was simply never shown.
+
 ## The register
 
 `notes/explorer/studies/drift-register.json` + `check-drift.py`. Every pair where one fact is
