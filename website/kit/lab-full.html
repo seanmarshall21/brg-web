@@ -113,9 +113,16 @@ const NAV = '<header class="bnav lay-left bg-solid" data-left="2" data-right="3"
   + '<a class="bnav-logo" href="#" aria-label="Blacktop Restaurant Group — home">'
   + '<img src="'+CDN+'/assets/media/logos/logo-brg-nav-sm.svg" alt="Blacktop Restaurant Group"></a>'
   + '<ul class="nav-src">'
-  + ['Home','Brands','Team','Community','Careers','Contact']
-      .map(function(t,i){return '<li class="menu-item'+(i===4?' current-menu-item':'')
-        +'"><a href="#">'+t+'</a></li>';}).join('')
+  /* Distinct hrefs, NOT "#". brgw-nav.js marks an item active when its tidied href
+     equals the current path (brgw-nav.js:20) — and "#" resolves to the current page,
+     so every item matched and every item rendered in its active state with the stroke
+     already drawn. Sean: "shows these all with the squiggly line and not animating at
+     all. They are already all underlined." Nothing was wrong with the nav; the lab was
+     telling it that every page was the current page. */
+  + [['Home','/brg-home/'],['Brands','/our-restaurants/'],['Team','/team/'],
+     ['Community','/community/'],['Careers','/careers/'],['Contact','/contact/']]
+      .map(function(it,i){return '<li class="menu-item'+(i===4?' current-menu-item':'')
+        +'"><a href="'+it[1]+'">'+it[0]+'</a></li>';}).join('')
   + '</ul>'
   + '<div class="bnav-grp bnav-grp-a"></div><div class="bnav-grp bnav-grp-b"></div>'
   + '<button class="bnav-ham" aria-label="Menu"><i></i><i></i></button>'
