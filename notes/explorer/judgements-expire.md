@@ -220,6 +220,24 @@ deploy check keyed on a marker that was **already true in the previous build**, 
 six seconds and confirmed nothing. All three share a shape: *the instrument answered a question
 adjacent to the one being asked.*
 
+### A skip is not a pass, and it renders like one
+
+Conti's, and the sharpest variant of the family. `pre-push` has been printing
+`php -l SKIPPED — N changed .php UNVERIFIED` on every PHP change he made for a **whole day** —
+his clone has no PHP at all. Nothing failed, so nothing drew attention, and the byte-hash
+verification he'd built confirms a file **arrived**, never that it **parses**. A fatal in a
+must-use plugin is a white screen on every page including wp-admin.
+
+> **A check skipped on the only machine that runs it is not a check.** `SKIPPED` is honest
+> output and it still accumulates as a pass, because the reader is scanning for `FAILED`.
+
+He moved the lint into the deploy workflow, where PHP exists, **before** the copy step. Which is
+the general fix: **run the check where the capability is, not where the author happens to be.**
+
+This is the same shape as my `drift OK` — a state that is *not a failure* being rendered
+indistinguishably from *fine*. Three variants now, all found within a day: discarded by a pipe,
+discarded by a branch, and discarded by being technically true.
+
 ### And the one with no mechanical fix
 
 I inferred a hook's behaviour from its header comment — remedy: *open the file*. Conti inferred
