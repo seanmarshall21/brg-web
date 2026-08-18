@@ -67,6 +67,10 @@ font:400 .82rem 'Helvetica Neue',Helvetica,Arial,sans-serif}
   <div class="brgw" id="root"><div class="loading">loading the section&hellip;</div></div>
 </div>
 
+<!-- Shared with lab.html — the artwork and the card list have ONE home each.
+     Order matters: lines before cards, both before this page's script. -->
+<script src="lab-lines.js"></script>
+<script src="lab-cards.js"></script>
 <script src="lab-core.js"></script>
 <script>
 const $=(q,r)=>(r||document).querySelector(q);
@@ -123,12 +127,25 @@ function applyVariant(scope){
       w.style.color=colour;
       while(target.firstChild) w.appendChild(target.firstChild);
       target.appendChild(w);
-      w.insertAdjacentHTML('beforeend','<span class="box" aria-hidden="true">'+sv(k||'line-home-lg')+'</span>');
+      // sv(k, draw): the second argument selects the CENTRELINE. Omitting it renders the
+      // outline, which is the defect these variants exist to fix — lab.html passes the
+      // same flag from the same class, so keep the two calls identical.
+      w.insertAdjacentHTML('beforeend','<span class="box" aria-hidden="true">'
+        +sv(k||'line-home-lg', w.classList.contains('draw'))+'</span>');
     });
   }
 
   if(mk) scope.querySelectorAll('.mark').forEach(function(el){
-    el.className=mk[1]; el.innerHTML='<span class="t">'+el.textContent+'</span>';
+    el.className=mk[1];
+    // Mirror the card's OWN inner structure rather than assuming one. The C cards wrap
+    // .t in a .tw overflow mask, and rebuilding without it silently removes the clip the
+    // text slides against — the animation still plays, just not the one under test.
+    // This reads the shape out of card.html instead of hardcoding it, because the coupling
+    // here is to a string format that nothing else records. (Expo, on applyVariant.)
+    const txt = el.textContent;
+    el.innerHTML = /class="tw"/.test(card.html)
+      ? '<span class="tw"><span class="t">'+txt+'</span></span>'
+      : '<span class="t">'+txt+'</span>';
   });
 }
 
@@ -159,6 +176,20 @@ function fire(){
     $('#vname').textContent='not found'; return;
   }
   $('#vname').textContent=card.t; $('#vid').textContent='· '+card.id;
+
+  // nofull: the lab hides the link, but a pasted URL still lands here. S-B1's finding is
+  // a TRIGGER THRESHOLD — fires only when fully on screen — and this page has no scroll
+  // observation at all, so it would play identically to B1 and quietly misrepresent the
+  // one thing the card exists to show. Absent beats explained; explained beats wrong.
+  if(card.nofull){
+    $('#note').innerHTML='<b>'+card.id+' has no full-page view, on purpose.</b> Its finding is '
+      +'<i>when</i> the animation fires, and this page fires on a timer with no scroll '
+      +'observation — so it would look identical to B1 and tell you nothing. Judge it on the '
+      +'lab card, where the trigger is what is being shown.';
+    $('#root').innerHTML='<div class="loading">Nothing to render here — '
+      +'<a href="lab.html" style="color:#19C7C2">back to the lab</a></div>';
+    $('#replay').style.display='none'; return;
+  }
 
   if(card.g==='gD'){
     $('#note').innerHTML='The production nav. <b>Hover the items</b> to see the underline '

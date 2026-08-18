@@ -179,6 +179,8 @@ while IFS='|' read -r src dst; do
   fi
 done <<'PAIRS'
 notes/explorer/studies/lab.html|website/kit/lab.html
+notes/explorer/studies/lab-cards.js|website/kit/lab-cards.js
+notes/explorer/studies/lab-lines.js|website/kit/lab-lines.js
 PAIRS
 
 if [ "$fail" -ne 0 ]; then
