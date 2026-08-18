@@ -59,7 +59,7 @@
 .brgw-sec--team-members .grid figure:nth-child(5n+2) .card{--c:var(--orange)}
 .brgw-sec--team-members .grid figure:nth-child(5n+3) .card{--c:var(--yellow)}
 .brgw-sec--team-members .grid figure:nth-child(5n+4) .card{--c:var(--pink)}
-.brgw-sec--team-members .grid figure:nth-child(5n+5) .card{--c:var(--violet)}
+.brgw-sec--team-members .grid figure:nth-child(5n+5) .card{--c:#6C2BB8} /* purple: reuses the hex already on fallback card 4. NOT var(--violet) — that token does not exist, so it silently fell back to teal, making the "5-colour" cycle 4 colours with teal twice. Worse, SPEC-005 wants a --violet for Press: defining it there would have retroactively changed THIS page. */
 </style>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-smile.svg" alt="" width="150" height="145"></span>
 
