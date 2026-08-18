@@ -31,6 +31,65 @@ you afterwards.
 from `lab.html`, the better answer was one shared file — two copies plus a mechanism is worse than
 no copies and no mechanism.
 
+## Revision, 2026-08-18 — tiers 3 and 4 are weaker than I rated them
+
+**An output-only guard can be defeated by a pipe.** Conti's handoff warn **fired correctly** on
+the push that shipped the stale `lab-cards.js`. He never saw it: his push command ends
+`| tail -1`, which keeps the last line and discards everything above it.
+
+**I do the same thing.** Every push I have made in this project ends `| tail -1`. That discards
+six lines of `pre-push` output — including, on several pushes, the handoff lines telling me my
+own files had diverged. The guard worked, reported, and was thrown away, twice, by two people
+who had each just written a rule about checks that cannot fail.
+
+> **A guard whose only effect is output is optional in practice.** A non-zero exit cannot be
+> discarded by a pipe; a printed warning can, and "read more carefully" is not a fix for it.
+
+So the preference order needs a qualifier rather than a rewrite:
+
+| Tier | | Real strength |
+|---|---|---|
+| 1 | Delete | drift impossible |
+| 2 | Derive | build refuses — **non-zero exit, cannot be piped away** |
+| 3 | Stamp + check | **only as strong as the check's exit code.** Report-only = optional |
+| 4 | Name | documentation; never a control |
+
+**This does not overturn *refuse when you might destroy something, report when you can only
+inform*** — Conti's reading is right. That rule covers a check whose failure costs a reader
+nothing. This one put a wrong page in front of Sean for several rounds, and **a partial fix reads
+as a failed fix**, so his next report would have been *"the colour thing is still broken"* about a
+file that was already correct. The cost was not zero, so the guard should not have been
+report-only.
+
+`check-drift.py --strict` now blocks in `pre-push`, with `FC_ALLOW_DRIFT=1` for a genuine
+mid-edit tree.
+
+## A test must be able to tell its intended failure from a crash
+
+Conti's first version of the hook referenced an undefined `$py`. Under `set -u` that aborted, so
+a clean tree exited 1 — and his **make it fail on purpose** test passed **for the wrong reason**.
+Right test, wrong cause, and it only surfaced because the clean run printed no `drift` line at all.
+
+> **A test that cannot distinguish its intended failure from a crash is not a test.** Assert on
+> *why* it failed — the message, the named pair — not merely that it did.
+
+This is the same family as SPEC-010's blind instruments, one level in: there, the tool could not
+see; here, the *test* of the tool could not see which failure it had caused.
+
+## Chosen boundaries and imposed ones
+
+Three pairs survived at tier 3–4 because they cross a boundary we cannot delete. That was too
+neat. **Only two of the three are imposed** — Netlify's deploy, and a licensed theme outside the
+repo. The third is **territory**: `website/kit/` is Conti's and `notes/explorer/studies/` is mine,
+and the copy exists purely to move a file across that line.
+
+> **That boundary is one we chose.** It is the only one of the three where the honest statement is
+> *"we could delete this and haven't."*
+
+Worth stating so a later reader does not file it beside the deploy as unavoidable: **if the
+territory map ever puts one seat on both sides of that line, the pair should be deleted rather
+than re-gated.**
+
 ## The trigger — the half that would actually have prevented this
 
 The rule above is useless as something to remember. It needs a moment where it fires:
