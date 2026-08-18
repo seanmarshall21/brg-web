@@ -103,6 +103,35 @@ The rule says *carry identity*, not *hash everything*. Two failure modes at the 
 So: stamp the judgements that would mislead someone if stale, and leave the rest alone. Of the
 four instances above, only two are worth mechanising, and one of those I am arguing against.
 
+## Applied: the first thing outside `kit/` that earns a real identity check
+
+**`lines-centrelines.json` — done, in `notes/explorer/studies/derive-centrelines.py`.**
+
+The derived centrelines are a judgement about ten SVGs I do not own, and **Sean is re-exporting
+those SVGs right now** — *"I'm making it a little bolder."* The failure would be perfectly
+invisible: the strokes still draw, just in the shape of last week's artwork.
+
+So each entry records the sha256 of the file it came from, and `--check` exits 1 when any source
+has moved. It passes the boundary test in §Cost on all three counts: **the artwork changes
+rarely** (so it will not cry wolf), **the cost of staleness is high** (you ship the wrong stroke),
+and **the identity is one hash** (so re-stamping means re-deriving, which is the actual work —
+you cannot re-affirm it without re-doing it). That last property is the one that matters:
+a stamp you can refresh without re-testing is the failure mode this rule creates.
+
+**Made to fail on purpose before being trusted:** forged a source hash, confirmed `--check`
+exits 1 naming the file and both hashes, restored. A check nobody has watched fail is an
+assertion, not a check.
+
+## Candidates I considered and did not build
+
+- **Comp → section.** `website/mocks/` is the design source; a built section is a claim that it
+  matches. Comps change rarely, so the noise would be low — but they are gitignored (107MB), so
+  the hash would have to live without its file, and nothing would ever re-derive from it
+  automatically. **Worth it only when Press and Contact are actually being built from `page-7.png`.**
+- **Everything else.** Per §Cost, no. `sections.json` status is argued against above, and the
+  live-plugin version is already covered by the deploy Action's `VCC_VERSION` grep — which is
+  itself an existing instance of this rule, and worth naming as one.
+
 ## Asks
 
 | Ask | Owner |
