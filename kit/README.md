@@ -280,6 +280,28 @@ parameter, the mismatch was **unobservable**: each agreed with its own caller an
 with the other. Deleting the copy didn't prevent a future drift, it *surfaced a present bug*.
 That makes one-home-per-fact a correctness rule, not a tidiness one. (Expo, SPEC-010.)
 
+**A guard whose only effect is output is optional in practice.** `pre-push` warned, correctly,
+that `lab-cards.js` had diverged. Two of us never saw it: both our push commands ended
+`| tail -1`, so six lines of hook output were reduced to `Everything up-to-date`. A stale card
+file shipped, and Sean reviewed two variants against a fix he had been told was complete. **A
+printed warning can be discarded by a pipe; a non-zero exit cannot**, and *"read the output more
+carefully"* is not a fix — it is the same promise that failed. That is why the drift check
+blocks, with `FC_ALLOW_DRIFT=1` for the mid-edit case.
+
+It does not contradict *refuse when you might destroy something, report when you can only
+inform* — it locates it. Report-only is for a failure that costs the reader nothing. This one
+cost several review rounds, and **a partial fix reads as a failed fix**: the next report would
+have been "still broken" about a file that was already correct.
+
+**A test that cannot distinguish its intended failure from a crash is not a test.** The first
+version of that gate referenced `$py`, which does not exist in `pre-push`; under `set -u` the
+hook aborted, so a clean tree exited 1. The make-it-fail-on-purpose check **passed** — for
+entirely the wrong reason, and would have shipped a gate that never compared anything. Assert on
+*why* it failed: the message, the named pair, the specific line. This is the blind-instrument
+rule one level further in — there the tool could not see; here the test of the tool could not see
+which failure it had caused, and it passed, which is the direction that never prompts a second
+look.
+
 **A pointer is a claim too, and it rots faster than the fact it points at.** A file path, a line
 number, a field name, a commit — each asserts *where something lives*, and that moves while the
 fact stays true. Four instances on 2026-08-13: a patch written against `embed.html:63` before the
