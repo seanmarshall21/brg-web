@@ -109,7 +109,7 @@ def build():
         ('--strokec',              'stroke colour routed off the text'),
         ('function attachBox',     'the single place that knows a .u needs a stroke box'),
         ("mark.classList.contains('blk')", 'the blk branch — a bar is a sibling, not a wrapper'),
-        ('l.cvb',                  'the centreline viewBox — without it every draw starts offset'),
+
         ('function sectionPanel',  'the per-section variable panel'),
     ):
         assert needle in kit, f"MISSING FEATURE: {what} ({needle!r}) is not in the kit build"
@@ -134,6 +134,8 @@ def build():
     for nm, blob in (("lab-cards.js", js), ("lab-lines.js", lines_js)):
         assert "__" not in blob.replace("__MACOSX", ""), f"unfilled token in {nm}"
     assert '"centre"' in lines_js, "lab-lines.js has no centrelines — draw variants would trace outlines"
+    assert '"cvb"' in lines_js and "l.cvb" in lines_js, \
+        "lab-lines.js lacks the centreline viewBox — every draw variant would start and end short"
     (REPO/"notes/explorer/studies/lab-lines.js").write_text(lines_js)
 
     # Syntax-check everything we emit. The build gated CONTENT and never gated SYNTAX, so an

@@ -561,6 +561,15 @@ function applySection(g){
     if(head && mark && v.text){
       const plan=markPlan(v.text);
       const isMk=mark.classList.contains('mk');
+      // A .blk bar is an EMPTY SIBLING of the headline, not a wrapper around words — it
+      // measures the last line rather than containing anything. Treating it like the inline
+      // marks put the headline text INSIDE an absolutely-positioned bar and left the real bar
+      // empty, which is why section B rendered nothing at all after Apply.
+      if(mark.classList.contains('blk')){
+        head.textContent = parseMark(v.text).before || v.text;   // asterisks are not meaningful
+        delete head.dataset.done;                                // here: the bar takes the last line
+        play(card,c); return;
+      }
       head.textContent='';
       if(isMk && !plan.style){                  // a highlight with no chosen span has no
         head.append(plan.mark);                 // sensible default — show plain text
