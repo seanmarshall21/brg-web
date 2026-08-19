@@ -4,9 +4,11 @@
      four separately-positioned plates this had before. The spray crown is baked into that
      artwork top-right, so there is no crown asset to extract or place. Shipped at 7 widths
      via srcset so a phone pulls base-390 rather than the 800KB base-1920.
-     The underline is Sean's hand-drawn line-home-lg.svg, wiped in left→right per SPEC-003
-     (a scaleX would stretch the taper; a clip wipe reveals it at true width). -->
-<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" aria-label="Blacktop Restaurant Group">
+     The underline is Sean's hand-drawn line-home-lg.svg. HOW it reveals is now selectable
+     per instance — [brg_home-hero uline_variant="u1"] — from the shared system in brgw.css;
+     default u3, the angled wipe. SPEC-003's reasoning still holds and is why u3 is the
+     default: a scaleX stretches the taper, a wipe reveals it at true width. -->
+<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-uline="{{uline_variant}}" aria-label="Blacktop Restaurant Group">
 <style>
 .brgw-sec--home-hero{position:relative;overflow:hidden;background:var(--bg2);
   min-height:88vh;display:grid;place-items:center;
@@ -48,9 +50,10 @@
 .brgw-sec--home-hero h1{font-size:clamp(2.3rem,5.4vw,4.7rem);max-width:none;}
 /* Hand-drawn underline, tucked under the tail of line 2 as in the comp. */
 .brgw-sec--home-hero .uline{display:block;width:min(58%,640px);margin:.06em clamp(0px,3vw,66px) 0 auto;
-  height:auto;clip-path:inset(0 100% 0 0);}
-.brgw-sec--home-hero.is-in .uline{clip-path:inset(0 0 0 0);
-  transition:clip-path .85s cubic-bezier(.4,0,.2,1) .6s;}
+  height:auto;}
+/* The REVEAL is not here — it is the shared variant system in brgw.css, picked per
+   instance by data-uline (see the slot doc). Geometry stays local because the tuck under
+   line 2's tail is this hero's composition, not a property of the mark. */
 .brgw-sec--home-hero .sub{font-size:clamp(1rem,1.3vw,1.24rem);max-width:48ch;margin:clamp(20px,2.8vw,34px) auto 0;}
 /* The comp has the tagline WHITE, not yellow. */
 .brgw-sec--home-hero .tag{font-size:clamp(1.25rem,2.3vw,2.05rem);color:var(--white);margin:12px auto 32px;}

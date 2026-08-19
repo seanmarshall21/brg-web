@@ -4,13 +4,17 @@
 <style>html,body{margin:0;background:#0f0e0d}</style></head><body>
 <div class="brgw" id="root"></div>
 <template id="frag"><!-- BRG · section: community-hero  →  [brg_community-hero] -->
-<section class="brgw-sec brgw-sec--community-hero brgw-hero reveal" aria-label="Community">
+<section class="brgw-sec brgw-sec--community-hero brgw-hero reveal" data-uline="{{uline_variant}}" aria-label="Community">
 <style>
 .brgw-sec--community-hero{overflow:hidden;}
-.brgw-sec--community-hero .brgw-uline{color:var(--orange);}
+/* Underline is now Sean's line-community-lg.svg; its colour is baked into the path fill,
+   so the old `color:var(--orange)` is gone rather than left as a rule that does nothing.
+   Geometry matches the blob it replaces; the reveal is the shared system in brgw.css. */
+.brgw-sec--community-hero .uline{display:block;width:min(340px,62%);margin:16px auto 0;height:auto;}
 </style>
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
-  <span class="brgw-uline anim-up" aria-hidden="true"></span>
+  <img class="uline anim-up" aria-hidden="true" alt="" width="841" height="28"
+       src="https://blacktoprg.netlify.app/assets/media/lines/line-community-lg.svg">
   <p class="sub anim-up">{{sub}}</p>
   <span class="brgw-doodle" style="top:var(--brgw-doodle-top);left:9%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg" alt="" width="129" height="207"></span>
   <span class="brgw-doodle brgw-doodle--c" style="bottom:var(--brgw-doodle-bottom);right:8%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg" alt="" width="122" height="118"></span>
@@ -22,7 +26,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Great food, great people, epic communities.", "sub": "We're not just in these neighborhoods \u2014 we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."};
+  var D = {"heading": "Great food, great people, epic communities.", "sub": "We're not just in these neighborhoods \u2014 we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate.", "uline_variant": "u3"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

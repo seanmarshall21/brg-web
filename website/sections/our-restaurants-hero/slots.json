@@ -11,5 +11,11 @@
     "label": "Sub copy",
     "doc": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped.",
     "default": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for."
+  },
+  "uline_variant": {
+    "type": "text",
+    "label": "Underline animation",
+    "doc": "How the hand-drawn underline (line-restaurants-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+    "default": "u3"
   }
 }

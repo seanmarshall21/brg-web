@@ -66,6 +66,21 @@
                 "default_value": "We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."
             },
             {
+                "key": "field_brg_community_hero_uline_variant",
+                "label": "Underline animation",
+                "name": "brg_community_hero_uline_variant",
+                "type": "text",
+                "instructions": "How the hand-drawn underline (line-community-lg.svg) reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe, keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback. <code>u1</code> scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "u3"
+            },
+            {
                 "key": "field_brg_tab_community_give",
                 "label": "How we give back",
                 "name": "",

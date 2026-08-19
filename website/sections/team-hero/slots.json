@@ -23,5 +23,11 @@
     "label": "Sub copy — after the pink word",
     "doc": "The rest of the sentence. Starts immediately after the pink word with no space, so begin with the punctuation.",
     "default": ". This is the team behind the brands."
+  },
+  "uline_variant": {
+    "type": "text",
+    "label": "Underline animation",
+    "doc": "How the hand-drawn underline (line-team-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+    "default": "u3"
   }
 }

@@ -66,6 +66,21 @@
         "default_value": "Good food. Real people. Rad experience."
       },
       {
+        "key": "field_brg_home_hero_uline_variant",
+        "label": "Underline animation",
+        "name": "brg_home_hero_uline_variant",
+        "type": "text",
+        "instructions": "How the hand-drawn underline reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe — keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback with no skewed edge to overhang. <code>u1</code> scaleX bar, the lab's baseline, kept so the taper argument can be re-checked live. Unknown or blank renders the mark STATIC and visible, never hidden. u2/u4 (dasharray draws) need the artwork inline as SVG and are not available on an <img>. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "u3"
+      },
+      {
         "key": "field_brg_tab_home_community",
         "label": "Born in San Diego",
         "name": "",
@@ -425,6 +440,21 @@
         "default_value": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for."
       },
       {
+        "key": "field_brg_our_restaurants_hero_uline_variant",
+        "label": "Underline animation",
+        "name": "brg_our_restaurants_hero_uline_variant",
+        "type": "text",
+        "instructions": "How the hand-drawn underline (line-restaurants-lg.svg) reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe, keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback. <code>u1</code> scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "u3"
+      },
+      {
         "key": "field_brg_tab_our_restaurants_brands",
         "label": "The restaurants",
         "name": "",
@@ -706,6 +736,21 @@
         "default_value": ". This is the team behind the brands."
       },
       {
+        "key": "field_brg_team_hero_uline_variant",
+        "label": "Underline animation",
+        "name": "brg_team_hero_uline_variant",
+        "type": "text",
+        "instructions": "How the hand-drawn underline (line-team-lg.svg) reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe, keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback. <code>u1</code> scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "u3"
+      },
+      {
         "key": "field_brg_tab_team_members",
         "label": "Crew grid",
         "name": "",
@@ -964,6 +1009,21 @@
           "id": ""
         },
         "default_value": "We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."
+      },
+      {
+        "key": "field_brg_community_hero_uline_variant",
+        "label": "Underline animation",
+        "name": "brg_community_hero_uline_variant",
+        "type": "text",
+        "instructions": "How the hand-drawn underline (line-community-lg.svg) reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe, keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback. <code>u1</code> scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "u3"
       },
       {
         "key": "field_brg_tab_community_give",
@@ -1397,6 +1457,36 @@
           "id": ""
         },
         "default_value": "let's talk."
+      },
+      {
+        "key": "field_brg_careers_hero_hl_variant",
+        "label": "Highlight animation",
+        "name": "brg_careers_hero_hl_variant",
+        "type": "text",
+        "instructions": "How the marker highlight behind the sub copy arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP; switch to it if you lengthen 'Sub highlight' enough to reflow, because h3's block is one rigid shape that cannot wrap with the text. <code>h0</code> static, no animation. Unknown or blank renders a static painted mark, never blank. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "h3"
+      },
+      {
+        "key": "field_brg_careers_hero_uline_variant",
+        "label": "Underline animation",
+        "name": "brg_careers_hero_uline_variant",
+        "type": "text",
+        "instructions": "How the hand-drawn underline (line-careers-lg.svg) reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe, keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback. <code>u1</code> scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "u3"
       },
       {
         "key": "field_brg_tab_careers_apply",

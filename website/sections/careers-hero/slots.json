@@ -17,5 +17,17 @@
     "label": "Sub copy — highlighted phrase",
     "doc": "Sits in the yellow marker block that closes the sentence. Short — it is a highlight, not a clause.",
     "default": "let's talk."
+  },
+  "hl_variant": {
+    "type": "text",
+    "label": "Highlight animation",
+    "doc": "How the marker highlight behind the sub copy arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP; switch to it if you lengthen 'Sub highlight' enough to reflow, because h3's block is one rigid shape that cannot wrap with the text. `h0` static, no animation. Unknown or blank renders a static painted mark, never blank. Catalogue: website/lab/README.md.",
+    "default": "h3"
+  },
+  "uline_variant": {
+    "type": "text",
+    "label": "Underline animation",
+    "doc": "How the hand-drawn underline (line-careers-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+    "default": "u3"
   }
 }

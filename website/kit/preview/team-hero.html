@@ -4,13 +4,17 @@
 <style>html,body{margin:0;background:#0f0e0d}</style></head><body>
 <div class="brgw" id="root"></div>
 <template id="frag"><!-- BRG · section: team-hero  →  [brg_team-hero] -->
-<section class="brgw-sec brgw-sec--team-hero brgw-hero reveal" aria-label="Team">
+<section class="brgw-sec brgw-sec--team-hero brgw-hero reveal" data-uline="{{uline_variant}}" aria-label="Team">
 <style>
 .brgw-sec--team-hero{overflow:hidden;}
-.brgw-sec--team-hero .brgw-uline{color:var(--pink);}
+/* Underline is now Sean's line-team-lg.svg; its colour is baked into the path fill,
+   so the old `color:var(--pink)` is gone rather than left as a rule that does nothing.
+   Geometry matches the blob it replaces; the reveal is the shared system in brgw.css. */
+.brgw-sec--team-hero .uline{display:block;width:min(340px,62%);margin:16px auto 0;height:auto;}
 </style>
   <h1 class="blanco anim-head">{{heading}}</h1>
-  <span class="brgw-uline anim-up" aria-hidden="true"></span>
+  <img class="uline anim-up" aria-hidden="true" alt="" width="647" height="25"
+       src="https://blacktoprg.netlify.app/assets/media/lines/line-team-lg.svg">
   <p class="sub anim-up">{{sub_1}} <span style="color:var(--pink)">{{sub_highlight}}</span>{{sub_2}}</p>
   <span class="brgw-doodle" style="top:var(--brgw-doodle-top);right:9%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg" alt="" width="129" height="207"></span>
   <span class="brgw-doodle brgw-doodle--b" style="bottom:var(--brgw-doodle-bottom);left:8%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg" alt="" width="215" height="208"></span>
@@ -22,7 +26,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Meet the crew", "sub_1": "We're operators, leaders, community builders \u2014 and yes, we all have strong opinions about", "sub_highlight": "sandwiches", "sub_2": ". This is the team behind the brands."};
+  var D = {"heading": "Meet the crew", "sub_1": "We're operators, leaders, community builders \u2014 and yes, we all have strong opinions about", "sub_highlight": "sandwiches", "sub_2": ". This is the team behind the brands.", "uline_variant": "u3"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

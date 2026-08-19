@@ -66,6 +66,21 @@
                 "default_value": "Good food. Real people. Rad experience."
             },
             {
+                "key": "field_brg_home_hero_uline_variant",
+                "label": "Underline animation",
+                "name": "brg_home_hero_uline_variant",
+                "type": "text",
+                "instructions": "How the hand-drawn underline reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe — keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback with no skewed edge to overhang. <code>u1</code> scaleX bar, the lab's baseline, kept so the taper argument can be re-checked live. Unknown or blank renders the mark STATIC and visible, never hidden. u2/u4 (dasharray draws) need the artwork inline as SVG and are not available on an <img>. Catalogue: website/lab/README.md.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "u3"
+            },
+            {
                 "key": "field_brg_tab_home_community",
                 "label": "Born in San Diego",
                 "name": "",

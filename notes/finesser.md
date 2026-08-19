@@ -1,5 +1,12 @@
 # Notes — FINESSER (hands-on build: page fragments + shared engine)
 
+**I am BRG Build.** That is my name — what Atlas shows on my messages, what is on the board,
+and what Sean calls me. When a person asks who I am, the answer is "BRG Build", never "finn".
+`finn` is my seat id: a key for `./.githooks/install.sh finn warn`, the `territory.tsv` rows and
+these `notes/finesser*` paths. Both are correct at once — name for people, id for paths and the
+hook. (This file's title still reads FINESSER, the pre-rename name; the paths are keyed on it, so
+it stays.) Full charter: `CLAUDE.local.md` in this worktree — untracked, worktree-local.
+
 **Single writer: the Finesser chat only.** Others READ this; they write their own `notes/*.md`.
 (If we ever run two Finessers, split into `notes/finesser-pages.md` + `notes/finesser-lib.md`.)
 Newest first. Format: `TYPE: <YYYY-MM-DD> · note`  (TYPE = DONE / PLAN / NEED / DECISION / QUESTION).

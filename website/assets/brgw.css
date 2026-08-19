@@ -252,3 +252,95 @@
 @media (prefers-reduced-motion:reduce){
   .brgw-pop{opacity:1!important;transform:none!important;animation:none!important;}
 }
+
+/* ── Hero marker underline — selectable variants ─────────────────────────────
+   Chosen per instance from the shortcode:  [brg_home-hero uline_variant="u1"]
+   The plugin's precedence does the work — shortcode attr > ACF option > the
+   slots.json default — filling {{uline_variant}} into data-uline on the section.
+
+   BASE IS STATIC AND VISIBLE. Every variant is an enhancement layered on top, so an
+   unknown value, an empty attribute, or an IntersectionObserver that never fires all
+   leave the artwork ON SCREEN. The failure mode of a reveal animation is an invisible
+   mark, and that is worse than an unanimated one.
+
+   Catalogue, verdicts and timings: website/lab/README.md (motion lab, 2026-08-16).
+   U2 (dasharray draw) and U4 (double-stroke) are NOT here: both animate a stroke on a
+   <path>, which needs the artwork inline as SVG. The heroes carry it as <img>, where a
+   path is unreachable. Inlining is a real option, not a limitation of this system. */
+.brgw-hero{--brgw-u-dur:.62s;--brgw-u-delay:.6s;--brgw-u-ease:cubic-bezier(.2,.7,.2,1);}
+.brgw-hero[data-uline] .uline{clip-path:none;transform:none;}
+
+/* u3 ★ default — filled brush + angled wipe. The shape never moves, only the reveal,
+   which is what preserves the taper; a scaleX would stretch it. The -5%/105% skew on
+   the polygon is the ~5deg chisel edge that reads as a marker rather than a bar. */
+.brgw-hero[data-uline="u3"] .uline{clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
+.brgw-hero.is-in[data-uline="u3"] .uline{
+  animation:brgw-uwipe var(--brgw-u-dur) var(--brgw-u-ease) var(--brgw-u-delay) forwards;}
+@keyframes brgw-uwipe{
+  from{clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
+  to  {clip-path:polygon(0 0,105% 0,100% 100%,0 100%);}}
+
+/* wipe — straight-edged reveal. What home-hero shipped with; kept as the conservative
+   fallback because it has no skewed edge to overhang a tight container. */
+.brgw-hero[data-uline="wipe"] .uline{clip-path:inset(0 100% 0 0);}
+.brgw-hero.is-in[data-uline="wipe"] .uline{clip-path:inset(0 0 0 0);
+  transition:clip-path .85s cubic-bezier(.4,0,.2,1) var(--brgw-u-delay);}
+
+/* u1 — scaleX bar. The lab's baseline, kept selectable so the taper argument can be
+   re-checked on the live site rather than re-argued: this is the one that stretches. */
+.brgw-hero[data-uline="u1"] .uline{transform:scaleX(0);transform-origin:left center;}
+.brgw-hero.is-in[data-uline="u1"] .uline{transform:scaleX(1);
+  transition:transform var(--brgw-u-dur) var(--brgw-u-ease) var(--brgw-u-delay);}
+
+@media (prefers-reduced-motion:reduce){
+  .brgw-hero[data-uline] .uline{clip-path:none!important;transform:none!important;
+    animation:none!important;transition:none!important;}}
+
+/* ── Hero marker highlight — selectable variants ─────────────────────────────
+   Same contract as the underline: [brg_careers-hero hl_variant="h1"] fills
+   {{hl_variant}} into data-hl. Markup is <span class="hl"><svg class="hl-b">…
+   </svg><span class="hl-t">TEXT</span></span> — the block sits BEHIND the text so
+   the type never moves, only the mark arrives.
+
+   The shared `.brgw .hl` rule (static yellow) still paints any highlight that has
+   NOT opted in, so nothing outside a [data-hl] hero changes. Inside one, base is
+   still a fully-painted static mark: an unknown value reads as H0, never as blank.
+
+   WRAP BEHAVIOUR IS THE REAL CHOICE HERE, not taste. h1 paints the text's own
+   background box, so it follows the text across a line break. h3 is one rigid block
+   behind a run of text; if that run wraps, the block cannot wrap with it. Use h1 for
+   anything whose length is editable and might reflow. Verdicts: website/lab/README.md */
+.brgw-hero{--brgw-h-dur:.52s;--brgw-h-delay:.12s;--brgw-h-ease:cubic-bezier(.2,.7,.2,1);}
+.brgw-hero[data-hl] .hl{position:relative;background:none;padding:0;}
+.brgw-hero[data-hl] .hl-b{display:none;}
+.brgw-hero[data-hl] .hl-t{position:relative;z-index:1;color:var(--ink);padding:.02em .18em;
+  background:var(--yellow);box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+
+/* h1 — background-size wipe. The ONLY variant that survives a line wrap. */
+.brgw-hero[data-hl="h1"] .hl-t{
+  background:linear-gradient(var(--yellow),var(--yellow)) left center/0% 100% no-repeat;}
+.brgw-hero.is-in[data-hl="h1"] .hl-t{background-size:100% 100%;
+  transition:background-size var(--brgw-h-dur) var(--brgw-h-ease) var(--brgw-h-delay);}
+
+/* h3 ★ default — rough hand-drawn block + angled wipe. Wobbled edges and uneven
+   corners are what sell "drawn" in the comps; a clean rect reads as a UI chip. */
+.brgw-hero[data-hl="h3"] .hl{display:inline-block;}
+.brgw-hero[data-hl="h3"] .hl-t{background:none;}
+.brgw-hero[data-hl="h3"] .hl-b{display:block;position:absolute;inset:-.14em -.2em;z-index:0;
+  width:auto;height:auto;transform:rotate(-1.4deg);
+  clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
+.brgw-hero[data-hl="h3"] .hl-b path{fill:var(--yellow);}
+.brgw-hero.is-in[data-hl="h3"] .hl-b{
+  animation:brgw-hwipe var(--brgw-h-dur) var(--brgw-h-ease) var(--brgw-h-delay) forwards;}
+@keyframes brgw-hwipe{
+  from{clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
+  to  {clip-path:polygon(0 0,105% 0,100% 100%,0 100%);}}
+
+/* h0 — static, no animation. The comps' own baseline, kept selectable. */
+.brgw-hero[data-hl="h0"] .hl-t{background:var(--yellow);}
+
+@media (prefers-reduced-motion:reduce){
+  .brgw-hero[data-hl] .hl-t{background:var(--yellow)!important;background-size:100% 100%!important;
+    transition:none!important;}
+  .brgw-hero[data-hl="h3"] .hl-t{background:none!important;}
+  .brgw-hero[data-hl] .hl-b{clip-path:none!important;animation:none!important;}}

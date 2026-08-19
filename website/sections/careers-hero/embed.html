@@ -1,12 +1,19 @@
-<!-- BRG · section: careers-hero  →  [brg_careers-hero] -->
-<section class="brgw-sec brgw-sec--careers-hero brgw-hero reveal" aria-label="Careers">
+<!-- BRG · section: careers-hero  →  [brg_careers-hero]
+     The sub highlight reveals per the shared variant system in brgw.css, picked with
+     [brg_careers-hero hl_variant="h1"]. Default h3 (rough block + angled wipe) matches
+     the comps; h1 is the one that survives a line wrap. -->
+<section class="brgw-sec brgw-sec--careers-hero brgw-hero reveal" data-uline="{{uline_variant}}" data-hl="{{hl_variant}}" aria-label="Careers">
 <style>
 .brgw-sec--careers-hero{overflow:hidden;}
-.brgw-sec--careers-hero .brgw-uline{color:var(--teal);}
+/* Underline is now Sean's line-careers-lg.svg; its colour is baked into the path fill,
+   so the old `color:var(--teal)` is gone rather than left as a rule that does nothing.
+   Geometry matches the blob it replaces; the reveal is the shared system in brgw.css. */
+.brgw-sec--careers-hero .uline{display:block;width:min(340px,62%);margin:16px auto 0;height:auto;}
 </style>
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
-  <span class="brgw-uline anim-up" aria-hidden="true"></span>
-  <p class="sub anim-up">{{sub_1}} <span class="hl">{{sub_highlight}}</span></p>
+  <img class="uline anim-up" aria-hidden="true" alt="" width="1122" height="31"
+       src="https://blacktoprg.netlify.app/assets/media/lines/line-careers-lg.svg">
+  <p class="sub anim-up">{{sub_1}} <span class="hl"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{sub_highlight}}</span></span></p>
   <span class="brgw-doodle brgw-doodle--c" style="top:var(--brgw-doodle-top);right:9%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg" alt="" width="122" height="118"></span>
   <span class="brgw-doodle brgw-doodle--b" style="bottom:var(--brgw-doodle-bottom);left:8%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg" alt="" width="215" height="208"></span>
 </section>

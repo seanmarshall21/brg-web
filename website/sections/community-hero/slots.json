@@ -11,5 +11,11 @@
     "label": "Sub copy",
     "doc": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write `—` as a literal em dash.",
     "default": "We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."
+  },
+  "uline_variant": {
+    "type": "text",
+    "label": "Underline animation",
+    "doc": "How the hand-drawn underline (line-community-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+    "default": "u3"
   }
 }

@@ -11,5 +11,11 @@
     "label": "Yellow tagline",
     "doc": "The short line beneath the sub, in the display face. White, not yellow, per the comp. ~40 characters.",
     "default": "Good food. Real people. Rad experience."
+  },
+  "uline_variant": {
+    "type": "text",
+    "label": "Underline animation",
+    "doc": "How the hand-drawn underline reveals. `u3` (default) filled brush + ~5deg angled wipe — keeps the taper. `wipe` straight-edged reveal, the conservative fallback with no skewed edge to overhang. `u1` scaleX bar, the lab's baseline, kept so the taper argument can be re-checked live. Unknown or blank renders the mark STATIC and visible, never hidden. u2/u4 (dasharray draws) need the artwork inline as SVG and are not available on an <img>. Catalogue: website/lab/README.md.",
+    "default": "u3"
   }
 }
