@@ -296,57 +296,69 @@
   .brgw-hero[data-uline] .uline{clip-path:none!important;transform:none!important;
     animation:none!important;transition:none!important;}}
 
-/* ── Hero marker highlight — selectable variants ─────────────────────────────
-   Same contract as the underline: [brg_careers-hero hl_variant="h1"] fills
-   {{hl_variant}} into data-hl. Markup is <span class="hl"><svg class="hl-b">…
-   </svg><span class="hl-t">TEXT</span></span> — the block sits BEHIND the text so
-   the type never moves, only the mark arrives.
+/* ── Marker highlight — selectable variants, ANY section ─────────────────────
+   [brg_home-different hl_variant="h1"] fills {{hl_variant}} into data-hl on the
+   section. Structure: <span class="hl|mark"><svg class="hl-b">…</svg><span
+   class="hl-t">TEXT</span></span> — block behind, text on top, so type never moves.
 
-   The shared `.brgw .hl` rule (static yellow) still paints any highlight that has
-   NOT opted in, so nothing outside a [data-hl] hero changes. Inside one, base is
-   still a fully-painted static mark: an unknown value reads as H0, never as blank.
+   NOT hero-scoped, deliberately. It was, and that was the bug: the highlights that
+   actually appear across the site are .mark spans in careers-apply, home-community
+   and home-different — none of them heroes — so a .brgw-hero prefix could never
+   reach them however the attribute was set. Sean caught that they were all still
+   static. Scoping is now the attribute alone.
 
-   WRAP BEHAVIOUR IS THE REAL CHOICE HERE, not taste. h1 paints the text's own
-   background box, so it follows the text across a line break. h3 is one rigid block
-   behind a run of text; if that run wraps, the block cannot wrap with it. Use h1 for
-   anything whose length is editable and might reflow. Verdicts: website/lab/README.md */
-.brgw-hero{--brgw-h-dur:.52s;--brgw-h-delay:.12s;--brgw-h-ease:cubic-bezier(.2,.7,.2,1);}
-.brgw-hero[data-hl] .hl{position:relative;background:none;padding:0;}
-.brgw-hero[data-hl] .hl-b{display:none;}
-.brgw-hero[data-hl] .hl-t{position:relative;z-index:1;color:var(--ink);padding:.02em .18em;
-  background:var(--yellow);box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+   THREE VARIABLES, because each .mark already had its own look and losing that
+   would be a regression dressed up as consistency:
+     --brgw-hl-c    the mark colour  (fills the h3 block, paints the h1 wipe)
+     --brgw-hl-pad  padding around the text
+     --brgw-hl-rot  h3 block rotation — set 0deg where the CONTAINER already
+                    rotates, or the two compound and the mark visibly skews
+   Base is a fully-painted static mark: an unknown value reads as h0, never blank.
+
+   WRAP BEHAVIOUR IS THE REAL CHOICE. h1 paints the text's own background box and
+   follows it across a line break. h3 is one rigid block behind a run of text and
+   cannot wrap with it. Verdicts: website/lab/README.md */
+[data-hl]{--brgw-h-dur:.52s;--brgw-h-delay:.12s;--brgw-h-ease:cubic-bezier(.2,.7,.2,1);}
+[data-hl] .hl,[data-hl] .mark{position:relative;background:none;padding:0;}
+[data-hl] .hl-b{display:none;}
+[data-hl] .hl-t{position:relative;z-index:1;color:var(--ink);
+  padding:var(--brgw-hl-pad,.02em .18em);background:var(--brgw-hl-c,var(--yellow));
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;}
 
 /* h1 — background-size wipe. The ONLY variant that survives a line wrap. */
-.brgw-hero[data-hl="h1"] .hl-t{
-  background:linear-gradient(var(--yellow),var(--yellow)) left center/0% 100% no-repeat;}
-.brgw-hero.is-in[data-hl="h1"] .hl-t{background-size:100% 100%;
+[data-hl="h1"] .hl-t{background:linear-gradient(var(--brgw-hl-c,var(--yellow)),
+  var(--brgw-hl-c,var(--yellow))) left center/0% 100% no-repeat;}
+.is-in[data-hl="h1"] .hl-t{background-size:100% 100%;
   transition:background-size var(--brgw-h-dur) var(--brgw-h-ease) var(--brgw-h-delay);}
 
 /* h3 ★ default — rough hand-drawn block + angled wipe. Wobbled edges and uneven
    corners are what sell "drawn" in the comps; a clean rect reads as a UI chip. */
-.brgw-hero[data-hl="h3"] .hl{display:inline-block;}
-.brgw-hero[data-hl="h3"] .hl-t{background:none;}
-/* BOTH dimensions are explicit, and that is the whole point. An <svg> is a REPLACED
-   element: with width/height auto, `inset` stretches the width but the height falls back
-   to the INTRINSIC RATIO. At 240x44 that made the block 43.6x8px behind 37x46px of text —
-   an 8px sliver of yellow under ink-coloured text on a black ground, i.e. unreadable.
-   Shipped that way in fb9b1fc and caught on the live page. preserveAspectRatio="none" on
-   the element lets the path stretch once the box is actually the right size. */
-.brgw-hero[data-hl="h3"] .hl-b{display:block;position:absolute;left:-.2em;top:-.14em;z-index:0;
-  width:calc(100% + .4em);height:calc(100% + .28em);transform:rotate(-1.4deg);
+[data-hl="h3"] .hl,[data-hl="h3"] .mark{display:inline-block;}
+/* inline-block ONLY for h3. An inline element's vertical padding does not add to its
+   inline-block parent's height, so the block's height:100% under-measured the text by
+   ~4px and left it poking out top and bottom. h1 deliberately stays inline: that is what
+   lets it wrap across lines, which is the entire reason h1 exists. */
+[data-hl="h3"] .hl-t{background:none;display:inline-block;}
+/* BOTH dimensions explicit. An <svg> is a REPLACED element: with width/height auto,
+   `inset` stretches the width but height falls back to the INTRINSIC RATIO — at
+   240x44 that gave a 43.6x8px sliver behind 37x46px of ink-on-black text, i.e.
+   unreadable. Shipped that way in fb9b1fc, caught live, fixed in b9770e4. */
+[data-hl="h3"] .hl-b{display:block;position:absolute;left:-.2em;top:-.14em;z-index:0;
+  width:calc(100% + .4em);height:calc(100% + .28em);
+  transform:rotate(var(--brgw-hl-rot,-1.4deg));
   clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
-.brgw-hero[data-hl="h3"] .hl-b path{fill:var(--yellow);}
-.brgw-hero.is-in[data-hl="h3"] .hl-b{
+[data-hl="h3"] .hl-b path{fill:var(--brgw-hl-c,var(--yellow));}
+.is-in[data-hl="h3"] .hl-b{
   animation:brgw-hwipe var(--brgw-h-dur) var(--brgw-h-ease) var(--brgw-h-delay) forwards;}
 @keyframes brgw-hwipe{
   from{clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
   to  {clip-path:polygon(0 0,105% 0,100% 100%,0 100%);}}
 
 /* h0 — static, no animation. The comps' own baseline, kept selectable. */
-.brgw-hero[data-hl="h0"] .hl-t{background:var(--yellow);}
+[data-hl="h0"] .hl-t{background:var(--brgw-hl-c,var(--yellow));}
 
 @media (prefers-reduced-motion:reduce){
-  .brgw-hero[data-hl] .hl-t{background:var(--yellow)!important;background-size:100% 100%!important;
-    transition:none!important;}
-  .brgw-hero[data-hl="h3"] .hl-t{background:none!important;}
-  .brgw-hero[data-hl] .hl-b{clip-path:none!important;animation:none!important;}}
+  [data-hl] .hl-t{background:var(--brgw-hl-c,var(--yellow))!important;
+    background-size:100% 100%!important;transition:none!important;}
+  [data-hl="h3"] .hl-t{background:none!important;}
+  [data-hl] .hl-b{clip-path:none!important;animation:none!important;}}

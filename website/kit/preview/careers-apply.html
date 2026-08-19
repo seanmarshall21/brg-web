@@ -12,7 +12,7 @@
      inline <span class="mark">, neither of which any slot type can express. NOT the offer
      <ul> either: four is not a design constant here, so numbering the items would bake the
      row count in while looking editable. Both stay as code on purpose. -->
-<section class="brgw-sec brgw-sec--careers-apply reveal" aria-label="What it's like to work here">
+<section class="brgw-sec brgw-sec--careers-apply reveal" data-hl="{{hl_variant}}" aria-label="What it's like to work here">
 <style>
 .brgw-sec--careers-apply{position:relative;background:var(--white);color:var(--ink);
   padding:clamp(76px,10vw,120px) var(--pad) clamp(70px,9vw,110px);}
@@ -24,8 +24,11 @@
 .brgw-sec--careers-apply h2{font-size:clamp(2.1rem,4.6vw,3.9rem);text-transform:uppercase;
   max-width:14ch;margin-bottom:clamp(38px,5vw,64px);}
 /* Second line carries a pink marker block, rotated like the comp. */
-.brgw-sec--careers-apply h2 .mark{display:inline-block;background:var(--pink);color:var(--ink);
-  padding:.04em .26em;transform:rotate(-1.6deg);box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+/* Look is unchanged; it now travels as variables the shared highlight system reads.
+   --brgw-hl-rot is 0deg because THIS element already rotates — letting the h3 block
+   add its own -1.4deg on top would compound into a visible skew. */
+.brgw-sec--careers-apply h2 .mark{--brgw-hl-c:var(--pink);--brgw-hl-pad:.04em .26em;--brgw-hl-rot:0deg;
+  display:inline-block;transform:rotate(-1.6deg);}
 
 .brgw-sec--careers-apply .cols{display:grid;grid-template-columns:1fr;gap:clamp(34px,5vw,80px);
   max-width:1360px;margin-inline:auto;}
@@ -50,7 +53,7 @@
 </style>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146"></span>
 
-  <h2 class="blanco anim-head">What it's like<br><span class="mark">to work here</span></h2>
+  <h2 class="blanco anim-head">What it's like<br><span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">to work here</span></span></h2>
 
   <div class="cols">
     <div>
@@ -77,7 +80,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"body_1": "This isn't your average restaurant gig. At BRG, we invest in our people \u2014 with real training, real growth paths, and a culture that actually lives up to the hype.", "body_2": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around.", "offers_heading": "We offer:", "cta_label": "Apply Today", "cta_href": "#open-positions"};
+  var D = {"body_1": "This isn't your average restaurant gig. At BRG, we invest in our people \u2014 with real training, real growth paths, and a culture that actually lives up to the hype.", "body_2": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around.", "offers_heading": "We offer:", "cta_label": "Apply Today", "cta_href": "#open-positions", "hl_variant": "h3"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

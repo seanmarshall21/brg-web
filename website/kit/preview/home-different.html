@@ -8,7 +8,7 @@
      Owns the white paper-tag BOLT badge at top-left, which bleeds upward over the seam into
      home-about (bleed rule: lower section owns it). The colour blocks on the right are
      literal design elements in the comp, not photo placeholders. -->
-<section class="brgw-sec brgw-sec--home-different reveal" aria-label="A different kind of restaurant company">
+<section class="brgw-sec brgw-sec--home-different reveal" data-hl="{{hl_variant}}" aria-label="A different kind of restaurant company">
 <style>
 .brgw-sec--home-different{position:relative;background:#232120;overflow:visible;
   padding:clamp(88px,10vw,150px) var(--pad) clamp(80px,9vw,130px);}
@@ -39,9 +39,11 @@
 .brgw-sec--home-different h2{font-size:clamp(1.6rem,3.05vw,2.65rem);text-transform:uppercase;
   margin-bottom:clamp(28px,3.2vw,46px);}
 /* Pink marker block on the opening phrase. */
-.brgw-sec--home-different h2 .mark{display:inline-block;background:var(--pink);color:var(--ink);
-  padding:.03em .2em;transform:rotate(-1.6deg);
-  box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+/* Look is unchanged; it now travels as variables the shared highlight system reads.
+   --brgw-hl-rot is 0deg because THIS element already rotates — letting the h3 block
+   add its own -1.4deg on top would compound into a visible skew. */
+.brgw-sec--home-different h2 .mark{--brgw-hl-c:var(--pink);--brgw-hl-pad:.03em .2em;--brgw-hl-rot:0deg;
+  display:inline-block;transform:rotate(-1.6deg);}
 .brgw-sec--home-different p{opacity:.88;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:47ch;}
 .brgw-sec--home-different p + p{margin-top:1.25em;}
 
@@ -61,7 +63,7 @@
 
   <div class="grid">
     <div>
-      <h2 class="blanco anim-head"><span class="mark">A different kind</span> of<br>restaurant company</h2>
+      <h2 class="blanco anim-head"><span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">A different kind</span></span> of<br>restaurant company</h2>
       <p class="anim-up">{{body_1}}</p>
       <p class="anim-up">{{body_2}}</p>
       <p class="anim-up">{{body_3}}</p>
@@ -92,7 +94,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."};
+  var D = {"body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

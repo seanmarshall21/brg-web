@@ -1,6 +1,5 @@
 {
   "_note": "Slots for [brg_careers-apply]. Declared beside the fragment so a slot and its {{token}} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Defaults are the exact production copy. Slot names are underscore-only — a hyphen fills fine but generates an invalid ACF field name, and build-acf.py now refuses it (conti 2026-08-13). `text`/`textarea` defaults are esc_html'd on fill, so write a literal `&` and a literal `—`, NEVER `&amp;` or `&mdash;` (both would double-escape and render as visible entity text).\n\nDELIBERATELY NOT WIRED, per conti's ruling (c) 2026-08-13: (1) the <h2> — it carries BOTH a structural <br> and an inline <span class=\"mark\"> for the pink marker block, and no slot type can express either. `text` escapes them into visible markup; `html`/wysiwyg returns <p>-wrapped content. The field could not express the design, so the headline stays as code. (2) the four-item offer <ul> — unlike community-stats' 2x2 grid, four is NOT a design constant here, it is a `display:grid` list that would happily take a fifth. Numbering these slots would bake the row count into the fragment while LOOKING editable, so adding a benefit would become a code change. Left honestly as code.",
-
   "body_1": {
     "type": "textarea",
     "label": "Body copy — first paragraph",
@@ -30,5 +29,11 @@
     "label": "Button link",
     "doc": "Defaults to the in-page anchor for the open-positions section below. A full URL works too.",
     "default": "#open-positions"
+  },
+  "hl_variant": {
+    "type": "text",
+    "label": "Highlight animation",
+    "doc": "How the marker highlight behind “to work here” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+    "default": "h3"
   }
 }

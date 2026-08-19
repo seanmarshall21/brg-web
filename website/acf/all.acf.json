@@ -172,6 +172,21 @@
         "default_value": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
       },
       {
+        "key": "field_brg_home_community_hl_variant",
+        "label": "Highlight animation",
+        "name": "brg_home_community_hl_variant",
+        "type": "text",
+        "instructions": "How the marker highlight behind “for community.” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "h3"
+      },
+      {
         "key": "field_brg_tab_home_about",
         "label": "What we're about",
         "name": "",
@@ -322,6 +337,21 @@
           "id": ""
         },
         "default_value": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."
+      },
+      {
+        "key": "field_brg_home_different_hl_variant",
+        "label": "Highlight animation",
+        "name": "brg_home_different_hl_variant",
+        "type": "text",
+        "instructions": "How the marker highlight behind “A different kind” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "h3"
       },
       {
         "key": "field_brg_tab_home_values",
@@ -1578,6 +1608,21 @@
           "id": ""
         },
         "default_value": "#open-positions"
+      },
+      {
+        "key": "field_brg_careers_apply_hl_variant",
+        "label": "Highlight animation",
+        "name": "brg_careers_apply_hl_variant",
+        "type": "text",
+        "instructions": "How the marker highlight behind “to work here” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "h3"
       },
       {
         "key": "field_brg_tab_careers_positions",

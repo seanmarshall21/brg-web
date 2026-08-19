@@ -17,5 +17,11 @@
     "label": "Body copy — third paragraph",
     "doc": "Write `—` as a literal em dash.",
     "default": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."
+  },
+  "hl_variant": {
+    "type": "text",
+    "label": "Highlight animation",
+    "doc": "How the marker highlight behind “A different kind” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+    "default": "h3"
   }
 }

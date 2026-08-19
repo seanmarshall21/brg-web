@@ -29,5 +29,11 @@
     "label": "Body copy — second paragraph",
     "doc": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters. CROSS-SECTION FACT — this number also appears in `our-restaurants-brands` -> Board & Brew second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
     "default": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
+  },
+  "hl_variant": {
+    "type": "text",
+    "label": "Highlight animation",
+    "doc": "How the marker highlight behind “for community.” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+    "default": "h3"
   }
 }

@@ -8,7 +8,7 @@
      Owns the yellow BOLT seam badge that straddles its top edge — per the cross-section
      bleed rule (notes/controller.md): the element lives in the LOWER section and bleeds
      UPWARD, because later shells paint on top. Nothing here bleeds downward. -->
-<section class="brgw-sec brgw-sec--home-community reveal" aria-label="Born in San Diego">
+<section class="brgw-sec brgw-sec--home-community reveal" data-hl="{{hl_variant}}" aria-label="Born in San Diego">
 <style>
 .brgw-sec--home-community{position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,132px) var(--pad) clamp(76px,8vw,120px);}
@@ -30,9 +30,11 @@
 .brgw-sec--home-community h2{font-size:clamp(1.75rem,3.5vw,3rem);text-transform:uppercase;
   margin-bottom:clamp(26px,3vw,42px);}
 /* Teal marker block on the second line, rotated as in the comp. */
-.brgw-sec--home-community h2 .mark{display:inline-block;background:var(--teal);color:var(--ink);
-  padding:.03em .22em;transform:rotate(-1.8deg);
-  box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+/* Look is unchanged; it now travels as variables the shared highlight system reads.
+   --brgw-hl-rot is 0deg because THIS element already rotates — letting the h3 block
+   add its own -1.4deg on top would compound into a visible skew. */
+.brgw-sec--home-community h2 .mark{--brgw-hl-c:var(--teal);--brgw-hl-pad:.03em .22em;--brgw-hl-rot:0deg;
+  display:inline-block;transform:rotate(-1.8deg);}
 .brgw-sec--home-community p{opacity:.9;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:46ch;}
 .brgw-sec--home-community p + p{margin-top:1.25em;}
 .brgw-sec--home-community strong{font-weight:700;opacity:1;}
@@ -56,7 +58,7 @@
 
   <div class="grid">
     <div>
-      <h2 class="blanco anim-head">Born in San Diego.<br>Built <span class="mark">for community.</span></h2>
+      <h2 class="blanco anim-head">Born in San Diego.<br>Built <span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">for community.</span></span></h2>
       <p class="anim-up">{{intro_1}} <strong>{{intro_emphasis}}</strong> {{intro_2}}</p>
       <p class="anim-up">{{body_1}}</p>
       <p class="anim-up">{{body_2}}</p>
@@ -81,7 +83,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started."};
+  var D = {"intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
