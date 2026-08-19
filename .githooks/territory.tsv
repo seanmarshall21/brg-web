@@ -65,7 +65,14 @@ finn	website/careers/
 # first day — finn had to use FC_ALLOW_CROSS to satisfy a rule only finn could satisfy.)
 # The same rule keeps SHORTCODES.md + docs/ with conti: their input, kit/registry.json,
 # is conti's.
-finn	website/acf/
+# GENERATED OUTPUT FOLLOWS ITS GENERATOR, not its subject matter.
+# website/acf/ is written only by kit/build-acf.py (conti) and hand-edited by nobody.
+# It sat with finn because the SLOTS that feed it are finn's — but that made every
+# routine regeneration a cross-territory commit, which under block mode would mean
+# typing an override as a matter of habit. An override people type by habit is not a
+# guard. The inputs stay finn's: website/sections/<id>/slots.json is where the real
+# decisions live and where review belongs.
+conti	website/acf/
 finn	website/sections/
 # ↑ includes each section's slots.json. A slot and its {{token}} MUST ship in the same
 # commit, which is impossible if one half lives in conti's sections.json — so the

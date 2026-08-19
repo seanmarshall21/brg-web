@@ -132,3 +132,35 @@ jobs:
             [ "$bad" -eq 0 ] || exit 1
             rm -f /tmp/brg-manifest
             echo "all $n file(s) match, by bytes"
+
+      # SMOKE TEST. The lint proves the file PARSES. It cannot prove the site RUNS, and on
+      # 2026-08-19 that difference took every page down: a function was defined inside
+      # another function's body, which is valid PHP and fatal at runtime — "call to
+      # undefined function" before the outer function had ever been called. php -l passed
+      # it, the byte check confirmed it arrived intact, and the deploy went green over a
+      # white screen.
+      #
+      # A must-use plugin fatal takes the whole site including wp-admin, so the only
+      # honest verification is to ask the site whether it is alive. The password gate
+      # answers 200; a fatal answers 500. That is the distinction that matters.
+      - name: Is the site actually alive?
+        env:
+          SITE: https://blacktoprestaurantgroup.com/
+        run: |
+          set -uo pipefail
+          bad=0
+          for path in "" "brands/" "team/"; do
+            code=$(curl -s -o /tmp/body -w '%{http_code}' --max-time 25 "$SITE$path" || echo 000)
+            if [ "$code" -ge 200 ] && [ "$code" -lt 400 ]; then
+              echo "  OK   /$path -> $code"
+            else
+              echo "::error::/$path returned $code — the deploy has broken the live site"
+              head -c 400 /tmp/body | sed 's/^/      /'
+              bad=1
+            fi
+          done
+          if [ "$bad" -ne 0 ]; then
+            echo "::error::ROLL BACK NOW: git checkout <last-good> -- website/wp-mu-plugin/ && git commit && git push"
+            exit 1
+          fi
+          echo "site responding on every checked path"
