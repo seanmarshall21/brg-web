@@ -8,7 +8,14 @@
 /* Underline is now Sean's line-careers-lg.svg; its colour is baked into the path fill,
    so the old `color:var(--teal)` is gone rather than left as a rule that does nothing.
    Geometry matches the blob it replaces; the reveal is the shared system in brgw.css. */
-.brgw-sec--careers-hero .uline{display:block;width:min(340px,62%);margin:16px auto 0;height:auto;}
+/* Width is the ARTWORK'S OWN LENGTH at home-hero's scale, not a shared number.
+   line-careers-lg.svg is 1122 units and home renders its 845 at 640px, so 1122x0.757
+   = 850px keeps this stroke the same WEIGHT as home's. A flat width for every hero
+   would thin the wide sources and fatten the narrow ones, because height is auto and
+   the aspect ratio differs per drawing. The 62% keeps it responsive on narrow screens.
+   (Was min(340px,62%) — inherited from the CSS blob this replaced, which was a small
+   decorative bar; on a ~1100px headline it read as far too short.) */
+.brgw-sec--careers-hero .uline{display:block;width:min(850px,62%);margin:16px auto 0;height:auto;}
 </style>
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
   <img class="uline anim-up" aria-hidden="true" alt="" width="1122" height="31"
