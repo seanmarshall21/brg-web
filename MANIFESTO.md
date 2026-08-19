@@ -12,7 +12,17 @@ structure should do. Now: **clone per chat, one owner per file, enforced by a ho
 
 ## The model
 
-**One clone per chat.** Each conversation gets its own local clone. Nothing is shared through
+**One CHECKOUT per chat — now a worktree, not a clone.** Atlas's `PROJECT-SETUP.md` settles
+this: Claude Desktop creates a worktree per task and that is the right shape. Clone-per-chat is
+named there as the pattern that goes wrong — `brg-web-dee`, `-dum`, `-expo` pile up beside the
+real repo and get mistaken for separate projects. The five seat clones are leftovers to delete
+once each chat has moved, and only when `git status` shows them clean.
+
+What does not change is the principle: identity is a property of the checkout, not something a
+chat remembers about itself. `install.sh` writes `--worktree`-scoped config in a worktree so
+each seat owns its own `fc.chat` without touching anyone else's.
+
+Each conversation gets its own checkout. Nothing is shared through
 a working tree, so no chat can sweep another's in-flight file into a commit, and `git pull`
 can never touch a file someone else is mid-edit on. Coordination happens through `main`, which
 is the only place the chats actually meet.

@@ -19,9 +19,20 @@ Read that as:
 - **`fc.chat` empty** → this clone isn't set up. Run `./.githooks/install.sh <chat> warn`.
   Until you do, the territory hook is inert and nothing is protecting the other chat's files.
 - **`core.hooksPath` not `.githooks`** → same, the hooks aren't wired. Re-run `install.sh`.
-- **`--git-common-dir` pointing into another repo** → you're in a *worktree*, not a clone. Say
-  so before committing: worktrees share one git config, so `fc.chat` may describe a different
-  chat than the one you are.
+- **`--git-common-dir` differing from `--absolute-git-dir`** → you're in a **worktree**, which
+  is now the right shape rather than a warning. Atlas's `PROJECT-SETUP.md` makes the Desktop
+  worktree the standard and names clone-per-chat as the pattern that goes wrong — five clones
+  of one repo pile up and get mistaken for separate projects.
+
+  Worktrees DO share one git config, which is why a plain `git config fc.chat` in one rewrites
+  the identity of the main clone and every other worktree at once. `install.sh` handles it:
+  it detects a worktree and writes `--worktree`-scoped config, so your identity is yours alone.
+  **Run it once in every new worktree** — until you do, `fc.chat` reports whoever configured the
+  main clone, and the hook will police you against the wrong map while looking like it works.
+
+  Compare the two with `--path-format=absolute` on BOTH sides. Without it `--git-common-dir`
+  returns a relative `.git` in a normal clone, the strings differ, and a clone reads as a
+  worktree — which is how the main checkout ends up writing scoped identity it must not have.
 
 ## The board is in Atlas, not in this repo
 
