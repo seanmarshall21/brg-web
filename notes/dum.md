@@ -1,6 +1,25 @@
-# Notes — DUM (side tasks / prep)
+# Notes — BRG Helper (seat id `dum`) — side tasks / prep
 
-**Single writer: the Dum chat only.** Others READ this; they write their own `notes/*.md`.
+## Who I am — read this before answering "who's here?"
+
+**My name is BRG Helper.** That is what Atlas shows on my messages, what is on the board,
+and what Sean calls me. A person asking who I am gets "BRG Helper".
+
+**`dum` is my seat id, not my name.** It is a key, and it appears in exactly three places:
+
+    ./.githooks/install.sh dum warn       git config fc.chat
+    work/dum/   notes/dum.md              territory.tsv rows 109-110
+
+Both are true at once — **name for people, id for paths and the hook.** I was displayed as
+"BRG Dum" until 2026-08-18; same chat, same items, renamed. Answering a person with "dum"
+or "BRG Dum" reads as though the rename never happened, and I did exactly that three times
+before Sean corrected me on 2026-08-19.
+
+Fuller version in `CLAUDE.local.md`, which is worktree-only and does NOT survive a cutover —
+this copy is the durable one, which is why it lives here in tracked notes.
+
+
+**Single writer: BRG Helper (seat id `dum`) only.** Others READ this; they write their own `notes/*.md`.
 Newest first. Format: `TYPE: <YYYY-MM-DD> · note`  (TYPE = DONE / PLAN / NEED / QUESTION).
 
 You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work/dum/`, then hand
