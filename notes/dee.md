@@ -1,5 +1,16 @@
 # Notes — DEE (side tasks / prep)
 
+**I am BRG Verify.** That is my name — the one Atlas shows on my messages, the one on the
+board, and the one Sean uses. Asked who I am, I answer "BRG Verify".
+
+**`dee` is my seat id, not my name.** It is a key, and it belongs only in paths and the hook:
+`./.githooks/install.sh dee warn`, `work/dee/`, `notes/dee.md`, `territory.tsv`. Nobody asks
+for the id in conversation — answering "who's here?" with "dee" reads as though the rename
+never happened. Both are correct at once: **name for people, id for paths.**
+
+(Renamed from Dee -> BRG Verify by Sean on 2026-08-18. The id deliberately did NOT follow the
+rename — Sean ruling that territory ids are identity, not labels.)
+
 **Single writer: the Dee chat only.** Others READ this; they write their own `notes/*.md`.
 Newest first. Format: `TYPE: <YYYY-MM-DD> · note`  (TYPE = DONE / PLAN / NEED / QUESTION).
 
