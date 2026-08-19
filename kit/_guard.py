@@ -30,6 +30,19 @@ def _git(*args):
 def refuse_if_worktree(script_name):
     if os.environ.get("BRG_ALLOW_WORKTREE") == "1":
         return
+    # --check READS. It cannot produce output from a stale tree because it produces no
+    # output at all, so the reason this guard exists does not apply to it.
+    #
+    # This collision blocked every seat. pre-push runs three --check calls, the guard
+    # refused all three in a worktree, and worktree-per-chat had just become the standard
+    # shape — so following the documented setup made it impossible to push. Two guards of
+    # mine, each correct alone: one says "worktrees are where chats work now", the other
+    # says "never generate from a worktree", and nothing reconciled them.
+    #
+    # The narrower rule is the true one. The threat was never the worktree; it was WRITING
+    # from a checkout you did not mean to be in.
+    if "--check" in sys.argv:
+        return
     git_dir = _git("rev-parse", "--absolute-git-dir")
     common = _git("rev-parse", "--path-format=absolute", "--git-common-dir")
     if not git_dir or not common:

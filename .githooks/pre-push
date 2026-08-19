@@ -99,7 +99,13 @@ if [ -f kit/build-acf.py ]; then
       echo "$out" | sed 's/^/      /'
       fail=1
     fi
-    if python3 kit/build-acf.py >/dev/null 2>&1; then
+    # The one WRITE in this hook, and it is deliberate: regenerate, then diff, to catch a
+    # section wired on one side of the territory line and absent on the other. It writes
+    # into the checkout being pushed FROM, which is the whole point — so the worktree
+    # guard is explicitly waived here rather than being tripped by it. The guard protects
+    # against generating in a checkout you did not mean to be in; a pre-push hook is by
+    # definition running in the one you meant.
+    if BRG_ALLOW_WORKTREE=1 python3 kit/build-acf.py >/dev/null 2>&1; then
       # --porcelain, not `git diff`: a brand-new section's group file is UNTRACKED after
       # regeneration, and git diff cannot see untracked files. all.acf.json would catch it
       # anyway (it is the combined file, so it always moves too) — but only by luck, and a
