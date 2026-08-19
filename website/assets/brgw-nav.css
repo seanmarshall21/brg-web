@@ -145,3 +145,45 @@
 @media (prefers-reduced-motion:reduce){
   .bnav,.bnav-uline path,.bnav-drawer,.bnav-scrim{transition:none;}
 }
+
+/* ── The mobile takeover ─────────────────────────────────────────────────────────
+   The same drawer component in its full-menu role (.is-full), presented as a
+   full-screen panel rather than a side sheet. fc-brands keeps the takeover and the
+   desktop overflow as two components; ours is one serving both, so the role is a
+   class and the two presentations never fight.
+
+   VISIBILITY, never display:none — a display change cannot be transitioned, so the
+   panel would snap instead of sliding. (fc-brands names this as the first of three
+   non-obvious behaviours, and it is the one that looks like a broken animation.) */
+@media (max-width: 860px) {
+  .bnav-drawer.is-full{
+    inset:0; width:100%; max-width:none; border-radius:0;
+    display:flex; flex-direction:column;
+    padding:76px clamp(22px,7vw,46px) clamp(26px,6vh,44px);
+  }
+  .bnav-drawer.is-full .bnav-drawer-items{
+    flex:1; display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  }
+  .bnav-drawer.is-full .bnav-item{font-size:clamp(2rem,9vw,3.1rem); line-height:1.06;}
+  .bnav-drawer.is-full .bnav-drawer-eyebrow{margin-top:auto; padding-top:26px;}
+}
+
+/* The anchor: wordmark + one line, closing the panel. margin-top:auto on the eyebrow
+   above pushes this group to the bottom without absolute positioning, so it can never
+   overlap the menu on a short screen — which is what pinning it would do at 5 items. */
+.bnav-anchor{
+  display:block; margin-top:14px; opacity:0; transform:translateY(10px);
+  transition:opacity .5s ease, transform .5s cubic-bezier(.22,.61,.36,1);
+}
+.bnav-drawer.open .bnav-anchor{opacity:1; transform:none;}
+.bnav-wordmark{
+  display:block; font-size:clamp(2.6rem,15vw,5.2rem); line-height:.9;
+  letter-spacing:-.01em; color:var(--ink,#231F20);
+}
+.bnav-meta{
+  display:block; margin-top:6px; font-size:.78rem; letter-spacing:.14em;
+  text-transform:uppercase; opacity:.55;
+}
+@media (prefers-reduced-motion: reduce){
+  .bnav-anchor{transition:none; opacity:1; transform:none;}
+}

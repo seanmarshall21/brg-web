@@ -92,13 +92,17 @@
     document.body.appendChild(scrim); document.body.appendChild(drawer);
     var dItems = drawer.querySelector('.bnav-drawer-items');
     function setDrawer(o) {
+      // .is-full marks the takeover so CSS can present it full-screen while the desktop
+      // overflow keeps the side-drawer look. fc-brands keeps these as two components; ours
+      // is one serving two roles, so the role has to be visible to the stylesheet.
       drawer.classList.toggle('open', o); scrim.classList.toggle('open', o);
       nav.classList.toggle('menu-open', o);          // morphs the hamburger → X
       drawer.setAttribute('aria-hidden', o ? 'false' : 'true');
       document.documentElement.style.overflow = o ? 'hidden' : '';
     }
-    function openWith(list) {
+    function openWith(list, full) {
       dItems.innerHTML = '';
+      drawer.classList.toggle('is-full', !!full);
       /* ONE counter across every group, not one per group. Restarting it for the social
          row makes two things animate at once and reads as two menus; continuing it reads
          as a single cascade, and a section added later joins the sequence for free.
@@ -112,7 +116,7 @@
       if (SOCIAL.length) {
         var eyebrow = document.createElement('span');
         eyebrow.className = 'bnav-drawer-eyebrow';
-        eyebrow.textContent = 'Follow';
+        eyebrow.textContent = nav.dataset.follow || 'Follow';
         eyebrow.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
         dItems.appendChild(eyebrow);
 
@@ -137,6 +141,28 @@
         });
         dItems.appendChild(row);
       }
+      /* The ANCHOR closes the takeover: a large wordmark and one line under it, pinned
+         to the bottom. It joins the SAME stagger counter as the items and the social row —
+         restarting the count per group makes them animate together and read as three
+         menus rather than one cascade. Only rendered for the full menu; the desktop
+         "More" overflow is a different job and an anchor in it is noise. */
+      if (full) {
+        var anchor = document.createElement('span');
+        anchor.className = 'bnav-anchor';
+        anchor.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
+        var wm = document.createElement('span');
+        wm.className = 'bnav-wordmark blanco';
+        wm.textContent = nav.dataset.wordmark || 'BLACKTOP';
+        anchor.appendChild(wm);
+        var meta = (nav.dataset.meta || '').trim();
+        if (meta) {                       // blank hides the line rather than leaving a gap
+          var mt = document.createElement('span');
+          mt.className = 'bnav-meta'; mt.textContent = meta;
+          anchor.appendChild(mt);
+        }
+        dItems.appendChild(anchor);
+      }
+
       void drawer.offsetWidth;                        // paint the hidden start state so the stagger plays
       setDrawer(true);
     }
@@ -153,8 +179,8 @@
     var overflow = [];
     function mkMore() {
       var b = document.createElement('button'); b.className = 'bnav-link bnav-more';
-      b.innerHTML = 'More <span class="pl">+</span>';
-      b.addEventListener('click', function () { openWith(overflow); }); return b;
+      b.innerHTML = (nav.dataset.more || 'More') + ' <span class="pl">+</span>';
+      b.addEventListener('click', function () { openWith(overflow, false); }); return b;  // desktop overflow, not the takeover
     }
     function render() {
       grpA.innerHTML = ''; grpB.innerHTML = ''; overflow = [];
@@ -189,7 +215,7 @@
     if (ham) {
       ham.setAttribute('aria-label', 'Menu');
       ham.addEventListener('click', function () {
-        if (drawer.classList.contains('open')) setDrawer(false); else openWith(SRC);
+        if (drawer.classList.contains('open')) setDrawer(false); else openWith(SRC, true);   // hamburger = the full takeover
       });
     }
 

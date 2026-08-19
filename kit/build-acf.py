@@ -190,11 +190,13 @@ def chrome_groups():
         f = os.path.join(CHROME_DIR, cid, 'slots.json')
         if not os.path.exists(f):
             continue
-        decl = {k: v for k, v in (json.load(open(f, encoding='utf-8')) or {}).items()
-                if not k.startswith('_')}
+        raw = json.load(open(f, encoding='utf-8')) or {}
+        # Read _label BEFORE stripping underscore keys — the previous order filtered it
+        # out and then looked for it, so every chrome group silently fell back to its id.
+        label = raw.get('_label') or cid.replace('-', ' ').title()
+        decl = {k: v for k, v in raw.items() if not k.startswith('_')}
         if not decl:
             continue
-        label = decl.pop('_label', None) or cid.replace('-', ' ').title()
         out.append((cid, label, decl))
     return out
 
@@ -365,7 +367,15 @@ def check():
     for cid, label, decl in chrome_groups():
         for k in decl:
             fname = 'brg_' + cid.replace('-', '_') + '_' + k
-            if fname not in php:
+            # Two ways a reader can legitimately exist. The literal name, or our helper
+            # composing it: vcc_chrome( 'nav', 'wordmark' ). Matching only the literal
+            # would fail a CORRECT reader and push whoever hit it toward writing worse
+            # PHP to satisfy the checker — which is how a guard starts costing more than
+            # it catches. (fc-brands' acf-readers.py has the same limitation; theirs
+            # counts get_field('x') literals and they list it as a known false-positive.)
+            composed = re.search(
+                r"vcc_chrome\(\s*'" + re.escape(cid) + r"'\s*,\s*'" + re.escape(k) + r"'", php)
+            if fname not in php and not composed:
                 print(f"  ✗ chrome/{cid}: slot '{k}' is never read — nothing in "
                       f"vc-clients-embed.php mentions {fname}, so the field would accept "
                       f"input that changes nothing on the page.")
@@ -441,6 +451,32 @@ def main():
         g = page_group(page, info['label'], info['sections'], first=(order == 0))
         g['menu_order'] = order          # page order on the admin screen
         wanted.append(('page-' + page, g, sum(len(slots_for(x)[0]) for x in info['sections'])))
+
+    # Chrome groups sit after the pages, each on its own sub-page, same as a page group.
+    for cid, label, decl in chrome_groups():
+        illegal = bad_slot_names(decl)
+        if illegal:
+            sys.exit(f"refusing to generate chrome/{cid}: slot name(s) {illegal} are not [a-z0-9_].")
+        g = {
+            'key': 'group_brg_chrome_' + cid.replace('-', '_'),
+            'title': f"{label} — Content",
+            'fields': [{
+                'key': 'field_brg_chrome_' + cid.replace('-', '_') + '_msg',
+                'label': '', 'name': '', 'type': 'message',
+                'message': admin_html(
+                    f"**{label}** — site chrome, shown on every page. These are read directly "
+                    f"by the plugin rather than filling a section's `{{{{slots}}}}`."),
+                'new_lines': 'wpautop', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
+                'wrapper': {'width': '', 'class': '', 'id': ''},
+            }] + [field(cid, k, v) for k, v in decl.items()],
+            'location': [[{'param': 'options_page', 'operator': '==',
+                           'value': OPTIONS_PAGE + '-' + cid}]],
+            'menu_order': 90, 'position': 'normal', 'style': 'default',
+            'label_placement': 'top', 'instruction_placement': 'label',
+            'hide_on_screen': '', 'active': True,
+            'description': f"Site chrome. Edit website/chrome/{cid}/slots.json and rerun kit/build-acf.py.",
+        }
+        wanted.append(('chrome-' + cid, g, len(decl)))
 
     before = existing_group_ids()
     now = {sid for sid, _, _ in wanted}

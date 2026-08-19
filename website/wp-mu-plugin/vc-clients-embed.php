@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.8.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.9.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -381,6 +381,21 @@ if ( ! function_exists( 'vcc_render_chrome' ) ) {
 /* ── Render the WP-menu-driven nav (v2.2: [brg_nav]). Content = wp_nav_menu() for the
       configured location; styling/behaviour = brgw-nav.css/js. brgw-nav.js injects the
       pen-stroke marker underline + builds the mobile takeover from the same menu. ──── */
+/* ── Read a CHROME field (nav, footer) ──────────────────────────────────────────
+ * Chrome is generated here in PHP rather than being a fragment with {{tokens}}, so its
+ * ACF fields need a reader — and a field with no reader is the failure fc-brands hit
+ * twice: the editor types, saves, sees no change, and gets no error. kit/build-acf.py
+ * --check proves every chrome slot is mentioned in this file for exactly that reason.
+ * Declared in website/chrome/<id>/slots.json. */
+if ( ! function_exists( 'vcc_chrome' ) ) {
+    function vcc_chrome( $id, $slot, $fallback = '' ) {
+        if ( ! function_exists( 'get_field' ) ) return $fallback;
+        $v = get_field( 'brg_' . str_replace( '-', '_', $id ) . '_' . $slot, 'option' );
+        $v = is_string( $v ) ? trim( $v ) : '';
+        return $v !== '' ? $v : $fallback;
+    }
+}
+
 if ( ! function_exists( 'vcc_render_nav' ) ) {
     function vcc_render_nav( $client, $atts ) {
         $cfg = isset( $GLOBALS['VCC_CLIENTS'][ $client ] ) ? $GLOBALS['VCC_CLIENTS'][ $client ] : null;
@@ -446,6 +461,10 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
 
         $header = '<header class="bnav lay-' . esc_attr( $layout ) . ' bg-' . esc_attr( $bg ) . '"'
                 . ( $style !== '' ? ' style="' . esc_attr( $style ) . '"' : '' )
+                . ' data-wordmark="' . esc_attr( vcc_chrome( 'nav', 'wordmark', 'BLACKTOP' ) ) . '"'
+                . ' data-meta="' . esc_attr( vcc_chrome( 'nav', 'meta', 'Restaurant Group' ) ) . '"'
+                . ' data-follow="' . esc_attr( vcc_chrome( 'nav', 'follow_label', 'Follow' ) ) . '"'
+                . ' data-more="' . esc_attr( vcc_chrome( 'nav', 'more_label', 'More' ) ) . '"'
                 . ' data-left="' . esc_attr( $left )
                 . '" data-right="' . esc_attr( $right ) . '" data-sticky="' . esc_attr( $sticky ) . '">'
                 . '<a class="bnav-logo" href="' . esc_url( $home ) . '" aria-label="Blacktop Restaurant Group — home">'
