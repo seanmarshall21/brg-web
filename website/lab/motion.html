@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<!-- BRG · Motion Lab — underline + highlight animation sandbox.
+     Standalone page (NOT a fragment / not a shortcode). Netlify publishes /website,
+     so this is live at:  https://blacktoprg.netlify.app/lab/motion.html
+     Purpose: preview every underline + highlight variant side by side, replay them,
+     scrub the speed, and test the real scroll-trigger behavior before anything
+     lands in a page fragment. Notes + decision log: see lab/README.md -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BRG · Motion Lab — underlines &amp; highlights</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;800&display=swap');
+@font-face{font-family:'Blanco Cavelary';src:url('https://blacktoprestaurantgroup.com/wp-content/uploads/2026/06/BlancoCavelary.woff2') format('woff2');font-display:swap;font-weight:400;}
+
+:root{
+  --yellow:#FCE200; --teal:#19C7C2; --pink:#EC0F8D; --orange:#F5821F;
+  --bg:#201f1d; --bg2:#131210; --ink:#231F20; --white:#fff;
+  --speed:1;                 /* master multiplier, driven by the slider */
+  --u-dur:calc(.62s * var(--speed));   /* underline draw */
+  --h-dur:calc(.52s * var(--speed));   /* highlight wipe */
+  --h-delay:calc(.12s * var(--speed)); /* highlight trails the text settling */
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--bg2);color:var(--white);
+  font-family:'Montserrat',system-ui,sans-serif;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.blanco{font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82em;
+  background:rgba(255,255,255,.08);padding:.12em .4em;border-radius:3px;}
+
+/* ---------- chrome ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,56px) 140px;}
+.top{
+  position:sticky;top:0;z-index:50;background:rgba(19,18,16,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1);
+  padding:14px clamp(20px,5vw,56px);display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+}
+.top h1{font-size:1rem;margin:0;letter-spacing:.16em;text-transform:uppercase;font-weight:800;}
+.top h1 span{color:var(--yellow);}
+.top .sp{flex:1;}
+.ctl{display:flex;align-items:center;gap:9px;font-size:.72rem;letter-spacing:.13em;
+  text-transform:uppercase;font-weight:600;opacity:.85;}
+.ctl input[type=range]{width:120px;accent-color:var(--yellow);}
+button.act{
+  background:var(--yellow);color:var(--ink);border:0;border-radius:3px;cursor:pointer;
+  font:inherit;font-weight:700;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:10px 18px;
+}
+button.act:hover{filter:brightness(1.08);}
+button.ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.28);}
+
+.intro{padding:52px 0 10px;max-width:70ch;}
+.intro h2{font-size:clamp(1.9rem,4.5vw,3rem);margin:0 0 14px;text-transform:uppercase;line-height:.95;}
+.intro p{margin:0 0 10px;opacity:.7;font-size:.98rem;}
+
+h3.sec{
+  font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;
+  color:var(--yellow);margin:74px 0 6px;
+}
+h3.sec + p{margin:0 0 26px;opacity:.6;font-size:.92rem;max-width:70ch;}
+
+/* ---------- variant card ---------- */
+.card{
+  border:1px solid rgba(255,255,255,.12);border-radius:6px;background:var(--bg);
+  margin-bottom:20px;overflow:hidden;
+}
+.card.pick{border-color:var(--yellow);box-shadow:0 0 0 1px rgba(252,226,0,.35);}
+.card > .hd{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;
+  padding:15px 22px;border-bottom:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.03);
+}
+.card .id{font-weight:800;font-size:.78rem;letter-spacing:.14em;color:var(--yellow);}
+.card .nm{font-weight:600;font-size:.9rem;}
+.card .note{flex:1 1 100%;opacity:.55;font-size:.84rem;line-height:1.5;}
+.card .tag{
+  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  padding:4px 9px;border-radius:2px;background:var(--teal);color:var(--ink);
+}
+.card .tag.warn{background:var(--orange);}
+.card .tag.no{background:rgba(255,255,255,.16);color:var(--white);}
+.stage{
+  padding:clamp(34px,6vw,60px) clamp(22px,4vw,44px);
+  display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;
+}
+.stage .demo{font-size:clamp(1.7rem,4.4vw,3.1rem);text-transform:uppercase;line-height:1.18;}
+.stage.light{background:#fff;color:var(--ink);}
+.replay{
+  background:transparent;border:1px solid rgba(255,255,255,.26);color:inherit;
+  border-radius:3px;cursor:pointer;font:inherit;font-weight:700;font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;padding:9px 15px;white-space:nowrap;
+}
+.stage.light .replay{border-color:rgba(0,0,0,.24);}
+.replay:hover{background:rgba(255,255,255,.1);}
+.stage.light .replay:hover{background:rgba(0,0,0,.06);}
+
+/* =====================================================================
+   UNDERLINES
+   Shared shell: .u wraps the text, the mark is an absolutely-positioned
+   layer beneath it. Everything animates only when .go is present, so the
+   replay button can strip + re-add it.
+   ===================================================================== */
+.u{position:relative;display:inline-block;}
+.u-s{
+  position:absolute;left:-2%;width:104%;bottom:-.20em;height:.34em;
+  overflow:visible;pointer-events:none;
+}
+
+/* U1 — the current CSS blob (baseline, what's on Home today) */
+.u1 .u-b{
+  position:absolute;left:0;bottom:-.16em;height:.13em;width:100%;
+  background:var(--yellow);border-radius:40% 60% 55% 45%/60% 50% 60% 40%;
+  transform:rotate(-1deg) scaleX(0);transform-origin:left center;
+}
+.u1.go .u-b{transform:rotate(-1deg) scaleX(1);
+  transition:transform var(--u-dur) cubic-bezier(.2,.7,.2,1);}
+
+/* U2 — SVG stroke draw (uniform width) */
+.u2 .u-s path{
+  fill:none;stroke:var(--yellow);stroke-width:7;stroke-linecap:round;
+  stroke-dasharray:320;stroke-dashoffset:320;
+}
+.u2.go .u-s path{stroke-dashoffset:0;
+  transition:stroke-dashoffset var(--u-dur) cubic-bezier(.2,.7,.2,1);}
+
+/* U3 — filled brush shape, revealed by an ANGLED wipe (marker tip is angled,
+   so a vertical reveal edge is the tell that gives away a CSS animation) */
+.u3 .u-s path{fill:var(--yellow);}
+.u3 .u-s{clip-path:polygon(0 0, 0 0, -5% 100%, 0 100%);}
+.u3.go .u-s{animation:wipe-x var(--u-dur) cubic-bezier(.2,.7,.2,1) forwards;}
+
+/* U4 — two passes: base stroke, then a lighter scribble return pass */
+.u4 .u-s path{fill:none;stroke:var(--yellow);stroke-linecap:round;}
+.u4 .u-s .p1{stroke-width:7;stroke-dasharray:320;stroke-dashoffset:320;}
+.u4 .u-s .p2{stroke-width:3.4;opacity:.72;stroke-dasharray:320;stroke-dashoffset:320;}
+.u4.go .u-s .p1{stroke-dashoffset:0;
+  transition:stroke-dashoffset var(--u-dur) cubic-bezier(.2,.7,.2,1);}
+.u4.go .u-s .p2{stroke-dashoffset:0;
+  transition:stroke-dashoffset calc(var(--u-dur) * .8) cubic-bezier(.3,.6,.2,1);
+  transition-delay:calc(var(--u-dur) * .55);}
+
+@keyframes wipe-x{
+  from{clip-path:polygon(0 0, 0 0, -5% 100%, 0 100%);}
+  to  {clip-path:polygon(0 0, 105% 0, 100% 100%, 0 100%);}
+}
+
+/* =====================================================================
+   HIGHLIGHTS
+   ===================================================================== */
+.h{position:relative;display:inline-block;}
+.h-t{position:relative;z-index:1;}
+.h-b{position:absolute;z-index:0;left:-.14em;right:-.14em;top:-.04em;bottom:-.06em;
+  width:auto;height:auto;pointer-events:none;}
+
+/* H0 — static, no animation (what's on Home today) */
+.h0 .h-t{background:var(--yellow);color:var(--ink);padding:.02em .18em;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+
+/* H1 — background-size wipe. Only variant that survives a line wrap. */
+.h1 .h-t{
+  padding:.02em .18em;color:var(--ink);
+  background-image:linear-gradient(var(--c),var(--c));
+  background-repeat:no-repeat;background-position:left center;background-size:0% 100%;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+.h1.go .h-t{background-size:100% 100%;
+  transition:background-size var(--h-dur) cubic-bezier(.2,.7,.2,1) var(--h-delay);}
+
+/* H2 — rotated block behind the text, angled clip wipe */
+.h2 .h-t{color:var(--ink);padding:.02em .18em;}
+.h2 .h-b{background:var(--c);transform:rotate(-1.4deg);
+  clip-path:polygon(0 0, 0 0, -5% 100%, 0 100%);}
+.h2.go .h-b{animation:wipe-x var(--h-dur) cubic-bezier(.2,.7,.2,1) var(--h-delay) forwards;}
+
+/* H3 — rough hand-drawn block (SVG) + angled wipe. Closest to the comps. */
+.h3 .h-t{color:var(--ink);padding:.02em .18em;}
+.h3 .h-b{transform:rotate(-1.4deg);clip-path:polygon(0 0, 0 0, -5% 100%, 0 100%);}
+.h3 .h-b path{fill:var(--c);}
+.h3.go .h-b{animation:wipe-x var(--h-dur) cubic-bezier(.2,.7,.2,1) var(--h-delay) forwards;}
+
+/* H4 — clean label pill (OUR VISION / LEADERSHIP / …) */
+.h4{display:inline-block;}
+.h4 .h-t{
+  display:inline-block;background:var(--c);color:var(--ink);font-family:'Montserrat',sans-serif;
+  font-weight:700;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  padding:8px 16px;border-radius:2px;
+  clip-path:polygon(0 0, 0 0, -6% 100%, 0 100%);
+}
+.h4.go .h-t{animation:wipe-x var(--h-dur) cubic-bezier(.2,.7,.2,1) forwards;}
+
+/* ---------- scroll-trigger test rig ---------- */
+.spacer{
+  height:78vh;display:grid;place-items:center;text-align:center;
+  color:rgba(255,255,255,.26);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
+  border-top:1px dashed rgba(255,255,255,.12);border-bottom:1px dashed rgba(255,255,255,.12);
+  margin-top:40px;
+}
+.scrolltest{padding:clamp(50px,10vh,110px) 0;}
+.scrolltest .demo{font-size:clamp(2rem,5.5vw,3.8rem);text-transform:uppercase;line-height:1.2;}
+.scrolltest p.k{opacity:.5;font-size:.86rem;margin:18px 0 0;}
+
+@media (prefers-reduced-motion:reduce){
+  .u1 .u-b{transform:rotate(-1deg) scaleX(1)!important;}
+  .u2 .u-s path,.u4 .u-s path{stroke-dashoffset:0!important;}
+  .u3 .u-s,.h2 .h-b,.h3 .h-b,.h4 .h-t{clip-path:none!important;animation:none!important;}
+  .h1 .h-t{background-size:100% 100%!important;}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>BRG <span>·</span> Motion Lab</h1>
+  <div class="sp"></div>
+  <label class="ctl">Speed
+    <input type="range" id="speed" min="0.25" max="2.5" step="0.05" value="1">
+    <b id="speedv" style="min-width:3.2em">1.00×</b>
+  </label>
+  <button class="act" id="all">Replay all</button>
+  <button class="act ghost" id="loop">Loop: off</button>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2 class="blanco">Underline &amp; highlight<br>motion studies</h2>
+    <p>Every variant below is self-contained CSS + one SVG — no library, same approach as
+       the Home fragment. Hit <b>Replay</b> on any card, or scrub <b>Speed</b> to inspect the
+       easing frame by frame.</p>
+    <p>Starred cards are the recommendation. Notes and the decision log live in
+       <code>lab/README.md</code>.</p>
+  </div>
+
+  <!-- ================= UNDERLINES ================= -->
+  <h3 class="sec">01 — Marker underline</h3>
+  <p>The comp's stroke under “YOUR DAY GREAT.” tapers at both ends and sweeps up slightly
+     to the right. The question is which technique keeps that taper while still reading as
+     <em>drawn</em> rather than <em>slid in</em>.</p>
+
+  <!-- U1 -->
+  <div class="card">
+    <div class="hd">
+      <span class="id">U1</span><span class="nm">CSS blob, scaleX</span>
+      <span class="tag no">on Home today</span>
+      <p class="note">What ships right now (<code>home/embed.html:46</code>). Uniform thickness,
+        squared-off ends, and <code>scaleX</code> stretches the shape as it grows — reads like a
+        bar sliding out, not a marker. Baseline for comparison.</p>
+    </div>
+    <div class="stage">
+      <div class="demo blanco">making <span class="u u1" data-anim><span class="u-b"></span>your day great.</span></div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- U2 -->
+  <div class="card">
+    <div class="hd">
+      <span class="id">U2</span><span class="nm">SVG stroke draw</span>
+      <span class="tag warn">pen, not marker</span>
+      <p class="note"><code>stroke-dasharray</code> draw along a curved path. The motion is right —
+        it genuinely draws L→R — but a stroke has one uniform width, so it reads like a
+        ballpoint. No taper.</p>
+    </div>
+    <div class="stage">
+      <div class="demo blanco">making <span class="u u2" data-anim>your day great.<svg class="u-s" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4,16 C70,9 150,6 220,8 C258,9 282,12 296,10"/></svg></span></div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- U3 -->
+  <div class="card pick">
+    <div class="hd">
+      <span class="id">U3</span><span class="nm">Brush fill + angled wipe</span>
+      <span class="tag">★ recommended</span>
+      <p class="note">The mark is a <em>filled</em> shape — thin at the start, thick through the
+        middle, thin at the tip — so the taper survives. It's revealed by a wipe whose leading
+        edge is slanted ~5°, matching a chisel-tip marker. Shape stays put; only the reveal moves.</p>
+    </div>
+    <div class="stage">
+      <div class="demo blanco">making <span class="u u3" data-anim>your day great.<svg class="u-s" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M2,14 C70,6 150,4 220,6 C258,7 284,9 298,8 L298,11 C284,14 258,14 220,13 C150,12 70,15 2,19 Z"/></svg></span></div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- U4 -->
+  <div class="card">
+    <div class="hd">
+      <span class="id">U4</span><span class="nm">Double-stroke scribble</span>
+      <span class="tag warn">busy at small sizes</span>
+      <p class="note">Base stroke, then a lighter return pass at 55% — the way you'd actually
+        underline something twice. Great on a big hero headline, muddy anywhere under ~2rem.
+        Parked here in case you want it for one hero moment.</p>
+    </div>
+    <div class="stage">
+      <div class="demo blanco">making <span class="u u4" data-anim>your day great.<svg class="u-s" viewBox="0 0 300 24" preserveAspectRatio="none"><path class="p1" d="M4,15 C70,8 150,5 220,7 C258,8 282,11 296,9"/><path class="p2" d="M294,15 C260,17 210,15 150,14 C96,13 44,16 8,19"/></svg></span></div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- ================= HIGHLIGHTS ================= -->
+  <h3 class="sec">02 — Marker highlight</h3>
+  <p>Three hero highlights in the comps — teal “FOR COMMUNITY”, yellow “WHAT WE'RE ABOUT”,
+     pink “A DIFFERENT KIND” — all rotated with rough edges. The small teal labels
+     (OUR VISION, LEADERSHIP…) are clean rects and want their own treatment.</p>
+
+  <!-- H0 -->
+  <div class="card">
+    <div class="hd">
+      <span class="id">H0</span><span class="nm">Static</span>
+      <span class="tag no">on Home today</span>
+      <p class="note">No animation at all (<code>home/embed.html:21</code>) — the block is just
+        there on reveal. Baseline.</p>
+    </div>
+    <div class="stage">
+      <div class="demo blanco">built <span class="h h0" data-anim><span class="h-t">for community.</span></span></div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- H1 -->
+  <div class="card">
+    <div class="hd">
+      <span class="id">H1</span><span class="nm">Gradient background wipe</span>
+      <span class="tag">survives line wrap</span>
+      <p class="note">Animates <code>background-size</code> 0→100%. Cheapest, and the only variant
+        that still works when the highlighted phrase wraps across two lines. Square edges, no
+        rotation — honest but plain.</p>
+    </div>
+    <div class="stage">
+      <div class="demo blanco">built <span class="h h1" data-anim style="--c:var(--teal)"><span class="h-t">for community.</span></span></div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- H2 -->
+  <div class="card">
+    <div class="hd">
+      <span class="id">H2</span><span class="nm">Rotated block, angled wipe</span>
+      <p class="note">A rotated div behind the text, revealed by the same slanted wipe as U3.
+        Gets the tilt from the comps. Edges are still perfectly straight.</p>
+    </div>
+    <div class="stage">
+      <div class="demo blanco">built <span class="h h2" data-anim style="--c:var(--teal)"><span class="h-b"></span><span class="h-t">for community.</span></span></div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- H3 -->
+  <div class="card pick">
+    <div class="hd">
+      <span class="id">H3</span><span class="nm">Rough SVG block + angled wipe</span>
+      <span class="tag">★ recommended</span>
+      <p class="note">Same wipe, but the block is an SVG with wobbled edges and uneven corners —
+        which is what actually sells “drawn by hand” in the comps. Fires
+        <code>var(--h-delay)</code> after the text so the marker lands <em>on top</em> of settled
+        type instead of racing it.</p>
+    </div>
+    <div class="stage">
+      <div class="demo blanco">built <span class="h h3" data-anim style="--c:var(--teal)"><svg class="h-b" viewBox="0 0 240 44" preserveAspectRatio="none"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="h-t">for community.</span></span></div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- H3 on light -->
+  <div class="card">
+    <div class="hd">
+      <span class="id">H3b</span><span class="nm">Rough block — on white, all three brand colors</span>
+      <p class="note">Same technique, checked against the light sections and the other two
+        highlight colors from the comps.</p>
+    </div>
+    <div class="stage light">
+      <div class="demo blanco" style="display:grid;gap:.4em">
+        <div><span class="h h3" data-anim style="--c:var(--yellow)"><svg class="h-b" viewBox="0 0 240 44" preserveAspectRatio="none"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="h-t">what we're about</span></span></div>
+        <div><span class="h h3" data-anim style="--c:var(--pink)"><svg class="h-b" viewBox="0 0 240 44" preserveAspectRatio="none"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="h-t">a different kind</span></span> <span style="color:var(--ink)">of</span></div>
+      </div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- H4 -->
+  <div class="card">
+    <div class="hd">
+      <span class="id">H4</span><span class="nm">Label pill</span>
+      <span class="tag">for the small labels</span>
+      <p class="note">OUR VISION / OUR MISSION / LEADERSHIP / CULTURE… These are clean rects in
+        the comps, so they get a clean wipe — no rough edge, no rotation. Same easing keeps
+        them family with the hero marks.</p>
+    </div>
+    <div class="stage">
+      <div class="demo" style="display:flex;gap:14px;flex-wrap:wrap">
+        <span class="h4" data-anim style="--c:var(--teal)"><span class="h-t">Our Vision</span></span>
+        <span class="h4" data-anim style="--c:var(--teal)"><span class="h-t">Leadership</span></span>
+        <span class="h4" data-anim style="--c:var(--teal)"><span class="h-t">Stay Stoked</span></span>
+      </div>
+      <button class="replay">Replay</button>
+    </div>
+  </div>
+
+  <!-- ================= SCROLL TEST ================= -->
+  <h3 class="sec">03 — Scroll-trigger rig</h3>
+  <p>Same IntersectionObserver settings as the Home fragment
+     (<code>threshold 0.16</code>, <code>rootMargin 0 0 -8% 0</code>) so what you see here is what
+     you'll get in the page. Scroll down.</p>
+
+  <div class="spacer">keep scrolling</div>
+
+  <div class="scrolltest" data-scroll>
+    <div class="demo blanco">we're in the business of making
+      <span class="u u3" data-anim>your day great.<svg class="u-s" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M2,14 C70,6 150,4 220,6 C258,7 284,9 298,8 L298,11 C284,14 258,14 220,13 C150,12 70,15 2,19 Z"/></svg></span>
+    </div>
+    <p class="k">U3 — fires once on entry, then unobserves.</p>
+  </div>
+
+  <div class="spacer">keep scrolling</div>
+
+  <div class="scrolltest" data-scroll>
+    <div class="demo blanco">born in san diego. built
+      <span class="h h3" data-anim style="--c:var(--teal)"><svg class="h-b" viewBox="0 0 240 44" preserveAspectRatio="none"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="h-t">for community.</span></span>
+    </div>
+    <p class="k">H3 — note the <code>--h-delay</code> beat before the block lands.</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var all  = function(s,c){ return [].slice.call((c||document).querySelectorAll(s)); };
+
+  /* --- replay: strip .go, force reflow, re-add --- */
+  function play(el){
+    el.classList.remove('go');
+    void el.offsetWidth;          // reflow so the animation restarts
+    el.classList.add('go');
+  }
+  function playIn(scope){ all('[data-anim]', scope).forEach(play); }
+
+  all('.replay').forEach(function(btn){
+    btn.addEventListener('click', function(){ playIn(btn.closest('.card') || document); });
+  });
+  document.getElementById('all').addEventListener('click', function(){ playIn(document); });
+
+  /* --- speed --- */
+  var sp = document.getElementById('speed'), spv = document.getElementById('speedv');
+  sp.addEventListener('input', function(){
+    // slider is "faster to the right", so invert into a duration multiplier
+    var mult = (2.75 - parseFloat(sp.value)).toFixed(2);
+    root.style.setProperty('--speed', mult);
+    spv.textContent = parseFloat(sp.value).toFixed(2) + '×';
+  });
+
+  /* --- loop --- */
+  var loopOn = false, timer = null, btnLoop = document.getElementById('loop');
+  btnLoop.addEventListener('click', function(){
+    loopOn = !loopOn;
+    btnLoop.textContent = 'Loop: ' + (loopOn ? 'on' : 'off');
+    clearInterval(timer);
+    if(loopOn){ playIn(document); timer = setInterval(function(){ playIn(document); }, 2400); }
+  });
+
+  /* --- cards above the fold play once on load; scroll rig uses the real IO --- */
+  var io = new IntersectionObserver(function(ents){
+    ents.forEach(function(e){
+      if(e.isIntersecting){ playIn(e.target); io.unobserve(e.target); }
+    });
+  }, {threshold:0.16, rootMargin:'0px 0px -8% 0px'});
+
+  all('.card, [data-scroll]').forEach(function(s){ io.observe(s); });
+})();
+</script>
+</body>
+</html>
