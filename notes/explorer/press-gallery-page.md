@@ -323,10 +323,15 @@ correct SHAPE for §2.3 (the comp's photographer bleeds off an edge).
 
 - **Use the WebP, as Sean asked** — `brg-team_placeholder.webp` is **51KB** against the PNG's
   **669KB**, a 13× difference for the same image.
-- **It has to move before it can be referenced.** `assets/team/` is **untracked and outside
-  `website/`**, so it is not on the CDN and no fragment can point at it. Copy it to
-  `website/assets/media/imgs/`. Do **not** `git add` it where it sits: `assets/` is a new
-  top-level directory, and the disclosure guard refuses new files at the repo root — correctly.
+- **It has to move before it can be referenced.** `assets/team/` is outside `website/`, so it
+  is not on the CDN and no fragment can point at it. Copy it to `website/assets/media/imgs/`.
+  Do **not** try to `git add` it where it sits — and note *why*, because I got this slightly
+  wrong first time: `/assets/` is **explicitly gitignored**, not merely untracked
+  (`.gitignore`, root-anchored with a leading `/` on purpose, so that a bare `assets/` cannot
+  also swallow `website/assets/`). So `git add` silently does nothing there, `git add -f`
+  would be needed to force it, and the disclosure guard's refusal of new root-level files is
+  the second line of defence rather than the first. Three guards agree: leave it where Sean
+  put it, and copy.
 - **It must not survive launch.** It is a recognisable still from *Anchorman*. Sean already
   said *"we just won't put it up until we go live"*, so this is his intent, recorded here so
   nobody later mistakes a placeholder for a decision. `GO-LIVE.md` is Conti's file, so I have

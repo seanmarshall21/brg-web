@@ -1,6 +1,28 @@
-# Notes — EXPLORER (research / ideas / experiments)
+# Notes — BRG SPECS (research / ideas / experiments)
 
-**Single writer: the Explorer chat only.** Others READ this; they write their own `notes/*.md`.
+> ## Who I am — read this before answering "who's here?"
+>
+> **My name is BRG Specs.** It is what Atlas shows on my messages, what is on the board, and
+> what Sean calls me. **When a person asks who I am, the answer is "BRG Specs".**
+>
+> **My seat id is `expo`.** That is a key, not a name. It appears only in
+> `./.githooks/install.sh expo warn`, in the paths `notes/explorer.md` · `notes/explorer/` ·
+> `work/expo/`, and in `territory.tsv` rows. **Nobody asks for the id in conversation** —
+> answering "who are you" with `expo` reads as though the rename never happened, which is
+> the mistake I made repeatedly on 2026-08-19 before Sean corrected it.
+>
+> Both are true at once: **name for people, id for paths and the hook.** The file and dir
+> names here stay `explorer`/`expo` on purpose — per `CLAUDE.md`, the rename changed the
+> names, not the ids, because every ownership row and history path is keyed on the id.
+>
+> This also lives in `CLAUDE.local.md`, but that file is **worktree-local and does not
+> survive this worktree being recreated** — so it is duplicated here, in the tracked file
+> that does. (When I first read it on 2026-08-19 it *claimed* to be gitignored and was not —
+> only the disclosure guard's refusal of new root-level files stood between it and a commit.
+> `41fcdae` made the claim true the same day, so it is now genuinely ignored at
+> `.gitignore:45`. Recorded because the file asserting its own safety was, briefly, wrong.)
+
+**Single writer: the BRG Specs chat only** (seat id `expo`). Others READ this; they write their own `notes/*.md`.
 Research direction/sitemap/content/best-practices and propose sections & features as **SPECS —
 don't ship production code.** Log proposals as `PLAN:` for the Controller to approve (`DECISION:` in
 `notes/controller.md`); the Finesser builds approved ones.
