@@ -105,7 +105,19 @@
 .bnav > .nav-social-src{display:none;}
 .bnav-drawer-eyebrow{display:block;margin:26px 0 10px;font:800 .66rem/1 'Montserrat',system-ui,sans-serif;
   letter-spacing:.18em;text-transform:uppercase;color:rgba(35,31,32,.45);}
-.bnav-social{display:flex;flex-wrap:wrap;gap:10px 20px;}
+.bnav-social{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;}
+/* With an icon the label becomes the accessible name and the glyph carries the meaning —
+   showing both is redundant and wraps the row on a phone. Unrecognised platforms keep
+   their text, so a new one is never invisible. */
+.bnav-social-link.has-icon .lbl{position:absolute;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;}
+.bnav-social-link.has-icon{width:40px;height:40px;display:inline-flex;align-items:center;
+  justify-content:center;border:1.5px solid rgba(35,31,32,.18);border-radius:50%;padding:0;
+  transition:border-color .2s,color .2s,transform .2s;}
+.bnav-social-link.has-icon:hover,.bnav-social-link.has-icon:focus-visible{
+  border-color:var(--ink);transform:translateY(-2px);}
+.bnav-social-link.has-icon::after{display:none;}
+.bnav-social-link svg{width:19px;height:19px;display:block;}
 .bnav-social-link{font:700 .95rem/1 'Montserrat',system-ui,sans-serif;text-transform:uppercase;
   letter-spacing:.04em;color:var(--ink);text-decoration:none;position:relative;padding-bottom:3px;}
 .bnav-social-link::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;
