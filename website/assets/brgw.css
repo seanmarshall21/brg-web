@@ -326,8 +326,14 @@
    corners are what sell "drawn" in the comps; a clean rect reads as a UI chip. */
 .brgw-hero[data-hl="h3"] .hl{display:inline-block;}
 .brgw-hero[data-hl="h3"] .hl-t{background:none;}
-.brgw-hero[data-hl="h3"] .hl-b{display:block;position:absolute;inset:-.14em -.2em;z-index:0;
-  width:auto;height:auto;transform:rotate(-1.4deg);
+/* BOTH dimensions are explicit, and that is the whole point. An <svg> is a REPLACED
+   element: with width/height auto, `inset` stretches the width but the height falls back
+   to the INTRINSIC RATIO. At 240x44 that made the block 43.6x8px behind 37x46px of text —
+   an 8px sliver of yellow under ink-coloured text on a black ground, i.e. unreadable.
+   Shipped that way in fb9b1fc and caught on the live page. preserveAspectRatio="none" on
+   the element lets the path stretch once the box is actually the right size. */
+.brgw-hero[data-hl="h3"] .hl-b{display:block;position:absolute;left:-.2em;top:-.14em;z-index:0;
+  width:calc(100% + .4em);height:calc(100% + .28em);transform:rotate(-1.4deg);
   clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
 .brgw-hero[data-hl="h3"] .hl-b path{fill:var(--yellow);}
 .brgw-hero.is-in[data-hl="h3"] .hl-b{
