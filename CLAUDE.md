@@ -58,6 +58,27 @@ them with `/item` by id, or read the tree with `/explorer`. Don't conclude your 
 *(`notes/tasks.json` is retired. It duplicated the board and drifted from it inside a day —
 calling the monoliths "blocked" hours after they were deleted.)*
 
+## Your seat id is NOT your display name
+
+The chats were renamed in August 2026. **The name changed; the id in `fc.chat` and
+`.githooks/territory.tsv` did not**, because the id is what every ownership row, every
+`notes/<seat>.md` and every `work/<seat>/` path is keyed on. Renaming the id means rewriting
+all of that and orphaning the history behind it.
+
+| Chat is now called | Its id stays |
+|---|---|
+| BRG Controller | `conti` |
+| BRG Build | `finn` |
+| BRG Specs | `expo` |
+| BRG Verify | `dee` |
+| BRG Helper | `dum` |
+
+So **BRG Verify runs `./.githooks/install.sh dee warn`**, not `verify`. Install with the new
+name and the hook polices you against a map that has no such owner: every file reads as someone
+else's, and in `warn` mode it complains about everything while protecting nothing.
+
+Check with `git config fc.chat` — it must return one of the five ids above.
+
 ## Territory
 
 One owner per file, listed in `.githooks/territory.tsv`. **Read anything, write only yours.**
