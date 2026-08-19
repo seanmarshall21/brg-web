@@ -1,6 +1,6 @@
 # SPEC-005 — Press & Gallery: the section plan
 
-**Status:** proposed · Explorer · 2026-08-13 · comp: `website/mocks/build-spec/page-7.png` ·
+**Status:** proposed · Explorer · 2026-08-13 · **§6 blockers RESOLVED 2026-08-19 — see §8** · comp: `website/mocks/build-spec/page-7.png` ·
 spec source: [`website/BUILD-SPEC.md` §2.6](../../website/BUILD-SPEC.md)
 **Verified against:** `f8113db` — claims about the codebase were checked at this tree; re-check before acting on a `file:line` or a state claim.
 
@@ -220,6 +220,11 @@ has no artwork to draw and needs Sean to export two more (and Contact two more a
 then Press uses the current CSS `.brgw-uline`, which is fine — it's what all five live pages
 still use.
 
+> **RESOLVED 2026-08-19 — no export needed, and the `currentColor` route does not work.**
+> Sean: *"can we just use the SVGs we have and recolor them?"* Yes — but by **deriving a
+> recoloured copy**, not by inheriting `color:`. See [§8.3](#83-the-press-marker--derive-a-recoloured-copy-not-currentcolor).
+> The "Sean exports two more" cost in this paragraph is retired; so is Contact's.
+
 ---
 
 ## 6. Content this page needs before it ships
@@ -234,6 +239,9 @@ Ranked by how likely it is to be the thing that actually holds the page up.
    `press-articles` should be built and held out of `stacks.press` until there are **at least
    two real articles**, rather than shipped with placeholders. One article in a two-card layout
    looks like a mistake; zero looks like a decision.
+   **RESOLVED 2026-08-19 — three real articles exist and all three resolve HTTP 200. The
+   two-article threshold this item set is cleared, so `press-articles` ships. Full metadata,
+   reading order and the two content caveats in [§8.1](#81-press-articles--three-real-cards-verified).**
 2. **9 food photographs.** Real, and BRG's own. See [SPEC-007 §2](content-gaps.md) — the same
    greyscale/crop constraints do *not* apply here (the gallery is in colour and square), so
    this is the one photography ask that can use existing marketing shots as-is.
@@ -242,6 +250,9 @@ Ranked by how likely it is to be the thing that actually holds the page up.
    hand-drawn motion strokes, is a new asset from Sean. **The band ships fine without it** —
    it's a centred heading and button; the cutout is decoration — so this degrades gracefully and
    shouldn't block.
+   **RESOLVED 2026-08-19 — Sean supplied a stand-in and it is the right shape. It is a
+   recognisable Anchorman still, so it is a PRE-LAUNCH placeholder that must be pulled before
+   go-live. Terms and the file move in [§8.2](#82-the-media-inquiries-cutout--placeholder-with-an-expiry).**
 4. **The `press@` address** (§2.3), or the decision to route through Contact instead.
 5. **The Media Inquiries sub line** (§2.3) — an addition to the comp, so Sean's gate.
 
@@ -258,3 +269,110 @@ Ranked by how likely it is to be the thing that actually holds the page up.
 
 Sections 1–3 are a shippable page on their own. That ordering is the whole point: it means
 Press isn't blocked on BRG having press.
+
+---
+
+## 8. Resolved — 2026-08-19
+
+Sean answered the three §6 blockers on the board. This section records what he decided, what
+I verified, and the two places where **the answer on the board is not quite the answer that
+works**. Everything here was checked against the working tree and the live web on 2026-08-19.
+
+### 8.1 `press-articles` — three real cards, verified
+
+Sean supplied three URLs. I fetched all three: **HTTP 200, and every field §2.2's card model
+wants is present in their Open Graph metadata.** So the section ships — the "at least two real
+articles" threshold in §6.1 is cleared.
+
+In reading order (**reverse-chronological**, newest first):
+
+| # | Outlet | Date | Headline (`og:title`) |
+|---|---|---|---|
+| 1 | WhatNow | 2026-06-16 | Southern California-Born Sandwich Brand Opens New Waterfront Location in San Diego |
+| 2 | San Diego Magazine | 2025-05-19 | First Look: Odie's Pizza Opens in Oceanside |
+| 3 | San Diego Magazine | 2024-09-25 | Portland Pizza Veteran to Bring Specialty Pizza Shop to Oceanside |
+
+URLs are on board item `40b932c827`. Two things Finn should not have to discover mid-build:
+
+**(a) Cards 2 and 3 are the same story at two stages.** #3 announces Odie's coming to
+Oceanside (Sep 2024); #2 covers it opening (May 2025). Same restaurant, same city, eight months
+apart. Three cards where two are one story reads thinner than three cards of three stories.
+It still ships — this is a note, not a blocker — but if only two are shown, show **#1 and #2**
+(different brands, both recent) rather than the two Odie's pieces. Sean's call if he wants all
+three; the honest framing is *"three articles, two of which are the same story."*
+
+**(b) Do not hotlink the thumbnails.** All three expose an `og:image`, so the thumbnails exist
+— but two are hosted on `sandiegomagazine.com`. Hotlinking a publisher's image is someone
+else's bandwidth, someone else's rights, and a dead card the day they reorganise their uploads
+folder. **Download all three into `website/assets/media/imgs/press/` and reference them as
+absolute CDN URLs**, per the CLAUDE.md rule that asset URLs inside fragments must be absolute
+CDN URLs. `website/assets/media/` is `*` territory, so no ownership handoff is needed.
+
+Worth knowing on the rights point: card #1's image filename is
+`BoardBrew_Food-Spread_Courtesy-of-Blacktop-Restaurant-Group-1.jpg` — **BRG supplied that photo
+to WhatNow**, so it is already ours to use. Cards 2 and 3 are the publisher's own photography
+(one credited `PC-KimberlyMotos`), so if self-hosting those is a concern, the safe fallback is a
+BRG-owned food shot per card rather than the article's image. That is a rights question, so
+it is Sean's, not mine.
+
+### 8.2 The Media Inquiries cutout — placeholder with an expiry
+
+Sean supplied a stand-in at `assets/team/`, and it is genuinely the right object: a
+transparent-background cutout of a news anchor, thematically correct for a press band and the
+correct SHAPE for §2.3 (the comp's photographer bleeds off an edge).
+
+- **Use the WebP, as Sean asked** — `brg-team_placeholder.webp` is **51KB** against the PNG's
+  **669KB**, a 13× difference for the same image.
+- **It has to move before it can be referenced.** `assets/team/` is **untracked and outside
+  `website/`**, so it is not on the CDN and no fragment can point at it. Copy it to
+  `website/assets/media/imgs/`. Do **not** `git add` it where it sits: `assets/` is a new
+  top-level directory, and the disclosure guard refuses new files at the repo root — correctly.
+- **It must not survive launch.** It is a recognisable still from *Anchorman*. Sean already
+  said *"we just won't put it up until we go live"*, so this is his intent, recorded here so
+  nobody later mistakes a placeholder for a decision. `GO-LIVE.md` is Conti's file, so I have
+  filed the checklist entry to him rather than editing it.
+
+§6.3's judgement still stands underneath all this: the band ships fine without any cutout, so
+this never blocks the page.
+
+### 8.3 The Press marker — derive a recoloured copy, not `currentColor`
+
+Sean: *"can we just use the SVGs we have and recolor them?"* **Yes — and it costs one file
+copy and one hex.** But the route recorded on board item `1854f27bf4` does not work, and two
+claims behind it are wrong. Corrected here so nobody spends an afternoon on it:
+
+1. **`fill="currentColor"` cannot work with the current markup.** The marker is referenced as
+   an **`<img src=…>`** (`website/sections/home-hero/embed.html:92`, pointing at the CDN copy).
+   CSS does not cross into an external image document, so the per-hero `color:` rule can never
+   reach the path. `currentColor` only becomes available if the SVG is **inlined** into the
+   fragment — a markup change to a pattern that currently has exactly one user.
+2. **The path does not inherit its colour anyway.** `line-home-lg.svg` is one `<path>`, zero
+   `stroke` attributes, `fill="none"` on the `<svg>` — and a **hardcoded `fill="#FAE200"` on
+   the path itself**. There is no colour to inherit; there is a literal to replace.
+3. **SPEC-004's "really three shapes, not five" does not hold at the path level.** I hashed the
+   `d` attribute of all five `-lg` files: **all five are distinct.** home/restaurants/community
+   have near-identical viewBoxes (`845×28`, `844×28`, `841×28`) which is almost certainly why
+   they read as one curve, but they are three separate exports with different geometry. Nothing
+   downstream breaks — you still copy exactly one of them — but "one path serves three pages"
+   is not a thing the files support today.
+
+**So the build is:** copy any existing `-lg` marker to `line-press-lg.svg` (and `-nav`),
+change the one `fill` literal to violet `#5D0E8B`, drop both in `website/assets/media/lines/`,
+reference by `<img>` exactly as `home-hero` does. **No new artwork from Sean, no export, no
+markup change, and no `--violet` token** — which retires §5a's token-vs-inline question
+entirely, since the colour now lives in the artwork where the other four already live. Contact
+inherits the same recipe.
+
+**One more confirmation for §5b while we are here:** that hardcoded `fill="#FAE200"` is the
+artwork disagreeing with `brgw.css`'s `--yellow:#FCE200` for the **fourth** independent time.
+§5b's recommendation — move the tokens to the artwork values — is still Conti's direction call,
+and is now that much better evidenced.
+
+### 8.4 What this leaves open
+
+Nothing that blocks the build. Still genuinely outstanding, unchanged by these answers:
+
+- **9 gallery photographs** (§6.2) — `press-gallery` cannot ship without them.
+- **The `press@` address** (§6.4) and **the Media Inquiries sub line** (§6.5) — both still Sean's.
+- **Whether to show two articles or three** (§8.1a) and **the thumbnail rights question**
+  (§8.1b) — both Sean's, neither blocking.
