@@ -38,3 +38,8 @@ website/mocks/
 /new-project-starter/
 /brg-coming-soon-package*/
 /brg-coming-soon-package*.zip
+
+# Per-chat identity and charter. NEVER tracked — a worktree CLAUDE.md is the same
+# tracked path as the repo brief, so anything chat-specific put there merges into
+# every chat. This is the safe place for it.
+CLAUDE.local.md
