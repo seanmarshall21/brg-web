@@ -19,6 +19,9 @@ conti	.githooks/
 conti	kit/
 conti	scripts/
 conti	docs/
+# Site chrome — nav, footer. Declared here, RENDERED by conti's PHP rather than
+# filled from a fragment, so it sits with the plugin that reads it.
+conti	website/chrome/
 conti	website/kit/
 conti	netlify.toml
 conti	SHORTCODES.md
