@@ -85,13 +85,29 @@ add_action( 'acf/init', function () {
      *    registered attaches to nothing and renders NOWHERE, with no error. fc-brands
      *    names that as the coupling that actually broke their site, twice.
      *
-     *    Menu label comes off the group title: "Brands — Content" -> "Brands". */
+     *    Menu label comes off the group title: "Brands — Content" -> "Brands".
+     *
+     *    THE SAME QUIET FAILURE BIT US HERE, one level down. A group whose page is never
+     *    registered renders nowhere with no error — and so does a group whose page IS
+     *    registered but has no MENU ENTRY. Home's group sits on the parent slug and was
+     *    skipped by this loop, so its 25 fields were reachable only by typing the URL.
+     *    Every group now gets a named entry, including the one on the parent slug. */
     if ( function_exists( 'acf_add_options_sub_page' ) ) {
         $seen = array();
         foreach ( $groups as $g ) {
             if ( empty( $g['location'][0][0]['value'] ) ) continue;
             $slug = $g['location'][0][0]['value'];
-            if ( $slug === BRG_ACF_PAGE || isset( $seen[ $slug ] ) ) continue;  // parent is already registered
+            if ( isset( $seen[ $slug ] ) ) continue;
+            // A GROUP ON THE PARENT SLUG STILL NEEDS ITS OWN NAMED ENTRY. Skipping it here was
+            // the bug: Home's group sits on BRG_ACF_PAGE, so it got no menu item at all, and
+            // clicking "Section Content" landed on the FIRST registered child — Brands. Home's
+            // 25 fields existed and were unreachable, and the sidebar read as though the home
+            // page simply could not be edited. Sean hit this twice and was right both times.
+            //
+            // Registering a sub-page whose menu_slug EQUALS the parent slug is the documented
+            // WordPress way to label that first entry: it replaces the auto-generated duplicate
+            // of the parent title instead of adding a second one. So the parent keeps its own
+            // page, that page is Home, and it now says "Home" in the sidebar like the other five.
             $seen[ $slug ] = true;
             $label = trim( preg_replace( '/\s*—\s*Content\s*$/u', '', (string) $g['title'] ) );
             acf_add_options_sub_page( array(
