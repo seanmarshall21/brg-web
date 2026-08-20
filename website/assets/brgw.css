@@ -148,6 +148,25 @@
 .brgw-doodle{position:absolute;z-index:3;width:clamp(30px,4vw,58px);pointer-events:none;}
 .brgw-doodle svg,.brgw-doodle img{display:block;width:100%;height:auto;transform-origin:center;animation:brgw-jit 1.35s steps(1,end) infinite;}
 .brgw-doodle--b svg,.brgw-doodle--b img{animation-duration:1.15s;}
+
+/* Seam badges — the circular icon dividers straddling a section boundary. They were
+   STATIC, which is what Sean reported: "every circular icon divider should rock like the
+   other icons — none of them move."
+
+   The jitter rule already existed one line up, written for .brgw-badge — and NOTHING uses
+   that class. Seven sections use .seam (careers-apply, community-give, home-community,
+   home-different, home-values, our-restaurants-brands, team-members). A correct rule
+   against a class the markup never adopted, which is the same failure as the highlight
+   system being .brgw-hero-scoped: an unmatched selector cannot fail loudly.
+
+   STAGGERED CLOCKS, for the reason home-hero already documents about its icon cluster:
+   marks ticking in unison read as one flat sprite rather than separate drawings. It
+   matters most on HOME, which carries three seams in one scroll. */
+.seam img,.seam svg{transform-origin:center;animation:brgw-jit 1.5s steps(1,end) infinite;}
+.brgw-sec--home-community .seam img{animation-duration:1.28s;}
+.brgw-sec--home-different .seam img{animation-duration:1.68s;}
+@media (prefers-reduced-motion:reduce){
+  .seam img,.seam svg{animation:none!important;transform:none!important;}}
 .brgw-doodle--c svg,.brgw-doodle--c img{animation:brgw-spin 1.9s steps(1,end) infinite;}
 @keyframes brgw-spin{
   0%,45%   {transform:rotate(0deg)   scale(1);}
