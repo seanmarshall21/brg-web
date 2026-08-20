@@ -361,7 +361,22 @@ claims behind it are wrong. Corrected here so nobody spends an afternoon on it:
    downstream breaks — you still copy exactly one of them — but "one path serves three pages"
    is not a thing the files support today.
 
-**So the build is:** copy any existing `-lg` marker to `line-press-lg.svg` (and `-nav`),
+> ## SUPERSEDED 2026-08-20 — Sean exported a real purple marker, so nothing is derived
+>
+> `line-purp-lg*.svg` now exists in `website/assets/media/lines/` in all three weights, flat
+> and stroked. Press uses **`line-purp-lg-mid.svg`** (`851×34`) per Sean's weight ruling; no
+> copy, no recolour, no `--violet` token. Contact takes the same file. Everything below is
+> kept because the reasoning about `<img>` vs inline and the hardcoded `fill` is still true
+> and still constrains anyone who tries to recolour a marker in future.
+>
+> **ONE THING TO CHECK BEFORE PRESS SHIPS, and it is Sean's call, not mine.** §5 of this spec
+> measured the Press comp's hero underline as **`#5D0E8B`** — a dark violet. The artwork he
+> exported is **`#A17DC4`**, a distinctly lighter lilac. Those are not the same colour and the
+> difference is large enough to be deliberate — a dark violet on the black hero would be very
+> low contrast, so the lighter value may well be him correcting the comp. Recording it rather
+> than assuming either way: **the artwork wins unless Sean says the comp does.**
+
+**So the build was going to be:** copy any existing `-lg` marker to `line-press-lg.svg` (and `-nav`),
 change the one `fill` literal to violet `#5D0E8B`, drop both in `website/assets/media/lines/`,
 reference by `<img>` exactly as `home-hero` does. **No new artwork from Sean, no export, no
 markup change, and no `--violet` token** — which retires §5a's token-vs-inline question
