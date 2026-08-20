@@ -5,10 +5,12 @@
      card is a duplicate of the first — so these are marketing renderings of BRG's own posts,
      maintained here. Each post is one <article>; add, remove or reorder them freely.
 
-     Two things to know before this goes in front of anyone:
-      · "834 followers" and the "2mo"/"5mo" stamps are copied from the comp. They are STATIC
-        and will go stale. Either keep them current by hand, drop them (the <time> and
-        .meta spans can be deleted with no layout consequence), or wire them to real data.
+     One thing to know before this goes in front of anyone:
+      · The follower count and the relative age stamps were DELETED on 2026-08-14 (Sean's
+        call). They were copied from the comp and could never be kept true: the follower
+        count is only visible behind a LinkedIn login, and an ageing "2mo" on a job post
+        signals the role is stale — the opposite of what this section is for. Do not
+        reinstate them. See work/dum/careers-posts-urls/FINDINGS.md.
       · The "View job" links point at /careers/ until the real LinkedIn job URLs are supplied. -->
 <section class="brgw-sec brgw-sec--careers-posts reveal" aria-label="Latest openings on LinkedIn">
 <style>
@@ -51,7 +53,7 @@
     <article class="post anim-up">
       <div class="who">
         <span class="av" aria-hidden="true"></span>
-        <span><span class="nm">Blacktop Restaurant Group</span><span class="meta">834 followers &middot; 2mo</span></span>
+        <span><span class="nm">Blacktop Restaurant Group</span></span>
       </div>
       <div class="body">
         <p><span class="mention">Blacktop Restaurant Group</span> isn't just about great food&mdash;it's about great people! We are looking for a People and Culture Manager who can own the employee lifecycle, coach managers, and help maintain our totally EPIC culture that actually makes people excited to show up to work.</p>
@@ -67,7 +69,7 @@
     <article class="post anim-up">
       <div class="who">
         <span class="av" aria-hidden="true"></span>
-        <span><span class="nm">Blacktop Restaurant Group</span><span class="meta">834 followers &middot; 5mo</span></span>
+        <span><span class="nm">Blacktop Restaurant Group</span></span>
       </div>
       <div class="body">
         <p>We're <span class="tag">#hiring</span>. Know anyone who might be interested in joining our rad People &amp; Culture department?</p>
