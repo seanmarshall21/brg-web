@@ -130,7 +130,12 @@ cat <<'EOF'
      If you are working in a WORKTREE rather than a clone, kit/_guard.py refuses to
      run and you need:  BRG_ALLOW_WORKTREE=1 python3 kit/build-kit.py
 
-     Skip this and .githooks/pre-push stops you with "kit pages --check STALE".
+     NOTHING WILL CATCH YOU IF YOU SKIP IT. I previously wrote here that pre-push
+     stops you with "kit pages --check STALE". That is FALSE and I tested it:
+     build-kit.py calls page_previews() inside `if not check:`, and the stale loop
+     only compares PAGES. I corrupted the preview to "999 followers" and --check
+     still printed "kit pages: up to date", exit 0. The stale preview ships to the
+     public CDN silently. This step is manual and unguarded — do not skip it.
 
   2. THAT REBUILD WRITES SOMEBODY ELSE'S TERRITORY. The embed is finn's
      (territory.tsv:76 website/sections/) but the preview is conti's

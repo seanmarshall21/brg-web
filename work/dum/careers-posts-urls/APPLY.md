@@ -148,8 +148,12 @@ Not mine to do, listed so nothing is missed:
   generated *from* the fragment you just edited (`kit/build-kit.py`, `page_previews()`), and
   still carries `834 followers`, the `2mo`/`5mo` stamps and a header comment describing them.
   Run `python3 kit/build-kit.py` — or `BRG_ALLOW_WORKTREE=1 python3 kit/build-kit.py` if you
-  are in a worktree, because `kit/_guard.py` refuses otherwise. Skip it and `pre-push` stops
-  you with *"kit pages --check STALE"*.
+  are in a worktree, because `kit/_guard.py` refuses otherwise. **Nothing catches you if you skip it.** An earlier
+  version of this file said `pre-push` would stop you with *"kit pages --check STALE"* — that
+  was wrong and I tested it. `build-kit.py` calls `page_previews()` inside `if not check:`, and
+  the stale loop only compares `PAGES`; previews are generated but never verified. I corrupted
+  the preview to `999 followers` and `--check` still printed *"kit pages: up to date"*, exit 0.
+  The stale preview ships to the CDN silently.
 - **THAT REBUILD CROSSES A TERRITORY LINE, so this is not a one-seat job.** The fragment is
   finn's (`territory.tsv:76` `website/sections/`); the regenerated preview is conti's
   (`territory.tsv:25` `website/kit/`). A single commit spanning both trips the ownership check

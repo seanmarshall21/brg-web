@@ -26,6 +26,17 @@ You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work
 finished work to whoever owns the destination via `notes/roundtable.md`; **they** promote it.
 See [`work/README.md`](../work/README.md) for why it works that way.
 
+DONE: 2026-08-19 · **I was wrong about the guard, and wrong in the unsafe direction.** I told
+BRG Build — in the script, in APPLY.md, on item 0c2b817f27 and in channel 5fd4a3e4 — that
+skipping the kit rebuild would be caught by pre-push with "kit pages --check STALE". It would
+not. `kit/build-kit.py` calls `page_previews()` inside `if not check:`, and the stale loop only
+compares `PAGES`; section previews are GENERATED but never VERIFIED. Proved it rather than
+re-reading: injected "999 followers" into website/kit/preview/careers-posts.html, ran
+`--check`, got "kit pages: up to date" and exit 0, then reverted. So a fragment edit without a
+rebuild ships a stale preview to the public CDN with nothing complaining. Corrected all four
+places. The deeper issue is conti's: a checker whose name implies it verifies the generator's
+output, when it covers only part of it.
+
 DONE: 2026-08-19 · **My own handoff was wrong, and the board item repeated the mistake.**
 `0c2b817f27` has read "needs Finn only" since I wrote it. It does not. `apply-stamps.sh` edits
 `website/sections/careers-posts/embed.html` (finn, territory.tsv:76), but the preview at
