@@ -38,16 +38,35 @@
       if (el.dataset.head === 'words') splitByWords(el); else splitByBr(el);
     });
     root.querySelectorAll('.reveal').forEach(function (sec) {
+      /* Stagger. Sean: the reveals "fire too early, stagger too tight, and move too fast"
+         (f062300124). Loosened 85->120ms between headline lines and 115->165ms between
+         block elements.
+
+         STAG_MAX is the part that is not just a bigger number. A linear stagger is O(n) in
+         the item count: fine at four items, but team-members has NINE cards, which at 165ms
+         would leave the last one starting 1.3s after the first and still animating long
+         after the reader has scrolled past it. Clamping the accumulated delay keeps the
+         loose feel for a normal 3-6 item section without letting a big grid trail. */
+      var STAG_LN = 120, STAG_EL = 165, STAG_MAX = 780;
       var items = [].slice.call(sec.querySelectorAll('.ln-i, .anim-up, .anim-cta')), d = 0;
       items.forEach(function (el) {
-        el.style.transitionDelay = d + 'ms';
-        if (el.classList.contains('anim-cta')) el.style.animationDelay = d + 'ms';
-        d += el.classList.contains('ln-i') ? 85 : 115;
+        var delay = d < STAG_MAX ? d : STAG_MAX;
+        el.style.transitionDelay = delay + 'ms';
+        if (el.classList.contains('anim-cta')) el.style.animationDelay = delay + 'ms';
+        d += el.classList.contains('ln-i') ? STAG_LN : STAG_EL;
       });
     });
     var io = new IntersectionObserver(function (ents) {
       ents.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
-    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+    }, {
+      /* THRESHOLD IS DELIBERATELY UNCHANGED. It is a fraction of the ELEMENT, so raising it
+         to delay the reveal is unsafe here: a section taller than the viewport can never
+         reach a high threshold, and a section that never intersects never gets .is-in — its
+         content would sit at opacity:0 permanently. The heroes are 88vh and some stacked
+         sections exceed the viewport, so that is a live risk, not a theoretical one.
+         rootMargin shrinks the VIEWPORT instead and behaves the same at any section height,
+         which makes it the correct knob for "fire later": -8% -> -18% of viewport height. */
+      threshold: 0.16, rootMargin: '0px 0px -18% 0px' });
     root.querySelectorAll('.reveal').forEach(function (s) { io.observe(s); });
   }
 

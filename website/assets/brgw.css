@@ -235,9 +235,12 @@
 .brgw .anim-up{opacity:0;transform:translateY(26px);will-change:opacity,transform;}
 .brgw .anim-cta{clip-path:inset(50% 50% 50% 50%);will-change:clip-path;}
 
-.brgw .reveal.is-in .ln-i{transform:translateY(0);transition:transform .9s cubic-bezier(.22,.9,.24,1);}
-.brgw .reveal.is-in .anim-up{opacity:1;transform:none;transition:opacity .85s ease, transform .85s cubic-bezier(.22,.9,.24,1);}
-.brgw .reveal.is-in .anim-cta{animation:brgw-cta 1.05s cubic-bezier(.5,0,.2,1) both;}
+/* Durations lengthened per Sean's "move too fast" (f062300124): .9s -> 1.15s here,
+   .85s -> 1.05s on .anim-up, 1.05s -> 1.25s on the CTA. Easing is untouched — the
+   complaint was pace, not shape, and this curve is the house feel. */
+.brgw .reveal.is-in .ln-i{transform:translateY(0);transition:transform 1.15s cubic-bezier(.22,.9,.24,1);}
+.brgw .reveal.is-in .anim-up{opacity:1;transform:none;transition:opacity 1.05s ease, transform 1.05s cubic-bezier(.22,.9,.24,1);}
+.brgw .reveal.is-in .anim-cta{animation:brgw-cta 1.25s cubic-bezier(.5,0,.2,1) both;}
 
 /* splash-style button reveal: a center line expands, then the box opens */
 @keyframes brgw-cta{
