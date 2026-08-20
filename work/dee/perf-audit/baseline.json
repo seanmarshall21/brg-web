@@ -1,0 +1,61 @@
+{
+  "at": "2026-08-20T19:34:47.692Z",
+  "repo": {
+    "pages": {
+      "home": {
+        "imgs": 16,
+        "phoneKB": 757,
+        "desktopKB": 1479,
+        "eager": 10
+      },
+      "our-restaurants": {
+        "imgs": 6,
+        "phoneKB": 527,
+        "desktopKB": 527,
+        "eager": 4
+      },
+      "team": {
+        "imgs": 10,
+        "phoneKB": 68,
+        "desktopKB": 68,
+        "eager": 10
+      },
+      "community": {
+        "imgs": 7,
+        "phoneKB": 88,
+        "desktopKB": 88,
+        "eager": 4
+      },
+      "careers": {
+        "imgs": 5,
+        "phoneKB": 154,
+        "desktopKB": 154,
+        "eager": 5
+      },
+      "contact": {
+        "imgs": 2,
+        "phoneKB": 24,
+        "desktopKB": 24,
+        "eager": 2
+      }
+    },
+    "totals": {
+      "imgTotal": 46,
+      "eager": 35,
+      "withSrcset": 1,
+      "withDims": 46
+    }
+  },
+  "live": {
+    "ttfbMedian": 0.931,
+    "ttfbSamples": 7,
+    "ttfbMin": 0.905165,
+    "ttfbMax": 2.334504,
+    "assetsKB": {
+      "assets/brgw.css": 8.7,
+      "assets/brgw.js": 3.9,
+      "assets/brgw-nav.css": 4,
+      "assets/brgw-nav.js": 6.2
+    }
+  }
+}
