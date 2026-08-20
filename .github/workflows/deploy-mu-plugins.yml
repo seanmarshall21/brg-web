@@ -55,6 +55,48 @@ jobs:
           done
           [ "$fail" -eq 0 ] || { echo "::error::refusing to deploy — a mu-plugin would fatal the site"; exit 1; }
 
+      # LINT PROVES IT PARSES. THIS PROVES IT LOADS. The difference is the whole site.
+      # v2.9.0 nested vcc_chrome() inside another function: valid PHP, php -l passed,
+      # and every page fataled with "call to undefined function" — wp-admin included,
+      # white for five hours. A parse check cannot see that. This loads each plugin in
+      # a real PHP process and asserts every function it DECLARES is defined afterwards.
+      #
+      # THE FIXTURE RUNS FIRST, AND MUST FAIL. A check that has never failed is not
+      # known to work. scripts/smoke-fixtures/nested-function.php reproduces the v2.9.0
+      # bug exactly; if the smoke check ever ACCEPTS it, the check is dead and we would
+      # be deploying on a green tick that means nothing. This repo has met that failure
+      # three times already — a version grep that compared nothing, a deploy file list
+      # that went blind, and a git diff whose pathspec matched nothing and returned the
+      # SHA-1 of empty input. Not a fourth.
+      - name: Prove the smoke check can FAIL, then that the plugins PASS
+        run: |
+          set -euo pipefail
+          # FIRST, PROVE THE CHECKER ITSELF PARSES. If plugin-smoke.php were broken, PHP
+          # would exit non-zero on every invocation — including against the fixture — and
+          # a naive "did it fail?" test would read that as the fixture being caught. A
+          # broken checker would look exactly like a working one.
+          php -l scripts/plugin-smoke.php
+          echo "--- positive control: the broken fixture must be rejected ---"
+          php -l scripts/smoke-fixtures/nested-function.php
+          echo "    (php -l passed it — exactly the blind spot this step covers)"
+          set +e
+          php scripts/plugin-smoke.php scripts/smoke-fixtures/nested-function.php
+          rc=$?
+          set -e
+          # EXIT CODE 1 SPECIFICALLY. 0 means it accepted a known-broken plugin. 255 means
+          # the checker itself crashed. Both are failures, and they are different failures —
+          # accepting either as "the fixture was caught" is how a dead check stays green.
+          if [ "$rc" -eq 0 ]; then
+            echo "::error::THE SMOKE CHECK ACCEPTED A KNOWN-BROKEN PLUGIN — it is not checking anything"
+            exit 1
+          elif [ "$rc" -ne 1 ]; then
+            echo "::error::smoke check exited $rc on the fixture, expected 1 — the checker itself is broken"
+            exit 1
+          fi
+          echo "    fixture correctly REJECTED (exit 1)"
+          echo "--- the real mu-plugins must all load ---"
+          php scripts/plugin-smoke.php website/wp-mu-plugin/*.php
+
       - name: Copy mu-plugin files over SSH
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -149,10 +191,22 @@ jobs:
         run: |
           set -uo pipefail
           bad=0
-          for path in "" "brands/" "team/"; do
-            code=$(curl -s -o /tmp/body -w '%{http_code}' --max-time 25 "$SITE$path" || echo 000)
-            if [ "$code" -ge 200 ] && [ "$code" -lt 400 ]; then
-              echo "  OK   /$path -> $code"
+          # wp-admin is in the list because that is where a mu-plugin fatal hurts most:
+          # v2.9.0 white-screened the ADMIN too, so Sean could not even get in to fix it.
+          # It is reachable unauthenticated — it 302s to wp-login.php, which is a real page.
+          for path in "" "brands/" "team/" "wp-admin/"; do
+            code=$(curl -s -o /tmp/body -w '%{http_code}' -L --max-time 25 "$SITE$path" || echo 000)
+            bytes=$(wc -c < /tmp/body | tr -d ' ')
+            # A STATUS CODE ALONE IS NOT LIVENESS. With display_errors off, a fatal can
+            # answer 200 with an empty body — that IS the white screen. 500 bytes is far
+            # below any real page here (the gated splash is ~214KB, wp-login ~6KB) and far
+            # above an empty response, so it separates them without being brittle.
+            if [ "$code" -ge 200 ] && [ "$code" -lt 400 ] && [ "$bytes" -ge 500 ]; then
+              echo "  OK   /$path -> $code (${bytes}B)"
+            elif [ "$code" -ge 200 ] && [ "$code" -lt 400 ]; then
+              echo "::error::/$path answered $code but returned only ${bytes}B — that is what a white screen looks like"
+              head -c 400 /tmp/body | sed 's/^/      /'
+              bad=1
             else
               echo "::error::/$path returned $code — the deploy has broken the live site"
               head -c 400 /tmp/body | sed 's/^/      /'
