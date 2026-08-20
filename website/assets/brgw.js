@@ -5,8 +5,121 @@
    section triggered on scroll-in. Content is hidden from first paint via brgw.css;
    a timeout guarantees reveal even if the font is slow. */
 (function () {
+  function debounce(fn, ms) { var t; return function () { clearTimeout(t); t = setTimeout(fn, ms); }; }
+  /* ── Text-attached marks — the asterisk contract ────────────────────────────
+     Sean ruled 2026-08-18; spec in notes/explorer/text-attached-underline.md §0.6.
+
+         Come work somewhere *you actually want to be*
+
+     MEASURE, DON'T INJECT. The delimiter names which words to MEASURE; it never
+     wraps them in markup. Measurement uses a Range over the existing text nodes, so
+     the headline DOM is untouched and the split engine never sees a span. That is
+     what keeps the ACF question and the animation question independent — every
+     alternative couples them.
+
+     Default with NO delimiter: mark the last line. That is today's behaviour, and it
+     is why the five heroes get a correctly-sized stroke with no copy change at all.
+
+     A backslash-escaped asterisk is literal. An unbalanced lone asterisk renders
+     literally and marks nothing — it must never swallow the rest of the headline. */
+
+  var MARK_ESC = '\uE000';   // stands in for an escaped asterisk while pairing
+
+  function textNodes(el) {
+    var out = [], w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    while (w.nextNode()) out.push(w.currentNode);
+    return out;
+  }
+
+  /* Rewrite text WITHOUT introducing markup. innerHTML would destroy the <br> that
+     several headlines rely on for their line breaks, and assigning .textContent
+     would collapse the element to a single text node and do the same. */
+  function setText(el, next) {
+    var nodes = textNodes(el), i = 0;
+    nodes.forEach(function (n) {
+      n.nodeValue = next.substr(i, n.nodeValue.length);
+      i += n.nodeValue.length;
+    });
+    if (i < next.length && nodes.length) nodes[nodes.length - 1].nodeValue += next.slice(i);
+  }
+
+  function stripMarks(el) {
+    if (el.dataset.markParsed) return; el.dataset.markParsed = '1';
+    var raw = el.textContent;
+    if (raw.indexOf('*') < 0) return;                  // nothing to do; DOM untouched
+    var held = raw.split('\\*').join(MARK_ESC);        // protect escaped asterisks first
+    var pair = /\*([^*]+)\*/;                          // one balanced pair; a lone * cannot match
+    var m = pair.exec(held);
+    if (!m) {                                          // unbalanced — render literally, mark nothing
+      if (held !== raw) setText(el, held.split(MARK_ESC).join('*'));
+      return;
+    }
+    el.dataset.markText = m[1];                        // the words to measure, post-strip
+    setText(el, held.replace(pair, m[1]).split(MARK_ESC).join('*'));
+  }
+
+  /* A Range over `needle` inside el, or over ALL of el's text when there is no
+     delimiter. Returns null rather than guessing when the text cannot be located. */
+  function rangeFor(el, needle) {
+    var nodes = textNodes(el); if (!nodes.length) return null;
+    var full = nodes.map(function (n) { return n.nodeValue; }).join('');
+    var from = 0, to = full.length;
+    if (needle) {
+      from = full.indexOf(needle);
+      if (from < 0) return null;
+      to = from + needle.length;
+    }
+    var r = document.createRange(), seen = 0, started = false;
+    for (var k = 0; k < nodes.length; k++) {
+      var len = nodes[k].nodeValue.length;
+      if (!started && seen + len >= from) { r.setStart(nodes[k], from - seen); started = true; }
+      if (seen + len >= to) { if (!started) return null; r.setEnd(nodes[k], to - seen); return r; }
+      seen += len;
+    }
+    return null;
+  }
+
+  /* Size and place the stroke against the words it marks. The stroke stays a SIBLING
+     in normal flow — width plus a left margin, not absolute positioning — because it
+     occupies vertical space between the headline and the sub copy, and taking it out
+     of flow would collapse that gap. */
+  function placeMark(sec) {
+    var head = sec.querySelector('.anim-head, h1, h2');
+    var stroke = sec.querySelector('.uline');
+    if (!head || !stroke) return;
+    var r = rangeFor(head, head.dataset.markText || '');
+    if (!r) return;
+    var rects = r.getClientRects();
+    if (!rects.length) return;
+    var last = rects[rects.length - 1];                // the final line of the marked run
+    if (!last.width) return;
+    var base = (stroke.offsetParent || head.parentNode).getBoundingClientRect();
+    stroke.style.width = last.width + 'px';
+    stroke.style.marginLeft = (last.left - base.left) + 'px';
+    stroke.style.marginRight = '0';
+  }
+
+  function markAll(root) {
+    [].forEach.call(root.querySelectorAll('.anim-head, .brgw-hero h1, .brgw-hero h2'), stripMarks);
+  }
+  function placeAll(root) {
+    [].forEach.call(root.querySelectorAll('.brgw-sec'), placeMark);
+  }
+
   function initRoot(root) {
     if (!root || root.dataset.animInit) return; root.dataset.animInit = '1';
+
+    /* CONTENT FIRST, ABOVE THE MOTION GATE. Stripping the delimiters is a content
+       transformation, not a motion one: below the reduced-motion return it would
+       show a literal asterisk in every headline to anyone who prefers reduced
+       motion. Placing the mark belongs here too — the mark is part of the design,
+       it simply does not animate. */
+    markAll(root);
+    var replace = function () { placeAll(root); };
+    replace();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(replace);
+    addEventListener('resize', debounce(replace, 150));
+
     var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return; // brgw.css shows everything statically for reduced-motion
 
@@ -37,6 +150,14 @@
     root.querySelectorAll('.anim-head').forEach(function (el) {
       if (el.dataset.head === 'words') splitByWords(el); else splitByBr(el);
     });
+    /* RE-PLACE AFTER THE SPLIT. The split rewrites each headline into .ln/.ln-i
+       spans, discarding the text nodes the first measurement ranged over. It did
+       work without this — document.fonts.ready resolves as a promise, so its
+       callback always lands after this synchronous block — but that is an accident
+       of scheduling, not a guarantee anyone reading this could rely on. Measuring
+       only width and left is also what makes it safe to measure BEFORE reveal:
+       .ln-i starts translated vertically, and translateY changes neither. */
+    placeAll(root);
     root.querySelectorAll('.reveal').forEach(function (sec) {
       /* Stagger. Sean: the reveals "fire too early, stagger too tight, and move too fast"
          (f062300124). Loosened 85->120ms between headline lines and 115->165ms between
