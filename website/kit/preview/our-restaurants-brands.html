@@ -8,29 +8,29 @@
      Light section. Owns the yellow asterisk seam badge, bleeding upward per the bleed rule.
      Brand plates are the real label artwork (bnb-img-label / odies-img-label), each on the
      image-reveal + parallax hooks. -->
-<section class="brgw-sec brgw-sec--or-brands reveal" aria-label="Our brands">
+<section class="brgw-sec brgw-sec--our-restaurants-brands reveal" aria-label="Our brands">
 <style>
-.brgw-sec--or-brands{position:relative;background:var(--white);color:var(--ink);overflow:visible;
+.brgw-sec--our-restaurants-brands{position:relative;background:var(--white);color:var(--ink);overflow:visible;
   padding:clamp(78px,8.5vw,124px) var(--pad) clamp(74px,8vw,116px);}
-.brgw-sec--or-brands .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
+.brgw-sec--our-restaurants-brands .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
   transform:translate(-50%,-50%);z-index:5;}
-.brgw-sec--or-brands .seam img{width:100%;height:auto;display:block;}
+.brgw-sec--our-restaurants-brands .seam img{width:100%;height:auto;display:block;}
 
-.brgw-sec--or-brands .brand{display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,64px);
+.brgw-sec--our-restaurants-brands .brand{display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,64px);
   max-width:1400px;margin-inline:auto;align-items:center;}
-@media(min-width:900px){ .brgw-sec--or-brands .brand{grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,84px);} }
+@media(min-width:900px){ .brgw-sec--our-restaurants-brands .brand{grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,84px);} }
 /* Hairline rule between the two brands, as in the comp — nothing above or below. */
-.brgw-sec--or-brands .brand + .brand{margin-top:clamp(46px,5vw,80px);padding-top:clamp(46px,5vw,80px);
+.brgw-sec--our-restaurants-brands .brand + .brand{margin-top:clamp(46px,5vw,80px);padding-top:clamp(46px,5vw,80px);
   border-top:1px solid var(--ink);}
 
 /* No image-reveal here: these are logo lockups, and the reveal's 2→1.2 counter-scale
    crops the wordmark. A brand mark should never be cropped for the sake of an effect. */
-.brgw-sec--or-brands .plate{border-radius:14px;aspect-ratio:16/11;overflow:hidden;}
-.brgw-sec--or-brands .plate img{width:100%;height:100%;object-fit:cover;display:block;}
-.brgw-sec--or-brands h3{font-size:clamp(1.8rem,3.6vw,3.1rem);text-transform:uppercase;margin-bottom:18px;}
-.brgw-sec--or-brands p{opacity:.86;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:46ch;}
-.brgw-sec--or-brands p + p{margin-top:1.1em;}
-.brgw-sec--or-brands .btn{background:var(--ink);color:var(--white);margin-top:clamp(24px,2.6vw,36px);}
+.brgw-sec--our-restaurants-brands .plate{border-radius:14px;aspect-ratio:16/11;overflow:hidden;}
+.brgw-sec--our-restaurants-brands .plate img{width:100%;height:100%;object-fit:cover;display:block;}
+.brgw-sec--our-restaurants-brands h3{font-size:clamp(1.8rem,3.6vw,3.1rem);text-transform:uppercase;margin-bottom:18px;}
+.brgw-sec--our-restaurants-brands p{opacity:.86;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:46ch;}
+.brgw-sec--our-restaurants-brands p + p{margin-top:1.1em;}
+.brgw-sec--our-restaurants-brands .btn{background:var(--ink);color:var(--white);margin-top:clamp(24px,2.6vw,36px);}
 </style>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
 
