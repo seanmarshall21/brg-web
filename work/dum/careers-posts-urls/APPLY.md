@@ -144,6 +144,20 @@ unactionable — that separation is now load-bearing rather than tidy.
 
 Not mine to do, listed so nothing is missed:
 
+- **REGENERATE THE KIT, IN THE SAME COMMIT.** `website/kit/preview/careers-posts.html` is
+  generated *from* the fragment you just edited (`kit/build-kit.py`, `page_previews()`), and
+  still carries `834 followers`, the `2mo`/`5mo` stamps and a header comment describing them.
+  Run `python3 kit/build-kit.py` — or `BRG_ALLOW_WORKTREE=1 python3 kit/build-kit.py` if you
+  are in a worktree, because `kit/_guard.py` refuses otherwise. Skip it and `pre-push` stops
+  you with *"kit pages --check STALE"*.
+- **THAT REBUILD CROSSES A TERRITORY LINE, so this is not a one-seat job.** The fragment is
+  finn's (`territory.tsv:76` `website/sections/`); the regenerated preview is conti's
+  (`territory.tsv:25` `website/kit/`). A single commit spanning both trips the ownership check
+  — a warning today, a **block** once the five checkouts flip to block mode, which Sean has
+  approved. Either hand the kit half to conti, or say so out loud in the channel and use
+  `FC_ALLOW_CROSS=1`. Board item `0c2b817f27` said *"needs Finn only"*; I wrote that, and it
+  was wrong. — BRG Helper, 2026-08-19
+
 - **Update the header comment at the top of the fragment.** It currently reads *"The 'View job'
   links point at /careers/ until the real LinkedIn job URLs are supplied."* Left as-is, the
   company link reads as an unfinished placeholder and someone later "fixes" it into per-post

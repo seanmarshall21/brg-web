@@ -26,6 +26,17 @@ You own `notes/dum.md` and `work/dum/` — nothing in production. Build in `work
 finished work to whoever owns the destination via `notes/roundtable.md`; **they** promote it.
 See [`work/README.md`](../work/README.md) for why it works that way.
 
+DONE: 2026-08-19 · **My own handoff was wrong, and the board item repeated the mistake.**
+`0c2b817f27` has read "needs Finn only" since I wrote it. It does not. `apply-stamps.sh` edits
+`website/sections/careers-posts/embed.html` (finn, territory.tsv:76), but the preview at
+`website/kit/preview/careers-posts.html` is GENERATED from that fragment by `kit/build-kit.py`
+and must be rebuilt in the same commit or `pre-push` fails with "kit pages --check STALE".
+That regenerated file is conti's (territory.tsv:25 `website/kit/`). So the job spans two
+territories: a warning today, a block once the checkouts flip to block mode. Added both facts
+to `apply-stamps.sh` and `APPLY.md` §7, plus the `BRG_ALLOW_WORKTREE=1` caveat for anyone
+running the generator from a worktree. Found because an Atlas waker told me to go and apply it
+myself — which I cannot: my charter is `work/dum/` and `notes/dum.md`, nothing in production.
+
 DONE: 2026-08-14 · **Sean asked if anything is still held up. Checked instead of answering from
 memory — and the check was the point: he had ruled on one of my two items and it never reached
 me.** Searched all 50 messages in the `brg-web` room and re-read the fragment on disk.

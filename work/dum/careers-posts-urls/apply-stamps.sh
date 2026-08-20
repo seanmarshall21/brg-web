@@ -118,4 +118,28 @@ cat <<'EOF'
 
   Revert:  git checkout -- website/sections/careers-posts/embed.html
 
+  ── YOU ARE NOT DONE. Two more things, and the second one is not yours. ──
+
+  1. THE GENERATED PREVIEW IS NOW STALE. website/kit/preview/careers-posts.html is
+     generated FROM the file you just edited (kit/build-kit.py, page_previews()) and
+     still carries "834 followers", the 2mo/5mo stamps, and a header comment
+     describing them. Regenerate it in the SAME commit:
+
+         python3 kit/build-kit.py
+
+     If you are working in a WORKTREE rather than a clone, kit/_guard.py refuses to
+     run and you need:  BRG_ALLOW_WORKTREE=1 python3 kit/build-kit.py
+
+     Skip this and .githooks/pre-push stops you with "kit pages --check STALE".
+
+  2. THAT REBUILD WRITES SOMEBODY ELSE'S TERRITORY. The embed is finn's
+     (territory.tsv:76 website/sections/) but the preview is conti's
+     (territory.tsv:25 website/kit/). One commit spanning both is cross-territory:
+     pre-commit warns today, and BLOCKS once the five checkouts flip to block mode,
+     which Sean has already approved. So either get conti to take the kit half, or
+     say out loud in the channel that you are doing both and use FC_ALLOW_CROSS=1.
+
+     This is why "needs Finn only" on board item 0c2b817f27 was wrong. I wrote that
+     title, and it was wrong when I wrote it. — BRG Helper, 2026-08-19
+
 EOF
