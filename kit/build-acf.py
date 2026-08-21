@@ -238,8 +238,17 @@ def page_group(page, label, sections, first=False):
     than a refactor. Tabs are presentation. Groups-of-fields are storage. Only one of them
     is safe to reach for.
     """
-    # first page == the parent slug; the rest hang off it as sub-pages.
-    sub_slug = OPTIONS_PAGE if first else OPTIONS_PAGE + '-' + page
+    # EVERY page gets its own slug, including the first. Handing the first page the bare
+    # parent slug used to be the design — clicking "Section Content" then rendered Home
+    # rather than an empty parent. It cost Home its menu entry, and on MOBILE that is
+    # fatal: tapping a parent there only expands the submenu, it never navigates, so a
+    # page reachable solely through the parent is reachable nowhere at all. Sean reported
+    # Home missing three times before that surfaced.
+    #
+    # Page slugs do not touch storage. Values are saved and read as brg_<section>_<slot>
+    # against 'option' (vc-clients-embed.php:273), so renaming a page moves the screen the
+    # fields appear on and nothing else. No content is orphaned by this change.
+    sub_slug = OPTIONS_PAGE + '-' + page
     fields = [{
         'key': 'field_brg_page_' + page.replace('-', '_') + '_msg',
         'label': '', 'name': '', 'type': 'message',

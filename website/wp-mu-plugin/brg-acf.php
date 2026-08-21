@@ -92,43 +92,44 @@ add_action( 'acf/init', function () {
      *    registered but has no MENU ENTRY. Home's group sits on the parent slug and was
      *    skipped by this loop, so its 25 fields were reachable only by typing the URL.
      *    Every group now gets a named entry, including the one on the parent slug. */
-    /* THE PARENT'S OWN PAGE NEEDS A NAMED ENTRY, AND ONLY CORE WP WILL GIVE IT ONE.
+    /* THE PARENT OWNS NO GROUP ANY MORE, so two things need handling.
      *
-     * The generator hands the FIRST page the bare parent slug (kit/build-acf.py:242), so
-     * "Section Content" renders Home's group rather than an empty screen. That half works.
-     * What never happened is a MENU ENTRY saying "Home" — so the sidebar listed the other
-     * five and Home looked absent. Sean reported it three times; he was right every time.
+     * Every page now has its own slug (kit/build-acf.py), which is what finally gave Home a
+     * menu entry. The parent "Section Content" is left as a container with nothing to render.
      *
-     * My previous attempt registered it through acf_add_options_sub_page() with menu_slug
-     * equal to the parent. ACF will not do that — a sub-page whose slug IS its parent is
-     * not a sub-page as far as ACF is concerned, and it silently produced nothing. Deployed,
-     * verified by hash, and changed exactly nothing on screen.
+     * (a) WordPress auto-adds a submenu entry duplicating the parent's title and pointing at
+     *     that empty page. remove_submenu_page() drops it, so the sidebar reads exactly the
+     *     six real pages and nothing else.
+     * (b) On DESKTOP the parent is still a link, so clicking it would land on the empty page.
+     *     Send it to the first child instead. On MOBILE the parent only expands the submenu
+     *     and never navigates — which is precisely why Home could not live on the parent's
+     *     page, and why this redirect is a desktop convenience rather than the mechanism.
      *
-     * add_submenu_page( $parent, ..., $parent ) is the documented WordPress idiom for
-     * naming a parent's own page, and it replaces the auto-generated duplicate rather than
-     * adding a second one. Core, not ACF, so ACF's sub-page rules do not apply.
-     *
-     * Priority 999: ACF registers its options pages on admin_menu at 99. Run before that
-     * and there is no parent to attach to.
+     * The target is DERIVED from the first group, never typed. A hardcoded '-home' here
+     * would be a second home for a decision the generator already owns, and it would rot the
+     * day the page order changes.
      */
-    add_action( 'admin_menu', function () use ( $groups ) {
-        $label = 'Home';
-        foreach ( $groups as $g ) {
-            if ( ( $g['location'][0][0]['value'] ?? '' ) === BRG_ACF_PAGE ) {
-                $t = trim( preg_replace( '/\s*—\s*Content\s*$/u', '', (string) ( $g['title'] ?? '' ) ) );
-                if ( $t !== '' ) $label = $t;
-                break;
+    $first_slug = '';
+    foreach ( $groups as $g ) {
+        $v = $g['location'][0][0]['value'] ?? '';
+        if ( $v !== '' && $v !== BRG_ACF_PAGE ) { $first_slug = $v; break; }
+    }
+    if ( $first_slug !== '' ) {
+        add_action( 'admin_menu', function () { remove_submenu_page( BRG_ACF_PAGE, BRG_ACF_PAGE ); }, 999 );
+        add_action( 'admin_init', function () use ( $first_slug ) {
+            if ( ( $_GET['page'] ?? '' ) === BRG_ACF_PAGE ) {
+                wp_safe_redirect( admin_url( 'admin.php?page=' . rawurlencode( $first_slug ) ) );
+                exit;
             }
-        }
-        add_submenu_page( BRG_ACF_PAGE, $label . ' — Section Content', $label, 'edit_posts', BRG_ACF_PAGE );
-    }, 999 );
+        } );
+    }
 
     if ( function_exists( 'acf_add_options_sub_page' ) ) {
         $seen = array();
         foreach ( $groups as $g ) {
             if ( empty( $g['location'][0][0]['value'] ) ) continue;
             $slug = $g['location'][0][0]['value'];
-            if ( $slug === BRG_ACF_PAGE || isset( $seen[ $slug ] ) ) continue;  // parent: labelled below, by core WP
+            if ( isset( $seen[ $slug ] ) ) continue;
             // A GROUP ON THE PARENT SLUG STILL NEEDS ITS OWN NAMED ENTRY. Skipping it here was
             // the bug: Home's group sits on BRG_ACF_PAGE, so it got no menu item at all, and
             // clicking "Section Content" landed on the FIRST registered child — Brands. Home's
