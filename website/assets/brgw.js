@@ -189,6 +189,31 @@
          which makes it the correct knob for "fire later": -8% -> -18% of viewport height. */
       threshold: 0.16, rootMargin: '0px 0px -18% 0px' });
     root.querySelectorAll('.reveal').forEach(function (s) { io.observe(s); });
+
+    /* BOTTOM-OF-DOCUMENT GUARD — without this the FOOTER never appears.
+       rootMargin's -18% puts a dead band across the bottom of the viewport. That is
+       safe for anything the reader can scroll PAST, and fatal for anything at the end
+       of the document: the page runs out of scroll, so the last element never rises
+       above the band, never intersects, never gets .is-in — and .anim-up holds it at
+       opacity:0 for ever. The chrome footer is exactly that element
+       (<footer class="brgw__footer reveal"> with an .anim-up lockup), roughly 170px
+       against ~160px of dead band on a 900px viewport.
+
+       This is the same failure I avoided by refusing to raise `threshold`, then
+       reintroduced through rootMargin. So the fix is not a smaller number — a number
+       only moves where the cliff is. Once the document cannot scroll further, anything
+       still unrevealed is revealed: the trigger cannot be reached, so waiting for it
+       is waiting for nothing. */
+    var atEnd = function () {
+      if (innerHeight + Math.ceil(scrollY) < document.documentElement.scrollHeight - 2) return;
+      root.querySelectorAll('.reveal:not(.is-in)').forEach(function (s) {
+        var top = s.getBoundingClientRect().top;
+        if (top < innerHeight) { s.classList.add('is-in'); io.unobserve(s); }
+      });
+    };
+    addEventListener('scroll', atEnd, { passive: true });
+    addEventListener('resize', atEnd);
+    atEnd();   // a page too short to scroll is already at its end
   }
 
   var started = false;
