@@ -83,19 +83,76 @@
      in normal flow — width plus a left margin, not absolute positioning — because it
      occupies vertical space between the headline and the sub copy, and taking it out
      of flow would collapse that gap. */
+  /* The horizontal extent of a set of rects — one edge to the other. A run that fits
+     on one line returns exactly that line, so single-line heroes are unaffected. */
+  function span(rects) {
+    var l = Infinity, r = -Infinity;
+    for (var i = 0; i < rects.length; i++) {
+      if (rects[i].width < 1) continue;
+      if (rects[i].left < l) l = rects[i].left;
+      if (rects[i].right > r) r = rects[i].right;
+    }
+    return r > l ? { left: l, width: r - l } : null;
+  }
+
   function placeMark(sec) {
     var head = sec.querySelector('.anim-head, h1, h2');
     var stroke = sec.querySelector('.uline');
     if (!head || !stroke) return;
-    var r = rangeFor(head, head.dataset.markText || '');
-    if (!r) return;
-    var rects = r.getClientRects();
-    if (!rects.length) return;
-    var last = rects[rects.length - 1];                // the final line of the marked run
-    if (!last.width) return;
+
+    /* RESET BEFORE MEASURING — this is a feedback loop, not a formality. .head is a
+       grid item sized shrink-to-fit, so its width is set by its widest child, and the
+       stroke IS a child. Leaving the previous pass's width on it makes .head as wide as
+       the old stroke, which changes where the headline wraps and therefore the words
+       about to be measured; max-width:100% then clamps the new width to the stale one.
+       Measure -> mutate -> the mutation invalidates the next measurement. Clearing first
+       means every pass measures the same layout the reader sees. */
+    stroke.style.width = '';
+    stroke.style.marginLeft = '';
+    stroke.style.marginRight = '';
+    void stroke.offsetWidth;                 // force reflow so the reset is real
+
+    var box = null;
+    if (head.dataset.markText) {
+      var r = rangeFor(head, head.dataset.markText);
+      if (r) box = span(r.getClientRects());
+    } else {
+      /* DEFAULT: mark the last LOGICAL line, not the last VISUAL one.
+         On mobile a logical line wraps: home-hero's "of making your day great."
+         breaks across two rows, and taking the final rect gave the word "great."
+         alone — a 107px stub against a 381px headline, which is what Sean saw as
+         "a lot too small". The split already models logical lines as .ln elements,
+         so the last .ln is the answer, and its own wrapped rows are spanned. */
+      var lns = head.querySelectorAll('.ln');
+      if (lns.length) {
+        /* .ln-i, NOT .ln. .ln is the block LINE BOX and spans the full column width
+           (401px on a 430px phone) regardless of how much text is on it; .ln-i is the
+           inline-block that hugs the words (267px for "Meet the crew", centred). Sean
+           asked for the words, not the line box. .ln-i also solves the wrap case for
+           free: when a logical line breaks across two rows its inline-block bounding
+           box covers both, so the stroke spans the run instead of its final fragment. */
+        var lastLn = lns[lns.length - 1];
+        var inner = lastLn.querySelector('.ln-i') || lastLn;
+        box = span(inner.getClientRects());
+      }
+      else {
+        var all = rangeFor(head, '');                 // pre-split / reduced motion
+        if (all) {
+          var rc = all.getClientRects(), grp = [], top = null;
+          for (var i = rc.length - 1; i >= 0; i--) {  // walk back over the last visual row
+            if (rc[i].width < 1) continue;
+            if (top === null) top = rc[i].top;
+            if (Math.abs(rc[i].top - top) > 2) break;
+            grp.push(rc[i]);
+          }
+          box = span(grp);
+        }
+      }
+    }
+    if (!box) return;
     var base = (stroke.offsetParent || head.parentNode).getBoundingClientRect();
-    stroke.style.width = last.width + 'px';
-    stroke.style.marginLeft = (last.left - base.left) + 'px';
+    stroke.style.width = box.width + 'px';
+    stroke.style.marginLeft = (box.left - base.left) + 'px';
     stroke.style.marginRight = '0';
   }
 
