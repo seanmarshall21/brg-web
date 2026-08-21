@@ -66,49 +66,85 @@ same and they are not, and turning all six knobs into fields has three costs:
    built for us is not an admin we can hand over — cuts both ways. Nine fields nobody
    understands is worse than three they do.
 
-**Recommendation: expose THREE, bake the rest.**
+> ## RULED BY SEAN 2026-08-20 — ALL SIX, AS DROPDOWNS
+>
+> He read the argument above and overrode it. **That is his call and this spec now builds
+> what he asked for**, not what I recommended. He did accept the one constraint that mattered:
+> **dropdowns, never text boxes** — so §3.1's silent-typo failure cannot happen, which was the
+> only cost I would have pushed back on twice.
+>
+> He also settled §5.2: **"colour nudge" was two knobs remembered as one** — the `Colour`
+> control and the `Y nudge` control, separately.
+>
+> The §3 argument is kept rather than deleted. If the fields do drift the sections apart, the
+> reasoning for why should be readable next to the decision that accepted the risk — not
+> reconstructed from memory a year later.
 
-| Expose | As | Why |
-|---|---|---|
-| **Variant** (`u_variant`, `hl_variant`) | `select` | Already how `hl_variant` works. This is the real choice — U1–U4, H0–H4 — and it is per-section by nature. |
-| **Mark colour** (`--brgw-hl-c`) | `select` of brand colours | Genuinely varies per section today (yellow / teal / pink / orange). Must be a select, not a colour picker, or the palette leaks. |
-| **Speed** | `select`: Slower / Standard / Faster | Three named steps that scale BOTH `-dur` values together, so the family holds. Not a millisecond box. |
+---
 
-Bake as tokens, not fields: easing, delay, Y nudge, stroke timing, padding, rotation. These are
-design decisions made once. If one is wrong, it is a one-line CSS fix by whoever owns `brgw.css`
-— not a field that has to be right in nine places.
+## 4. The six, as ruled
 
-## 4. Slot declarations, ready for the generator
+Every one a `select`. Values are the real CSS values; labels are plain language.
 
-Blocked only on `select` existing (`2dace015d8`). Wording is mine; values are the real ones.
+| # | Sean's name | Field | Drives | Exists? |
+|---|---|---|---|---|
+| 1 | animation speed | `anim_speed` | `--brgw-u-dur` + `--brgw-h-dur` together | ✅ `brgw.css:270,321` |
+| 2 | ease out / ease in | `anim_ease` | `--brgw-u-ease` + `--brgw-h-ease` | ✅ same |
+| 3 | card colour | `hl_colour` | `--brgw-hl-c` | ✅ `brgw.css:310` |
+| 4 | *(nudge half)* | `hl_nudge` | **new var needed** | ❌ no variable today |
+| 5 | text colour | `hl_text_colour` | **new var needed** — `.hl-t` hardcodes `color:var(--ink)` at `brgw.css:324` | ❌ |
+| 6 | *(the style itself)* | `hl_variant` / `u_variant` | `[data-hl]` / `[data-u]` scope | ✅ shipped, defaults `h3` |
+
+**Two need new CSS variables first** (`brgw.css`, Finn's file): a `--brgw-hl-nudge` applied as a
+`translateY` on `.mark`, and a `--brgw-hl-t` replacing the hardcoded `var(--ink)` on `.hl-t`.
+Both are one-line additions with the current value as the fallback, so nothing changes until a
+slot sets them.
 
 ```json
-"hl_variant": { "type": "select", "label": "Highlight style", "default": "h3",
-  "choices": { "h3": "Rough block, angled wipe",
-               "h1": "Smooth wipe — safe across line breaks",
-               "h4": "Label pill — for OUR VISION, LEADERSHIP",
-               "h0": "Static, no animation" } },
+"anim_speed":     { "type":"select", "label":"Animation speed", "default":"std",
+  "choices": { "slow":"Slower", "std":"Standard", "fast":"Faster" } },
 
-"u_variant":  { "type": "select", "label": "Underline style", "default": "u3",
-  "choices": { "u3": "Filled brush, angled wipe",
-               "u1": "Simple bar",
-               "u0": "None" } },
+"anim_ease":      { "type":"select", "label":"Animation feel", "default":"settle",
+  "choices": { "settle":"Settle — eases out at the end (default)",
+               "even":"Even — same speed throughout",
+               "spring":"Spring — slight overshoot" } },
 
-"anim_speed": { "type": "select", "label": "Animation speed", "default": "std",
-  "choices": { "slow": "Slower", "std": "Standard", "fast": "Faster" } }
+"hl_colour":      { "type":"select", "label":"Highlight colour", "default":"yellow",
+  "choices": { "yellow":"Yellow", "teal":"Teal", "pink":"Pink", "orange":"Orange",
+               "purple":"Purple" } },
+
+"hl_text_colour": { "type":"select", "label":"Text on the highlight", "default":"ink",
+  "choices": { "ink":"Black", "white":"White" } },
+
+"hl_nudge":       { "type":"select", "label":"Nudge the highlight", "default":"0",
+  "choices": { "-6":"Up a little", "-3":"Up slightly", "0":"Aligned (default)",
+               "3":"Down slightly", "6":"Down a little" } },
+
+"hl_variant":     { "type":"select", "label":"Highlight style", "default":"h3",
+  "choices": { "h3":"Rough block, angled wipe",
+               "h1":"Smooth wipe — safe across line breaks",
+               "h4":"Label pill — for OUR VISION, LEADERSHIP",
+               "h0":"Static, no animation" } },
+
+"u_variant":      { "type":"select", "label":"Underline style", "default":"u3",
+  "choices": { "u3":"Filled brush, angled wipe", "u1":"Simple bar", "u0":"None" } }
 ```
 
 `return_format: "value"` is load-bearing — without it ACF returns the LABEL, so the fragment
-receives `Rough block, angled wipe` where it expects `h3`, and prose lands in an attribute.
-Recorded on `2dace015d8` because it is the generator's job, not the slot's.
+receives `Rough block, angled wipe` where it expects `h3`. Recorded on `2dace015d8`.
 
-**H2 and U2/U4 are deliberately absent.** `website/lab/README.md:28-39` parks them — U2 reads as
-a ballpoint, U4 muddies below 2rem, H2 is superseded by H3. A dropdown listing every variant we
-ever built is a menu of known-worse options.
+**H2, U2 and U4 are deliberately absent.** `website/lab/README.md:28-39` parks them — U2 reads
+as a ballpoint, U4 muddies below 2rem, H2 is superseded by H3. A dropdown listing every variant
+we ever built is a menu of known-worse options.
 
-## 5. Open — Sean's, and only his
+**`hl_nudge` values are px as strings**, negative for up. Named rather than numeric because Sean
+ruled dropdowns: an editor picking "Up a little" cannot enter `40px` and push a mark off its text.
 
-1. **Does he want all six exposed, or the three above?** §3 is an argument, not a decision.
-2. **What "colour nudge" means** — the lab has `Colour` and `Y nudge` separately.
-3. **Whether speed should be three named steps or a real number.** Named steps keep the family;
-   a number lets him tune one section exactly and is the more literal reading of what he asked for.
+## 5. Build order
+
+1. **`2dace015d8`** — `select` in `kit/build-acf.py` (Conti). Nothing below works without it.
+2. **Two new CSS vars** in `brgw.css` (Finn) — `--brgw-hl-nudge`, `--brgw-hl-t`, each defaulting
+   to today's value so the site does not move.
+3. **Declare the slots** per section (Finn) and regenerate.
+
+Steps 2 and 3 can run in parallel with 1; only the regeneration waits.
