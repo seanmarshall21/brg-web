@@ -73,13 +73,46 @@ already being worked:
 **Note this last one for them specifically:** it means the admin is paying for it too,
 so if the client says wp-admin feels slow, that is partly ours and it is being fixed.
 
-## Once the site is public
+## Tested publicly on 2026-08-22 — there is no CDN and no page cache
 
-The response headers show a Cloudflare WordPress integration is already present
-(`cf-edge-cache: cache,platform=wordpress`) but every page currently sends
-`cache-control: no-cache, must-revalidate` because the site is password-gated. **When
-the gate comes off, ask them to confirm full-page edge caching is actually active** —
-that alone will hide most of the remaining server time from real visitors.
+The gate was dropped for a live test, so this is measured rather than assumed. It
+changes the conclusion, so read this before the section above.
 
-It will not help wp-admin, and it will not help the first visitor after each cache
-purge. The server fixes above are still worth doing.
+**1. Cloudflare is not in front of this site at all.** The responses carry a
+`cf-edge-cache: cache,platform=wordpress` header, which is what made it look like a CDN
+was configured. It is not — that header is emitted by a Cloudflare *WordPress plugin*
+and nothing is consuming it. There is **no `cf-ray` and no `cf-cache-status` header**,
+the nameservers are `ns1/ns2/ns3.dreamhost.com`, and the A record `205.196.208.104` is
+not a Cloudflare address. Cloudflare is not merely unproxied — it is absent.
+
+**2. Nothing is caching pages.** Requesting each page with a unique query string, which
+forces the origin to do real work, costs the **same** as a normal request:
+
+| page | normal request | cache-busted |
+|---|---|---|
+| home-solo | 2.232s | 2.722s |
+| team | 2.949s | 3.870s |
+| community | 3.726s | 2.836s |
+
+If a page cache existed, the normal column would be dramatically faster. It is not. Every
+request runs full PHP. (The origin does now send `cache-control: max-age=600` once public,
+but with no CDN that only helps a repeat visitor's own browser — never a first view.)
+
+**3. This is shared hosting.** The serving IP reverse-resolves to
+`apache2-daisy.pdx1-shared-a2-09.dreamhost.com` — DreamHost shared, Portland. That is
+consistent with the variance: the same page measured 1.3s and 4.7s on different runs,
+which is what CPU contention from other tenants looks like.
+
+### What this means for the decision
+
+The hoped-for escape hatch is gone. There is no edge cache to hide the server time, so
+**every visitor pays the full ~2–3s**, and the upgrade is not optional polish.
+
+Two fixes, and the first is nearly free:
+
+- **Put Cloudflare in front.** The WordPress plugin is already installed; the DNS simply
+  never moved. Even the free tier would cache pages at the edge and take most of this off
+  the origin. This is the highest value per pound available here **by a wide margin**.
+- **Get off shared hosting.** DreamHost's own VPS or managed WordPress ends the CPU
+  contention. The PHP/OPcache/Redis asks above apply either way, and on shared hosting
+  some of them may simply not be available — worth asking before paying for anything.
