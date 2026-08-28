@@ -43,3 +43,9 @@ website/mocks/
 # tracked path as the repo brief, so anything chat-specific put there merges into
 # every chat. This is the safe place for it.
 CLAUDE.local.md
+
+# Which seat works in this worktree. Per-worktree identity, never shared —
+# committing one seat's name would hand it to every checkout of the branch.
+# Same reason CLAUDE.local.md is ignored (41fcdae). tools/new-seat.sh writes
+# this file and its output already claims it is ignored; until now it was not.
+.atlas-chat
