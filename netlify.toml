@@ -26,7 +26,20 @@
   #
   # Verified against 60 real commits, both directions, zero disagreements with what
   # each commit actually touched.
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- website netlify netlify.toml package.json"
+  # FAIL OPEN, NEVER CLOSED. $CACHED_COMMIT_REF comes from the last build that CACHED, and a
+  # cancelled build caches nothing. So one legitimate skip (a notes-only commit) leaves the next
+  # build with an empty or unknown ref — and `git diff --quiet "" <sha> -- <paths>` compares the
+  # working tree against itself, finds nothing, exits 0, and SKIPS. That build then caches
+  # nothing either. The skip becomes self-perpetuating and every later commit is cancelled
+  # whatever it touched.
+  #
+  # That is exactly what happened: after the notes-only commit on 20 Aug, every build was
+  # cancelled — including one that rewrote seven files under website/ — and the site served the
+  # 20 Aug version for a month while each push looked successful.
+  #
+  # So: no usable baseline means BUILD (exit 1). A needless deploy costs cents; a silent skip
+  # costs a month. The comparison itself is unchanged when the ref IS usable.
+  ignore = 'if [ -z "$CACHED_COMMIT_REF" ] || ! git cat-file -e "$CACHED_COMMIT_REF^{commit}" 2>/dev/null; then exit 1; fi; git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- website netlify netlify.toml package.json'
   # Functions live OUTSIDE the publish dir on purpose: anything under website/ is
   # served as a static file, so a function there would be downloadable source.
   functions = "netlify/functions"
