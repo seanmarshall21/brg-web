@@ -16,9 +16,24 @@
      ACF-editable (slots.json beside this file): the lede — as THREE slots around the inline
      <b>, so no field ever carries HTML — and the teal banner. The spaces either side of the
      <b> are in the markup on purpose: ACF trims on save, so a default ending in a space
-     would lose it and the words would run together. The three slides stay as code: three is
-     not a design constant (the shared slider makes its own dots and would take a fourth,
-     and the panel colours come from :nth-child, not the count). -->
+     would lose it and the words would run together.
+
+     THE SLIDES ARE NOW A REPEATER (conti 2026-09-23, Sean's request — finn owns this file,
+     same arrangement as team-members). Sean could not change a slide photo or add a fourth
+     slide because the three slides were hardcoded: nothing about them existed in wp-admin to
+     edit. The count was never a design constant — the shared slider builds its own dots, and
+     the panel colours come from :nth-child rather than the count — so any number works and
+     adding one re-colours the rest on its own.
+
+     The three slides below sit inside brg:empty, so they keep rendering until the first row
+     is added. Without that half, wiring the repeater would take a section that shows three
+     slides today to one that shows none the moment this lands — a live regression caused by
+     shipping the mechanism.
+
+     Per-row <img> carries no width/height: .shot img is absolutely positioned and object-fit
+     cover, so the container sizes it and an uploaded photo of any dimensions cannot shift the
+     layout. The button is hidden by :empty when no label is typed, so a row without one does
+     not leave an empty yellow box. -->
 <section class="brgw-sec brgw-sec--community-give reveal" aria-label="How we give back">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
@@ -53,6 +68,12 @@
 .brgw-sec--community-give h3{font-size:clamp(1.3rem,2.4vw,2rem);text-transform:uppercase;margin-bottom:18px;}
 .brgw-sec--community-give .panel p{font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.62;
   max-width:44ch;margin-inline:auto;opacity:.9;}
+/* A slide with no button label renders an EMPTY <a>, which would otherwise show as a bare
+   yellow block. :empty hides it, so the button is genuinely optional per slide. */
+.brgw-sec--community-give .panel .btn{margin-top:clamp(18px,2vw,26px);align-self:center;}
+.brgw-sec--community-give .panel .btn:empty{display:none;}
+.brgw-sec--community-give .brgw-slide:nth-child(odd) .panel .btn{background:var(--yellow);color:var(--ink);}
+.brgw-sec--community-give .brgw-slide:nth-child(even) .panel .btn{background:var(--ink);color:var(--white);}
 /* Dots sit over the image half, as in the comp, not on a separate bar. */
 .brgw-sec--community-give .brgw-slider__dots{position:absolute;right:clamp(20px,3vw,54px);
   bottom:clamp(18px,2.4vw,38px);background:none;padding:0;z-index:4;}
@@ -67,6 +88,18 @@
 
   <div class="brgw-slider" data-autoplay="6500">
     <div class="brgw-slider__track">
+<!--brg:repeat slides-->
+      <div class="brgw-slide">
+        <div class="panel">
+          <h3 class="blanco">{{slides.title}}</h3>
+          <p>{{slides.body}}</p>
+          <a class="btn anim-cta" href="{{slides.cta_href}}">{{slides.cta_label}}</a>
+        </div>
+        <div class="shot brgw-img" data-brgw-img>
+          <img src="{{slides.photo}}" alt="" decoding="async" loading="lazy" data-brgw-parallax=".8">
+        </div>
+      </div>
+<!--brg:empty-->
       <div class="brgw-slide">
         <div class="panel">
           <h3 class="blanco">Urban Surf 4 Kids</h3>
@@ -97,6 +130,7 @@
                decoding="async" loading="lazy" data-brgw-parallax=".8">
         </div>
       </div>
+<!--/brg:repeat-->
     </div>
     <div class="brgw-slider__dots"></div>
   </div>
@@ -108,7 +142,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back"};
+  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

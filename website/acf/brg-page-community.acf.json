@@ -157,6 +157,104 @@
                 "default_value": "How we give back"
             },
             {
+                "key": "field_brg_community_give_slides",
+                "label": "Slides",
+                "name": "brg_community_give_slides",
+                "type": "repeater",
+                "instructions": "One row per slide, in the order they appear. Drag to reorder. Any number works: the slider builds its own dots, and the panel colour alternates black / yellow by position, so adding or removing a slide re-colours the rest automatically — do not try to set a colour per slide. Until the first row is added the page keeps the three slides it shows today.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add slide",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_community_give_slides_title",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_community_give_slides_photo",
+                        "label": "Photo",
+                        "name": "photo",
+                        "type": "image",
+                        "instructions": "Fills the image half of the slide, cropped to fit, so the exact size does not matter. Portrait or landscape both work. A tall crop around 1200px on the long edge is plenty — bigger files only slow the page.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "url",
+                        "preview_size": "medium",
+                        "library": "all"
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_title",
+                        "label": "Title",
+                        "name": "title",
+                        "type": "text",
+                        "instructions": "Shown in the display face, uppercase. Short — around 24 characters keeps it on one line.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_body",
+                        "label": "Text",
+                        "name": "body",
+                        "type": "textarea",
+                        "instructions": "The paragraph under the title, capped at 44 characters wide. Around 200 characters sits best; much longer and the panel grows taller than the photo beside it.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta_label",
+                        "label": "Button label",
+                        "name": "cta_label",
+                        "type": "text",
+                        "instructions": "Optional. Leave blank and no button appears. Two or three words, e.g. 'Apply for a donation'.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta_href",
+                        "label": "Button link",
+                        "name": "cta_href",
+                        "type": "text",
+                        "instructions": "Where the button goes — a full https:// address, or a path on this site like /contact/. Ignored when the label is blank.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    }
+                ]
+            },
+            {
                 "key": "field_brg_tab_community_stats",
                 "label": "By the numbers",
                 "name": "",
