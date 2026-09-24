@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.10.0
+ * Version: 2.11.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.10.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.11.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -363,6 +363,21 @@ if ( ! function_exists( 'vcc_render_section' ) ) {
         if ( $frag === '' ) return '<!-- vc_embed: ' . esc_html( $client . '/section/' . $id ) . ' not built yet -->';
 
         $frag = vcc_fill_slots( $frag, $id, $atts, $cfg, $ttl );
+
+        /* "Show the divider icon" — the round badge between this section and the one above.
+         *
+         * Marks the ROOT rather than cutting the markup out. Stripping the <span class="seam">
+         * would mean this file carrying a copy of another file's markup shape, and it would
+         * break silently the day that span gains a wrapper. An attribute states the intent and
+         * lets the stylesheet decide what to do with it.
+         *
+         * Same rule as the section switch: hides only on an explicit false, never on unset. */
+        if ( function_exists( 'get_field' ) ) {
+            $seam = get_field( 'brg_' . str_replace( '-', '_', $id ) . '_show_divider', 'option' );
+            if ( $seam !== null && ! $seam ) {
+                $frag = preg_replace( '/<(section|div)\b/', '<$1 data-seam="off"', $frag, 1 );
+            }
+        }
 
         // Optional anchor: inject id="…" onto the fragment's root element.
         if ( is_array( $atts ) && ! empty( $atts['anchor'] ) ) {

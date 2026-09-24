@@ -135,6 +135,25 @@
                 "ui_off_text": "Hidden"
             },
             {
+                "key": "field_brg_our_restaurants_brands_show_divider",
+                "label": "Show the divider icon",
+                "name": "brg_our_restaurants_brands_show_divider",
+                "type": "true_false",
+                "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-show-divider",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 1,
+                "ui_on_text": "Shown",
+                "ui_off_text": "Hidden"
+            },
+            {
                 "key": "field_brg_our_restaurants_brands_bnb_heading",
                 "label": "Board & Brew — name",
                 "name": "brg_our_restaurants_brands_bnb_heading",

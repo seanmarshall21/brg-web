@@ -135,6 +135,25 @@
         "ui_off_text": "Hidden"
       },
       {
+        "key": "field_brg_home_community_show_divider",
+        "label": "Show the divider icon",
+        "name": "brg_home_community_show_divider",
+        "type": "true_false",
+        "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-show-divider",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
         "key": "field_brg_home_community_intro_1",
         "label": "Intro — before the emphasis",
         "name": "brg_home_community_intro_1",
@@ -370,6 +389,25 @@
         "ui_off_text": "Hidden"
       },
       {
+        "key": "field_brg_home_different_show_divider",
+        "label": "Show the divider icon",
+        "name": "brg_home_different_show_divider",
+        "type": "true_false",
+        "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-show-divider",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
         "key": "field_brg_home_different_body_1",
         "label": "Body copy — first paragraph",
         "name": "brg_home_different_body_1",
@@ -456,6 +494,25 @@
         "wrapper": {
           "width": "",
           "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_home_values_show_divider",
+        "label": "Show the divider icon",
+        "name": "brg_home_values_show_divider",
+        "type": "true_false",
+        "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-show-divider",
           "id": ""
         },
         "message": "",
@@ -625,6 +682,25 @@
         "wrapper": {
           "width": "",
           "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_our_restaurants_brands_show_divider",
+        "label": "Show the divider icon",
+        "name": "brg_our_restaurants_brands_show_divider",
+        "type": "true_false",
+        "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-show-divider",
           "id": ""
         },
         "message": "",
@@ -968,6 +1044,25 @@
         "ui_off_text": "Hidden"
       },
       {
+        "key": "field_brg_team_members_show_divider",
+        "label": "Show the divider icon",
+        "name": "brg_team_members_show_divider",
+        "type": "true_false",
+        "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-show-divider",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
         "key": "field_brg_team_members_members",
         "label": "Team members",
         "name": "brg_team_members_members",
@@ -1291,6 +1386,25 @@
         "wrapper": {
           "width": "",
           "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_community_give_show_divider",
+        "label": "Show the divider icon",
+        "name": "brg_community_give_show_divider",
+        "type": "true_false",
+        "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-show-divider",
           "id": ""
         },
         "message": "",
@@ -1928,6 +2042,25 @@
         "wrapper": {
           "width": "",
           "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_careers_apply_show_divider",
+        "label": "Show the divider icon",
+        "name": "brg_careers_apply_show_divider",
+        "type": "true_false",
+        "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-show-divider",
           "id": ""
         },
         "message": "",

@@ -202,6 +202,39 @@ def visibility_field(section_id):
         'ui_on_text': 'Shown', 'ui_off_text': 'Hidden',
     }
 
+def has_divider(section_id):
+    """True when this section's fragment actually draws a round divider badge.
+
+    Checked against the FRAGMENT rather than assumed for every section, because a
+    "Show the divider icon" switch on a section that has no icon is precisely the
+    field-that-edits-nothing failure --check exists to prevent: the editor unticks
+    it, saves, sees no change, and has nothing to go on. Seven of twenty-one
+    sections carry one.
+    """
+    path = os.path.join(ROOT, 'website', 'sections', section_id, 'embed.html')
+    if not os.path.exists(path):
+        return False
+    with open(path, encoding='utf-8') as fh:
+        return 'class="seam"' in fh.read()
+
+
+def divider_field(section_id):
+    """The per-section "Show the divider icon" switch. Same shape and same rules as
+    visibility_field: injected, not declared; hidden from --check because the PLUGIN
+    reads it, not a {{token}}; default ON so an untouched section is unchanged."""
+    name = 'brg_' + section_id.replace('-', '_') + '_show_divider'
+    return {
+        'key': 'field_' + name, 'label': 'Show the divider icon', 'name': name,
+        'type': 'true_false',
+        'instructions': admin_html(
+            "The round badge that sits between this section and the one above it. Untick to "
+            "remove just the badge — the section itself stays."),
+        'required': 0, 'conditional_logic': 0,
+        'wrapper': {'width': '', 'class': 'brg-show-divider', 'id': ''},
+        'message': '', 'default_value': 1, 'ui': 1,
+        'ui_on_text': 'Shown', 'ui_off_text': 'Hidden',
+    }
+
 CHROME_DIR = os.path.join(ROOT, 'website', 'chrome')
 
 def chrome_groups():
@@ -308,6 +341,8 @@ def page_group(page, label, sections, first=False):
             'wrapper': {'width': '', 'class': '', 'id': ''},
         })
         fields.append(visibility_field(sid))
+        if has_divider(sid):
+            fields.append(divider_field(sid))
         fields.extend(field(sid, k, v) for k, v in slots.items())
     return {
         'key': 'group_brg_page_' + page.replace('-', '_'),

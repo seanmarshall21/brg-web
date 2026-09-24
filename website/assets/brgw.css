@@ -384,3 +384,9 @@
     background-size:100% 100%!important;transition:none!important;}
   [data-hl="h3"] .hl-t{background:none!important;}
   [data-hl] .hl-b{clip-path:none!important;animation:none!important;}}
+
+/* "Show the divider icon" — the plugin marks the section root data-seam="off" when the
+   switch in Section Content is unticked. Declared here, once, rather than each section
+   hiding its own: the badge is shared chrome and the rule must hold for every section
+   that has one, including any added later. */
+[data-seam="off"] .seam{display:none;}
