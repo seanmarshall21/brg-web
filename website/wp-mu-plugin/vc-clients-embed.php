@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.6.1
+ * Version: 2.10.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.8.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.10.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -333,6 +333,28 @@ if ( ! function_exists( 'vcc_render_section' ) ) {
 
         $id = preg_replace( '/[^a-z0-9-]/', '', strtolower( (string) $id ) );
         if ( $id === '' ) return '';
+
+        /* "Show this section" — the switch at the top of each tab in Section Content.
+         *
+         * HIDES ONLY ON AN EXPLICIT FALSE. An unset field returns null, which means nobody
+         * has ever opened that tab, and that must keep rendering exactly as it does today.
+         * Treating null as "hidden" would blank every section on the site the moment this
+         * deployed, before anyone had touched a switch.
+         *
+         * Checked BEFORE the fetch, so a hidden section costs no CDN round trip either —
+         * which matters on a page that pays ~0.175s per section.
+         *
+         * A shortcode attribute still wins, as everywhere else: [brg_section id=… show="1"]
+         * forces it back on without touching the admin.
+         */
+        if ( ! ( is_array( $atts ) && isset( $atts['show'] ) && $atts['show'] === '1' )
+             && function_exists( 'get_field' ) ) {
+            $vis = get_field( 'brg_' . str_replace( '-', '_', $id ) . '_show_section', 'option' );
+            if ( $vis !== null && ! $vis ) {
+                return "\n<!-- vc_embed " . esc_html( $client . '/section/' . $id )
+                     . ' hidden via Section Content -->' . "\n";
+            }
+        }
 
         $ttl  = vcc_ttl( $atts );
         $base = rtrim( $cfg['base'], '/' );

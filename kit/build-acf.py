@@ -170,6 +170,38 @@ def field(section_id, slot, defn):
         f.pop('default_value', None)
     return f
 
+def visibility_field(section_id):
+    """The per-section "Show this section" switch.
+
+    INJECTED HERE, NOT DECLARED IN slots.json, and that is the point: it belongs to every
+    section by definition, so declaring it 21 times would be 21 chances to forget one, and
+    it lives in finn's files while the code that reads it is conti's.
+
+    It is also deliberately invisible to --check. That check exists because a slot with no
+    {{token}} is a field that edits nothing — the editor types, saves, sees no change, and
+    has no error to go on. This field genuinely has no token: it is read by the PLUGIN
+    before the fragment is fetched, the same way chrome slots are. Injecting at emit time
+    rather than adding an exemption keeps the check strict for everything it was written
+    to catch, instead of teaching it to ignore a shape.
+
+    DEFAULT IS ON, AND UNSET MUST MEAN SHOWN. The plugin hides only on an explicit false,
+    so a section that nobody has ever opened renders exactly as it does today. The failure
+    mode of the opposite choice is the whole site going blank on the day this ships.
+    """
+    name = 'brg_' + section_id.replace('-', '_') + '_show_section'
+    return {
+        'key': 'field_' + name, 'label': 'Show this section', 'name': name,
+        'type': 'true_false',
+        'instructions': admin_html(
+            "Untick to take this section off the live page. Nothing is deleted — the wording "
+            "below stays exactly as it is and comes straight back when you tick it again. "
+            "Takes up to two minutes to show on the site."),
+        'required': 0, 'conditional_logic': 0,
+        'wrapper': {'width': '', 'class': 'brg-show-section', 'id': ''},
+        'message': '', 'default_value': 1, 'ui': 1,
+        'ui_on_text': 'Shown', 'ui_off_text': 'Hidden',
+    }
+
 CHROME_DIR = os.path.join(ROOT, 'website', 'chrome')
 
 def chrome_groups():
@@ -262,8 +294,12 @@ def page_group(page, label, sections, first=False):
     for sec in sections:
         sid = sec['id']
         slots, _ = slots_for(sec)
-        if not slots:
-            continue
+        # A section with NO editable slots still gets a tab, because it still gets the
+        # "Show this section" switch. Skipping it here is what left careers-posts — the
+        # LinkedIn job listings, a section Sean would plainly want to turn off — as the one
+        # section on the site with no way to hide it. An empty tab was the right call when a
+        # tab could only ever hold slots; it stopped being right the moment every section
+        # gained a switch.
         fields.append({
             'key': 'field_brg_tab_' + sid.replace('-', '_'),
             'label': tab_label(sec), 'name': '', 'type': 'tab',
@@ -271,6 +307,7 @@ def page_group(page, label, sections, first=False):
             'instructions': '', 'required': 0, 'conditional_logic': 0,
             'wrapper': {'width': '', 'class': '', 'id': ''},
         })
+        fields.append(visibility_field(sid))
         fields.extend(field(sid, k, v) for k, v in slots.items())
     return {
         'key': 'group_brg_page_' + page.replace('-', '_'),
@@ -445,9 +482,11 @@ def main():
     from collections import OrderedDict
     pages = OrderedDict()
     for sec in data.get('sections', []):
+        # NO `continue` for a section without slots. It still belongs to its page, because
+        # it still gets the "Show this section" switch. This filter is why careers-posts —
+        # the LinkedIn job listings, which have no editable copy at all — was the single
+        # section on the site with no way to turn it off.
         slots = slots_for(sec)[0]
-        if not slots:
-            continue
         illegal = bad_slot_names(slots)
         if illegal:
             sys.exit(f"refusing to generate {sec['id']}: slot name(s) {illegal} are not "

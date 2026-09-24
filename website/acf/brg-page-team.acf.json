@@ -36,6 +36,25 @@
                 }
             },
             {
+                "key": "field_brg_team_hero_show_section",
+                "label": "Show this section",
+                "name": "brg_team_hero_show_section",
+                "type": "true_false",
+                "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-show-section",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 1,
+                "ui_on_text": "Shown",
+                "ui_off_text": "Hidden"
+            },
+            {
                 "key": "field_brg_team_hero_heading",
                 "label": "Headline",
                 "name": "brg_team_hero_heading",
@@ -125,6 +144,25 @@
                     "class": "",
                     "id": ""
                 }
+            },
+            {
+                "key": "field_brg_team_members_show_section",
+                "label": "Show this section",
+                "name": "brg_team_members_show_section",
+                "type": "true_false",
+                "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-show-section",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 1,
+                "ui_on_text": "Shown",
+                "ui_off_text": "Hidden"
             },
             {
                 "key": "field_brg_team_members_members",
@@ -224,6 +262,25 @@
                     "class": "",
                     "id": ""
                 }
+            },
+            {
+                "key": "field_brg_team_apply_show_section",
+                "label": "Show this section",
+                "name": "brg_team_apply_show_section",
+                "type": "true_false",
+                "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-show-section",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 1,
+                "ui_on_text": "Shown",
+                "ui_off_text": "Hidden"
             },
             {
                 "key": "field_brg_team_apply_heading",
