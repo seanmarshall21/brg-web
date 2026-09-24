@@ -33,13 +33,21 @@
   # nothing either. The skip becomes self-perpetuating and every later commit is cancelled
   # whatever it touched.
   #
-  # That is exactly what happened: after the notes-only commit on 20 Aug, every build was
-  # cancelled — including one that rewrote seven files under website/ — and the site served the
-  # 20 Aug version for a month while each push looked successful.
+  # CONFIRMED FROM THE DEPLOY LOG of bed009f, not inferred. Netlify printed:
+  #     Failed to fetch cache, continuing with build
+  #     User-specified ignore command returned exit code 0. Returning early from build.
+  # With the cache gone, $CACHED_COMMIT_REF is unusable — and the first version of this guard
+  # only checked that the ref EXISTED, not that it DIFFERED from the commit being built. A
+  # commit compared against itself has no changes, so it skipped anyway. Hence the equality
+  # test below: it is the case that actually bit.
+  #
+  # Every build from 20 Aug to 23 Sep was cancelled this way — including one that rewrote seven
+  # files under website/ — and the site served the 20 Aug version for a month while every push
+  # reported success.
   #
   # So: no usable baseline means BUILD (exit 1). A needless deploy costs cents; a silent skip
   # costs a month. The comparison itself is unchanged when the ref IS usable.
-  ignore = 'if [ -z "$CACHED_COMMIT_REF" ] || ! git cat-file -e "$CACHED_COMMIT_REF^{commit}" 2>/dev/null; then exit 1; fi; git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- website netlify netlify.toml package.json'
+  ignore = 'if [ -z "$CACHED_COMMIT_REF" ] || [ "$CACHED_COMMIT_REF" = "$COMMIT_REF" ] || ! git cat-file -e "$CACHED_COMMIT_REF^{commit}" 2>/dev/null; then exit 1; fi; git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- website netlify netlify.toml package.json'
   # Functions live OUTSIDE the publish dir on purpose: anything under website/ is
   # served as a static file, so a function there would be downloadable source.
   functions = "netlify/functions"
