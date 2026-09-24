@@ -23,5 +23,11 @@
     "label": "Underline animation",
     "doc": "How the hand-drawn underline reveals. `u3` (default) filled brush + ~5deg angled wipe — keeps the taper. `wipe` straight-edged reveal, the conservative fallback with no skewed edge to overhang. `u1` scaleX bar, the lab's baseline, kept so the taper argument can be re-checked live. Unknown or blank renders the mark STATIC and visible, never hidden. u2/u4 (dasharray draws) need the artwork inline as SVG and are not available on an <img>. Catalogue: website/lab/README.md.",
     "default": "u3"
+  },
+  "bg_photo": {
+    "type": "image",
+    "label": "Background photo",
+    "doc": "The full-bleed hero collage behind the logo and headline. Dark imagery works best — the headline and sub copy sit on top in white. Landscape, at least 1600px wide. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp"
   }
 }

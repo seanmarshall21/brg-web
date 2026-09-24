@@ -23,5 +23,11 @@
     "label": "Button link",
     "doc": "Defaults to the in-page anchor for the roles list.",
     "default": "/careers/#roles"
+  },
+  "photo": {
+    "type": "image",
+    "label": "Photo",
+    "doc": "The cut-out figure beside the open positions. A PNG with a transparent background keeps the cut-out effect; a normal photo will show its rectangle. Around 578x709. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/brg-srfr-img-crop.png"
   }
 }

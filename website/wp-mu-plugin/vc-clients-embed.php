@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.12.0
+ * Version: 2.13.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.12.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.13.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -259,6 +259,10 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
             );
         }
 
+        /* Images whose value came from the EDITOR rather than the built-in default. Collected
+         * so the srcset can be dropped from those tags below — see the note after the loop. */
+        $swapped_images = array();
+
         foreach ( $slots as $key => $def ) {
             $type    = ( is_array( $def ) && isset( $def['type'] ) )    ? $def['type']    : 'text';
             $default = ( is_array( $def ) && isset( $def['default'] ) ) ? $def['default'] : '';
@@ -276,9 +280,11 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
                 }
             }
             if ( $type === 'image' ) {                       // ACF image → URL (array / id / url)
+                $was_default = ( $val === $default );
                 if ( is_array( $val ) && isset( $val['url'] ) ) $val = $val['url'];
                 else if ( is_numeric( $val ) )                  $val = wp_get_attachment_image_url( (int) $val, 'full' );
                 $val = esc_url( (string) $val );
+                if ( ! $was_default && $val !== '' ) $swapped_images[] = $val;
             }
             else if ( $type === 'url' )  $val = esc_url( (string) $val );
             else if ( $type === 'html' ) $val = wp_kses_post( (string) $val );
@@ -305,6 +311,31 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
             else                         $val = esc_html( (string) $val );
             $frag = str_replace( '{{' . $key . '}}', $val, $frag );
         }
+        /* AN UPLOADED IMAGE MUST BEAT THE srcset, or it never appears at all.
+         *
+         * home-hero's background ships seven fixed widths in a srcset so a phone pulls base-390
+         * instead of the 800KB base-1920. A browser picks its candidate from srcset and IGNORES
+         * src — so swapping the src for an uploaded photo would change nothing on screen, with
+         * no error, and the editor would reasonably conclude the feature was broken.
+         *
+         * So: where an image slot resolved to the EDITOR'S choice rather than the built-in
+         * default, drop the srcset from that one tag. The default keeps its seven widths and
+         * stays as fast as it is today; only a deliberately swapped image forgoes them. That is
+         * the right trade — a correct picture at one size beats the wrong picture at seven.
+         *
+         * Matched on the tag containing that exact src, so tags with no swapped image are
+         * untouched. */
+        if ( $swapped_images ) {
+            $frag = preg_replace_callback( '/<img\b[^>]*>/i', function ( $m ) use ( $swapped_images ) {
+                foreach ( $swapped_images as $u ) {
+                    if ( strpos( $m[0], 'src="' . $u . '"' ) !== false ) {
+                        return preg_replace( '/\s+srcset="[^"]*"/i', '', $m[0] );
+                    }
+                }
+                return $m[0];
+            }, $frag );
+        }
+
         // Strip any leftover tokens. The class includes `-` deliberately: slot names are
         // underscores by convention, so a hyphenated token is always a typo — but before v2.6.1
         // this regex didn't match one, so `{{cta-label}}` reached the VISITOR as raw template

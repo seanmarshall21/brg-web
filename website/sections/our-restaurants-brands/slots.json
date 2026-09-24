@@ -63,5 +63,17 @@
     "label": "Odie's — button link",
     "doc": "Opens in a new tab; target/rel are in the markup.",
     "default": "https://odiespizza.com"
+  },
+  "bnb_image": {
+    "type": "image",
+    "label": "Board & Brew — image",
+    "doc": "The artwork in the Board & Brew panel. Landscape, around 800x550. An SVG logo lockup or a photo both work. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg"
+  },
+  "odies_image": {
+    "type": "image",
+    "label": "Odie's — image",
+    "doc": "The artwork in the Odie's panel. Landscape, around 800x550. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg"
   }
 }

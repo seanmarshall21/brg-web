@@ -73,15 +73,15 @@
          — Sean to name the real three. -->
     <div class="blocks anim-up">
       <span class="p y brgw-img" data-brgw-img>
-        <img src="https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp" alt=""
+        <img src="{{photo_1}}" alt=""
              width="1600" height="1067" decoding="async" loading="lazy" data-brgw-parallax=".7">
       </span>
       <span class="p k brgw-img" data-brgw-img>
-        <img src="https://blacktoprg.netlify.app/assets/media/bg/skater.webp" alt=""
+        <img src="{{photo_2}}" alt=""
              width="733" height="1100" decoding="async" loading="lazy" data-brgw-parallax="-1.1">
       </span>
       <span class="p w brgw-img" data-brgw-img>
-        <img src="https://blacktoprg.netlify.app/assets/media/bg/surfer.webp" alt=""
+        <img src="{{photo_3}}" alt=""
              width="548" height="820" decoding="async" loading="lazy" data-brgw-parallax="1.7">
       </span>
     </div>
@@ -94,7 +94,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3"};
+  var D = {"body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_3": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

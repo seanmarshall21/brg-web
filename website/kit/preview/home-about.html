@@ -33,7 +33,7 @@
 </style>
   <div class="grid">
     <div class="shot brgw-img" data-brgw-img>
-      <img src="https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp"
+      <img src="{{photo}}"
            alt="Friends walking the Oceanside pier at golden hour" width="1600" height="1067"
            decoding="async" loading="lazy" data-brgw-parallax="1.1">
     </div>
@@ -57,7 +57,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "What we're about", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences."};
+  var D = {"heading": "What we're about", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

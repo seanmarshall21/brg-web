@@ -72,7 +72,7 @@
 </style>
   <div class="bg" aria-hidden="true">
     <img class="plate" alt="" decoding="async" data-brgw-parallax=".55"
-      src="https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp"
+      src="{{bg_photo}}"
       srcset="https://blacktoprg.netlify.app/assets/media/bg/base/base-390.webp 390w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-480.webp 480w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-768.webp 768w,
@@ -110,7 +110,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3"};
+  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

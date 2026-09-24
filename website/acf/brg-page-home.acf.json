@@ -115,6 +115,23 @@
                 "default_value": "u3"
             },
             {
+                "key": "field_brg_home_hero_bg_photo",
+                "label": "Background photo",
+                "name": "brg_home_hero_bg_photo",
+                "type": "image",
+                "instructions": "The full-bleed hero collage behind the logo and headline. Dark imagery works best — the headline and sub copy sit on top in white. Landscape, at least 1600px wide. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
                 "key": "field_brg_tab_home_community",
                 "label": "Born in San Diego",
                 "name": "",
@@ -259,6 +276,40 @@
                 "default_value": "h3"
             },
             {
+                "key": "field_brg_home_community_photo_1",
+                "label": "Photo — tall, front",
+                "name": "brg_home_community_photo_1",
+                "type": "image",
+                "instructions": "The taller photo in front. Portrait crop, around 733x1100. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_community_photo_2",
+                "label": "Photo — behind",
+                "name": "brg_home_community_photo_2",
+                "type": "image",
+                "instructions": "The photo set behind and slightly offset. Portrait crop, around 548x820. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
                 "key": "field_brg_tab_home_about",
                 "label": "What we're about",
                 "name": "",
@@ -367,6 +418,23 @@
                     "id": ""
                 },
                 "default_value": "To amp up our communities by creating real connections and rad experiences."
+            },
+            {
+                "key": "field_brg_home_about_photo",
+                "label": "Photo",
+                "name": "brg_home_about_photo",
+                "type": "image",
+                "instructions": "The wide photo in this section. Landscape, around 1600x1067. Cropped to fit, so the exact size is forgiving. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
             },
             {
                 "key": "field_brg_tab_home_different",
@@ -481,6 +549,57 @@
                     "id": ""
                 },
                 "default_value": "h3"
+            },
+            {
+                "key": "field_brg_home_different_photo_1",
+                "label": "Photo — large",
+                "name": "brg_home_different_photo_1",
+                "type": "image",
+                "instructions": "The large landscape photo. Around 1600x1067. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_different_photo_2",
+                "label": "Photo — tall",
+                "name": "brg_home_different_photo_2",
+                "type": "image",
+                "instructions": "Portrait crop, around 733x1100. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_different_photo_3",
+                "label": "Photo — small",
+                "name": "brg_home_different_photo_3",
+                "type": "image",
+                "instructions": "Portrait crop, around 548x820. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
             },
             {
                 "key": "field_brg_tab_home_values",

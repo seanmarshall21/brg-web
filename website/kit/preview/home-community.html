@@ -65,11 +65,11 @@
     </div>
     <div class="media anim-up">
       <div class="plate brgw-img" data-brgw-img>
-        <img src="https://blacktoprg.netlify.app/assets/media/bg/skater.webp" alt=""
+        <img src="{{photo_1}}" alt=""
              width="733" height="1100" decoding="async" loading="lazy" data-brgw-parallax="1">
       </div>
       <div class="block brgw-img" data-brgw-img>
-        <img src="https://blacktoprg.netlify.app/assets/media/bg/surfer.webp" alt=""
+        <img src="{{photo_2}}" alt=""
              width="548" height="820" decoding="async" loading="lazy" data-brgw-parallax="-.9">
       </div>
       <span class="cluster" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg" alt="" width="302" height="310" loading="lazy" decoding="async"></span>
@@ -83,7 +83,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3"};
+  var D = {"intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

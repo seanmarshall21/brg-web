@@ -369,6 +369,23 @@
                 "default_value": "/careers/#roles"
             },
             {
+                "key": "field_brg_careers_positions_photo",
+                "label": "Photo",
+                "name": "brg_careers_positions_photo",
+                "type": "image",
+                "instructions": "The cut-out figure beside the open positions. A PNG with a transparent background keeps the cut-out effect; a normal photo will show its rectangle. Around 578x709. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
                 "key": "field_brg_tab_careers_posts",
                 "label": "LinkedIn posts",
                 "name": "",

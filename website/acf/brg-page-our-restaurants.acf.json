@@ -302,6 +302,40 @@
                     "id": ""
                 },
                 "default_value": "https://odiespizza.com"
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_image",
+                "label": "Board & Brew — image",
+                "name": "brg_our_restaurants_brands_bnb_image",
+                "type": "image",
+                "instructions": "The artwork in the Board & Brew panel. Landscape, around 800x550. An SVG logo lockup or a photo both work. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_image",
+                "label": "Odie's — image",
+                "name": "brg_our_restaurants_brands_odies_image",
+                "type": "image",
+                "instructions": "The artwork in the Odie's panel. Landscape, around 800x550. Leave empty to keep the current picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
             }
         ],
         "location": [

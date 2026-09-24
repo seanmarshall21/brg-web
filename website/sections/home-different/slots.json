@@ -23,5 +23,23 @@
     "label": "Highlight animation",
     "doc": "How the marker highlight behind “A different kind” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
     "default": "h3"
+  },
+  "photo_1": {
+    "type": "image",
+    "label": "Photo — large",
+    "doc": "The large landscape photo. Around 1600x1067. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp"
+  },
+  "photo_2": {
+    "type": "image",
+    "label": "Photo — tall",
+    "doc": "Portrait crop, around 733x1100. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp"
+  },
+  "photo_3": {
+    "type": "image",
+    "label": "Photo — small",
+    "doc": "Portrait crop, around 548x820. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"
   }
 }

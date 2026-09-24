@@ -29,5 +29,11 @@
     "label": "Mission — statement",
     "doc": "Display face, large. One sentence; past ~90 characters it starts to unbalance the column against the photo.",
     "default": "To amp up our communities by creating real connections and rad experiences."
+  },
+  "photo": {
+    "type": "image",
+    "label": "Photo",
+    "doc": "The wide photo in this section. Landscape, around 1600x1067. Cropped to fit, so the exact size is forgiving. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp"
   }
 }

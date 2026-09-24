@@ -35,5 +35,17 @@
     "label": "Highlight animation",
     "doc": "How the marker highlight behind “for community.” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
     "default": "h3"
+  },
+  "photo_1": {
+    "type": "image",
+    "label": "Photo — tall, front",
+    "doc": "The taller photo in front. Portrait crop, around 733x1100. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp"
+  },
+  "photo_2": {
+    "type": "image",
+    "label": "Photo — behind",
+    "doc": "The photo set behind and slightly offset. Portrait crop, around 548x820. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"
   }
 }
