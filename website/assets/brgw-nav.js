@@ -237,7 +237,14 @@
       var flip = function () {
         var el = document.elementFromPoint(Math.round(window.innerWidth / 2), nav.offsetHeight + 4);
         var sec = el && el.closest('[data-nav]');
-        nav.classList.toggle('on-dark', !!(sec && sec.getAttribute('data-nav') === 'dark'));
+        var shade = sec ? sec.getAttribute('data-nav') : '';
+        // Both classes are set explicitly, and an unlabelled area clears BOTH rather than
+        // falling through to one of them. The header's default (white links over dark
+        // imagery) is then what shows, which is the behaviour every page had before any
+        // section was labelled — so a section nobody has labelled cannot turn the menu
+        // invisible against its own background.
+        nav.classList.toggle('on-dark', shade === 'dark');
+        nav.classList.toggle('on-light', shade === 'light');
       };
       window.addEventListener('scroll', flip, { passive: true });
       window.addEventListener('resize', flip); flip();

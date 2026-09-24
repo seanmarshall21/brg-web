@@ -55,11 +55,26 @@
                 "ui_off_text": "Hidden"
             },
             {
+                "key": "field_brg_home_hero_heading",
+                "label": "Headline",
+                "name": "brg_home_hero_heading",
+                "type": "textarea",
+                "instructions": "The hero headline. PRESS RETURN where you want the line to break — it breaks exactly there. Two lines is the design; three starts eating the fold on a phone.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "We're in the business\nof making your day great."
+            },
+            {
                 "key": "field_brg_home_hero_sub",
                 "label": "Sub copy",
                 "name": "brg_home_hero_sub",
                 "type": "textarea",
-                "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
+                "instructions": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters. PRESS RETURN to force a line break exactly where you want one.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

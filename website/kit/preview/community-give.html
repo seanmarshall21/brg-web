@@ -34,7 +34,7 @@
      cover, so the container sizes it and an uploaded photo of any dimensions cannot shift the
      layout. The button is hidden by :empty when no label is typed, so a row without one does
      not leave an empty yellow box. -->
-<section class="brgw-sec brgw-sec--community-give reveal" aria-label="How we give back">
+<section class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--community-give .intro{padding:clamp(76px,8.4vw,120px) var(--pad) clamp(58px,6vw,86px);
@@ -86,7 +86,9 @@
 
   <span class="banner blanco anim-up">{{banner}}</span>
 
-  <div class="brgw-slider" data-autoplay="6500">
+  <!-- The slider is DARK inside a light section. data-nav nests: brgw-nav.js takes the
+       nearest labelled ancestor, so the header reads this rather than the section. -->
+  <div class="brgw-slider" data-nav="dark" data-autoplay="6500">
     <div class="brgw-slider__track">
 <!--brg:repeat slides-->
       <div class="brgw-slide">

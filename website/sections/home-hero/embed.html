@@ -8,7 +8,7 @@
      per instance — [brg_home-hero uline_variant="u1"] — from the shared system in brgw.css;
      default u3, the angled wipe. SPEC-003's reasoning still holds and is why u3 is the
      default: a scaleX stretches the taper, a wipe reveals it at true width. -->
-<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-uline="{{uline_variant}}" aria-label="Blacktop Restaurant Group">
+<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Blacktop Restaurant Group">
 <style>
 .brgw-sec--home-hero{position:relative;overflow:hidden;background:var(--bg2);
   min-height:88vh;display:grid;place-items:center;
@@ -90,7 +90,7 @@
   </div>
 
   <div class="head">
-    <h1 class="blanco anim-head">We're in the business<br>of making your day great.</h1>
+    <h1 class="blanco anim-head">{{heading}}</h1>
     <img class="uline anim-up" aria-hidden="true" alt="" width="845" height="28"
          src="https://blacktoprg.netlify.app/assets/media/lines/line-home-lg.svg">
   </div>

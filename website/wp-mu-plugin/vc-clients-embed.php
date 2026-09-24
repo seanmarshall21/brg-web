@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.11.0
+ * Version: 2.12.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.11.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.12.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -282,6 +282,26 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
             }
             else if ( $type === 'url' )  $val = esc_url( (string) $val );
             else if ( $type === 'html' ) $val = wp_kses_post( (string) $val );
+            /* `lines` — plain text where the EDITOR'S line breaks are kept.
+             *
+             * Sean: "I need to be able to do line breaks for the hero sentences and headlines."
+             * Joyce asked the same for the Brands headline (#33, "each sentence should share
+             * one line"). Until now every slot was esc_html'd, so a typed newline collapsed to
+             * a space and a headline could only ever break where the browser chose.
+             *
+             * ESCAPED FIRST, THEN BREAKS ADDED. esc_html turns any real markup into visible
+             * text, and only afterwards do \n become <br>. So the editor cannot inject HTML —
+             * typing <script> still renders as the literal characters — while still controlling
+             * where the line turns. A `html`/wysiwyg field would have allowed the break AND the
+             * markup, which is why it was never the answer for a headline.
+             *
+             * \r\n and \r are normalised first: a paste from Word or Notes carries \r\n, which
+             * would otherwise leave a stray carriage return inside the tag. */
+            else if ( $type === 'lines' ) {
+                $val = esc_html( (string) $val );
+                $val = str_replace( array( "\r\n", "\r" ), "\n", $val );
+                $val = preg_replace( '/\n+/', '<br>', $val );
+            }
             else                         $val = esc_html( (string) $val );
             $frag = str_replace( '{{' . $key . '}}', $val, $frag );
         }

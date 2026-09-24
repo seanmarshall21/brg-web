@@ -29,9 +29,27 @@
 /* sticky = hide-on-scroll-down (JS toggles .is-hidden) */
 .bnav.is-hidden{transform:translateY(-100%);}
 
-/* register invert (opt-in via section data-nav) */
+/* REGISTER INVERT — the header re-colours itself against whatever is under it.
+   Sections opt in with data-nav="dark" or data-nav="light"; brgw-nav.js reads what sits
+   beneath the bar on scroll and sets one of these.
+
+   `on-light` was missing entirely until 2026-09-24. Only the dark half existed, so a
+   transparent header with white links crossed a white section and vanished — the exact
+   thing Sean asked for from Temper, reported as already working. Nothing anywhere set a
+   dark link colour.
+
+   Transitioned, because the flip happens mid-scroll and a hard swap reads as a flicker. */
+.bnav .bnav-link,.bnav .bnav-ham i{transition:color .25s ease,background-color .25s ease;}
+
 .bnav.on-dark{--bnav-bg:#131210;box-shadow:none;}
 .bnav.on-dark .bnav-link{color:#fff;} .bnav.on-dark .bnav-ham i{background:#fff;}
+
+/* Over a LIGHT section: ink text on a transparent bar. No background is painted — the
+   section's own colour is the backdrop, exactly as the dark case leaves it. */
+.bnav.on-light .bnav-link{color:var(--ink);}
+.bnav.on-light .bnav-ham i{background:var(--ink);}
+.bnav.on-light .bnav-uline path{stroke:var(--ink);}
+.bnav.on-light.bg-frost::before{opacity:0;}
 
 /* Logo */
 .bnav-logo{display:flex;align-items:center;text-decoration:none;line-height:0;}

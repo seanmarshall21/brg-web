@@ -35,7 +35,13 @@ OPTIONS_PAGE = 'brg-section-content'
 # from slots.json (`$def['type']`, :53 esc_url), not on the ACF field type — so a
 # slot stays `"type": "url"`, still goes through esc_url(), and mailto/relative/
 # anchor all survive that. Only the admin widget changes.
-TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'text', 'image': 'image', 'html': 'wysiwyg'}
+TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'text', 'image': 'image', 'html': 'wysiwyg',
+        # `lines` is a textarea in the admin and plain text on the page, except that the
+        # editor's line breaks are kept. It exists because a headline could previously only
+        # break where the browser chose — the plugin esc_html'd every slot, so a typed
+        # newline collapsed to a space. The plugin escapes FIRST and turns \n into <br>
+        # after, so the break is controllable without the field accepting markup.
+        'lines': 'textarea'}
 
 # TWO grammars, identical until plugin v2.6.1 and not since. See kit/README.md.
 #   STRIPPABLE  what the plugin removes, and what --check must SEE to report it.
