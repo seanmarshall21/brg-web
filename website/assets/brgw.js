@@ -110,6 +110,7 @@
     stroke.style.width = '';
     stroke.style.marginLeft = '';
     stroke.style.marginRight = '';
+    stroke.style.maxWidth = '';              // see the max-width note where it is re-applied
     void stroke.offsetWidth;                 // force reflow so the reset is real
 
     var box = null;
@@ -150,9 +151,36 @@
       }
     }
     if (!box) return;
-    var base = (stroke.offsetParent || head.parentNode).getBoundingClientRect();
+
+    /* MEASURE AGAINST THE BOX THE MARGIN ACTUALLY RESOLVES AGAINST — its PARENT's content
+       edge, not offsetParent.
+       margin-left on a block in normal flow is measured from the containing block's CONTENT
+       edge, and the containing block is the parent. offsetParent is the nearest POSITIONED
+       ancestor, which here is usually the section. Where the stroke sits inside a centred
+       .head (max-width:min(94%,1180px); margin-inline:auto) those are different boxes, so
+       every mark was offset by however far .head sits from the section edge — measured
+       correctly against the words, then placed against the wrong origin. That is why it was
+       "slightly to the left" at one width and further out at another.
+
+       getBoundingClientRect gives the BORDER box, so padding and border are added back to
+       reach the content edge. Both are zero on today's heroes; relying on that silently is
+       how this breaks again the first time a hero gains padding. */
+    var host = stroke.parentNode;
+    var hostRect = host.getBoundingClientRect();
+    var hs = getComputedStyle(host);
+    var contentLeft = hostRect.left
+      + (parseFloat(hs.paddingLeft) || 0)
+      + (parseFloat(hs.borderLeftWidth) || 0);
+
+    /* max-width:none while an explicit width is set. team-hero's stroke is a direct grid
+       child rather than living inside .head, so its max-width:100% resolved against a
+       SHRINK-TO-FIT track whose width comes from its own content — it clamped the stroke to
+       490px when the words measured 568.766px. The clamp is only there as a pre-JS guard;
+       once a measured width exists it has nothing left to protect. Cleared in the reset
+       above so the measurement itself is never taken through the clamp. */
+    stroke.style.maxWidth = 'none';
     stroke.style.width = box.width + 'px';
-    stroke.style.marginLeft = (box.left - base.left) + 'px';
+    stroke.style.marginLeft = (box.left - contentLeft) + 'px';
     stroke.style.marginRight = '0';
   }
 
