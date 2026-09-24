@@ -41,7 +41,11 @@ TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'text', 'image': 'image',
         # break where the browser chose — the plugin esc_html'd every slot, so a typed
         # newline collapsed to a space. The plugin escapes FIRST and turns \n into <br>
         # after, so the break is controllable without the field accepting markup.
-        'lines': 'textarea'}
+        'lines': 'textarea',
+        # `select` is a dropdown whose LABEL is human and whose VALUE is what the page gets
+        # — Sean's "what you input is not what it returns". Requires return_format 'value',
+        # or ACF hands back the label and prose lands in an attribute.
+        'select': 'select'}
 
 # TWO grammars, identical until plugin v2.6.1 and not since. See kit/README.md.
 #   STRIPPABLE  what the plugin removes, and what --check must SEE to report it.
@@ -174,6 +178,12 @@ def field(section_id, slot, defn):
     if t == 'image':
         f.update({'return_format': 'url', 'preview_size': 'medium', 'library': 'all'})
         f.pop('default_value', None)
+    if t == 'select':
+        # return_format 'value' is load-bearing. Without it ACF returns the LABEL, so a
+        # fragment expecting `youtube` receives "YouTube" and the attribute is wrong in a way
+        # that looks like a content problem rather than a config one.
+        f.update({'choices': defn.get('choices', {}), 'return_format': 'value',
+                  'allow_null': 0, 'multiple': 0, 'ui': 0, 'ajax': 0, 'placeholder': ''})
     return f
 
 def visibility_field(section_id):

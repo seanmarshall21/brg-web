@@ -132,6 +132,46 @@
                 "library": "all"
             },
             {
+                "key": "field_brg_home_hero_video_id",
+                "label": "Background video (optional)",
+                "name": "brg_home_hero_video_id",
+                "type": "text",
+                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank and the photo above is used. The video plays silently on a loop with no controls, and the photo shows while it loads, if the video is blocked, or for visitors who have switched off animation.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_home_hero_video_source",
+                "label": "Video from",
+                "name": "brg_home_hero_video_source",
+                "type": "select",
+                "instructions": "Which service the link is from. Only matters when a video is set.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "youtube",
+                "choices": {
+                    "youtube": "YouTube",
+                    "vimeo": "Vimeo"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_tab_home_community",
                 "label": "Born in San Diego",
                 "name": "",

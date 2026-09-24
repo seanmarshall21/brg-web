@@ -19,6 +19,11 @@
   min-height:88vh;display:grid;place-items:center;
   padding:clamp(90px,14vh,160px) var(--pad) clamp(70px,10vh,120px);}
 
+/* The poster+video wrapper must FILL the bleed box, not sit in it. .plate is absolutely
+   positioned, so once it gained a positioned ancestor that ancestor became its reference
+   box — and a wrapper whose only children are absolute has zero height, which would have
+   collapsed the whole hero background to nothing. */
+.brgw-sec--home-hero .plate-media{position:absolute;inset:0;}
 .brgw-sec--home-hero .plate{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   z-index:0;opacity:0;filter:grayscale(1) contrast(1.06);transform:scale(1.06);}
 .brgw-sec--home-hero.is-in .plate{
@@ -71,7 +76,8 @@
 }
 </style>
   <div class="bg" aria-hidden="true">
-    <img class="plate" alt="" decoding="async" data-brgw-parallax=".55"
+    <div class="media plate-media">
+      <img class="plate" alt="" decoding="async" data-brgw-parallax=".55"
       src="{{bg_photo}}"
       srcset="https://blacktoprg.netlify.app/assets/media/bg/base/base-390.webp 390w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-480.webp 480w,
@@ -81,6 +87,8 @@
               https://blacktoprg.netlify.app/assets/media/bg/base/base-1440.webp 1440w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp 1920w"
       sizes="100vw" width="1920" height="1340">
+      <div class="vid" data-vid="{{video_id}}" data-src="{{video_source}}" aria-hidden="true"></div>
+    </div>
     <div class="grit"></div>
     <div class="veil"></div>
   </div>
@@ -110,7 +118,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp"};
+  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "video_id": "", "video_source": "youtube"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

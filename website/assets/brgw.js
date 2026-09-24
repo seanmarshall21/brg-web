@@ -440,7 +440,47 @@
     else window.addEventListener('load', go);
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); }
+
+  /* ── Background video (SPEC-013) ───────────────────────────────────────────
+     The <iframe> is NOT in the fragment. display:none does not stop a browser
+     requesting it, so six sections with a background video would pull six
+     third-party frames on a page showing none of them. It is injected here, only
+     when there is actually an ID, and only when motion is welcome.
+
+     Accepts a full share URL or a bare ID, because asking whoever inherits this
+     site to extract an ID from a YouTube link is the exact "built for us, not for
+     them" problem this whole editing pass exists to fix. */
+  function brgwVideo(root) {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    [].forEach.call(root.querySelectorAll('.vid[data-vid]'), function (box) {
+      var raw = (box.getAttribute('data-vid') || '').trim();
+      if (!raw || box.querySelector('iframe')) return;
+      var src = (box.getAttribute('data-src') || 'youtube').trim().toLowerCase();
+      var id = raw, m;
+      if (src === 'vimeo') {
+        m = raw.match(/vimeo\.com\/(?:video\/)?(\d+)/); if (m) id = m[1];
+        if (!/^\d+$/.test(id)) return;                     // not a Vimeo id — show the poster
+      } else {
+        m = raw.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+        if (m) id = m[1];
+        if (!/^[A-Za-z0-9_-]{6,}$/.test(id)) return;
+      }
+      var url = src === 'vimeo'
+        ? 'https://player.vimeo.com/video/' + id + '?background=1&autoplay=1&loop=1&muted=1'
+        /* playlist=<ID> is REQUIRED for loop=1 on YouTube — it loops a playlist, and a lone
+           video without it plays once and stops. mute is load-bearing too: every current
+           browser blocks autoplay with sound, so without it nothing plays at all. */
+        : 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&mute=1&loop=1&playlist='
+          + id + '&controls=0&playsinline=1&modestbranding=1&rel=0';
+      var f = document.createElement('iframe');
+      f.src = url; f.setAttribute('allow', 'autoplay; encrypted-media');
+      f.setAttribute('loading', 'lazy'); f.setAttribute('title', '');
+      f.setAttribute('tabindex', '-1'); f.setAttribute('aria-hidden', 'true');
+      box.appendChild(f);
+    });
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

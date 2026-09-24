@@ -390,3 +390,22 @@
    hiding its own: the badge is shared chrome and the rule must hold for every section
    that has one, including any added later. */
 [data-seam="off"] .seam{display:none;}
+
+/* ── BACKGROUND VIDEO (SPEC-013) ─────────────────────────────────────────────
+   Poster image and video BOTH render, video on top — Sean's ruling, 20 Aug. The
+   poster is not a fallback nicety: it is what shows while the embed loads, what
+   survives a blocked third-party frame, and what a reduced-motion visitor sees.
+
+   [data-vid=""] matches an EMPTY attribute, which is how a template with no
+   conditionals says "no video here". A new idiom in this file — nothing else uses
+   attribute-value matching — so it is stated rather than left to be inferred. */
+.brgw .media{position:relative;overflow:hidden;}
+.brgw .vid{position:absolute;inset:0;overflow:hidden;z-index:1;}
+.brgw .vid[data-vid=""]{display:none;}
+/* A 16:9 iframe cannot object-fit, so it is oversized and centred instead. The 110%
+   overshoot is deliberate: at exactly 100% sub-pixel rounding can leave a 1px hairline
+   of poster along one edge, which reads as a rendering fault. pointer-events:none keeps
+   the video from swallowing clicks meant for a button sitting over it. */
+.brgw .vid iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:100vw;height:56.25vw;min-width:110%;min-height:110%;border:0;pointer-events:none;}
+@media (prefers-reduced-motion:reduce){ .brgw .vid{display:none!important;} }
