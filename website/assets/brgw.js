@@ -191,8 +191,27 @@
     }
     function splitByWords(el) {
       if (el.querySelector('.ln')) return; // already split (guards nested roots)
+      /* AN EXPLICIT <br> IS A LINE THE EDITOR CHOSE, and it has to survive this split.
+         This measured visual lines from el.textContent — and a <br> contributes NO text, so
+         "Two brands.<br>One standard." read back as "Two brands.One standard.": the break was
+         dropped AND the words were welded together with no space. That is exactly what Sean
+         saw the day hero headlines became editable ("it's actually just removing a space").
+         Keeping the <br> between the word spans lets the existing offsetTop grouping below do
+         the work unchanged — words after a break simply sit on a new row, so an authored break
+         and a natural wrap are measured the same way and both end up as their own .ln. */
+      var segments = el.innerHTML.split(/<br\s*\/?>/i);
+      if (segments.length > 1) {
+        el.innerHTML = segments.map(function (seg) {
+          var t = seg.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+          if (!t) return '';
+          return t.split(' ').map(function (w) {
+            return '<span class="w" style="display:inline-block">' + w + '</span>';
+          }).join(' ');
+        }).filter(Boolean).join('<br>');
+      } else {
       var words = el.textContent.replace(/\s+/g, ' ').trim().split(' ');
       el.innerHTML = words.map(function (w) { return '<span class="w" style="display:inline-block">' + w + '</span>'; }).join(' ');
+      }
       var ws = [].slice.call(el.querySelectorAll('.w')), lines = [], cur = [], top = null;
       ws.forEach(function (s) {
         var t = s.offsetTop;
