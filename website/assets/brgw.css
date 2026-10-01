@@ -190,6 +190,13 @@
    the video paints on top of it, so it covers the load, a blocked embed, and the
    reduced-motion case where .vid is hidden outright. */
 .brgw-hero .hero-bg[data-bg=""][data-vid-set=""]{display:none;}
+/* VIDEO-ONLY IS A VISIBLE LAYER WITH AN EMPTY url(), so the empty case is stated rather
+   than left to the engine. Chrome was measured making no request for url("") — checked,
+   not assumed — but that is one browser, and the failure it would hide is the same one
+   the <img> was rejected for: an empty url resolving against the PAGE and re-downloading
+   the document as an image, for every visitor. Higher specificity than the rule above,
+   so background-image:none wins whatever the custom property holds. */
+.brgw-hero .hero-bg[data-bg=""]{background-image:none;}
 .brgw-hero .hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
   opacity:var(--brgw-scrim-o,.5);}
 .brgw-hero .hero-scrim[data-scrim=""],
