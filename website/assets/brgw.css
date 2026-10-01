@@ -134,7 +134,17 @@
      at 1440×1200 (164px / 134px) and now scale with the viewport like the padding does. */
   --brgw-doodle-top:clamp(90px,13.7vh,164px);
   --brgw-doodle-bottom:clamp(70px,11.2vh,134px);}
-.brgw-hero h1{font-size:clamp(2.4rem,6.4vw,5.4rem);text-transform:uppercase;max-width:18ch;margin:0 auto 8px;}
+/* 24ch, not 18ch. At the capped 5.4rem the old cap measured 884.7px, and that was narrow
+   enough to re-wrap the AUTHORED line breaks: home-hero's "We're in the business" came out
+   as "We're in the / business", so the line-break feature Sean asked for was being undone by
+   the container. It also left every long headline ending on a short tail — careers broke to
+   "actually want to / be", and the underline hugs the last line, so the stroke became a 90px
+   dash under a two-letter word. 24ch measures 1179.6px and gives each hero a two-line
+   headline with a substantial last line.
+   PHONES ARE UNAFFECTED: at 390px the headline is already limited by the column, not by this
+   cap — measured 342px wide under both values, with no horizontal overflow. The ch unit
+   scales with font-size, so this stays a character count rather than a fixed width. */
+.brgw-hero h1{font-size:clamp(2.4rem,6.4vw,5.4rem);text-transform:uppercase;max-width:24ch;margin:0 auto 8px;}
 .brgw-hero .sub{max-width:52ch;margin:26px auto 0;opacity:.9;line-height:1.6;font-size:clamp(1rem,1.3vw,1.2rem);}
 
 /* ---- looping micro-animations (splash-style hard-cut jitter) ---- */
