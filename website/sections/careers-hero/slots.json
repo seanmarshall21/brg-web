@@ -29,5 +29,39 @@
     "label": "Underline animation",
     "doc": "How the hand-drawn underline (line-careers-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
     "default": "u3"
+  },
+  "bg_photo": {
+    "type": "image",
+    "label": "Background photo",
+    "doc": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for."
+  },
+  "overlay_color": {
+    "type": "select",
+    "label": "Overlay colour",
+    "doc": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+    "default": "none",
+    "choices": {
+      "none": "None — no overlay",
+      "black": "Black",
+      "ink": "Ink — the BRG near-black",
+      "teal": "Teal",
+      "yellow": "Yellow",
+      "pink": "Pink"
+    }
+  },
+  "overlay_strength": {
+    "type": "select",
+    "label": "Overlay strength",
+    "doc": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+    "default": "0.45",
+    "choices": {
+      "0": "0% — overlay off",
+      "0.15": "15% — barely there",
+      "0.3": "30% — light",
+      "0.45": "45% — usual for white type",
+      "0.6": "60% — strong",
+      "0.75": "75% — very strong",
+      "0.9": "90% — photo barely visible"
+    }
   }
 }

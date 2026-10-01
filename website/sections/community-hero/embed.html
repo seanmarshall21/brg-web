@@ -14,6 +14,13 @@
    decorative bar; on a ~1100px headline it read as far too short.) */
 .brgw-sec--community-hero .uline{display:block;width:min(640px,62%);margin:16px auto 0;height:auto;}
 </style>
+  <!-- Background photo + colour overlay, both ACF. The scrim NESTS INSIDE the photo
+       layer so that "no photo" and "no overlay" are one state: an empty photo hides
+       the parent and takes the overlay with it, which is why adding this control
+       changes nothing on a hero that has no photo set. Rules live in brgw.css. -->
+  <div class="hero-bg" data-bg="{{bg_photo}}" style="--brgw-hero-bg:url('{{bg_photo}}')" aria-hidden="true">
+    <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
+  </div>
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
   <img class="uline anim-up" aria-hidden="true" alt="" width="841" height="28"
        src="https://blacktoprg.netlify.app/assets/media/lines/line-community-lg.svg">

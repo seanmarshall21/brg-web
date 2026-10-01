@@ -147,6 +147,51 @@
 .brgw-hero h1{font-size:clamp(2.4rem,6.4vw,5.4rem);text-transform:uppercase;max-width:24ch;margin:0 auto 8px;}
 .brgw-hero .sub{max-width:52ch;margin:26px auto 0;opacity:.9;line-height:1.6;font-size:clamp(1rem,1.3vw,1.2rem);}
 
+/* ── Hero background photo + colour overlay ──────────────────────────────────
+   Sean, 30 Sep: "I don't recall how I'm able to control the background of that
+   section. I can see it on the home page, but it's not on any of the other
+   sections." It was not a hidden control — only home-hero had a media layer at all.
+   The other five heroes were flat var(--bg2), so there was nothing for a field to
+   attach to.
+
+   A DIV WITH A CSS BACKGROUND, NOT AN <img>. The photo is empty by default on five
+   of the six heroes, and <img src=""> resolves against the PAGE URL and re-requests
+   the document — a real request, for every visitor, on a hero deliberately showing
+   no photo. data-bg="" hides the layer instead, and a display:none element does not
+   fetch its background.
+
+   THE SCRIM NESTS INSIDE THE PHOTO LAYER. That is what makes "no photo" and "no
+   overlay" the same state without the plugin having to reason about it: hide the
+   parent and the overlay goes with it. A sibling scrim would tint the flat hero
+   colour of a hero that has no photo, which is a visible change to five live pages
+   caused purely by shipping the mechanism.
+
+   COLOUR AND STRENGTH ARE SEPARATE FIELDS, so the scrim is a solid background with a
+   separate opacity rather than one rgba(). Composing an rgba() string would put
+   colour maths in PHP, and would stop either half being an ACF dropdown.
+
+   CONTENT IS LIFTED EXPLICITLY, NOT WITH `> *`. h1/.sub/.uline are not positioned,
+   so an absolutely positioned scrim paints over them whatever its z-index. A blanket
+   `.brgw-hero > *` rule would also hit .brgw-doodle, which is position:absolute with
+   its own offsets — turning it relative drops both doodles into the text flow. The
+   four content selectors are named instead. A WRAPPER would be worse still: the
+   underline measures its margin against its PARENT's content edge, so wrapping the
+   content re-breaks the placement fixed in 89235d7. */
+.brgw-hero .hero-bg{position:absolute;inset:0;z-index:0;
+  background:var(--brgw-hero-bg) center/cover no-repeat;}
+.brgw-hero .hero-bg[data-bg=""]{display:none;}
+.brgw-hero .hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  opacity:var(--brgw-scrim-o,.5);}
+.brgw-hero .hero-scrim[data-scrim=""],
+.brgw-hero .hero-scrim[data-scrim="none"]{display:none;}
+.brgw-hero .hero-scrim[data-scrim="black"]{background:#000;}
+.brgw-hero .hero-scrim[data-scrim="ink"]{background:var(--ink);}
+.brgw-hero .hero-scrim[data-scrim="teal"]{background:var(--teal);}
+.brgw-hero .hero-scrim[data-scrim="yellow"]{background:var(--yellow);}
+.brgw-hero .hero-scrim[data-scrim="pink"]{background:var(--pink);}
+.brgw-hero > h1,.brgw-hero > .sub,.brgw-hero > .uline,.brgw-hero > .brgw-uline{
+  position:relative;z-index:2;}
+
 /* ---- looping micro-animations (splash-style hard-cut jitter) ---- */
 .brgw-badge svg,.brgw-badge img{transform-origin:center;animation:brgw-jit 1.5s steps(1,end) infinite;}
 @keyframes brgw-jit{

@@ -91,6 +91,10 @@
     </div>
     <div class="grit"></div>
     <div class="veil"></div>
+    <!-- Flat colour overlay, ACF. SEPARATE from .veil above, which is a designed
+         radial vignette rather than a flat tint — defaults to "none", so home looks
+         exactly as it does today until a colour is picked. -->
+    <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
   </div>
 
   <!-- Splash icon cluster: same four marks, same stacking percentages as
@@ -118,7 +122,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "video_id": "", "video_source": "youtube"};
+  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "video_id": "", "video_source": "youtube", "overlay_color": "none", "overlay_strength": "0.45"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

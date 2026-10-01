@@ -18,6 +18,13 @@
 .brgw-sec--contact-hero{overflow:hidden;}
 .brgw-sec--contact-hero .brgw-uline{color:var(--pink);}
 </style>
+  <!-- Background photo + colour overlay, both ACF. The scrim NESTS INSIDE the photo
+       layer so that "no photo" and "no overlay" are one state: an empty photo hides
+       the parent and takes the overlay with it, which is why adding this control
+       changes nothing on a hero that has no photo set. Rules live in brgw.css. -->
+  <div class="hero-bg" data-bg="{{bg_photo}}" style="--brgw-hero-bg:url('{{bg_photo}}')" aria-hidden="true">
+    <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
+  </div>
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
   <span class="brgw-uline anim-up" aria-hidden="true"></span>
   <p class="sub anim-up">{{sub}}</p>
@@ -31,7 +38,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Let's talk.", "sub": "Whatever you need \u2014 a story, a partnership, a job, or just to tell us how we did \u2014 here's who to ask."};
+  var D = {"heading": "Let's talk.", "sub": "Whatever you need \u2014 a story, a partnership, a job, or just to tell us how we did \u2014 here's who to ask.", "bg_photo": "", "overlay_color": "none", "overlay_strength": "0.45"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
