@@ -95,6 +95,60 @@
     return r > l ? { left: l, width: r - l } : null;
   }
 
+  /* THE MARKED RUN, MEASURED OFF THE WORDS THEMSELVES.
+     stripMarks captures the needle from the headline BEFORE the split engine runs, so it
+     still carries the spaces the author typed. The split then wraps each word in its own
+     element and drops the space at every LINE BOUNDARY — "somewhere you actually" comes
+     back out of the DOM as "somewhere youactually". A plain indexOf for the needle
+     therefore misses on every data-head="words" headline (seven of them, including three
+     heroes), rangeFor returned null, placeMark returned early, and the pre-JS CSS width
+     showed instead. The asterisk contract looked implemented and had in fact never once
+     run — it failed silently, which is why it survived review.
+
+     Matching on whitespace-STRIPPED text makes the needle independent of where the lines
+     happen to break, which is the whole point: the author names words, not a layout.
+
+     Measured off the .ln-i word elements rather than a Range, because Range.getClientRects
+     across block .ln lines also returns the LINE BOXES — full column width — and a span of
+     those is the whole headline, which is indistinguishable from the bug being unfixed. */
+  function markedBox(head, needle) {
+    var want = String(needle || '').replace(/\s+/g, '');
+    if (!want) return null;
+
+    var words = head.querySelectorAll('.ln-i');
+    if (!words.length) {                      // pre-split, or reduced motion: no words to walk
+      var r = rangeFor(head, needle);
+      return r ? span(r.getClientRects()) : null;
+    }
+
+    var compact = '', owner = [];             // owner[i] = index of the word owning char i
+    for (var i = 0; i < words.length; i++) {
+      var t = words[i].textContent.replace(/\s+/g, '');
+      for (var j = 0; j < t.length; j++) { compact += t[j]; owner.push(i); }
+    }
+    var at = compact.indexOf(want);
+    if (at < 0) return null;                  // unmatched: fall through to the CSS width
+
+    /* THE LAST ROW OF THE RUN, not its full extent. A marked phrase that wraps spans
+       several rows, and one stroke cannot underline all of them — spanning them returns a
+       box as wide as the headline, which is the 850px bar under the word "be" that Sean
+       photographed. Taking the last row keeps the asterisk path agreeing with the no-
+       delimiter default, which also marks the last line. A phrase that fits on one line
+       has one row, so the common case is unaffected. */
+    var rects = [], top = -Infinity;
+    for (var k = owner[at]; k <= owner[at + want.length - 1]; k++) {
+      var b = words[k].getBoundingClientRect();
+      if (b.width < 1) continue;
+      rects.push(b);
+      if (b.top > top) top = b.top;
+    }
+    var lastRow = [];
+    for (var m = 0; m < rects.length; m++) {
+      if (Math.abs(rects[m].top - top) <= 2) lastRow.push(rects[m]);
+    }
+    return span(lastRow);
+  }
+
   function placeMark(sec) {
     var head = sec.querySelector('.anim-head, h1, h2');
     var stroke = sec.querySelector('.uline');
@@ -115,8 +169,7 @@
 
     var box = null;
     if (head.dataset.markText) {
-      var r = rangeFor(head, head.dataset.markText);
-      if (r) box = span(r.getClientRects());
+      box = markedBox(head, head.dataset.markText);
     } else {
       /* DEFAULT: mark the last LOGICAL line, not the last VISUAL one.
          On mobile a logical line wraps: home-hero's "of making your day great."
