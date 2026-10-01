@@ -23,7 +23,9 @@
        layer so that "no photo" and "no overlay" are one state: an empty photo hides
        the parent and takes the overlay with it, which is why adding this control
        changes nothing on a hero that has no photo set. Rules live in brgw.css. -->
-  <div class="hero-bg" data-bg="{{bg_photo}}" style="--brgw-hero-bg:url('{{bg_photo}}')" aria-hidden="true">
+  <div class="hero-bg" data-bg="{{bg_photo}}" data-vid-set="{{video_id}}"
+       style="--brgw-hero-bg:url('{{bg_photo}}')" aria-hidden="true">
+    <div class="vid" data-vid="{{video_id}}" data-src="{{video_source}}"></div>
     <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
   </div>
   <h1 class="blanco anim-head">{{heading}}</h1>
@@ -40,7 +42,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Meet the crew", "sub_1": "We're operators, leaders, community builders \u2014 and yes, we all have strong opinions about", "sub_highlight": "sandwiches", "sub_2": ". This is the team behind the brands.", "uline_variant": "u3", "bg_photo": "", "overlay_color": "none", "overlay_strength": "0.45"};
+  var D = {"heading": "Meet the crew", "sub_1": "We're operators, leaders, community builders \u2014 and yes, we all have strong opinions about", "sub_highlight": "sandwiches", "sub_2": ". This is the team behind the brands.", "uline_variant": "u3", "bg_photo": "", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

@@ -179,7 +179,17 @@
    content re-breaks the placement fixed in 89235d7. */
 .brgw-hero .hero-bg{position:absolute;inset:0;z-index:0;
   background:var(--brgw-hero-bg) center/cover no-repeat;}
-.brgw-hero .hero-bg[data-bg=""]{display:none;}
+/* HIDDEN ONLY WHEN BOTH ARE EMPTY. Sean, 30 Sep: "the hero section should always have
+   an option for a background image or background video" — so a hero with a video and no
+   photo is a real, supported state, and keying the layer off the photo alone would hide
+   the video with it. Two chained attribute selectors are an AND, which is the whole
+   condition; video_id is repeated onto the wrapper as data-vid-set because CSS cannot
+   ask about a child's attribute without :has(), and this has to hold in every browser
+   that loads the page, not just current ones.
+   The photo doubles as the video's POSTER for free: it is this element's background, and
+   the video paints on top of it, so it covers the load, a blocked embed, and the
+   reduced-motion case where .vid is hidden outright. */
+.brgw-hero .hero-bg[data-bg=""][data-vid-set=""]{display:none;}
 .brgw-hero .hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
   opacity:var(--brgw-scrim-o,.5);}
 .brgw-hero .hero-scrim[data-scrim=""],

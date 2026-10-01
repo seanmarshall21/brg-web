@@ -18,7 +18,9 @@
        layer so that "no photo" and "no overlay" are one state: an empty photo hides
        the parent and takes the overlay with it, which is why adding this control
        changes nothing on a hero that has no photo set. Rules live in brgw.css. -->
-  <div class="hero-bg" data-bg="{{bg_photo}}" style="--brgw-hero-bg:url('{{bg_photo}}')" aria-hidden="true">
+  <div class="hero-bg" data-bg="{{bg_photo}}" data-vid-set="{{video_id}}"
+       style="--brgw-hero-bg:url('{{bg_photo}}')" aria-hidden="true">
+    <div class="vid" data-vid="{{video_id}}" data-src="{{video_source}}"></div>
     <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
   </div>
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>

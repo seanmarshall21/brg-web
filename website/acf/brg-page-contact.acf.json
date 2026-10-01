@@ -89,7 +89,7 @@
                 "label": "Background photo",
                 "name": "brg_contact_hero_bg_photo",
                 "type": "image",
-                "instructions": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for.",
+                "instructions": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -152,6 +152,46 @@
                     "0.6": "60% — strong",
                     "0.75": "75% — very strong",
                     "0.9": "90% — photo barely visible"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_hero_video_id",
+                "label": "Background video (optional)",
+                "name": "brg_contact_hero_video_id",
+                "type": "text",
+                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero colour if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_contact_hero_video_source",
+                "label": "Video from",
+                "name": "brg_contact_hero_video_source",
+                "type": "select",
+                "instructions": "Which service the link is from. Only matters when a video is set.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "youtube",
+                "choices": {
+                    "youtube": "YouTube",
+                    "vimeo": "Vimeo"
                 },
                 "return_format": "value",
                 "allow_null": 0,
