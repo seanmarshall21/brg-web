@@ -379,8 +379,123 @@
                             "id": ""
                         },
                         "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_team_members_members_bg_color",
+                        "label": "Background colour",
+                        "name": "bg_color",
+                        "type": "select",
+                        "instructions": "The colour behind this person's cut-out. Leave on Automatic and the grid cycles through the brand colours by position, so adding or removing someone re-colours the rest on its own. Pick a specific colour only when you want to override that.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "auto",
+                        "choices": {
+                            "auto": "Automatic — cycles by position",
+                            "teal": "Teal",
+                            "orange": "Orange",
+                            "yellow": "Yellow",
+                            "pink": "Pink",
+                            "purple": "Purple",
+                            "blue": "Blue",
+                            "coral": "Coral",
+                            "green": "Green",
+                            "red": "Red"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_team_members_members_crop",
+                        "label": "Crop",
+                        "name": "crop",
+                        "type": "select",
+                        "instructions": "Which part of the photo to keep when it does not fit the box exactly. With Fit the height this moves the person left or right; with Fill the box it also decides which edges are trimmed. Bottom is usually right for a cut-out, so they stand on the base of the box.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "bottom",
+                        "choices": {
+                            "bottom": "Bottom — stands on the base of the box",
+                            "center": "Centre",
+                            "top": "Top",
+                            "left": "Left",
+                            "right": "Right"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
                     }
                 ]
+            },
+            {
+                "key": "field_brg_team_members_card_shape",
+                "label": "Card shape",
+                "name": "brg_team_members_card_shape",
+                "type": "select",
+                "instructions": "The shape of every photo box in the grid. This is one setting for the whole grid on purpose — a grid of mixed shapes reads as a mistake rather than a choice. Use the crop on each person to deal with how they sit inside it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "7/9",
+                "choices": {
+                    "7/9": "7:9 — tall (the current design)",
+                    "4/5": "4:5 — slightly less tall",
+                    "3/4": "3:4 — classic portrait",
+                    "1/1": "1:1 — square",
+                    "4/4.4": "4:4.4 — what the page used before"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_members_photo_fit",
+                "label": "How the photos fit",
+                "name": "brg_team_members_photo_fit",
+                "type": "select",
+                "instructions": "How each cut-out sits in its box. Fit the height makes everyone the same height, which is what keeps the row looking even — the sides crop instead. Fill the box crops whichever edge is too big. Show the whole photo never crops, but people end up different sizes.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "height",
+                "choices": {
+                    "height": "Fit the height — everyone the same height, sides may crop",
+                    "cover": "Fill the box — crops whichever edges overflow",
+                    "contain": "Show the whole photo — nothing cropped, gaps at the sides"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
             },
             {
                 "key": "field_brg_tab_team_apply",

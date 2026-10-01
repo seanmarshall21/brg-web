@@ -6,10 +6,79 @@
     "button": "Add member",
     "doc": "One row per person, in the order they appear on the page. Drag to reorder. Until the first row is added the page keeps the nine placeholder cards it shows today.",
     "sub": {
-      "photo": { "type": "image", "label": "Headshot", "doc": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its colour block." },
-      "name":  { "type": "text",  "label": "Name" },
-      "title": { "type": "text",  "label": "Title" },
-      "quote": { "type": "text",  "label": "Quote", "doc": "Optional, shown under the card. Leave blank for none." }
+      "photo": {
+        "type": "image",
+        "label": "Headshot",
+        "doc": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its colour block."
+      },
+      "name": {
+        "type": "text",
+        "label": "Name"
+      },
+      "title": {
+        "type": "text",
+        "label": "Title"
+      },
+      "quote": {
+        "type": "text",
+        "label": "Quote",
+        "doc": "Optional, shown under the card. Leave blank for none."
+      },
+      "bg_color": {
+        "type": "select",
+        "label": "Background colour",
+        "doc": "The colour behind this person's cut-out. Leave on Automatic and the grid cycles through the brand colours by position, so adding or removing someone re-colours the rest on its own. Pick a specific colour only when you want to override that.",
+        "default": "auto",
+        "choices": {
+          "auto": "Automatic — cycles by position",
+          "teal": "Teal",
+          "orange": "Orange",
+          "yellow": "Yellow",
+          "pink": "Pink",
+          "purple": "Purple",
+          "blue": "Blue",
+          "coral": "Coral",
+          "green": "Green",
+          "red": "Red"
+        }
+      },
+      "crop": {
+        "type": "select",
+        "label": "Crop",
+        "doc": "Which part of the photo to keep when it does not fit the box exactly. With Fit the height this moves the person left or right; with Fill the box it also decides which edges are trimmed. Bottom is usually right for a cut-out, so they stand on the base of the box.",
+        "default": "bottom",
+        "choices": {
+          "bottom": "Bottom — stands on the base of the box",
+          "center": "Centre",
+          "top": "Top",
+          "left": "Left",
+          "right": "Right"
+        }
+      }
+    }
+  },
+  "card_shape": {
+    "type": "select",
+    "label": "Card shape",
+    "doc": "The shape of every photo box in the grid. This is one setting for the whole grid on purpose — a grid of mixed shapes reads as a mistake rather than a choice. Use the crop on each person to deal with how they sit inside it.",
+    "default": "7/9",
+    "choices": {
+      "7/9": "7:9 — tall (the current design)",
+      "4/5": "4:5 — slightly less tall",
+      "3/4": "3:4 — classic portrait",
+      "1/1": "1:1 — square",
+      "4/4.4": "4:4.4 — what the page used before"
+    }
+  },
+  "photo_fit": {
+    "type": "select",
+    "label": "How the photos fit",
+    "doc": "How each cut-out sits in its box. Fit the height makes everyone the same height, which is what keeps the row looking even — the sides crop instead. Fill the box crops whichever edge is too big. Show the whole photo never crops, but people end up different sizes.",
+    "default": "height",
+    "choices": {
+      "height": "Fit the height — everyone the same height, sides may crop",
+      "cover": "Fill the box — crops whichever edges overflow",
+      "contain": "Show the whole photo — nothing cropped, gaps at the sides"
     }
   }
 }
