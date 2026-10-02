@@ -395,6 +395,41 @@
 .brgw-sec .sec-bg img{width:100%;height:100%;object-fit:cover;display:block;}
 .brgw-sec .sec-bg[data-bg=""]{display:none;}
 
+/* ---- content sits above the section background -----------------------------------
+   A section background is a positioned layer, and a positioned layer paints ABOVE
+   non-positioned in-flow content however early it sits in the markup — that is the
+   CSS painting order, not a bug. So the content has to be lifted, which is why the
+   three sections that already had a background each carried their own
+   `> *{position:relative;z-index:2}`. Eighteen more copies of that was the wrong
+   answer: the rule is identical every time, and each copy is a chance to get the
+   exceptions wrong.
+
+   THE EXCLUSION LIST IS MEASURED, NOT GUESSED. Every name here is a direct child of
+   some section that is position:absolute, read off the rendered page rather than
+   inferred from the stylesheet — a first attempt at inferring it from CSS text
+   reported .sub and .uline as absolute, which they are not. Making one of these
+   relative does not nudge it, it relocates it: .hero-bg and .bg stop covering their
+   hero, and every doodle, seam and placed mark jumps to wherever it happens to sit in
+   the flow.
+   .bg (home-hero) must stay STATIC, not become absolute: it is a plain wrapper whose
+   own children are absolute, so positioning it would make them resolve against it
+   instead of the section and the full-bleed backdrop would collapse to its box. */
+/* :where() SO THIS STAYS WEAK. Written first as a bare :not() chain, which measured
+   worse than the problem it solved: ten :not(.class) selectors score as ten classes, so
+   the rule outranked every per-element rule on the site and flattened them — measured on
+   community-give, where the banner's own z-index:5 lost to this and the slider started
+   painting over it. :where() contributes no specificity at all, so this rule lifts
+   content and then loses to anything more specific, which is what a default should do. */
+/* NO z-index HERE, ONLY position. The three sections that already had a background used
+   `z-index:2`, and copying that sitewide measured badly: a z-index turns every lifted
+   element into a stacking context, which traps its children's stacking — community-give's
+   slider picked one up. position:relative alone is enough. The background layer is the
+   FIRST child, and positioned elements with z-index auto or 0 all paint in TREE ORDER, so
+   content that comes after it in the markup paints over it by position alone.
+   Verified by hit-testing a visible background in all 21 sections, not by reasoning. */
+.brgw-sec > *:where(:not(.sec-bg):not(.hero-bg):not(.bg):not(.seam):not(.brgw-doodle):not(.surfer):not(.smiley):not(.sdca):not(.cluster):not(.dood)){
+  position:relative;}
+
 .brgw-img{position:relative;overflow:hidden;display:block;}
 .brgw-img img{display:block;width:100%;height:100%;object-fit:cover;}
 

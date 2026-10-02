@@ -22,6 +22,14 @@
    decorative bar; on a ~1100px headline it read as far too short.) */
 .brgw-sec--careers-hero .uline{display:block;width:min(850px,62%);margin:16px auto 0;height:auto;}
 </style>
+  <!-- Section background: a pattern or photo behind everything in this section.
+       NO src ON THE <img>, only <source srcset>: an empty src resolves against the
+       PAGE and re-downloads the document as an image for every visitor, so a section
+       with no background chosen has to cost nothing. An empty <source srcset=""> is
+       skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <!-- Background photo + colour overlay, both ACF. The scrim NESTS INSIDE the photo
        layer so that "no photo" and "no overlay" are one state: an empty photo hides
        the parent and takes the overlay with it, which is why adding this control
@@ -58,7 +66,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Come work somewhere you actually want to be", "sub_1": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow \u2014", "sub_highlight": "let's talk.", "hl_variant": "h3", "uline_variant": "u3", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube"};
+  var D = {"heading": "Come work somewhere you actually want to be", "sub_1": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow \u2014", "sub_highlight": "let's talk.", "hl_variant": "h3", "uline_variant": "u3", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

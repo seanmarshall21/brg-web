@@ -78,6 +78,14 @@
 .brgw-sec--community-give .brgw-slider__dots{position:absolute;right:clamp(20px,3vw,54px);
   bottom:clamp(18px,2.4vw,38px);background:none;padding:0;z-index:4;}
 </style>
+  <!-- Section background: a pattern or photo behind everything in this section.
+       NO src ON THE <img>, only <source srcset>: an empty src resolves against the
+       PAGE and re-downloads the document as an image for every visitor, so a section
+       with no background chosen has to cost nothing. An empty <source srcset=""> is
+       skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
 
   <div class="intro">
@@ -145,7 +153,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": ""};
+  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

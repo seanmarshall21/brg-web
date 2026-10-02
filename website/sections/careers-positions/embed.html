@@ -30,6 +30,14 @@
   filter:contrast(1.06);}
 @media(max-width:900px){ .brgw-sec--careers-positions .surfer{display:none;} }
 </style>
+  <!-- Section background: a pattern or photo behind everything in this section.
+       NO src ON THE <img>, only <source srcset>: an empty src resolves against the
+       PAGE and re-downloads the document as an image for every visitor, so a section
+       with no background chosen has to cost nothing. An empty <source srcset=""> is
+       skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <h2 class="blanco anim-head" data-head="words">{{heading}}</h2>
   <p class="sub anim-up">{{sub}}</p>
   <a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a>

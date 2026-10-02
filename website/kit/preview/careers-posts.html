@@ -54,6 +54,14 @@
   transition:background .15s ease,color .15s ease;}
 .brgw-sec--careers-posts .view:hover{background:#0A66C2;color:var(--white);}
 </style>
+  <!-- Section background: a pattern or photo behind everything in this section.
+       NO src ON THE <img>, only <source srcset>: an empty src resolves against the
+       PAGE and re-downloads the document as an image for every visitor, so a section
+       with no background chosen has to cost nothing. An empty <source srcset=""> is
+       skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <div class="feed">
     <article class="post anim-up">
       <div class="who">
@@ -94,7 +102,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {};
+  var D = {"section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

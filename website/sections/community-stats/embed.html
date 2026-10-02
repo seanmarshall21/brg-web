@@ -33,6 +33,14 @@
   font-size:clamp(3rem,6.4vw,5.4rem);line-height:1;margin-bottom:14px;}
 .brgw-sec--community-stats .cell p{font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.5;opacity:.86;}
 </style>
+  <!-- Section background: a pattern or photo behind everything in this section.
+       NO src ON THE <img>, only <source srcset>: an empty src resolves against the
+       PAGE and re-downloads the document as an image for every visitor, so a section
+       with no background chosen has to cost nothing. An empty <source srcset=""> is
+       skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <div class="grid">
     <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_1_fig}}</span><p>{{stat_1_line1}}<br>{{stat_1_line2}}</p></div>
     <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_2_fig}}</span><p>{{stat_2_line1}}<br>{{stat_2_line2}}</p></div>

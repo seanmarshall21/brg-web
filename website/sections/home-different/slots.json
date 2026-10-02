@@ -210,13 +210,15 @@
   "section_bg": {
     "type": "image",
     "label": "Section background",
-    "doc": "A pattern or photo filling the whole section, behind everything else. Leave empty for a plain color. It is cropped to fill, so the exact size does not matter. On a DARK section use a light or gray artwork — a black pattern over a black panel stays invisible however high you set the strength. This section has its own artwork rather than the doodle pattern the other panels use — they are different graphics and are not interchangeable.",
+    "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+    "group": "Section background",
     "default": "https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/difkind-bkgnd.webp"
   },
   "section_bg_mobile": {
     "type": "image",
-    "label": "Section background — mobile",
-    "doc": "Optional. A version of the background for phones, used below 768px wide. Leave empty and the main background is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognisable, and a tall or simplified version reads far better.",
+    "label": "Section background — phones",
+    "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+    "group": "Section background — phones",
     "default": ""
   },
   "section_bg_opacity": {
@@ -225,6 +227,7 @@
     "doc": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
     "width": 50,
     "default": "0.5",
+    "group": "Section background",
     "choices": {
       "0": "Off",
       "0.08": "8% — barely there",
@@ -241,12 +244,25 @@
   "section_bg_px": {
     "type": "number",
     "label": "Background movement",
-    "doc": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "doc": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
     "width": 50,
     "default": "0",
     "min": 0,
     "max": 40,
     "step": 1,
-    "append": "%"
+    "append": "%",
+    "group": "Section background"
+  },
+  "section_bg_px_dir": {
+    "type": "select",
+    "label": "Background movement direction",
+    "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
+    "width": 50,
+    "default": "down",
+    "group": "Section background",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
   }
 }

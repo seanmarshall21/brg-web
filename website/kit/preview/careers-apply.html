@@ -51,6 +51,14 @@
 .brgw-sec--careers-apply .cta{text-align:center;margin-top:clamp(52px,6vw,86px);}
 .brgw-sec--careers-apply .cta .btn{border:3px solid var(--ink);}
 </style>
+  <!-- Section background: a pattern or photo behind everything in this section.
+       NO src ON THE <img>, only <source srcset>: an empty src resolves against the
+       PAGE and re-downloads the document as an image for every visitor, so a section
+       with no background chosen has to cost nothing. An empty <source srcset=""> is
+       skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
 
   <h2 class="blanco anim-head">What it's like<br><span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">to work here</span></span></h2>
@@ -80,7 +88,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"body_1": "This isn't your average restaurant gig. At BRG, we invest in our people \u2014 with real training, real growth paths, and a culture that actually lives up to the hype.", "body_2": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around.", "offers_heading": "We offer:", "cta_label": "Apply Today", "cta_href": "#open-positions", "hl_variant": "h3"};
+  var D = {"body_1": "This isn't your average restaurant gig. At BRG, we invest in our people \u2014 with real training, real growth paths, and a culture that actually lives up to the hype.", "body_2": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around.", "offers_heading": "We offer:", "cta_label": "Apply Today", "cta_href": "#open-positions", "hl_variant": "h3", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

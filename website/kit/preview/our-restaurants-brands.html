@@ -32,6 +32,14 @@
 .brgw-sec--our-restaurants-brands p + p{margin-top:1.1em;}
 .brgw-sec--our-restaurants-brands .btn{background:var(--ink);color:var(--white);margin-top:clamp(24px,2.6vw,36px);}
 </style>
+  <!-- Section background: a pattern or photo behind everything in this section.
+       NO src ON THE <img>, only <source srcset>: an empty src resolves against the
+       PAGE and re-downloads the document as an image for every visitor, so a section
+       with no background chosen has to cost nothing. An empty <source srcset=""> is
+       skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
 
   <div class="brand">
@@ -67,7 +75,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"bnb_heading": "Board & Brew", "bnb_body_1": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool.", "bnb_body_2": "12 locations across San Diego and Orange County \u2014 each one a neighborhood staple.", "bnb_cta_label": "Visit Us", "bnb_cta_href": "https://boardandbrew.com", "odies_heading": "Odie's Pizza Co.", "odies_body_1": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast \u2014 think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around.", "odies_body_2": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way.", "odies_cta_label": "Visit Us", "odies_cta_href": "https://odiespizza.com", "bnb_image": "https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg", "bnb_image_tone": "color", "bnb_image_px": "0", "bnb_image_px_dir": "down", "bnb_image_float": "0", "bnb_image_float_dir": "down", "odies_image": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg", "odies_image_tone": "color", "odies_image_px": "0", "odies_image_px_dir": "down", "odies_image_float": "0", "odies_image_float_dir": "down"};
+  var D = {"bnb_heading": "Board & Brew", "bnb_body_1": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool.", "bnb_body_2": "12 locations across San Diego and Orange County \u2014 each one a neighborhood staple.", "bnb_cta_label": "Visit Us", "bnb_cta_href": "https://boardandbrew.com", "odies_heading": "Odie's Pizza Co.", "odies_body_1": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast \u2014 think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around.", "odies_body_2": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way.", "odies_cta_label": "Visit Us", "odies_cta_href": "https://odiespizza.com", "bnb_image": "https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg", "bnb_image_tone": "color", "bnb_image_px": "0", "bnb_image_px_dir": "down", "bnb_image_float": "0", "bnb_image_float_dir": "down", "odies_image": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg", "odies_image_tone": "color", "odies_image_px": "0", "odies_image_px_dir": "down", "odies_image_float": "0", "odies_image_float_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

@@ -14,6 +14,14 @@
    decorative bar; on a ~1100px headline it read as far too short.) */
 .brgw-sec--community-hero .uline{display:block;width:min(640px,62%);margin:16px auto 0;height:auto;}
 </style>
+  <!-- Section background: a pattern or photo behind everything in this section.
+       NO src ON THE <img>, only <source srcset>: an empty src resolves against the
+       PAGE and re-downloads the document as an image for every visitor, so a section
+       with no background chosen has to cost nothing. An empty <source srcset=""> is
+       skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <!-- Background photo + colour overlay, both ACF. The scrim NESTS INSIDE the photo
        layer so that "no photo" and "no overlay" are one state: an empty photo hides
        the parent and takes the overlay with it, which is why adding this control

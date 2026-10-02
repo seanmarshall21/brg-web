@@ -368,6 +368,187 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_careers_hero_acc_section_background",
+                "label": "Section background",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg",
+                "label": "Section background",
+                "name": "brg_careers_hero_section_bg",
+                "type": "image",
+                "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg_opacity",
+                "label": "Background strength",
+                "name": "brg_careers_hero_section_bg_opacity",
+                "type": "select",
+                "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_opacity",
+                    "id": ""
+                },
+                "default_value": "0.18",
+                "choices": {
+                    "0": "Off",
+                    "0.08": "8% — barely there",
+                    "0.12": "12%",
+                    "0.18": "18%",
+                    "0.25": "25%",
+                    "0.4": "40%",
+                    "0.5": "50%",
+                    "0.7": "70%",
+                    "0.85": "85%",
+                    "1": "100% — exactly as supplied"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg_px",
+                "label": "Background movement",
+                "name": "brg_careers_hero_section_bg_px",
+                "type": "number",
+                "instructions": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg_px_dir",
+                "label": "Background movement direction",
+                "name": "brg_careers_hero_section_bg_px_dir",
+                "type": "select",
+                "instructions": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_endacc_section_background",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_hero_acc_section_background_phones",
+                "label": "Section background — phones",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg_mobile",
+                "label": "Section background — phones",
+                "name": "brg_careers_hero_section_bg_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_endacc_section_background_phones",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_careers_apply",
                 "label": "What it's like",
                 "name": "",
@@ -510,6 +691,187 @@
                     "id": ""
                 },
                 "default_value": "h3"
+            },
+            {
+                "key": "field_brg_careers_apply_acc_section_background",
+                "label": "Section background",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_apply_section_bg",
+                "label": "Section background",
+                "name": "brg_careers_apply_section_bg",
+                "type": "image",
+                "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_apply_section_bg_opacity",
+                "label": "Background strength",
+                "name": "brg_careers_apply_section_bg_opacity",
+                "type": "select",
+                "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_opacity",
+                    "id": ""
+                },
+                "default_value": "0.18",
+                "choices": {
+                    "0": "Off",
+                    "0.08": "8% — barely there",
+                    "0.12": "12%",
+                    "0.18": "18%",
+                    "0.25": "25%",
+                    "0.4": "40%",
+                    "0.5": "50%",
+                    "0.7": "70%",
+                    "0.85": "85%",
+                    "1": "100% — exactly as supplied"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_apply_section_bg_px",
+                "label": "Background movement",
+                "name": "brg_careers_apply_section_bg_px",
+                "type": "number",
+                "instructions": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_apply_section_bg_px_dir",
+                "label": "Background movement direction",
+                "name": "brg_careers_apply_section_bg_px_dir",
+                "type": "select",
+                "instructions": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_apply_endacc_section_background",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_apply_acc_section_background_phones",
+                "label": "Section background — phones",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_apply_section_bg_mobile",
+                "label": "Section background — phones",
+                "name": "brg_careers_apply_section_bg_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_apply_endacc_section_background_phones",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
             },
             {
                 "key": "field_brg_tab_careers_positions",
@@ -741,6 +1103,187 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_careers_positions_acc_section_background",
+                "label": "Section background",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_positions_section_bg",
+                "label": "Section background",
+                "name": "brg_careers_positions_section_bg",
+                "type": "image",
+                "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_positions_section_bg_opacity",
+                "label": "Background strength",
+                "name": "brg_careers_positions_section_bg_opacity",
+                "type": "select",
+                "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_opacity",
+                    "id": ""
+                },
+                "default_value": "0.18",
+                "choices": {
+                    "0": "Off",
+                    "0.08": "8% — barely there",
+                    "0.12": "12%",
+                    "0.18": "18%",
+                    "0.25": "25%",
+                    "0.4": "40%",
+                    "0.5": "50%",
+                    "0.7": "70%",
+                    "0.85": "85%",
+                    "1": "100% — exactly as supplied"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_section_bg_px",
+                "label": "Background movement",
+                "name": "brg_careers_positions_section_bg_px",
+                "type": "number",
+                "instructions": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_positions_section_bg_px_dir",
+                "label": "Background movement direction",
+                "name": "brg_careers_positions_section_bg_px_dir",
+                "type": "select",
+                "instructions": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_endacc_section_background",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_positions_acc_section_background_phones",
+                "label": "Section background — phones",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_positions_section_bg_mobile",
+                "label": "Section background — phones",
+                "name": "brg_careers_positions_section_bg_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_positions_endacc_section_background_phones",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_careers_posts",
                 "label": "LinkedIn posts",
                 "name": "",
@@ -774,6 +1317,187 @@
                 "ui": 1,
                 "ui_on_text": "Shown",
                 "ui_off_text": "Hidden"
+            },
+            {
+                "key": "field_brg_careers_posts_acc_section_background",
+                "label": "Section background",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_posts_section_bg",
+                "label": "Section background",
+                "name": "brg_careers_posts_section_bg",
+                "type": "image",
+                "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_posts_section_bg_opacity",
+                "label": "Background strength",
+                "name": "brg_careers_posts_section_bg_opacity",
+                "type": "select",
+                "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_opacity",
+                    "id": ""
+                },
+                "default_value": "0.18",
+                "choices": {
+                    "0": "Off",
+                    "0.08": "8% — barely there",
+                    "0.12": "12%",
+                    "0.18": "18%",
+                    "0.25": "25%",
+                    "0.4": "40%",
+                    "0.5": "50%",
+                    "0.7": "70%",
+                    "0.85": "85%",
+                    "1": "100% — exactly as supplied"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_posts_section_bg_px",
+                "label": "Background movement",
+                "name": "brg_careers_posts_section_bg_px",
+                "type": "number",
+                "instructions": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_posts_section_bg_px_dir",
+                "label": "Background movement direction",
+                "name": "brg_careers_posts_section_bg_px_dir",
+                "type": "select",
+                "instructions": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_posts_endacc_section_background",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_posts_acc_section_background_phones",
+                "label": "Section background — phones",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_posts_section_bg_mobile",
+                "label": "Section background — phones",
+                "name": "brg_careers_posts_section_bg_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_posts_endacc_section_background_phones",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
             }
         ],
         "location": [
