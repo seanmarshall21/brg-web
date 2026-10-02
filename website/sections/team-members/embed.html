@@ -25,32 +25,74 @@
 .brgw-sec--team-members figure{margin:0;}
 
 /* Coloured plate behind the cut-out portrait.
-   SHAPE IS A VARIABLE, set once on .grid so every card in the grid matches — a grid of
-   mixed aspect ratios is a broken grid, not a design choice, which is why this is a
-   section field and the crop below is a per-person one. Sean asked for "about 7:9".
+   SHAPE IS A VARIABLE set once on .grid, so every box is the same height and the same
+   width — Sean, 1 Oct: "all containers should be the same height and same width."
+   That uniformity is what makes a row of different people read as a set, so shape and
+   fit are grid-wide and only the crop and colour are per person.
 
-   THE PHOTO IS A CSS BACKGROUND, NOT AN <img>, and that is deliberate rather than
-   inherited: a crew row can exist before its headshot does, and <img src=""> resolves
-   against the PAGE URL and re-downloads the document — once per person without a photo.
-   background-size then expresses all three fits honestly: cover fills, `auto 100%` is a
-   true fit-to-height, contain shows the whole cut-out. data-photo="" states the empty
-   case rather than leaving url('') to the browser. */
-.brgw-sec--team-members .card{position:relative;aspect-ratio:var(--ar,7/9);overflow:hidden;
-  background-color:var(--c,var(--teal));background-image:var(--photo,none);
-  background-repeat:no-repeat;background-size:auto 100%;background-position:center bottom;}
-.brgw-sec--team-members .card[data-photo=""]{background-image:none;}
+   A REAL <img>, NOT A CSS BACKGROUND. The background version could never do what Sean
+   asked for next — "whether or not the overflow of the image is visible or hidden" —
+   because a CSS background is always clipped to its own box, whatever overflow says.
+   Nothing can hang outside the frame when it is painted as a background.
 
-/* HOW IT FITS — section-wide. */
-.brgw-sec--team-members .card[data-fit="cover"]{background-size:cover;}
-.brgw-sec--team-members .card[data-fit="height"]{background-size:auto 100%;}
-.brgw-sec--team-members .card[data-fit="contain"]{background-size:contain;}
+   The earlier commits justified the background by claiming <img src=""> resolves against
+   the page URL and re-downloads the document. THAT WAS WRONG for anything current:
+   measured on this page, an empty src produced zero requests. HTML5 aborts on an empty
+   src; the re-download is a pre-HTML5 quirk. It is hidden here anyway, via data-photo,
+   so a crew row still renders as a clean coloured plate before its headshot exists. */
+.brgw-sec--team-members .card{position:relative;aspect-ratio:var(--ar,7/9);
+  background-color:var(--c,var(--teal));}
+.brgw-sec--team-members .card img{display:block;}
+.brgw-sec--team-members .card[data-photo=""] img{display:none;}
 
-/* THE CROP — per person, because people do not stand in the same place twice. */
-.brgw-sec--team-members .card[data-crop="top"]{background-position:center top;}
-.brgw-sec--team-members .card[data-crop="center"]{background-position:center center;}
-.brgw-sec--team-members .card[data-crop="bottom"]{background-position:center bottom;}
-.brgw-sec--team-members .card[data-crop="left"]{background-position:left bottom;}
-.brgw-sec--team-members .card[data-crop="right"]{background-position:right bottom;}
+/* OVERFLOW — the escape hatch, per person, default hidden. Sean: "just in case we want
+   something to hang outside of the composition." Only has anything to act on with Fit
+   the height, where the image keeps its own proportions and is wider than the box;
+   Fill and Show-the-whole-photo both resolve inside the frame by construction. */
+.brgw-sec--team-members .card[data-overflow="hidden"],
+.brgw-sec--team-members .card[data-overflow=""]{overflow:hidden;}
+.brgw-sec--team-members .card[data-overflow="visible"]{overflow:visible;}
+/* A card that spills has to paint over its neighbours, not under them. */
+.brgw-sec--team-members .card[data-overflow="visible"]{z-index:1;}
+/* A SPILL MUST NEVER WIDEN THE PAGE. Measured: a spilling card pushes 56px past the box
+   on each side. On desktop the grid is centred inside a max-width with room to spare, so
+   that lands in the margin — but at one column the card is 342 of a 390 screen and the
+   same 56px would put the document wider than the viewport, which is a horizontal
+   scrollbar on the surface most of this traffic uses. Below the two-column breakpoint the
+   escape hatch is therefore closed, and overflow-x:clip on the section is the backstop at
+   every other width. `clip` rather than `hidden` on purpose: hidden on one axis forces the
+   other to scroll, which would cut off the seam badge that deliberately bleeds upward. */
+@media(max-width:639px){
+  .brgw-sec--team-members .card[data-overflow="visible"]{overflow:hidden;}
+}
+.brgw-sec--team-members{overflow-x:clip;}
+
+/* HOW IT FITS — grid-wide.
+   Fit the height is the default and the one Sean specified: height pinned to the box,
+   width left to the photo's own proportions, so every person is the same height and the
+   sides fall where they fall. max-width:none is load-bearing — a global img{max-width:100%}
+   would otherwise shrink it back to the box width and silently undo the whole mode. */
+.brgw-sec--team-members .card[data-fit="height"] img,
+.brgw-sec--team-members .card[data-fit=""] img{position:absolute;bottom:0;height:100%;
+  width:auto;max-width:none;}
+.brgw-sec--team-members .card[data-fit="cover"] img{position:absolute;inset:0;width:100%;
+  height:100%;object-fit:cover;}
+.brgw-sec--team-members .card[data-fit="contain"] img{position:absolute;inset:0;width:100%;
+  height:100%;object-fit:contain;}
+
+/* THE CROP — per person, because people do not stand in the same place twice.
+   With Fit the height this is horizontal placement; with Fill the box it picks which
+   edges get trimmed. Top and Bottom cannot mean anything in height mode, where the
+   height already matches exactly, so they centre rather than doing something arbitrary. */
+.brgw-sec--team-members .card[data-fit="height"] img,
+.brgw-sec--team-members .card[data-fit=""] img{left:50%;transform:translateX(-50%);}
+.brgw-sec--team-members .card[data-fit="height"][data-crop="left"] img{left:0;transform:none;}
+.brgw-sec--team-members .card[data-fit="height"][data-crop="right"] img{left:auto;right:0;transform:none;}
+.brgw-sec--team-members .card[data-fit="cover"][data-crop="top"] img{object-position:center top;}
+.brgw-sec--team-members .card[data-fit="cover"][data-crop="center"] img{object-position:center center;}
+.brgw-sec--team-members .card[data-fit="cover"][data-crop="bottom"] img{object-position:center bottom;}
+.brgw-sec--team-members .card[data-fit="cover"][data-crop="left"] img{object-position:left center;}
+.brgw-sec--team-members .card[data-fit="cover"][data-crop="right"] img{object-position:right center;}
 
 /* Tilted name plate. NOW A SIBLING OF .card, NOT A CHILD — Sean, 1 Oct: "it shouldn't
    have the label inside of the container. The label should be out on its own in a box
@@ -120,7 +162,7 @@
 
   <div class="grid" style="--ar:{{card_shape}}">
     <!--brg:repeat members-->
-      <figure class="anim-up"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-color="{{members.bg_color}}" style="--photo:url('{{members.photo}}')"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
+      <figure class="anim-up"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-color="{{members.bg_color}}" data-overflow="{{members.overflow}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
     <!--brg:empty-->
       <figure class="anim-up"><div class="card" style="--c:var(--teal)"></div><span class="bar"><span class="nm blanco">Craig Applegate</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:var(--orange)"></div><span class="bar"><span class="nm blanco">Clayton Wheeler</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>

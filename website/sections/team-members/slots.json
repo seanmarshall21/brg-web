@@ -54,6 +54,16 @@
           "left": "Left",
           "right": "Right"
         }
+      },
+      "overflow": {
+        "type": "select",
+        "label": "Let the photo hang outside the box",
+        "doc": "Normally the photo is trimmed at the edges of the coloured box. Switch this on and anything wider than the box shows outside it — useful when something should break out of the frame, like a raised arm or a prop. Only does anything when How the photos fit is set to Fit the height; the other two settings always resolve inside the box.",
+        "default": "hidden",
+        "choices": {
+          "hidden": "No — trim it at the edges",
+          "visible": "Yes — let it hang outside"
+        }
       }
     }
   },
@@ -73,7 +83,7 @@
   "photo_fit": {
     "type": "select",
     "label": "How the photos fit",
-    "doc": "How each cut-out sits in its box. Fit the height makes everyone the same height, which is what keeps the row looking even — the sides crop instead. Fill the box crops whichever edge is too big. Show the whole photo never crops, but people end up different sizes.",
+    "doc": "How each cut-out sits in its box. Fit the height pins the photo to the full height of the box so everyone matches, and lets the width fall where it does — that is the setting the design is built around. Fill the box crops whichever edge is too big. Show the whole photo never crops, but people end up different sizes.",
     "default": "height",
     "choices": {
       "height": "Fit the height — everyone the same height, sides may crop",

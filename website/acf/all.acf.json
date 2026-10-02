@@ -1702,6 +1702,31 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_team_members_members_overflow",
+            "label": "Let the photo hang outside the box",
+            "name": "overflow",
+            "type": "select",
+            "instructions": "Normally the photo is trimmed at the edges of the coloured box. Switch this on and anything wider than the box shows outside it — useful when something should break out of the frame, like a raised arm or a prop. Only does anything when How the photos fit is set to Fit the height; the other two settings always resolve inside the box.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "50",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "hidden",
+            "choices": {
+              "hidden": "No — trim it at the edges",
+              "visible": "Yes — let it hang outside"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -1738,7 +1763,7 @@
         "label": "How the photos fit",
         "name": "brg_team_members_photo_fit",
         "type": "select",
-        "instructions": "How each cut-out sits in its box. Fit the height makes everyone the same height, which is what keeps the row looking even — the sides crop instead. Fill the box crops whichever edge is too big. Show the whole photo never crops, but people end up different sizes.",
+        "instructions": "How each cut-out sits in its box. Fit the height pins the photo to the full height of the box so everyone matches, and lets the width fall where it does — that is the setting the design is built around. Fill the box crops whichever edge is too big. Show the whole photo never crops, but people end up different sizes.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
