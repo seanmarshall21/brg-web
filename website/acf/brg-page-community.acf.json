@@ -519,6 +519,322 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_community_hero_acc_mark_bolt_yellow",
+                "label": "Mark — Bolt (yellow)",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_community_hero_mark_1_bolt_fill_art",
+                "label": "Artwork",
+                "name": "brg_community_hero_mark_1_bolt_fill_art",
+                "type": "image",
+                "instructions": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-mark_1_bolt_fill_art",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_community_hero_mark_1_bolt_fill_pos",
+                "label": "Position",
+                "name": "brg_community_hero_mark_1_bolt_fill_pos",
+                "type": "select",
+                "instructions": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_bolt_fill_pos",
+                    "id": ""
+                },
+                "default_value": "tl",
+                "choices": {
+                    "keep": "Where the design put it",
+                    "tl": "Top left",
+                    "tc": "Top center",
+                    "tr": "Top right",
+                    "ml": "Middle left",
+                    "mc": "Middle center",
+                    "mr": "Middle right",
+                    "bl": "Bottom left",
+                    "bc": "Bottom center",
+                    "br": "Bottom right"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_hero_mark_1_bolt_fill_opacity",
+                "label": "Opacity",
+                "name": "brg_community_hero_mark_1_bolt_fill_opacity",
+                "type": "number",
+                "instructions": "How solid the mark is. 100 is as drawn; lower settles it into the background.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_bolt_fill_opacity",
+                    "id": ""
+                },
+                "default_value": "100",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_community_hero_mark_1_bolt_fill_show",
+                "label": "Show this mark",
+                "name": "brg_community_hero_mark_1_bolt_fill_show",
+                "type": "select",
+                "instructions": "Hiding removes just this one mark. Nothing else in the section changes.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_bolt_fill_show",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_hero_mark_1_bolt_fill_anim",
+                "label": "Animation",
+                "name": "brg_community_hero_mark_1_bolt_fill_anim",
+                "type": "select",
+                "instructions": "How the mark moves. \"As built\" keeps what it does today — a hard-cut jitter for most, a spin for the asterisk in the hero cluster. Still stops it entirely. Anyone who has switched off animation in their system settings sees it still whatever is chosen here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_bolt_fill_anim",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As built",
+                    "jitter": "Jitter",
+                    "spin": "Spin",
+                    "pulse": "Pulse",
+                    "none": "Still"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_hero_endacc_mark_bolt_yellow",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_community_hero_acc_mark_ast_circle_white",
+                "label": "Mark — Ast circle (white)",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_community_hero_mark_2_ast_circle_art",
+                "label": "Artwork",
+                "name": "brg_community_hero_mark_2_ast_circle_art",
+                "type": "image",
+                "instructions": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-mark_2_ast_circle_art",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_community_hero_mark_2_ast_circle_pos",
+                "label": "Position",
+                "name": "brg_community_hero_mark_2_ast_circle_pos",
+                "type": "select",
+                "instructions": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_2_ast_circle_pos",
+                    "id": ""
+                },
+                "default_value": "br",
+                "choices": {
+                    "keep": "Where the design put it",
+                    "tl": "Top left",
+                    "tc": "Top center",
+                    "tr": "Top right",
+                    "ml": "Middle left",
+                    "mc": "Middle center",
+                    "mr": "Middle right",
+                    "bl": "Bottom left",
+                    "bc": "Bottom center",
+                    "br": "Bottom right"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_hero_mark_2_ast_circle_opacity",
+                "label": "Opacity",
+                "name": "brg_community_hero_mark_2_ast_circle_opacity",
+                "type": "number",
+                "instructions": "How solid the mark is. 100 is as drawn; lower settles it into the background.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_2_ast_circle_opacity",
+                    "id": ""
+                },
+                "default_value": "100",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_community_hero_mark_2_ast_circle_show",
+                "label": "Show this mark",
+                "name": "brg_community_hero_mark_2_ast_circle_show",
+                "type": "select",
+                "instructions": "Hiding removes just this one mark. Nothing else in the section changes.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_2_ast_circle_show",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_hero_mark_2_ast_circle_anim",
+                "label": "Animation",
+                "name": "brg_community_hero_mark_2_ast_circle_anim",
+                "type": "select",
+                "instructions": "How the mark moves. \"As built\" keeps what it does today — a hard-cut jitter for most, a spin for the asterisk in the hero cluster. Still stops it entirely. Anyone who has switched off animation in their system settings sees it still whatever is chosen here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_2_ast_circle_anim",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As built",
+                    "jitter": "Jitter",
+                    "spin": "Spin",
+                    "pulse": "Pulse",
+                    "none": "Still"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_hero_endacc_mark_ast_circle_white",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_community_give",
                 "label": "How we give back",
                 "name": "",
@@ -1053,6 +1369,164 @@
             },
             {
                 "key": "field_brg_community_give_endacc_section_background_phones",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_community_give_acc_mark_ast",
+                "label": "Mark — Ast",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_community_give_mark_1_ast_art",
+                "label": "Artwork",
+                "name": "brg_community_give_mark_1_ast_art",
+                "type": "image",
+                "instructions": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-mark_1_ast_art",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_community_give_mark_1_ast_pos",
+                "label": "Position",
+                "name": "brg_community_give_mark_1_ast_pos",
+                "type": "select",
+                "instructions": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_ast_pos",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "Where the design put it",
+                    "tl": "Top left",
+                    "tc": "Top center",
+                    "tr": "Top right",
+                    "ml": "Middle left",
+                    "mc": "Middle center",
+                    "mr": "Middle right",
+                    "bl": "Bottom left",
+                    "bc": "Bottom center",
+                    "br": "Bottom right"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_give_mark_1_ast_opacity",
+                "label": "Opacity",
+                "name": "brg_community_give_mark_1_ast_opacity",
+                "type": "number",
+                "instructions": "How solid the mark is. 100 is as drawn; lower settles it into the background.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_ast_opacity",
+                    "id": ""
+                },
+                "default_value": "100",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_community_give_mark_1_ast_show",
+                "label": "Show this mark",
+                "name": "brg_community_give_mark_1_ast_show",
+                "type": "select",
+                "instructions": "Hiding removes just this one mark. Nothing else in the section changes.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_ast_show",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_give_mark_1_ast_anim",
+                "label": "Animation",
+                "name": "brg_community_give_mark_1_ast_anim",
+                "type": "select",
+                "instructions": "How the mark moves. \"As built\" keeps what it does today — a hard-cut jitter for most, a spin for the asterisk in the hero cluster. Still stops it entirely. Anyone who has switched off animation in their system settings sees it still whatever is chosen here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_ast_anim",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As built",
+                    "jitter": "Jitter",
+                    "spin": "Spin",
+                    "pulse": "Pulse",
+                    "none": "Still"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_give_endacc_mark_ast",
                 "label": "",
                 "name": "",
                 "type": "accordion",

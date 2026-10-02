@@ -47,7 +47,7 @@
   <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
-  <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
+  <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_ast_pos}}" data-mark-show="{{mark_1_ast_show}}" data-mark-anim="{{mark_1_ast_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_ast_opacity}}"><img src="{{mark_1_ast_art}}" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
 
   <h2 class="blanco anim-head">{{heading}}</h2>
   <div class="grid">
@@ -69,7 +69,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "values": ""};
+  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "values": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

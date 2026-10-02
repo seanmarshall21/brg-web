@@ -118,5 +118,71 @@
     "label": "Section background — phones",
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
     "group": "Section background — phones"
+  },
+  "mark_1_ast_art": {
+    "type": "image",
+    "label": "Artwork",
+    "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
+    "default": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg",
+    "group": "Mark — Ast"
+  },
+  "mark_1_ast_pos": {
+    "type": "select",
+    "label": "Position",
+    "doc": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+    "width": 50,
+    "default": "keep",
+    "choices": {
+      "keep": "Where the design put it",
+      "tl": "Top left",
+      "tc": "Top center",
+      "tr": "Top right",
+      "ml": "Middle left",
+      "mc": "Middle center",
+      "mr": "Middle right",
+      "bl": "Bottom left",
+      "bc": "Bottom center",
+      "br": "Bottom right"
+    },
+    "group": "Mark — Ast"
+  },
+  "mark_1_ast_opacity": {
+    "type": "number",
+    "label": "Opacity",
+    "doc": "How solid the mark is. 100 is as drawn; lower settles it into the background.",
+    "width": 50,
+    "default": "100",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "append": "%",
+    "group": "Mark — Ast"
+  },
+  "mark_1_ast_show": {
+    "type": "select",
+    "label": "Show this mark",
+    "doc": "Hiding removes just this one mark. Nothing else in the section changes.",
+    "width": 50,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    },
+    "group": "Mark — Ast"
+  },
+  "mark_1_ast_anim": {
+    "type": "select",
+    "label": "Animation",
+    "doc": "How the mark moves. \"As built\" keeps what it does today — a hard-cut jitter for most, a spin for the asterisk in the hero cluster. Still stops it entirely. Anyone who has switched off animation in their system settings sees it still whatever is chosen here.",
+    "width": 50,
+    "default": "keep",
+    "choices": {
+      "keep": "As built",
+      "jitter": "Jitter",
+      "spin": "Spin",
+      "pulse": "Pulse",
+      "none": "Still"
+    },
+    "group": "Mark — Ast"
   }
 }

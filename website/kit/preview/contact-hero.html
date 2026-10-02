@@ -51,8 +51,8 @@
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
   <span class="brgw-uline anim-up" aria-hidden="true"></span>
   <p class="sub anim-up">{{sub}}</p>
-  <span class="brgw-doodle" style="top:var(--brgw-doodle-top);left:9%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg" alt="" width="265" height="192"></span>
-  <span class="brgw-doodle brgw-doodle--c" style="bottom:var(--brgw-doodle-bottom);right:8%" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg" alt="" width="215" height="208"></span>
+  <span class="brgw-doodle" aria-hidden="true" data-mark-pos="{{mark_1_brg_pos}}" data-mark-show="{{mark_1_brg_show}}" data-mark-anim="{{mark_1_brg_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_brg_opacity}}"><img src="{{mark_1_brg_art}}" alt="" width="265" height="192"></span>
+  <span class="brgw-doodle brgw-doodle--c" aria-hidden="true" data-mark-pos="{{mark_2_smile_pos}}" data-mark-show="{{mark_2_smile_show}}" data-mark-anim="{{mark_2_smile_anim}}" data-mark-o style="--brgw-mark-o:{{mark_2_smile_opacity}}"><img src="{{mark_2_smile_art}}" alt="" width="215" height="208"></span>
 </section>
 </template>
 <script>
@@ -61,7 +61,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Let's talk.", "sub": "Whatever you need \u2014 a story, a partnership, a job, or just to tell us how we did \u2014 here's who to ask.", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
+  var D = {"heading": "Let's talk.", "sub": "Whatever you need \u2014 a story, a partnership, a job, or just to tell us how we did \u2014 here's who to ask.", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_brg_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg", "mark_1_brg_pos": "tl", "mark_1_brg_opacity": "100", "mark_1_brg_show": "1", "mark_1_brg_anim": "keep", "mark_2_smile_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg", "mark_2_smile_pos": "br", "mark_2_smile_opacity": "100", "mark_2_smile_show": "1", "mark_2_smile_anim": "keep"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

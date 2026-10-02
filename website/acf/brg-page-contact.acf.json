@@ -504,6 +504,322 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_contact_hero_acc_mark_brg_yellow",
+                "label": "Mark — Brg (yellow)",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_contact_hero_mark_1_brg_art",
+                "label": "Artwork",
+                "name": "brg_contact_hero_mark_1_brg_art",
+                "type": "image",
+                "instructions": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-mark_1_brg_art",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_contact_hero_mark_1_brg_pos",
+                "label": "Position",
+                "name": "brg_contact_hero_mark_1_brg_pos",
+                "type": "select",
+                "instructions": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_brg_pos",
+                    "id": ""
+                },
+                "default_value": "tl",
+                "choices": {
+                    "keep": "Where the design put it",
+                    "tl": "Top left",
+                    "tc": "Top center",
+                    "tr": "Top right",
+                    "ml": "Middle left",
+                    "mc": "Middle center",
+                    "mr": "Middle right",
+                    "bl": "Bottom left",
+                    "bc": "Bottom center",
+                    "br": "Bottom right"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_hero_mark_1_brg_opacity",
+                "label": "Opacity",
+                "name": "brg_contact_hero_mark_1_brg_opacity",
+                "type": "number",
+                "instructions": "How solid the mark is. 100 is as drawn; lower settles it into the background.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_brg_opacity",
+                    "id": ""
+                },
+                "default_value": "100",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_contact_hero_mark_1_brg_show",
+                "label": "Show this mark",
+                "name": "brg_contact_hero_mark_1_brg_show",
+                "type": "select",
+                "instructions": "Hiding removes just this one mark. Nothing else in the section changes.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_brg_show",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_hero_mark_1_brg_anim",
+                "label": "Animation",
+                "name": "brg_contact_hero_mark_1_brg_anim",
+                "type": "select",
+                "instructions": "How the mark moves. \"As built\" keeps what it does today — a hard-cut jitter for most, a spin for the asterisk in the hero cluster. Still stops it entirely. Anyone who has switched off animation in their system settings sees it still whatever is chosen here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_1_brg_anim",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As built",
+                    "jitter": "Jitter",
+                    "spin": "Spin",
+                    "pulse": "Pulse",
+                    "none": "Still"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_hero_endacc_mark_brg_yellow",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_contact_hero_acc_mark_smile_yellow",
+                "label": "Mark — Smile (yellow)",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_contact_hero_mark_2_smile_art",
+                "label": "Artwork",
+                "name": "brg_contact_hero_mark_2_smile_art",
+                "type": "image",
+                "instructions": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-mark_2_smile_art",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_contact_hero_mark_2_smile_pos",
+                "label": "Position",
+                "name": "brg_contact_hero_mark_2_smile_pos",
+                "type": "select",
+                "instructions": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_2_smile_pos",
+                    "id": ""
+                },
+                "default_value": "br",
+                "choices": {
+                    "keep": "Where the design put it",
+                    "tl": "Top left",
+                    "tc": "Top center",
+                    "tr": "Top right",
+                    "ml": "Middle left",
+                    "mc": "Middle center",
+                    "mr": "Middle right",
+                    "bl": "Bottom left",
+                    "bc": "Bottom center",
+                    "br": "Bottom right"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_hero_mark_2_smile_opacity",
+                "label": "Opacity",
+                "name": "brg_contact_hero_mark_2_smile_opacity",
+                "type": "number",
+                "instructions": "How solid the mark is. 100 is as drawn; lower settles it into the background.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_2_smile_opacity",
+                    "id": ""
+                },
+                "default_value": "100",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_contact_hero_mark_2_smile_show",
+                "label": "Show this mark",
+                "name": "brg_contact_hero_mark_2_smile_show",
+                "type": "select",
+                "instructions": "Hiding removes just this one mark. Nothing else in the section changes.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_2_smile_show",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_hero_mark_2_smile_anim",
+                "label": "Animation",
+                "name": "brg_contact_hero_mark_2_smile_anim",
+                "type": "select",
+                "instructions": "How the mark moves. \"As built\" keeps what it does today — a hard-cut jitter for most, a spin for the asterisk in the hero cluster. Still stops it entirely. Anyone who has switched off animation in their system settings sees it still whatever is chosen here.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-mark_2_smile_anim",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As built",
+                    "jitter": "Jitter",
+                    "spin": "Spin",
+                    "pulse": "Pulse",
+                    "none": "Still"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_hero_endacc_mark_smile_yellow",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_contact_routes",
                 "label": "Where to send it",
                 "name": "",
