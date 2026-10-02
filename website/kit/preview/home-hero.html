@@ -13,7 +13,9 @@
      per instance — [brg_home-hero uline_variant="u1"] — from the shared system in brgw.css;
      default u3, the angled wipe. SPEC-003's reasoning still holds and is why u3 is the
      default: a scaleX stretches the taper, a wipe reveals it at true width. -->
-<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Blacktop Restaurant Group">
+<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}"
+         style="--brgw-veil-c:{{veil_center}};--brgw-veil-e:{{veil_edge}};--brgw-plate-o:{{photo_strength}}"
+         aria-label="Blacktop Restaurant Group">
 <style>
 .brgw-sec--home-hero{position:relative;overflow:hidden;background:var(--bg2);
   min-height:88vh;display:grid;place-items:center;
@@ -29,13 +31,23 @@
 .brgw-sec--home-hero.is-in .plate{
   animation:brgw-hh-in 2.2s cubic-bezier(.16,.72,.2,1) both, brgw-hh-drift 46s ease-in-out 2.2s infinite;}
 /* Veil + grain: the comp sits the collage well back so the headline carries. */
+/* THE VIGNETTE IS ADJUSTABLE NOW. Sean reported the home hero as "overlay too dark"
+   weeks ago and the answer each time was that this is not the overlay — it is a designed
+   vignette baked into the CSS, separate from the overlay_color field, which is true and
+   was no help at all. Both of its stops are fields now, as whole percentages, and both
+   default to exactly the values that were hard-coded, so the hero looks identical until
+   someone moves them. The PHOTO'S OWN STRENGTH is the third number and is usually the
+   one that matters: the collage only ever reaches 42% opacity, so turning the vignette
+   down alone still leaves a dim picture. */
 .brgw-sec--home-hero .veil{position:absolute;inset:0;z-index:1;
-  background:radial-gradient(125% 95% at 50% 42%, rgba(19,18,16,.58), rgba(19,18,16,.9) 82%);}
+  background:radial-gradient(125% 95% at 50% 42%,
+    rgba(19,18,16,calc(var(--brgw-veil-c,58) / 100)),
+    rgba(19,18,16,calc(var(--brgw-veil-e,90) / 100)) 82%);}
 .brgw-sec--home-hero .grit{position:absolute;inset:-4%;z-index:1;opacity:.4;mix-blend-mode:overlay;
   background:center/cover no-repeat url('https://blacktoprg.netlify.app/assets/media/bg/grit.webp');
   animation:brgw-hh-drift 52s ease-in-out infinite;}
 
-@keyframes brgw-hh-in{0%{opacity:0;transform:scale(1.16);}100%{opacity:.42;transform:scale(1.06);}}
+@keyframes brgw-hh-in{0%{opacity:0;transform:scale(1.16);}100%{opacity:calc(var(--brgw-plate-o,42) / 100);transform:scale(1.06);}}
 @keyframes brgw-hh-drift{0%,100%{transform:scale(1.06) translate3d(0,0,0);}50%{transform:scale(1.09) translate3d(-1%,.7%,0);}}
 
 /* .sec-bg IS EXCLUDED TOO: it is an absolutely-positioned layer, and this rule is
@@ -73,7 +85,7 @@
 .brgw-sec--home-hero .btn{border:3px solid var(--ink);}
 
 @media (prefers-reduced-motion:reduce){
-  .brgw-sec--home-hero .plate{opacity:.42!important;animation:none!important;transform:none!important;}
+  .brgw-sec--home-hero .plate{opacity:calc(var(--brgw-plate-o,42) / 100)!important;animation:none!important;transform:none!important;}
   .brgw-sec--home-hero .grit{animation:none!important;}
   .brgw-sec--home-hero .uline{clip-path:none!important;}
 }
@@ -139,7 +151,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "video_id": "", "video_source": "youtube", "overlay_color": "none", "overlay_strength": "0.45", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
+  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "bg_photo_mobile": "", "photo_strength": "42", "veil_center": "58", "veil_edge": "90", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "video_id": "", "video_source": "youtube", "overlay_color": "none", "overlay_strength": "0.45", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

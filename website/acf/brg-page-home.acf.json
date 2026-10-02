@@ -183,6 +183,103 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_home_hero_acc_hero_darkness",
+                "label": "Hero darkness",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_hero_photo_strength",
+                "label": "Background photo — strength",
+                "name": "brg_home_hero_photo_strength",
+                "type": "number",
+                "instructions": "How strongly the background collage shows, as a percentage. THIS IS USUALLY THE ONE YOU WANT. The hero has always held this photo at 42%, which is most of why it reads as dark; the two vignette settings below only darken what is left. Raise this toward 100 to bring the picture forward. The white headline needs some darkness behind it, so check the headline is still easy to read after a big change.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-photo_strength",
+                    "id": ""
+                },
+                "default_value": "42",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_home_hero_veil_center",
+                "label": "Vignette — middle",
+                "name": "brg_home_hero_veil_center",
+                "type": "number",
+                "instructions": "How dark the middle of the hero is, behind the headline, as a percentage. 58 is the value this hero has always used. Lower lets more of the photo through in the middle; higher pushes the picture further back.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-veil_center",
+                    "id": ""
+                },
+                "default_value": "58",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_home_hero_veil_edge",
+                "label": "Vignette — edges",
+                "name": "brg_home_hero_veil_edge",
+                "type": "number",
+                "instructions": "How dark the outer edges are, as a percentage. 90 is the value this hero has always used. This is the setting that makes the corners almost black. The darkness fades smoothly between this and the middle value above.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-veil_edge",
+                    "id": ""
+                },
+                "default_value": "90",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_home_hero_endacc_hero_darkness",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_home_hero_bg_photo_tone",
                 "label": "Background photo — color",
                 "name": "brg_home_hero_bg_photo_tone",
