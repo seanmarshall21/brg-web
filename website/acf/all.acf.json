@@ -1836,6 +1836,32 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_team_members_quote_mark",
+        "label": "Quote mark behind the quote",
+        "name": "brg_team_members_quote_mark",
+        "type": "select",
+        "instructions": "A large quotation mark sitting behind each person's quote. Matching the card color keeps it quiet — it reads as texture rather than an element. Yellow is louder and the same on every card. Either way it only appears where a quote has been written.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-quote_mark",
+          "id": ""
+        },
+        "default_value": "match",
+        "choices": {
+          "match": "Match each person's card color — subtle",
+          "yellow": "Yellow — bolder, same on every card",
+          "none": "None"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_tab_team_apply",
         "label": "Join the crew",
         "name": "",

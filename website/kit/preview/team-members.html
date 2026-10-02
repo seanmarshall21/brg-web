@@ -145,6 +145,39 @@
 .brgw-sec--team-members figcaption{margin-top:16px;font-size:clamp(.84rem,.95vw,.92rem);
   line-height:1.5;opacity:.78;font-style:italic;}
 
+/* ── The oversized quote mark ────────────────────────────────────────────────
+   Sean supplied quote-15.svg, quote-40.svg and quote-100.svg. They are the SAME PATH;
+   only the `opacity` attribute on it differs, so shipping three assets would be shipping
+   one shape three times and hard-coding a decision CSS can make better. The 100% file is
+   the base, exactly as he suggested, and opacity is set here.
+
+   A MASK, NOT AN IMAGE, because the mark has to take each person's colour — an <img> or a
+   background-image carries the fill baked in at #FAE200 and could only ever be yellow.
+   Masking paints `background-color` through the shape, so var(--c) just works, and that is
+   the whole reason --c moved from .card up to the figure in this commit: the caption is a
+   SIBLING of the card, so it could not see a variable set on the card.
+
+   Inline as a data URI rather than a file: it is 1.1KB, it saves a request per card, and
+   it keeps the shape in the same commit as the rule that colours it. */
+.brgw-sec--team-members figcaption{position:relative;}
+.brgw-sec--team-members figcaption::before{
+  content:"";position:absolute;left:0;top:-6px;z-index:0;
+  width:clamp(34px,3.6vw,52px);aspect-ratio:44/33;pointer-events:none;
+  background-color:var(--c,var(--yellow));opacity:.15;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2044%2033%22%3E%3Cpath%20d%3D%22M15.1755%2014.4209C16.8517%2015.1877%2018.1388%2016.3378%2019.0367%2017.8713C19.9946%2019.3458%2020.4735%2021.0858%2020.4735%2023.0912C20.4735%2026.0402%2019.5156%2028.429%2017.6%2030.2574C15.6844%2032.0858%2013.2299%2033%2010.2367%2033C7.24354%2033%204.78912%2032.0858%202.87347%2030.2574C0.957823%2028.429%200%2026.0402%200%2023.0912C0%2021.7346%200.179592%2020.378%200.538775%2019.0214C0.897959%2017.6649%201.70612%2015.6595%202.96327%2013.0054L8.7102%200H19.3959L15.1755%2014.4209ZM38.702%2014.4209C40.3782%2015.1877%2041.6653%2016.3378%2042.5633%2017.8713C43.5211%2019.3458%2044%2021.0858%2044%2023.0912C44%2026.0402%2043.0422%2028.429%2041.1265%2030.2574C39.2109%2032.0858%2036.7565%2033%2033.7633%2033C30.7701%2033%2028.3156%2032.0858%2026.4%2030.2574C24.4844%2028.429%2023.5265%2026.0402%2023.5265%2023.0912C23.5265%2021.7346%2023.7061%2020.378%2024.0653%2019.0214C24.4245%2017.6649%2025.2327%2015.6595%2026.4898%2013.0054L32.2367%200H42.9224L38.702%2014.4209Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat left top/contain;
+          mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2044%2033%22%3E%3Cpath%20d%3D%22M15.1755%2014.4209C16.8517%2015.1877%2018.1388%2016.3378%2019.0367%2017.8713C19.9946%2019.3458%2020.4735%2021.0858%2020.4735%2023.0912C20.4735%2026.0402%2019.5156%2028.429%2017.6%2030.2574C15.6844%2032.0858%2013.2299%2033%2010.2367%2033C7.24354%2033%204.78912%2032.0858%202.87347%2030.2574C0.957823%2028.429%200%2026.0402%200%2023.0912C0%2021.7346%200.179592%2020.378%200.538775%2019.0214C0.897959%2017.6649%201.70612%2015.6595%202.96327%2013.0054L8.7102%200H19.3959L15.1755%2014.4209ZM38.702%2014.4209C40.3782%2015.1877%2041.6653%2016.3378%2042.5633%2017.8713C43.5211%2019.3458%2044%2021.0858%2044%2023.0912C44%2026.0402%2043.0422%2028.429%2041.1265%2030.2574C39.2109%2032.0858%2036.7565%2033%2033.7633%2033C30.7701%2033%2028.3156%2032.0858%2026.4%2030.2574C24.4844%2028.429%2023.5265%2026.0402%2023.5265%2023.0912C23.5265%2021.7346%2023.7061%2020.378%2024.0653%2019.0214C24.4245%2017.6649%2025.2327%2015.6595%2026.4898%2013.0054L32.2367%200H42.9224L38.702%2014.4209Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat left top/contain;}
+/* A row with no quote renders an EMPTY figcaption, and a lone mark under a card with no
+   words beside it reads as a stray graphic rather than punctuation. */
+.brgw-sec--team-members figcaption:empty::before{display:none;}
+/* The words sit above the mark, never behind it. */
+.brgw-sec--team-members figcaption{z-index:1;}
+
+/* Yellow instead of the person's colour — same shape, heavier because yellow at 15% on
+   white is invisible. */
+.brgw-sec--team-members .grid[data-quote="yellow"] figcaption::before{
+  background-color:var(--yellow);opacity:.4;}
+.brgw-sec--team-members .grid[data-quote="none"] figcaption::before{display:none;}
+
 /* Scattered doodles between the cards, positioned as in the comp. */
 .brgw-sec--team-members .dood{position:absolute;z-index:4;pointer-events:none;}
 .brgw-sec--team-members .dood img{width:100%;height:auto;display:block;}
@@ -162,29 +195,29 @@
    while this cycle is four classes and a type, so without the scope the cycle would
    quietly win every time and the colour field would look broken. Mutually exclusive
    attribute values mean neither rule has to out-specify the other. */
-.brgw-sec--team-members .grid figure:nth-child(5n+1) .card[data-color="auto"],
-.brgw-sec--team-members .grid figure:nth-child(5n+1) .card[data-color=""]{--c:var(--teal)}
-.brgw-sec--team-members .grid figure:nth-child(5n+2) .card[data-color="auto"],
-.brgw-sec--team-members .grid figure:nth-child(5n+2) .card[data-color=""]{--c:var(--orange)}
-.brgw-sec--team-members .grid figure:nth-child(5n+3) .card[data-color="auto"],
-.brgw-sec--team-members .grid figure:nth-child(5n+3) .card[data-color=""]{--c:var(--yellow)}
-.brgw-sec--team-members .grid figure:nth-child(5n+4) .card[data-color="auto"],
-.brgw-sec--team-members .grid figure:nth-child(5n+4) .card[data-color=""]{--c:var(--pink)}
-.brgw-sec--team-members .grid figure:nth-child(5n+5) .card[data-color="auto"],
-.brgw-sec--team-members .grid figure:nth-child(5n+5) .card[data-color=""]{--c:#A17DC4} /* purple: softened to #A17DC4 at Sean's request 1 Oct; was #6C2BB8, which read
+.brgw-sec--team-members .grid figure:nth-child(5n+1)[data-color="auto"],
+.brgw-sec--team-members .grid figure:nth-child(5n+1)[data-color=""]{--c:var(--teal)}
+.brgw-sec--team-members .grid figure:nth-child(5n+2)[data-color="auto"],
+.brgw-sec--team-members .grid figure:nth-child(5n+2)[data-color=""]{--c:var(--orange)}
+.brgw-sec--team-members .grid figure:nth-child(5n+3)[data-color="auto"],
+.brgw-sec--team-members .grid figure:nth-child(5n+3)[data-color=""]{--c:var(--yellow)}
+.brgw-sec--team-members .grid figure:nth-child(5n+4)[data-color="auto"],
+.brgw-sec--team-members .grid figure:nth-child(5n+4)[data-color=""]{--c:var(--pink)}
+.brgw-sec--team-members .grid figure:nth-child(5n+5)[data-color="auto"],
+.brgw-sec--team-members .grid figure:nth-child(5n+5)[data-color=""]{--c:#A17DC4} /* purple: softened to #A17DC4 at Sean's request 1 Oct; was #6C2BB8, which read
    heavier than the rest of the palette beside teal and orange. NOT var(--violet) — that token does not exist, so it silently fell back to teal, making the "5-colour" cycle 4 colours with teal twice. Worse, SPEC-005 wants a --violet for Press: defining it there would have retroactively changed THIS page. */
 
 /* EXPLICIT per-person colours. The hexes are the ones already on the fallback cards —
    this names them rather than introducing a second palette. */
-.brgw-sec--team-members .card[data-color="teal"]{--c:var(--teal)}
-.brgw-sec--team-members .card[data-color="orange"]{--c:var(--orange)}
-.brgw-sec--team-members .card[data-color="yellow"]{--c:var(--yellow)}
-.brgw-sec--team-members .card[data-color="pink"]{--c:var(--pink)}
-.brgw-sec--team-members .card[data-color="purple"]{--c:#A17DC4}
-.brgw-sec--team-members .card[data-color="blue"]{--c:#2BB3E3}
-.brgw-sec--team-members .card[data-color="coral"]{--c:#F4736B}
-.brgw-sec--team-members .card[data-color="green"]{--c:#22B34B}
-.brgw-sec--team-members .card[data-color="red"]{--c:#E02020}
+.brgw-sec--team-members figure[data-color="teal"]{--c:var(--teal)}
+.brgw-sec--team-members figure[data-color="orange"]{--c:var(--orange)}
+.brgw-sec--team-members figure[data-color="yellow"]{--c:var(--yellow)}
+.brgw-sec--team-members figure[data-color="pink"]{--c:var(--pink)}
+.brgw-sec--team-members figure[data-color="purple"]{--c:#A17DC4}
+.brgw-sec--team-members figure[data-color="blue"]{--c:#2BB3E3}
+.brgw-sec--team-members figure[data-color="coral"]{--c:#F4736B}
+.brgw-sec--team-members figure[data-color="green"]{--c:#22B34B}
+.brgw-sec--team-members figure[data-color="red"]{--c:#E02020}
 
 /* ── Hover ───────────────────────────────────────────────────────────────────
    Sean, 1 Oct: the name box turns slightly clockwise, the photo lifts, the crop
@@ -285,19 +318,19 @@
   <span class="dood d4" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg" alt="" width="129" height="207" loading="lazy" decoding="async"></span>
   <span class="dood d5" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg" alt="" width="265" height="192" loading="lazy" decoding="async"></span>
 
-  <div class="grid" data-cols="{{columns}}" style="--ar:{{card_shape}}">
+  <div class="grid" data-cols="{{columns}}" data-quote="{{quote_mark}}" style="--ar:{{card_shape}}">
     <!--brg:repeat members-->
-      <figure class="anim-up"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-color="{{members.bg_color}}" data-overflow="{{members.overflow}}" data-hovercrop="{{members.hovercrop}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async" width="800" height="1000"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
+      <figure class="anim-up" data-color="{{members.bg_color}}"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-overflow="{{members.overflow}}" data-hovercrop="{{members.hovercrop}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async" width="800" height="1000"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
     <!--brg:empty-->
-      <figure class="anim-up"><div class="card" style="--c:var(--teal)"></div><span class="bar"><span class="nm blanco">Craig Applegate</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:var(--orange)"></div><span class="bar"><span class="nm blanco">Clayton Wheeler</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:#2BB3E3"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:#A17DC4"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:var(--yellow)"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:var(--pink)"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:#F4736B"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:#22B34B"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:#E02020"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+      <figure class="anim-up" style="--c:var(--teal)"><div class="card"></div><span class="bar"><span class="nm blanco">Craig Applegate</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up" style="--c:var(--orange)"><div class="card"></div><span class="bar"><span class="nm blanco">Clayton Wheeler</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up" style="--c:#2BB3E3"><div class="card"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up" style="--c:#A17DC4"><div class="card"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up" style="--c:var(--yellow)"><div class="card"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up" style="--c:var(--pink)"><div class="card"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up" style="--c:#F4736B"><div class="card"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up" style="--c:#22B34B"><div class="card"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up" style="--c:#E02020"><div class="card"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <!--/brg:repeat-->
   </div>
 </section>
@@ -308,7 +341,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"members": "", "card_shape": "7/9", "photo_fit": "height", "columns": "3"};
+  var D = {"members": "", "card_shape": "7/9", "photo_fit": "height", "columns": "3", "quote_mark": "match"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
