@@ -95,9 +95,12 @@
    edges get trimmed. Top and Bottom cannot mean anything in height mode, where the
    height already matches exactly, so they centre rather than doing something arbitrary. */
 .brgw-sec--team-members .card[data-fit="height"] img,
-.brgw-sec--team-members .card[data-fit=""] img{left:50%;transform:translateX(-50%);}
-.brgw-sec--team-members .card[data-fit="height"][data-crop="left"] img{left:0;transform:none;}
-.brgw-sec--team-members .card[data-fit="height"][data-crop="right"] img{left:auto;right:0;transform:none;}
+.brgw-sec--team-members .card[data-fit=""] img{left:50%;
+  transform:translateX(-50%) scale(var(--z,1));transform-origin:bottom center;}
+.brgw-sec--team-members .card[data-fit="height"][data-crop="left"] img{left:0;
+  transform:scale(var(--z,1));transform-origin:bottom left;}
+.brgw-sec--team-members .card[data-fit="height"][data-crop="right"] img{left:auto;right:0;
+  transform:scale(var(--z,1));transform-origin:bottom right;}
 .brgw-sec--team-members .card[data-fit="cover"][data-crop="top"] img{object-position:center top;}
 .brgw-sec--team-members .card[data-fit="cover"][data-crop="center"] img{object-position:center center;}
 .brgw-sec--team-members .card[data-fit="cover"][data-crop="bottom"] img{object-position:center bottom;}
@@ -158,6 +161,74 @@
 .brgw-sec--team-members .card[data-color="coral"]{--c:#F4736B}
 .brgw-sec--team-members .card[data-color="green"]{--c:#22B34B}
 .brgw-sec--team-members .card[data-color="red"]{--c:#E02020}
+
+/* ── Hover ───────────────────────────────────────────────────────────────────
+   Sean, 1 Oct: the name box turns slightly clockwise, the photo lifts, the crop
+   shrinks a little, and the top is allowed to escape — "if the head pokes out a
+   little bit… it's fine, but the sides crop stays hidden if it's set to hidden."
+
+   THAT LAST PART IS WHY THIS USES `clip`. overflow:hidden on ONE axis forces the
+   other to `auto`, so asking for hidden sides and a free top with `hidden` silently
+   produces a scrollbar instead. `overflow-x:clip` with `overflow-y:visible` is the
+   only pairing that means what he asked for, and it leaves a card that was set to
+   spill on both axes alone.
+
+   THE LIFT IS `bottom`, NOT A TRANSFORM, because the photo already spends its
+   transform on staying centred (translateX(-50%)) — a hover transform would have to
+   restate that, and would then be wrong for the left and right crops, which do not
+   use it. Moving `bottom` is independent of all three.
+
+   The shrink rides a variable for the same reason: --z is the only thing hover
+   touches, so each crop keeps its own origin and centring. transform-origin is the
+   BASE of the photo, so it shrinks toward the bottom edge it stands on rather than
+   drifting up as it scales — the lift should be the only vertical movement.
+
+   The plate's resting angle is -2.2deg, so 1.5deg CLOCKWISE is -0.7deg, not +1.5.
+
+   HOVER ONLY WHERE HOVER EXISTS. Without the (hover:hover) gate a phone fires these
+   on tap and leaves the card stuck in its hovered state until something else is
+   touched. */
+@media (hover:hover){
+  .brgw-sec--team-members figure .card,
+  .brgw-sec--team-members figure .card img,
+  .brgw-sec--team-members figure .bar{
+    transition:bottom .34s cubic-bezier(.2,.7,.2,1),transform .34s cubic-bezier(.2,.7,.2,1);}
+
+  /* the hovered card paints over its neighbours, or the escaping head slides under them */
+  /* THE SHRINK AND THE LIFT FIGHT EACH OTHER, so the numbers are chosen, not picked.
+     transform-origin is the base, so scaling to 0.97 drops the TOP of a 501px photo by
+     15px while a 14px lift raises it — measured head-poke was MINUS 1px, i.e. the effect
+     cancelled itself exactly and nothing escaped the frame. The shrink is therefore kept
+     to 1.5% (7.5px at this size) and the lift raised to 22px, leaving ~14px of head above
+     the box. Any future change to one has to be checked against the other. */
+  .brgw-sec--team-members figure:hover .card{z-index:2;--z:.985;}
+
+  /* top free, sides exactly as the per-person setting left them */
+  .brgw-sec--team-members figure:hover .card[data-overflow="hidden"],
+  .brgw-sec--team-members figure:hover .card[data-overflow=""]{
+    overflow-x:clip;overflow-y:visible;}
+
+  .brgw-sec--team-members figure:hover .card[data-fit="height"] img,
+  .brgw-sec--team-members figure:hover .card[data-fit=""] img{bottom:22px;}
+  .brgw-sec--team-members figure:hover .card[data-fit="cover"] img,
+  .brgw-sec--team-members figure:hover .card[data-fit="contain"] img{
+    transform:translateY(-14px) scale(.985);}
+
+  .brgw-sec--team-members figure:hover .bar{transform:rotate(-0.7deg);}
+}
+/* Motion is decoration here, so it goes entirely rather than being shortened. The
+   escaping top goes with it: without the movement it is just a clipped head. */
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--team-members figure .card,
+  .brgw-sec--team-members figure .card img,
+  .brgw-sec--team-members figure .bar{transition:none!important;}
+  .brgw-sec--team-members figure:hover .card{--z:1;}
+  .brgw-sec--team-members figure:hover .card[data-overflow="hidden"],
+  .brgw-sec--team-members figure:hover .card[data-overflow=""]{overflow:hidden;}
+  .brgw-sec--team-members figure:hover .card[data-fit="height"] img,
+  .brgw-sec--team-members figure:hover .card[data-fit=""] img{bottom:0;}
+  .brgw-sec--team-members figure:hover .bar{transform:rotate(-2.2deg);}
+}
 </style>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-smile.svg" alt="" width="150" height="145" loading="lazy" decoding="async"></span>
 
