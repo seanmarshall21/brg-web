@@ -82,17 +82,15 @@
     }
   },
   "bnb_image_px": {
-    "type": "select",
+    "type": "number",
     "label": "Board & Brew — image — movement",
-    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "doc": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
     "width": 20,
     "default": "0",
-    "choices": {
-      "0": "Off",
-      "6": "Subtle",
-      "10": "Medium",
-      "16": "Strong"
-    }
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
   },
   "bnb_image_px_dir": {
     "type": "select",
@@ -106,16 +104,15 @@
     }
   },
   "bnb_image_float": {
-    "type": "select",
+    "type": "number",
     "label": "Board & Brew — image — frame drift",
-    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+    "doc": "Moves the whole frame across the section, on top of the movement inside it, as a percentage of the frame's height. 0 is off; 8 and 12 were the old Gentle and Strong. 40 is the ceiling. Leave this off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
     "width": 20,
     "default": "0",
-    "choices": {
-      "0": "Off",
-      "8": "Gentle",
-      "12": "Strong"
-    }
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
   },
   "bnb_image_float_dir": {
     "type": "select",
@@ -146,17 +143,15 @@
     }
   },
   "odies_image_px": {
-    "type": "select",
+    "type": "number",
     "label": "Odie's — image — movement",
-    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "doc": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
     "width": 20,
     "default": "0",
-    "choices": {
-      "0": "Off",
-      "6": "Subtle",
-      "10": "Medium",
-      "16": "Strong"
-    }
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
   },
   "odies_image_px_dir": {
     "type": "select",
@@ -170,16 +165,15 @@
     }
   },
   "odies_image_float": {
-    "type": "select",
+    "type": "number",
     "label": "Odie's — image — frame drift",
-    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+    "doc": "Moves the whole frame across the section, on top of the movement inside it, as a percentage of the frame's height. 0 is off; 8 and 12 were the old Gentle and Strong. 40 is the ceiling. Leave this off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
     "width": 20,
     "default": "0",
-    "choices": {
-      "0": "Off",
-      "8": "Gentle",
-      "12": "Strong"
-    }
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
   },
   "odies_image_float_dir": {
     "type": "select",

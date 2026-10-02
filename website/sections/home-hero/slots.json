@@ -30,6 +30,12 @@
     "doc": "The full-bleed hero collage behind the logo and headline. Dark imagery works best — the headline and sub copy sit on top in white. Landscape, at least 1600px wide. Leave empty to keep the current picture.",
     "default": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp"
   },
+  "bg_photo_mobile": {
+    "type": "image",
+    "label": "Background photo — phones",
+    "doc": "Optional. A version of the hero photo for phones, used below 768px wide. Leave empty and the main photo above is used at every size. Worth setting when the main photo is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or tighter version reads far better.",
+    "group": "Background photo — phones"
+  },
   "bg_photo_tone": {
     "type": "select",
     "label": "Background photo — color",
@@ -42,45 +48,20 @@
     }
   },
   "bg_photo_px": {
-    "type": "select",
+    "type": "number",
     "label": "Background photo — movement",
-    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "doc": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
     "width": 20,
     "default": "0",
-    "choices": {
-      "0": "Off",
-      "6": "Subtle",
-      "10": "Medium",
-      "16": "Strong"
-    }
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
   },
   "bg_photo_px_dir": {
     "type": "select",
     "label": "Background photo — movement direction",
     "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-    "width": 20,
-    "default": "down",
-    "choices": {
-      "down": "Down",
-      "up": "Up"
-    }
-  },
-  "bg_photo_float": {
-    "type": "select",
-    "label": "Background photo — frame drift",
-    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
-    "width": 20,
-    "default": "0",
-    "choices": {
-      "0": "Off",
-      "8": "Gentle",
-      "12": "Strong"
-    }
-  },
-  "bg_photo_float_dir": {
-    "type": "select",
-    "label": "Background photo — drift direction",
-    "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
     "width": 20,
     "default": "down",
     "choices": {

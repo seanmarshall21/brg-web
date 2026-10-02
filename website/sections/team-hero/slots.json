@@ -35,6 +35,12 @@
     "label": "Background photo",
     "doc": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off."
   },
+  "bg_photo_mobile": {
+    "type": "image",
+    "label": "Background photo — phones",
+    "doc": "Optional. A version of the hero photo for phones, used below 768px wide. Leave empty and the main photo above is used at every size. Worth setting when the main photo is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or tighter version reads far better.",
+    "group": "Background photo — phones"
+  },
   "bg_photo_tone": {
     "type": "select",
     "label": "Background photo — color",
@@ -47,45 +53,20 @@
     }
   },
   "bg_photo_px": {
-    "type": "select",
+    "type": "number",
     "label": "Background photo — movement",
-    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "doc": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
     "width": 20,
     "default": "0",
-    "choices": {
-      "0": "Off",
-      "6": "Subtle",
-      "10": "Medium",
-      "16": "Strong"
-    }
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
   },
   "bg_photo_px_dir": {
     "type": "select",
     "label": "Background photo — movement direction",
     "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-    "width": 20,
-    "default": "down",
-    "choices": {
-      "down": "Down",
-      "up": "Up"
-    }
-  },
-  "bg_photo_float": {
-    "type": "select",
-    "label": "Background photo — frame drift",
-    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
-    "width": 20,
-    "default": "0",
-    "choices": {
-      "0": "Off",
-      "8": "Gentle",
-      "12": "Strong"
-    }
-  },
-  "bg_photo_float_dir": {
-    "type": "select",
-    "label": "Background photo — drift direction",
-    "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
     "width": 20,
     "default": "down",
     "choices": {

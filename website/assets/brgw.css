@@ -194,8 +194,20 @@
    four content selectors are named instead. A WRAPPER would be worse still: the
    underline measures its margin against its PARENT's content edge, so wrapping the
    content re-breaks the placement fixed in 89235d7. */
-.brgw-hero .hero-bg{position:absolute;inset:0;z-index:0;
-  background:var(--brgw-hero-bg) center/cover no-repeat;}
+.brgw-hero .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;}
+/* THE PHOTO IS AN ELEMENT, NOT A BACKGROUND, so the parallax engine can move it.
+   brgwMotion() only ever styles an element; `background-position` is not something it
+   touches, which is why every hero's "Background photo — movement" field was a field
+   that edited nothing for as long as this layer was painted with background-image.
+   Measured before the change: five heroes, five live dropdowns, zero movement.
+   The <img> carries no src (see the fragment) so an unset photo makes no request. */
+.brgw-hero .hero-bg picture{display:block;width:100%;height:100%;}
+/* ABSOLUTE AND COVERING, because at movement 0 the engine never touches the img at all
+   (`if (img && amt > 0)`), and an in-flow <img> would sit at its intrinsic size in the
+   corner of the hero. This is the DEFAULT look; the engine overrides top/height when a
+   movement amount is set, exactly as it does for .sec-bg. */
+.brgw-hero .hero-bg img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;z-index:0;}
 /* HIDDEN ONLY WHEN BOTH ARE EMPTY. Sean, 30 Sep: "the hero section should always have
    an option for a background image or background video" — so a hero with a video and no
    photo is a real, supported state, and keying the layer off the photo alone would hide
@@ -213,7 +225,11 @@
    the <img> was rejected for: an empty url resolving against the PAGE and re-downloading
    the document as an image, for every visitor. Higher specificity than the rule above,
    so background-image:none wins whatever the custom property holds. */
-.brgw-hero .hero-bg[data-bg=""]{background-image:none;}
+/* VIDEO-ONLY: the layer stays visible for the video, but the photo element must go.
+   `display:none` on the <img> is belt-and-braces — the fragment gives it no src, so
+   there is nothing to request — but it also collapses the <picture> box in the
+   video-only state rather than leaving a zero-size element in the stack. */
+.brgw-hero .hero-bg[data-bg=""] img{display:none;}
 .brgw-hero .hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
   opacity:var(--brgw-scrim-o,.5);}
 .brgw-hero .hero-scrim[data-scrim=""],

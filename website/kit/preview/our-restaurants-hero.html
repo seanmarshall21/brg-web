@@ -27,7 +27,20 @@
        the parent and takes the overlay with it, which is why adding this control
        changes nothing on a hero that has no photo set. Rules live in brgw.css. -->
   <div class="hero-bg" data-bg="{{bg_photo}}" data-vid-set="{{video_id}}"
-       style="--brgw-hero-bg:url('{{bg_photo}}')" aria-hidden="true" data-tone="{{bg_photo_tone}}" data-px="{{bg_photo_px}}" data-px-dir="{{bg_photo_px_dir}}" data-float="{{bg_photo_float}}" data-float-dir="{{bg_photo_float_dir}}">
+       aria-hidden="true" data-tone="{{bg_photo_tone}}" data-brgw-frame>
+    <!-- THE PHOTO IS A REAL <img> NOW, not a CSS background, because the parallax
+         engine moves an element and cannot move a background-image. NO src ATTRIBUTE:
+         the <img> was rejected here originally because an empty src resolves against
+         the PAGE and re-downloads the document as an image for every visitor. A
+         <source srcset=""> is SKIPPED instead, and an <img> with no src makes no
+         request at all — so "no photo set" costs nothing, which is the whole reason
+         the background-image version existed. -->
+    <picture>
+      <source media="(max-width:767px)" srcset="{{bg_photo_mobile}}">
+      <source srcset="{{bg_photo}}">
+      <img alt="" decoding="async" width="1920" height="1280"
+           data-px="{{bg_photo_px}}" data-px-dir="{{bg_photo_px_dir}}">
+    </picture>
     <div class="vid" data-vid="{{video_id}}" data-src="{{video_source}}"></div>
     <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
   </div>
@@ -45,7 +58,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Two brands. One standard. Zero compromises.", "sub": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for.", "uline_variant": "u3", "bg_photo": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "bg_photo_float": "0", "bg_photo_float_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube"};
+  var D = {"heading": "Two brands. One standard. Zero compromises.", "sub": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for.", "uline_variant": "u3", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

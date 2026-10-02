@@ -117,6 +117,57 @@
                 "library": "all"
             },
             {
+                "key": "field_brg_our_restaurants_hero_acc_background_photo_phones",
+                "label": "Background photo — phones",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_bg_photo_mobile",
+                "label": "Background photo — phones",
+                "name": "brg_our_restaurants_hero_bg_photo_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the hero photo for phones, used below 768px wide. Leave empty and the main photo above is used at every size. Worth setting when the main photo is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or tighter version reads far better.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-bg_photo_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_endacc_background_photo_phones",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_our_restaurants_hero_bg_photo_tone",
                 "label": "Background photo — color",
                 "name": "brg_our_restaurants_hero_bg_photo_tone",
@@ -145,8 +196,8 @@
                 "key": "field_brg_our_restaurants_hero_bg_photo_px",
                 "label": "Background photo — movement",
                 "name": "brg_our_restaurants_hero_bg_photo_px",
-                "type": "select",
-                "instructions": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+                "type": "number",
+                "instructions": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -155,18 +206,12 @@
                     "id": ""
                 },
                 "default_value": "0",
-                "choices": {
-                    "0": "Off",
-                    "6": "Subtle",
-                    "10": "Medium",
-                    "16": "Strong"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
             },
             {
                 "key": "field_brg_our_restaurants_hero_bg_photo_px_dir",
@@ -179,57 +224,6 @@
                 "wrapper": {
                     "width": "20",
                     "class": "brg-f-bg_photo_px_dir",
-                    "id": ""
-                },
-                "default_value": "down",
-                "choices": {
-                    "down": "Down",
-                    "up": "Up"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_hero_bg_photo_float",
-                "label": "Background photo — frame drift",
-                "name": "brg_our_restaurants_hero_bg_photo_float",
-                "type": "select",
-                "instructions": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-bg_photo_float",
-                    "id": ""
-                },
-                "default_value": "0",
-                "choices": {
-                    "0": "Off",
-                    "8": "Gentle",
-                    "12": "Strong"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_hero_bg_photo_float_dir",
-                "label": "Background photo — drift direction",
-                "name": "brg_our_restaurants_hero_bg_photo_float_dir",
-                "type": "select",
-                "instructions": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-bg_photo_float_dir",
                     "id": ""
                 },
                 "default_value": "down",
@@ -593,8 +587,8 @@
                 "key": "field_brg_our_restaurants_brands_bnb_image_px",
                 "label": "Board & Brew — image — movement",
                 "name": "brg_our_restaurants_brands_bnb_image_px",
-                "type": "select",
-                "instructions": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+                "type": "number",
+                "instructions": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -603,18 +597,12 @@
                     "id": ""
                 },
                 "default_value": "0",
-                "choices": {
-                    "0": "Off",
-                    "6": "Subtle",
-                    "10": "Medium",
-                    "16": "Strong"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
             },
             {
                 "key": "field_brg_our_restaurants_brands_bnb_image_px_dir",
@@ -645,8 +633,8 @@
                 "key": "field_brg_our_restaurants_brands_bnb_image_float",
                 "label": "Board & Brew — image — frame drift",
                 "name": "brg_our_restaurants_brands_bnb_image_float",
-                "type": "select",
-                "instructions": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+                "type": "number",
+                "instructions": "Moves the whole frame across the section, on top of the movement inside it, as a percentage of the frame's height. 0 is off; 8 and 12 were the old Gentle and Strong. 40 is the ceiling. Leave this off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -655,17 +643,12 @@
                     "id": ""
                 },
                 "default_value": "0",
-                "choices": {
-                    "0": "Off",
-                    "8": "Gentle",
-                    "12": "Strong"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
             },
             {
                 "key": "field_brg_our_restaurants_brands_bnb_image_float_dir",
@@ -738,8 +721,8 @@
                 "key": "field_brg_our_restaurants_brands_odies_image_px",
                 "label": "Odie's — image — movement",
                 "name": "brg_our_restaurants_brands_odies_image_px",
-                "type": "select",
-                "instructions": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+                "type": "number",
+                "instructions": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -748,18 +731,12 @@
                     "id": ""
                 },
                 "default_value": "0",
-                "choices": {
-                    "0": "Off",
-                    "6": "Subtle",
-                    "10": "Medium",
-                    "16": "Strong"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
             },
             {
                 "key": "field_brg_our_restaurants_brands_odies_image_px_dir",
@@ -790,8 +767,8 @@
                 "key": "field_brg_our_restaurants_brands_odies_image_float",
                 "label": "Odie's — image — frame drift",
                 "name": "brg_our_restaurants_brands_odies_image_float",
-                "type": "select",
-                "instructions": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+                "type": "number",
+                "instructions": "Moves the whole frame across the section, on top of the movement inside it, as a percentage of the frame's height. 0 is off; 8 and 12 were the old Gentle and Strong. 40 is the ceiling. Leave this off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -800,17 +777,12 @@
                     "id": ""
                 },
                 "default_value": "0",
-                "choices": {
-                    "0": "Off",
-                    "8": "Gentle",
-                    "12": "Strong"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
             },
             {
                 "key": "field_brg_our_restaurants_brands_odies_image_float_dir",

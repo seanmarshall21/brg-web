@@ -38,16 +38,14 @@
     }
   },
   "section_bg_px": {
-    "type": "select",
+    "type": "number",
     "label": "Background movement",
-    "doc": "Drifts the background as the page scrolls, behind the content. Off is the starting point; a pattern moving too fast pulls the eye away from the copy.",
+    "doc": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
     "width": 50,
     "default": "0",
-    "choices": {
-      "0": "Off",
-      "6": "Subtle",
-      "10": "Medium",
-      "16": "Strong"
-    }
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
   }
 }

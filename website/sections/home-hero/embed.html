@@ -72,6 +72,11 @@
 </style>
   <div class="bg" aria-hidden="true">
     <div class="media plate-media" data-brgw-frame>
+      <!-- <picture> only so a phone can be given its own artwork. An empty
+           <source srcset=""> is skipped and the <img> below loads as before,
+           which is the same behavior .sec-bg already relies on. -->
+      <picture>
+      <source media="(max-width:767px)" srcset="{{bg_photo_mobile}}">
       <img class="plate" alt="" decoding="async"
       src="{{bg_photo}}"
       srcset="https://blacktoprg.netlify.app/assets/media/bg/base/base-390.webp 390w,
@@ -81,7 +86,8 @@
               https://blacktoprg.netlify.app/assets/media/bg/base/base-1120.webp 1120w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-1440.webp 1440w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp 1920w"
-      sizes="100vw" width="1920" height="1340" data-tone="{{bg_photo_tone}}" data-px="{{bg_photo_px}}" data-px-dir="{{bg_photo_px_dir}}" data-float="{{bg_photo_float}}" data-float-dir="{{bg_photo_float_dir}}">
+      sizes="100vw" width="1920" height="1340" data-tone="{{bg_photo_tone}}" data-px="{{bg_photo_px}}" data-px-dir="{{bg_photo_px_dir}}">
+      </picture>
       <div class="vid" data-vid="{{video_id}}" data-src="{{video_source}}" aria-hidden="true"></div>
     </div>
     <div class="grit"></div>
