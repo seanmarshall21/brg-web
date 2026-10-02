@@ -1,0 +1,57 @@
+{
+  "_label": "Brand info",
+  "_note": "Shared values used in more than one place on the site — entered ONCE here and referenced everywhere else, so an address or a link has a single source of truth.\\n\\nHOW TO USE A VALUE. In a link field, type #brand-email (or #brand-instagram, etc.) instead of the address. In ordinary text, type [brand phone] and it is replaced where it stands. Both are resolved on the server when the page renders.\\n\\nAn email becomes a mailto: link and a phone becomes a tel: link automatically, so do not type those prefixes here — just the address or the number.\\n\\nGenerated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json.",
+  "name": {
+    "type": "text",
+    "label": "Business name",
+    "doc": "Used wherever the company is named in copy.",
+    "default": "Blacktop Restaurant Group"
+  },
+  "email": {
+    "type": "text",
+    "label": "Email address",
+    "doc": "The general enquiries address. Referenced as #brand-email in a link, or [brand email] in text. Becomes a mailto: link on its own — type just the address."
+  },
+  "phone": {
+    "type": "text",
+    "label": "Phone number",
+    "doc": "Written the way it should READ on the page, e.g. (760) 555-0134. Becomes a tel: link on its own, with everything except digits and a leading + stripped for the dialling part."
+  },
+  "address": {
+    "type": "textarea",
+    "label": "Address",
+    "doc": "Shown on the contact page and anywhere the location is named."
+  },
+  "careers_email": {
+    "type": "text",
+    "label": "Careers email",
+    "doc": "Where job enquiries go, if different from the general address. Referenced as #brand-careers_email."
+  },
+  "instagram": {
+    "type": "url",
+    "label": "Instagram",
+    "doc": "Full https:// address of the profile. Leave blank and nothing linking to it shows."
+  },
+  "facebook": {
+    "type": "url",
+    "label": "Facebook",
+    "doc": "Full https:// address. Leave blank and nothing linking to it shows."
+  },
+  "tiktok": {
+    "type": "url",
+    "label": "TikTok",
+    "doc": "Full https:// address. Leave blank and nothing linking to it shows."
+  },
+  "linkedin": {
+    "type": "url",
+    "label": "LinkedIn",
+    "doc": "Full https:// address. Leave blank and nothing linking to it shows.",
+    "default": "https://www.linkedin.com/company/blacktop-restaurant-group/"
+  },
+  "privacy": {
+    "type": "url",
+    "label": "Privacy policy page",
+    "doc": "Path or full address of the privacy policy.",
+    "default": "/privacy-policy/"
+  }
+}

@@ -1,0 +1,191 @@
+[
+    {
+        "key": "group_brg_chrome_brand",
+        "title": "Brand info — Content",
+        "fields": [
+            {
+                "key": "field_brg_chrome_brand_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "<strong>Brand info</strong> — site chrome, shown on every page. These are read directly by the plugin rather than filling a section's <code>{{slots}}</code>.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_brand_name",
+                "label": "Business name",
+                "name": "brg_brand_name",
+                "type": "text",
+                "instructions": "Used wherever the company is named in copy.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-name",
+                    "id": ""
+                },
+                "default_value": "Blacktop Restaurant Group"
+            },
+            {
+                "key": "field_brg_brand_email",
+                "label": "Email address",
+                "name": "brg_brand_email",
+                "type": "text",
+                "instructions": "The general enquiries address. Referenced as #brand-email in a link, or [brand email] in text. Becomes a mailto: link on its own — type just the address.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-email",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_brand_phone",
+                "label": "Phone number",
+                "name": "brg_brand_phone",
+                "type": "text",
+                "instructions": "Written the way it should READ on the page, e.g. (760) 555-0134. Becomes a tel: link on its own, with everything except digits and a leading + stripped for the dialling part.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-phone",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_brand_address",
+                "label": "Address",
+                "name": "brg_brand_address",
+                "type": "textarea",
+                "instructions": "Shown on the contact page and anywhere the location is named.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-address",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_brand_careers_email",
+                "label": "Careers email",
+                "name": "brg_brand_careers_email",
+                "type": "text",
+                "instructions": "Where job enquiries go, if different from the general address. Referenced as #brand-careers_email.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-careers_email",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_brand_instagram",
+                "label": "Instagram",
+                "name": "brg_brand_instagram",
+                "type": "text",
+                "instructions": "Full https:// address of the profile. Leave blank and nothing linking to it shows.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-instagram",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_brand_facebook",
+                "label": "Facebook",
+                "name": "brg_brand_facebook",
+                "type": "text",
+                "instructions": "Full https:// address. Leave blank and nothing linking to it shows.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-facebook",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_brand_tiktok",
+                "label": "TikTok",
+                "name": "brg_brand_tiktok",
+                "type": "text",
+                "instructions": "Full https:// address. Leave blank and nothing linking to it shows.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-tiktok",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_brand_linkedin",
+                "label": "LinkedIn",
+                "name": "brg_brand_linkedin",
+                "type": "text",
+                "instructions": "Full https:// address. Leave blank and nothing linking to it shows.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-linkedin",
+                    "id": ""
+                },
+                "default_value": "https://www.linkedin.com/company/blacktop-restaurant-group/"
+            },
+            {
+                "key": "field_brg_brand_privacy",
+                "label": "Privacy policy page",
+                "name": "brg_brand_privacy",
+                "type": "text",
+                "instructions": "Path or full address of the privacy policy.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-privacy",
+                    "id": ""
+                },
+                "default_value": "/privacy-policy/"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content-brand"
+                }
+            ]
+        ],
+        "menu_order": 90,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Site chrome. Edit website/chrome/brand/slots.json and rerun kit/build-acf.py."
+    }
+]

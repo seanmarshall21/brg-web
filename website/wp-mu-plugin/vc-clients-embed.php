@@ -88,6 +88,130 @@ if ( ! function_exists( 'vcc_fetch' ) ) {
     }
 }
 
+/* ── BRAND INFO — one source of truth for values used on more than one page ──
+ *
+ * Ported from Oak + Elm (oak-elm-embed.php, plugin 1.7.8) at Sean's instruction, including
+ * the traps its author paid for, so the two sites share one vocabulary.
+ *
+ * TWO FORMS, because a link and a sentence need different escaping:
+ *     #brand-email        in an href / src          -> esc_url()
+ *     [brand email]       anywhere in text          -> esc_html()
+ * Both resolve in PHP at render. Nothing reaches the browser unresolved.
+ *
+ * AN UNKNOWN KEY LEAVES ITS TOKEN ON THE PAGE. This is the one place this build DEPARTS
+ * from Oak + Elm, deliberately. There, a typo like [brand emial] renders as an empty
+ * string — the sentence silently loses a word and nothing says so. This project has
+ * already been bitten by exactly that: unresolved {{tokens}} were stripped and emptied
+ * live copy with no error. Their author's own advice was "render the raw token, or log
+ * it, rather than ''". A visible [brand emial] on the page is ugly and gets fixed in a
+ * minute; an invisible deletion is found by a customer.
+ *
+ * A KNOWN KEY THAT IS EMPTY still resolves to empty, which is intentional and different:
+ * that is an editor choosing not to supply a value, not a mistake.
+ *
+ * THE KEY LIST IS AN ALLOW-LIST, not a pattern. #brand-<anything> would otherwise read
+ * any option in the database by name. It also satisfies build-acf.py's reader check,
+ * which requires each chrome field to appear literally in this file — a field nobody
+ * reads is a field the editor fills to no effect.
+ * Keys must match website/chrome/brand/slots.json. --check enforces that in one direction;
+ * adding a key there without adding it here fails the build rather than failing quietly. */
+if ( ! function_exists( 'vcc_brand_keys' ) ) {
+    function vcc_brand_keys() {
+        /* TOKEN KEY => OPTION NAME, written out rather than composed with
+         * 'brg_brand_' . $key. Composing it reads as tidier and is worse twice over: the
+         * option names then exist nowhere in this file, so build-acf.py's reader check —
+         * which greps for each literal — reports all ten fields as "accepts input that
+         * changes nothing", and a human grepping for brg_brand_phone finds no reader
+         * either. The check is right to insist: a field nobody reads is a field the editor
+         * fills to no effect, and that is listed as something that has already bitten this
+         * project twice. The map is also the allow-list; #brand-<anything> cannot reach an
+         * option that is not named here. */
+        return array(
+            'name'          => 'brg_brand_name',
+            'email'         => 'brg_brand_email',
+            'phone'         => 'brg_brand_phone',
+            'address'       => 'brg_brand_address',
+            'careers_email' => 'brg_brand_careers_email',
+            'instagram'     => 'brg_brand_instagram',
+            'facebook'      => 'brg_brand_facebook',
+            'tiktok'        => 'brg_brand_tiktok',
+            'linkedin'      => 'brg_brand_linkedin',
+            'privacy'       => 'brg_brand_privacy',
+        );
+    }
+}
+
+/* The raw saved value, falling back to the default declared in slots.json — the same
+ * precedence a section slot gets, so one place defines a default and the admin and the
+ * page cannot disagree about it. */
+if ( ! function_exists( 'vcc_brand' ) ) {
+    function vcc_brand( $key, $cfg = null ) {
+        static $defaults = null;
+        $map = vcc_brand_keys();
+        if ( ! isset( $map[ $key ] ) ) return null;                      // null = unknown key
+        $val = function_exists( 'get_field' ) ? get_field( $map[ $key ], 'option' ) : '';
+        $val = is_string( $val ) ? trim( $val ) : '';
+        if ( $val !== '' ) return $val;
+        if ( $defaults === null ) {
+            $defaults = array();
+            if ( ! $cfg && isset( $GLOBALS['VCC_CLIENTS']['brg'] ) ) $cfg = $GLOBALS['VCC_CLIENTS']['brg'];
+            if ( is_array( $cfg ) && ! empty( $cfg['base'] ) ) {
+                $raw = vcc_fetch( rtrim( $cfg['base'], '/' ) . '/chrome/brand/slots.json', VCC_TTL );
+                $d   = $raw ? json_decode( $raw, true ) : null;
+                if ( is_array( $d ) ) foreach ( $d as $k => $v ) {
+                    if ( strpos( (string) $k, '_' ) !== 0 && is_array( $v ) && isset( $v['default'] ) ) {
+                        $defaults[ $k ] = (string) $v['default'];
+                    }
+                }
+            }
+        }
+        return isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+    }
+}
+
+/* mailto: for an address, tel: for a number, the value as typed for anything else.
+ * The tel: form keeps only digits and a leading +, because a number written for READING
+ * — (760) 555-0134 — is not a number a phone can dial. */
+if ( ! function_exists( 'vcc_brand_link' ) ) {
+    function vcc_brand_link( $key ) {
+        $v = vcc_brand( $key );
+        if ( $v === null || $v === '' ) return '';
+        if ( $key === 'email' || $key === 'careers_email' ) return 'mailto:' . $v;
+        if ( $key === 'phone' ) {
+            $digits = preg_replace( '/(?!^\+)[^0-9]/', '', $v );
+            return $digits !== '' ? 'tel:' . $digits : '';
+        }
+        return $v;
+    }
+}
+
+if ( ! function_exists( 'vcc_brand_resolve' ) ) {
+    function vcc_brand_resolve( $html, $cfg = null ) {
+        if ( ! is_string( $html ) || $html === '' ) return $html;
+        if ( strpos( $html, 'brand-' ) === false && strpos( $html, '[brand ' ) === false ) return $html;
+
+        /* Links first. Only inside an attribute, so a #brand- written in prose is left for
+         * the text pass rather than being silently turned into a URL. */
+        $html = preg_replace_callback(
+            '/(href|src)="#brand-([a-z0-9_]+)"/i',
+            function ( $m ) {
+                $url = vcc_brand_link( strtolower( $m[2] ) );
+                if ( $url === '' ) return $m[0];     // unknown or unset: leave it visible
+                return $m[1] . '="' . esc_url( $url ) . '"';
+            }, $html );
+
+        $html = preg_replace_callback(
+            '/\[brand\s+([a-z0-9_]+)\]/i',
+            function ( $m ) {
+                $v = vcc_brand( strtolower( $m[1] ) );
+                if ( $v === null ) return $m[0];     // unknown key: leave the token ON THE PAGE
+                return esc_html( $v );
+            }, $html );
+
+        return $html;
+    }
+}
+
 /* ── Shared assets (tokens/reveal engine) — emitted ONCE per client per request.
       Lifted out of vcc_render_page so the section & chrome renderers share the
       same static: a page mixing a monolith + sections inlines brgw.css/js once. ── */
@@ -155,12 +279,22 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
          * rather than carrying a hex that has to be kept in step with the palette.
          * aria-label, not title text: the link has no visible words, so without it a screen
          * reader announces "link" and nothing else. */
-        $li  = '<a class="brgw__social" href="https://www.linkedin.com/company/blacktop-restaurant-group/"'
+        /* THE URL NOW COMES FROM BRAND INFO, not from this line. It was hardcoded here an
+         * hour ago; leaving it would have made the footer the second place the address
+         * lives, which is the exact duplication Brand info exists to end. The address in
+         * the ticket is the DEFAULT in website/chrome/brand/slots.json, so this renders
+         * identically with nothing saved, and changing it in wp-admin changes it here.
+         * An empty value hides the link rather than linking to nowhere. */
+        $li_url = vcc_brand_link( 'linkedin' );
+        $li     = '';
+        if ( $li_url !== '' ) {
+        $li  = '<a class="brgw__social" href="' . esc_url( $li_url ) . '"'
              . ' target="_blank" rel="noopener noreferrer" aria-label="Blacktop Restaurant Group on LinkedIn">'
              . '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"'
              . ' stroke-linejoin="round" aria-hidden="true" focusable="false">'
              . '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>'
              . '<rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>';
+        }
         $footer = '<footer class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div>'
                 . $li . '</footer>';
         return array( $header, $footer );
@@ -427,6 +561,13 @@ if ( ! function_exists( 'vcc_render_section' ) ) {
         if ( $frag === '' ) return '<!-- vc_embed: ' . esc_html( $client . '/section/' . $id ) . ' not built yet -->';
 
         $frag = vcc_fill_slots( $frag, $id, $atts, $cfg, $ttl );
+
+        /* BRAND INFO RESOLVES AFTER THE SLOTS ARE FILLED, not before and not on each value
+         * separately. A slot can itself hold "#brand-email", so the token only exists once
+         * the slot has been placed into the markup — resolving earlier would miss it, and
+         * resolving each value in isolation would miss the ones written straight into the
+         * fragment. One pass over the assembled HTML catches both. */
+        $frag = vcc_brand_resolve( $frag, $cfg );
 
         /* "Show the divider icon" — the round badge between this section and the one above.
          *
