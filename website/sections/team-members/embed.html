@@ -154,7 +154,18 @@
 
    Inline as a data URI rather than a file: it is 1.1KB, it saves a request per card, and
    it keeps the shape in the same commit as the rule that colours it. */
-.brgw-sec--team-members figcaption{position:relative;}
+/* THE CAPTION BOX SHRINKS TO ITS TEXT. Sean, 2 Oct: "it should be anchored to the left
+   side of the quote… can we still anchor it onto the edge of the actual text?" The mark is
+   positioned against the caption, and the caption was a full-width block — so on a short
+   quote like "Utah, Get me two!" the mark sat way out at the card's edge with a gap before
+   the words, while the text sat centred in the middle.
+   width:fit-content makes the box hug the text instead, and margin-inline:auto keeps that
+   box centred under the card, so nothing moves visually except the mark's anchor.
+   IT ALSO HANDLES THE WRAPPING CASE WITHOUT A SECOND RULE: fit-content is min(max-content,
+   available), so a quote long enough to wrap fills the width and the box's left edge IS the
+   paragraph's left edge — which is exactly where Sean asked for it on the multi-line ones. */
+.brgw-sec--team-members figcaption{position:relative;width:fit-content;max-width:100%;
+  margin-inline:auto;}
 .brgw-sec--team-members figcaption::before{
   content:"";position:absolute;left:0;top:-6px;z-index:0;
   width:clamp(34px,3.6vw,52px);aspect-ratio:44/33;pointer-events:none;
