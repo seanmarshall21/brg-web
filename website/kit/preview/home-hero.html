@@ -159,7 +159,7 @@
   </div>
   <p class="sub anim-up">{{sub}}</p>
   <p class="tag blanco anim-up">{{tagline}}</p>
-  <a class="btn anim-cta" href="/brands/">Explore Our Restaurants</a>
+  <a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a>
 </section>
 </template>
 <script>
@@ -168,7 +168,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "bg_photo_mobile": "", "photo_strength": "42", "veil_center": "58", "veil_edge": "90", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "video_id": "", "video_source": "youtube", "overlay_color": "none", "overlay_strength": "0.45", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
+  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "bg_photo_mobile": "", "photo_strength": "42", "veil_center": "58", "veil_edge": "90", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "video_id": "", "video_source": "youtube", "overlay_color": "none", "overlay_strength": "0.45", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_label": "Explore Our Restaurants", "cta_href": "/brands/"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

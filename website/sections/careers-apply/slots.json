@@ -1,5 +1,17 @@
 {
   "_note": "Slots for [brg_careers-apply]. Declared beside the fragment so a slot and its {{token}} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Defaults are the exact production copy. Slot names are underscore-only — a hyphen fills fine but generates an invalid ACF field name, and build-acf.py now refuses it (conti 2026-08-13). `text`/`textarea` defaults are esc_html'd on fill, so write a literal `&` and a literal `—`, NEVER `&amp;` or `&mdash;` (both would double-escape and render as visible entity text).\n\nDELIBERATELY NOT WIRED, per conti's ruling (c) 2026-08-13: (1) the <h2> — it carries BOTH a structural <br> and an inline <span class=\"mark\"> for the pink marker block, and no slot type can express either. `text` escapes them into visible markup; `html`/wysiwyg returns <p>-wrapped content. The field could not express the design, so the headline stays as code. (2) the four-item offer <ul> — unlike community-stats' 2x2 grid, four is NOT a design constant here, it is a `display:grid` list that would happily take a fifth. Numbering these slots would bake the row count into the fragment while LOOKING editable, so adding a benefit would become a code change. Left honestly as code.",
+  "heading_1": {
+    "type": "lines",
+    "label": "Heading",
+    "doc": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
+    "default": "What it's like"
+  },
+  "heading_mark": {
+    "type": "text",
+    "label": "Heading — the marked words",
+    "doc": "The words the highlight sits behind. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
+    "default": "to work here"
+  },
   "body_1": {
     "type": "textarea",
     "label": "Body copy — first paragraph",
@@ -17,6 +29,21 @@
     "label": "Right column heading",
     "doc": "Sits above the asterisk-bulleted list. Short — it renders in the display face at up to 2.2rem, so ~14 characters keeps it on one line. The list items themselves are not editable; they are code.",
     "default": "We offer:"
+  },
+  "offers": {
+    "type": "repeater",
+    "label": "Bullet points under that heading",
+    "button": "Add a bullet",
+    "collapse": "text",
+    "doc": "The list under the heading above. These were built into the page and could not be edited, which is what sent you looking for them.\n\nUNTIL YOU ADD THE FIRST ONE HERE the page keeps showing the four it has always shown: Competitive pay; Growth and advancement opportunities across multiple brands and locations; A team-first culture that takes your development seriously; The chance to work in restaurants that people genuinely love. Add a bullet and this list takes over completely, so add all the ones you want, not just the one you are changing.",
+    "sub": {
+      "text": {
+        "type": "textarea",
+        "label": "Bullet",
+        "doc": "One line of the list. Plain text; a star is drawn automatically, so do not type one.",
+        "default": ""
+      }
+    }
   },
   "cta_label": {
     "type": "text",

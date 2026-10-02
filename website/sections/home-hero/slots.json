@@ -205,5 +205,17 @@
     "label": "Section background — phones",
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
     "group": "Section background — phones"
+  },
+  "cta_label": {
+    "type": "text",
+    "label": "Button label",
+    "doc": "The wording on the hero button. Short reads best — it sits under the tagline.",
+    "default": "Explore Our Restaurants"
+  },
+  "cta_href": {
+    "type": "url",
+    "label": "Button link",
+    "doc": "Where the hero button goes. A path like /brands/ stays on this site; a full address goes off it.",
+    "default": "/brands/"
   }
 }

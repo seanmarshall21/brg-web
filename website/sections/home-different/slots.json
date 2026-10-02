@@ -1,5 +1,17 @@
 {
   "_note": "Slots for [brg_home-different]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nTHE <h2> IS NOT WIRED, and this one is structural rather than awaiting anybody: it carries BOTH a hard <br> AND an inline <span class=\"mark\"> marker block. No slot type can hold either — text/textarea escape them into visible markup, and html is an ACF wysiwyg that returns <p>-wrapped content. The field cannot express the design. Same call as careers-apply's heading. The three color plates and their three parallax rates are motion and stay as code.",
+  "heading_1": {
+    "type": "lines",
+    "label": "Heading",
+    "doc": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
+    "default": "of\nrestaurant company"
+  },
+  "heading_mark": {
+    "type": "text",
+    "label": "Heading — the marked words",
+    "doc": "The words the highlight sits behind. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
+    "default": "A different kind"
+  },
   "body_1": {
     "type": "textarea",
     "label": "Body copy — first paragraph",

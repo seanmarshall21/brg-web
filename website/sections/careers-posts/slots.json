@@ -1,5 +1,50 @@
 {
-  "_note": "Slots for [brg_careers-posts]. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Created when this section gained a background.",
+  "_note": "Slots for [brg_careers-posts]. Created 2026-10-02: this section had NO slots at all, so every word of both job posts was hard-coded. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json.",
+  "posts": {
+    "type": "repeater",
+    "label": "The posts",
+    "button": "Add a post",
+    "collapse": "job_title",
+    "doc": "The job posts shown as LinkedIn-style cards. These are marketing renderings maintained here, NOT a live LinkedIn feed — nothing updates on its own.\n\nUNTIL YOU ADD THE FIRST ONE HERE the page keeps showing the two it has always shown (People & Culture Manager, Payroll & HRIS Manager). Adding one replaces both, so add every post you want.\n\nThe follower count and the relative age stamps were removed deliberately and should not come back: an ageing '2mo' on a job post signals the role is stale.",
+    "sub": {
+      "job_title": {
+        "type": "text",
+        "label": "Job title",
+        "doc": "The role, shown in the card at the bottom of the post. This also names the row in this list.",
+        "default": ""
+      },
+      "author": {
+        "type": "text",
+        "label": "Posted by",
+        "doc": "The name at the top of the post. Normally Blacktop Restaurant Group.",
+        "default": "Blacktop Restaurant Group"
+      },
+      "body": {
+        "type": "textarea",
+        "label": "Post text",
+        "doc": "The body of the post. Write & and em dashes as literal characters — the field escapes them, so an entity shows on the page as the entity.",
+        "default": ""
+      },
+      "job_meta": {
+        "type": "lines",
+        "label": "Under the job title",
+        "doc": "Company and location. PRESS RETURN between them to break the line exactly where you want.",
+        "default": "Job by Blacktop Restaurant Group\nSan Diego, California, United States (On-site)"
+      },
+      "job_href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where the button goes. Points at /careers/ until the real LinkedIn job URLs are supplied.",
+        "default": "/careers/"
+      },
+      "view_label": {
+        "type": "text",
+        "label": "Button label",
+        "doc": "The small link on the job card.",
+        "default": "View job"
+      }
+    }
+  },
   "section_bg": {
     "type": "image",
     "label": "Section background",

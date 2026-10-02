@@ -58,6 +58,22 @@
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <div class="feed">
+    <!--brg:repeat posts-->
+    <article class="post anim-up">
+      <div class="who">
+        <span class="av" aria-hidden="true"></span>
+        <span><span class="nm">{{posts.author}}</span></span>
+      </div>
+      <div class="body">
+        <p>{{posts.body}}</p>
+      </div>
+      <div class="job">
+        <span class="av" aria-hidden="true"></span>
+        <span class="txt"><span class="ttl">{{posts.job_title}}</span><span class="sub">{{posts.job_meta}}</span></span>
+        <a class="view" href="{{posts.job_href}}">{{posts.view_label}}</a>
+      </div>
+    </article>
+    <!--brg:empty-->
     <article class="post anim-up">
       <div class="who">
         <span class="av" aria-hidden="true"></span>
@@ -88,5 +104,6 @@
         <a class="view" href="/careers/">View job</a>
       </div>
     </article>
+    <!--/brg:repeat-->
   </div>
 </section>

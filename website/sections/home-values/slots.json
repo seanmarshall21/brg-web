@@ -63,5 +63,26 @@
       "down": "Down",
       "up": "Up"
     }
+  },
+  "values": {
+    "type": "repeater",
+    "label": "The values",
+    "button": "Add a value",
+    "collapse": "label",
+    "doc": "The cards in this section. They were built into the page and could not be edited.\n\nUNTIL YOU ADD THE FIRST ONE HERE the page keeps showing the five it has always shown — Leadership, Culture, Advocate, Stay Stoked, Community. Adding one replaces all five, so add every card you want, not only the one you are changing.\n\nThe grid reflows to whatever number you give it.",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Name",
+        "doc": "The short name on the card, set in the brand face. One or two words reads best.",
+        "default": ""
+      },
+      "body": {
+        "type": "textarea",
+        "label": "Description",
+        "doc": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
+        "default": ""
+      }
+    }
   }
 }

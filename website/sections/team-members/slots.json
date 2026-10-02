@@ -1,5 +1,17 @@
 {
   "_note": "Wired by conti 2026-08-18 at Sean's request — finn owns this file, see notes/roundtable.md.",
+  "lede": {
+    "type": "textarea",
+    "label": "Intro paragraph",
+    "doc": "The paragraph above the crew grid. Write & and em dashes as literal characters, never as &amp; or &mdash; — the field escapes them, so an entity shows on the page as the entity.",
+    "default": "Behind every great restaurant is a team that genuinely gives a damn. Our leadership crew brings decades of food & beverage experience, a shared obsession with hospitality, and enough personality to fill a very loud dinner table."
+  },
+  "banner": {
+    "type": "text",
+    "label": "Banner line",
+    "doc": "The single bold line under the paragraph, set in the brand face. Keep it to one line.",
+    "default": "We work hard, we have fun, and we take care of our people"
+  },
   "members": {
     "type": "repeater",
     "label": "Team members",

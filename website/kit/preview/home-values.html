@@ -51,11 +51,15 @@
 
   <h2 class="blanco anim-head">{{heading}}</h2>
   <div class="grid">
+    <!--brg:repeat values-->
+    <div class="cell anim-up"><span class="lbl blanco">{{values.label}}</span><p>{{values.body}}</p></div>
+    <!--brg:empty-->
     <div class="cell anim-up"><span class="lbl blanco">Leadership</span><p>We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p></div>
     <div class="cell anim-up"><span class="lbl blanco">Culture</span><p>Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p></div>
     <div class="cell anim-up"><span class="lbl blanco">Advocate</span><p>We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p></div>
     <div class="cell anim-up"><span class="lbl blanco">Stay Stoked</span><p>Life's too short to be boring about food. We bring energy, passion, and a little fun to everything we do.</p></div>
     <div class="cell anim-up"><span class="lbl blanco">Community</span><p>We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that invest in us.</p></div>
+    <!--/brg:repeat-->
   </div>
 </section>
 </template>
@@ -65,7 +69,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down"};
+  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "values": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

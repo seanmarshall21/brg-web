@@ -328,8 +328,8 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-smile.svg" alt="" width="150" height="145" loading="lazy" decoding="async"></span>
 
-  <p class="lede anim-up">Behind every great restaurant is a team that genuinely gives a damn. Our leadership crew brings decades of food &amp; beverage experience, a shared obsession with hospitality, and enough personality to fill a very loud dinner table.</p>
-  <span class="banner blanco anim-up">We work hard, we have fun, and we take care of our people</span>
+  <p class="lede anim-up">{{lede}}</p>
+  <span class="banner blanco anim-up">{{banner}}</span>
 
   <span class="dood d1" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg" alt="" width="122" height="118" loading="lazy" decoding="async"></span>
   <span class="dood d2" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-blk.svg" alt="" width="151" height="145" loading="lazy" decoding="async"></span>
@@ -360,7 +360,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"members": "", "card_shape": "7/9", "photo_fit": "height", "columns": "3", "quote_mark": "match", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
+  var D = {"lede": "Behind every great restaurant is a team that genuinely gives a damn. Our leadership crew brings decades of food & beverage experience, a shared obsession with hospitality, and enough personality to fill a very loud dinner table.", "banner": "We work hard, we have fun, and we take care of our people", "members": "", "card_shape": "7/9", "photo_fit": "height", "columns": "3", "quote_mark": "match", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

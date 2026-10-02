@@ -63,6 +63,22 @@
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <div class="feed">
+    <!--brg:repeat posts-->
+    <article class="post anim-up">
+      <div class="who">
+        <span class="av" aria-hidden="true"></span>
+        <span><span class="nm">{{posts.author}}</span></span>
+      </div>
+      <div class="body">
+        <p>{{posts.body}}</p>
+      </div>
+      <div class="job">
+        <span class="av" aria-hidden="true"></span>
+        <span class="txt"><span class="ttl">{{posts.job_title}}</span><span class="sub">{{posts.job_meta}}</span></span>
+        <a class="view" href="{{posts.job_href}}">{{posts.view_label}}</a>
+      </div>
+    </article>
+    <!--brg:empty-->
     <article class="post anim-up">
       <div class="who">
         <span class="av" aria-hidden="true"></span>
@@ -93,6 +109,7 @@
         <a class="view" href="/careers/">View job</a>
       </div>
     </article>
+    <!--/brg:repeat-->
   </div>
 </section>
 </template>
@@ -102,7 +119,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
+  var D = {"posts": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

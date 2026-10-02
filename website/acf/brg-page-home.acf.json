@@ -631,6 +631,36 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_home_hero_cta_label",
+                "label": "Button label",
+                "name": "brg_home_hero_cta_label",
+                "type": "text",
+                "instructions": "The wording on the hero button. Short reads best — it sits under the tagline.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-cta_label",
+                    "id": ""
+                },
+                "default_value": "Explore Our Restaurants"
+            },
+            {
+                "key": "field_brg_home_hero_cta_href",
+                "label": "Button link",
+                "name": "brg_home_hero_cta_href",
+                "type": "text",
+                "instructions": "Where the hero button goes. A path like /brands/ stays on this site; a full address goes off it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-cta_href",
+                    "id": ""
+                },
+                "default_value": "/brands/"
+            },
+            {
                 "key": "field_brg_tab_home_community",
                 "label": "Born in San Diego",
                 "name": "",
@@ -683,6 +713,51 @@
                 "ui": 1,
                 "ui_on_text": "Shown",
                 "ui_off_text": "Hidden"
+            },
+            {
+                "key": "field_brg_home_community_heading_1",
+                "label": "Heading",
+                "name": "brg_home_community_heading_1",
+                "type": "textarea",
+                "instructions": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-heading_1",
+                    "id": ""
+                },
+                "default_value": "Born in San Diego."
+            },
+            {
+                "key": "field_brg_home_community_heading_2",
+                "label": "Heading — before the marked words",
+                "name": "brg_home_community_heading_2",
+                "type": "text",
+                "instructions": "The words on the second line that come immediately before the highlighted ones.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-heading_2",
+                    "id": ""
+                },
+                "default_value": "Built"
+            },
+            {
+                "key": "field_brg_home_community_heading_mark",
+                "label": "Heading — the marked words",
+                "name": "brg_home_community_heading_mark",
+                "type": "text",
+                "instructions": "The words the highlight sits behind. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-heading_mark",
+                    "id": ""
+                },
+                "default_value": "for community."
             },
             {
                 "key": "field_brg_home_community_intro_1",
@@ -1737,6 +1812,36 @@
                 "ui_off_text": "Hidden"
             },
             {
+                "key": "field_brg_home_different_heading_1",
+                "label": "Heading",
+                "name": "brg_home_different_heading_1",
+                "type": "textarea",
+                "instructions": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-heading_1",
+                    "id": ""
+                },
+                "default_value": "of\nrestaurant company"
+            },
+            {
+                "key": "field_brg_home_different_heading_mark",
+                "label": "Heading — the marked words",
+                "name": "brg_home_different_heading_mark",
+                "type": "text",
+                "instructions": "The words the highlight sits behind. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-heading_mark",
+                    "id": ""
+                },
+                "default_value": "A different kind"
+            },
+            {
                 "key": "field_brg_home_different_body_1",
                 "label": "Body copy — first paragraph",
                 "name": "brg_home_different_body_1",
@@ -2696,6 +2801,57 @@
                 "open": 0,
                 "multi_expand": 0,
                 "endpoint": 1
+            },
+            {
+                "key": "field_brg_home_values_values",
+                "label": "The values",
+                "name": "brg_home_values_values",
+                "type": "repeater",
+                "instructions": "The cards in this section. They were built into the page and could not be edited.\n\nUNTIL YOU ADD THE FIRST ONE HERE the page keeps showing the five it has always shown — Leadership, Culture, Advocate, Stay Stoked, Community. Adding one replaces all five, so add every card you want, not only the one you are changing.\n\nThe grid reflows to whatever number you give it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-values",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a value",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_home_values_values_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_home_values_values_label",
+                        "label": "Name",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The short name on the card, set in the brand face. One or two words reads best.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_values_values_body",
+                        "label": "Description",
+                        "name": "body",
+                        "type": "textarea",
+                        "instructions": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "brg-f-body",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    }
+                ]
             }
         ],
         "location": [

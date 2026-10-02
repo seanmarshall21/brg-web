@@ -603,6 +603,36 @@
                 "ui_off_text": "Hidden"
             },
             {
+                "key": "field_brg_careers_apply_heading_1",
+                "label": "Heading",
+                "name": "brg_careers_apply_heading_1",
+                "type": "textarea",
+                "instructions": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-heading_1",
+                    "id": ""
+                },
+                "default_value": "What it's like"
+            },
+            {
+                "key": "field_brg_careers_apply_heading_mark",
+                "label": "Heading — the marked words",
+                "name": "brg_careers_apply_heading_mark",
+                "type": "text",
+                "instructions": "The words the highlight sits behind. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-heading_mark",
+                    "id": ""
+                },
+                "default_value": "to work here"
+            },
+            {
                 "key": "field_brg_careers_apply_body_1",
                 "label": "Body copy — first paragraph",
                 "name": "brg_careers_apply_body_1",
@@ -646,6 +676,42 @@
                     "id": ""
                 },
                 "default_value": "We offer:"
+            },
+            {
+                "key": "field_brg_careers_apply_offers",
+                "label": "Bullet points under that heading",
+                "name": "brg_careers_apply_offers",
+                "type": "repeater",
+                "instructions": "The list under the heading above. These were built into the page and could not be edited, which is what sent you looking for them.\n\nUNTIL YOU ADD THE FIRST ONE HERE the page keeps showing the four it has always shown: Competitive pay; Growth and advancement opportunities across multiple brands and locations; A team-first culture that takes your development seriously; The chance to work in restaurants that people genuinely love. Add a bullet and this list takes over completely, so add all the ones you want, not just the one you are changing.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-offers",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a bullet",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_careers_apply_offers_text",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_careers_apply_offers_text",
+                        "label": "Bullet",
+                        "name": "text",
+                        "type": "textarea",
+                        "instructions": "One line of the list. Plain text; a star is drawn automatically, so do not type one.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "brg-f-text",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    }
+                ]
             },
             {
                 "key": "field_brg_careers_apply_cta_label",
@@ -1317,6 +1383,117 @@
                 "ui": 1,
                 "ui_on_text": "Shown",
                 "ui_off_text": "Hidden"
+            },
+            {
+                "key": "field_brg_careers_posts_posts",
+                "label": "The posts",
+                "name": "brg_careers_posts_posts",
+                "type": "repeater",
+                "instructions": "The job posts shown as LinkedIn-style cards. These are marketing renderings maintained here, NOT a live LinkedIn feed — nothing updates on its own.\n\nUNTIL YOU ADD THE FIRST ONE HERE the page keeps showing the two it has always shown (People & Culture Manager, Payroll & HRIS Manager). Adding one replaces both, so add every post you want.\n\nThe follower count and the relative age stamps were removed deliberately and should not come back: an ageing '2mo' on a job post signals the role is stale.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-posts",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a post",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_careers_posts_posts_job_title",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_careers_posts_posts_job_title",
+                        "label": "Job title",
+                        "name": "job_title",
+                        "type": "text",
+                        "instructions": "The role, shown in the card at the bottom of the post. This also names the row in this list.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-job_title",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_posts_posts_author",
+                        "label": "Posted by",
+                        "name": "author",
+                        "type": "text",
+                        "instructions": "The name at the top of the post. Normally Blacktop Restaurant Group.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-author",
+                            "id": ""
+                        },
+                        "default_value": "Blacktop Restaurant Group"
+                    },
+                    {
+                        "key": "field_brg_careers_posts_posts_body",
+                        "label": "Post text",
+                        "name": "body",
+                        "type": "textarea",
+                        "instructions": "The body of the post. Write & and em dashes as literal characters — the field escapes them, so an entity shows on the page as the entity.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "brg-f-body",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_posts_posts_job_meta",
+                        "label": "Under the job title",
+                        "name": "job_meta",
+                        "type": "textarea",
+                        "instructions": "Company and location. PRESS RETURN between them to break the line exactly where you want.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "brg-f-job_meta",
+                            "id": ""
+                        },
+                        "default_value": "Job by Blacktop Restaurant Group\nSan Diego, California, United States (On-site)"
+                    },
+                    {
+                        "key": "field_brg_careers_posts_posts_job_href",
+                        "label": "Link",
+                        "name": "job_href",
+                        "type": "text",
+                        "instructions": "Where the button goes. Points at /careers/ until the real LinkedIn job URLs are supplied.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-job_href",
+                            "id": ""
+                        },
+                        "default_value": "/careers/"
+                    },
+                    {
+                        "key": "field_brg_careers_posts_posts_view_label",
+                        "label": "Button label",
+                        "name": "view_label",
+                        "type": "text",
+                        "instructions": "The small link on the job card.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-view_label",
+                            "id": ""
+                        },
+                        "default_value": "View job"
+                    }
+                ]
             },
             {
                 "key": "field_brg_careers_posts_acc_section_background",

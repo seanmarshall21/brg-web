@@ -1,5 +1,23 @@
 {
   "_note": "Slots for [brg_home-community]. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nTHE <h2> IS NOT WIRED, and this one is structural rather than awaiting anybody: it carries BOTH a hard <br> AND an inline <span class=\"mark\"> marker block. No slot type can hold either — text/textarea escape them into visible markup, and html is an ACF wysiwyg that returns <p>-wrapped content. The field cannot express the design. Same call as careers-apply's heading. The two image plates and their counter-signed parallax are motion/photography and stay as code; the stand-in photography is tracked as `real-photography`.\\n\\nTHE FIRST PARAGRAPH IS intro_1/intro_emphasis/intro_2, NOT body_0 — and the odd numbering is deliberate. It was missed in the first pass (2026-08-13) because the survey regex used to find text was `<p[^>]*>[^<]*</p>`, which cannot match a paragraph containing inline tags — so the one wrapping <strong> was invisible to the tool and therefore to me. @expo caught it. Rather than renumber body_1/body_2, whose ACF fields are already generated and live, the new paragraph gets its own name: renaming a live field orphans whatever an editor has already typed into it. Cosmetically inconsistent, safe.\\n\\nLeaving it unslotted would have been the worse kind of half-editable: an editor rewrites the founding story in the two paragraphs below while THIS one — which carries the founding claim and the 2013 date — silently contradicts them.",
+  "heading_1": {
+    "type": "lines",
+    "label": "Heading",
+    "doc": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
+    "default": "Born in San Diego."
+  },
+  "heading_2": {
+    "type": "text",
+    "label": "Heading — before the marked words",
+    "doc": "The words on the second line that come immediately before the highlighted ones.",
+    "default": "Built"
+  },
+  "heading_mark": {
+    "type": "text",
+    "label": "Heading — the marked words",
+    "doc": "The words the highlight sits behind. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
+    "default": "for community."
+  },
   "intro_1": {
     "type": "textarea",
     "label": "Intro — before the emphasis",
