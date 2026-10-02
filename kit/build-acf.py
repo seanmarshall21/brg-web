@@ -45,7 +45,18 @@ TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'text', 'image': 'image',
         # `select` is a dropdown whose LABEL is human and whose VALUE is what the page gets
         # — Sean's "what you input is not what it returns". Requires return_format 'value',
         # or ACF hands back the label and prose lands in an attribute.
-        'select': 'select'}
+        'select': 'select',
+        # `number` is a plain number box, used for the parallax amounts. Sean, 2 Oct:
+        # "I should be able to control it numerically instead of just saying subtle,
+        # medium, etc." The dropdowns it replaces offered 0/6/10/16 and nothing between,
+        # so a photo that wanted 7 could not have it.
+        #
+        # MIN/MAX ARE NOT DECORATION. The engine clamps every amount with
+        # Math.max(0, Math.min(40, …)) in brgw.js, so a field that accepts 60 is a field
+        # that silently edits nothing past 40 — the exact failure --check exists to catch,
+        # only invisible to it because the token IS wired. The bounds here are written to
+        # match that clamp, and `step` keeps the box to whole numbers.
+        'number': 'number'}
 
 # TWO grammars, identical until plugin v2.6.1 and not since. See kit/README.md.
 #   STRIPPABLE  what the plugin removes, and what --check must SEE to report it.
@@ -194,6 +205,13 @@ def field(section_id, slot, defn):
     if t == 'image':
         f.update({'return_format': 'url', 'preview_size': 'medium', 'library': 'all'})
         f.pop('default_value', None)
+    if t == 'number':
+        # min/max MIRROR brgw.js's Math.max(0, Math.min(40, …)) clamp. Keeping the two in
+        # step is the whole point of the field: out past 40 the page stops responding and
+        # the editor has nothing to tell them why.
+        f.update({'min': defn.get('min', 0), 'max': defn.get('max', 40),
+                  'step': defn.get('step', 1), 'placeholder': '', 'prepend': '',
+                  'append': defn.get('append', '')})
     if t == 'select':
         # return_format 'value' is load-bearing. Without it ACF returns the LABEL, so a
         # fragment expecting `youtube` receives "YouTube" and the attribute is wrong in a way
@@ -201,6 +219,70 @@ def field(section_id, slot, defn):
         f.update({'choices': defn.get('choices', {}), 'return_format': 'value',
                   'allow_null': 0, 'multiple': 0, 'ui': 0, 'ajax': 0, 'placeholder': ''})
     return f
+
+def grouped_fields(section_id, slots):
+    """Emit a section's fields, wrapping any run of slots that share a `group` in a
+    collapsible accordion.
+
+    Sean, 2 Oct, on the mobile background: "Just make it in a collapsible section under
+    it." Background controls are now on all 21 sections and there are five of them per
+    section plus the per-photo movement pairs; left flat that is the wall of boxes
+    fc-brands describes as unusable by the third section.
+
+    THE ACCORDION IS INJECTED, NOT DECLARED, for the same reason visibility_field is.
+    An accordion has no {{token}} — it is presentation — so declaring one in slots.json
+    would be a slot that edits nothing, which is exactly what --check exists to report.
+    Instead a slot says `"group": "Mobile background"` and the heading is derived.
+
+    THE CLOSING `endpoint` ACCORDION IS LOAD-BEARING. ACF accordions are not containers:
+    an opening accordion swallows EVERY field after it until another accordion or an
+    endpoint. Without the closer, a group placed mid-tab would eat the rest of the
+    section — and, because tabs and accordions are both flat markers, the next section's
+    fields too. The endpoint is what makes the group end where it is written.
+
+    Consecutive slots sharing a `group` string form one accordion; a different string
+    starts a new one. Order comes from slots.json: json.load builds its dicts in document
+    order on every Python we run, so the ORDER OF THE FILE IS THE ORDER OF THE ADMIN
+    SCREEN. That means a group's slots have to be written CONSECUTIVELY — a slot of the
+    same group placed further down opens a second accordion with the same heading rather
+    than joining the first.
+    """
+    out, open_group = [], None
+
+    def close():
+        if open_group is None:
+            return
+        out.append({
+            'key': 'field_brg_' + section_id.replace('-', '_') + '_endacc_'
+                   + re.sub(r'[^a-z0-9]+', '_', open_group.lower()).strip('_'),
+            'label': '', 'name': '', 'type': 'accordion',
+            'instructions': '', 'required': 0, 'conditional_logic': 0,
+            'wrapper': {'width': '', 'class': '', 'id': ''},
+            'open': 0, 'multi_expand': 0, 'endpoint': 1,
+        })
+
+    for k, v in slots.items():
+        g = (v or {}).get('group')
+        if g != open_group:
+            close()
+            if g:
+                out.append({
+                    'key': 'field_brg_' + section_id.replace('-', '_') + '_acc_'
+                           + re.sub(r'[^a-z0-9]+', '_', g.lower()).strip('_'),
+                    'label': g, 'name': '', 'type': 'accordion',
+                    'instructions': '', 'required': 0, 'conditional_logic': 0,
+                    'wrapper': {'width': '', 'class': 'brg-acc', 'id': ''},
+                    # CLOSED BY DEFAULT: the point is to get these off the screen until
+                    # wanted. multi_expand lets a second group open without shutting this
+                    # one, which matters once a section has both a background group and a
+                    # movement group.
+                    'open': 0, 'multi_expand': 1, 'endpoint': 0,
+                })
+            open_group = g
+        out.append(field(section_id, k, v))
+    close()
+    return out
+
 
 def visibility_field(section_id):
     """The per-section "Show this section" switch.
@@ -375,7 +457,7 @@ def page_group(page, label, sections, first=False):
         fields.append(visibility_field(sid))
         if has_divider(sid):
             fields.append(divider_field(sid))
-        fields.extend(field(sid, k, v) for k, v in slots.items())
+        fields.extend(grouped_fields(sid, slots))
     return {
         'key': 'group_brg_page_' + page.replace('-', '_'),
         'title': f"{label} — Content",

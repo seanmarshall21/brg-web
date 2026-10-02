@@ -538,3 +538,16 @@ menu" — which was wrong, because the **home hero's primary CTA pointed at it**
 Found because Sean stopped me deleting an old unmanaged clone that had a July-30 working tree
 with the same fix in it — someone had already caught this once, on the monolith fragment that
 has since been retired.
+
+## 2026-10-02 — Conti is taking website/sections/ and brgw.css/js for this run
+
+Sean, directly: "Finish the partly done items and the known defects. Finish all of those
+in this run." That is parallax on every image, section + mobile backgrounds on every
+section, numeric parallax amounts with direction, and the home-hero vignette — all of
+which live in **finn's** territory (`website/sections/`, `website/assets/brgw*`).
+
+Checked before starting: no BRG Build session is live (`ListAgents`), and the last commit
+touching these files is e538c5c, ten hours old. Committing with `FC_ALLOW_CROSS=1` and
+saying so here rather than silently. Finn: pull before you next touch sections/.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
