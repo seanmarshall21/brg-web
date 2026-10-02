@@ -564,7 +564,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "34",
                     "class": "brg-f-stat_1_fig",
                     "id": ""
                 },
@@ -579,7 +579,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "33",
                     "class": "brg-f-stat_1_line1",
                     "id": ""
                 },
@@ -594,7 +594,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "33",
                     "class": "brg-f-stat_1_line2",
                     "id": ""
                 },
@@ -609,7 +609,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "34",
                     "class": "brg-f-stat_2_fig",
                     "id": ""
                 },
@@ -624,7 +624,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "33",
                     "class": "brg-f-stat_2_line1",
                     "id": ""
                 },
@@ -639,7 +639,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "33",
                     "class": "brg-f-stat_2_line2",
                     "id": ""
                 },
@@ -654,7 +654,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "34",
                     "class": "brg-f-stat_3_fig",
                     "id": ""
                 },
@@ -669,7 +669,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "33",
                     "class": "brg-f-stat_3_line1",
                     "id": ""
                 },
@@ -684,7 +684,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "33",
                     "class": "brg-f-stat_3_line2",
                     "id": ""
                 },
@@ -699,7 +699,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "34",
                     "class": "brg-f-stat_4_fig",
                     "id": ""
                 },
@@ -714,7 +714,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "33",
                     "class": "brg-f-stat_4_line1",
                     "id": ""
                 },
@@ -729,7 +729,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "33",
                     "class": "brg-f-stat_4_line2",
                     "id": ""
                 },
