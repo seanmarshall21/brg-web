@@ -47,5 +47,28 @@
     "label": "Photo — behind",
     "doc": "The photo set behind and slightly offset. Portrait crop, around 548x820. Leave empty to keep the current picture.",
     "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"
+  },
+  "photo_motion": {
+    "type": "select",
+    "label": "Photo movement",
+    "doc": "How much each photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so more of the picture shows and an edge never appears — it is never zoomed, so it stays as sharp as the file you uploaded. Off is the starting point; turn it up until it reads without being distracting.",
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "6": "Subtle",
+      "10": "Medium",
+      "16": "Strong"
+    }
+  },
+  "frame_drift": {
+    "type": "select",
+    "label": "Let the photo frames drift",
+    "doc": "Moves the whole photo frame across the section, on top of the movement inside it. Neighbouring photos drift in opposite directions, which is what makes them read as being at different depths. Leave off on sections with a single full-width photo.",
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "8": "Gentle",
+      "12": "Strong"
+    }
   }
 }

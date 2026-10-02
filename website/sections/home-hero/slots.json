@@ -74,5 +74,17 @@
       "0.75": "75% — very strong",
       "0.9": "90% — photo barely visible"
     }
+  },
+  "photo_motion": {
+    "type": "select",
+    "label": "Photo movement",
+    "doc": "How much each photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so more of the picture shows and an edge never appears — it is never zoomed, so it stays as sharp as the file you uploaded. Off is the starting point; turn it up until it reads without being distracting.",
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "6": "Subtle",
+      "10": "Medium",
+      "16": "Strong"
+    }
   }
 }

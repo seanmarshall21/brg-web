@@ -231,6 +231,33 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_hero_photo_motion",
+                "label": "Photo movement",
+                "name": "brg_home_hero_photo_motion",
+                "type": "select",
+                "instructions": "How much each photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so more of the picture shows and an edge never appears — it is never zoomed, so it stays as sharp as the file you uploaded. Off is the starting point; turn it up until it reads without being distracting.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_motion",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_tab_home_community",
                 "label": "Born in San Diego",
                 "name": "",
@@ -409,6 +436,59 @@
                 "library": "all"
             },
             {
+                "key": "field_brg_home_community_photo_motion",
+                "label": "Photo movement",
+                "name": "brg_home_community_photo_motion",
+                "type": "select",
+                "instructions": "How much each photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so more of the picture shows and an edge never appears — it is never zoomed, so it stays as sharp as the file you uploaded. Off is the starting point; turn it up until it reads without being distracting.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_motion",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_community_frame_drift",
+                "label": "Let the photo frames drift",
+                "name": "brg_home_community_frame_drift",
+                "type": "select",
+                "instructions": "Moves the whole photo frame across the section, on top of the movement inside it. Neighbouring photos drift in opposite directions, which is what makes them read as being at different depths. Leave off on sections with a single full-width photo.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-frame_drift",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "8": "Gentle",
+                    "12": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_tab_home_about",
                 "label": "What we're about",
                 "name": "",
@@ -534,6 +614,59 @@
                 "return_format": "url",
                 "preview_size": "medium",
                 "library": "all"
+            },
+            {
+                "key": "field_brg_home_about_photo_motion",
+                "label": "Photo movement",
+                "name": "brg_home_about_photo_motion",
+                "type": "select",
+                "instructions": "How much each photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so more of the picture shows and an edge never appears — it is never zoomed, so it stays as sharp as the file you uploaded. Off is the starting point; turn it up until it reads without being distracting.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_motion",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_frame_drift",
+                "label": "Let the photo frames drift",
+                "name": "brg_home_about_frame_drift",
+                "type": "select",
+                "instructions": "Moves the whole photo frame across the section, on top of the movement inside it. Neighbouring photos drift in opposite directions, which is what makes them read as being at different depths. Leave off on sections with a single full-width photo.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-frame_drift",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "8": "Gentle",
+                    "12": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
             },
             {
                 "key": "field_brg_tab_home_different",
@@ -699,6 +832,59 @@
                 "return_format": "url",
                 "preview_size": "medium",
                 "library": "all"
+            },
+            {
+                "key": "field_brg_home_different_photo_motion",
+                "label": "Photo movement",
+                "name": "brg_home_different_photo_motion",
+                "type": "select",
+                "instructions": "How much each photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so more of the picture shows and an edge never appears — it is never zoomed, so it stays as sharp as the file you uploaded. Off is the starting point; turn it up until it reads without being distracting.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_motion",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_frame_drift",
+                "label": "Let the photo frames drift",
+                "name": "brg_home_different_frame_drift",
+                "type": "select",
+                "instructions": "Moves the whole photo frame across the section, on top of the movement inside it. Neighbouring photos drift in opposite directions, which is what makes them read as being at different depths. Leave off on sections with a single full-width photo.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-frame_drift",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "8": "Gentle",
+                    "12": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
             },
             {
                 "key": "field_brg_tab_home_values",

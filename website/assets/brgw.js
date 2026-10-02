@@ -469,19 +469,15 @@
       gsap.set(img, { scale: 2, transformOrigin: '50% 50%' });
       gsap.timeline({ scrollTrigger: { trigger: box, start: 'top 82%', once: true } })
         .to(box, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'power3.inOut' }, 0)
-        .to(img, { scale: 1.2, duration: 1.6, ease: 'power3.out' }, 0);
+        .to(img, { scale: 1, duration: 1.6, ease: 'power3.out' }, 0);
     });
 
-    /* Parallax. Runs on the 1.2 headroom the reveal leaves, so nothing ever exposes an
-       edge. Distance scales with the element's own height, not a fixed pixel value, so
-       a tall hero and a small card drift proportionally. */
-    document.querySelectorAll('[data-brgw-parallax]').forEach(function (el) {
-      var k = parseFloat(el.dataset.brgwParallax) || 1;
-      gsap.fromTo(el, { yPercent: -6 * k }, {
-        yPercent: 6 * k, ease: 'none',
-        scrollTrigger: { trigger: el.closest('.brgw-sec') || el, start: 'top bottom', end: 'bottom top', scrub: true },
-      });
-    });
+    /* The yPercent parallax that used to live here is GONE, replaced by brgwMotion()
+       below. It drifted the photo on the 1.2 ZOOM the reveal left behind — and zoom is the
+       approach Sean rejected on Oak + Elm: a photo should be taller than its frame, not
+       scaled up inside it. The reveal above now ends at scale 1 for the same reason.
+       It also wrote `transform`, the same property the reveal tween owns, which is why the
+       two had to share a budget at all. */
 
     document.querySelectorAll('[data-brgw-pin]').forEach(function (el) {
       ST.create({
@@ -561,7 +557,90 @@
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); }
+  /* ── PHOTO PARALLAX + FRAME DRIFT ───────────────────────────────────────────
+     Ported from Oak + Elm (site/assets/oe.js @ 54cfbe7) at Sean's instruction, so the two
+     sites move the same way rather than each inventing it.
+
+     TWO LAYERS. The PHOTO slides inside its frame: it is laid out taller than the frame by
+     `amt`% above and below, and the frame's overflow hides the extra, so more of the picture
+     shows as you scroll and an edge can never appear. The FRAME itself can drift across the
+     section. Neither zooms — a scaled-up photo is softer than the one that was uploaded, and
+     Sean rejected that approach on Oak + Elm.
+
+     IT WRITES `translate`, NOT `transform`, AND THAT IS THE WHOLE TRICK. GSAP owns `transform`
+     on these same elements for the reveal (clip-path on the frame, scale on the photo). An
+     inline transform written every frame silently beats a CSS animation on the same property —
+     the trap our own SPEC-014 is built around solving by nesting elements. `translate` is a
+     separate CSS property that COMPOSES with `transform`, so both effects survive with no
+     wrapper, no nesting, and no ordering rules. Oak + Elm proved it on a live site first.
+
+     RE-APPLIED EVERY FRAME on purpose: GSAP's clearProps wipes individual properties when a
+     tween finishes, which silently erased this on Oak + Elm until they stopped setting it once.
+
+     OFF UNLESS ASKED. Every section starts at 0, so this ships inert and nothing moves until
+     a section is switched on in wp-admin. */
+  function brgwMotion(root) {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var items = [];
+    function num(v, d) { var n = parseFloat(v); return isNaN(n) ? d : n; }
+
+    [].forEach.call(root.querySelectorAll('.brgw-sec'), function (sec) {
+      var amt = Math.max(0, Math.min(40, num(sec.getAttribute('data-brgw-px'), 0)));
+      var drift = Math.max(0, Math.min(40, num(sec.getAttribute('data-brgw-float'), 0)));
+      /* data-brgw-frame is for a photo that should MOVE but must not get the reveal wipe —
+         the home hero's backdrop, which has its own entrance. data-brgw-img does both. */
+      var frames = sec.querySelectorAll('[data-brgw-img], [data-brgw-frame]');
+
+      [].forEach.call(frames, function (frame, i) {
+        var img = frame.querySelector(':scope > img, :scope > picture img');
+        if (img && amt > 0) {
+          if (getComputedStyle(frame).position === 'static') frame.style.position = 'relative';
+          frame.style.overflow = 'hidden';
+          var st = img.style;
+          st.position = 'absolute'; st.left = '0'; st.right = 'auto'; st.width = '100%';
+          st.top = (-amt) + '%'; st.bottom = 'auto'; st.height = (100 + 2 * amt) + '%';
+          st.maxWidth = 'none'; st.maxHeight = 'none'; st.objectFit = 'cover';
+          items.push({ box: frame, target: img, amt: amt, dir: 1, tau: 3 * 0.06, cur: null });
+        }
+        /* ALTERNATING DIRECTION, by position in the section. Sean's note was "both the large
+           and small photos", and on Oak + Elm the small one drifts UP against the large one's
+           DOWN — they read as parallax because they disagree. Deriving it from position means
+           a section that gains a photo keeps alternating without anyone setting a field. */
+        /* NEVER FLOAT A FULL-BLEED FRAME. Oak + Elm hit this: a frame that fills the
+           section has nothing behind it, so drifting it just reveals the background. Only
+           frames inside the content flow drift. */
+        if (drift > 0 && frame.hasAttribute('data-brgw-img')) {
+          items.push({ box: frame, target: frame, amt: drift, dir: (i % 2 ? -1 : 1),
+                       tau: 4 * 0.06, cur: null, float: true });
+        }
+      });
+    });
+
+    if (!items.length) return;
+    var last = performance.now();
+    function update(now) {
+      var dt = Math.min(0.1, (now - last) / 1000); last = now;
+      var vh = window.innerHeight;
+      for (var i = 0; i < items.length; i++) {
+        var it = items[i];
+        var r = it.box.getBoundingClientRect();
+        if (!r.height) continue;                               // hidden: no height, nothing to do
+        var h = r.height, top = r.top;
+        if (it.float && it.cur !== null) top -= it.cur;        // measure where it sits WITHOUT its own drift
+        if (top + h < -200 || top > vh + 200) { it.cur = null; continue; }
+        var p = ((vh / 2) - (top + h / 2)) / (vh / 2 + h / 2); // -1 entering at the bottom, +1 leaving the top
+        p = Math.max(-1, Math.min(1, p));
+        var goal = it.dir * p * it.amt * h / 100;
+        if (it.cur === null || !it.tau) it.cur = goal;
+        else it.cur += (goal - it.cur) * (1 - Math.exp(-dt / it.tau));
+        it.target.style.translate = '0 ' + it.cur.toFixed(1) + 'px';
+      }
+      requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
