@@ -194,8 +194,31 @@ jobs:
           # wp-admin is in the list because that is where a mu-plugin fatal hurts most:
           # v2.9.0 white-screened the ADMIN too, so Sean could not even get in to fix it.
           # It is reachable unauthenticated — it 302s to wp-login.php, which is a real page.
+          # UNREACHABLE IS NOT THE SAME AS BROKEN, and this step used to conflate them.
+          # On 2026-10-02 it failed with "line 8: /tmp/body: No such file or directory":
+          # curl never established a connection, so -o left no file, `wc -c <` died, and
+          # `bash -e` killed the step — printing "ROLL BACK NOW" next to a shell error
+          # while all four paths were in fact answering 200 with full bodies, checked by
+          # hand within the minute. DreamHost has firewalled our callers before, so a
+          # refused runner is a live possibility and must not read as a dead site:
+          # rolling back a good deploy on a false alarm is worse than the alarm.
+          # The file is therefore created up front, curl's own exit status is kept, and a
+          # single retry absorbs a transient refusal before anything is concluded.
           for path in "" "brands/" "team/" "wp-admin/"; do
-            code=$(curl -s -o /tmp/body -w '%{http_code}' -L --max-time 25 "$SITE$path" || echo 000)
+            : > /tmp/body
+            code=$(curl -s -o /tmp/body -w '%{http_code}' -L --max-time 25 "$SITE$path"); rc=$?
+            if [ "$rc" -ne 0 ]; then
+              sleep 5
+              : > /tmp/body
+              code=$(curl -s -o /tmp/body -w '%{http_code}' -L --max-time 25 "$SITE$path"); rc=$?
+            fi
+            if [ "$rc" -ne 0 ]; then
+              echo "::error::/$path COULD NOT BE REACHED from CI (curl exit $rc) after a retry."
+              echo "  This is not evidence that the deploy broke the site — it is evidence that"
+              echo "  this runner could not get an answer. Check the site yourself before acting."
+              bad=1
+              continue
+            fi
             bytes=$(wc -c < /tmp/body | tr -d ' ')
             # A STATUS CODE ALONE IS NOT LIVENESS. With display_errors off, a fatal can
             # answer 200 with an empty body — that IS the white screen. 500 bytes is far
@@ -214,7 +237,10 @@ jobs:
             fi
           done
           if [ "$bad" -ne 0 ]; then
-            echo "::error::ROLL BACK NOW: git checkout <last-good> -- website/wp-mu-plugin/ && git commit && git push"
+            echo "::error::If the failures above are bad RESPONSES, roll back:"
+            echo "  git checkout <last-good> -- website/wp-mu-plugin/ && git commit && git push"
+            echo "If they say COULD NOT BE REACHED, confirm the site by hand first — rolling"
+            echo "back a healthy deploy on an unreachable runner makes things worse, not better." 
             exit 1
           fi
           echo "site responding on every checked path"
