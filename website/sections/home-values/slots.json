@@ -21,7 +21,7 @@
   "section_bg_opacity": {
     "type": "select",
     "label": "Background strength",
-    "doc": "How strongly the background shows through. Low values read as texture; high values compete with the words in front of it.",
+    "doc": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
     "width": 50,
     "default": "0.18",
     "choices": {
@@ -32,7 +32,9 @@
       "0.25": "25%",
       "0.4": "40%",
       "0.5": "50%",
-      "0.7": "70% — bold"
+      "0.7": "70%",
+      "0.85": "85%",
+      "1": "100% — exactly as supplied"
     }
   },
   "section_bg_px": {

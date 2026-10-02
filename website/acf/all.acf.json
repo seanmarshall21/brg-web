@@ -831,7 +831,7 @@
         "label": "Background strength",
         "name": "brg_home_community_section_bg_opacity",
         "type": "select",
-        "instructions": "How strongly the background shows through. Low values read as texture; high values compete with the words in front of it.",
+        "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -848,7 +848,9 @@
           "0.25": "25%",
           "0.4": "40%",
           "0.5": "50%",
-          "0.7": "70% — bold"
+          "0.7": "70%",
+          "0.85": "85%",
+          "1": "100% — exactly as supplied"
         },
         "return_format": "value",
         "allow_null": 0,
@@ -1727,7 +1729,7 @@
         "label": "Background strength",
         "name": "brg_home_different_section_bg_opacity",
         "type": "select",
-        "instructions": "How strongly the background shows through. Low values read as texture; high values compete with the words in front of it.",
+        "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1744,7 +1746,9 @@
           "0.25": "25%",
           "0.4": "40%",
           "0.5": "50%",
-          "0.7": "70% — bold"
+          "0.7": "70%",
+          "0.85": "85%",
+          "1": "100% — exactly as supplied"
         },
         "return_format": "value",
         "allow_null": 0,
@@ -1888,7 +1892,7 @@
         "label": "Background strength",
         "name": "brg_home_values_section_bg_opacity",
         "type": "select",
-        "instructions": "How strongly the background shows through. Low values read as texture; high values compete with the words in front of it.",
+        "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1905,7 +1909,9 @@
           "0.25": "25%",
           "0.4": "40%",
           "0.5": "50%",
-          "0.7": "70% — bold"
+          "0.7": "70%",
+          "0.85": "85%",
+          "1": "100% — exactly as supplied"
         },
         "return_format": "value",
         "allow_null": 0,
