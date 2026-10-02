@@ -793,6 +793,81 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_community_section_bg",
+                "label": "Section background",
+                "name": "brg_home_community_section_bg",
+                "type": "image",
+                "instructions": "A pattern or photo filling the whole section, behind everything else. Leave empty for a plain color. It is cropped to fill, so the exact size does not matter. On a DARK section use a light or gray artwork — a black pattern over a black panel stays invisible however high you set the strength.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_community_section_bg_opacity",
+                "label": "Background strength",
+                "name": "brg_home_community_section_bg_opacity",
+                "type": "select",
+                "instructions": "How strongly the background shows through. Low values read as texture; high values compete with the words in front of it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_opacity",
+                    "id": ""
+                },
+                "default_value": "0.14",
+                "choices": {
+                    "0": "Off",
+                    "0.08": "8% — barely there",
+                    "0.12": "12%",
+                    "0.18": "18%",
+                    "0.25": "25%",
+                    "0.4": "40%",
+                    "0.5": "50%",
+                    "0.7": "70% — bold"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_community_section_bg_px",
+                "label": "Background movement",
+                "name": "brg_home_community_section_bg_px",
+                "type": "select",
+                "instructions": "Drifts the background as the page scrolls, behind the content. Off is the starting point; a pattern moving too fast pulls the eye away from the copy.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_tab_home_about",
                 "label": "What we're about",
                 "name": "",
@@ -1597,6 +1672,81 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_different_section_bg",
+                "label": "Section background",
+                "name": "brg_home_different_section_bg",
+                "type": "image",
+                "instructions": "A pattern or photo filling the whole section, behind everything else. Leave empty for a plain color. It is cropped to fill, so the exact size does not matter. On a DARK section use a light or gray artwork — a black pattern over a black panel stays invisible however high you set the strength.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_different_section_bg_opacity",
+                "label": "Background strength",
+                "name": "brg_home_different_section_bg_opacity",
+                "type": "select",
+                "instructions": "How strongly the background shows through. Low values read as texture; high values compete with the words in front of it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_opacity",
+                    "id": ""
+                },
+                "default_value": "0.12",
+                "choices": {
+                    "0": "Off",
+                    "0.08": "8% — barely there",
+                    "0.12": "12%",
+                    "0.18": "18%",
+                    "0.25": "25%",
+                    "0.4": "40%",
+                    "0.5": "50%",
+                    "0.7": "70% — bold"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_section_bg_px",
+                "label": "Background movement",
+                "name": "brg_home_different_section_bg_px",
+                "type": "select",
+                "instructions": "Drifts the background as the page scrolls, behind the content. Off is the starting point; a pattern moving too fast pulls the eye away from the copy.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_tab_home_values",
                 "label": "Core values",
                 "name": "",
@@ -1664,6 +1814,81 @@
                     "id": ""
                 },
                 "default_value": "Our core values"
+            },
+            {
+                "key": "field_brg_home_values_section_bg",
+                "label": "Section background",
+                "name": "brg_home_values_section_bg",
+                "type": "image",
+                "instructions": "A pattern or photo filling the whole section, behind everything else. Leave empty for a plain color. It is cropped to fill, so the exact size does not matter. On a DARK section use a light or gray artwork — a black pattern over a black panel stays invisible however high you set the strength.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_values_section_bg_opacity",
+                "label": "Background strength",
+                "name": "brg_home_values_section_bg_opacity",
+                "type": "select",
+                "instructions": "How strongly the background shows through. Low values read as texture; high values compete with the words in front of it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_opacity",
+                    "id": ""
+                },
+                "default_value": "0.18",
+                "choices": {
+                    "0": "Off",
+                    "0.08": "8% — barely there",
+                    "0.12": "12%",
+                    "0.18": "18%",
+                    "0.25": "25%",
+                    "0.4": "40%",
+                    "0.5": "50%",
+                    "0.7": "70% — bold"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_values_section_bg_px",
+                "label": "Background movement",
+                "name": "brg_home_values_section_bg_px",
+                "type": "select",
+                "instructions": "Drifts the background as the page scrolls, behind the content. Off is the starting point; a pattern moving too fast pulls the eye away from the copy.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
             }
         ],
         "location": [

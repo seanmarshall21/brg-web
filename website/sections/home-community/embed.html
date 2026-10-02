@@ -7,11 +7,6 @@
 <style>
 .brgw-sec--home-community{position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,132px) var(--pad) clamp(76px,8vw,120px);}
-/* Graffiti watermark, top-left, low contrast — the comp's oversized brand doodles. */
-.brgw-sec--home-community::before{content:"";position:absolute;left:-6%;top:0;width:66%;height:70%;
-  z-index:0;pointer-events:none;opacity:.16;
-  background:left top/contain no-repeat
-    url('https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-blk@2x.webp');}
 .brgw-sec--home-community > *{position:relative;z-index:2;}
 
 .brgw-sec--home-community .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
@@ -58,6 +53,7 @@
 
 @media(max-width:560px){ .brgw-sec--home-community .cluster{width:110px;right:0;bottom:-4%;} }
 </style>
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}" data-brgw-frame aria-hidden="true"><img src="{{section_bg}}" alt="" loading="lazy" decoding="async" data-px="{{section_bg_px}}" data-px-dir="down" width="1600" height="1200"></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg" alt="" width="151" height="145" loading="lazy" decoding="async"></span>
 
   <div class="grid">

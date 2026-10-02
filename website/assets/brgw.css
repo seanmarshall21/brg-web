@@ -360,6 +360,20 @@
 .brgw [data-tone="bw"] > img,
 .brgw .hero-bg[data-tone="bw"]{filter:grayscale(1) contrast(1.05);}
 
+/* ── Section background ──────────────────────────────────────────────────────
+   Sean, 2 Oct: the core values panel is "supposed to have this sitting in there in the
+   background, and it's not there." It WAS there — a ::before carrying the pattern — but
+   the artwork was brg-pattern-BLK on a #000 panel at 20%. Black over black is black at
+   every opacity, so the element rendered perfectly and showed nothing. The default is now
+   the GRAY artwork on dark sections, which is what careers-posts was already doing on
+   white and why that one always looked right.
+   A REAL ELEMENT, not a pseudo-element, so it can be chosen in wp-admin and moved by the
+   parallax engine — neither is possible on a ::before. */
+.brgw-sec .sec-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  opacity:var(--sec-bg-o,.18);}
+.brgw-sec .sec-bg img{width:100%;height:100%;object-fit:cover;display:block;}
+.brgw-sec .sec-bg[data-bg=""]{display:none;}
+
 .brgw-img{position:relative;overflow:hidden;display:block;}
 .brgw-img img{display:block;width:100%;height:100%;object-fit:cover;}
 

@@ -7,12 +7,6 @@
 <style>
 .brgw-sec--home-different{position:relative;background:#232120;overflow:visible;
   padding:clamp(88px,10vw,150px) var(--pad) clamp(80px,9vw,130px);}
-/* Grain + a faint oversized graffiti wash top-right, as in the comp. Both stay at top:0 —
-   the section is overflow:visible so the seam badge can bleed up, and a negative top here
-   leaked the watermark into the white section above. */
-.brgw-sec--home-different::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  opacity:.5;mix-blend-mode:overlay;
-  background:center/cover no-repeat url('https://blacktoprg.netlify.app/assets/media/bg/grit.webp');}
 .brgw-sec--home-different::after{content:"";position:absolute;right:-4%;top:0;width:52%;height:58%;
   z-index:0;pointer-events:none;opacity:.13;
   background:right top/contain no-repeat
@@ -54,6 +48,7 @@
 .brgw-sec--home-different .blocks .k{right:0;top:34%;width:52%;height:62%;background:#000;z-index:2;}
 .brgw-sec--home-different .blocks .w{left:6%;top:52%;width:26%;height:29%;background:var(--white);z-index:3;}
 </style>
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}" data-brgw-frame aria-hidden="true"><img src="{{section_bg}}" alt="" loading="lazy" decoding="async" data-px="{{section_bg_px}}" data-px-dir="down" width="1600" height="1200"></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/svg/icons/bolt.svg" alt="" width="94" height="176" loading="lazy" decoding="async"></span>
 
   <div class="grid">

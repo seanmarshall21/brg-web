@@ -13,11 +13,6 @@
 <style>
 .brgw-sec--home-values{position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,130px) var(--pad) clamp(80px,9vw,124px);}
-/* Full-bleed graffiti watermark — the comp tiles brand doodles across the whole panel. */
-.brgw-sec--home-values::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  opacity:.2;
-  background:center/cover no-repeat
-    url('https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-blk-long@2x.webp');}
 .brgw-sec--home-values > *{position:relative;z-index:2;}
 
 .brgw-sec--home-values .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
@@ -49,6 +44,7 @@
   font-size:clamp(1rem,1.5vw,1.35rem);text-transform:uppercase;padding:.08em .34em;margin-bottom:16px;}
 .brgw-sec--home-values .cell p{opacity:.9;font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.6;}
 </style>
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}" data-brgw-frame aria-hidden="true"><img src="{{section_bg}}" alt="" loading="lazy" decoding="async" data-px="{{section_bg_px}}" data-px-dir="down" width="1600" height="1200"></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
 
   <h2 class="blanco anim-head">{{heading}}</h2>
@@ -67,7 +63,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Our core values"};
+  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_opacity": "0.18", "section_bg_px": "0"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

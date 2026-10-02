@@ -12,11 +12,6 @@
 <style>
 .brgw-sec--home-community{position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,132px) var(--pad) clamp(76px,8vw,120px);}
-/* Graffiti watermark, top-left, low contrast — the comp's oversized brand doodles. */
-.brgw-sec--home-community::before{content:"";position:absolute;left:-6%;top:0;width:66%;height:70%;
-  z-index:0;pointer-events:none;opacity:.16;
-  background:left top/contain no-repeat
-    url('https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-blk@2x.webp');}
 .brgw-sec--home-community > *{position:relative;z-index:2;}
 
 .brgw-sec--home-community .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
@@ -63,6 +58,7 @@
 
 @media(max-width:560px){ .brgw-sec--home-community .cluster{width:110px;right:0;bottom:-4%;} }
 </style>
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}" data-brgw-frame aria-hidden="true"><img src="{{section_bg}}" alt="" loading="lazy" decoding="async" data-px="{{section_bg_px}}" data-px-dir="down" width="1600" height="1200"></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg" alt="" width="151" height="145" loading="lazy" decoding="async"></span>
 
   <div class="grid">
@@ -92,7 +88,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down"};
+  var D = {"intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_opacity": "0.14", "section_bg_px": "0"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

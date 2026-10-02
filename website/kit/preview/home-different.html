@@ -12,12 +12,6 @@
 <style>
 .brgw-sec--home-different{position:relative;background:#232120;overflow:visible;
   padding:clamp(88px,10vw,150px) var(--pad) clamp(80px,9vw,130px);}
-/* Grain + a faint oversized graffiti wash top-right, as in the comp. Both stay at top:0 —
-   the section is overflow:visible so the seam badge can bleed up, and a negative top here
-   leaked the watermark into the white section above. */
-.brgw-sec--home-different::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  opacity:.5;mix-blend-mode:overlay;
-  background:center/cover no-repeat url('https://blacktoprg.netlify.app/assets/media/bg/grit.webp');}
 .brgw-sec--home-different::after{content:"";position:absolute;right:-4%;top:0;width:52%;height:58%;
   z-index:0;pointer-events:none;opacity:.13;
   background:right top/contain no-repeat
@@ -59,6 +53,7 @@
 .brgw-sec--home-different .blocks .k{right:0;top:34%;width:52%;height:62%;background:#000;z-index:2;}
 .brgw-sec--home-different .blocks .w{left:6%;top:52%;width:26%;height:29%;background:var(--white);z-index:3;}
 </style>
+  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}" data-brgw-frame aria-hidden="true"><img src="{{section_bg}}" alt="" loading="lazy" decoding="async" data-px="{{section_bg_px}}" data-px-dir="down" width="1600" height="1200"></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/svg/icons/bolt.svg" alt="" width="94" height="176" loading="lazy" decoding="async"></span>
 
   <div class="grid">
@@ -94,7 +89,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photo_3": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_3_tone": "color", "photo_3_px": "0", "photo_3_px_dir": "down", "photo_3_float": "0", "photo_3_float_dir": "down"};
+  var D = {"body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photo_3": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_3_tone": "color", "photo_3_px": "0", "photo_3_px_dir": "down", "photo_3_float": "0", "photo_3_float_dir": "down", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_opacity": "0.12", "section_bg_px": "0"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
