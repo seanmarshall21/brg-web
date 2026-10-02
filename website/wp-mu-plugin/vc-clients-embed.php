@@ -137,6 +137,7 @@ if ( ! function_exists( 'vcc_brand_keys' ) ) {
             'tiktok'        => 'brg_brand_tiktok',
             'linkedin'      => 'brg_brand_linkedin',
             'privacy'       => 'brg_brand_privacy',
+            'footer_logo'   => 'brg_brand_footer_logo',
         );
     }
 }
@@ -295,7 +296,19 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
              . '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>'
              . '<rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>';
         }
-        $footer = '<footer class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div>'
+        /* THE LOCKUP IS ARTWORK, NOT TYPE. brgw.css replaces this element's text with a
+         * background image and pushes the words off-screen (text-indent:-200vw), keeping
+         * them only as the accessible name. So the editable thing here is the IMAGE — a
+         * field for "BLACKTOP" would have let someone retype a word nobody can see and
+         * wonder why the footer never changed. The name comes from Brand info too, so the
+         * announced name and the company name cannot drift apart. */
+        $logo = vcc_brand( 'footer_logo' );
+        $name = vcc_brand( 'name' );
+        if ( $name === '' || $name === null ) $name = 'Blacktop Restaurant Group';
+        $style = ( is_string( $logo ) && $logo !== '' )
+               ? ' style="--brgw-footer-logo:url(\'' . esc_url( $logo ) . '\')"' : '';
+        $footer = '<footer class="brgw__footer reveal"><div class="lockup anim-up"' . $style . '>'
+                . esc_html( $name ) . '</div>'
                 . $li . '</footer>';
         return array( $header, $footer );
     }

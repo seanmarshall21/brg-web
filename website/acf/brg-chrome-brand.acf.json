@@ -168,6 +168,23 @@
                     "id": ""
                 },
                 "default_value": "/privacy-policy/"
+            },
+            {
+                "key": "field_brg_brand_footer_logo",
+                "label": "Footer logo",
+                "name": "brg_brand_footer_logo",
+                "type": "image",
+                "instructions": "The lockup shown in the middle of the footer on every page. It is artwork, not type — the words beside it in the code are only what a screen reader announces. An SVG keeps it crisp at any size; a PNG around 1400px wide also works. Leave empty to keep the built-in Blacktop lockup.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-footer_logo",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
             }
         ],
         "location": [

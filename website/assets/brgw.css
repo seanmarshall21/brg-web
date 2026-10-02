@@ -88,7 +88,9 @@
 }
 .brgw__footer .lockup{display:block;overflow:hidden;margin:0 auto;
   width:min(360px,62vw);aspect-ratio:717/117;
-  background:url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg') center/contain no-repeat;
+  /* The URL now arrives from Brand info as --brgw-footer-logo; the literal below is the
+     fallback for a page rendered before that field exists, so the footer can never go blank. */
+  background:var(--brgw-footer-logo,url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg')) center/contain no-repeat;
   text-indent:-200vw;white-space:nowrap;}
 .brgw__footer .lockup b,.brgw__footer .lockup br{all:unset;}
 .brgw__footer .lockup br{display:none;}
