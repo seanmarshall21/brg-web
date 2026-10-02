@@ -43,7 +43,16 @@
    blocks, but they are image slots). Each gets the reveal + its own parallax rate, and
    the rates have OPPOSITE signs so the two plates separate as you scroll rather than
    sliding together — that counter-movement is what reads as depth. */
-.brgw-sec--home-community .media{position:relative;aspect-ratio:4/3.35;min-height:260px;}
+/* THE CLUSTER IS MEANT TO HANG OUT, so this .media must not clip.
+   The shared rule in brgw.css — .brgw .media{overflow:hidden} — exists to crop the photos
+   inside a media box, and it was also cutting the BRG smiley: .cluster below is positioned
+   right:-2% bottom:-7%, i.e. deliberately OUTSIDE its parent, so a clipping parent removes
+   exactly the part that was the point of it. Sean reported the icon cropped twice.
+   SAFE TO OPEN because the photos do not depend on this element to crop them — both
+   children carry .brgw-img, which brings its own overflow:hidden. The clipping that
+   matters stays exactly where it was; only the decoration is released. */
+.brgw-sec--home-community .media{position:relative;aspect-ratio:4/3.35;min-height:260px;
+  overflow:visible;}
 .brgw-sec--home-community .media .plate{position:absolute;left:0;bottom:0;width:86%;height:82%;}
 .brgw-sec--home-community .media .block{position:absolute;right:0;top:0;width:46%;height:44%;
   background:var(--yellow);}
