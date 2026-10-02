@@ -625,6 +625,17 @@
         var it = items[i];
         var r = it.box.getBoundingClientRect();
         if (!r.height) continue;                               // hidden: no height, nothing to do
+        /* STAND BACK WHILE GSAP IS ANIMATING THIS ELEMENT. Measured on the live page: GSAP
+           writes `translate: none; rotate: none; scale: none;` next to its own
+           `transform: scale(2,2)` — it deliberately neutralises the individual transform
+           properties so its transform is the only one that counts. SPEC-014 captured that
+           exact inline string back in August without naming the cause.
+           So `translate` composing with `transform` is true of CSS but NOT of an element
+           GSAP currently owns: for the ~1.6s of the reveal the two would overwrite each
+           other every frame, which reads as a flicker rather than a clean failure. Waiting
+           for the tween costs nothing — the photo is mid-entrance and not yet still — and
+           our per-frame re-apply takes over on the first frame after GSAP lets go. */
+        if (window.gsap && window.gsap.isTweening && window.gsap.isTweening(it.target)) continue;
         var h = r.height, top = r.top;
         if (it.float && it.cur !== null) top -= it.cur;        // measure where it sits WITHOUT its own drift
         if (top + h < -200 || top > vh + 200) { it.cur = null; continue; }
