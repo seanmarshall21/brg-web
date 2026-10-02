@@ -6,8 +6,8 @@
 <template id="frag"><!-- BRG · section: team-members  →  [brg_team-members]
      Matches the Team comp (mocks/BRG - Team.png, y 916–3486 @1x).
      Light section. Owns the yellow smiley seam badge, bleeding upward.
-     Nine crew cards: coloured plate + portrait + tilted black name bar + pull quote.
-     Card colours come from the comp; portraits are placeholders until headshots land. -->
+     Nine crew cards: colored plate + portrait + tilted black name bar + pull quote.
+     Card colors come from the comp; portraits are placeholders until headshots land. -->
 <section class="brgw-sec brgw-sec--team-members reveal" data-nav="light" aria-label="The crew">
 <style>
 .brgw-sec--team-members{position:relative;background:var(--white);color:var(--ink);overflow:visible;
@@ -40,11 +40,11 @@
 
 .brgw-sec--team-members figure{margin:0;}
 
-/* Coloured plate behind the cut-out portrait.
+/* Colored plate behind the cut-out portrait.
    SHAPE IS A VARIABLE set once on .grid, so every box is the same height and the same
    width — Sean, 1 Oct: "all containers should be the same height and same width."
    That uniformity is what makes a row of different people read as a set, so shape and
-   fit are grid-wide and only the crop and colour are per person.
+   fit are grid-wide and only the crop and color are per person.
 
    A REAL <img>, NOT A CSS BACKGROUND. The background version could never do what Sean
    asked for next — "whether or not the overflow of the image is visible or hidden" —
@@ -55,9 +55,9 @@
    the page URL and re-downloads the document. THAT WAS WRONG for anything current:
    measured on this page, an empty src produced zero requests. HTML5 aborts on an empty
    src; the re-download is a pre-HTML5 quirk. It is hidden here anyway, via data-photo,
-   so a crew row still renders as a clean coloured plate before its headshot exists. */
+   so a crew row still renders as a clean colored plate before its headshot exists. */
 .brgw-sec--team-members .card{position:relative;aspect-ratio:var(--ar,7/9);}
-/* THE COLOUR IS A LAYER, NOT THE CARD'S OWN BACKGROUND. Sean, 1 Oct: "the color
+/* THE COLOR IS A LAYER, NOT THE CARD'S OWN BACKGROUND. Sean, 1 Oct: "the color
    background [should] vertically shrink a little bit also… that doesn't crop out the top
    of the image that's being hovered over." A background-color belongs to the element and
    cannot be scaled on its own, so shrinking it would have meant shrinking the card — which
@@ -70,7 +70,7 @@
    not loaded yet has NO intrinsic size and so lays out zero pixels wide — and
    loading="lazy" decides what to load from exactly that box. A zero-width element is a
    poor candidate for intersection, so the photo can sit unloaded while the card shows as
-   a bare coloured panel: measured on the live page at 390px, 0 of 19 images loaded.
+   a bare colored panel: measured on the live page at 390px, 0 of 19 images loaded.
    The CSS background this replaced had no such state, so the regression came in with the
    <img>. The attributes give the element a real box before the bytes arrive; `aspect-ratio:
    auto <w>/<h>` in the UA stylesheet means the photo's true proportions take over the
@@ -88,7 +88,7 @@
 /* A card that spills has to paint over its neighbours, not under them. */
 .brgw-sec--team-members .card[data-overflow="visible"]{z-index:1;}
 /* A SPILL MUST NEVER WIDEN THE PAGE. Measured: a spilling card pushes 56px past the box
-   on each side. On desktop the grid is centred inside a max-width with room to spare, so
+   on each side. On desktop the grid is centered inside a max-width with room to spare, so
    that lands in the margin — but at one column the card is 342 of a 390 screen and the
    same 56px would put the document wider than the viewport, which is a horizontal
    scrollbar on the surface most of this traffic uses. Below the two-column breakpoint the
@@ -116,7 +116,7 @@
 /* THE CROP — per person, because people do not stand in the same place twice.
    With Fit the height this is horizontal placement; with Fill the box it picks which
    edges get trimmed. Top and Bottom cannot mean anything in height mode, where the
-   height already matches exactly, so they centre rather than doing something arbitrary. */
+   height already matches exactly, so they center rather than doing something arbitrary. */
 .brgw-sec--team-members .card[data-fit="height"] img,
 .brgw-sec--team-members .card[data-fit=""] img{left:50%;
   transform:translateX(-50%) scale(var(--z,1));transform-origin:bottom center;}
@@ -151,21 +151,21 @@
    one shape three times and hard-coding a decision CSS can make better. The 100% file is
    the base, exactly as he suggested, and opacity is set here.
 
-   A MASK, NOT AN IMAGE, because the mark has to take each person's colour — an <img> or a
+   A MASK, NOT AN IMAGE, because the mark has to take each person's color — an <img> or a
    background-image carries the fill baked in at #FAE200 and could only ever be yellow.
    Masking paints `background-color` through the shape, so var(--c) just works, and that is
    the whole reason --c moved from .card up to the figure in this commit: the caption is a
    SIBLING of the card, so it could not see a variable set on the card.
 
    Inline as a data URI rather than a file: it is 1.1KB, it saves a request per card, and
-   it keeps the shape in the same commit as the rule that colours it. */
+   it keeps the shape in the same commit as the rule that colors it. */
 /* THE CAPTION BOX SHRINKS TO ITS TEXT. Sean, 2 Oct: "it should be anchored to the left
    side of the quote… can we still anchor it onto the edge of the actual text?" The mark is
    positioned against the caption, and the caption was a full-width block — so on a short
    quote like "Utah, Get me two!" the mark sat way out at the card's edge with a gap before
-   the words, while the text sat centred in the middle.
+   the words, while the text sat centered in the middle.
    width:fit-content makes the box hug the text instead, and margin-inline:auto keeps that
-   box centred under the card, so nothing moves visually except the mark's anchor.
+   box centered under the card, so nothing moves visually except the mark's anchor.
    IT ALSO HANDLES THE WRAPPING CASE WITHOUT A SECOND RULE: fit-content is min(max-content,
    available), so a quote long enough to wrap fills the width and the box's left edge IS the
    paragraph's left edge — which is exactly where Sean asked for it on the multi-line ones. */
@@ -183,7 +183,7 @@
 /* The words sit above the mark, never behind it. */
 .brgw-sec--team-members figcaption{z-index:1;}
 
-/* Yellow instead of the person's colour — same shape, heavier because yellow at 15% on
+/* Yellow instead of the person's color — same shape, heavier because yellow at 15% on
    white is invisible. */
 .brgw-sec--team-members .grid[data-quote="yellow"] figcaption::before{
   background-color:var(--yellow);opacity:.4;}
@@ -199,12 +199,12 @@
 .brgw-sec--team-members .d5{bottom:26%;right:22%;width:clamp(56px,6.4vw,104px);}
 @media(max-width:760px){ .brgw-sec--team-members .dood{display:none;} }
 
-/* Colours cycle by position so nobody has to choose one per person. */
-/* AUTOMATIC COLOURS cycle by position, so nobody has to choose one per person and
-   adding someone re-colours the rest on its own. Scoped to [data-color="auto"] rather
+/* Colors cycle by position so nobody has to choose one per person. */
+/* AUTOMATIC COLORS cycle by position, so nobody has to choose one per person and
+   adding someone re-colors the rest on its own. Scoped to [data-color="auto"] rather
    than left to specificity: an explicit choice is only TWO classes and an attribute,
    while this cycle is four classes and a type, so without the scope the cycle would
-   quietly win every time and the colour field would look broken. Mutually exclusive
+   quietly win every time and the color field would look broken. Mutually exclusive
    attribute values mean neither rule has to out-specify the other. */
 .brgw-sec--team-members .grid figure:nth-child(5n+1)[data-color="auto"],
 .brgw-sec--team-members .grid figure:nth-child(5n+1)[data-color=""]{--c:var(--teal)}
@@ -216,9 +216,9 @@
 .brgw-sec--team-members .grid figure:nth-child(5n+4)[data-color=""]{--c:var(--pink)}
 .brgw-sec--team-members .grid figure:nth-child(5n+5)[data-color="auto"],
 .brgw-sec--team-members .grid figure:nth-child(5n+5)[data-color=""]{--c:#A17DC4} /* purple: softened to #A17DC4 at Sean's request 1 Oct; was #6C2BB8, which read
-   heavier than the rest of the palette beside teal and orange. NOT var(--violet) — that token does not exist, so it silently fell back to teal, making the "5-colour" cycle 4 colours with teal twice. Worse, SPEC-005 wants a --violet for Press: defining it there would have retroactively changed THIS page. */
+   heavier than the rest of the palette beside teal and orange. NOT var(--violet) — that token does not exist, so it silently fell back to teal, making the "5-color" cycle 4 colors with teal twice. Worse, SPEC-005 wants a --violet for Press: defining it there would have retroactively changed THIS page. */
 
-/* EXPLICIT per-person colours. The hexes are the ones already on the fallback cards —
+/* EXPLICIT per-person colors. The hexes are the ones already on the fallback cards —
    this names them rather than introducing a second palette. */
 .brgw-sec--team-members figure[data-color="teal"]{--c:var(--teal)}
 .brgw-sec--team-members figure[data-color="orange"]{--c:var(--orange)}
@@ -242,7 +242,7 @@
    spill on both axes alone.
 
    THE LIFT IS `bottom`, NOT A TRANSFORM, because the photo already spends its
-   transform on staying centred (translateX(-50%)) — a hover transform would have to
+   transform on staying centered (translateX(-50%)) — a hover transform would have to
    restate that, and would then be wrong for the left and right crops, which do not
    use it. Moving `bottom` is independent of all three.
 
@@ -261,17 +261,17 @@
   .brgw-sec--team-members figure .card img,
   .brgw-sec--team-members figure .bar{
     transition:bottom .34s cubic-bezier(.2,.7,.2,1),transform .34s cubic-bezier(.2,.7,.2,1);}
-  /* VERTICAL ONLY — scaleY, not scale. The sides of the colour stay put against the name
+  /* VERTICAL ONLY — scaleY, not scale. The sides of the color stay put against the name
      plate, which is wider than the card and would read as misaligned if the plate narrowed
      under it. Origin is the base, so the top edge draws down and the lifted head sits
-     above the colour rather than being covered by it. */
+     above the color rather than being covered by it. */
   .brgw-sec--team-members figure:hover .card::before{transform:scaleY(.965);}
 
   /* the hovered card paints over its neighbours, or the escaping head slides under them */
   /* THE SHRINK AND THE LIFT FIGHT EACH OTHER, so the numbers are chosen, not picked.
      transform-origin is the base, so scaling to 0.97 drops the TOP of a 501px photo by
      15px while a 14px lift raises it — measured head-poke was MINUS 1px, i.e. the effect
-     cancelled itself exactly and nothing escaped the frame. The shrink is therefore kept
+     canceled itself exactly and nothing escaped the frame. The shrink is therefore kept
      to 1.5% (7.5px at this size) and the lift raised to 22px, leaving ~14px of head above
      the box. Any future change to one has to be checked against the other. */
   .brgw-sec--team-members figure:hover .card{z-index:2;--z:.985;}
@@ -293,7 +293,7 @@
   /* THE LIFT IS DROPPED, NOT JUST CLIPPED. With the box still closed, a 22px lift would
      simply cut 22px off the top of the head — the opposite of what this setting is for.
      The scale stays, per Sean ("that should also be still scaling"), but it anchors to the
-     TOP rather than the base, so the photo stays flush with the top edge of the colour and
+     TOP rather than the base, so the photo stays flush with the top edge of the color and
      shrinks downward; the few pixels that open at the bottom sit behind the name plate,
      which already overlaps the card by about 50px. */
   .brgw-sec--team-members figure .card[data-hovercrop="keep"] img{transform-origin:top center;}

@@ -26,6 +26,23 @@
 .brgw-sec--home-hero.is-in .plate{
   animation:brgw-hh-in 2.2s cubic-bezier(.16,.72,.2,1) both, brgw-hh-drift 46s ease-in-out 2.2s infinite;}
 /* Veil + grain: the comp sits the collage well back so the headline carries. */
+/* THE THREE DARKNESS NUMBERS ARE REGISTERED PROPERTIES, and that is not decoration.
+   A number box, unlike a dropdown, can be CLEARED, and the plugin resolves a known slot
+   that is empty to an empty string on purpose — an editor choosing not to supply a value
+   is not a mistake. That writes `--brgw-plate-o:` with nothing after it, which is a valid
+   declaration holding an empty value, so `var(--brgw-plate-o, 42)` does NOT take its
+   fallback: it substitutes nothing, `calc( / 100)` is invalid at computed-value time, and
+   opacity reverts to its initial value of 1. Measured, not reasoned: a cleared box put the
+   photo at FULL strength with NO vignette — the exact opposite of the complaint this was
+   built to fix, reachable by selecting a box and pressing delete.
+   An @property registration with an initial-value is what makes an invalid value fall back
+   to the design default instead. Verified: cleared box -> .42, a value of 85 -> .85.
+   (An intermediate custom property was tried first and does not work — the invalidity
+   survives one hop and still lands on opacity.) */
+@property --brgw-plate-o{syntax:"<number>";inherits:true;initial-value:42;}
+@property --brgw-veil-c {syntax:"<number>";inherits:true;initial-value:58;}
+@property --brgw-veil-e {syntax:"<number>";inherits:true;initial-value:90;}
+
 /* THE VIGNETTE IS ADJUSTABLE NOW. Sean reported the home hero as "overlay too dark"
    weeks ago and the answer each time was that this is not the overlay — it is a designed
    vignette baked into the CSS, separate from the overlay_color field, which is true and
@@ -36,13 +53,13 @@
    down alone still leaves a dim picture. */
 .brgw-sec--home-hero .veil{position:absolute;inset:0;z-index:1;
   background:radial-gradient(125% 95% at 50% 42%,
-    rgba(19,18,16,calc(var(--brgw-veil-c,58) / 100)),
-    rgba(19,18,16,calc(var(--brgw-veil-e,90) / 100)) 82%);}
+    rgba(19,18,16,calc(var(--brgw-veil-c) / 100)),
+    rgba(19,18,16,calc(var(--brgw-veil-e) / 100)) 82%);}
 .brgw-sec--home-hero .grit{position:absolute;inset:-4%;z-index:1;opacity:.4;mix-blend-mode:overlay;
   background:center/cover no-repeat url('https://blacktoprg.netlify.app/assets/media/bg/grit.webp');
   animation:brgw-hh-drift 52s ease-in-out infinite;}
 
-@keyframes brgw-hh-in{0%{opacity:0;transform:scale(1.16);}100%{opacity:calc(var(--brgw-plate-o,42) / 100);transform:scale(1.06);}}
+@keyframes brgw-hh-in{0%{opacity:0;transform:scale(1.16);}100%{opacity:calc(var(--brgw-plate-o) / 100);transform:scale(1.06);}}
 @keyframes brgw-hh-drift{0%,100%{transform:scale(1.06) translate3d(0,0,0);}50%{transform:scale(1.09) translate3d(-1%,.7%,0);}}
 
 /* .sec-bg IS EXCLUDED TOO: it is an absolutely-positioned layer, and this rule is
@@ -80,7 +97,7 @@
 .brgw-sec--home-hero .btn{border:3px solid var(--ink);}
 
 @media (prefers-reduced-motion:reduce){
-  .brgw-sec--home-hero .plate{opacity:calc(var(--brgw-plate-o,42) / 100)!important;animation:none!important;transform:none!important;}
+  .brgw-sec--home-hero .plate{opacity:calc(var(--brgw-plate-o) / 100)!important;animation:none!important;transform:none!important;}
   .brgw-sec--home-hero .grit{animation:none!important;}
   .brgw-sec--home-hero .uline{clip-path:none!important;}
 }
@@ -115,9 +132,9 @@
     </div>
     <div class="grit"></div>
     <div class="veil"></div>
-    <!-- Flat colour overlay, ACF. SEPARATE from .veil above, which is a designed
+    <!-- Flat color overlay, ACF. SEPARATE from .veil above, which is a designed
          radial vignette rather than a flat tint — defaults to "none", so home looks
-         exactly as it does today until a colour is picked. -->
+         exactly as it does today until a color is picked. -->
     <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
   </div>
 

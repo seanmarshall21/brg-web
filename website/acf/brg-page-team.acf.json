@@ -389,7 +389,7 @@
                 "label": "Section background",
                 "name": "brg_team_hero_section_bg",
                 "type": "image",
-                "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+                "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below. ON A HERO THIS SITS BEHIND THE HERO PHOTO, so it only shows where that photo does not: with a background photo set, the photo covers the section edge to edge and this is hidden entirely. Use it on a hero with no photo, where it replaces the flat color.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

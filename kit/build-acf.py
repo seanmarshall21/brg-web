@@ -571,6 +571,18 @@ def check():
         'analyse': 'analyze', 'catalogue': 'catalog', 'defence': 'defense',
         'licence': 'license', 'programme': 'program', 'travelling': 'traveling',
         'labelled': 'labeled', 'modelling': 'modeling', 'cancelled': 'canceled',
+        # ADDED 2026-10-02. Each of these got PAST the check because the dict holds whole
+        # words and the search is \b-anchored: 'recognise' never matches "recognisable",
+        # which is the form that actually appears in prose — and did, in the section
+        # background help text, which was then copied to 18 more sections. A guard that
+        # catches the dictionary form and misses the one people write is not a guard.
+        'recognisable': 'recognizable', 'recognised': 'recognized',
+        'organised': 'organized', 'organisation': 'organization',
+        'emphasised': 'emphasized', 'customised': 'customized',
+        'analysed': 'analyzed', 'neutralise': 'neutralize', 'neutralises': 'neutralizes',
+        'colouring': 'coloring', 'centring': 'centering', 'greyscale': 'grayscale',
+        'apologise': 'apologize', 'prioritise': 'prioritize', 'summarise': 'summarize',
+        'utilise': 'utilize', 'specialise': 'specialize', 'standardise': 'standardize',
     }
     def _spelling_hits(decl, where_id):
         """Walk a slots.json declaration — the SOURCE an editor's labels come from — rather

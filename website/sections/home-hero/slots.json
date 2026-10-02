@@ -153,7 +153,7 @@
   "section_bg": {
     "type": "image",
     "label": "Section background",
-    "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+    "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below. ON THE HOME HERO IT IS EFFECTIVELY HIDDEN: the collage is always present and a vignette sits over it, so this layer is behind both. It is here for consistency, not because it will show.",
     "group": "Section background"
   },
   "section_bg_opacity": {

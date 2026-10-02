@@ -26,7 +26,7 @@
   .brgw-sec--community-stats .cell:nth-last-child(-n+2){border-bottom:0;}
   /* ODD final cell. Without these two rules the grid breaks at any odd count > 1: the last
      cell sits alone in the left column still carrying border-right — a vertical rule beside
-     empty space — and :nth-last-child(-n+2) above strips the bottom rule from its NEIGHBOUR
+     empty space — and :nth-last-child(-n+2) above strips the bottom rule from its NEIGHBOR
      too, so the row-1 underline goes asymmetric. Measured by @expo (SPEC-007) at 3 cells and
      confirmed against this rule set. Both selectors are inert at even counts, so the live
      4-cell rendering is untouched — verified render-identical, not assumed. */

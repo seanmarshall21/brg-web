@@ -1,11 +1,11 @@
 <!-- BRG · section: our-restaurants-hero  →  [brg_our-restaurants-hero]
      Type hero (no photo). Same build as the other type heroes — headline, marker
-     underline, lede, scattered doodles — differing only in copy, underline colour
+     underline, lede, scattered doodles — differing only in copy, underline color
      and which brand icons scatter. Real icon artwork, not hand-drawn paths. -->
 <section class="brgw-sec brgw-sec--our-restaurants-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Our Restaurants">
 <style>
 .brgw-sec--our-restaurants-hero{overflow:hidden;}
-/* Underline is now Sean's line-restaurants-lg.svg; its colour is baked into the path fill,
+/* Underline is now Sean's line-restaurants-lg.svg; its color is baked into the path fill,
    so the old `color:var(--teal)` is gone rather than left as a rule that does nothing.
    Geometry matches the blob it replaces; the reveal is the shared system in brgw.css. */
 /* Width is the ARTWORK'S OWN LENGTH at home-hero's scale, not a shared number.
@@ -25,7 +25,7 @@
   <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
-  <!-- Background photo + colour overlay, both ACF. The scrim NESTS INSIDE the photo
+  <!-- Background photo + color overlay, both ACF. The scrim NESTS INSIDE the photo
        layer so that "no photo" and "no overlay" are one state: an empty photo hides
        the parent and takes the overlay with it, which is why adding this control
        changes nothing on a hero that has no photo set. Rules live in brgw.css. -->

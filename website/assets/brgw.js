@@ -17,7 +17,7 @@
      what keeps the ACF question and the animation question independent — every
      alternative couples them.
 
-     Default with NO delimiter: mark the last line. That is today's behaviour, and it
+     Default with NO delimiter: mark the last line. That is today's behavior, and it
      is why the five heroes get a correctly-sized stroke with no copy change at all.
 
      A backslash-escaped asterisk is literal. An unbalanced lone asterisk renders
@@ -181,7 +181,7 @@
       if (lns.length) {
         /* .ln-i, NOT .ln. .ln is the block LINE BOX and spans the full column width
            (401px on a 430px phone) regardless of how much text is on it; .ln-i is the
-           inline-block that hugs the words (267px for "Meet the crew", centred). Sean
+           inline-block that hugs the words (267px for "Meet the crew", centered). Sean
            asked for the words, not the line box. .ln-i also solves the wrap case for
            free: when a logical line breaks across two rows its inline-block bounding
            box covers both, so the stroke spans the run instead of its final fragment. */
@@ -209,7 +209,7 @@
        edge, not offsetParent.
        margin-left on a block in normal flow is measured from the containing block's CONTENT
        edge, and the containing block is the parent. offsetParent is the nearest POSITIONED
-       ancestor, which here is usually the section. Where the stroke sits inside a centred
+       ancestor, which here is usually the section. Where the stroke sits inside a centered
        .head (max-width:min(94%,1180px); margin-inline:auto) those are different boxes, so
        every mark was offset by however far .head sits from the section edge — measured
        correctly against the words, then placed against the wrong origin. That is why it was
@@ -657,7 +657,7 @@
         if (!r.height) continue;                               // hidden: no height, nothing to do
         /* STAND BACK WHILE GSAP IS ANIMATING THIS ELEMENT. Measured on the live page: GSAP
            writes `translate: none; rotate: none; scale: none;` next to its own
-           `transform: scale(2,2)` — it deliberately neutralises the individual transform
+           `transform: scale(2,2)` — it deliberately neutralizes the individual transform
            properties so its transform is the only one that counts. SPEC-014 captured that
            exact inline string back in August without naming the cause.
            So `translate` composing with `transform` is true of CSS but NOT of an element

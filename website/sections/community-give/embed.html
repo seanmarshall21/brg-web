@@ -17,8 +17,8 @@
      same arrangement as team-members). Sean could not change a slide photo or add a fourth
      slide because the three slides were hardcoded: nothing about them existed in wp-admin to
      edit. The count was never a design constant — the shared slider builds its own dots, and
-     the panel colours come from :nth-child rather than the count — so any number works and
-     adding one re-colours the rest on its own.
+     the panel colors come from :nth-child rather than the count — so any number works and
+     adding one re-colors the rest on its own.
 
      The three slides below sit inside brg:empty, so they keep rendering until the first row
      is added. Without that half, wiring the repeater would take a section that shows three
@@ -90,7 +90,7 @@
   <span class="banner blanco anim-up">{{banner}}</span>
 
   <!-- The slider is DARK inside a light section. data-nav nests: brgw-nav.js takes the
-       nearest labelled ancestor, so the header reads this rather than the section. -->
+       nearest labeled ancestor, so the header reads this rather than the section. -->
   <div class="brgw-slider" data-nav="dark" data-autoplay="6500">
     <div class="brgw-slider__track">
 <!--brg:repeat slides-->

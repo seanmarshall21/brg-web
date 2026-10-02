@@ -72,9 +72,9 @@
 /* Shared footer (same on every page) */
 .brgw__footer{background:#000;text-align:center;padding:56px var(--pad);}
 /* LinkedIn, bottom right of the footer (BugHerd #32). Absolute on a wide screen so it sits
-   in the corner without pushing the centred lockup off-centre — a flex row would have had to
+   in the corner without pushing the centered lockup off-center — a flex row would have had to
    balance the lockup against an invisible counterweight to keep it in the middle.
-   ON A PHONE IT RETURNS TO THE FLOW, centred under the lockup: in the corner it would sit
+   ON A PHONE IT RETURNS TO THE FLOW, centered under the lockup: in the corner it would sit
    within a thumb's width of the screen edge, and the footer's padding is already tight there.
    44px is the minimum comfortable tap target, so the link is sized rather than just the icon. */
 .brgw__footer{position:relative;}
@@ -164,7 +164,7 @@
 .brgw-hero h1{font-size:clamp(2.4rem,6.4vw,5.4rem);text-transform:uppercase;max-width:24ch;margin:0 auto 8px;}
 .brgw-hero .sub{max-width:52ch;margin:26px auto 0;opacity:.9;line-height:1.6;font-size:clamp(1rem,1.3vw,1.2rem);}
 
-/* ── Hero background photo + colour overlay ──────────────────────────────────
+/* ── Hero background photo + color overlay ──────────────────────────────────
    Sean, 30 Sep: "I don't recall how I'm able to control the background of that
    section. I can see it on the home page, but it's not on any of the other
    sections." It was not a hidden control — only home-hero had a media layer at all.
@@ -180,12 +180,12 @@
    THE SCRIM NESTS INSIDE THE PHOTO LAYER. That is what makes "no photo" and "no
    overlay" the same state without the plugin having to reason about it: hide the
    parent and the overlay goes with it. A sibling scrim would tint the flat hero
-   colour of a hero that has no photo, which is a visible change to five live pages
+   color of a hero that has no photo, which is a visible change to five live pages
    caused purely by shipping the mechanism.
 
-   COLOUR AND STRENGTH ARE SEPARATE FIELDS, so the scrim is a solid background with a
+   COLOR AND STRENGTH ARE SEPARATE FIELDS, so the scrim is a solid background with a
    separate opacity rather than one rgba(). Composing an rgba() string would put
-   colour maths in PHP, and would stop either half being an ACF dropdown.
+   color maths in PHP, and would stop either half being an ACF dropdown.
 
    CONTENT IS LIFTED EXPLICITLY, NOT WITH `> *`. h1/.sub/.uline are not positioned,
    so an absolutely positioned scrim paints over them whatever its z-index. A blanket
@@ -365,13 +365,13 @@
    Structural only. The hidden pre-state is set by JS via gsap.set(), never here:
    if the vendor script fails or is blocked, the picture must still be visible. */
 /* ── Black & white is a CHOICE, per photo ────────────────────────────────────
-   Sean, 2 Oct: colour is the default — the photography was only ever grey because the
+   Sean, 2 Oct: color is the default — the photography was only ever gray because the
    placeholder images were — and the choice belongs to each PHOTO, not to a whole section.
-   Four sections used to hard-code filter:grayscale(1), so a colour photo uploaded through
+   Four sections used to hard-code filter:grayscale(1), so a color photo uploaded through
    the admin was desaturated on arrival with nothing explaining why.
    SCOPED TO PHOTOGRAPHS. The attribute sits on the photo's own tag, so the doodles, seam
    badges and brand lockups in the same section are untouched — the smiley is yellow by
-   definition and a grey one reads as a fault rather than a choice. */
+   definition and a gray one reads as a fault rather than a choice. */
 .brgw img[data-tone="bw"],
 .brgw [data-tone="bw"] > img,
 .brgw .hero-bg[data-tone="bw"]{filter:grayscale(1) contrast(1.05);}
@@ -456,7 +456,7 @@
    leave the artwork ON SCREEN. The failure mode of a reveal animation is an invisible
    mark, and that is worse than an unanimated one.
 
-   Catalogue, verdicts and timings: website/lab/README.md (motion lab, 2026-08-16).
+   Catalog, verdicts and timings: website/lab/README.md (motion lab, 2026-08-16).
    U2 (dasharray draw) and U4 (double-stroke) are NOT here: both animate a stroke on a
    <path>, which needs the artwork inline as SVG. The heroes carry it as <img>, where a
    path is unreachable. Inlining is a real option, not a limitation of this system. */
@@ -502,13 +502,13 @@
 
    THREE VARIABLES, because each .mark already had its own look and losing that
    would be a regression dressed up as consistency:
-     --brgw-hl-c    the mark colour  (fills the h3 block, paints the h1 wipe)
+     --brgw-hl-c    the mark color  (fills the h3 block, paints the h1 wipe)
      --brgw-hl-pad  padding around the text
      --brgw-hl-rot  h3 block rotation — set 0deg where the CONTAINER already
                     rotates, or the two compound and the mark visibly skews
    Base is a fully-painted static mark: an unknown value reads as h0, never blank.
 
-   WRAP BEHAVIOUR IS THE REAL CHOICE. h1 paints the text's own background box and
+   WRAP BEHAVIOR IS THE REAL CHOICE. h1 paints the text's own background box and
    follows it across a line break. h3 is one rigid block behind a run of text and
    cannot wrap with it. Verdicts: website/lab/README.md */
 [data-hl]{--brgw-h-dur:.52s;--brgw-h-delay:.12s;--brgw-h-ease:cubic-bezier(.2,.7,.2,1);}
@@ -573,7 +573,7 @@
 .brgw .media{position:relative;overflow:hidden;}
 .brgw .vid{position:absolute;inset:0;overflow:hidden;z-index:1;}
 .brgw .vid[data-vid=""]{display:none;}
-/* A 16:9 iframe cannot object-fit, so it is oversized and centred instead. The 110%
+/* A 16:9 iframe cannot object-fit, so it is oversized and centered instead. The 110%
    overshoot is deliberate: at exactly 100% sub-pixel rounding can leave a 1px hairline
    of poster along one edge, which reads as a rendering fault. pointer-events:none keeps
    the video from swallowing clicks meant for a button sitting over it. */
