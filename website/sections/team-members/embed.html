@@ -17,10 +17,21 @@
   font-size:clamp(1.1rem,2.4vw,2rem);text-transform:uppercase;padding:.1em .5em;
   margin-bottom:clamp(42px,5vw,74px);}
 
+/* 1440, up from 1320 — Sean, 1 Oct. The column count is a field; the LADDER below it is
+   not, because the useful number of columns is decided by how wide a card ends up, not by
+   taste: four columns inside 1000px gives a 230px card, which is too small for a face and
+   a name plate. So four only engages once there is room for it, and anything narrower
+   falls back to three, then two, then one. */
 .brgw-sec--team-members .grid{display:grid;grid-template-columns:1fr;gap:clamp(34px,3.4vw,54px);
-  max-width:1320px;margin-inline:auto;}
+  max-width:1440px;margin-inline:auto;}
 @media(min-width:640px){ .brgw-sec--team-members .grid{grid-template-columns:1fr 1fr;} }
-@media(min-width:1000px){ .brgw-sec--team-members .grid{grid-template-columns:repeat(3,1fr);} }
+@media(min-width:1000px){
+  .brgw-sec--team-members .grid{grid-template-columns:repeat(3,1fr);}
+  .brgw-sec--team-members .grid[data-cols="2"]{grid-template-columns:repeat(2,1fr);}
+}
+@media(min-width:1240px){
+  .brgw-sec--team-members .grid[data-cols="4"]{grid-template-columns:repeat(4,1fr);}
+}
 
 .brgw-sec--team-members figure{margin:0;}
 
@@ -40,9 +51,16 @@
    measured on this page, an empty src produced zero requests. HTML5 aborts on an empty
    src; the re-download is a pre-HTML5 quirk. It is hidden here anyway, via data-photo,
    so a crew row still renders as a clean coloured plate before its headshot exists. */
-.brgw-sec--team-members .card{position:relative;aspect-ratio:var(--ar,7/9);
-  background-color:var(--c,var(--teal));}
-.brgw-sec--team-members .card img{display:block;}
+.brgw-sec--team-members .card{position:relative;aspect-ratio:var(--ar,7/9);}
+/* THE COLOUR IS A LAYER, NOT THE CARD'S OWN BACKGROUND. Sean, 1 Oct: "the color
+   background [should] vertically shrink a little bit also… that doesn't crop out the top
+   of the image that's being hovered over." A background-color belongs to the element and
+   cannot be scaled on its own, so shrinking it would have meant shrinking the card — which
+   is also the box that crops the photo, so the top of the head would have been cut exactly
+   as he said it must not be. A separate painted layer scales independently of both. */
+.brgw-sec--team-members .card::before{content:"";position:absolute;inset:0;z-index:0;
+  background:var(--c,var(--teal));transform-origin:bottom center;}
+.brgw-sec--team-members .card img{display:block;z-index:1;}
 /* WIDTH/HEIGHT ATTRIBUTES ARE NOT DECORATION HERE. With width:auto, an image that has
    not loaded yet has NO intrinsic size and so lays out zero pixels wide — and
    loading="lazy" decides what to load from exactly that box. A zero-width element is a
@@ -189,10 +207,15 @@
    on tap and leaves the card stuck in its hovered state until something else is
    touched. */
 @media (hover:hover){
-  .brgw-sec--team-members figure .card,
+  .brgw-sec--team-members figure .card::before,
   .brgw-sec--team-members figure .card img,
   .brgw-sec--team-members figure .bar{
     transition:bottom .34s cubic-bezier(.2,.7,.2,1),transform .34s cubic-bezier(.2,.7,.2,1);}
+  /* VERTICAL ONLY — scaleY, not scale. The sides of the colour stay put against the name
+     plate, which is wider than the card and would read as misaligned if the plate narrowed
+     under it. Origin is the base, so the top edge draws down and the lifted head sits
+     above the colour rather than being covered by it. */
+  .brgw-sec--team-members figure:hover .card::before{transform:scaleY(.965);}
 
   /* the hovered card paints over its neighbours, or the escaping head slides under them */
   /* THE SHRINK AND THE LIFT FIGHT EACH OTHER, so the numbers are chosen, not picked.
@@ -219,9 +242,10 @@
 /* Motion is decoration here, so it goes entirely rather than being shortened. The
    escaping top goes with it: without the movement it is just a clipped head. */
 @media (prefers-reduced-motion:reduce){
-  .brgw-sec--team-members figure .card,
+  .brgw-sec--team-members figure .card::before,
   .brgw-sec--team-members figure .card img,
   .brgw-sec--team-members figure .bar{transition:none!important;}
+  .brgw-sec--team-members figure:hover .card::before{transform:none;}
   .brgw-sec--team-members figure:hover .card{--z:1;}
   .brgw-sec--team-members figure:hover .card[data-overflow="hidden"],
   .brgw-sec--team-members figure:hover .card[data-overflow=""]{overflow:hidden;}
@@ -241,7 +265,7 @@
   <span class="dood d4" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg" alt="" width="129" height="207" loading="lazy" decoding="async"></span>
   <span class="dood d5" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg" alt="" width="265" height="192" loading="lazy" decoding="async"></span>
 
-  <div class="grid" style="--ar:{{card_shape}}">
+  <div class="grid" data-cols="{{columns}}" style="--ar:{{card_shape}}">
     <!--brg:repeat members-->
       <figure class="anim-up"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-color="{{members.bg_color}}" data-overflow="{{members.overflow}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async" width="800" height="1000"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
     <!--brg:empty-->

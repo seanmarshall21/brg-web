@@ -169,10 +169,18 @@ def field(section_id, slot, defn):
     # describes as unusable by the third section. Presentation only: wrapper.width
     # is a CSS width on the field's container and touches nothing about storage.
     wide = t in ('textarea', 'wysiwyg', 'image')
+    # An explicit `width` in slots.json overrides the pair-them-up default. Added for the
+    # crew rows, where the default put the headshot and the quote on full-width lines of
+    # their own and a single person filled more than a screen — nine of them were
+    # unreadable and, worse, undraggable, because reordering means seeing two rows at once.
+    # A number here is a percentage of the row, exactly as ACF treats wrapper.width, and
+    # widths that sum past 100 wrap onto the next line, which is how a row is composed.
     f = {
         'key': 'field_' + name, 'label': defn.get('label', slot.replace('_', ' ').title()),
         'name': name, 'type': t, 'instructions': admin_html(defn.get('doc', '')), 'required': 0,
-        'conditional_logic': 0, 'wrapper': {'width': '' if wide else '50', 'class': '', 'id': ''},
+        'conditional_logic': 0,
+        'wrapper': {'width': (str(defn['width']) if defn.get('width') is not None
+                              else ('' if wide else '50')), 'class': '', 'id': ''},
         'default_value': defn.get('default', ''),
     }
     if t == 'image':

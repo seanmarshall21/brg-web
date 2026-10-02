@@ -9,20 +9,24 @@
       "photo": {
         "type": "image",
         "label": "Headshot",
-        "doc": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its colour block."
+        "doc": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its colour block.",
+        "width": 20
       },
       "name": {
         "type": "text",
-        "label": "Name"
+        "label": "Name",
+        "width": 20
       },
       "title": {
         "type": "text",
-        "label": "Title"
+        "label": "Title",
+        "width": 20
       },
       "quote": {
         "type": "text",
         "label": "Quote",
-        "doc": "Optional, shown under the card. Leave blank for none."
+        "doc": "Optional, shown under the card. Leave blank for none.",
+        "width": 40
       },
       "bg_color": {
         "type": "select",
@@ -40,7 +44,8 @@
           "coral": "Coral",
           "green": "Green",
           "red": "Red"
-        }
+        },
+        "width": 34
       },
       "crop": {
         "type": "select",
@@ -53,7 +58,8 @@
           "top": "Top",
           "left": "Left",
           "right": "Right"
-        }
+        },
+        "width": 33
       },
       "overflow": {
         "type": "select",
@@ -63,9 +69,11 @@
         "choices": {
           "hidden": "No — trim it at the edges",
           "visible": "Yes — let it hang outside"
-        }
+        },
+        "width": 33
       }
-    }
+    },
+    "collapse": "name"
   },
   "card_shape": {
     "type": "select",
@@ -89,6 +97,17 @@
       "height": "Fit the height — everyone the same height, sides may crop",
       "cover": "Fill the box — crops whichever edges overflow",
       "contain": "Show the whole photo — nothing cropped, gaps at the sides"
+    }
+  },
+  "columns": {
+    "type": "select",
+    "label": "Columns on a wide screen",
+    "doc": "How many people sit side by side on a desktop screen. Narrower screens step down on their own — two across on a tablet, one on a phone — so this is only the widest case. Four needs a genuinely wide window to be worth it; below about 1240px it falls back to three so the cards do not get too small for a face.",
+    "default": "3",
+    "choices": {
+      "2": "2 across",
+      "3": "3 across",
+      "4": "4 across"
     }
   }
 }

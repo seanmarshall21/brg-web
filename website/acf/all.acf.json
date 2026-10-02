@@ -1589,7 +1589,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-              "width": "",
+              "width": "20",
               "class": "",
               "id": ""
             },
@@ -1606,7 +1606,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-              "width": "50",
+              "width": "20",
               "class": "",
               "id": ""
             },
@@ -1621,7 +1621,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-              "width": "50",
+              "width": "20",
               "class": "",
               "id": ""
             },
@@ -1636,7 +1636,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-              "width": "50",
+              "width": "40",
               "class": "",
               "id": ""
             },
@@ -1651,7 +1651,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-              "width": "50",
+              "width": "34",
               "class": "",
               "id": ""
             },
@@ -1684,7 +1684,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-              "width": "50",
+              "width": "33",
               "class": "",
               "id": ""
             },
@@ -1712,7 +1712,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-              "width": "50",
+              "width": "33",
               "class": "",
               "id": ""
             },
@@ -1776,6 +1776,32 @@
           "height": "Fit the height — everyone the same height, sides may crop",
           "cover": "Fill the box — crops whichever edges overflow",
           "contain": "Show the whole photo — nothing cropped, gaps at the sides"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_team_members_columns",
+        "label": "Columns on a wide screen",
+        "name": "brg_team_members_columns",
+        "type": "select",
+        "instructions": "How many people sit side by side on a desktop screen. Narrower screens step down on their own — two across on a tablet, one on a phone — so this is only the widest case. Four needs a genuinely wide window to be worth it; below about 1240px it falls back to three so the cards do not get too small for a face.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "3",
+        "choices": {
+          "2": "2 across",
+          "3": "3 across",
+          "4": "4 across"
         },
         "return_format": "value",
         "allow_null": 0,
