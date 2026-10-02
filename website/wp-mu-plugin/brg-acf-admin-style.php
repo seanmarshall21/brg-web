@@ -270,9 +270,14 @@ add_action( 'admin_head', function () {
 	   Falls back to the ordinary flow below 1100px, where four columns inside the admin
 	   content area would be narrower than the inputs they hold. */
 	@media (min-width: 1100px) {
+		/* TWELVE CONTENT COLUMNS, not four, because the two rows do not divide the same
+		   way: Sean's sketch puts FOUR fields on the top row and THREE underneath, and no
+		   single column count expresses both. Twelve is the smallest number both 4 and 3
+		   divide into, so the top row spans 3 each and the bottom spans 4 each, and the
+		   two rows line up at the outer edges while breaking differently inside. */
 		.brg-f-members .acf-row > .acf-fields {
 			display: grid;
-			grid-template-columns: 20% 1fr 1fr 1fr;
+			grid-template-columns: 20% repeat(12, 1fr);
 			align-items: start;
 		}
 		.brg-f-members .acf-row > .acf-fields > .acf-field {
@@ -280,14 +285,24 @@ add_action( 'admin_head', function () {
 			float: none !important;
 			border-top: 0;
 			padding: 12px 14px;
+			min-width: 0;            /* grid items default to min-content: without this a long
+			                            select label refuses to shrink and pushes the row wide */
 		}
-		/* span 3, not 2: the settings are four controls now, so they fill a second row of
-		   three and spill a third. The headshot column tracks that rather than stopping
-		   short and letting a stray field slide under it. */
+		/* The headshot is the left column against BOTH rows. Explicit placement, because
+		   auto-placement would drop it into the flow and the rest would shuffle up. */
 		.brg-f-members .acf-row > .acf-fields > .brg-f-photo {
-			grid-row: 1 / span 3;
+			grid-row: 1 / span 2;
 			grid-column: 1;
 		}
+		/* Row 1 — the things you read: four across. */
+		.brg-f-members .acf-row > .acf-fields > .brg-f-name,
+		.brg-f-members .acf-row > .acf-fields > .brg-f-title,
+		.brg-f-members .acf-row > .acf-fields > .brg-f-quote,
+		.brg-f-members .acf-row > .acf-fields > .brg-f-bg_color { grid-column: span 3; }
+		/* Row 2 — the things you set: three across, wider because their labels are sentences. */
+		.brg-f-members .acf-row > .acf-fields > .brg-f-crop,
+		.brg-f-members .acf-row > .acf-fields > .brg-f-overflow,
+		.brg-f-members .acf-row > .acf-fields > .brg-f-hovercrop { grid-column: span 4; }
 	}
 </style>
 	<?php
