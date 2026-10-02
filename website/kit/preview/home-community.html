@@ -52,12 +52,25 @@
 .brgw-sec--home-community .media .block{position:absolute;right:0;top:0;width:46%;height:44%;
   background:var(--yellow);}
 .brgw-sec--home-community .media .block img{filter:contrast(1.04);}
+/* THE BIG OUTLINE SMILEY, top left, bleeding up over the section above. It is in the comp
+   and the artwork has been in the repo since August as icn-smile-line-xl-wht.svg,
+   referenced by nothing — which is why it was missing rather than wrong.
+   A PLACED MARK, not a background: it belongs at one spot rather than tiling, so it is an
+   element. It sits above the section-background layer and below the copy. The section is
+   already overflow:visible for the seam badge, which is what lets it hang over the
+   boundary the way the comp draws it. */
+.brgw-sec--home-community .smiley{position:absolute;top:-5%;left:-3%;z-index:1;
+  width:clamp(150px,21vw,330px);opacity:.1;pointer-events:none;}  /* 10%: the SVGs are solid white, no baked-in alpha */
+.brgw-sec--home-community .smiley img{width:100%;height:auto;display:block;}
+@media(max-width:700px){ .brgw-sec--home-community .smiley{width:140px;top:-2%;} }
+
 /* Doodle cluster, bottom-right, overlapping the media as in the comp. */
 .brgw-sec--home-community .cluster{position:absolute;right:-2%;bottom:-7%;width:clamp(120px,15vw,215px);z-index:3;}
 .brgw-sec--home-community .cluster img{width:100%;height:auto;display:block;}
 
 @media(max-width:560px){ .brgw-sec--home-community .cluster{width:110px;right:0;bottom:-4%;} }
 </style>
+  <span class="smiley" aria-hidden="true"><img src="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/08/icn-smile-line-xl-wht.svg" alt="" width="520" height="520" loading="lazy" decoding="async"></span>
   <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}" data-brgw-frame aria-hidden="true"><img src="{{section_bg}}" alt="" loading="lazy" decoding="async" data-px="{{section_bg_px}}" data-px-dir="down" width="1600" height="1200"></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg" alt="" width="151" height="145" loading="lazy" decoding="async"></span>
 

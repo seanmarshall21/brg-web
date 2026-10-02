@@ -47,7 +47,17 @@
 .brgw-sec--home-different .blocks .y{right:8%;top:0;width:62%;height:60%;background:var(--yellow);}
 .brgw-sec--home-different .blocks .k{right:0;top:34%;width:52%;height:62%;background:#000;z-index:2;}
 .brgw-sec--home-different .blocks .w{left:6%;top:52%;width:26%;height:29%;background:var(--white);z-index:3;}
+
+/* SD|CA, top right — in the comp, and supplied by Sean as its own SVG. A placed mark
+   rather than part of the background artwork, so it keeps its position and its size
+   regardless of how the background behind it is cropped. Above the background layer,
+   below the copy. */
+.brgw-sec--home-different .sdca{position:absolute;top:4%;right:3%;z-index:1;
+  width:clamp(130px,19vw,300px);opacity:.1;pointer-events:none;}
+.brgw-sec--home-different .sdca img{width:100%;height:auto;display:block;}
+@media(max-width:760px){ .brgw-sec--home-different .sdca{width:120px;top:2%;right:4%;} }
 </style>
+  <span class="sdca" aria-hidden="true"><img src="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/brg-icn-sdca-wht.svg" alt="" width="600" height="300" loading="lazy" decoding="async"></span>
   <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}" data-brgw-frame aria-hidden="true"><img src="{{section_bg}}" alt="" loading="lazy" decoding="async" data-px="{{section_bg_px}}" data-px-dir="down" width="1600" height="1200"></div>
   <span class="seam" aria-hidden="true"><img src="https://blacktoprg.netlify.app/assets/media/svg/icons/bolt.svg" alt="" width="94" height="176" loading="lazy" decoding="async"></span>
 

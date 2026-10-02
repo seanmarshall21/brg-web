@@ -219,15 +219,15 @@
   "section_bg": {
     "type": "image",
     "label": "Section background",
-    "doc": "A pattern or photo filling the whole section, behind everything else. Leave empty for a plain color. It is cropped to fill, so the exact size does not matter. On a DARK section use a light or gray artwork — a black pattern over a black panel stays invisible however high you set the strength.",
-    "default": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp"
+    "doc": "A pattern or photo filling the whole section, behind everything else. Leave empty for a plain color. It is cropped to fill, so the exact size does not matter. On a DARK section use a light or gray artwork — a black pattern over a black panel stays invisible however high you set the strength. This section has its own artwork rather than the doodle pattern the other panels use — they are different graphics and are not interchangeable.",
+    "default": "https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/difkind-bkgnd.webp"
   },
   "section_bg_opacity": {
     "type": "select",
     "label": "Background strength",
     "doc": "How strongly the background shows through. Low values read as texture; high values compete with the words in front of it.",
     "width": 50,
-    "default": "0.12",
+    "default": "0.5",
     "choices": {
       "0": "Off",
       "0.08": "8% — barely there",
