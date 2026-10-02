@@ -71,6 +71,21 @@
 
 /* Shared footer (same on every page) */
 .brgw__footer{background:#000;text-align:center;padding:56px var(--pad);}
+/* LinkedIn, bottom right of the footer (BugHerd #32). Absolute on a wide screen so it sits
+   in the corner without pushing the centred lockup off-centre — a flex row would have had to
+   balance the lockup against an invisible counterweight to keep it in the middle.
+   ON A PHONE IT RETURNS TO THE FLOW, centred under the lockup: in the corner it would sit
+   within a thumb's width of the screen edge, and the footer's padding is already tight there.
+   44px is the minimum comfortable tap target, so the link is sized rather than just the icon. */
+.brgw__footer{position:relative;}
+.brgw__footer .brgw__social{display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;margin-top:18px;color:var(--white);opacity:.72;
+  transition:opacity .2s ease,color .2s ease;}
+.brgw__footer .brgw__social svg{width:24px;height:24px;display:block;}
+.brgw__footer .brgw__social:hover,.brgw__footer .brgw__social:focus-visible{opacity:1;color:var(--yellow);}
+@media(min-width:760px){
+  .brgw__footer .brgw__social{position:absolute;right:var(--pad);bottom:40px;margin-top:0;}
+}
 .brgw__footer .lockup{display:block;overflow:hidden;margin:0 auto;
   width:min(360px,62vw);aspect-ratio:717/117;
   background:url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg') center/contain no-repeat;

@@ -149,7 +149,20 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
         }
         $header = '<header class="brgw-header"><a class="brgw-logo" href="' . esc_url( $home_url ) . '"><b>BLACKTOP</b>'
                 . '<span>Restaurant Group</span></a><nav class="brgw-nav">' . $links . '</nav></header>';
-        $footer = '<footer class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div></footer>';
+        /* LinkedIn, bottom right — BugHerd #32, reported by joyce@blacktoprg.com 14 Sep.
+         * A LUCIDE LINE ICON drawn inline, per the house rule: no emoji, and no second
+         * request for a 1KB mark. stroke="currentColor" so it inherits the footer's colour
+         * rather than carrying a hex that has to be kept in step with the palette.
+         * aria-label, not title text: the link has no visible words, so without it a screen
+         * reader announces "link" and nothing else. */
+        $li  = '<a class="brgw__social" href="https://www.linkedin.com/company/blacktop-restaurant-group/"'
+             . ' target="_blank" rel="noopener noreferrer" aria-label="Blacktop Restaurant Group on LinkedIn">'
+             . '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"'
+             . ' stroke-linejoin="round" aria-hidden="true" focusable="false">'
+             . '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>'
+             . '<rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>';
+        $footer = '<footer class="brgw__footer reveal"><div class="lockup anim-up"><b>BLACKTOP</b><br>Restaurant Group</div>'
+                . $li . '</footer>';
         return array( $header, $footer );
     }
 }
