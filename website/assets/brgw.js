@@ -608,41 +608,39 @@
     var EDGE = 1.5;   // % of frame height kept in reserve beyond the travel — see below
 
     [].forEach.call(root.querySelectorAll('.brgw-sec'), function (sec) {
-      var amt = Math.max(0, Math.min(40, num(sec.getAttribute('data-brgw-px'), 0)));
-      var drift = Math.max(0, Math.min(40, num(sec.getAttribute('data-brgw-float'), 0)));
-      /* data-brgw-frame is for a photo that should MOVE but must not get the reveal wipe —
-         the home hero's backdrop, which has its own entrance. data-brgw-img does both. */
       var frames = sec.querySelectorAll('[data-brgw-img], [data-brgw-frame]');
 
-      [].forEach.call(frames, function (frame, i) {
+      [].forEach.call(frames, function (frame) {
+        /* SETTINGS COME FROM THE PHOTO, NOT THE SECTION. Sean, 2 Oct: "the parallax
+           direction and amount should be per photo, not per group." A section-wide number
+           cannot express the thing that actually reads as depth — a large photo drifting
+           down while a small one drifts up — because that needs two photos in one section
+           disagreeing. The attributes sit on whichever tag carries the photo: the <img>
+           for a content photo, the layer itself for a hero background painted as a CSS
+           background. Reading the frame first and then its image covers both without the
+           markup having to be uniform. */
         var img = frame.querySelector(':scope > img, :scope > picture img');
+        var src = (frame.hasAttribute('data-px') || !img) ? frame : img;
+        var amt   = Math.max(0, Math.min(40, num(src.getAttribute('data-px'), 0)));
+        var drift = Math.max(0, Math.min(40, num(src.getAttribute('data-float'), 0)));
+        var pxDir = src.getAttribute('data-px-dir') === 'up' ? -1 : 1;
+        var flDir = src.getAttribute('data-float-dir') === 'up' ? -1 : 1;
+
         if (img && amt > 0) {
           if (getComputedStyle(frame).position === 'static') frame.style.position = 'relative';
           frame.style.overflow = 'hidden';
-          /* HEADROOM IS LARGER THAN THE TRAVEL, ON PURPOSE. Sean, 2 Oct: "the parallax items
-             should never have their edge be visible within the frame." Laying out exactly
-             `amt`% of spare above and below and then travelling exactly `amt`% means the far
-             edge lands precisely ON the frame's edge at the extremes — mathematically flush,
-             and one sub-pixel rounding away from a visible sliver on a fractional-height frame
-             or a non-integer device pixel ratio. EDGE is the margin: the photo is laid out
-             with amt+EDGE of spare and still only travels amt, so there is always a band of
-             picture outside the frame no matter where the scroll stops. */
           var pad = amt + EDGE;
           var st = img.style;
           st.position = 'absolute'; st.left = '0'; st.right = 'auto'; st.width = '100%';
           st.top = (-pad) + '%'; st.bottom = 'auto'; st.height = (100 + 2 * pad) + '%';
           st.maxWidth = 'none'; st.maxHeight = 'none'; st.objectFit = 'cover';
-          items.push({ box: frame, target: img, amt: amt, dir: 1, tau: 3 * 0.06, cur: null });
+          items.push({ box: frame, target: img, amt: amt, dir: pxDir, tau: 3 * 0.06, cur: null });
         }
-        /* ALTERNATING DIRECTION, by position in the section. Sean's note was "both the large
-           and small photos", and on Oak + Elm the small one drifts UP against the large one's
-           DOWN — they read as parallax because they disagree. Deriving it from position means
-           a section that gains a photo keeps alternating without anyone setting a field. */
-        /* NEVER FLOAT A FULL-BLEED FRAME. Oak + Elm hit this: a frame that fills the
-           section has nothing behind it, so drifting it just reveals the background. Only
-           frames inside the content flow drift. */
+        /* NEVER FLOAT A FULL-BLEED FRAME: it fills its section, so moving it only reveals
+           the background behind. The hero backdrop is marked data-brgw-frame for exactly
+           this reason and is excluded here. */
         if (drift > 0 && frame.hasAttribute('data-brgw-img')) {
-          items.push({ box: frame, target: frame, amt: drift, dir: (i % 2 ? -1 : 1),
+          items.push({ box: frame, target: frame, amt: drift, dir: flDir,
                        tau: 4 * 0.06, cur: null, float: true });
         }
       });

@@ -70,20 +70,126 @@
     "doc": "The artwork in the Board & Brew panel. Landscape, around 800x550. An SVG logo lockup or a photo both work. Leave empty to keep the current picture.",
     "default": "https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg"
   },
+  "bnb_image_tone": {
+    "type": "select",
+    "label": "Board & Brew — image — color",
+    "doc": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
+    "width": 20,
+    "default": "color",
+    "choices": {
+      "color": "Color",
+      "bw": "Black & white"
+    }
+  },
+  "bnb_image_px": {
+    "type": "select",
+    "label": "Board & Brew — image — movement",
+    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "6": "Subtle",
+      "10": "Medium",
+      "16": "Strong"
+    }
+  },
+  "bnb_image_px_dir": {
+    "type": "select",
+    "label": "Board & Brew — image — movement direction",
+    "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "bnb_image_float": {
+    "type": "select",
+    "label": "Board & Brew — image — frame drift",
+    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "8": "Gentle",
+      "12": "Strong"
+    }
+  },
+  "bnb_image_float_dir": {
+    "type": "select",
+    "label": "Board & Brew — image — drift direction",
+    "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
   "odies_image": {
     "type": "image",
     "label": "Odie's — image",
     "doc": "The artwork in the Odie's panel. Landscape, around 800x550. Leave empty to keep the current picture.",
     "default": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg"
   },
-  "photo_tone": {
+  "odies_image_tone": {
     "type": "select",
-    "label": "Photo colour",
-    "doc": "Colour is the default and is almost always right — the photography on this site was black and white only because the placeholder images were. Switch a section to black and white when you want it that way on purpose. Only affects photographs; the brand icons and lockups keep their colour either way.",
+    "label": "Odie's — image — color",
+    "doc": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
+    "width": 20,
     "default": "color",
     "choices": {
-      "color": "Colour",
+      "color": "Color",
       "bw": "Black & white"
+    }
+  },
+  "odies_image_px": {
+    "type": "select",
+    "label": "Odie's — image — movement",
+    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "6": "Subtle",
+      "10": "Medium",
+      "16": "Strong"
+    }
+  },
+  "odies_image_px_dir": {
+    "type": "select",
+    "label": "Odie's — image — movement direction",
+    "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "odies_image_float": {
+    "type": "select",
+    "label": "Odie's — image — frame drift",
+    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "8": "Gentle",
+      "12": "Strong"
+    }
+  },
+  "odies_image_float_dir": {
+    "type": "select",
+    "label": "Odie's — image — drift direction",
+    "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
     }
   }
 }

@@ -21,7 +21,7 @@
   "hl_variant": {
     "type": "text",
     "label": "Highlight animation",
-    "doc": "How the marker highlight behind “A different kind” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+    "doc": "How the marker highlight behind “A different kind” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalog: website/lab/README.md.",
     "default": "h3"
   },
   "photo_1": {
@@ -30,22 +30,22 @@
     "doc": "The large landscape photo. Around 1600x1067. Leave empty to keep the current picture.",
     "default": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp"
   },
-  "photo_2": {
-    "type": "image",
-    "label": "Photo — tall",
-    "doc": "Portrait crop, around 733x1100. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp"
-  },
-  "photo_3": {
-    "type": "image",
-    "label": "Photo — small",
-    "doc": "Portrait crop, around 548x820. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"
-  },
-  "photo_motion": {
+  "photo_1_tone": {
     "type": "select",
-    "label": "Photo movement",
-    "doc": "How much each photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so more of the picture shows and an edge never appears — it is never zoomed, so it stays as sharp as the file you uploaded. Off is the starting point; turn it up until it reads without being distracting.",
+    "label": "Photo — large — color",
+    "doc": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
+    "width": 20,
+    "default": "color",
+    "choices": {
+      "color": "Color",
+      "bw": "Black & white"
+    }
+  },
+  "photo_1_px": {
+    "type": "select",
+    "label": "Photo — large — movement",
+    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "width": 20,
     "default": "0",
     "choices": {
       "0": "Off",
@@ -54,10 +54,22 @@
       "16": "Strong"
     }
   },
-  "frame_drift": {
+  "photo_1_px_dir": {
     "type": "select",
-    "label": "Let the photo frames drift",
-    "doc": "Moves the whole photo frame across the section, on top of the movement inside it. Neighbouring photos drift in opposite directions, which is what makes them read as being at different depths. Leave off on sections with a single full-width photo.",
+    "label": "Photo — large — movement direction",
+    "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "photo_1_float": {
+    "type": "select",
+    "label": "Photo — large — frame drift",
+    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+    "width": 20,
     "default": "0",
     "choices": {
       "0": "Off",
@@ -65,14 +77,143 @@
       "12": "Strong"
     }
   },
-  "photo_tone": {
+  "photo_1_float_dir": {
     "type": "select",
-    "label": "Photo colour",
-    "doc": "Colour is the default and is almost always right — the photography on this site was black and white only because the placeholder images were. Switch a section to black and white when you want it that way on purpose. Only affects photographs; the brand icons and lockups keep their colour either way.",
+    "label": "Photo — large — drift direction",
+    "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "photo_2": {
+    "type": "image",
+    "label": "Photo — tall",
+    "doc": "Portrait crop, around 733x1100. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp"
+  },
+  "photo_2_tone": {
+    "type": "select",
+    "label": "Photo — tall — color",
+    "doc": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
+    "width": 20,
     "default": "color",
     "choices": {
-      "color": "Colour",
+      "color": "Color",
       "bw": "Black & white"
+    }
+  },
+  "photo_2_px": {
+    "type": "select",
+    "label": "Photo — tall — movement",
+    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "6": "Subtle",
+      "10": "Medium",
+      "16": "Strong"
+    }
+  },
+  "photo_2_px_dir": {
+    "type": "select",
+    "label": "Photo — tall — movement direction",
+    "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "photo_2_float": {
+    "type": "select",
+    "label": "Photo — tall — frame drift",
+    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "8": "Gentle",
+      "12": "Strong"
+    }
+  },
+  "photo_2_float_dir": {
+    "type": "select",
+    "label": "Photo — tall — drift direction",
+    "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "photo_3": {
+    "type": "image",
+    "label": "Photo — small",
+    "doc": "Portrait crop, around 548x820. Leave empty to keep the current picture.",
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"
+  },
+  "photo_3_tone": {
+    "type": "select",
+    "label": "Photo — small — color",
+    "doc": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
+    "width": 20,
+    "default": "color",
+    "choices": {
+      "color": "Color",
+      "bw": "Black & white"
+    }
+  },
+  "photo_3_px": {
+    "type": "select",
+    "label": "Photo — small — movement",
+    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "6": "Subtle",
+      "10": "Medium",
+      "16": "Strong"
+    }
+  },
+  "photo_3_px_dir": {
+    "type": "select",
+    "label": "Photo — small — movement direction",
+    "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "photo_3_float": {
+    "type": "select",
+    "label": "Photo — small — frame drift",
+    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "8": "Gentle",
+      "12": "Strong"
+    }
+  },
+  "photo_3_float_dir": {
+    "type": "select",
+    "label": "Photo — small — drift direction",
+    "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
     }
   }
 }

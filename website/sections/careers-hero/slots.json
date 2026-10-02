@@ -21,19 +21,77 @@
   "hl_variant": {
     "type": "text",
     "label": "Highlight animation",
-    "doc": "How the marker highlight behind the sub copy arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP; switch to it if you lengthen 'Sub highlight' enough to reflow, because h3's block is one rigid shape that cannot wrap with the text. `h0` static, no animation. Unknown or blank renders a static painted mark, never blank. Catalogue: website/lab/README.md.",
+    "doc": "How the marker highlight behind the sub copy arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP; switch to it if you lengthen 'Sub highlight' enough to reflow, because h3's block is one rigid shape that cannot wrap with the text. `h0` static, no animation. Unknown or blank renders a static painted mark, never blank. Catalog: website/lab/README.md.",
     "default": "h3"
   },
   "uline_variant": {
     "type": "text",
     "label": "Underline animation",
-    "doc": "How the hand-drawn underline (line-careers-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+    "doc": "How the hand-drawn underline (line-careers-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalog: website/lab/README.md.",
     "default": "u3"
   },
   "bg_photo": {
     "type": "image",
     "label": "Background photo",
     "doc": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off."
+  },
+  "bg_photo_tone": {
+    "type": "select",
+    "label": "Background photo — color",
+    "doc": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
+    "width": 20,
+    "default": "color",
+    "choices": {
+      "color": "Color",
+      "bw": "Black & white"
+    }
+  },
+  "bg_photo_px": {
+    "type": "select",
+    "label": "Background photo — movement",
+    "doc": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "6": "Subtle",
+      "10": "Medium",
+      "16": "Strong"
+    }
+  },
+  "bg_photo_px_dir": {
+    "type": "select",
+    "label": "Background photo — movement direction",
+    "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "bg_photo_float": {
+    "type": "select",
+    "label": "Background photo — frame drift",
+    "doc": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+    "width": 20,
+    "default": "0",
+    "choices": {
+      "0": "Off",
+      "8": "Gentle",
+      "12": "Strong"
+    }
+  },
+  "bg_photo_float_dir": {
+    "type": "select",
+    "label": "Background photo — drift direction",
+    "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
+    "width": 20,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
   },
   "overlay_color": {
     "type": "select",
@@ -78,16 +136,6 @@
     "choices": {
       "youtube": "YouTube",
       "vimeo": "Vimeo"
-    }
-  },
-  "photo_tone": {
-    "type": "select",
-    "label": "Photo colour",
-    "doc": "Colour is the default and is almost always right — the photography on this site was black and white only because the placeholder images were. Switch a section to black and white when you want it that way on purpose. Only affects photographs; the brand icons and lockups keep their colour either way.",
-    "default": "color",
-    "choices": {
-      "color": "Colour",
-      "bw": "Black & white"
     }
   }
 }

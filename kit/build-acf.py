@@ -472,6 +472,56 @@ def check():
         print("acf slots ↔ fragment tokens: OK")
 
     # Chrome slots have no fragment and no {{token}}. The coupling that can silently fail
+    # ── AMERICAN SPELLING, ENFORCED ──────────────────────────────────────────────
+    # Sean's instruction, given twice. The first time I converted 51 instances across 11
+    # sections by hand; the next day I shipped a brand-new field labelled "Photo colour".
+    # Fixing the existing ones did nothing to stop the next one, because the British form
+    # is simply my default and arrives without being chosen. So the build refuses it now:
+    # a rule that depends on me remembering is not a rule, it is a hope.
+    # Checked on the strings an EDITOR reads — labels, help text, dropdown choices — which
+    # is where it matters and where it is visible.
+    BRITISH = {
+        'colour': 'color', 'colours': 'colors', 'coloured': 'colored',
+        'centre': 'center', 'centred': 'centered', 'grey': 'gray',
+        'behaviour': 'behavior', 'neighbour': 'neighbor', 'neighbouring': 'neighboring',
+        'favourite': 'favorite', 'honour': 'honor', 'organise': 'organize',
+        'recognise': 'recognize', 'emphasise': 'emphasize', 'customise': 'customize',
+        'analyse': 'analyze', 'catalogue': 'catalog', 'defence': 'defense',
+        'licence': 'license', 'programme': 'program', 'travelling': 'traveling',
+        'labelled': 'labeled', 'modelling': 'modeling', 'cancelled': 'canceled',
+    }
+    def _spelling_hits(decl, where_id):
+        """Walk a slots.json declaration — the SOURCE an editor's labels come from — rather
+        than a built group, so this runs in check() without building anything first."""
+        hits = []
+        def walk(d, path):
+            for k, v in (d or {}).items():
+                if k.startswith('_') or not isinstance(v, dict):
+                    continue
+                texts = [('label', v.get('label', '')), ('doc', v.get('doc', '')),
+                         ('button', v.get('button', ''))]
+                texts += [('choice', str(cv)) for cv in (v.get('choices') or {}).values()]
+                for field_part, txt in texts:
+                    for bad, good in BRITISH.items():
+                        if re.search(r'\b' + bad + r'\b', str(txt), re.I):
+                            hits.append((where_id, path + k, field_part, bad, good))
+                walk(v.get('sub') or {}, path + k + '.')
+        walk(decl, '')
+        return hits
+
+    bad_spelling = []
+    for s_ in json.load(open(SECTIONS)).get('sections', []):
+        bad_spelling += _spelling_hits(slots_for(s_)[0], s_['id'])
+    for cid, _label, decl in chrome_groups():
+        bad_spelling += _spelling_hits(decl, 'chrome/' + cid)
+    if bad_spelling:
+        print("  \u2717 British spelling in admin-facing text — Sean's sites use American spelling:")
+        for sid, name, part, bad_w, good in bad_spelling[:20]:
+            print(f"      {sid}: {name} ({part}) — '{bad_w}' should be '{good}'")
+        if len(bad_spelling) > 20:
+            print(f"      … and {len(bad_spelling) - 20} more")
+        bad += len(bad_spelling)
+
     # is field -> READER: the plugin must actually call get_field() for each one, or the
     # editor gets a field that edits nothing. This is fc-brands' tools/acf-readers.py,
     # scoped to the two or three chrome groups we have rather than every section.

@@ -104,7 +104,7 @@
                 "label": "Highlight animation",
                 "name": "brg_careers_hero_hl_variant",
                 "type": "text",
-                "instructions": "How the marker highlight behind the sub copy arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP; switch to it if you lengthen 'Sub highlight' enough to reflow, because h3's block is one rigid shape that cannot wrap with the text. <code>h0</code> static, no animation. Unknown or blank renders a static painted mark, never blank. Catalogue: website/lab/README.md.",
+                "instructions": "How the marker highlight behind the sub copy arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP; switch to it if you lengthen 'Sub highlight' enough to reflow, because h3's block is one rigid shape that cannot wrap with the text. <code>h0</code> static, no animation. Unknown or blank renders a static painted mark, never blank. Catalog: website/lab/README.md.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -119,7 +119,7 @@
                 "label": "Underline animation",
                 "name": "brg_careers_hero_uline_variant",
                 "type": "text",
-                "instructions": "How the hand-drawn underline (line-careers-lg.svg) reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe, keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback. <code>u1</code> scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalogue: website/lab/README.md.",
+                "instructions": "How the hand-drawn underline (line-careers-lg.svg) reveals. <code>u3</code> (default) filled brush + ~5deg angled wipe, keeps the taper. <code>wipe</code> straight-edged reveal, the conservative fallback. <code>u1</code> scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalog: website/lab/README.md.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -145,6 +145,134 @@
                 "return_format": "url",
                 "preview_size": "medium",
                 "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_bg_photo_tone",
+                "label": "Background photo — color",
+                "name": "brg_careers_hero_bg_photo_tone",
+                "type": "select",
+                "instructions": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-bg_photo_tone",
+                    "id": ""
+                },
+                "default_value": "color",
+                "choices": {
+                    "color": "Color",
+                    "bw": "Black & white"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_bg_photo_px",
+                "label": "Background photo — movement",
+                "name": "brg_careers_hero_bg_photo_px",
+                "type": "select",
+                "instructions": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-bg_photo_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_bg_photo_px_dir",
+                "label": "Background photo — movement direction",
+                "name": "brg_careers_hero_bg_photo_px_dir",
+                "type": "select",
+                "instructions": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-bg_photo_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_bg_photo_float",
+                "label": "Background photo — frame drift",
+                "name": "brg_careers_hero_bg_photo_float",
+                "type": "select",
+                "instructions": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-bg_photo_float",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "8": "Gentle",
+                    "12": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_bg_photo_float_dir",
+                "label": "Background photo — drift direction",
+                "name": "brg_careers_hero_bg_photo_float_dir",
+                "type": "select",
+                "instructions": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-bg_photo_float_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
             },
             {
                 "key": "field_brg_careers_hero_overlay_color",
@@ -237,31 +365,6 @@
                 "choices": {
                     "youtube": "YouTube",
                     "vimeo": "Vimeo"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_photo_tone",
-                "label": "Photo colour",
-                "name": "brg_careers_hero_photo_tone",
-                "type": "select",
-                "instructions": "Colour is the default and is almost always right — the photography on this site was black and white only because the placeholder images were. Switch a section to black and white when you want it that way on purpose. Only affects photographs; the brand icons and lockups keep their colour either way.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-photo_tone",
-                    "id": ""
-                },
-                "default_value": "color",
-                "choices": {
-                    "color": "Colour",
-                    "bw": "Black & white"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -404,7 +507,7 @@
                 "label": "Highlight animation",
                 "name": "brg_careers_apply_hl_variant",
                 "type": "text",
-                "instructions": "How the marker highlight behind “to work here” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+                "instructions": "How the marker highlight behind “to work here” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalog: website/lab/README.md.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -528,21 +631,124 @@
             },
             {
                 "key": "field_brg_careers_positions_photo_tone",
-                "label": "Photo colour",
+                "label": "Photo — color",
                 "name": "brg_careers_positions_photo_tone",
                 "type": "select",
-                "instructions": "Colour is the default and is almost always right — the photography on this site was black and white only because the placeholder images were. Switch a section to black and white when you want it that way on purpose. Only affects photographs; the brand icons and lockups keep their colour either way.",
+                "instructions": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "20",
                     "class": "brg-f-photo_tone",
                     "id": ""
                 },
                 "default_value": "color",
                 "choices": {
-                    "color": "Colour",
+                    "color": "Color",
                     "bw": "Black & white"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_photo_px",
+                "label": "Photo — movement",
+                "name": "brg_careers_positions_photo_px",
+                "type": "select",
+                "instructions": "How far this photo drifts inside its frame as you scroll. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-photo_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "6": "Subtle",
+                    "10": "Medium",
+                    "16": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_photo_px_dir",
+                "label": "Photo — movement direction",
+                "name": "brg_careers_positions_photo_px_dir",
+                "type": "select",
+                "instructions": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-photo_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_photo_float",
+                "label": "Photo — frame drift",
+                "name": "brg_careers_positions_photo_float",
+                "type": "select",
+                "instructions": "Moves the whole frame across the section, on top of the movement inside it. Leave off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-photo_float",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "0": "Off",
+                    "8": "Gentle",
+                    "12": "Strong"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_photo_float_dir",
+                "label": "Photo — drift direction",
+                "name": "brg_careers_positions_photo_float_dir",
+                "type": "select",
+                "instructions": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-photo_float_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
                 },
                 "return_format": "value",
                 "allow_null": 0,

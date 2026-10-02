@@ -34,7 +34,7 @@
      cover, so the container sizes it and an uploaded photo of any dimensions cannot shift the
      layout. The button is hidden by :empty when no label is typed, so a row without one does
      not leave an empty yellow box. -->
-<section class="brgw-sec brgw-sec--community-give reveal" data-tone="{{photo_tone}}" data-brgw-px="{{photo_motion}}" data-brgw-float="{{frame_drift}}" data-nav="light" aria-label="How we give back">
+<section class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--community-give .intro{padding:clamp(76px,8.4vw,120px) var(--pad) clamp(58px,6vw,86px);
@@ -98,7 +98,7 @@
           <a class="btn anim-cta" href="{{slides.cta_href}}">{{slides.cta_label}}</a>
         </div>
         <div class="shot brgw-img media" data-brgw-img>
-          <img src="{{slides.photo}}" alt="" decoding="async" loading="lazy" data-brgw-parallax=".8">
+          <img src="{{slides.photo}}" alt="" decoding="async" loading="lazy" data-tone="{{slides.photo_tone}}" data-px="{{slides.photo_px}}" data-px-dir="{{slides.photo_px_dir}}" data-float="{{slides.photo_float}}" data-float-dir="{{slides.photo_float_dir}}">
           <div class="vid" data-vid="{{slides.video_id}}" data-src="{{slides.video_source}}" aria-hidden="true"></div>
         </div>
       </div>
@@ -110,7 +110,7 @@
         </div>
         <div class="shot brgw-img" data-brgw-img>
           <img src="https://blacktoprg.netlify.app/assets/media/bg/surfer.webp" alt="" width="548" height="820"
-               decoding="async" loading="lazy" data-brgw-parallax=".8">
+               decoding="async" loading="lazy">
         </div>
       </div>
       <div class="brgw-slide">
@@ -120,7 +120,7 @@
         </div>
         <div class="shot brgw-img" data-brgw-img>
           <img src="https://blacktoprg.netlify.app/assets/media/bg/skater.webp" alt="" width="733" height="1100"
-               decoding="async" loading="lazy" data-brgw-parallax=".8">
+               decoding="async" loading="lazy">
         </div>
       </div>
       <div class="brgw-slide">
@@ -130,7 +130,7 @@
         </div>
         <div class="shot brgw-img" data-brgw-img>
           <img src="https://blacktoprg.netlify.app/assets/media/bg/car.webp" alt="" width="492" height="760"
-               decoding="async" loading="lazy" data-brgw-parallax=".8">
+               decoding="async" loading="lazy">
         </div>
       </div>
 <!--/brg:repeat-->
@@ -145,7 +145,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "photo_motion": "0", "frame_drift": "0", "photo_tone": "color"};
+  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": ""};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

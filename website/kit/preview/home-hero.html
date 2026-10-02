@@ -13,7 +13,7 @@
      per instance — [brg_home-hero uline_variant="u1"] — from the shared system in brgw.css;
      default u3, the angled wipe. SPEC-003's reasoning still holds and is why u3 is the
      default: a scaleX stretches the taper, a wipe reveals it at true width. -->
-<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-tone="{{photo_tone}}" data-brgw-px="{{photo_motion}}" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Blacktop Restaurant Group">
+<section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Blacktop Restaurant Group">
 <style>
 .brgw-sec--home-hero{position:relative;overflow:hidden;background:var(--bg2);
   min-height:88vh;display:grid;place-items:center;
@@ -77,7 +77,7 @@
 </style>
   <div class="bg" aria-hidden="true">
     <div class="media plate-media" data-brgw-frame>
-      <img class="plate" alt="" decoding="async" data-brgw-parallax=".55"
+      <img class="plate" alt="" decoding="async"
       src="{{bg_photo}}"
       srcset="https://blacktoprg.netlify.app/assets/media/bg/base/base-390.webp 390w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-480.webp 480w,
@@ -86,7 +86,7 @@
               https://blacktoprg.netlify.app/assets/media/bg/base/base-1120.webp 1120w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-1440.webp 1440w,
               https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp 1920w"
-      sizes="100vw" width="1920" height="1340">
+      sizes="100vw" width="1920" height="1340" data-tone="{{bg_photo_tone}}" data-px="{{bg_photo_px}}" data-px-dir="{{bg_photo_px_dir}}" data-float="{{bg_photo_float}}" data-float-dir="{{bg_photo_float_dir}}">
       <div class="vid" data-vid="{{video_id}}" data-src="{{video_source}}" aria-hidden="true"></div>
     </div>
     <div class="grit"></div>
@@ -122,7 +122,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "video_id": "", "video_source": "youtube", "overlay_color": "none", "overlay_strength": "0.45", "photo_motion": "0", "photo_tone": "color"};
+  var D = {"heading": "We're in the business\nof making your day great.", "sub": "From a classic Board & Brew sandwich to a slice at Odie's \u2014 we're here for the moments that matter.", "tagline": "Good food. Real people. Rad experience.", "uline_variant": "u3", "bg_photo": "https://blacktoprg.netlify.app/assets/media/bg/base/base-1920.webp", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "bg_photo_float": "0", "bg_photo_float_dir": "down", "video_id": "", "video_source": "youtube", "overlay_color": "none", "overlay_strength": "0.45"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
