@@ -1,6 +1,39 @@
 # SPEC-014 — The splash's four plates, brought to the home hero
 
-**Status:** proposed · BRG Specs · 2026-08-21 · board `5bc6e53687`
+**Status:** **SUPERSEDED — Sean, 2026-10-02.** Not building it. See the block below before
+reopening. · BRG Specs · 2026-08-21 · board `5bc6e53687`
+
+> ## SUPERSEDED — 2026-10-02 (Conti, on Sean's call)
+>
+> Open question 1 — *why were the four plates baked into one image?* — was answered from
+> 33fdb71, and the answer removes the spec's premise rather than unblocking it.
+>
+> **The plates were never collapsed.** They were a *reconstruction*, built before the real
+> artwork was found. `assets/media/bg/base/base-*.webp` IS the comp — Sean's own Figma
+> export, eight widths, **spray crown baked in**. The commit: "there was no crown to
+> extract … and no four-plate reconstruction needed."
+>
+> So this spec does not restore something that was taken away; it would replace the comp
+> with a reconstruction of it. That inverts §3's "nothing to produce — the expensive half
+> already happened": the expensive half is the artwork we would stop using. It would also
+> take back `bg_photo`, the editable hero image added 24 Sep on Sean's explicit "every
+> image in the hero, everywhere, needs to be changeable", and the 7-width srcset that has
+> a phone pull base-390 instead of the 800KB base-1920.
+>
+> **§4 is obsolete regardless.** The collision this spec says it exists to solve — parallax
+> and drift both writing `transform`, JS winning, drift failing silently — cannot happen
+> now. `brgw.js` was rewritten to write the **`translate`** property, which composes with
+> `transform`; its own comment: "no wrapper, no nesting, and no ordering rules." The
+> nesting prescription in §4 solves a problem that no longer exists.
+>
+> **What Sean actually wanted from the hero was the darkness**, and that shipped on
+> 2026-10-02: Background photo — strength, Vignette — middle, Vignette — edges, three
+> numbers on the real collage, defaulting to exactly today's values. The hero was dim
+> because the collage is painted at 42% opacity, which no amount of plate-splitting would
+> have addressed.
+>
+> Reopen only if Sean asks for the splash composition itself, as a look — not as a fix for
+> the hero being dark.
 **Verified against:** working tree at `3e12748`, plus the Oxygen splash build in the **main
 clone only** (`index.html`, `css/brg-coming-soon.css` — gitignored, absent from every worktree).
 
