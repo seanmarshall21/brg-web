@@ -43,6 +43,16 @@
 .brgw-sec--team-members .card{position:relative;aspect-ratio:var(--ar,7/9);
   background-color:var(--c,var(--teal));}
 .brgw-sec--team-members .card img{display:block;}
+/* WIDTH/HEIGHT ATTRIBUTES ARE NOT DECORATION HERE. With width:auto, an image that has
+   not loaded yet has NO intrinsic size and so lays out zero pixels wide — and
+   loading="lazy" decides what to load from exactly that box. A zero-width element is a
+   poor candidate for intersection, so the photo can sit unloaded while the card shows as
+   a bare coloured panel: measured on the live page at 390px, 0 of 19 images loaded.
+   The CSS background this replaced had no such state, so the regression came in with the
+   <img>. The attributes give the element a real box before the bytes arrive; `aspect-ratio:
+   auto <w>/<h>` in the UA stylesheet means the photo's true proportions take over the
+   moment it loads, so these numbers never distort anything — 800x1000 is a placeholder
+   shape, not a claim about any particular headshot. They also remove the layout shift. */
 .brgw-sec--team-members .card[data-photo=""] img{display:none;}
 
 /* OVERFLOW — the escape hatch, per person, default hidden. Sean: "just in case we want
@@ -162,7 +172,7 @@
 
   <div class="grid" style="--ar:{{card_shape}}">
     <!--brg:repeat members-->
-      <figure class="anim-up"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-color="{{members.bg_color}}" data-overflow="{{members.overflow}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
+      <figure class="anim-up"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-color="{{members.bg_color}}" data-overflow="{{members.overflow}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async" width="800" height="1000"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
     <!--brg:empty-->
       <figure class="anim-up"><div class="card" style="--c:var(--teal)"></div><span class="bar"><span class="nm blanco">Craig Applegate</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:var(--orange)"></div><span class="bar"><span class="nm blanco">Clayton Wheeler</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
