@@ -327,7 +327,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "20",
+                            "width": "100",
                             "class": "brg-f-photo",
                             "id": ""
                         },
@@ -344,7 +344,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "20",
+                            "width": "50",
                             "class": "brg-f-name",
                             "id": ""
                         },
@@ -359,7 +359,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "20",
+                            "width": "50",
                             "class": "brg-f-title",
                             "id": ""
                         },
@@ -374,7 +374,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "40",
+                            "width": "100",
                             "class": "brg-f-quote",
                             "id": ""
                         },
@@ -389,7 +389,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "34",
+                            "width": "50",
                             "class": "brg-f-bg_color",
                             "id": ""
                         },
@@ -422,7 +422,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "33",
+                            "width": "50",
                             "class": "brg-f-crop",
                             "id": ""
                         },
@@ -450,7 +450,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "33",
+                            "width": "50",
                             "class": "brg-f-overflow",
                             "id": ""
                         },
@@ -458,6 +458,31 @@
                         "choices": {
                             "hidden": "No — trim it at the edges",
                             "visible": "Yes — let it hang outside"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_team_members_members_hovercrop",
+                        "label": "Keep this photo inside the box on hover",
+                        "name": "hovercrop",
+                        "type": "select",
+                        "instructions": "When someone hovers a card the photo normally lifts and the top of the head rises out of the colored box. Switch this on for a photo that is already cut off at the top — lifting it would only show the flat edge of the crop. The card still reacts: the color still shrinks and the photo still scales, it just stays inside the box.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-hovercrop",
+                            "id": ""
+                        },
+                        "default_value": "free",
+                        "choices": {
+                            "free": "No — let the top lift out of the box",
+                            "keep": "Yes — keep it cropped inside"
                         },
                         "return_format": "value",
                         "allow_null": 0,

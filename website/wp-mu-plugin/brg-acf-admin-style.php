@@ -281,8 +281,11 @@ add_action( 'admin_head', function () {
 			border-top: 0;
 			padding: 12px 14px;
 		}
+		/* span 3, not 2: the settings are four controls now, so they fill a second row of
+		   three and spill a third. The headshot column tracks that rather than stopping
+		   short and letting a stray field slide under it. */
 		.brg-f-members .acf-row > .acf-fields > .brg-f-photo {
-			grid-row: 1 / span 2;
+			grid-row: 1 / span 3;
 			grid-column: 1;
 		}
 	}

@@ -171,7 +171,8 @@
 .brgw-sec--team-members .grid figure:nth-child(5n+4) .card[data-color="auto"],
 .brgw-sec--team-members .grid figure:nth-child(5n+4) .card[data-color=""]{--c:var(--pink)}
 .brgw-sec--team-members .grid figure:nth-child(5n+5) .card[data-color="auto"],
-.brgw-sec--team-members .grid figure:nth-child(5n+5) .card[data-color=""]{--c:#6C2BB8} /* purple: reuses the hex already on fallback card 4. NOT var(--violet) — that token does not exist, so it silently fell back to teal, making the "5-colour" cycle 4 colours with teal twice. Worse, SPEC-005 wants a --violet for Press: defining it there would have retroactively changed THIS page. */
+.brgw-sec--team-members .grid figure:nth-child(5n+5) .card[data-color=""]{--c:#A17DC4} /* purple: softened to #A17DC4 at Sean's request 1 Oct; was #6C2BB8, which read
+   heavier than the rest of the palette beside teal and orange. NOT var(--violet) — that token does not exist, so it silently fell back to teal, making the "5-colour" cycle 4 colours with teal twice. Worse, SPEC-005 wants a --violet for Press: defining it there would have retroactively changed THIS page. */
 
 /* EXPLICIT per-person colours. The hexes are the ones already on the fallback cards —
    this names them rather than introducing a second palette. */
@@ -179,7 +180,7 @@
 .brgw-sec--team-members .card[data-color="orange"]{--c:var(--orange)}
 .brgw-sec--team-members .card[data-color="yellow"]{--c:var(--yellow)}
 .brgw-sec--team-members .card[data-color="pink"]{--c:var(--pink)}
-.brgw-sec--team-members .card[data-color="purple"]{--c:#6C2BB8}
+.brgw-sec--team-members .card[data-color="purple"]{--c:#A17DC4}
 .brgw-sec--team-members .card[data-color="blue"]{--c:#2BB3E3}
 .brgw-sec--team-members .card[data-color="coral"]{--c:#F4736B}
 .brgw-sec--team-members .card[data-color="green"]{--c:#22B34B}
@@ -232,12 +233,26 @@
   .brgw-sec--team-members figure:hover .card{z-index:2;--z:.985;}
 
   /* top free, sides exactly as the per-person setting left them */
-  .brgw-sec--team-members figure:hover .card[data-overflow="hidden"],
-  .brgw-sec--team-members figure:hover .card[data-overflow=""]{
+  /* STAY INSIDE THE BOX, per person. Sean, 1 Oct: "there's some that should go beyond
+     it, and there's some that should not (for example, if they intentionally have a crop
+     at the top of them)." A headshot already cut off at the crown has nothing to lift out
+     of the frame — raising it only exposes the flat edge of the cut, so letting the top
+     escape makes that photo look broken rather than lively. Written as :not() on the rule
+     that frees the top, so "stay cropped" is the ABSENCE of an exception rather than a
+     second rule fighting the first on specificity. */
+  .brgw-sec--team-members figure:hover .card[data-overflow="hidden"]:not([data-hovercrop="keep"]),
+  .brgw-sec--team-members figure:hover .card[data-overflow=""]:not([data-hovercrop="keep"]){
     overflow-x:clip;overflow-y:visible;}
 
-  .brgw-sec--team-members figure:hover .card[data-fit="height"] img,
-  .brgw-sec--team-members figure:hover .card[data-fit=""] img{bottom:22px;}
+  .brgw-sec--team-members figure:hover .card[data-fit="height"]:not([data-hovercrop="keep"]) img,
+  .brgw-sec--team-members figure:hover .card[data-fit=""]:not([data-hovercrop="keep"]) img{bottom:22px;}
+  /* THE LIFT IS DROPPED, NOT JUST CLIPPED. With the box still closed, a 22px lift would
+     simply cut 22px off the top of the head — the opposite of what this setting is for.
+     The scale stays, per Sean ("that should also be still scaling"), but it anchors to the
+     TOP rather than the base, so the photo stays flush with the top edge of the colour and
+     shrinks downward; the few pixels that open at the bottom sit behind the name plate,
+     which already overlaps the card by about 50px. */
+  .brgw-sec--team-members figure .card[data-hovercrop="keep"] img{transform-origin:top center;}
   .brgw-sec--team-members figure:hover .card[data-fit="cover"] img,
   .brgw-sec--team-members figure:hover .card[data-fit="contain"] img{
     transform:translateY(-14px) scale(.985);}
@@ -272,12 +287,12 @@
 
   <div class="grid" data-cols="{{columns}}" style="--ar:{{card_shape}}">
     <!--brg:repeat members-->
-      <figure class="anim-up"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-color="{{members.bg_color}}" data-overflow="{{members.overflow}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async" width="800" height="1000"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
+      <figure class="anim-up"><div class="card" data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-color="{{members.bg_color}}" data-overflow="{{members.overflow}}" data-hovercrop="{{members.hovercrop}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async" width="800" height="1000"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
     <!--brg:empty-->
       <figure class="anim-up"><div class="card" style="--c:var(--teal)"></div><span class="bar"><span class="nm blanco">Craig Applegate</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:var(--orange)"></div><span class="bar"><span class="nm blanco">Clayton Wheeler</span><span class="ti">CEO</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:#2BB3E3"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
-    <figure class="anim-up"><div class="card" style="--c:#6C2BB8"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
+    <figure class="anim-up"><div class="card" style="--c:#A17DC4"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:var(--yellow)"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:var(--pink)"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <figure class="anim-up"><div class="card" style="--c:#F4736B"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>

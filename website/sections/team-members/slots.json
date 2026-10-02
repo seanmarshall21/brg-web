@@ -10,23 +10,23 @@
         "type": "image",
         "label": "Headshot",
         "doc": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its color block.",
-        "width": 20
+        "width": 100
       },
       "name": {
         "type": "text",
         "label": "Name",
-        "width": 20
+        "width": 50
       },
       "title": {
         "type": "text",
         "label": "Title",
-        "width": 20
+        "width": 50
       },
       "quote": {
         "type": "text",
         "label": "Quote",
         "doc": "Optional, shown under the card. Leave blank for none.",
-        "width": 40
+        "width": 100
       },
       "bg_color": {
         "type": "select",
@@ -45,7 +45,7 @@
           "green": "Green",
           "red": "Red"
         },
-        "width": 34
+        "width": 50
       },
       "crop": {
         "type": "select",
@@ -59,7 +59,7 @@
           "left": "Left",
           "right": "Right"
         },
-        "width": 33
+        "width": 50
       },
       "overflow": {
         "type": "select",
@@ -70,7 +70,18 @@
           "hidden": "No — trim it at the edges",
           "visible": "Yes — let it hang outside"
         },
-        "width": 33
+        "width": 50
+      },
+      "hovercrop": {
+        "type": "select",
+        "label": "Keep this photo inside the box on hover",
+        "doc": "When someone hovers a card the photo normally lifts and the top of the head rises out of the colored box. Switch this on for a photo that is already cut off at the top — lifting it would only show the flat edge of the crop. The card still reacts: the color still shrinks and the photo still scales, it just stays inside the box.",
+        "default": "free",
+        "choices": {
+          "free": "No — let the top lift out of the box",
+          "keep": "Yes — keep it cropped inside"
+        },
+        "width": 50
       }
     },
     "collapse": "name"
