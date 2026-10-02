@@ -583,6 +583,7 @@
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var items = [];
     function num(v, d) { var n = parseFloat(v); return isNaN(n) ? d : n; }
+    var EDGE = 1.5;   // % of frame height kept in reserve beyond the travel — see below
 
     [].forEach.call(root.querySelectorAll('.brgw-sec'), function (sec) {
       var amt = Math.max(0, Math.min(40, num(sec.getAttribute('data-brgw-px'), 0)));
@@ -596,9 +597,18 @@
         if (img && amt > 0) {
           if (getComputedStyle(frame).position === 'static') frame.style.position = 'relative';
           frame.style.overflow = 'hidden';
+          /* HEADROOM IS LARGER THAN THE TRAVEL, ON PURPOSE. Sean, 2 Oct: "the parallax items
+             should never have their edge be visible within the frame." Laying out exactly
+             `amt`% of spare above and below and then travelling exactly `amt`% means the far
+             edge lands precisely ON the frame's edge at the extremes — mathematically flush,
+             and one sub-pixel rounding away from a visible sliver on a fractional-height frame
+             or a non-integer device pixel ratio. EDGE is the margin: the photo is laid out
+             with amt+EDGE of spare and still only travels amt, so there is always a band of
+             picture outside the frame no matter where the scroll stops. */
+          var pad = amt + EDGE;
           var st = img.style;
           st.position = 'absolute'; st.left = '0'; st.right = 'auto'; st.width = '100%';
-          st.top = (-amt) + '%'; st.bottom = 'auto'; st.height = (100 + 2 * amt) + '%';
+          st.top = (-pad) + '%'; st.bottom = 'auto'; st.height = (100 + 2 * pad) + '%';
           st.maxWidth = 'none'; st.maxHeight = 'none'; st.objectFit = 'cover';
           items.push({ box: frame, target: img, amt: amt, dir: 1, tau: 3 * 0.06, cur: null });
         }
