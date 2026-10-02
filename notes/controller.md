@@ -69,3 +69,43 @@ Newest first. Format: `TYPE: <YYYY-MM-DD> · note`  (TYPE = DONE / PLAN / NEED /
 - DONE: 2026-08-09 · Community give-back converted to auto-advancing slider + reusable `.brgw-slider` engine; doodles hidden < 560px (mobile motion audit). Pushed `f1b3c8e`.
 - NEED: 2026-08-09 · Human: create the 5 WP pages and drop `[brg_<slug>]` on each (all `/<slug>/` are 404 today). Blocks go-live + live plugin verification.
 - PLAN: 2026-08-09 · Once one WP page exists, verify `<!-- vc_embed brg/<slug> v2.0.0 -->` + nav render live, then greenlight the other four.
+
+## 2026-10-02 — SPEC-014, Open Q1 answered: why the four plates became one image
+
+The spec parks this on me before any build starts, so here it is, from the commit that did
+it (33fdb71, 10 Aug) rather than from memory.
+
+**It was not a collapse, and not a performance call.** The four-plate arrangement was a
+*reconstruction* built before the real artwork had been found. `assets/media/bg/base/base-*.webp`
+turned out to already exist and to BE the comp's collage — Sean's own Figma export, pre-rendered
+at eight widths, **with the spray crown baked into it top-right**. The commit says so outright:
+"there was no crown to extract … and no four-plate reconstruction needed."
+
+So SPEC-014 does not restore something that was taken away. It replaces Sean's comp artwork with
+a reconstruction of it. That inverts the spec's own §3 argument — "nothing to produce, the
+expensive half already happened" — because the expensive half is the collage we would stop using.
+
+**Three things anyone building it has to settle first, none of them technical:**
+
+1. **The crown is already in the collage.** There is a `crown.webp`, but placing it as a fourth
+   plate over a collage that already shows one gives two crowns. Either the collage goes (losing
+   the comp) or the crown plate does.
+2. **The hero photo is an EDITABLE slot now** — `bg_photo`, added 24 Sep on Sean's explicit
+   "every image in the hero, everywhere, needs to be changeable". Four hard-coded plates take
+   that back. If this is built, each plate needs its own image slot, or the instruction regresses.
+3. **Its 7-width srcset goes with it.** A phone currently pulls base-390 instead of the 800KB
+   base-1920. Four plates at one width each is a different bargain on a phone.
+
+**What is NO LONGER a problem:** the spec's §4 — the whole reason it says it exists — is obsolete.
+It is built around parallax and drift both writing `transform`, with the JS winning and the drift
+failing silently, and prescribes nested elements to separate them. `brgw.js` was since rewritten
+to write the **`translate`** property, which composes with `transform` rather than replacing it;
+its own comment says "no wrapper, no nesting, and no ordering rules". A plate can drift and
+parallax on one element today.
+
+**Not built this run.** Everything else on Sean's list for 2026-10-02 is shipped and live. This
+one stops on a design decision that is his: whether the home hero keeps the comp collage or
+becomes the splash's four separate plates. Asked in the report rather than guessed, because the
+two give visibly different homepages and the answer is not recoverable from the repo.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
