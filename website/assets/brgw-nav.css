@@ -48,7 +48,14 @@
    section's own colour is the backdrop, exactly as the dark case leaves it. */
 .bnav.on-light .bnav-link{color:var(--ink);}
 .bnav.on-light .bnav-ham i{background:var(--ink);}
-.bnav.on-light .bnav-uline path{stroke:var(--ink);}
+/* THE UNDERLINE STAYS TEAL ON BOTH. Sean, 2 Oct: the link text should re-colour against
+   the background, but the active underline should not — it is the brand accent and the
+   one fixed point as the nav crosses from dark to light. It used to flip to ink here,
+   which read as the active marker changing identity rather than adapting. Removed rather
+   than restated as teal, so there is exactly one place the colour is set (var(--acc) on
+   .bnav-uline path) and no second value to keep in step.
+   The mobile drawer's yellow is deliberate and separate: it sits on its own dark panel,
+   never over page content, so it is not crossing anything. */
 .bnav.on-light.bg-frost::before{opacity:0;}
 
 /* Logo */
