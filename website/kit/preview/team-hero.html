@@ -4,7 +4,7 @@
 <style>html,body{margin:0;background:#0f0e0d}</style></head><body>
 <div class="brgw" id="root"></div>
 <template id="frag"><!-- BRG · section: team-hero  →  [brg_team-hero] -->
-<section class="brgw-sec brgw-sec--team-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Team">
+<section class="brgw-sec brgw-sec--team-hero brgw-hero reveal" data-tone="{{photo_tone}}" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Team">
 <style>
 .brgw-sec--team-hero{overflow:hidden;}
 /* Underline is now Sean's line-team-lg.svg; its colour is baked into the path fill,
@@ -42,7 +42,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Meet the crew", "sub_1": "We're operators, leaders, community builders \u2014 and yes, we all have strong opinions about", "sub_highlight": "sandwiches", "sub_2": ". This is the team behind the brands.", "uline_variant": "u3", "bg_photo": "", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube"};
+  var D = {"heading": "Meet the crew", "sub_1": "We're operators, leaders, community builders \u2014 and yes, we all have strong opinions about", "sub_highlight": "sandwiches", "sub_2": ". This is the team behind the brands.", "uline_variant": "u3", "bg_photo": "", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "photo_tone": "color"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

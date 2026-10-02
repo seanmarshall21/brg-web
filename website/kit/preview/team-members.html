@@ -8,7 +8,7 @@
      Light section. Owns the yellow smiley seam badge, bleeding upward.
      Nine crew cards: coloured plate + portrait + tilted black name bar + pull quote.
      Card colours come from the comp; portraits are placeholders until headshots land. -->
-<section class="brgw-sec brgw-sec--team-members reveal" data-nav="light" aria-label="The crew">
+<section class="brgw-sec brgw-sec--team-members reveal" data-tone="{{photo_tone}}" data-nav="light" aria-label="The crew">
 <style>
 .brgw-sec--team-members{position:relative;background:var(--white);color:var(--ink);overflow:visible;
   padding:clamp(78px,8.5vw,124px) var(--pad) clamp(74px,8vw,116px);text-align:center;}
@@ -352,7 +352,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"members": "", "card_shape": "7/9", "photo_fit": "height", "columns": "3", "quote_mark": "match"};
+  var D = {"members": "", "card_shape": "7/9", "photo_fit": "height", "columns": "3", "quote_mark": "match", "photo_tone": "color"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

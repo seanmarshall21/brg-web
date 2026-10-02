@@ -75,5 +75,15 @@
     "label": "Odie's — image",
     "doc": "The artwork in the Odie's panel. Landscape, around 800x550. Leave empty to keep the current picture.",
     "default": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg"
+  },
+  "photo_tone": {
+    "type": "select",
+    "label": "Photo colour",
+    "doc": "Colour is the default and is almost always right — the photography on this site was black and white only because the placeholder images were. Switch a section to black and white when you want it that way on purpose. Only affects photographs; the brand icons and lockups keep their colour either way.",
+    "default": "color",
+    "choices": {
+      "color": "Colour",
+      "bw": "Black & white"
+    }
   }
 }

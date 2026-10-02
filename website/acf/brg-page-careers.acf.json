@@ -246,6 +246,31 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_careers_hero_photo_tone",
+                "label": "Photo colour",
+                "name": "brg_careers_hero_photo_tone",
+                "type": "select",
+                "instructions": "Colour is the default and is almost always right — the photography on this site was black and white only because the placeholder images were. Switch a section to black and white when you want it that way on purpose. Only affects photographs; the brand icons and lockups keep their colour either way.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_tone",
+                    "id": ""
+                },
+                "default_value": "color",
+                "choices": {
+                    "color": "Colour",
+                    "bw": "Black & white"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_tab_careers_apply",
                 "label": "What it's like",
                 "name": "",
@@ -500,6 +525,31 @@
                 "return_format": "url",
                 "preview_size": "medium",
                 "library": "all"
+            },
+            {
+                "key": "field_brg_careers_positions_photo_tone",
+                "label": "Photo colour",
+                "name": "brg_careers_positions_photo_tone",
+                "type": "select",
+                "instructions": "Colour is the default and is almost always right — the photography on this site was black and white only because the placeholder images were. Switch a section to black and white when you want it that way on purpose. Only affects photographs; the brand icons and lockups keep their colour either way.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_tone",
+                    "id": ""
+                },
+                "default_value": "color",
+                "choices": {
+                    "color": "Colour",
+                    "bw": "Black & white"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
             },
             {
                 "key": "field_brg_tab_careers_posts",
