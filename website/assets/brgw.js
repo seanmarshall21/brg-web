@@ -335,7 +335,29 @@
       });
     });
     var io = new IntersectionObserver(function (ents) {
-      ents.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      ents.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        /* A THRESHOLD A TALL SECTION CAN NEVER REACH IS A SECTION THAT NEVER APPEARS.
+           `threshold: 0.16` asks for 16% OF THE SECTION to be visible, but a section can
+           never show more than the viewport, so the most it can ever reach is
+           viewportHeight / sectionHeight. Past about 5 viewports tall that maximum falls
+           under 0.16 and the callback simply never fires — .anim-up then holds the whole
+           section at opacity:0 for ever, and the bottom-of-document guard below only
+           rescues it once the reader reaches the very end of the page.
+           It is viewport-dependent, which is why it shows up as "some sections reveal and
+           some don't": team-members is 2976px, so it clears 0.16 on a 900px window
+           (max 0.248) and fails on a 600px one (max 0.165 → under once rootMargin is
+           applied). The comment above already argued against raising `threshold` for this
+           exact reason; the number stayed anyway.
+           So: keep 0.16 as the FEEL for sections that can reach it, and for one that
+           cannot, fall back to the rootMargin line — which is height-independent and is
+           what that comment calls the correct knob. */
+        var rootH = e.rootBounds ? e.rootBounds.height : innerHeight * 0.82;
+        var unreachable = e.boundingClientRect.height * 0.16 > rootH * 0.95;
+        if (e.intersectionRatio >= 0.16 || unreachable) {
+          e.target.classList.add('is-in'); io.unobserve(e.target);
+        }
+      });
     }, {
       /* THRESHOLD IS DELIBERATELY UNCHANGED. It is a fraction of the ELEMENT, so raising it
          to delay the reveal is unsafe here: a section taller than the viewport can never
@@ -344,7 +366,7 @@
          sections exceed the viewport, so that is a live risk, not a theoretical one.
          rootMargin shrinks the VIEWPORT instead and behaves the same at any section height,
          which makes it the correct knob for "fire later": -8% -> -18% of viewport height. */
-      threshold: 0.16, rootMargin: '0px 0px -18% 0px' });
+      threshold: [0, 0.16], rootMargin: '0px 0px -18% 0px' });
     root.querySelectorAll('.reveal').forEach(function (s) { io.observe(s); });
 
     /* BOTTOM-OF-DOCUMENT GUARD — without this the FOOTER never appears.
