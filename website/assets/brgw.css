@@ -371,6 +371,11 @@
    parallax engine — neither is possible on a ::before. */
 .brgw-sec .sec-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   opacity:var(--sec-bg-o,.18);}
+/* <picture> wraps the image so a phone can be served different artwork at 768px. An EMPTY
+   <source srcset> is SKIPPED by the browser and the fallback <img> loads normally — checked
+   on this site rather than assumed, because if it had swallowed the fallback instead, every
+   section with no mobile artwork would have lost its background on phones only. */
+.brgw-sec .sec-bg picture{display:block;width:100%;height:100%;}
 .brgw-sec .sec-bg img{width:100%;height:100%;object-fit:cover;display:block;}
 .brgw-sec .sec-bg[data-bg=""]{display:none;}
 

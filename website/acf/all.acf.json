@@ -810,6 +810,23 @@
         "library": "all"
       },
       {
+        "key": "field_brg_home_community_section_bg_mobile",
+        "label": "Section background — mobile",
+        "name": "brg_home_community_section_bg_mobile",
+        "type": "image",
+        "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave empty and the main background is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognisable, and a tall or simplified version reads far better.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-f-section_bg_mobile",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
         "key": "field_brg_home_community_section_bg_opacity",
         "label": "Background strength",
         "name": "brg_home_community_section_bg_opacity",
@@ -1689,6 +1706,23 @@
         "library": "all"
       },
       {
+        "key": "field_brg_home_different_section_bg_mobile",
+        "label": "Section background — mobile",
+        "name": "brg_home_different_section_bg_mobile",
+        "type": "image",
+        "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave empty and the main background is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognisable, and a tall or simplified version reads far better.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-f-section_bg_mobile",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
         "key": "field_brg_home_different_section_bg_opacity",
         "label": "Background strength",
         "name": "brg_home_different_section_bg_opacity",
@@ -1826,6 +1860,23 @@
         "wrapper": {
           "width": "",
           "class": "brg-f-section_bg",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_home_values_section_bg_mobile",
+        "label": "Section background — mobile",
+        "name": "brg_home_values_section_bg_mobile",
+        "type": "image",
+        "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave empty and the main background is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognisable, and a tall or simplified version reads far better.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-f-section_bg_mobile",
           "id": ""
         },
         "return_format": "url",

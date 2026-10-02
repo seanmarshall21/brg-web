@@ -12,6 +12,12 @@
     "doc": "A pattern or photo filling the whole section, behind everything else. Leave empty for a plain color. It is cropped to fill, so the exact size does not matter. On a DARK section use a light or gray artwork — a black pattern over a black panel stays invisible however high you set the strength.",
     "default": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp"
   },
+  "section_bg_mobile": {
+    "type": "image",
+    "label": "Section background — mobile",
+    "doc": "Optional. A version of the background for phones, used below 768px wide. Leave empty and the main background is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognisable, and a tall or simplified version reads far better.",
+    "default": ""
+  },
   "section_bg_opacity": {
     "type": "select",
     "label": "Background strength",
