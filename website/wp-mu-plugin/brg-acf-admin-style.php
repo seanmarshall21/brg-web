@@ -187,6 +187,105 @@ add_action( 'admin_head', function () {
 	@media screen and (max-width: 782px) {
 		.acf-fields > .acf-field[data-width] { border-left: 0; }
 	}
-	</style>
+	
+	/* ── Instructions become tooltips ────────────────────────────────────────
+	   Sean, 1 Oct: "can those be tooltips so they don't take up so much space, so you
+	   don't see them unless you hover over it?" The help text is good and worth keeping;
+	   it just should not cost a paragraph of vertical space per field on a screen where
+	   nine people are being edited.
+
+	   The text stays in the DOM and keeps its markup, so nothing is lost to anyone
+	   reading the page with a screen reader — it is moved out of flow, not removed.
+	   focus-within is in the selector for the same reason: a keyboard user tabbing to the
+	   field gets the help a mouse user gets by hovering.
+
+	   The marker only appears where there IS help, via :has(). Where :has() is not
+	   supported the marker is simply absent and the tooltip still works on hover — the
+	   failure is a missing hint, not a missing field. */
+	.acf-field > .acf-label { position: relative; }
+	.acf-field > .acf-label .description,
+	.acf-field > .acf-label p.description {
+		position: absolute;
+		left: 0;
+		top: calc(100% + 2px);
+		z-index: 40;
+		width: max(260px, 100%);
+		max-width: 420px;
+		margin: 0;
+		background: #1c1a16;
+		color: #f3f4f5;
+		padding: 9px 11px;
+		border-radius: 6px;
+		font-size: 12.5px;
+		line-height: 1.5;
+		box-shadow: 0 6px 18px rgba(0,0,0,.22);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-3px);
+		transition: opacity .12s ease, transform .12s ease;
+		pointer-events: none;
+	}
+	.acf-field > .acf-label:hover .description,
+	.acf-field > .acf-label:focus-within .description {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+	/* Readable against the dark tooltip; the light-background rules above are for text
+	   still rendered in flow elsewhere in wp-admin. */
+	.acf-field > .acf-label .description code {
+		background: rgba(255,255,255,.12);
+		border-color: rgba(255,255,255,.18);
+		color: #fff;
+	}
+	.acf-field > .acf-label .description strong { color: #fff; }
+	.acf-field > .acf-label:has(.description) label::after {
+		content: "?";
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 14px;
+		height: 14px;
+		margin-left: 6px;
+		border-radius: 50%;
+		background: #d7dade;
+		color: #4a4f54;
+		font-size: 10px;
+		font-weight: 700;
+		vertical-align: 1px;
+		cursor: help;
+	}
+	.acf-field > .acf-label:hover:has(.description) label::after { background: #19C7C2; color: #10312f; }
+
+	/* ── A crew row: headshot left, then two rows of three ───────────────────
+	   Sean, 1 Oct: "you have the headshot, and then you have a group of two rows, three
+	   columns each: name, title, quote / background color, crop, let the photo hang
+	   outside the box."
+
+	   Widths alone cannot say this. ACF fields flow in a line, so a field spanning two
+	   rows needs the container to be a grid — and the photo needs to be addressable,
+	   which is what the generated brg-f-* classes are for. nth-child would work until a
+	   slot is reordered, and then it would be wrong silently.
+
+	   Falls back to the ordinary flow below 1100px, where four columns inside the admin
+	   content area would be narrower than the inputs they hold. */
+	@media (min-width: 1100px) {
+		.brg-f-members .acf-row > .acf-fields {
+			display: grid;
+			grid-template-columns: 20% 1fr 1fr 1fr;
+			align-items: start;
+		}
+		.brg-f-members .acf-row > .acf-fields > .acf-field {
+			width: auto !important;
+			float: none !important;
+			border-top: 0;
+			padding: 12px 14px;
+		}
+		.brg-f-members .acf-row > .acf-fields > .brg-f-photo {
+			grid-row: 1 / span 2;
+			grid-column: 1;
+		}
+	}
+</style>
 	<?php
 } );

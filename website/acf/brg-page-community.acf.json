@@ -64,7 +64,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Great food, great people, epic communities."
@@ -79,7 +79,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub",
                     "id": ""
                 },
                 "default_value": "We're not just in these neighborhoods — we're part of them. From local sponsorships to giveback programs, showing up for our communities is just how we operate."
@@ -94,7 +94,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-uline_variant",
                     "id": ""
                 },
                 "default_value": "u3"
@@ -104,12 +104,12 @@
                 "label": "Background photo",
                 "name": "brg_community_hero_bg_photo",
                 "type": "image",
-                "instructions": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
+                "instructions": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bg_photo",
                     "id": ""
                 },
                 "return_format": "url",
@@ -118,15 +118,15 @@
             },
             {
                 "key": "field_brg_community_hero_overlay_color",
-                "label": "Overlay colour",
+                "label": "Overlay color",
                 "name": "brg_community_hero_overlay_color",
                 "type": "select",
-                "instructions": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+                "instructions": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_color",
                     "id": ""
                 },
                 "default_value": "none",
@@ -150,12 +150,12 @@
                 "label": "Overlay strength",
                 "name": "brg_community_hero_overlay_strength",
                 "type": "select",
-                "instructions": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+                "instructions": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_strength",
                     "id": ""
                 },
                 "default_value": "0.45",
@@ -180,12 +180,12 @@
                 "label": "Background video (optional)",
                 "name": "brg_community_hero_video_id",
                 "type": "text",
-                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero colour if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
+                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero color if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_id",
                     "id": ""
                 },
                 "default_value": ""
@@ -200,7 +200,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_source",
                     "id": ""
                 },
                 "default_value": "youtube",
@@ -274,19 +274,19 @@
                 "label": "Lede — before the emphasis",
                 "name": "brg_community_give_lede_1",
                 "type": "textarea",
-                "instructions": "Opening clause, ending at the em dash. The space before the emphasised phrase is in the markup, so do not add a trailing space here. Write the em dash as a literal —.",
+                "instructions": "Opening clause, ending at the em dash. The space before the emphasized phrase is in the markup, so do not add a trailing space here. Write the em dash as a literal —.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-lede_1",
                     "id": ""
                 },
                 "default_value": "At BRG, community isn't a marketing initiative —"
             },
             {
                 "key": "field_brg_community_give_lede_emphasis",
-                "label": "Lede — emphasised phrase",
+                "label": "Lede — emphasized phrase",
                 "name": "brg_community_give_lede_emphasis",
                 "type": "text",
                 "instructions": "Rendered in the display face, slightly larger, mid-sentence. Short — a clause, not a sentence.",
@@ -294,7 +294,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-lede_emphasis",
                     "id": ""
                 },
                 "default_value": "it's in our DNA."
@@ -304,12 +304,12 @@
                 "label": "Lede — after the emphasis",
                 "name": "brg_community_give_lede_2",
                 "type": "textarea",
-                "instructions": "The rest of the paragraph. The space after the emphasised phrase is in the markup, so start straight in with a capital.",
+                "instructions": "The rest of the paragraph. The space after the emphasized phrase is in the markup, so start straight in with a capital.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-lede_2",
                     "id": ""
                 },
                 "default_value": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home."
@@ -324,7 +324,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-banner",
                     "id": ""
                 },
                 "default_value": "How we give back"
@@ -334,12 +334,12 @@
                 "label": "Slides",
                 "name": "brg_community_give_slides",
                 "type": "repeater",
-                "instructions": "One row per slide, in the order they appear. Drag to reorder. Any number works: the slider builds its own dots, and the panel colour alternates black / yellow by position, so adding or removing a slide re-colours the rest automatically — do not try to set a colour per slide. Until the first row is added the page keeps the three slides it shows today.",
+                "instructions": "One row per slide, in the order they appear. Drag to reorder. Any number works: the slider builds its own dots, and the panel color alternates black / yellow by position, so adding or removing a slide re-colors the rest automatically — do not try to set a color per slide. Until the first row is added the page keeps the three slides it shows today.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-slides",
                     "id": ""
                 },
                 "layout": "block",
@@ -358,7 +358,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "",
-                            "class": "",
+                            "class": "brg-f-photo",
                             "id": ""
                         },
                         "return_format": "url",
@@ -375,7 +375,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "50",
-                            "class": "",
+                            "class": "brg-f-title",
                             "id": ""
                         },
                         "default_value": ""
@@ -390,7 +390,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "",
-                            "class": "",
+                            "class": "brg-f-body",
                             "id": ""
                         },
                         "default_value": ""
@@ -405,7 +405,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "50",
-                            "class": "",
+                            "class": "brg-f-cta_label",
                             "id": ""
                         },
                         "default_value": ""
@@ -420,7 +420,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "50",
-                            "class": "",
+                            "class": "brg-f-cta_href",
                             "id": ""
                         },
                         "default_value": ""
@@ -435,7 +435,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "50",
-                            "class": "",
+                            "class": "brg-f-video_id",
                             "id": ""
                         },
                         "default_value": ""
@@ -450,7 +450,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "50",
-                            "class": "",
+                            "class": "brg-f-video_source",
                             "id": ""
                         },
                         "default_value": "youtube",
@@ -512,7 +512,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_1_fig",
                     "id": ""
                 },
                 "default_value": "12"
@@ -527,7 +527,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_1_line1",
                     "id": ""
                 },
                 "default_value": "locations embedded in"
@@ -542,7 +542,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_1_line2",
                     "id": ""
                 },
                 "default_value": "SD & OC communities"
@@ -557,7 +557,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_2_fig",
                     "id": ""
                 },
                 "default_value": "XX"
@@ -572,7 +572,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_2_line1",
                     "id": ""
                 },
                 "default_value": "local organizations"
@@ -587,7 +587,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_2_line2",
                     "id": ""
                 },
                 "default_value": "supported annually"
@@ -602,7 +602,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_3_fig",
                     "id": ""
                 },
                 "default_value": "XX"
@@ -617,7 +617,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_3_line1",
                     "id": ""
                 },
                 "default_value": "meals/dollars"
@@ -632,7 +632,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_3_line2",
                     "id": ""
                 },
                 "default_value": "donated"
@@ -647,7 +647,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_4_fig",
                     "id": ""
                 },
                 "default_value": "XX"
@@ -662,7 +662,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_4_line1",
                     "id": ""
                 },
                 "default_value": "giveback events"
@@ -677,7 +677,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-stat_4_line2",
                     "id": ""
                 },
                 "default_value": "per year"
@@ -727,7 +727,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_label",
                     "id": ""
                 },
                 "default_value": "Want to partner with us?"
@@ -742,7 +742,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_href",
                     "id": ""
                 },
                 "default_value": "mailto:hello@blacktoprg.com?subject=Community%20partnership"
@@ -757,7 +757,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub",
                     "id": ""
                 },
                 "default_value": "Whether you're a nonprofit, school, or local organization — we'd love to talk."

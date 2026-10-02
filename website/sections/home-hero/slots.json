@@ -48,8 +48,8 @@
   },
   "overlay_color": {
     "type": "select",
-    "label": "Overlay colour",
-    "doc": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+    "label": "Overlay color",
+    "doc": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
     "default": "none",
     "choices": {
       "none": "None — no overlay",
@@ -63,7 +63,7 @@
   "overlay_strength": {
     "type": "select",
     "label": "Overlay strength",
-    "doc": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+    "doc": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
     "default": "0.45",
     "choices": {
       "0": "0% — overlay off",

@@ -9,7 +9,7 @@
       "photo": {
         "type": "image",
         "label": "Headshot",
-        "doc": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its colour block.",
+        "doc": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its color block.",
         "width": 20
       },
       "name": {
@@ -30,8 +30,8 @@
       },
       "bg_color": {
         "type": "select",
-        "label": "Background colour",
-        "doc": "The colour behind this person's cut-out. Leave on Automatic and the grid cycles through the brand colours by position, so adding or removing someone re-colours the rest on its own. Pick a specific colour only when you want to override that.",
+        "label": "Background color",
+        "doc": "The color behind this person's cut-out. Leave on Automatic and the grid cycles through the brand colors by position, so adding or removing someone re-colors the rest on its own. Pick a specific color only when you want to override that.",
         "default": "auto",
         "choices": {
           "auto": "Automatic — cycles by position",
@@ -54,7 +54,7 @@
         "default": "bottom",
         "choices": {
           "bottom": "Bottom — stands on the base of the box",
-          "center": "Centre",
+          "center": "Center",
           "top": "Top",
           "left": "Left",
           "right": "Right"
@@ -64,7 +64,7 @@
       "overflow": {
         "type": "select",
         "label": "Let the photo hang outside the box",
-        "doc": "Normally the photo is trimmed at the edges of the coloured box. Switch this on and anything wider than the box shows outside it — useful when something should break out of the frame, like a raised arm or a prop. Only does anything when How the photos fit is set to Fit the height; the other two settings always resolve inside the box.",
+        "doc": "Normally the photo is trimmed at the edges of the colored box. Switch this on and anything wider than the box shows outside it — useful when something should break out of the frame, like a raised arm or a prop. Only does anything when How the photos fit is set to Fit the height; the other two settings always resolve inside the box.",
         "default": "hidden",
         "choices": {
           "hidden": "No — trim it at the edges",

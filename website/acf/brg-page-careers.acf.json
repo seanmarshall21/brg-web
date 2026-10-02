@@ -64,7 +64,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Come work somewhere you actually want to be"
@@ -79,7 +79,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub_1",
                     "id": ""
                 },
                 "default_value": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —"
@@ -94,7 +94,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-sub_highlight",
                     "id": ""
                 },
                 "default_value": "let's talk."
@@ -109,7 +109,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-hl_variant",
                     "id": ""
                 },
                 "default_value": "h3"
@@ -124,7 +124,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-uline_variant",
                     "id": ""
                 },
                 "default_value": "u3"
@@ -134,12 +134,12 @@
                 "label": "Background photo",
                 "name": "brg_careers_hero_bg_photo",
                 "type": "image",
-                "instructions": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
+                "instructions": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bg_photo",
                     "id": ""
                 },
                 "return_format": "url",
@@ -148,15 +148,15 @@
             },
             {
                 "key": "field_brg_careers_hero_overlay_color",
-                "label": "Overlay colour",
+                "label": "Overlay color",
                 "name": "brg_careers_hero_overlay_color",
                 "type": "select",
-                "instructions": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+                "instructions": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_color",
                     "id": ""
                 },
                 "default_value": "none",
@@ -180,12 +180,12 @@
                 "label": "Overlay strength",
                 "name": "brg_careers_hero_overlay_strength",
                 "type": "select",
-                "instructions": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+                "instructions": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_strength",
                     "id": ""
                 },
                 "default_value": "0.45",
@@ -210,12 +210,12 @@
                 "label": "Background video (optional)",
                 "name": "brg_careers_hero_video_id",
                 "type": "text",
-                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero colour if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
+                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero color if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_id",
                     "id": ""
                 },
                 "default_value": ""
@@ -230,7 +230,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_source",
                     "id": ""
                 },
                 "default_value": "youtube",
@@ -309,7 +309,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-body_1",
                     "id": ""
                 },
                 "default_value": "This isn't your average restaurant gig. At BRG, we invest in our people — with real training, real growth paths, and a culture that actually lives up to the hype."
@@ -324,7 +324,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-body_2",
                     "id": ""
                 },
                 "default_value": "Whether you're starting your first job in hospitality or you're a seasoned operator looking for your next move, there's a place for you here. We promote from within, develop leaders intentionally, and build teams that stick around."
@@ -339,7 +339,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-offers_heading",
                     "id": ""
                 },
                 "default_value": "We offer:"
@@ -354,7 +354,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_label",
                     "id": ""
                 },
                 "default_value": "Apply Today"
@@ -369,7 +369,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_href",
                     "id": ""
                 },
                 "default_value": "#open-positions"
@@ -379,12 +379,12 @@
                 "label": "Highlight animation",
                 "name": "brg_careers_apply_hl_variant",
                 "type": "text",
-                "instructions": "How the marker highlight behind “to work here” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+                "instructions": "How the marker highlight behind “to work here” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-hl_variant",
                     "id": ""
                 },
                 "default_value": "h3"
@@ -434,7 +434,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Ready to join the crew?"
@@ -449,7 +449,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub",
                     "id": ""
                 },
                 "default_value": "Browse our open roles below — from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co."
@@ -464,7 +464,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_label",
                     "id": ""
                 },
                 "default_value": "Open Positions"
@@ -479,7 +479,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_href",
                     "id": ""
                 },
                 "default_value": "/careers/#roles"
@@ -494,7 +494,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-photo",
                     "id": ""
                 },
                 "return_format": "url",

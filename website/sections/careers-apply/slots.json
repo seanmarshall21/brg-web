@@ -33,7 +33,7 @@
   "hl_variant": {
     "type": "text",
     "label": "Highlight animation",
-    "doc": "How the marker highlight behind “to work here” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+    "doc": "How the marker highlight behind “to work here” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
     "default": "h3"
   }
 }

@@ -145,7 +145,8 @@ def field(section_id, slot, defn):
             'key': 'field_' + name, 'label': defn.get('label', slot.replace('_', ' ').title()),
             'name': name, 'type': 'repeater',
             'instructions': admin_html(defn.get('doc', '')), 'required': 0,
-            'conditional_logic': 0, 'wrapper': {'width': '', 'class': '', 'id': ''},
+            'conditional_logic': 0,
+            'wrapper': {'width': '', 'class': 'brg-f-' + slot, 'id': ''},
             'layout': defn.get('layout', 'block'),
             'button_label': defn.get('button', 'Add row'),
             'min': 0, 'max': 0,
@@ -179,8 +180,15 @@ def field(section_id, slot, defn):
         'key': 'field_' + name, 'label': defn.get('label', slot.replace('_', ' ').title()),
         'name': name, 'type': t, 'instructions': admin_html(defn.get('doc', '')), 'required': 0,
         'conditional_logic': 0,
+        # A class named after the slot, so the admin stylesheet can lay a row out by
+        # MEANING rather than by position. Sean asked for the headshot beside a 2x3 block
+        # of the other six, which no combination of widths can express — fields flow in a
+        # line, and spanning two rows needs the container to be a grid and the photo to be
+        # addressable. nth-child would work until someone reorders a slot, which is exactly
+        # the kind of silent breakage this file exists to avoid.
         'wrapper': {'width': (str(defn['width']) if defn.get('width') is not None
-                              else ('' if wide else '50')), 'class': '', 'id': ''},
+                              else ('' if wide else '50')),
+                    'class': 'brg-f-' + slot, 'id': ''},
         'default_value': defn.get('default', ''),
     }
     if t == 'image':

@@ -64,7 +64,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Let's talk."
@@ -79,7 +79,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub",
                     "id": ""
                 },
                 "default_value": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask."
@@ -89,12 +89,12 @@
                 "label": "Background photo",
                 "name": "brg_contact_hero_bg_photo",
                 "type": "image",
-                "instructions": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
+                "instructions": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bg_photo",
                     "id": ""
                 },
                 "return_format": "url",
@@ -103,15 +103,15 @@
             },
             {
                 "key": "field_brg_contact_hero_overlay_color",
-                "label": "Overlay colour",
+                "label": "Overlay color",
                 "name": "brg_contact_hero_overlay_color",
                 "type": "select",
-                "instructions": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+                "instructions": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_color",
                     "id": ""
                 },
                 "default_value": "none",
@@ -135,12 +135,12 @@
                 "label": "Overlay strength",
                 "name": "brg_contact_hero_overlay_strength",
                 "type": "select",
-                "instructions": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+                "instructions": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_strength",
                     "id": ""
                 },
                 "default_value": "0.45",
@@ -165,12 +165,12 @@
                 "label": "Background video (optional)",
                 "name": "brg_contact_hero_video_id",
                 "type": "text",
-                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero colour if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
+                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero color if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_id",
                     "id": ""
                 },
                 "default_value": ""
@@ -185,7 +185,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_source",
                     "id": ""
                 },
                 "default_value": "youtube",
@@ -245,7 +245,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Who do you need?"
@@ -260,7 +260,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-route_1_label",
                     "id": ""
                 },
                 "default_value": "General"
@@ -275,7 +275,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-route_1_href",
                     "id": ""
                 },
                 "default_value": "mailto:hello@blacktoprg.com"
@@ -290,7 +290,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-route_1_text",
                     "id": ""
                 },
                 "default_value": "Anything that doesn't fit the boxes below."
@@ -305,7 +305,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-route_2_label",
                     "id": ""
                 },
                 "default_value": "Press & media"
@@ -320,7 +320,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-route_2_href",
                     "id": ""
                 },
                 "default_value": "mailto:hello@blacktoprg.com?subject=Press%20enquiry"
@@ -335,7 +335,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-route_2_text",
                     "id": ""
                 },
                 "default_value": "Press kit, high-res imagery, interviews, or a comment on a story."
@@ -350,7 +350,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-route_3_label",
                     "id": ""
                 },
                 "default_value": "Partnerships & giveback"
@@ -365,7 +365,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-route_3_href",
                     "id": ""
                 },
                 "default_value": "mailto:hello@blacktoprg.com?subject=Community%20partnership"
@@ -380,7 +380,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-route_3_text",
                     "id": ""
                 },
                 "default_value": "Nonprofits, schools, and local organizations."
@@ -395,7 +395,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-route_4_label",
                     "id": ""
                 },
                 "default_value": "Careers"
@@ -410,7 +410,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-route_4_href",
                     "id": ""
                 },
                 "default_value": "/careers/"
@@ -425,7 +425,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-route_4_text",
                     "id": ""
                 },
                 "default_value": "Open roles across Board & Brew and Odie's."
@@ -475,7 +475,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Looking for a restaurant?"
@@ -490,7 +490,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub",
                     "id": ""
                 },
                 "default_value": "Addresses, hours, and every Board & Brew and Odie's location in one place."
@@ -505,7 +505,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_label",
                     "id": ""
                 },
                 "default_value": "Our Restaurants"
@@ -520,7 +520,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_href",
                     "id": ""
                 },
                 "default_value": "/brands/"

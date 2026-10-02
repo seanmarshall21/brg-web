@@ -64,7 +64,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Two brands. One standard. Zero compromises."
@@ -79,7 +79,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub",
                     "id": ""
                 },
                 "default_value": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for."
@@ -94,7 +94,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-uline_variant",
                     "id": ""
                 },
                 "default_value": "u3"
@@ -104,12 +104,12 @@
                 "label": "Background photo",
                 "name": "brg_our_restaurants_hero_bg_photo",
                 "type": "image",
-                "instructions": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
+                "instructions": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bg_photo",
                     "id": ""
                 },
                 "return_format": "url",
@@ -118,15 +118,15 @@
             },
             {
                 "key": "field_brg_our_restaurants_hero_overlay_color",
-                "label": "Overlay colour",
+                "label": "Overlay color",
                 "name": "brg_our_restaurants_hero_overlay_color",
                 "type": "select",
-                "instructions": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+                "instructions": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_color",
                     "id": ""
                 },
                 "default_value": "none",
@@ -150,12 +150,12 @@
                 "label": "Overlay strength",
                 "name": "brg_our_restaurants_hero_overlay_strength",
                 "type": "select",
-                "instructions": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+                "instructions": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_strength",
                     "id": ""
                 },
                 "default_value": "0.45",
@@ -180,12 +180,12 @@
                 "label": "Background video (optional)",
                 "name": "brg_our_restaurants_hero_video_id",
                 "type": "text",
-                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero colour if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
+                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero color if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_id",
                     "id": ""
                 },
                 "default_value": ""
@@ -200,7 +200,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_source",
                     "id": ""
                 },
                 "default_value": "youtube",
@@ -279,7 +279,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-bnb_heading",
                     "id": ""
                 },
                 "default_value": "Board & Brew"
@@ -294,7 +294,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bnb_body_1",
                     "id": ""
                 },
                 "default_value": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool."
@@ -309,7 +309,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bnb_body_2",
                     "id": ""
                 },
                 "default_value": "12 locations across San Diego and Orange County — each one a neighborhood staple."
@@ -324,7 +324,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-bnb_cta_label",
                     "id": ""
                 },
                 "default_value": "Visit Us"
@@ -339,7 +339,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-bnb_cta_href",
                     "id": ""
                 },
                 "default_value": "https://boardandbrew.com"
@@ -354,7 +354,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-odies_heading",
                     "id": ""
                 },
                 "default_value": "Odie's Pizza Co."
@@ -369,7 +369,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-odies_body_1",
                     "id": ""
                 },
                 "default_value": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast — think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around."
@@ -384,7 +384,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-odies_body_2",
                     "id": ""
                 },
                 "default_value": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way."
@@ -399,7 +399,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-odies_cta_label",
                     "id": ""
                 },
                 "default_value": "Visit Us"
@@ -414,7 +414,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-odies_cta_href",
                     "id": ""
                 },
                 "default_value": "https://odiespizza.com"
@@ -429,7 +429,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bnb_image",
                     "id": ""
                 },
                 "return_format": "url",
@@ -446,7 +446,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-odies_image",
                     "id": ""
                 },
                 "return_format": "url",

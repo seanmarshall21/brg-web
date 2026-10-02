@@ -1,5 +1,5 @@
 {
-  "_note": "Slots for [brg_contact-hero]. NEW SECTION, Contact page, built from Expo SPEC-006. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\n\nMarker underline is PINK and that is CSS, not a slot — reused from team-hero rather than inventing a sixth colour, because the markers are hand-drawn artwork and a new colour is a new export from Sean. Expo's recommendation; Sean's to overrule.\n\nThe <h1> IS wired: it free-wraps inside max-width:18ch with no structural <br> and no inline span, so substituted copy behaves like authored copy — same test that made the other four hero headlines editable. NOTE the no-wrap constraint Sean gave for underlined text is not yet enforced in markup anywhere; that is tracked separately and will apply here too.",
+  "_note": "Slots for [brg_contact-hero]. NEW SECTION, Contact page, built from Expo SPEC-006. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\n\nMarker underline is PINK and that is CSS, not a slot — reused from team-hero rather than inventing a sixth color, because the markers are hand-drawn artwork and a new color is a new export from Sean. Expo's recommendation; Sean's to overrule.\n\nThe <h1> IS wired: it free-wraps inside max-width:18ch with no structural <br> and no inline span, so substituted copy behaves like authored copy — same test that made the other four hero headlines editable. NOTE the no-wrap constraint Sean gave for underlined text is not yet enforced in markup anywhere; that is tracked separately and will apply here too.",
   "heading": {
     "type": "lines",
     "label": "Headline",
@@ -15,12 +15,12 @@
   "bg_photo": {
     "type": "image",
     "label": "Background photo",
-    "doc": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off."
+    "doc": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off."
   },
   "overlay_color": {
     "type": "select",
-    "label": "Overlay colour",
-    "doc": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+    "label": "Overlay color",
+    "doc": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
     "default": "none",
     "choices": {
       "none": "None — no overlay",
@@ -34,7 +34,7 @@
   "overlay_strength": {
     "type": "select",
     "label": "Overlay strength",
-    "doc": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+    "doc": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
     "default": "0.45",
     "choices": {
       "0": "0% — overlay off",
@@ -49,7 +49,7 @@
   "video_id": {
     "type": "text",
     "label": "Background video (optional)",
-    "doc": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero colour if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
+    "doc": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero color if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
     "default": ""
   },
   "video_source": {

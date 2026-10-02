@@ -64,7 +64,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "We're in the business\nof making your day great."
@@ -79,7 +79,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub",
                     "id": ""
                 },
                 "default_value": "From a classic Board & Brew sandwich to a slice at Odie's — we're here for the moments that matter."
@@ -94,7 +94,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-tagline",
                     "id": ""
                 },
                 "default_value": "Good food. Real people. Rad experience."
@@ -109,7 +109,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-uline_variant",
                     "id": ""
                 },
                 "default_value": "u3"
@@ -124,7 +124,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bg_photo",
                     "id": ""
                 },
                 "return_format": "url",
@@ -141,7 +141,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_id",
                     "id": ""
                 },
                 "default_value": ""
@@ -156,7 +156,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_source",
                     "id": ""
                 },
                 "default_value": "youtube",
@@ -173,15 +173,15 @@
             },
             {
                 "key": "field_brg_home_hero_overlay_color",
-                "label": "Overlay colour",
+                "label": "Overlay color",
                 "name": "brg_home_hero_overlay_color",
                 "type": "select",
-                "instructions": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+                "instructions": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_color",
                     "id": ""
                 },
                 "default_value": "none",
@@ -205,12 +205,12 @@
                 "label": "Overlay strength",
                 "name": "brg_home_hero_overlay_strength",
                 "type": "select",
-                "instructions": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+                "instructions": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_strength",
                     "id": ""
                 },
                 "default_value": "0.45",
@@ -294,7 +294,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-intro_1",
                     "id": ""
                 },
                 "default_value": "Blacktop Restaurant Group started with a simple belief:"
@@ -309,7 +309,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-intro_emphasis",
                     "id": ""
                 },
                 "default_value": "that a great meal is really just an excuse to connect."
@@ -324,7 +324,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-intro_2",
                     "id": ""
                 },
                 "default_value": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home."
@@ -339,7 +339,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-body_1",
                     "id": ""
                 },
                 "default_value": "We're not a corporation chasing locations — we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling."
@@ -354,7 +354,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-body_2",
                     "id": ""
                 },
                 "default_value": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
@@ -364,12 +364,12 @@
                 "label": "Highlight animation",
                 "name": "brg_home_community_hl_variant",
                 "type": "text",
-                "instructions": "How the marker highlight behind “for community.” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+                "instructions": "How the marker highlight behind “for community.” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-hl_variant",
                     "id": ""
                 },
                 "default_value": "h3"
@@ -384,7 +384,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-photo_1",
                     "id": ""
                 },
                 "return_format": "url",
@@ -401,7 +401,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-photo_2",
                     "id": ""
                 },
                 "return_format": "url",
@@ -453,7 +453,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "What we're about"
@@ -468,7 +468,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-vision_label",
                     "id": ""
                 },
                 "default_value": "Our Vision"
@@ -483,7 +483,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-vision_text",
                     "id": ""
                 },
                 "default_value": "Make your day great!"
@@ -498,7 +498,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-mission_label",
                     "id": ""
                 },
                 "default_value": "Our Mission"
@@ -513,7 +513,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-mission_text",
                     "id": ""
                 },
                 "default_value": "To amp up our communities by creating real connections and rad experiences."
@@ -528,7 +528,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-photo",
                     "id": ""
                 },
                 "return_format": "url",
@@ -599,7 +599,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-body_1",
                     "id": ""
                 },
                 "default_value": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that."
@@ -614,7 +614,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-body_2",
                     "id": ""
                 },
                 "default_value": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work — that energy is contagious. You feel it the moment you walk in."
@@ -629,7 +629,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-body_3",
                     "id": ""
                 },
                 "default_value": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."
@@ -639,12 +639,12 @@
                 "label": "Highlight animation",
                 "name": "brg_home_different_hl_variant",
                 "type": "text",
-                "instructions": "How the marker highlight behind “A different kind” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Colour and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
+                "instructions": "How the marker highlight behind “A different kind” arrives. <code>h3</code> (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. <code>h1</code> background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. <code>h0</code> static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalogue: website/lab/README.md.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-hl_variant",
                     "id": ""
                 },
                 "default_value": "h3"
@@ -659,7 +659,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-photo_1",
                     "id": ""
                 },
                 "return_format": "url",
@@ -676,7 +676,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-photo_2",
                     "id": ""
                 },
                 "return_format": "url",
@@ -693,7 +693,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-photo_3",
                     "id": ""
                 },
                 "return_format": "url",
@@ -764,7 +764,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Our core values"

@@ -3,19 +3,19 @@
   "lede_1": {
     "type": "textarea",
     "label": "Lede — before the emphasis",
-    "doc": "Opening clause, ending at the em dash. The space before the emphasised phrase is in the markup, so do not add a trailing space here. Write the em dash as a literal —.",
+    "doc": "Opening clause, ending at the em dash. The space before the emphasized phrase is in the markup, so do not add a trailing space here. Write the em dash as a literal —.",
     "default": "At BRG, community isn't a marketing initiative —"
   },
   "lede_emphasis": {
     "type": "text",
-    "label": "Lede — emphasised phrase",
+    "label": "Lede — emphasized phrase",
     "doc": "Rendered in the display face, slightly larger, mid-sentence. Short — a clause, not a sentence.",
     "default": "it's in our DNA."
   },
   "lede_2": {
     "type": "textarea",
     "label": "Lede — after the emphasis",
-    "doc": "The rest of the paragraph. The space after the emphasised phrase is in the markup, so start straight in with a capital.",
+    "doc": "The rest of the paragraph. The space after the emphasized phrase is in the markup, so start straight in with a capital.",
     "default": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home."
   },
   "banner": {
@@ -28,7 +28,7 @@
     "type": "repeater",
     "label": "Slides",
     "button": "Add slide",
-    "doc": "One row per slide, in the order they appear. Drag to reorder. Any number works: the slider builds its own dots, and the panel colour alternates black / yellow by position, so adding or removing a slide re-colours the rest automatically — do not try to set a colour per slide. Until the first row is added the page keeps the three slides it shows today.",
+    "doc": "One row per slide, in the order they appear. Drag to reorder. Any number works: the slider builds its own dots, and the panel color alternates black / yellow by position, so adding or removing a slide re-colors the rest automatically — do not try to set a color per slide. Until the first row is added the page keeps the three slides it shows today.",
     "sub": {
       "photo": {
         "type": "image",

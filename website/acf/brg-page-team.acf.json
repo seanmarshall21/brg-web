@@ -64,7 +64,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Meet the crew"
@@ -79,7 +79,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub_1",
                     "id": ""
                 },
                 "default_value": "We're operators, leaders, community builders — and yes, we all have strong opinions about"
@@ -94,7 +94,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-sub_highlight",
                     "id": ""
                 },
                 "default_value": "sandwiches"
@@ -109,7 +109,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub_2",
                     "id": ""
                 },
                 "default_value": ". This is the team behind the brands."
@@ -124,7 +124,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-uline_variant",
                     "id": ""
                 },
                 "default_value": "u3"
@@ -134,12 +134,12 @@
                 "label": "Background photo",
                 "name": "brg_team_hero_bg_photo",
                 "type": "image",
-                "instructions": "Optional. Leave this empty and the hero keeps the flat dark colour it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
+                "instructions": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-bg_photo",
                     "id": ""
                 },
                 "return_format": "url",
@@ -148,15 +148,15 @@
             },
             {
                 "key": "field_brg_team_hero_overlay_color",
-                "label": "Overlay colour",
+                "label": "Overlay color",
                 "name": "brg_team_hero_overlay_color",
                 "type": "select",
-                "instructions": "A flat colour laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+                "instructions": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_color",
                     "id": ""
                 },
                 "default_value": "none",
@@ -180,12 +180,12 @@
                 "label": "Overlay strength",
                 "name": "brg_team_hero_overlay_strength",
                 "type": "select",
-                "instructions": "How much of the overlay colour shows through. Only has an effect once an overlay colour is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+                "instructions": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-overlay_strength",
                     "id": ""
                 },
                 "default_value": "0.45",
@@ -210,12 +210,12 @@
                 "label": "Background video (optional)",
                 "name": "brg_team_hero_video_id",
                 "type": "text",
-                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero colour if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
+                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero color if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_id",
                     "id": ""
                 },
                 "default_value": ""
@@ -230,7 +230,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-video_source",
                     "id": ""
                 },
                 "default_value": "youtube",
@@ -309,7 +309,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-members",
                     "id": ""
                 },
                 "layout": "block",
@@ -323,12 +323,12 @@
                         "label": "Headshot",
                         "name": "photo",
                         "type": "image",
-                        "instructions": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its colour block.",
+                        "instructions": "Fills the card. Square or portrait crops sit best. No photo yet is fine — the card falls back to its color block.",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "20",
-                            "class": "",
+                            "class": "brg-f-photo",
                             "id": ""
                         },
                         "return_format": "url",
@@ -345,7 +345,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "20",
-                            "class": "",
+                            "class": "brg-f-name",
                             "id": ""
                         },
                         "default_value": ""
@@ -360,7 +360,7 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "20",
-                            "class": "",
+                            "class": "brg-f-title",
                             "id": ""
                         },
                         "default_value": ""
@@ -375,22 +375,22 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "40",
-                            "class": "",
+                            "class": "brg-f-quote",
                             "id": ""
                         },
                         "default_value": ""
                     },
                     {
                         "key": "field_brg_team_members_members_bg_color",
-                        "label": "Background colour",
+                        "label": "Background color",
                         "name": "bg_color",
                         "type": "select",
-                        "instructions": "The colour behind this person's cut-out. Leave on Automatic and the grid cycles through the brand colours by position, so adding or removing someone re-colours the rest on its own. Pick a specific colour only when you want to override that.",
+                        "instructions": "The color behind this person's cut-out. Leave on Automatic and the grid cycles through the brand colors by position, so adding or removing someone re-colors the rest on its own. Pick a specific color only when you want to override that.",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "34",
-                            "class": "",
+                            "class": "brg-f-bg_color",
                             "id": ""
                         },
                         "default_value": "auto",
@@ -423,13 +423,13 @@
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "33",
-                            "class": "",
+                            "class": "brg-f-crop",
                             "id": ""
                         },
                         "default_value": "bottom",
                         "choices": {
                             "bottom": "Bottom — stands on the base of the box",
-                            "center": "Centre",
+                            "center": "Center",
                             "top": "Top",
                             "left": "Left",
                             "right": "Right"
@@ -446,12 +446,12 @@
                         "label": "Let the photo hang outside the box",
                         "name": "overflow",
                         "type": "select",
-                        "instructions": "Normally the photo is trimmed at the edges of the coloured box. Switch this on and anything wider than the box shows outside it — useful when something should break out of the frame, like a raised arm or a prop. Only does anything when How the photos fit is set to Fit the height; the other two settings always resolve inside the box.",
+                        "instructions": "Normally the photo is trimmed at the edges of the colored box. Switch this on and anything wider than the box shows outside it — useful when something should break out of the frame, like a raised arm or a prop. Only does anything when How the photos fit is set to Fit the height; the other two settings always resolve inside the box.",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
                             "width": "33",
-                            "class": "",
+                            "class": "brg-f-overflow",
                             "id": ""
                         },
                         "default_value": "hidden",
@@ -478,7 +478,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-card_shape",
                     "id": ""
                 },
                 "default_value": "7/9",
@@ -506,7 +506,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-photo_fit",
                     "id": ""
                 },
                 "default_value": "height",
@@ -532,7 +532,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-columns",
                     "id": ""
                 },
                 "default_value": "3",
@@ -593,7 +593,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-heading",
                     "id": ""
                 },
                 "default_value": "Want to be part of the team?"
@@ -608,7 +608,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
-                    "class": "",
+                    "class": "brg-f-sub",
                     "id": ""
                 },
                 "default_value": "We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience."
@@ -623,7 +623,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_label",
                     "id": ""
                 },
                 "default_value": "Apply Today"
@@ -638,7 +638,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "50",
-                    "class": "",
+                    "class": "brg-f-cta_href",
                     "id": ""
                 },
                 "default_value": "/careers/"
