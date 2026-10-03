@@ -435,19 +435,21 @@
         "type": "text",
         "label": "Label",
         "doc": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
-        "default": ""
+        "default": "",
+        "width": 34
       },
       "href": {
         "type": "url",
         "label": "Link",
         "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
-        "default": ""
+        "default": "",
+        "width": 33
       },
       "popup": {
         "type": "select",
         "label": "Open in a pop-up",
         "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
-        "width": 50,
+        "width": 33,
         "default": "",
         "choices": {
           "": "Open the link",
