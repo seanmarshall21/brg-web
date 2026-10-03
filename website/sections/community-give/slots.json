@@ -110,6 +110,40 @@
         "label": "Button link",
         "doc": "Where the button goes — a full https:// address, or a path on this site like /contact/. Ignored when the label is blank."
       },
+      "cta_popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "Choose Pop-up for a Google Form and it opens in a panel over the page instead of sending people away to Google. The panel matches the site; the FORM's own colors are set on the form itself, under Theme in Google Forms — nothing on this site can reach inside it. Anything that is not a form should stay on Open the link.",
+        "width": 33,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      },
+      "cta2_label": {
+        "type": "text",
+        "label": "Second button label",
+        "doc": "Leave empty for a slide that needs only one button. This one sits beside the first.",
+        "default": ""
+      },
+      "cta2_href": {
+        "type": "url",
+        "label": "Second button link",
+        "doc": "Where the second button goes.",
+        "default": ""
+      },
+      "cta2_popup": {
+        "type": "select",
+        "label": "Second button — open in a pop-up",
+        "doc": "Choose Pop-up for a Google Form and it opens in a panel over the page instead of sending people away to Google. The panel matches the site; the FORM's own colors are set on the form itself, under Theme in Google Forms — nothing on this site can reach inside it. Anything that is not a form should stay on Open the link.",
+        "width": 33,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      },
       "video_id": {
         "type": "text",
         "label": "Background video (optional)",
@@ -292,6 +326,20 @@
       "press": "Press down",
       "fill": "Fill in",
       "none": "None"
+    },
+    "group": "Button style"
+  },
+  "modal_bg": {
+    "type": "select",
+    "label": "Pop-up background",
+    "doc": "The color of the panel the form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface; leave them different and you get a visible frame around the form. This cannot color the form itself — that is Google's page, on their domain.",
+    "width": 50,
+    "default": "white",
+    "choices": {
+      "white": "White",
+      "ink": "Site dark",
+      "yellow": "Yellow",
+      "teal": "Teal"
     },
     "group": "Button style"
   }

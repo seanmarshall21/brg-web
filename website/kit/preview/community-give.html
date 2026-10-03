@@ -70,6 +70,10 @@
   max-width:44ch;margin-inline:auto;opacity:.9;}
 /* A slide with no button label renders an EMPTY <a>, which would otherwise show as a bare
    yellow block. :empty hides it, so the button is genuinely optional per slide. */
+.brgw-sec--community-give .btnrow{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+  margin-top:clamp(18px,2vw,26px);}
+/* An empty label means that button was not filled in, so it is not a button. */
+.brgw-sec--community-give .btnrow .btn[data-cta=""]{display:none;}
 .brgw-sec--community-give .panel .btn{margin-top:clamp(18px,2vw,26px);align-self:center;}
 .brgw-sec--community-give .panel .btn:empty{display:none;}
 .brgw-sec--community-give .brgw-slide:nth-child(odd) .panel .btn{background:var(--yellow);color:var(--ink);}
@@ -103,7 +107,18 @@
         <div class="panel">
           <h3 class="blanco">{{slides.title}}</h3>
           <p>{{slides.body}}</p>
-          <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{slides.cta_href}}">{{slides.cta_label}}</a>
+          <!-- Up to two buttons per slide. A slide with one label fills one button and
+               leaves the other hidden; a slide with neither shows no row at all. They
+               cannot be a repeater: the plugin's brg:repeat grammar does not nest, and
+               these already sit inside the slides repeater. -->
+          <div class="btnrow">
+            <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}"
+               data-cta="{{slides.cta_label}}" href="{{slides.cta_href}}"
+               data-brgw-modal="{{slides.cta_popup}}" data-brgw-modal-bg="{{modal_bg}}">{{slides.cta_label}}</a>
+            <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}"
+               data-cta="{{slides.cta2_label}}" href="{{slides.cta2_href}}"
+               data-brgw-modal="{{slides.cta2_popup}}" data-brgw-modal-bg="{{modal_bg}}">{{slides.cta2_label}}</a>
+          </div>
         </div>
         <div class="shot brgw-img media" data-brgw-img>
           <img src="{{slides.photo}}" alt="" decoding="async" loading="lazy" data-tone="{{slides.photo_tone}}" data-px="{{slides.photo_px}}" data-px-dir="{{slides.photo_px_dir}}" data-float="{{slides.photo_float}}" data-float-dir="{{slides.photo_float_dir}}">
@@ -153,7 +168,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift"};
+  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

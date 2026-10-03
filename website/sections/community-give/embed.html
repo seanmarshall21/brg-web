@@ -65,6 +65,10 @@
   max-width:44ch;margin-inline:auto;opacity:.9;}
 /* A slide with no button label renders an EMPTY <a>, which would otherwise show as a bare
    yellow block. :empty hides it, so the button is genuinely optional per slide. */
+.brgw-sec--community-give .btnrow{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+  margin-top:clamp(18px,2vw,26px);}
+/* An empty label means that button was not filled in, so it is not a button. */
+.brgw-sec--community-give .btnrow .btn[data-cta=""]{display:none;}
 .brgw-sec--community-give .panel .btn{margin-top:clamp(18px,2vw,26px);align-self:center;}
 .brgw-sec--community-give .panel .btn:empty{display:none;}
 .brgw-sec--community-give .brgw-slide:nth-child(odd) .panel .btn{background:var(--yellow);color:var(--ink);}
@@ -98,7 +102,18 @@
         <div class="panel">
           <h3 class="blanco">{{slides.title}}</h3>
           <p>{{slides.body}}</p>
-          <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{slides.cta_href}}">{{slides.cta_label}}</a>
+          <!-- Up to two buttons per slide. A slide with one label fills one button and
+               leaves the other hidden; a slide with neither shows no row at all. They
+               cannot be a repeater: the plugin's brg:repeat grammar does not nest, and
+               these already sit inside the slides repeater. -->
+          <div class="btnrow">
+            <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}"
+               data-cta="{{slides.cta_label}}" href="{{slides.cta_href}}"
+               data-brgw-modal="{{slides.cta_popup}}" data-brgw-modal-bg="{{modal_bg}}">{{slides.cta_label}}</a>
+            <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}"
+               data-cta="{{slides.cta2_label}}" href="{{slides.cta2_href}}"
+               data-brgw-modal="{{slides.cta2_popup}}" data-brgw-modal-bg="{{modal_bg}}">{{slides.cta2_label}}</a>
+          </div>
         </div>
         <div class="shot brgw-img media" data-brgw-img>
           <img src="{{slides.photo}}" alt="" decoding="async" loading="lazy" data-tone="{{slides.photo_tone}}" data-px="{{slides.photo_px}}" data-px-dir="{{slides.photo_px_dir}}" data-float="{{slides.photo_float}}" data-float-dir="{{slides.photo_float_dir}}">

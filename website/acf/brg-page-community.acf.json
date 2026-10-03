@@ -1369,6 +1369,86 @@
                         "default_value": ""
                     },
                     {
+                        "key": "field_brg_community_give_slides_cta_popup",
+                        "label": "Open in a pop-up",
+                        "name": "cta_popup",
+                        "type": "select",
+                        "instructions": "Choose Pop-up for a Google Form and it opens in a panel over the page instead of sending people away to Google. The panel matches the site; the FORM's own colors are set on the form itself, under Theme in Google Forms — nothing on this site can reach inside it. Anything that is not a form should stay on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "33",
+                            "class": "brg-f-cta_popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta2_label",
+                        "label": "Second button label",
+                        "name": "cta2_label",
+                        "type": "text",
+                        "instructions": "Leave empty for a slide that needs only one button. This one sits beside the first.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-cta2_label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta2_href",
+                        "label": "Second button link",
+                        "name": "cta2_href",
+                        "type": "text",
+                        "instructions": "Where the second button goes.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-cta2_href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta2_popup",
+                        "label": "Second button — open in a pop-up",
+                        "name": "cta2_popup",
+                        "type": "select",
+                        "instructions": "Choose Pop-up for a Google Form and it opens in a panel over the page instead of sending people away to Google. The panel matches the site; the FORM's own colors are set on the form itself, under Theme in Google Forms — nothing on this site can reach inside it. Anything that is not a form should stay on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "33",
+                            "class": "brg-f-cta2_popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
                         "key": "field_brg_community_give_slides_video_id",
                         "label": "Background video (optional)",
                         "name": "video_id",
@@ -1842,6 +1922,33 @@
                     "press": "Press down",
                     "fill": "Fill in",
                     "none": "None"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_give_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_community_give_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel the form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface; leave them different and you get a visible frame around the form. This cannot color the form itself — that is Google's page, on their domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
                 },
                 "return_format": "value",
                 "allow_null": 0,

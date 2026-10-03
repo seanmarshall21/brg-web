@@ -455,6 +455,48 @@
 .brgw-sec .sec-bg img{width:100%;height:100%;object-fit:cover;display:block;}
 .brgw-sec .sec-bg[data-bg=""]{display:none;}
 
+/* ---- modal, for the Google Forms --------------------------------------------------
+   Sean, 3 Oct: "can I just take them and put them into a modal pop-up that just fits it
+   and matches the background color?"
+
+   WHAT THIS CAN AND CANNOT COLOR, because the difference is not obvious from the outside:
+   everything here — the backdrop, the panel, its padding and the close button — is ours
+   and matches the site. The FORM ITSELF is Google's page inside an iframe on another
+   origin, so no CSS of ours reaches inside it; its own background is whatever Theme is
+   set on the form in Google Forms. Setting the panel to match that theme is what makes
+   the two look like one surface, so the panel color is a field.
+
+   SIZED TO THE FORM. A Google Form cannot tell us how tall it is across origins, so an
+   auto-fitting iframe is not available: the panel takes a sensible share of the viewport
+   and the form scrolls inside it. On a phone it goes nearly full-screen, because a narrow
+   form in a small box is unusable. */
+.brgw-modal{position:fixed;inset:0;z-index:9000;display:none;
+  align-items:center;justify-content:center;padding:clamp(12px,3vw,40px);}
+.brgw-modal[data-open]{display:flex;}
+.brgw-modal__scrim{position:absolute;inset:0;background:rgba(10,9,8,.72);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}
+.brgw-modal__panel{position:relative;z-index:1;width:min(760px,100%);height:min(86vh,980px);
+  background:var(--brgw-modal-bg,var(--white));border-radius:4px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);display:flex;flex-direction:column;}
+.brgw-modal__panel[data-bg="ink"]{--brgw-modal-bg:var(--bg2);}
+.brgw-modal__panel[data-bg="yellow"]{--brgw-modal-bg:var(--yellow);}
+.brgw-modal__panel[data-bg="teal"]{--brgw-modal-bg:var(--teal);}
+.brgw-modal__panel[data-bg="white"]{--brgw-modal-bg:var(--white);}
+.brgw-modal__close{position:absolute;top:8px;right:8px;z-index:2;width:40px;height:40px;
+  border:0;border-radius:50%;cursor:pointer;background:rgba(19,18,16,.82);color:#fff;
+  font:700 20px/1 Montserrat,system-ui,sans-serif;display:grid;place-items:center;}
+.brgw-modal__close:hover{background:var(--ink);}
+.brgw-modal__frame{flex:1;width:100%;border:0;display:block;background:transparent;}
+/* The form is long; let the panel use the full screen on a phone. */
+@media (max-width:640px){
+  .brgw-modal{padding:0;}
+  .brgw-modal__panel{width:100%;height:100%;border-radius:0;}
+}
+@media (prefers-reduced-motion:no-preference){
+  .brgw-modal[data-open] .brgw-modal__panel{animation:brgw-modal-in .22s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes brgw-modal-in{from{opacity:0;transform:translateY(10px) scale(.99);}to{opacity:1;transform:none;}}
+}
+
 /* ---- the optional per-section button ------------------------------------------------
    Twelve sections had no button and no way to add one. Each now carries two, in the
    markup only: one directly under the heading and one at the foot of the section. The

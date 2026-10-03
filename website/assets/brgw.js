@@ -681,7 +681,88 @@
     requestAnimationFrame(update);
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); }
+  /* ---- MODAL, for the Google Forms ------------------------------------------------
+     Sean, 3 Oct: "can I just take them and put them into a modal pop-up that just fits it
+     and matches the background color?"
+
+     Any link marked data-brgw-modal opens its href in a panel instead of navigating. The
+     iframe src is set ON OPEN and cleared on close, deliberately: a Google Form is a heavy
+     third-party document, and four of them embedded up-front would be loaded on every view
+     of the page by people who never open one. Clearing on close also resets a part-filled
+     form rather than leaving it half-complete behind a closed panel.
+
+     ONE PANEL, REUSED. It is created on first use and moved to <body>, so it is never
+     trapped inside a section's stacking context or clipped by overflow:hidden — which
+     every .brgw-sec has.
+
+     The link keeps its real href, so middle-click and "open in new tab" still work and it
+     is still a link if this script never runs. */
+  function brgwModal(root) {
+    var panel = null, frame = null, scrim = null, host = null, lastFocus = null;
+
+    function build() {
+      host = document.createElement('div');
+      host.className = 'brgw brgw-modal';
+      host.setAttribute('role', 'dialog');
+      host.setAttribute('aria-modal', 'true');
+      scrim = document.createElement('div'); scrim.className = 'brgw-modal__scrim';
+      panel = document.createElement('div'); panel.className = 'brgw-modal__panel';
+      var close = document.createElement('button');
+      close.type = 'button'; close.className = 'brgw-modal__close';
+      close.setAttribute('aria-label', 'Close'); close.innerHTML = '&times;';
+      frame = document.createElement('iframe');
+      frame.className = 'brgw-modal__frame';
+      frame.setAttribute('title', 'Form');
+      frame.setAttribute('loading', 'lazy');
+      panel.appendChild(close); panel.appendChild(frame);
+      host.appendChild(scrim); host.appendChild(panel);
+      document.body.appendChild(host);
+      close.addEventListener('click', hide);
+      scrim.addEventListener('click', hide);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && host.hasAttribute('data-open')) hide();
+      });
+    }
+
+    /* A Google Form link must carry ?embedded=true or it renders its full standalone
+       chrome inside the panel. Sean's links arrive with ?usp=dialog, so the query is
+       rewritten rather than appended — adding a second query string would break it. */
+    function embedUrl(u) {
+      if (!u) return '';
+      if (u.indexOf('docs.google.com/forms') === -1) return u;
+      return u.split('?')[0].replace(/\/viewform.*$/, '/viewform') + '?embedded=true';
+    }
+
+    function show(url, bg, title) {
+      if (!panel) build();
+      panel.setAttribute('data-bg', bg || 'white');
+      frame.setAttribute('title', title || 'Form');
+      frame.src = embedUrl(url);
+      host.setAttribute('data-open', '');
+      lastFocus = document.activeElement;
+      document.documentElement.style.overflow = 'hidden';
+      var c = panel.querySelector('.brgw-modal__close'); if (c) c.focus();
+    }
+    function hide() {
+      if (!host) return;
+      host.removeAttribute('data-open');
+      frame.src = 'about:blank';
+      document.documentElement.style.overflow = '';
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    root.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('[data-brgw-modal]') : null;
+      if (!a) return;
+      var url = a.getAttribute('data-brgw-modal');
+      if (!url || url === '1' || url === 'true') url = a.getAttribute('href');
+      if (!url || url === '#') return;
+      e.preventDefault();
+      show(url, a.getAttribute('data-brgw-modal-bg'), a.textContent.trim());
+    });
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
