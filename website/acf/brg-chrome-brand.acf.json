@@ -8,7 +8,7 @@
                 "label": "",
                 "name": "",
                 "type": "message",
-                "message": "<strong>Brand info</strong> — site chrome, shown on every page. These are read directly by the plugin rather than filling a section's <code>{{slots}}</code>.",
+                "message": "<strong>Brand info</strong> — site chrome, shown on every page. These are read directly by the plugin rather than filling a section's <code>{{slots}}</code>. A shortcode attribute still wins over anything saved here, for that one placement.",
                 "new_lines": "wpautop",
                 "esc_html": 0,
                 "required": 0,
@@ -206,6 +206,22 @@
                 "placeholder": "",
                 "prepend": "",
                 "append": "px"
+            },
+            {
+                "key": "field_brg_chrome_brand_opts",
+                "label": "Shortcode &amp; options",
+                "name": "",
+                "type": "message",
+                "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>name</code></td><td>Business name</td><td>text</td></tr><tr><td><code>email</code></td><td>Email address</td><td>text</td></tr><tr><td><code>phone</code></td><td>Phone number</td><td>text</td></tr><tr><td><code>address</code></td><td>Address</td><td>text</td></tr><tr><td><code>careers_email</code></td><td>Careers email</td><td>text</td></tr><tr><td><code>instagram</code></td><td>Instagram</td><td>a link or page path</td></tr><tr><td><code>facebook</code></td><td>Facebook</td><td>a link or page path</td></tr><tr><td><code>tiktok</code></td><td>TikTok</td><td>a link or page path</td></tr><tr><td><code>linkedin</code></td><td>LinkedIn</td><td>a link or page path</td></tr><tr><td><code>privacy</code></td><td>Privacy policy page</td><td>a link or page path</td></tr><tr><td><code>footer_logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>footer_logo_size</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr></tbody></table>",
+                "new_lines": "",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
             }
         ],
         "location": [
@@ -224,6 +240,6 @@
         "instruction_placement": "label",
         "hide_on_screen": "",
         "active": true,
-        "description": "Site chrome. Edit website/chrome/brand/slots.json and rerun kit/build-acf.py."
+        "description": "Site chrome. Edit website/chrome/<id>/slots.json and rerun kit/build-acf.py."
     }
 ]

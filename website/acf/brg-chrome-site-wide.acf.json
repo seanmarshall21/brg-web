@@ -1,0 +1,1358 @@
+[
+    {
+        "key": "group_brg_chrome_site_wide",
+        "title": "Site-wide — Content",
+        "fields": [
+            {
+                "key": "field_brg_chrome_site_wide_msg",
+                "label": "",
+                "name": "",
+                "type": "message",
+                "message": "<strong>Site-wide</strong> — site chrome, shown on every page. These are read directly by the plugin rather than filling a section's <code>{{slots}}</code>. A shortcode attribute still wins over anything saved here, for that one placement.",
+                "new_lines": "wpautop",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_chrome_tab_header",
+                "label": "Header",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_header_acc_logo",
+                "label": "Logo",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_header_logo",
+                "label": "Logo",
+                "name": "brg_header_logo",
+                "type": "image",
+                "instructions": "The mark in the bar. An SVG stays crisp at any size.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-logo",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_header_logo_height",
+                "label": "Logo height",
+                "name": "brg_header_logo_height",
+                "type": "number",
+                "instructions": "How tall it is in the bar, in pixels. The bar sizes itself from its contents, so a taller logo makes a taller bar — and it still scales down when the page scrolls.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-logo_height",
+                    "id": ""
+                },
+                "default_value": "32",
+                "min": 16,
+                "max": 96,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_header_brand_name",
+                "label": "Brand name (read aloud by screen readers)",
+                "name": "brg_header_brand_name",
+                "type": "text",
+                "instructions": "What someone using a screen reader hears in place of the logo image.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-brand_name",
+                    "id": ""
+                },
+                "default_value": "Blacktop Restaurant Group"
+            },
+            {
+                "key": "field_brg_header_logo_href",
+                "label": "Logo links to",
+                "name": "brg_header_logo_href",
+                "type": "text",
+                "instructions": "Where clicking the logo goes. Worth checking if a temporary landing page is ever sitting at the root.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-logo_href",
+                    "id": ""
+                },
+                "default_value": "/"
+            },
+            {
+                "key": "field_brg_header_endacc_logo",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_header_acc_desktop_menu",
+                "label": "Desktop menu",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_header_layout",
+                "label": "Layout",
+                "name": "brg_header_layout",
+                "type": "select",
+                "instructions": "Where the logo sits and how the links arrange around it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-layout",
+                    "id": ""
+                },
+                "default_value": "left",
+                "choices": {
+                    "left": "Logo left, links right",
+                    "split": "Logo centered, links both sides",
+                    "center": "Logo centered",
+                    "compact": "Compact"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_link_size",
+                "label": "Link text size",
+                "name": "brg_header_link_size",
+                "type": "number",
+                "instructions": "The size of the words in the bar, in pixels.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-link_size",
+                    "id": ""
+                },
+                "default_value": "13",
+                "min": 9,
+                "max": 22,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_header_link_gap",
+                "label": "Space between links",
+                "name": "brg_header_link_gap",
+                "type": "number",
+                "instructions": "The gap from one link to the next. Tighten this before reducing the size when a long menu is close to wrapping.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-link_gap",
+                    "id": ""
+                },
+                "default_value": "26",
+                "min": 8,
+                "max": 64,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_header_left",
+                "label": "Links before the logo",
+                "name": "brg_header_left",
+                "type": "number",
+                "instructions": "Only used by the layouts that put links either side of a centered logo.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-left",
+                    "id": ""
+                },
+                "default_value": "2",
+                "min": 0,
+                "max": 8,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_brg_header_right",
+                "label": "Links after the logo",
+                "name": "brg_header_right",
+                "type": "number",
+                "instructions": "As above, for the other side. On a logo-left layout this is the only one that counts.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-right",
+                    "id": ""
+                },
+                "default_value": "2",
+                "min": 0,
+                "max": 8,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_brg_header_endacc_desktop_menu",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_header_acc_desktop_menu_overflow",
+                "label": "Desktop menu — overflow",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_header_more_label",
+                "label": "“More” button text",
+                "name": "brg_header_more_label",
+                "type": "text",
+                "instructions": "The wording on the button that opens the overflow panel.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-more_label",
+                    "id": ""
+                },
+                "default_value": "More"
+            },
+            {
+                "key": "field_brg_header_bar_max",
+                "label": "Links on the bar before “More”",
+                "name": "brg_header_bar_max",
+                "type": "number",
+                "instructions": "0 means show every link and never overflow. Any other number caps the bar and moves the rest into the panel.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-bar_max",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 12,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_brg_header_endacc_desktop_menu_overflow",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_header_acc_phone_menu_top_or_bottom",
+                "label": "Phone menu — top or bottom",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_header_pin_pages",
+                "label": "Pages",
+                "name": "brg_header_pin_pages",
+                "type": "select",
+                "instructions": "Whether the page links sit in the top group, which scrolls if it is long, or the bottom group pinned to the foot of the screen.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-pin_pages",
+                    "id": ""
+                },
+                "default_value": "top",
+                "choices": {
+                    "top": "Pinned to top",
+                    "bottom": "Pinned to bottom"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_pin_social",
+                "label": "Social",
+                "name": "brg_header_pin_social",
+                "type": "select",
+                "instructions": "Same choice for the social icons.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-pin_social",
+                    "id": ""
+                },
+                "default_value": "bottom",
+                "choices": {
+                    "top": "Pinned to top",
+                    "bottom": "Pinned to bottom"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_pin_wordmark",
+                "label": "Wordmark",
+                "name": "brg_header_pin_wordmark",
+                "type": "select",
+                "instructions": "Same choice for the wordmark at the foot of the menu.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-pin_wordmark",
+                    "id": ""
+                },
+                "default_value": "bottom",
+                "choices": {
+                    "top": "Pinned to top",
+                    "bottom": "Pinned to bottom"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_endacc_phone_menu_top_or_bottom",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_header_acc_phone_menu_order_top_to_bottom",
+                "label": "Phone menu — order (top to bottom)",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_header_order_pages",
+                "label": "Pages",
+                "name": "brg_header_order_pages",
+                "type": "select",
+                "instructions": "Where this block sits within its group.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-order_pages",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "1st",
+                    "2": "2nd",
+                    "3": "3rd"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_order_social",
+                "label": "Social",
+                "name": "brg_header_order_social",
+                "type": "select",
+                "instructions": "Where this block sits within its group.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-order_social",
+                    "id": ""
+                },
+                "default_value": "2",
+                "choices": {
+                    "1": "1st",
+                    "2": "2nd",
+                    "3": "3rd"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_order_wordmark",
+                "label": "Wordmark",
+                "name": "brg_header_order_wordmark",
+                "type": "select",
+                "instructions": "Where this block sits within its group.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-order_wordmark",
+                    "id": ""
+                },
+                "default_value": "3",
+                "choices": {
+                    "1": "1st",
+                    "2": "2nd",
+                    "3": "3rd"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_endacc_phone_menu_order_top_to_bottom",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_header_acc_phone_menu_sizes",
+                "label": "Phone menu — sizes",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_header_tm_link_size",
+                "label": "Page link size",
+                "name": "brg_header_tm_link_size",
+                "type": "number",
+                "instructions": "The big menu words, in pixels.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-tm_link_size",
+                    "id": ""
+                },
+                "default_value": "40",
+                "min": 18,
+                "max": 84,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_header_tm_gap",
+                "label": "Space between blocks",
+                "name": "brg_header_tm_gap",
+                "type": "number",
+                "instructions": "The gap between the pages, the social row and the wordmark.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-tm_gap",
+                    "id": ""
+                },
+                "default_value": "26",
+                "min": 0,
+                "max": 80,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_header_tm_wordmark_size",
+                "label": "Wordmark size",
+                "name": "brg_header_tm_wordmark_size",
+                "type": "number",
+                "instructions": "How wide the wordmark is at the foot of the menu.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-tm_wordmark_size",
+                    "id": ""
+                },
+                "default_value": "160",
+                "min": 60,
+                "max": 420,
+                "step": 5,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_header_tm_label_size",
+                "label": "Small label size",
+                "name": "brg_header_tm_label_size",
+                "type": "number",
+                "instructions": "The size of the “Menu” and “Follow” labels.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-tm_label_size",
+                    "id": ""
+                },
+                "default_value": "11",
+                "min": 8,
+                "max": 20,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_header_endacc_phone_menu_sizes",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_header_acc_phone_menu_show_hide",
+                "label": "Phone menu — show / hide",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_header_show_pages",
+                "label": "Pages",
+                "name": "brg_header_show_pages",
+                "type": "select",
+                "instructions": "The page links. Hiding these leaves a menu with only the social row and wordmark.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-show_pages",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_show_social",
+                "label": "Social",
+                "name": "brg_header_show_social",
+                "type": "select",
+                "instructions": "The social icons. They come from the menu assigned to BRG — Social under Appearance → Menus; hiding them here leaves that menu alone.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-show_social",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_show_wordmark",
+                "label": "Wordmark",
+                "name": "brg_header_show_wordmark",
+                "type": "select",
+                "instructions": "The wordmark at the foot of the menu.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-show_wordmark",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_show_menu_label",
+                "label": "“Menu” label",
+                "name": "brg_header_show_menu_label",
+                "type": "select",
+                "instructions": "The small label above the page links.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-show_menu_label",
+                    "id": ""
+                },
+                "default_value": "0",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_show_social_label",
+                "label": "“Follow” label",
+                "name": "brg_header_show_social_label",
+                "type": "select",
+                "instructions": "The small label above the social icons.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-show_social_label",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_show_numbers",
+                "label": "Numbers (01, 02…)",
+                "name": "brg_header_show_numbers",
+                "type": "select",
+                "instructions": "The running numbers beside each page link.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-show_numbers",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_header_endacc_phone_menu_show_hide",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_header_acc_phone_menu_text",
+                "label": "Phone menu — text",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_header_menu_label",
+                "label": "“Menu” label text",
+                "name": "brg_header_menu_label",
+                "type": "text",
+                "instructions": "The wording of the small label above the page links.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-menu_label",
+                    "id": ""
+                },
+                "default_value": "Menu"
+            },
+            {
+                "key": "field_brg_header_social_label",
+                "label": "“Follow” label text",
+                "name": "brg_header_social_label",
+                "type": "text",
+                "instructions": "The wording of the small label above the social icons.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-social_label",
+                    "id": ""
+                },
+                "default_value": "Follow"
+            },
+            {
+                "key": "field_brg_header_wordmark",
+                "label": "Wordmark",
+                "name": "brg_header_wordmark",
+                "type": "image",
+                "instructions": "The mark at the foot of the phone menu. Leave empty and the menu ends with the social row.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-wordmark",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_header_wordmark_line",
+                "label": "Line under the wordmark",
+                "name": "brg_header_wordmark_line",
+                "type": "text",
+                "instructions": "A short line beneath it, like a strapline. Leave empty for none.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-wordmark_line",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_header_endacc_phone_menu_text",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_chrome_tab_footer",
+                "label": "Footer",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_footer_acc_logo",
+                "label": "Logo",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_footer_logo",
+                "label": "Footer logo",
+                "name": "brg_footer_logo",
+                "type": "image",
+                "instructions": "The lockup across the foot of every page. It is artwork, not type — the words behind it exist only as the name a screen reader reads out.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-logo",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_footer_logo_width",
+                "label": "Footer logo width",
+                "name": "brg_footer_logo_width",
+                "type": "number",
+                "instructions": "How wide it is, in pixels. It never grows past the space available, so a large number means “as big as it fits” on a phone.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-logo_width",
+                    "id": ""
+                },
+                "default_value": "360",
+                "min": 120,
+                "max": 720,
+                "step": 10,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_footer_logo_href",
+                "label": "Footer logo links to",
+                "name": "brg_footer_logo_href",
+                "type": "text",
+                "instructions": "Where clicking it goes. Leave empty and it is not a link at all.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-logo_href",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_footer_endacc_logo",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_footer_acc_footer_layout",
+                "label": "Footer — layout",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_footer_pad_top",
+                "label": "Space above",
+                "name": "brg_footer_pad_top",
+                "type": "number",
+                "instructions": "The breathing room between the last section and the footer, in pixels.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-pad_top",
+                    "id": ""
+                },
+                "default_value": "56",
+                "min": 0,
+                "max": 180,
+                "step": 4,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_footer_pad_bottom",
+                "label": "Space below",
+                "name": "brg_footer_pad_bottom",
+                "type": "number",
+                "instructions": "The room under the lockup before the page ends.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-pad_bottom",
+                    "id": ""
+                },
+                "default_value": "56",
+                "min": 0,
+                "max": 180,
+                "step": 4,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_footer_align",
+                "label": "Alignment",
+                "name": "brg_footer_align",
+                "type": "select",
+                "instructions": "Where the lockup and the social icon sit.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-align",
+                    "id": ""
+                },
+                "default_value": "center",
+                "choices": {
+                    "center": "Centered",
+                    "left": "Left",
+                    "split": "Lockup left, social right"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_footer_endacc_footer_layout",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_footer_acc_footer_social",
+                "label": "Footer — social",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_footer_show_social",
+                "label": "Social icon",
+                "name": "brg_footer_show_social",
+                "type": "select",
+                "instructions": "The small icon at the foot. It uses the links saved on Brand info, so hiding it here leaves those alone.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-show_social",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_footer_social_size",
+                "label": "Social icon size",
+                "name": "brg_footer_social_size",
+                "type": "number",
+                "instructions": "How big that icon is, in pixels.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-social_size",
+                    "id": ""
+                },
+                "default_value": "20",
+                "min": 12,
+                "max": 48,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
+                "key": "field_brg_footer_endacc_footer_social",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_footer_acc_footer_small_print",
+                "label": "Footer — small print",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_footer_legal",
+                "label": "Small print",
+                "name": "brg_footer_legal",
+                "type": "text",
+                "instructions": "A line under the lockup — a copyright line, or anything that has to appear on every page. Leave empty for none.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-legal",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_footer_links",
+                "label": "Legal links",
+                "name": "brg_footer_links",
+                "type": "text",
+                "instructions": "Links shown beside the small print, written as Label|/path and separated by commas. For example: Privacy|/privacy-policy/, Cookies|/cookie-policy/",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-links",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_footer_endacc_footer_small_print",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_chrome_site_wide_opts",
+                "label": "Shortcode &amp; options",
+                "name": "",
+                "type": "message",
+                "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>logo</code></td><td>Logo</td><td>an image URL</td></tr><tr><td><code>logo_height</code></td><td>Logo height</td><td>a number (16–96)</td></tr><tr><td><code>brand_name</code></td><td>Brand name (read aloud by screen readers)</td><td>text</td></tr><tr><td><code>logo_href</code></td><td>Logo links to</td><td>a link or page path</td></tr><tr><td><code>layout</code></td><td>Layout</td><td>left · split · center · compact</td></tr><tr><td><code>link_size</code></td><td>Link text size</td><td>a number (9–22)</td></tr><tr><td><code>link_gap</code></td><td>Space between links</td><td>a number (8–64)</td></tr><tr><td><code>left</code></td><td>Links before the logo</td><td>a number (0–8)</td></tr><tr><td><code>right</code></td><td>Links after the logo</td><td>a number (0–8)</td></tr><tr><td><code>more_label</code></td><td>“More” button text</td><td>text</td></tr><tr><td><code>bar_max</code></td><td>Links on the bar before “More”</td><td>a number (0–12)</td></tr><tr><td><code>pin_pages</code></td><td>Pages</td><td>top · bottom</td></tr><tr><td><code>pin_social</code></td><td>Social</td><td>top · bottom</td></tr><tr><td><code>pin_wordmark</code></td><td>Wordmark</td><td>top · bottom</td></tr><tr><td><code>order_pages</code></td><td>Pages</td><td>1 · 2 · 3</td></tr><tr><td><code>order_social</code></td><td>Social</td><td>1 · 2 · 3</td></tr><tr><td><code>order_wordmark</code></td><td>Wordmark</td><td>1 · 2 · 3</td></tr><tr><td><code>tm_link_size</code></td><td>Page link size</td><td>a number (18–84)</td></tr><tr><td><code>tm_gap</code></td><td>Space between blocks</td><td>a number (0–80)</td></tr><tr><td><code>tm_wordmark_size</code></td><td>Wordmark size</td><td>a number (60–420)</td></tr><tr><td><code>tm_label_size</code></td><td>Small label size</td><td>a number (8–20)</td></tr><tr><td><code>show_pages</code></td><td>Pages</td><td>1 · 0</td></tr><tr><td><code>show_social</code></td><td>Social</td><td>1 · 0</td></tr><tr><td><code>show_wordmark</code></td><td>Wordmark</td><td>1 · 0</td></tr><tr><td><code>show_menu_label</code></td><td>“Menu” label</td><td>1 · 0</td></tr><tr><td><code>show_social_label</code></td><td>“Follow” label</td><td>1 · 0</td></tr><tr><td><code>show_numbers</code></td><td>Numbers (01, 02…)</td><td>1 · 0</td></tr><tr><td><code>menu_label</code></td><td>“Menu” label text</td><td>text</td></tr><tr><td><code>social_label</code></td><td>“Follow” label text</td><td>text</td></tr><tr><td><code>wordmark</code></td><td>Wordmark</td><td>an image URL</td></tr><tr><td><code>wordmark_line</code></td><td>Line under the wordmark</td><td>text</td></tr><tr><td><code>logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>logo_width</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>logo_href</code></td><td>Footer logo links to</td><td>a link or page path</td></tr><tr><td><code>pad_top</code></td><td>Space above</td><td>a number (0–180)</td></tr><tr><td><code>pad_bottom</code></td><td>Space below</td><td>a number (0–180)</td></tr><tr><td><code>align</code></td><td>Alignment</td><td>center · left · split</td></tr><tr><td><code>show_social</code></td><td>Social icon</td><td>1 · 0</td></tr><tr><td><code>social_size</code></td><td>Social icon size</td><td>a number (12–48)</td></tr><tr><td><code>legal</code></td><td>Small print</td><td>text</td></tr><tr><td><code>links</code></td><td>Legal links</td><td>text</td></tr></tbody></table>",
+                "new_lines": "",
+                "esc_html": 0,
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "brg-section-content-site-wide"
+                }
+            ]
+        ],
+        "menu_order": 90,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Site chrome. Edit website/chrome/<id>/slots.json and rerun kit/build-acf.py."
+    }
+]

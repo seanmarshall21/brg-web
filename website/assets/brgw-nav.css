@@ -194,6 +194,35 @@
   .bnav,.bnav-uline path,.bnav-drawer,.bnav-scrim{transition:none;}
 }
 
+/* ---- what the Header tab drives, in the phone takeover ----------------------------
+   Every value is read with the shipped design as the var() fallback, so an untouched site
+   is unchanged and a cleared box returns to the design rather than collapsing. */
+@media (max-width: 860px) {
+  .bnav-drawer.is-full .bnav-drawer-items{gap:var(--bnav-tm-gap,26px);}
+  .bnav-drawer.is-full .bnav-link{font-size:var(--bnav-tm-link,40px);}
+  .bnav-drawer.is-full .bnav-drawer-eyebrow,
+  .bnav-drawer.is-full .bnav-num{font-size:var(--bnav-tm-label,11px);}
+  .bnav-drawer.is-full .bnav-wordmark.is-art{width:var(--bnav-tm-wm,160px);max-width:70%;}
+
+  /* SHOW / HIDE, each block independently. */
+  .bnav[data-show-pages="0"]    ~ .bnav-drawer .bnav-drawer-items > .bnav-item,
+  .bnav[data-numbers="0"]        ~ .bnav-drawer .bnav-num,
+  .bnav[data-sociallabel-on="0"] ~ .bnav-drawer .bnav-drawer-eyebrow,
+  .bnav[data-show-wordmark="0"]  ~ .bnav-drawer .bnav-wordmark{display:none;}
+
+  /* TOP OR BOTTOM, and the order within each group. The panel is a column with two groups;
+     a block pinned to the bottom is pushed there by order, and `order` is also how the
+     1st/2nd/3rd choice is expressed — one property doing both jobs, which is why they
+     cannot contradict each other. */
+  .bnav-drawer.is-full .bnav-drawer-items{display:flex;flex-direction:column;}
+  .bnav-drawer.is-full [data-block]{order:calc(var(--blk-pin,0) * 10 + var(--blk-ord,1));}
+  .bnav-drawer.is-full [data-block][data-pin="bottom"]{--blk-pin:1;margin-top:auto;}
+  .bnav-drawer.is-full [data-block][data-pin="bottom"] ~ [data-block][data-pin="bottom"]{margin-top:0;}
+}
+
+/* The wordmark may now be artwork instead of words; the text form is untouched. */
+.bnav-wordmark.is-art{display:block;height:auto;width:var(--bnav-tm-wm,160px);max-width:70%;}
+
 /* ── The mobile takeover ─────────────────────────────────────────────────────────
    The same drawer component in its full-menu role (.is-full), presented as a
    full-screen panel rather than a side sheet. fc-brands keeps the takeover and the

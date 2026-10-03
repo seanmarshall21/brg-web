@@ -395,10 +395,17 @@ def chrome_groups():
         # Read _label BEFORE stripping underscore keys — the previous order filtered it
         # out and then looked for it, so every chrome group silently fell back to its id.
         label = raw.get('_label') or cid.replace('-', ' ').title()
+        # _page lets several chrome files share ONE options page as tabs, the way Oak + Elm
+        # keeps Header / Footer together under "Site-wide". Without it a chrome file is its
+        # own page, which is how Brand info works and stays working.
+        page  = raw.get('_page') or cid
+        plabel = raw.get('_page_label') or (label if page == cid else page.replace('-', ' ').title())
+        order  = raw.get('_order', 0)
         decl = {k: v for k, v in raw.items() if not k.startswith('_')}
         if not decl:
             continue
-        out.append((cid, label, decl))
+        out.append((cid, label, decl, page, plabel, order))
+    out.sort(key=lambda r: (r[3], r[5], r[0]))
     return out
 
 def page_of(section):
@@ -628,7 +635,7 @@ def check():
     bad_spelling = []
     for s_ in json.load(open(SECTIONS)).get('sections', []):
         bad_spelling += _spelling_hits(slots_for(s_)[0], s_['id'])
-    for cid, _label, decl in chrome_groups():
+    for cid, _label, decl, _p, _pl, _o in chrome_groups():
         bad_spelling += _spelling_hits(decl, 'chrome/' + cid)
     if bad_spelling:
         print("  \u2717 British spelling in admin-facing text — Sean's sites use American spelling:")
@@ -643,7 +650,7 @@ def check():
     # scoped to the two or three chrome groups we have rather than every section.
     php_path = os.path.join(ROOT, 'website', 'wp-mu-plugin', 'vc-clients-embed.php')
     php = open(php_path, encoding='utf-8').read() if os.path.exists(php_path) else ''
-    for cid, label, decl in chrome_groups():
+    for cid, label, decl, _p, _pl, _o in chrome_groups():
         for k in decl:
             fname = 'brg_' + cid.replace('-', '_') + '_' + k
             # Two ways a reader can legitimately exist. The literal name, or our helper
@@ -733,31 +740,83 @@ def main():
         g['menu_order'] = order          # page order on the admin screen
         wanted.append(('page-' + page, g, sum(len(slots_for(x)[0]) for x in info['sections'])))
 
-    # Chrome groups sit after the pages, each on its own sub-page, same as a page group.
-    for cid, label, decl in chrome_groups():
+    # Chrome groups. Several files sharing a _page become ONE options page with a TAB each,
+    # which is how Oak + Elm keeps Header and Footer together under "Site-wide"; a file with
+    # no _page is its own page, which is how Brand info works and keeps working.
+    chrome_pages = {}
+    for cid, label, decl, page, plabel, order in chrome_groups():
         illegal = bad_slot_names(decl)
         if illegal:
             sys.exit(f"refusing to generate chrome/{cid}: slot name(s) {illegal} are not [a-z0-9_].")
+        chrome_pages.setdefault(page, {'label': plabel, 'parts': []})
+        chrome_pages[page]['parts'].append((cid, label, decl))
+
+    for page, info in chrome_pages.items():
+        fields = [{
+            'key': 'field_brg_chrome_' + page.replace('-', '_') + '_msg',
+            'label': '', 'name': '', 'type': 'message',
+            'message': admin_html(
+                f"**{info['label']}** — site chrome, shown on every page. These are read "
+                f"directly by the plugin rather than filling a section's `{{{{slots}}}}`. "
+                f"A shortcode attribute still wins over anything saved here, for that one "
+                f"placement."),
+            'new_lines': 'wpautop', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
+            'wrapper': {'width': '', 'class': '', 'id': ''},
+        }]
+        multi = len(info['parts']) > 1
+        for cid, label, decl in info['parts']:
+            if multi:
+                fields.append({
+                    'key': 'field_brg_chrome_tab_' + cid.replace('-', '_'),
+                    'label': label, 'name': '', 'type': 'tab', 'placement': 'top',
+                    'endpoint': 0, 'instructions': '', 'required': 0, 'conditional_logic': 0,
+                    'wrapper': {'width': '', 'class': '', 'id': ''},
+                })
+            fields.extend(grouped_fields(cid, decl))
+        # THE OPTIONS TABLE, last. Oak + Elm puts one at the foot of every chrome tab and it
+        # is the thing that makes the shortcode usable without reading the plugin: every
+        # field, the attribute that overrides it, and what the attribute accepts. Generated
+        # from the slots themselves, so it cannot drift from the fields above it.
+        rows = []
+        for cid, label, decl in info['parts']:
+            for k, v in decl.items():
+                t = (v or {}).get('type', 'text')
+                if t == 'select':
+                    vals = ' · '.join(str(c) if c != '' else '(blank)'
+                                      for c in (v.get('choices') or {}).keys())
+                elif t == 'number':
+                    vals = f"a number ({v.get('min', 0)}–{v.get('max', 100)})"
+                elif t == 'image':
+                    vals = 'an image URL'
+                elif t == 'url':
+                    vals = 'a link or page path'
+                else:
+                    vals = 'text'
+                rows.append(f"<tr><td><code>{k}</code></td><td>{(v or {}).get('label', k)}</td>"
+                            f"<td>{vals}</td></tr>")
+        fields.append({
+            'key': 'field_brg_chrome_' + page.replace('-', '_') + '_opts',
+            'label': 'Shortcode &amp; options', 'name': '', 'type': 'message',
+            'message': ("<p>Any field on this page can also be set right in the shortcode — that "
+                        "wins over what is saved here, for that one placement. Extra option: "
+                        "<code>ttl=\"0\"</code> always fetches the newest copy.</p>"
+                        "<table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th>"
+                        "<th>Value</th></tr></thead><tbody>" + ''.join(rows) + "</tbody></table>"),
+            'new_lines': '', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
+            'wrapper': {'width': '', 'class': '', 'id': ''},
+        })
         g = {
-            'key': 'group_brg_chrome_' + cid.replace('-', '_'),
-            'title': f"{label} — Content",
-            'fields': [{
-                'key': 'field_brg_chrome_' + cid.replace('-', '_') + '_msg',
-                'label': '', 'name': '', 'type': 'message',
-                'message': admin_html(
-                    f"**{label}** — site chrome, shown on every page. These are read directly "
-                    f"by the plugin rather than filling a section's `{{{{slots}}}}`."),
-                'new_lines': 'wpautop', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
-                'wrapper': {'width': '', 'class': '', 'id': ''},
-            }] + [field(cid, k, v) for k, v in decl.items()],
+            'key': 'group_brg_chrome_' + page.replace('-', '_'),
+            'title': f"{info['label']} — Content",
+            'fields': fields,
             'location': [[{'param': 'options_page', 'operator': '==',
-                           'value': OPTIONS_PAGE + '-' + cid}]],
+                           'value': OPTIONS_PAGE + '-' + page}]],
             'menu_order': 90, 'position': 'normal', 'style': 'default',
             'label_placement': 'top', 'instruction_placement': 'label',
             'hide_on_screen': '', 'active': True,
-            'description': f"Site chrome. Edit website/chrome/{cid}/slots.json and rerun kit/build-acf.py.",
+            'description': f"Site chrome. Edit website/chrome/<id>/slots.json and rerun kit/build-acf.py.",
         }
-        wanted.append(('chrome-' + cid, g, len(decl)))
+        wanted.append(('chrome-' + page, g, sum(len(d) for _, _, d in info['parts'])))
 
     before = existing_group_ids()
     now = {sid for sid, _, _ in wanted}

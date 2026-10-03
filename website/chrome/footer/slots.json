@@ -1,0 +1,107 @@
+{
+  "_label": "Footer",
+  "_page": "site-wide",
+  "_page_label": "Site-wide",
+  "_order": 2,
+  "logo": {
+    "type": "image",
+    "label": "Footer logo",
+    "doc": "The lockup across the foot of every page. It is artwork, not type — the words behind it exist only as the name a screen reader reads out.",
+    "group": "Logo"
+  },
+  "logo_width": {
+    "type": "number",
+    "label": "Footer logo width",
+    "doc": "How wide it is, in pixels. It never grows past the space available, so a large number means “as big as it fits” on a phone.",
+    "group": "Logo",
+    "width": 50,
+    "default": "360",
+    "min": 120,
+    "max": 720,
+    "step": 10,
+    "append": "px"
+  },
+  "logo_href": {
+    "type": "url",
+    "label": "Footer logo links to",
+    "doc": "Where clicking it goes. Leave empty and it is not a link at all.",
+    "group": "Logo",
+    "width": 50,
+    "default": ""
+  },
+  "pad_top": {
+    "type": "number",
+    "label": "Space above",
+    "doc": "The breathing room between the last section and the footer, in pixels.",
+    "group": "Footer — layout",
+    "width": 50,
+    "default": "56",
+    "min": 0,
+    "max": 180,
+    "step": 4,
+    "append": "px"
+  },
+  "pad_bottom": {
+    "type": "number",
+    "label": "Space below",
+    "doc": "The room under the lockup before the page ends.",
+    "group": "Footer — layout",
+    "width": 50,
+    "default": "56",
+    "min": 0,
+    "max": 180,
+    "step": 4,
+    "append": "px"
+  },
+  "align": {
+    "type": "select",
+    "label": "Alignment",
+    "doc": "Where the lockup and the social icon sit.",
+    "group": "Footer — layout",
+    "width": 50,
+    "default": "center",
+    "choices": {
+      "center": "Centered",
+      "left": "Left",
+      "split": "Lockup left, social right"
+    }
+  },
+  "show_social": {
+    "type": "select",
+    "label": "Social icon",
+    "doc": "The small icon at the foot. It uses the links saved on Brand info, so hiding it here leaves those alone.",
+    "group": "Footer — social",
+    "width": 50,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "social_size": {
+    "type": "number",
+    "label": "Social icon size",
+    "doc": "How big that icon is, in pixels.",
+    "group": "Footer — social",
+    "width": 50,
+    "default": "20",
+    "min": 12,
+    "max": 48,
+    "step": 1,
+    "append": "px"
+  },
+  "legal": {
+    "type": "text",
+    "label": "Small print",
+    "doc": "A line under the lockup — a copyright line, or anything that has to appear on every page. Leave empty for none.",
+    "group": "Footer — small print",
+    "default": ""
+  },
+  "links": {
+    "type": "text",
+    "label": "Legal links",
+    "doc": "Links shown beside the small print, written as Label|/path and separated by commas. For example: Privacy|/privacy-policy/, Cookies|/cookie-policy/",
+    "group": "Footer — small print",
+    "default": ""
+  }
+}

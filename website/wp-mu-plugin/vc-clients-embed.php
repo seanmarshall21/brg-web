@@ -303,20 +303,61 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
          * field for "BLACKTOP" would have let someone retype a word nobody can see and
          * wonder why the footer never changed. The name comes from Brand info too, so the
          * announced name and the company name cannot drift apart. */
-        $logo = vcc_brand( 'footer_logo' );
+        /* THE FOOTER TAB. Same three routes as the header: sizes become custom properties,
+         * choices become data-attributes, text is printed. The logo and the social links
+         * still come from Brand info, because that is where the company's details live —
+         * this tab governs how they are PRESENTED, not what they are. */
+        $logo = vcc_chrome( 'footer', 'logo' );
+        if ( $logo === '' ) $logo = vcc_brand( 'footer_logo' );
         $name = vcc_brand( 'name' );
         if ( $name === '' || $name === null ) $name = 'Blacktop Restaurant Group';
-        /* Width sits alongside the image, from the same Brand info page. Clamped to the
-         * range the field offers so a stray value cannot blow the footer out; the CSS wraps
-         * it in min(…, 62vw) so a large number still cannot overflow a phone. */
-        $fw   = intval( vcc_brand( 'footer_logo_size' ) );
-        $vars = '';
-        if ( is_string( $logo ) && $logo !== '' ) $vars .= '--brgw-footer-logo:url(\'' . esc_url( $logo ) . '\');';
-        if ( $fw >= 120 && $fw <= 720 )           $vars .= '--brgw-footer-logo-w:' . $fw . 'px;';
-        $style = $vars !== '' ? ' style="' . esc_attr( $vars ) . '"' : '';
-        $footer = '<footer class="brgw__footer reveal"><div class="lockup anim-up"' . $style . '>'
-                . esc_html( $name ) . '</div>'
-                . $li . '</footer>';
+
+        $fvars = '';
+        $fw = intval( vcc_chrome( 'footer', 'logo_width' ) );
+        if ( is_string( $logo ) && $logo !== '' ) $fvars .= '--brgw-footer-logo:url(\'' . esc_url( $logo ) . '\');';
+        if ( $fw >= 120 && $fw <= 720 )           $fvars .= '--brgw-footer-logo-w:' . $fw . 'px;';
+        $pt = intval( vcc_chrome( 'footer', 'pad_top' ) );
+        $pb = intval( vcc_chrome( 'footer', 'pad_bottom' ) );
+        if ( $pt >= 0 && $pt <= 180 ) $fvars .= '--brgw-footer-pt:' . $pt . 'px;';
+        if ( $pb >= 0 && $pb <= 180 ) $fvars .= '--brgw-footer-pb:' . $pb . 'px;';
+        $ss = intval( vcc_chrome( 'footer', 'social_size' ) );
+        if ( $ss >= 12 && $ss <= 48 )  $fvars .= '--brgw-footer-social:' . $ss . 'px;';
+
+        $falign  = vcc_chrome( 'footer', 'align' );
+        $fsocial = vcc_chrome( 'footer', 'show_social' ) === '0' ? '0' : '1';
+        $fhref   = vcc_chrome( 'footer', 'logo_href' );
+        $flegal  = vcc_chrome( 'footer', 'legal' );
+
+        /* LEGAL LINKS, written as "Label|/path" and separated by commas — the shape an editor
+         * can hold in their head. Anything without a pipe is skipped rather than rendered as
+         * a link to nowhere. */
+        $flinksRaw = vcc_chrome( 'footer', 'links' );
+        $flinks = '';
+        if ( is_string( $flinksRaw ) && $flinksRaw !== '' ) {
+            $items = array();
+            foreach ( explode( ',', $flinksRaw ) as $pair ) {
+                if ( strpos( $pair, '|' ) === false ) continue;
+                list( $lbl, $href ) = array_map( 'trim', explode( '|', $pair, 2 ) );
+                if ( $lbl === '' || $href === '' ) continue;
+                $items[] = '<a href="' . esc_url( $href ) . '">' . esc_html( $lbl ) . '</a>';
+            }
+            if ( $items ) $flinks = '<span class="legal-links">' . implode( '', $items ) . '</span>';
+        }
+
+        $lock = '<div class="lockup anim-up">' . esc_html( $name ) . '</div>';
+        if ( is_string( $fhref ) && $fhref !== '' ) {
+            $lock = '<a class="lockup-link" href="' . esc_url( $fhref ) . '">' . $lock . '</a>';
+        }
+        $small = ( $flegal !== '' || $flinks !== '' )
+               ? '<p class="legal anim-up">' . esc_html( $flegal ) . $flinks . '</p>' : '';
+
+        $footer = '<footer class="brgw__footer reveal" data-align="' . esc_attr( $falign ) . '"'
+                . ' data-social="' . esc_attr( $fsocial ) . '"'
+                . ( $fvars !== '' ? ' style="' . esc_attr( $fvars ) . '"' : '' ) . '>'
+                . $lock
+                . ( $fsocial === '1' ? $li : '' )
+                . $small
+                . '</footer>';
         return array( $header, $footer );
     }
 }
@@ -670,63 +711,105 @@ if ( ! function_exists( 'vcc_render_chrome' ) ) {
 /* ── Render the WP-menu-driven nav (v2.2: [brg_nav]). Content = wp_nav_menu() for the
       configured location; styling/behaviour = brgw-nav.css/js. brgw-nav.js injects the
       pen-stroke marker underline + builds the mobile takeover from the same menu. ──── */
-/* ── Nav settings, edited in wp-admin ──────────────────────────────────────────────
- * Declared in website/chrome/nav/slots.json, which generates the admin page; read here.
- * The map holds the LITERAL option names on purpose: it is the allow-list, and it is what
- * build-acf.py's field->reader check matches, so a field nobody reads fails the build
- * rather than shipping as a control that does nothing.
- *
- * PRECEDENCE IS attribute > saved value > slots.json default, the same order a section
- * slot uses. A shortcode attribute still wins so one page can differ from the site.
- *
- * WHAT IS NOT HERE is as deliberate as what is — no background, colour, opacity, sticky
- * mode or timing. Those stay in code so the nav cannot be made to look like a different
- * nav from one page to the next. See the note at the top of chrome/nav/slots.json. */
-if ( ! function_exists( 'vcc_nav_keys' ) ) {
-    function vcc_nav_keys() {
+/* ── Header and footer settings, edited in wp-admin ───────────────────────────────
+ * Declared in website/chrome/header|footer/slots.json, which generate the Site-wide
+ * admin page (one tab each); read here. */
+if ( ! function_exists( 'vcc_header_keys' ) ) {
+    function vcc_header_keys() {
+        /* TOKEN KEY => OPTION NAME, written out rather than composed. Composing reads as
+         * tidier and is worse twice over: the option names would exist nowhere in this file,
+         * so build-acf.py's reader check reports every field as "accepts input that changes
+         * nothing", and a human grepping for one finds no reader either. The map is also the
+         * allow-list. */
         return array(
-            'logo'         => 'brg_nav_logo',
-            'logo_size'    => 'brg_nav_logo_size',
-            'logo_href'    => 'brg_nav_logo_href',
-            'link_size'    => 'brg_nav_link_size',
-            'link_gap'     => 'brg_nav_link_gap',
-            'left'         => 'brg_nav_left',
-            'right'        => 'brg_nav_right',
-            'more_label'   => 'brg_nav_more_label',
-            'follow_label' => 'brg_nav_follow_label',
-            'show_numbers' => 'brg_nav_show_numbers',
-            'show_social'  => 'brg_nav_show_social',
+            'logo'              => 'brg_header_logo',
+            'logo_height'       => 'brg_header_logo_height',
+            'brand_name'        => 'brg_header_brand_name',
+            'logo_href'         => 'brg_header_logo_href',
+            'layout'            => 'brg_header_layout',
+            'link_size'         => 'brg_header_link_size',
+            'link_gap'          => 'brg_header_link_gap',
+            'left'              => 'brg_header_left',
+            'right'             => 'brg_header_right',
+            'more_label'        => 'brg_header_more_label',
+            'bar_max'           => 'brg_header_bar_max',
+            'pin_pages'         => 'brg_header_pin_pages',
+            'pin_social'        => 'brg_header_pin_social',
+            'pin_wordmark'      => 'brg_header_pin_wordmark',
+            'order_pages'       => 'brg_header_order_pages',
+            'order_social'      => 'brg_header_order_social',
+            'order_wordmark'    => 'brg_header_order_wordmark',
+            'tm_link_size'      => 'brg_header_tm_link_size',
+            'tm_gap'            => 'brg_header_tm_gap',
+            'tm_wordmark_size'  => 'brg_header_tm_wordmark_size',
+            'tm_label_size'     => 'brg_header_tm_label_size',
+            'show_pages'        => 'brg_header_show_pages',
+            'show_social'       => 'brg_header_show_social',
+            'show_wordmark'     => 'brg_header_show_wordmark',
+            'show_menu_label'   => 'brg_header_show_menu_label',
+            'show_social_label' => 'brg_header_show_social_label',
+            'show_numbers'      => 'brg_header_show_numbers',
+            'menu_label'        => 'brg_header_menu_label',
+            'social_label'      => 'brg_header_social_label',
+            'wordmark'          => 'brg_header_wordmark',
+            'wordmark_line'     => 'brg_header_wordmark_line',
         );
     }
 }
-if ( ! function_exists( 'vcc_nav_setting' ) ) {
-    function vcc_nav_setting( $key, $atts = null, $cfg = null ) {
-        $map = vcc_nav_keys();
+
+if ( ! function_exists( 'vcc_footer_keys' ) ) {
+    function vcc_footer_keys() {
+        /* TOKEN KEY => OPTION NAME, written out rather than composed. Composing reads as
+         * tidier and is worse twice over: the option names would exist nowhere in this file,
+         * so build-acf.py's reader check reports every field as "accepts input that changes
+         * nothing", and a human grepping for one finds no reader either. The map is also the
+         * allow-list. */
+        return array(
+            'logo'        => 'brg_footer_logo',
+            'logo_width'  => 'brg_footer_logo_width',
+            'logo_href'   => 'brg_footer_logo_href',
+            'pad_top'     => 'brg_footer_pad_top',
+            'pad_bottom'  => 'brg_footer_pad_bottom',
+            'align'       => 'brg_footer_align',
+            'show_social' => 'brg_footer_show_social',
+            'social_size' => 'brg_footer_social_size',
+            'legal'       => 'brg_footer_legal',
+            'links'       => 'brg_footer_links',
+        );
+    }
+}
+
+/* One reader for both. Precedence is shortcode attribute > saved value > the default
+ * declared in slots.json, the same order a section slot uses, so a shortcode can still make
+ * one placement differ and an untouched site renders exactly as designed. */
+if ( ! function_exists( 'vcc_chrome' ) ) {
+    function vcc_chrome( $which, $key, $atts = null, $cfg = null ) {
+        $map = $which === 'footer' ? vcc_footer_keys() : vcc_header_keys();
         if ( ! isset( $map[ $key ] ) ) return '';
         if ( is_array( $atts ) && isset( $atts[ $key ] ) && $atts[ $key ] !== '' ) {
-            return (string) $atts[ $key ];                       // shortcode wins
+            return (string) $atts[ $key ];
         }
         if ( function_exists( 'get_field' ) ) {
             $v = get_field( $map[ $key ], 'option' );
-            if ( is_array( $v ) && isset( $v['url'] ) ) $v = $v['url'];   // image field
+            if ( is_array( $v ) && isset( $v['url'] ) ) $v = $v['url'];
             if ( is_string( $v ) ) $v = trim( $v );
             if ( $v !== null && $v !== false && $v !== '' ) return (string) $v;
         }
-        static $defaults = null;
-        if ( $defaults === null ) {
-            $defaults = array();
+        static $defaults = array();
+        if ( ! isset( $defaults[ $which ] ) ) {
+            $defaults[ $which ] = array();
             if ( ! $cfg && isset( $GLOBALS['VCC_CLIENTS']['brg'] ) ) $cfg = $GLOBALS['VCC_CLIENTS']['brg'];
             if ( is_array( $cfg ) && ! empty( $cfg['base'] ) ) {
-                $raw = vcc_fetch( rtrim( $cfg['base'], '/' ) . '/chrome/nav/slots.json', VCC_TTL );
+                $raw = vcc_fetch( rtrim( $cfg['base'], '/' ) . '/chrome/' . $which . '/slots.json', VCC_TTL );
                 $d   = $raw ? json_decode( $raw, true ) : null;
                 if ( is_array( $d ) ) foreach ( $d as $k => $v ) {
                     if ( strpos( (string) $k, '_' ) !== 0 && is_array( $v ) && isset( $v['default'] ) ) {
-                        $defaults[ $k ] = (string) $v['default'];
+                        $defaults[ $which ][ $k ] = (string) $v['default'];
                     }
                 }
             }
         }
-        return isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+        return isset( $defaults[ $which ][ $key ] ) ? $defaults[ $which ][ $key ] : '';
     }
 }
 
@@ -740,7 +823,7 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
         $loc  = isset( $cfg['nav_menu'] ) ? $cfg['nav_menu'] : '';
         /* The editor's logo wins; the path in the plugin config is the fallback, so a site
          * that has never opened this page looks exactly as it did. */
-        $logo = vcc_nav_setting( 'logo', $atts );
+        $logo = vcc_chrome( 'header', 'logo', $atts );
         if ( $logo === '' ) $logo = isset( $cfg['nav_logo'] ) ? $base . $cfg['nav_logo'] : '';
 
         /* The SOCIAL menu. brg_social has been a registered location since v2.2 and
@@ -777,10 +860,10 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
 
         // Layout controls (shortcode attrs): layout=left|split|center|compact, left/right (per-side
         // counts, overflow → More drawer), sticky=pin|hide (hide-on-scroll-down). Default = left.
-        $layout = ( is_array( $atts ) && isset( $atts['layout'] ) ) ? preg_replace( '/[^a-z]/', '', strtolower( $atts['layout'] ) ) : 'left';
+        $layout = preg_replace( '/[^a-z]/', '', strtolower( vcc_chrome( 'header', 'layout', $atts ) ) );
         if ( ! in_array( $layout, array( 'left', 'split', 'center', 'compact' ), true ) ) $layout = 'left';
-        $left   = max( 0, intval( vcc_nav_setting( 'left',  $atts ) ) );
-        $right  = max( 0, intval( vcc_nav_setting( 'right', $atts ) ) );
+        $left   = max( 0, intval( vcc_chrome( 'header', 'left', $atts ) ) );
+        $right  = max( 0, intval( vcc_chrome( 'header', 'right', $atts ) ) );
         $sticky = ( is_array( $atts ) && isset( $atts['sticky'] ) && $atts['sticky'] === 'hide' ) ? 'hide' : 'pin';
 
         // Background: bg=solid|none|frost, bgcolor="#hex|rgb()|name", opacity="0–1".
@@ -801,28 +884,64 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
          * and simply reads a different number — the same shape Oak + Elm uses. The labels
          * and the two switches go out as data-attributes, which is what brgw-nav.js
          * already reads for `more` and `follow`. */
-        $lsize  = intval( vcc_nav_setting( 'link_size', $atts ) );
-        $lgap   = intval( vcc_nav_setting( 'link_gap',  $atts ) );
-        if ( $lsize >= 9  && $lsize <= 22 ) $style .= '--bnav-link-size:' . $lsize . 'px;';
-        if ( $lgap  >= 8  && $lgap  <= 64 ) $style .= '--bnav-link-gap:'  . $lgap  . 'px;';
-        $lh = intval( vcc_nav_setting( 'logo_size', $atts ) );
-        if ( $lh >= 16 && $lh <= 96 ) $style .= '--bnav-logo-size:' . $lh . 'px;';
-        $moreLabel   = vcc_nav_setting( 'more_label',   $atts );
-        $followLabel = vcc_nav_setting( 'follow_label', $atts );
-        $numbers     = vcc_nav_setting( 'show_numbers', $atts ) === '0' ? '0' : '1';
-        $socialOn    = vcc_nav_setting( 'show_social',  $atts ) === '0' ? '0' : '1';
-        $logoHref    = vcc_nav_setting( 'logo_href', $atts );
+        /* EVERY SETTING ON THE HEADER TAB REACHES THE BAR, by one of three routes:
+         *   - a size becomes a CUSTOM PROPERTY, so the stylesheet keeps its clamps and
+         *     responsive rules and simply reads a different number;
+         *   - a choice becomes a DATA-ATTRIBUTE that CSS or brgw-nav.js switches on;
+         *   - a piece of text goes out as a data-attribute the script already reads.
+         * Anything not listed here would be a field that accepts input and changes nothing,
+         * which is the failure this project keeps paying for. */
+        $px = function ( $v, $lo, $hi, $prop ) {
+            $n = intval( $v );
+            return ( $n >= $lo && $n <= $hi ) ? $prop . ':' . $n . 'px;' : '';
+        };
+        $style .= $px( vcc_chrome( 'header', 'link_size',       $atts ),  9,  22, '--bnav-link-size' );
+        $style .= $px( vcc_chrome( 'header', 'link_gap',        $atts ),  8,  64, '--bnav-link-gap' );
+        $style .= $px( vcc_chrome( 'header', 'logo_height',     $atts ), 16,  96, '--bnav-logo-size' );
+        $style .= $px( vcc_chrome( 'header', 'tm_link_size',    $atts ), 18,  84, '--bnav-tm-link' );
+        $style .= $px( vcc_chrome( 'header', 'tm_gap',          $atts ),  0,  80, '--bnav-tm-gap' );
+        $style .= $px( vcc_chrome( 'header', 'tm_wordmark_size',$atts ), 60, 420, '--bnav-tm-wm' );
+        $style .= $px( vcc_chrome( 'header', 'tm_label_size',   $atts ),  8,  20, '--bnav-tm-label' );
+
+        $onoff = function ( $v ) { return $v === '0' ? '0' : '1'; };
+        $data = array(
+            'more'          => vcc_chrome( 'header', 'more_label',        $atts ),
+            'follow'        => vcc_chrome( 'header', 'social_label',      $atts ),
+            'menulabel'     => vcc_chrome( 'header', 'menu_label',        $atts ),
+            'barmax'        => intval( vcc_chrome( 'header', 'bar_max',   $atts ) ),
+            'wordmark'      => vcc_chrome( 'header', 'wordmark',          $atts ),
+            'meta'          => vcc_chrome( 'header', 'wordmark_line',     $atts ),
+            'brand'         => vcc_chrome( 'header', 'brand_name',        $atts ),
+            'pin-pages'     => vcc_chrome( 'header', 'pin_pages',         $atts ),
+            'pin-social'    => vcc_chrome( 'header', 'pin_social',        $atts ),
+            'pin-wordmark'  => vcc_chrome( 'header', 'pin_wordmark',      $atts ),
+            'order-pages'   => vcc_chrome( 'header', 'order_pages',       $atts ),
+            'order-social'  => vcc_chrome( 'header', 'order_social',      $atts ),
+            'order-wordmark'=> vcc_chrome( 'header', 'order_wordmark',    $atts ),
+            'show-pages'    => $onoff( vcc_chrome( 'header', 'show_pages',        $atts ) ),
+            'social'        => $onoff( vcc_chrome( 'header', 'show_social',       $atts ) ),
+            'show-wordmark' => $onoff( vcc_chrome( 'header', 'show_wordmark',     $atts ) ),
+            'menulabel-on'  => $onoff( vcc_chrome( 'header', 'show_menu_label',   $atts ) ),
+            'sociallabel-on'=> $onoff( vcc_chrome( 'header', 'show_social_label', $atts ) ),
+            'numbers'       => $onoff( vcc_chrome( 'header', 'show_numbers',      $atts ) ),
+        );
+        $dataAttr = '';
+        foreach ( $data as $k => $v ) {
+            if ( $v === '' || $v === null ) continue;
+            $dataAttr .= ' data-' . $k . '="' . esc_attr( $v ) . '"';
+        }
+
+        $brand    = vcc_chrome( 'header', 'brand_name', $atts );
+        if ( $brand === '' ) $brand = 'Blacktop Restaurant Group';
+        $logoHref = vcc_chrome( 'header', 'logo_href', $atts );
         if ( $logoHref === '' ) $logoHref = $home;
 
         $header = '<header class="bnav lay-' . esc_attr( $layout ) . ' bg-' . esc_attr( $bg ) . '"'
                 . ( $style !== '' ? ' style="' . esc_attr( $style ) . '"' : '' )
                 . ' data-left="' . esc_attr( $left )
                 . '" data-right="' . esc_attr( $right ) . '" data-sticky="' . esc_attr( $sticky ) . '"'
-                . ' data-more="' . esc_attr( $moreLabel ) . '"'
-                . ' data-follow="' . esc_attr( $followLabel ) . '"'
-                . ' data-numbers="' . esc_attr( $numbers ) . '"'
-                . ' data-social="' . esc_attr( $socialOn ) . '">'
-                . '<a class="bnav-logo" href="' . esc_url( $logoHref ) . '" aria-label="Blacktop Restaurant Group — home">'
+                . $dataAttr . '>'
+                . '<a class="bnav-logo" href="' . esc_url( $logoHref ) . '" aria-label="' . esc_attr( $brand ) . ' — home">'
                 . ( $logo ? '<img src="' . esc_url( $logo ) . '" alt="Blacktop Restaurant Group">' : '' )
                 . '</a>'
                 . $menu                                             // hidden <ul class="nav-src"> source (JS reads it)

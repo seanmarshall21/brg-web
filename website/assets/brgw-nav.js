@@ -144,6 +144,7 @@
       var i = 0;
       list.forEach(function (it) {
         var el = mkItem(it, full ? i : undefined);
+        if (full) place(el, 'pages');
         /* BOTH the row and the rise carry the delay. transition-delay is not inherited,
            and .bnav-rise is a grandchild of the row (item > a > mask > rise), so CSS
            `inherit` there resolves to 0s and every label would rise at once under a
@@ -151,6 +152,23 @@
         setDelay(el, 0.14 + i++ * 0.055);
         dItems.appendChild(el);
       });
+      /* EACH BLOCK IS PLACED, NOT JUST APPENDED. The Header tab says whether the pages, the
+         social row and the wordmark sit in the top group or pinned to the bottom, and in
+         what order within it. Both are expressed through CSS `order`, which is why they are
+         set here rather than by moving nodes around: re-ordering the DOM would change the
+         reading order for a screen reader, and the visual order is the only thing meant to
+         change. */
+      function place(el, which) {
+        /* dataset NAMES ARE camelCase: data-pin-social is dataset.pinSocial, not
+           dataset.pinsocial. Getting that wrong does not throw — it returns undefined and
+           every block quietly falls back to the default, which is precisely how a settings
+           page becomes a page of controls that do nothing. */
+        var W = which.charAt(0).toUpperCase() + which.slice(1);
+        el.setAttribute('data-block', which);
+        el.setAttribute('data-pin', nav.dataset['pin' + W] === 'bottom' ? 'bottom' : 'top');
+        el.style.setProperty('--blk-ord', nav.dataset['order' + W] || '1');
+      }
+
       if (SOCIAL.length && nav.dataset.social !== '0') {
         var eyebrow = document.createElement('span');
         eyebrow.className = 'bnav-drawer-eyebrow';
@@ -177,6 +195,7 @@
           if (SOCIAL_ICONS[key]) a.setAttribute('aria-label', it.label);
           row.appendChild(a);
         });
+        place(eyebrow, 'social'); place(row, 'social');
         dItems.appendChild(row);
       }
       /* The ANCHOR closes the takeover: a large wordmark and one line under it, pinned
@@ -188,9 +207,22 @@
         var anchor = document.createElement('span');
         anchor.className = 'bnav-anchor';
         anchor.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
-        var wm = document.createElement('span');
-        wm.className = 'bnav-wordmark blanco';
-        wm.textContent = nav.dataset.wordmark || 'BLACKTOP';
+        /* ARTWORK IF THERE IS ANY, OTHERWISE THE WORDS. The Header tab's Wordmark field is an
+           image; with none chosen this stays the text lockup it has always been. Written as
+           one block rather than two, because a second .bnav-wordmark is exactly what I added
+           first and it collided with this one — the URL rendered as visible text next to the
+           real image. */
+        var wmSrc = (nav.dataset.wordmark || '').trim();
+        var wm;
+        if (/^(https?:|\/)/.test(wmSrc)) {
+          wm = document.createElement('img');
+          wm.className = 'bnav-wordmark is-art';
+          wm.src = wmSrc; wm.alt = nav.dataset.brand || '';
+        } else {
+          wm = document.createElement('span');
+          wm.className = 'bnav-wordmark blanco';
+          wm.textContent = wmSrc || 'BLACKTOP';
+        }
         anchor.appendChild(wm);
         var meta = (nav.dataset.meta || '').trim();
         if (meta) {                       // blank hides the line rather than leaving a gap
@@ -198,6 +230,7 @@
           mt.className = 'bnav-meta'; mt.textContent = meta;
           anchor.appendChild(mt);
         }
+        place(anchor, 'wordmark');
         dItems.appendChild(anchor);
       }
 

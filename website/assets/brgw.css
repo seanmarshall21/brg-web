@@ -189,6 +189,21 @@
 @media(min-width:760px){
   .brgw__footer .brgw__social{position:absolute;right:var(--pad);bottom:40px;margin-top:0;}
 }
+/* ---- what the Footer tab drives --------------------------------------------------- */
+.brgw__footer{padding-top:var(--brgw-footer-pt,56px);padding-bottom:var(--brgw-footer-pb,56px);}
+.brgw__footer[data-align="left"]{text-align:left;}
+.brgw__footer[data-align="left"] .lockup{margin-inline:0;}
+.brgw__footer[data-align="split"]{display:flex;align-items:center;justify-content:space-between;
+  gap:clamp(16px,4vw,48px);flex-wrap:wrap;}
+.brgw__footer[data-align="split"] .lockup{margin-inline:0;}
+.brgw__footer svg{width:var(--brgw-footer-social,20px);height:var(--brgw-footer-social,20px);}
+.brgw__footer .legal{margin:14px 0 0;font-size:clamp(11px,1vw,13px);opacity:.62;
+  display:flex;gap:14px;justify-content:inherit;flex-wrap:wrap;}
+.brgw__footer[data-align="center"] .legal{justify-content:center;}
+.brgw__footer .legal-links{display:flex;gap:14px;flex-wrap:wrap;}
+.brgw__footer .legal a{color:inherit;}
+.brgw__footer .lockup-link{display:block;text-decoration:none;color:inherit;}
+
 .brgw__footer .lockup{display:block;overflow:hidden;margin:0 auto;
   /* Width comes from Brand info as --brgw-footer-logo-w. The min() stays wrapped around
      it so a big number still cannot overflow a phone — it means 'as wide as it fits'. */

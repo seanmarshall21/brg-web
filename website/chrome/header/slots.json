@@ -1,0 +1,344 @@
+{
+  "_label": "Header",
+  "_page": "site-wide",
+  "_page_label": "Site-wide",
+  "_order": 1,
+  "logo": {
+    "type": "image",
+    "label": "Logo",
+    "doc": "The mark in the bar. An SVG stays crisp at any size.",
+    "group": "Logo"
+  },
+  "logo_height": {
+    "type": "number",
+    "label": "Logo height",
+    "doc": "How tall it is in the bar, in pixels. The bar sizes itself from its contents, so a taller logo makes a taller bar — and it still scales down when the page scrolls.",
+    "group": "Logo",
+    "width": 50,
+    "default": "32",
+    "min": 16,
+    "max": 96,
+    "step": 1,
+    "append": "px"
+  },
+  "brand_name": {
+    "type": "text",
+    "label": "Brand name (read aloud by screen readers)",
+    "doc": "What someone using a screen reader hears in place of the logo image.",
+    "group": "Logo",
+    "width": 50,
+    "default": "Blacktop Restaurant Group"
+  },
+  "logo_href": {
+    "type": "url",
+    "label": "Logo links to",
+    "doc": "Where clicking the logo goes. Worth checking if a temporary landing page is ever sitting at the root.",
+    "group": "Logo",
+    "default": "/"
+  },
+  "layout": {
+    "type": "select",
+    "label": "Layout",
+    "doc": "Where the logo sits and how the links arrange around it.",
+    "group": "Desktop menu",
+    "width": 50,
+    "default": "left",
+    "choices": {
+      "left": "Logo left, links right",
+      "split": "Logo centered, links both sides",
+      "center": "Logo centered",
+      "compact": "Compact"
+    }
+  },
+  "link_size": {
+    "type": "number",
+    "label": "Link text size",
+    "doc": "The size of the words in the bar, in pixels.",
+    "group": "Desktop menu",
+    "width": 50,
+    "default": "13",
+    "min": 9,
+    "max": 22,
+    "step": 1,
+    "append": "px"
+  },
+  "link_gap": {
+    "type": "number",
+    "label": "Space between links",
+    "doc": "The gap from one link to the next. Tighten this before reducing the size when a long menu is close to wrapping.",
+    "group": "Desktop menu",
+    "width": 50,
+    "default": "26",
+    "min": 8,
+    "max": 64,
+    "step": 1,
+    "append": "px"
+  },
+  "left": {
+    "type": "number",
+    "label": "Links before the logo",
+    "doc": "Only used by the layouts that put links either side of a centered logo.",
+    "group": "Desktop menu",
+    "width": 25,
+    "default": "2",
+    "min": 0,
+    "max": 8,
+    "step": 1
+  },
+  "right": {
+    "type": "number",
+    "label": "Links after the logo",
+    "doc": "As above, for the other side. On a logo-left layout this is the only one that counts.",
+    "group": "Desktop menu",
+    "width": 25,
+    "default": "2",
+    "min": 0,
+    "max": 8,
+    "step": 1
+  },
+  "more_label": {
+    "type": "text",
+    "label": "“More” button text",
+    "doc": "The wording on the button that opens the overflow panel.",
+    "group": "Desktop menu — overflow",
+    "width": 50,
+    "default": "More"
+  },
+  "bar_max": {
+    "type": "number",
+    "label": "Links on the bar before “More”",
+    "doc": "0 means show every link and never overflow. Any other number caps the bar and moves the rest into the panel.",
+    "group": "Desktop menu — overflow",
+    "width": 50,
+    "default": "0",
+    "min": 0,
+    "max": 12,
+    "step": 1
+  },
+  "pin_pages": {
+    "type": "select",
+    "label": "Pages",
+    "doc": "Whether the page links sit in the top group, which scrolls if it is long, or the bottom group pinned to the foot of the screen.",
+    "group": "Phone menu — top or bottom",
+    "width": 33,
+    "default": "top",
+    "choices": {
+      "top": "Pinned to top",
+      "bottom": "Pinned to bottom"
+    }
+  },
+  "pin_social": {
+    "type": "select",
+    "label": "Social",
+    "doc": "Same choice for the social icons.",
+    "group": "Phone menu — top or bottom",
+    "width": 33,
+    "default": "bottom",
+    "choices": {
+      "top": "Pinned to top",
+      "bottom": "Pinned to bottom"
+    }
+  },
+  "pin_wordmark": {
+    "type": "select",
+    "label": "Wordmark",
+    "doc": "Same choice for the wordmark at the foot of the menu.",
+    "group": "Phone menu — top or bottom",
+    "width": 33,
+    "default": "bottom",
+    "choices": {
+      "top": "Pinned to top",
+      "bottom": "Pinned to bottom"
+    }
+  },
+  "order_pages": {
+    "type": "select",
+    "label": "Pages",
+    "doc": "Where this block sits within its group.",
+    "group": "Phone menu — order (top to bottom)",
+    "width": 33,
+    "default": "1",
+    "choices": {
+      "1": "1st",
+      "2": "2nd",
+      "3": "3rd"
+    }
+  },
+  "order_social": {
+    "type": "select",
+    "label": "Social",
+    "doc": "Where this block sits within its group.",
+    "group": "Phone menu — order (top to bottom)",
+    "width": 33,
+    "default": "2",
+    "choices": {
+      "1": "1st",
+      "2": "2nd",
+      "3": "3rd"
+    }
+  },
+  "order_wordmark": {
+    "type": "select",
+    "label": "Wordmark",
+    "doc": "Where this block sits within its group.",
+    "group": "Phone menu — order (top to bottom)",
+    "width": 33,
+    "default": "3",
+    "choices": {
+      "1": "1st",
+      "2": "2nd",
+      "3": "3rd"
+    }
+  },
+  "tm_link_size": {
+    "type": "number",
+    "label": "Page link size",
+    "doc": "The big menu words, in pixels.",
+    "group": "Phone menu — sizes",
+    "width": 33,
+    "default": "40",
+    "min": 18,
+    "max": 84,
+    "step": 1,
+    "append": "px"
+  },
+  "tm_gap": {
+    "type": "number",
+    "label": "Space between blocks",
+    "doc": "The gap between the pages, the social row and the wordmark.",
+    "group": "Phone menu — sizes",
+    "width": 33,
+    "default": "26",
+    "min": 0,
+    "max": 80,
+    "step": 1,
+    "append": "px"
+  },
+  "tm_wordmark_size": {
+    "type": "number",
+    "label": "Wordmark size",
+    "doc": "How wide the wordmark is at the foot of the menu.",
+    "group": "Phone menu — sizes",
+    "width": 33,
+    "default": "160",
+    "min": 60,
+    "max": 420,
+    "step": 5,
+    "append": "px"
+  },
+  "tm_label_size": {
+    "type": "number",
+    "label": "Small label size",
+    "doc": "The size of the “Menu” and “Follow” labels.",
+    "group": "Phone menu — sizes",
+    "width": 50,
+    "default": "11",
+    "min": 8,
+    "max": 20,
+    "step": 1,
+    "append": "px"
+  },
+  "show_pages": {
+    "type": "select",
+    "label": "Pages",
+    "doc": "The page links. Hiding these leaves a menu with only the social row and wordmark.",
+    "group": "Phone menu — show / hide",
+    "width": 33,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "show_social": {
+    "type": "select",
+    "label": "Social",
+    "doc": "The social icons. They come from the menu assigned to BRG — Social under Appearance → Menus; hiding them here leaves that menu alone.",
+    "group": "Phone menu — show / hide",
+    "width": 33,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "show_wordmark": {
+    "type": "select",
+    "label": "Wordmark",
+    "doc": "The wordmark at the foot of the menu.",
+    "group": "Phone menu — show / hide",
+    "width": 33,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "show_menu_label": {
+    "type": "select",
+    "label": "“Menu” label",
+    "doc": "The small label above the page links.",
+    "group": "Phone menu — show / hide",
+    "width": 33,
+    "default": "0",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "show_social_label": {
+    "type": "select",
+    "label": "“Follow” label",
+    "doc": "The small label above the social icons.",
+    "group": "Phone menu — show / hide",
+    "width": 33,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "show_numbers": {
+    "type": "select",
+    "label": "Numbers (01, 02…)",
+    "doc": "The running numbers beside each page link.",
+    "group": "Phone menu — show / hide",
+    "width": 33,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "menu_label": {
+    "type": "text",
+    "label": "“Menu” label text",
+    "doc": "The wording of the small label above the page links.",
+    "group": "Phone menu — text",
+    "width": 50,
+    "default": "Menu"
+  },
+  "social_label": {
+    "type": "text",
+    "label": "“Follow” label text",
+    "doc": "The wording of the small label above the social icons.",
+    "group": "Phone menu — text",
+    "width": 50,
+    "default": "Follow"
+  },
+  "wordmark": {
+    "type": "image",
+    "label": "Wordmark",
+    "doc": "The mark at the foot of the phone menu. Leave empty and the menu ends with the social row.",
+    "group": "Phone menu — text",
+    "width": 50
+  },
+  "wordmark_line": {
+    "type": "text",
+    "label": "Line under the wordmark",
+    "doc": "A short line beneath it, like a strapline. Leave empty for none.",
+    "group": "Phone menu — text",
+    "width": 50,
+    "default": ""
+  }
+}
