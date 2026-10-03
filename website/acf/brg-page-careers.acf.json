@@ -206,7 +206,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "34",
+                    "width": "50",
                     "class": "brg-f-bg_photo_tone",
                     "id": ""
                 },
@@ -231,7 +231,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "50",
                     "class": "brg-f-bg_photo_px",
                     "id": ""
                 },
@@ -252,7 +252,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "50",
                     "class": "brg-f-bg_photo_px_dir",
                     "id": ""
                 },
@@ -2093,7 +2093,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "34",
+                    "width": "50",
                     "class": "brg-f-photo_tone",
                     "id": ""
                 },
@@ -2118,7 +2118,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "50",
                     "class": "brg-f-photo_px",
                     "id": ""
                 },
@@ -2139,7 +2139,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "50",
                     "class": "brg-f-photo_px_dir",
                     "id": ""
                 },

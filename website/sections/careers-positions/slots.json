@@ -34,7 +34,7 @@
     "type": "select",
     "label": "Photo — color",
     "doc": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
-    "width": 34,
+    "width": 50,
     "default": "color",
     "choices": {
       "color": "Color",
@@ -45,7 +45,7 @@
     "type": "number",
     "label": "Photo — movement",
     "doc": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
-    "width": 33,
+    "width": 50,
     "default": "0",
     "min": 0,
     "max": 40,
@@ -56,7 +56,7 @@
     "type": "select",
     "label": "Photo — movement direction",
     "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-    "width": 33,
+    "width": 50,
     "default": "down",
     "choices": {
       "down": "Down",

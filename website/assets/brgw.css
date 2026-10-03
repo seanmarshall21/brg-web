@@ -772,12 +772,30 @@
    conditionals says "no video here". A new idiom in this file — nothing else uses
    attribute-value matching — so it is stated rather than left to be inferred. */
 .brgw .media{position:relative;overflow:hidden;}
-.brgw .vid{position:absolute;inset:0;overflow:hidden;z-index:1;}
+.brgw .vid{position:absolute;inset:0;overflow:hidden;z-index:1;container-type:size;}
 .brgw .vid[data-vid=""]{display:none;}
-/* A 16:9 iframe cannot object-fit, so it is oversized and centered instead. The 110%
-   overshoot is deliberate: at exactly 100% sub-pixel rounding can leave a 1px hairline
-   of poster along one edge, which reads as a rendering fault. pointer-events:none keeps
-   the video from swallowing clicks meant for a button sitting over it. */
+/* A 16:9 iframe cannot object-fit, so it has to be sized to COVER its box by hand.
+   pointer-events:none keeps the video from swallowing clicks meant for a button over it.
+
+   The fallback below sizes from the VIEWPORT (100vw / 56.25vw) and then forces
+   min-height:110%. That is the bug Sean reported: in a container taller than 16:9 — a
+   hero on a phone — 56.25vw is far too short, min-height stretches the iframe, and the
+   player letterboxes itself inside the stretched box. The video stopped being 16:9.
+
+   The @supports block sizes from the CONTAINER instead, which is what "cover" needs:
+     width  = max(container width, container height x 16/9)
+     height = max(container height, container width x 9/16)
+   Whichever axis is short gets driven by the other, so the ratio is always exactly 16:9
+   and the overflow is clipped by .vid — "it just expands out horizontally beyond the
+   container, and you wouldn't see that because it would be hidden by the container".
+   The spare 0.5% on both axes is the old 110%'s job in miniature: at an exact fit,
+   sub-pixel rounding can leave a 1px hairline of poster along one edge. */
 .brgw .vid iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
   width:100vw;height:56.25vw;min-width:110%;min-height:110%;border:0;pointer-events:none;}
+@supports (width:1cqw){
+  .brgw .vid iframe{
+    width:max(100.5cqw, 178.7cqh);
+    height:max(100.5cqh, 56.54cqw);
+    min-width:0;min-height:0;}
+}
 @media (prefers-reduced-motion:reduce){ .brgw .vid{display:none!important;} }

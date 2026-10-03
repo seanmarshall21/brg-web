@@ -436,7 +436,34 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
                 if ( function_exists( 'get_field' ) ) {
                     $acf = 'brg_' . str_replace( '-', '_', $id ) . '_' . $key;
                     $v   = get_field( $acf, 'option' );
-                    if ( $v !== null && $v !== false && $v !== '' && $v !== array() ) $val = $v;
+                    if ( $v !== null && $v !== false && $v !== '' && $v !== array() ) {
+                        $val = $v;
+                    } else {
+                        /* AN EMPTIED BOX MEANS AN EMPTY PAGE. Sean, 3 Oct: "I tried to delete
+                         * this intro paragraph… If I have nothing in this box, then there
+                         * shouldn't be anything there."
+                         *
+                         * Until now a blank value fell back to the built-in default, so there
+                         * was NO WAY to remove a paragraph from the admin — you cleared the
+                         * box, saved, and the old wording came straight back with nothing to
+                         * explain why.
+                         *
+                         * The two states look identical to get_field(), which returns '' both
+                         * for a field nobody has ever touched and one deliberately emptied.
+                         * The OPTION ROW tells them apart: ACF writes options_<name> the first
+                         * time a group is saved, so an absent row means untouched and an
+                         * existing row holding '' means cleared on purpose. That distinction
+                         * is the whole reason this is safe — a section nobody has opened still
+                         * renders its built-in copy exactly as before.
+                         *
+                         * Deliberately NOT applied to images: an empty image is already a
+                         * supported state everywhere (no hero photo, no section background),
+                         * and those fragments key their own layout off an empty value. */
+                        if ( $type !== 'image' ) {
+                            $raw = get_option( 'options_' . $acf, null );
+                            if ( $raw !== null && $raw !== false ) $val = '';
+                        }
+                    }
                 }
             }
             if ( $type === 'image' ) {                       // ACF image → URL (array / id / url)
