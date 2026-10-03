@@ -406,6 +406,21 @@
 .brgw .anim-up{opacity:0;transform:translateY(26px);will-change:opacity,transform;}
 .brgw .anim-cta{clip-path:inset(50% 50% 50% 50%);will-change:clip-path;}
 
+/* ---- per-child reveal, for a grid taller than the screen ---------------------------
+   Same look as .anim-up, but driven per CHILD by its own observer rather than by the
+   section — see brgw.js. A section reveals once and hands out its whole stagger at that
+   moment, so the rows of a nine-card grid below the fold spend their delay unseen and
+   are simply present when you arrive. These keep animating as you scroll to them.
+   The hidden state is .each-pending rather than the bare child, so a card is never left
+   invisible if the script does not run: nothing is hidden until JS says so. */
+.brgw [data-brgw-each] > .each-pending{opacity:0;transform:translateY(26px);
+  will-change:opacity,transform;}
+.brgw [data-brgw-each] > .each-in{opacity:1;transform:none;
+  transition:opacity 1.05s ease, transform 1.05s cubic-bezier(.22,.9,.24,1);}
+@media (prefers-reduced-motion:reduce){
+  .brgw [data-brgw-each] > .each-pending{opacity:1!important;transform:none!important;}
+}
+
 /* Durations lengthened per Sean's "move too fast" (f062300124): .9s -> 1.15s here,
    .85s -> 1.05s on .anim-up, 1.05s -> 1.25s on the CTA. Easing is untouched — the
    complaint was pace, not shape, and this curve is the house feel. */

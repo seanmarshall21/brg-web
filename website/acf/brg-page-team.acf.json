@@ -206,7 +206,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "34",
                     "class": "brg-f-bg_photo_tone",
                     "id": ""
                 },
@@ -231,7 +231,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "33",
                     "class": "brg-f-bg_photo_px",
                     "id": ""
                 },
@@ -252,7 +252,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "33",
                     "class": "brg-f-bg_photo_px_dir",
                     "id": ""
                 },
@@ -1265,123 +1265,6 @@
                         "library": "all"
                     },
                     {
-                        "key": "field_brg_team_members_members_photo_tone",
-                        "label": "Headshot — color",
-                        "name": "photo_tone",
-                        "type": "select",
-                        "instructions": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-photo_tone",
-                            "id": ""
-                        },
-                        "default_value": "color",
-                        "choices": {
-                            "color": "Color",
-                            "bw": "Black & white"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    },
-                    {
-                        "key": "field_brg_team_members_members_photo_px",
-                        "label": "Headshot — movement",
-                        "name": "photo_px",
-                        "type": "number",
-                        "instructions": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-photo_px",
-                            "id": ""
-                        },
-                        "default_value": "0",
-                        "min": 0,
-                        "max": 40,
-                        "step": 1,
-                        "placeholder": "",
-                        "prepend": "",
-                        "append": "%"
-                    },
-                    {
-                        "key": "field_brg_team_members_members_photo_px_dir",
-                        "label": "Headshot — movement direction",
-                        "name": "photo_px_dir",
-                        "type": "select",
-                        "instructions": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-photo_px_dir",
-                            "id": ""
-                        },
-                        "default_value": "down",
-                        "choices": {
-                            "down": "Down",
-                            "up": "Up"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    },
-                    {
-                        "key": "field_brg_team_members_members_photo_float",
-                        "label": "Headshot — frame drift",
-                        "name": "photo_float",
-                        "type": "number",
-                        "instructions": "Moves the whole frame across the section, on top of the movement inside it, as a percentage of the frame's height. 0 is off; 8 and 12 were the old Gentle and Strong. 40 is the ceiling. Leave this off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-photo_float",
-                            "id": ""
-                        },
-                        "default_value": "0",
-                        "min": 0,
-                        "max": 40,
-                        "step": 1,
-                        "placeholder": "",
-                        "prepend": "",
-                        "append": "%"
-                    },
-                    {
-                        "key": "field_brg_team_members_members_photo_float_dir",
-                        "label": "Headshot — drift direction",
-                        "name": "photo_float_dir",
-                        "type": "select",
-                        "instructions": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-photo_float_dir",
-                            "id": ""
-                        },
-                        "default_value": "down",
-                        "choices": {
-                            "down": "Down",
-                            "up": "Up"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    },
-                    {
                         "key": "field_brg_team_members_members_name",
                         "label": "Name",
                         "name": "name",
@@ -1472,13 +1355,84 @@
                             "class": "brg-f-crop",
                             "id": ""
                         },
-                        "default_value": "bottom",
+                        "default_value": "center",
                         "choices": {
                             "bottom": "Bottom — stands on the base of the box",
                             "center": "Center",
                             "top": "Top",
                             "left": "Left",
                             "right": "Right"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_team_members_members_photo_tone",
+                        "label": "Headshot — color",
+                        "name": "photo_tone",
+                        "type": "select",
+                        "instructions": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "34",
+                            "class": "brg-f-photo_tone",
+                            "id": ""
+                        },
+                        "default_value": "color",
+                        "choices": {
+                            "color": "Color",
+                            "bw": "Black & white"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_team_members_members_photo_px",
+                        "label": "Headshot — movement",
+                        "name": "photo_px",
+                        "type": "number",
+                        "instructions": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "33",
+                            "class": "brg-f-photo_px",
+                            "id": ""
+                        },
+                        "default_value": "0",
+                        "min": 0,
+                        "max": 40,
+                        "step": 1,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "%"
+                    },
+                    {
+                        "key": "field_brg_team_members_members_photo_px_dir",
+                        "label": "Headshot — movement direction",
+                        "name": "photo_px_dir",
+                        "type": "select",
+                        "instructions": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "33",
+                            "class": "brg-f-photo_px_dir",
+                            "id": ""
+                        },
+                        "default_value": "down",
+                        "choices": {
+                            "down": "Down",
+                            "up": "Up"
                         },
                         "return_format": "value",
                         "allow_null": 0,

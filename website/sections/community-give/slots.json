@@ -93,7 +93,8 @@
       "title": {
         "type": "text",
         "label": "Title",
-        "doc": "Shown in the display face, uppercase. Short — around 24 characters keeps it on one line."
+        "doc": "Shown in the display face, uppercase. Short — around 24 characters keeps it on one line.",
+        "width": 100
       },
       "body": {
         "type": "textarea",

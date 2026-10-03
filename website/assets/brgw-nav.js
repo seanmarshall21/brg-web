@@ -91,15 +91,49 @@
     drawer.innerHTML = '<button class="bnav-drawer-close" aria-label="Close">Close &times;</button><div class="bnav-drawer-items"></div>';
     document.body.appendChild(scrim); document.body.appendChild(drawer);
     var dItems = drawer.querySelector('.bnav-drawer-items');
+    var lastFocus = null, hideTimer = null;
     function setDrawer(o) {
       // .is-full marks the takeover so CSS can present it full-screen while the desktop
       // overflow keeps the side-drawer look. fc-brands keeps these as two components; ours
       // is one serving two roles, so the role has to be visible to the stylesheet.
       drawer.classList.toggle('open', o); scrim.classList.toggle('open', o);
       nav.classList.toggle('menu-open', o);          // morphs the hamburger → X
-      drawer.setAttribute('aria-hidden', o ? 'false' : 'true');
       document.documentElement.style.overflow = o ? 'hidden' : '';
+
+      /* The hamburger is a button that opens something — it has to SAY so, and say which
+         thing. Without this a screen reader announces "Menu, button" and nothing changes
+         audibly when the panel opens. */
+      ham.setAttribute('aria-expanded', o ? 'true' : 'false');
+      ham.setAttribute('aria-label', o ? 'Close menu' : 'Menu');
+
+      clearTimeout(hideTimer);
+      if (o) {
+        lastFocus = document.activeElement;
+        drawer.setAttribute('aria-hidden', 'false');
+        /* A moment, because the panel is still transforming in and a focus() on an element
+           that is effectively off-screen scrolls the page under it. Oak + Elm uses 60ms. */
+        setTimeout(function () {
+          var first = drawer.querySelector('a, button');
+          if (first && drawer.classList.contains('open')) first.focus();
+        }, 60);
+      } else {
+        /* aria-hidden goes back ON only after the slide-out finishes, or a screen reader
+           loses the panel mid-animation. transitionend is NOT used: it does not fire in a
+           hidden or background tab, which would leave the panel permanently exposed to
+           assistive tech. A timer always fires. */
+        hideTimer = setTimeout(function () {
+          if (!drawer.classList.contains('open')) drawer.setAttribute('aria-hidden', 'true');
+        }, 600);
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
     }
+    function setDelay(el, secs) {
+      var d = secs.toFixed(3) + 's';
+      el.style.transitionDelay = d;
+      var rise = el.querySelector ? el.querySelector('.bnav-rise') : null;
+      if (rise) rise.style.transitionDelay = d;
+    }
+
     function openWith(list, full) {
       dItems.innerHTML = '';
       drawer.classList.toggle('is-full', !!full);
@@ -109,20 +143,24 @@
          (fc-brands' takeover uses the same single-counter rule.) */
       var i = 0;
       list.forEach(function (it) {
-        var el = mkItem(it);
-        el.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
+        var el = mkItem(it, full ? i : undefined);
+        /* BOTH the row and the rise carry the delay. transition-delay is not inherited,
+           and .bnav-rise is a grandchild of the row (item > a > mask > rise), so CSS
+           `inherit` there resolves to 0s and every label would rise at once under a
+           staggered fade. Set on the element that animates. */
+        setDelay(el, 0.14 + i++ * 0.055);
         dItems.appendChild(el);
       });
       if (SOCIAL.length) {
         var eyebrow = document.createElement('span');
         eyebrow.className = 'bnav-drawer-eyebrow';
         eyebrow.textContent = nav.dataset.follow || 'Follow';
-        eyebrow.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
+        setDelay(eyebrow, 0.14 + i++ * 0.055);
         dItems.appendChild(eyebrow);
 
         var row = document.createElement('span');
         row.className = 'bnav-social';
-        row.style.transitionDelay = (0.14 + i++ * 0.055) + 's';
+        setDelay(row, 0.14 + i++ * 0.055);
         SOCIAL.forEach(function (it) {
           var a = document.createElement('a');
           /* Sean: "any platform — I would write Instagram, and it would recognize that
@@ -171,9 +209,23 @@
     drawer.addEventListener('click', function (e) { if (e.target.closest('a')) setDrawer(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setDrawer(false); });
 
-    function mkItem(it) {
+    function mkItem(it, n) {
       var span = document.createElement('span'); span.className = 'bnav-item' + (it.active ? ' is-active' : '');
-      var a = document.createElement('a'); a.className = 'bnav-link'; a.href = it.href; a.innerHTML = it.label;
+      /* The number is only drawn in the takeover, where CSS shows it; passing it always
+         keeps this one builder serving both roles. n is the POSITION SHOWN, not the
+         source index — the menu can be reordered in wp-admin and 01 must still be the
+         top row. */
+      if (typeof n === 'number') {
+        var num = document.createElement('span');
+        num.className = 'bnav-num'; num.setAttribute('aria-hidden', 'true');
+        num.textContent = (n < 9 ? '0' : '') + (n + 1);
+        span.appendChild(num);
+      }
+      var a = document.createElement('a'); a.className = 'bnav-link'; a.href = it.href;
+      /* MASK + RISE. The label goes inside an overflow:hidden span with an inner span
+         that starts pushed down, so the words are clipped until they arrive. Built here
+         rather than in CSS because it needs a real element to clip. */
+      a.innerHTML = '<span class="bnav-mask"><span class="bnav-rise">' + it.label + '</span></span>';
       span.appendChild(a); span.insertAdjacentHTML('beforeend', ULINE); return span;
     }
     var overflow = [];

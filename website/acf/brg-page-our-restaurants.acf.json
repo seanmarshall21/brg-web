@@ -176,7 +176,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "34",
                     "class": "brg-f-bg_photo_tone",
                     "id": ""
                 },
@@ -201,7 +201,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "33",
                     "class": "brg-f-bg_photo_px",
                     "id": ""
                 },
@@ -222,7 +222,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "33",
                     "class": "brg-f-bg_photo_px_dir",
                     "id": ""
                 },
@@ -1344,7 +1344,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "34",
                     "class": "brg-f-bnb_image_tone",
                     "id": ""
                 },
@@ -1369,7 +1369,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "33",
                     "class": "brg-f-bnb_image_px",
                     "id": ""
                 },
@@ -1390,54 +1390,8 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "33",
                     "class": "brg-f-bnb_image_px_dir",
-                    "id": ""
-                },
-                "default_value": "down",
-                "choices": {
-                    "down": "Down",
-                    "up": "Up"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_bnb_image_float",
-                "label": "Board & Brew — image — frame drift",
-                "name": "brg_our_restaurants_brands_bnb_image_float",
-                "type": "number",
-                "instructions": "Moves the whole frame across the section, on top of the movement inside it, as a percentage of the frame's height. 0 is off; 8 and 12 were the old Gentle and Strong. 40 is the ceiling. Leave this off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-bnb_image_float",
-                    "id": ""
-                },
-                "default_value": "0",
-                "min": 0,
-                "max": 40,
-                "step": 1,
-                "placeholder": "",
-                "prepend": "",
-                "append": "%"
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_bnb_image_float_dir",
-                "label": "Board & Brew — image — drift direction",
-                "name": "brg_our_restaurants_brands_bnb_image_float_dir",
-                "type": "select",
-                "instructions": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-bnb_image_float_dir",
                     "id": ""
                 },
                 "default_value": "down",
@@ -1478,7 +1432,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "34",
                     "class": "brg-f-odies_image_tone",
                     "id": ""
                 },
@@ -1503,7 +1457,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "33",
                     "class": "brg-f-odies_image_px",
                     "id": ""
                 },
@@ -1524,54 +1478,8 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "20",
+                    "width": "33",
                     "class": "brg-f-odies_image_px_dir",
-                    "id": ""
-                },
-                "default_value": "down",
-                "choices": {
-                    "down": "Down",
-                    "up": "Up"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_odies_image_float",
-                "label": "Odie's — image — frame drift",
-                "name": "brg_our_restaurants_brands_odies_image_float",
-                "type": "number",
-                "instructions": "Moves the whole frame across the section, on top of the movement inside it, as a percentage of the frame's height. 0 is off; 8 and 12 were the old Gentle and Strong. 40 is the ceiling. Leave this off for a photo that fills its section edge to edge — there is nothing behind it to reveal.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-odies_image_float",
-                    "id": ""
-                },
-                "default_value": "0",
-                "min": 0,
-                "max": 40,
-                "step": 1,
-                "placeholder": "",
-                "prepend": "",
-                "append": "%"
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_odies_image_float_dir",
-                "label": "Odie's — image — drift direction",
-                "name": "brg_our_restaurants_brands_odies_image_float_dir",
-                "type": "select",
-                "instructions": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-odies_image_float_dir",
                     "id": ""
                 },
                 "default_value": "down",

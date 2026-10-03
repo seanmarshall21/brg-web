@@ -13,6 +13,24 @@
   padding:18px clamp(20px,4vw,54px);font-family:'Montserrat',system-ui,sans-serif;
   transition:transform .35s cubic-bezier(.5,0,.2,1);}
 .bnav *{box-sizing:border-box;}
+
+/* ── SHRINK ON SCROLL ────────────────────────────────────────────────────────────
+   Ported from Oak + Elm (their header/style.css), where the bar goes 100px -> 70px
+   once the page has moved at all. Ours is padding-driven rather than a fixed height,
+   because this bar sizes itself from its contents and a hard height would crop the
+   logo at the small end. JS adds .is-scrolled past 8px — 8 and not 0 so a trackpad's
+   one-pixel jitter at the top of the page cannot flutter it.
+   The logo scales INSTEAD of resizing: scaling is a compositor transform, where
+   animating the height is a layout change on a fixed element over the whole page. */
+.bnav{transition:transform .35s cubic-bezier(.5,0,.2,1),padding .3s ease,background-color .3s ease;}
+.bnav.is-scrolled{padding-top:9px;padding-bottom:9px;}
+.bnav-logo img{transition:transform .35s ease;transform-origin:left center;}
+.bnav.is-scrolled .bnav-logo img{transform:scale(.78);}
+.bnav.lay-split.is-scrolled .bnav-logo img,
+.bnav.lay-center.is-scrolled .bnav-logo img{transform-origin:center;}
+@media (prefers-reduced-motion:reduce){
+  .bnav,.bnav-logo img{transition:none;}
+}
 .bnav .nav-src{display:none;}                 /* source menu — data only, JS reads it */
 
 /* Background layer (bg="solid|none|frost", bgcolor="…", opacity="0–1") ---------- */
@@ -189,7 +207,31 @@
   .bnav-drawer.is-full .bnav-drawer-items{
     flex:1; display:flex; flex-direction:column; align-items:flex-start; gap:2px;
   }
+  /* SLIDES DOWN FROM THE TOP, not in from the side. Oak + Elm's takeover drops over
+     the page with the bar riding above it, which is why .bnav.menu-open lifts to
+     z-index 63 — the X has to stay on top of the panel it closes. The base rule
+     animates translateX for the desktop "More" sheet; this is more specific, so the
+     same component gets two entrances without either knowing about the other. */
+  .bnav-drawer.is-full{transform:translateY(-100%);}
+  .bnav-drawer.is-full.open{transform:none;}
+
   .bnav-drawer.is-full .bnav-item{font-size:clamp(2rem,9vw,3.1rem); line-height:1.06;}
+
+  /* THE MASKED RISE. The row fades, and its words come up from behind a clipped edge
+     rather than just sliding — Oak + Elm's translateY(120%) out of an overflow:hidden
+     wrapper. At our 2-3rem type the plain 18px slide reads as a nudge; the mask reads
+     as the words arriving. The item keeps its opacity transition and drops its own
+     transform, or the two would fight over the same property. */
+  .bnav-drawer.is-full .bnav-item{transform:none;}
+  .bnav-drawer.is-full .bnav-mask{display:block;overflow:hidden;}
+  .bnav-drawer.is-full .bnav-rise{display:block;transform:translateY(120%);
+    transition:transform .58s cubic-bezier(.16,1,.3,1);}
+  .bnav-drawer.is-full.open .bnav-rise{transform:none;}
+
+  /* The row number. Counted in JS so it follows the order rows are SHOWN, which is not
+     always source order once the menu is reordered in wp-admin. */
+  .bnav-drawer.is-full .bnav-num{display:block;font:700 .62rem/1 'Montserrat',system-ui,sans-serif;
+    letter-spacing:.2em;color:var(--yellow);opacity:.75;margin-bottom:2px;}
   .bnav-drawer.is-full .bnav-drawer-eyebrow{margin-top:auto; padding-top:26px;}
 }
 

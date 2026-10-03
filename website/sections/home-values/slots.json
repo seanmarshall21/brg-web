@@ -75,7 +75,8 @@
         "type": "text",
         "label": "Name",
         "doc": "The short name on the card, set in the brand face. One or two words reads best.",
-        "default": ""
+        "default": "",
+        "width": 100
       },
       "body": {
         "type": "textarea",

@@ -351,6 +351,11 @@
         if (i) d += (el.classList.contains('ln-i') ? STAG_LN : STAG_EL) * scale;
         var delay = Math.round(d);
         el.style.transitionDelay = delay + 'ms';
+        /* The same number as a custom property, so a child can schedule itself AFTER its
+           own row without the engine knowing what the child is. transition-delay is not
+           inherited and a nested element cannot read its parent's, which is why the crew
+           card's name bar had no way to arrive after the card it belongs to. */
+        el.style.setProperty('--brgw-delay', delay + 'ms');
         if (el.classList.contains('brgw-pop')) {
           /* TWO animations on a mark — the pop, then the endless jitter that starts after
              it. animation-delay takes a LIST, and a single value is applied to every
@@ -416,6 +421,42 @@
          should load". */
       threshold: [0, REVEAL_RATIO], rootMargin: REVEAL_MARGIN });
     root.querySelectorAll('.reveal').forEach(function (s) { io.observe(s); });
+
+    /* ---- PER-CHILD REVEAL, for a grid taller than the screen -------------------------
+       Sean, 3 Oct: "when I go down to the next sections, they all load in at the same
+       time, and they need to be sequential."
+
+       A section reveals ONCE. Its stagger is handed out at that moment, so on the
+       nine-card crew grid the rows below the fold spend their delay while nobody is
+       looking and are simply there when you reach them. Marking the container
+       data-brgw-each hands each child its own observer instead.
+
+       THE STAGGER IS PER BURST, NOT PER INDEX. Four cards coming into view together
+       should arrive one after another; four more a scroll later should start again at
+       zero rather than continuing to a delay measured from the top of the grid. So the
+       counter resets whenever there is a gap with nothing new entering. */
+    var EACH_STEP = 110, EACH_GAP = 420;
+    [].forEach.call(root.querySelectorAll('[data-brgw-each]'), function (box) {
+        var burst = 0, last = 0;
+        var kids = [].slice.call(box.children);
+        kids.forEach(function (k) { k.classList.add('each-pending'); });
+        var eio = new IntersectionObserver(function (ents) {
+          ents.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var now = performance.now();
+            if (now - last > EACH_GAP) burst = 0;
+            last = now;
+            var el = e.target;
+            var ms = burst++ * EACH_STEP;
+            el.style.transitionDelay = ms + 'ms';
+            el.style.setProperty('--brgw-delay', ms + 'ms');
+            el.classList.remove('each-pending');
+            el.classList.add('each-in');
+            eio.unobserve(el);
+          });
+        }, { threshold: [0, 0.08], rootMargin: REVEAL_MARGIN });
+        kids.forEach(function (k) { eio.observe(k); });
+    });
 
     /* BOTTOM-OF-DOCUMENT GUARD — without this the FOOTER never appears.
        rootMargin's negative bottom puts a dead band across the foot of the viewport. That is
