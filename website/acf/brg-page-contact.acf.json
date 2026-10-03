@@ -820,8 +820,8 @@
                 "endpoint": 1
             },
             {
-                "key": "field_brg_contact_hero_acc_button",
-                "label": "Button",
+                "key": "field_brg_contact_hero_acc_buttons",
+                "label": "Buttons",
                 "name": "",
                 "type": "accordion",
                 "instructions": "",
@@ -837,41 +837,11 @@
                 "endpoint": 0
             },
             {
-                "key": "field_brg_contact_hero_cta_label",
-                "label": "Button label",
-                "name": "brg_contact_hero_cta_label",
-                "type": "text",
-                "instructions": "Leave this empty — as it is now — and this section has no button at all. Type a label and the button appears. Short reads best: it is set in capitals with wide letter spacing, so three or four words is the practical limit before it wraps.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-cta_label",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
-                "key": "field_brg_contact_hero_cta_href",
-                "label": "Button link",
-                "name": "brg_contact_hero_cta_href",
-                "type": "text",
-                "instructions": "Where the button goes. A path like /careers/ stays on this site; a full address goes off it. A link on its own shows nothing — the label above is what makes the button appear.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-cta_href",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
                 "key": "field_brg_contact_hero_cta_position",
-                "label": "Button position",
+                "label": "Where the buttons sit",
                 "name": "brg_contact_hero_cta_position",
                 "type": "select",
-                "instructions": "Where the button sits. At the bottom is the usual place and the one the rest of the site uses.",
+                "instructions": "At the bottom is the usual place and the one the rest of the site uses.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -892,7 +862,7 @@
                 "placeholder": ""
             },
             {
-                "key": "field_brg_contact_hero_endacc_button",
+                "key": "field_brg_contact_hero_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -1011,6 +981,143 @@
             },
             {
                 "key": "field_brg_contact_hero_endacc_button_style",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_contact_hero_acc_buttons",
+                "label": "Buttons",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_contact_hero_buttons",
+                "label": "Buttons",
+                "name": "brg_contact_hero_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_contact_hero_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_contact_hero_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_contact_hero_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_contact_hero_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_contact_hero_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_contact_hero_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_hero_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -1438,8 +1545,8 @@
                 "endpoint": 1
             },
             {
-                "key": "field_brg_contact_routes_acc_button",
-                "label": "Button",
+                "key": "field_brg_contact_routes_acc_buttons",
+                "label": "Buttons",
                 "name": "",
                 "type": "accordion",
                 "instructions": "",
@@ -1455,41 +1562,11 @@
                 "endpoint": 0
             },
             {
-                "key": "field_brg_contact_routes_cta_label",
-                "label": "Button label",
-                "name": "brg_contact_routes_cta_label",
-                "type": "text",
-                "instructions": "Leave this empty — as it is now — and this section has no button at all. Type a label and the button appears. Short reads best: it is set in capitals with wide letter spacing, so three or four words is the practical limit before it wraps.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-cta_label",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
-                "key": "field_brg_contact_routes_cta_href",
-                "label": "Button link",
-                "name": "brg_contact_routes_cta_href",
-                "type": "text",
-                "instructions": "Where the button goes. A path like /careers/ stays on this site; a full address goes off it. A link on its own shows nothing — the label above is what makes the button appear.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-cta_href",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
                 "key": "field_brg_contact_routes_cta_position",
-                "label": "Button position",
+                "label": "Where the buttons sit",
                 "name": "brg_contact_routes_cta_position",
                 "type": "select",
-                "instructions": "Where the button sits. At the bottom is the usual place and the one the rest of the site uses.",
+                "instructions": "At the bottom is the usual place and the one the rest of the site uses.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -1510,7 +1587,7 @@
                 "placeholder": ""
             },
             {
-                "key": "field_brg_contact_routes_endacc_button",
+                "key": "field_brg_contact_routes_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -1645,6 +1722,143 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_contact_routes_acc_buttons",
+                "label": "Buttons",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_contact_routes_buttons",
+                "label": "Buttons",
+                "name": "brg_contact_routes_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_contact_routes_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_contact_routes_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_contact_routes_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_contact_routes_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_contact_routes_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_contact_routes_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_routes_endacc_buttons",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_contact_restaurants",
                 "label": "Visit a restaurant",
                 "name": "",
@@ -1680,36 +1894,6 @@
                 "ui_off_text": "Hidden"
             },
             {
-                "key": "field_brg_contact_restaurants_heading",
-                "label": "Heading",
-                "name": "brg_contact_restaurants_heading",
-                "type": "text",
-                "instructions": "Display face on the teal band, free-wrapping inside 20ch.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-heading",
-                    "id": ""
-                },
-                "default_value": "Looking for a restaurant?"
-            },
-            {
-                "key": "field_brg_contact_restaurants_sub",
-                "label": "Sub copy",
-                "name": "brg_contact_restaurants_sub",
-                "type": "textarea",
-                "instructions": "One line beneath the heading. Write <code>&</code> as a literal ampersand.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-sub",
-                    "id": ""
-                },
-                "default_value": "Addresses, hours, and every Board & Brew and Odie's location in one place."
-            },
-            {
                 "key": "field_brg_contact_restaurants_cta_label",
                 "label": "Button label",
                 "name": "brg_contact_restaurants_cta_label",
@@ -1738,6 +1922,36 @@
                     "id": ""
                 },
                 "default_value": "/brands/"
+            },
+            {
+                "key": "field_brg_contact_restaurants_heading",
+                "label": "Heading",
+                "name": "brg_contact_restaurants_heading",
+                "type": "text",
+                "instructions": "Display face on the teal band, free-wrapping inside 20ch.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-heading",
+                    "id": ""
+                },
+                "default_value": "Looking for a restaurant?"
+            },
+            {
+                "key": "field_brg_contact_restaurants_sub",
+                "label": "Sub copy",
+                "name": "brg_contact_restaurants_sub",
+                "type": "textarea",
+                "instructions": "One line beneath the heading. Write <code>&</code> as a literal ampersand.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-sub",
+                    "id": ""
+                },
+                "default_value": "Addresses, hours, and every Board & Brew and Odie's location in one place."
             },
             {
                 "key": "field_brg_contact_restaurants_acc_section_background",
@@ -2023,6 +2237,167 @@
             },
             {
                 "key": "field_brg_contact_restaurants_endacc_button_style",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_contact_restaurants_acc_buttons",
+                "label": "Buttons",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_contact_restaurants_buttons",
+                "label": "Buttons",
+                "name": "brg_contact_restaurants_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_contact_restaurants_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_contact_restaurants_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_contact_restaurants_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_contact_restaurants_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_contact_restaurants_cta_position",
+                "label": "Where the buttons sit",
+                "name": "brg_contact_restaurants_cta_position",
+                "type": "select",
+                "instructions": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-cta_position",
+                    "id": ""
+                },
+                "default_value": "foot",
+                "choices": {
+                    "foot": "At the bottom of the section"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_restaurants_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_contact_restaurants_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_restaurants_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",

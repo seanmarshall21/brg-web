@@ -1,6 +1,6 @@
 <!-- BRG · section: community-partner  →  [brg_community-partner]
      Short light closer: black button, one line of copy beneath. -->
-<section class="brgw-sec brgw-sec--community-partner reveal" data-nav="light" aria-label="Partner with us">
+<section class="brgw-sec brgw-sec--community-partner reveal" data-nav="light" aria-label="Partner with us" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--community-partner{background:var(--white);color:var(--ink);text-align:center;
   padding:clamp(30px,4vw,56px) var(--pad) clamp(60px,7vw,96px);}
@@ -18,4 +18,5 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a>
   <p class="sub anim-up">{{sub}}</p>
+  <div class="brgw-cta" data-cta-at="foot"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>

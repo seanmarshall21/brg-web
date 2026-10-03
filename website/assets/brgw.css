@@ -513,11 +513,20 @@
    ABSENT BY DEFAULT. The label ships empty, so every one of these sections renders exactly
    as it does today until someone types a label. That is also why the empty state is keyed
    off the LABEL and not the link: a button with a URL and no words is not a button. */
-.brgw-sec .brgw-cta{display:none;margin:clamp(26px,3.4vw,44px) 0 0;}
+.brgw-sec .brgw-cta{display:none;margin:clamp(26px,3.4vw,44px) 0 0;
+  flex-wrap:wrap;gap:12px;align-items:center;}
 .brgw-sec[data-cta-pos="head"] .brgw-cta[data-cta-at="head"],
-.brgw-sec[data-cta-pos="foot"] .brgw-cta[data-cta-at="foot"]{display:block;}
-/* Wins over both rules above — an unset label hides the button wherever it was put. */
-.brgw-sec .brgw-cta[data-cta=""]{display:none!important;}
+.brgw-sec[data-cta-pos="foot"] .brgw-cta[data-cta-at="foot"]{display:flex;}
+/* A hero centres its content, so centre the row there too rather than leaving it hard left. */
+.brgw-hero .brgw-cta{justify-content:center;}
+/* NO BUTTONS ADDED YET -> NOTHING AT ALL, including the margin. The wrapper is written on
+   one line with no whitespace inside it, so when the repeater has no rows the plugin leaves
+   the element genuinely empty and :empty matches. That is why this works with no JS: the
+   row has to disappear for the 21 sections nobody has added a button to, which is all of
+   them today. */
+.brgw-sec .brgw-cta:empty{display:none!important;}
+/* And a row that has buttons must not show one that was left unlabelled. */
+.brgw-sec .brgw-cta .btn[data-cta=""]{display:none;}
 
 /* ---- the decorative marks become editable ------------------------------------------
    Twenty-seven marks across fourteen sections — corner doodles, seam badges, the home

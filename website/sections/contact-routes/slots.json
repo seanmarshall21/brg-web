@@ -134,31 +134,17 @@
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
     "group": "Section background — phones"
   },
-  "cta_label": {
-    "type": "text",
-    "label": "Button label",
-    "doc": "Leave this empty — as it is now — and this section has no button at all. Type a label and the button appears. Short reads best: it is set in capitals with wide letter spacing, so three or four words is the practical limit before it wraps.",
-    "default": "",
-    "group": "Button"
-  },
-  "cta_href": {
-    "type": "url",
-    "label": "Button link",
-    "doc": "Where the button goes. A path like /careers/ stays on this site; a full address goes off it. A link on its own shows nothing — the label above is what makes the button appear.",
-    "default": "",
-    "group": "Button"
-  },
   "cta_position": {
     "type": "select",
-    "label": "Button position",
-    "doc": "Where the button sits. At the bottom is the usual place and the one the rest of the site uses.",
+    "label": "Where the buttons sit",
+    "doc": "At the bottom is the usual place and the one the rest of the site uses.",
     "width": 50,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section",
       "head": "Directly under the heading"
     },
-    "group": "Button"
+    "group": "Buttons"
   },
   "btn_color": {
     "type": "select",
@@ -204,5 +190,52 @@
       "none": "None"
     },
     "group": "Button style"
+  },
+  "buttons": {
+    "type": "repeater",
+    "label": "Buttons",
+    "button": "Add a button",
+    "collapse": "label",
+    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+    "group": "Buttons",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Label",
+        "doc": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+        "default": ""
+      },
+      "href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+        "default": ""
+      },
+      "popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      }
+    }
+  },
+  "modal_bg": {
+    "type": "select",
+    "label": "Pop-up background",
+    "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+    "width": 50,
+    "default": "white",
+    "choices": {
+      "white": "White",
+      "ink": "Site dark",
+      "yellow": "Yellow",
+      "teal": "Teal"
+    },
+    "group": "Buttons"
   }
 }

@@ -10,7 +10,7 @@
      default: a scaleX stretches the taper, a wipe reveals it at true width. -->
 <section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}"
          style="--brgw-veil-c:{{veil_center}};--brgw-veil-e:{{veil_edge}};--brgw-plate-o:{{photo_strength}}"
-         aria-label="Blacktop Restaurant Group">
+         aria-label="Blacktop Restaurant Group" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-hero{position:relative;overflow:hidden;background:var(--bg2);
   min-height:88vh;display:grid;place-items:center;
@@ -155,4 +155,5 @@
   <p class="sub anim-up">{{sub}}</p>
   <p class="tag blanco anim-up">{{tagline}}</p>
   <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a>
+  <div class="brgw-cta" data-cta-at="foot"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>

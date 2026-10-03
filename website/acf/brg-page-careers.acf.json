@@ -865,8 +865,8 @@
                 "endpoint": 1
             },
             {
-                "key": "field_brg_careers_hero_acc_button",
-                "label": "Button",
+                "key": "field_brg_careers_hero_acc_buttons",
+                "label": "Buttons",
                 "name": "",
                 "type": "accordion",
                 "instructions": "",
@@ -882,41 +882,11 @@
                 "endpoint": 0
             },
             {
-                "key": "field_brg_careers_hero_cta_label",
-                "label": "Button label",
-                "name": "brg_careers_hero_cta_label",
-                "type": "text",
-                "instructions": "Leave this empty — as it is now — and this section has no button at all. Type a label and the button appears. Short reads best: it is set in capitals with wide letter spacing, so three or four words is the practical limit before it wraps.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-cta_label",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
-                "key": "field_brg_careers_hero_cta_href",
-                "label": "Button link",
-                "name": "brg_careers_hero_cta_href",
-                "type": "text",
-                "instructions": "Where the button goes. A path like /careers/ stays on this site; a full address goes off it. A link on its own shows nothing — the label above is what makes the button appear.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-cta_href",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
                 "key": "field_brg_careers_hero_cta_position",
-                "label": "Button position",
+                "label": "Where the buttons sit",
                 "name": "brg_careers_hero_cta_position",
                 "type": "select",
-                "instructions": "Where the button sits. At the bottom is the usual place and the one the rest of the site uses.",
+                "instructions": "At the bottom is the usual place and the one the rest of the site uses.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -937,7 +907,7 @@
                 "placeholder": ""
             },
             {
-                "key": "field_brg_careers_hero_endacc_button",
+                "key": "field_brg_careers_hero_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -1072,6 +1042,143 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_careers_hero_acc_buttons",
+                "label": "Buttons",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_hero_buttons",
+                "label": "Buttons",
+                "name": "brg_careers_hero_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_careers_hero_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_careers_hero_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_hero_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_hero_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_careers_hero_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_careers_hero_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_endacc_buttons",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_careers_apply",
                 "label": "What it's like",
                 "name": "",
@@ -1124,6 +1231,36 @@
                 "ui": 1,
                 "ui_on_text": "Shown",
                 "ui_off_text": "Hidden"
+            },
+            {
+                "key": "field_brg_careers_apply_cta_label",
+                "label": "Button label",
+                "name": "brg_careers_apply_cta_label",
+                "type": "text",
+                "instructions": "Black-bordered button at the foot of the section. ~18 characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-cta_label",
+                    "id": ""
+                },
+                "default_value": "Apply Today"
+            },
+            {
+                "key": "field_brg_careers_apply_cta_href",
+                "label": "Button link",
+                "name": "brg_careers_apply_cta_href",
+                "type": "text",
+                "instructions": "Defaults to the in-page anchor for the open-positions section below. A full URL works too.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-cta_href",
+                    "id": ""
+                },
+                "default_value": "#open-positions"
             },
             {
                 "key": "field_brg_careers_apply_heading_1",
@@ -1235,36 +1372,6 @@
                         "default_value": ""
                     }
                 ]
-            },
-            {
-                "key": "field_brg_careers_apply_cta_label",
-                "label": "Button label",
-                "name": "brg_careers_apply_cta_label",
-                "type": "text",
-                "instructions": "Black-bordered button at the foot of the section. ~18 characters.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-cta_label",
-                    "id": ""
-                },
-                "default_value": "Apply Today"
-            },
-            {
-                "key": "field_brg_careers_apply_cta_href",
-                "label": "Button link",
-                "name": "brg_careers_apply_cta_href",
-                "type": "text",
-                "instructions": "Defaults to the in-page anchor for the open-positions section below. A full URL works too.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-cta_href",
-                    "id": ""
-                },
-                "default_value": "#open-positions"
             },
             {
                 "key": "field_brg_careers_apply_hl_variant",
@@ -1739,6 +1846,167 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_careers_apply_acc_buttons",
+                "label": "Buttons",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_apply_buttons",
+                "label": "Buttons",
+                "name": "brg_careers_apply_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_careers_apply_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_careers_apply_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_apply_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_apply_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_careers_apply_cta_position",
+                "label": "Where the buttons sit",
+                "name": "brg_careers_apply_cta_position",
+                "type": "select",
+                "instructions": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-cta_position",
+                    "id": ""
+                },
+                "default_value": "foot",
+                "choices": {
+                    "foot": "At the bottom of the section"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_apply_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_careers_apply_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_apply_endacc_buttons",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_careers_positions",
                 "label": "Open positions",
                 "name": "",
@@ -1774,36 +2042,6 @@
                 "ui_off_text": "Hidden"
             },
             {
-                "key": "field_brg_careers_positions_heading",
-                "label": "Heading",
-                "name": "brg_careers_positions_heading",
-                "type": "text",
-                "instructions": "Display face on the yellow band, up to ~3.5rem. Wraps freely. ~30 characters keeps it to two lines.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-heading",
-                    "id": ""
-                },
-                "default_value": "Ready to join the crew?"
-            },
-            {
-                "key": "field_brg_careers_positions_sub",
-                "label": "Sub copy",
-                "name": "brg_careers_positions_sub",
-                "type": "textarea",
-                "instructions": "One line beneath the heading. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-sub",
-                    "id": ""
-                },
-                "default_value": "Browse our open roles below — from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co."
-            },
-            {
                 "key": "field_brg_careers_positions_cta_label",
                 "label": "Button label",
                 "name": "brg_careers_positions_cta_label",
@@ -1832,6 +2070,36 @@
                     "id": ""
                 },
                 "default_value": "/careers/#roles"
+            },
+            {
+                "key": "field_brg_careers_positions_heading",
+                "label": "Heading",
+                "name": "brg_careers_positions_heading",
+                "type": "text",
+                "instructions": "Display face on the yellow band, up to ~3.5rem. Wraps freely. ~30 characters keeps it to two lines.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-heading",
+                    "id": ""
+                },
+                "default_value": "Ready to join the crew?"
+            },
+            {
+                "key": "field_brg_careers_positions_sub",
+                "label": "Sub copy",
+                "name": "brg_careers_positions_sub",
+                "type": "textarea",
+                "instructions": "One line beneath the heading. Plain text; markup is escaped. Write <code>&</code> and <code>—</code> as literal characters.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-sub",
+                    "id": ""
+                },
+                "default_value": "Browse our open roles below — from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co."
             },
             {
                 "key": "field_brg_careers_positions_photo",
@@ -2267,6 +2535,167 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_careers_positions_acc_buttons",
+                "label": "Buttons",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_positions_buttons",
+                "label": "Buttons",
+                "name": "brg_careers_positions_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_careers_positions_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_careers_positions_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_positions_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_positions_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_careers_positions_cta_position",
+                "label": "Where the buttons sit",
+                "name": "brg_careers_positions_cta_position",
+                "type": "select",
+                "instructions": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-cta_position",
+                    "id": ""
+                },
+                "default_value": "foot",
+                "choices": {
+                    "foot": "At the bottom of the section"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_careers_positions_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_endacc_buttons",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_careers_posts",
                 "label": "LinkedIn posts",
                 "name": "",
@@ -2578,6 +3007,285 @@
             },
             {
                 "key": "field_brg_careers_posts_endacc_section_background_phones",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_posts_acc_buttons",
+                "label": "Buttons",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_posts_buttons",
+                "label": "Buttons",
+                "name": "brg_careers_posts_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_careers_posts_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_careers_posts_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_posts_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_careers_posts_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_careers_posts_cta_position",
+                "label": "Where the buttons sit",
+                "name": "brg_careers_posts_cta_position",
+                "type": "select",
+                "instructions": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-cta_position",
+                    "id": ""
+                },
+                "default_value": "foot",
+                "choices": {
+                    "foot": "At the bottom of the section"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_posts_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_careers_posts_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_posts_endacc_buttons",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_posts_acc_button_style",
+                "label": "Button style",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_posts_btn_color",
+                "label": "Button color",
+                "name": "brg_careers_posts_btn_color",
+                "type": "select",
+                "instructions": "The button's color. \"As designed\" is the starting point and leaves this section's buttons exactly as they look today — which matters, because several sections paint theirs black on purpose and the give-back slider alternates yellow and black down the slides. Choose a color and it takes over. The words flip to black or white automatically, whichever reads on the color you pick. This applies to every button in this section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "yellow": "Yellow",
+                    "teal": "Teal",
+                    "pink": "Pink",
+                    "orange": "Orange",
+                    "white": "White",
+                    "ink": "Black"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_posts_btn_style",
+                "label": "Filled or outline",
+                "name": "brg_careers_posts_btn_style",
+                "type": "select",
+                "instructions": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind — useful over a photo, where a solid block can sit heavily. \"As designed\" leaves it as it is today, which is filled everywhere. Both are exactly the same size, so switching one does not move anything around it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_style",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "filled": "Filled",
+                    "outline": "Outline"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_posts_btn_effect",
+                "label": "Hover effect",
+                "name": "brg_careers_posts_btn_effect",
+                "type": "select",
+                "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_effect",
+                    "id": ""
+                },
+                "default_value": "lift",
+                "choices": {
+                    "lift": "Lift",
+                    "grow": "Grow",
+                    "press": "Press down",
+                    "fill": "Fill in",
+                    "none": "None"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_posts_endacc_button_style",
                 "label": "",
                 "name": "",
                 "type": "accordion",

@@ -1,17 +1,5 @@
 {
   "_note": "Slots for [brg_contact-restaurants]. NEW SECTION, Contact page, built from Expo SPEC-006. Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`. Slot names are underscore-only. `text`/`textarea` defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\n\nClosing band. Exists to catch the hole in the routing above: the most likely reason a stranger lands on a restaurant group's Contact page is that they want one restaurant's address or hours, and none of the four cards serve them.\n\nNo map embed, deliberately — a third-party map inside a fragment that gets inlined into WordPress means cookies, a consent banner and a second JS engine. The locations already live on /our-restaurants/.",
-  "heading": {
-    "type": "text",
-    "label": "Heading",
-    "doc": "Display face on the teal band, free-wrapping inside 20ch.",
-    "default": "Looking for a restaurant?"
-  },
-  "sub": {
-    "type": "textarea",
-    "label": "Sub copy",
-    "doc": "One line beneath the heading. Write `&` as a literal ampersand.",
-    "default": "Addresses, hours, and every Board & Brew and Odie's location in one place."
-  },
   "cta_label": {
     "type": "text",
     "label": "Button label",
@@ -23,6 +11,18 @@
     "label": "Button link",
     "doc": "Points at the live restaurants page.",
     "default": "/brands/"
+  },
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "doc": "Display face on the teal band, free-wrapping inside 20ch.",
+    "default": "Looking for a restaurant?"
+  },
+  "sub": {
+    "type": "textarea",
+    "label": "Sub copy",
+    "doc": "One line beneath the heading. Write `&` as a literal ampersand.",
+    "default": "Addresses, hours, and every Board & Brew and Odie's location in one place."
   },
   "section_bg": {
     "type": "image",
@@ -124,5 +124,63 @@
       "none": "None"
     },
     "group": "Button style"
+  },
+  "buttons": {
+    "type": "repeater",
+    "label": "Buttons",
+    "button": "Add a button",
+    "collapse": "label",
+    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+    "group": "Buttons",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Label",
+        "doc": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+        "default": ""
+      },
+      "href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+        "default": ""
+      },
+      "popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      }
+    }
+  },
+  "cta_position": {
+    "type": "select",
+    "label": "Where the buttons sit",
+    "doc": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
+    "width": 50,
+    "default": "foot",
+    "choices": {
+      "foot": "At the bottom of the section"
+    },
+    "group": "Buttons"
+  },
+  "modal_bg": {
+    "type": "select",
+    "label": "Pop-up background",
+    "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+    "width": 50,
+    "default": "white",
+    "choices": {
+      "white": "White",
+      "ink": "Site dark",
+      "yellow": "Yellow",
+      "teal": "Teal"
+    },
+    "group": "Buttons"
   }
 }

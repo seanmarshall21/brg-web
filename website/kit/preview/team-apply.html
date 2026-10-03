@@ -9,7 +9,7 @@
      <h2> IS wired here, unlike careers-apply's — it has no structural <br> and no inline
      span, so it free-wraps inside max-width:20ch and substituted copy behaves like
      authored copy. The cluster is decorative and stays as code. -->
-<section class="brgw-sec brgw-sec--team-apply reveal" data-nav="light" aria-label="Join the team">
+<section class="brgw-sec brgw-sec--team-apply reveal" data-nav="light" aria-label="Join the team" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--team-apply{position:relative;background:var(--teal);color:var(--ink);overflow:hidden;
   text-align:center;padding:clamp(56px,6.4vw,88px) var(--pad);}
@@ -34,6 +34,7 @@
   <p class="sub anim-up">{{sub}}</p>
   <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a>
   <span class="cluster" aria-hidden="true" data-mark-pos="{{mark_1_all_trim_pos}}" data-mark-show="{{mark_1_all_trim_show}}" data-mark-anim="{{mark_1_all_trim_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_all_trim_opacity}}"><img class="brgw-pop" src="{{mark_1_all_trim_art}}" alt="" width="302" height="310" loading="lazy" decoding="async"></span>
+  <div class="brgw-cta" data-cta-at="foot"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>
 </template>
 <script>
@@ -42,7 +43,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Want to be part of the team?", "sub": "We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience.", "cta_label": "Apply Today", "cta_href": "/careers/", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_1_all_trim_pos": "keep", "mark_1_all_trim_opacity": "100", "mark_1_all_trim_show": "1", "mark_1_all_trim_anim": "keep", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift"};
+  var D = {"cta_label": "Apply Today", "cta_href": "/careers/", "heading": "Want to be part of the team?", "sub": "We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience.", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_1_all_trim_pos": "keep", "mark_1_all_trim_opacity": "100", "mark_1_all_trim_show": "1", "mark_1_all_trim_anim": "keep", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "cta_position": "foot", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

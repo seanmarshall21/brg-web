@@ -9,7 +9,7 @@
      inside a fragment that gets inlined into WordPress — cookies, a consent banner, and a
      second JS engine, which the MANIFESTO's one-engine rule pushes back on. The 12 locations
      already live on /our-restaurants/, so a link is the right size for this. -->
-<section class="brgw-sec brgw-sec--contact-restaurants reveal" data-nav="light" aria-label="Looking for a restaurant?">
+<section class="brgw-sec brgw-sec--contact-restaurants reveal" data-nav="light" aria-label="Looking for a restaurant?" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--contact-restaurants{background:var(--teal);color:var(--ink);text-align:center;
   padding:clamp(56px,6.4vw,88px) var(--pad);}
@@ -31,4 +31,5 @@
   <h2 class="blanco anim-head" data-head="words">{{heading}}</h2>
   <p class="sub anim-up">{{sub}}</p>
   <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a>
+  <div class="brgw-cta" data-cta-at="foot"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>

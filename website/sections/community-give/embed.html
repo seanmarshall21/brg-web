@@ -29,7 +29,7 @@
      cover, so the container sizes it and an uploaded photo of any dimensions cannot shift the
      layout. The button is hidden by :empty when no label is typed, so a row without one does
      not leave an empty yellow box. -->
-<section class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back">
+<section class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--community-give .intro{padding:clamp(76px,8.4vw,120px) var(--pad) clamp(58px,6vw,86px);
@@ -155,4 +155,5 @@
     </div>
     <div class="brgw-slider__dots"></div>
   </div>
+  <div class="brgw-cta" data-cta-at="foot"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>
