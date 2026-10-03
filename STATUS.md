@@ -3,9 +3,24 @@
 _Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-08-13 (Conti) — 18/18 sections built · **16 sections ACF-editable (62
-fields live)** · plugin **v2.6.1**, deployed by the Action · monoliths retired · five seats on
-clone-per-chat + territory hook
+**Last updated:** 2026-10-03 (Conti) — 21/21 sections built · **every section ACF-editable
+(754 fields live)** · plugin **v2.6.1**, deployed by the Action · monoliths retired · five seats
+on clone-per-chat + territory hook
+
+**Nothing on a page is code-only any more.** As of 2026-10-02/03 an audit of every fragment
+reports **0 strings of copy** and **0 icon files** that cannot be reached from wp-admin. What
+landed, in order: every parallax control made real (9 of 20 were fields that edited nothing),
+numeric movement amounts, section + phone backgrounds on all 21 sections, the home hero's
+vignette as three numbers, every hard-coded sentence and list turned into fields, all 27
+decorative marks given artwork/position/opacity/show-hide/animation, and an optional button on
+the twelve sections that had none. Each shipped with defaults that reproduce the previous page
+exactly, so none of it changed the site until someone edits a field.
+
+**Still open:** the Brands page does not scroll-reveal (needs the gate password to diagnose on
+the live page); the Careers headline ends on "to be"; Core values' background is saved as the
+BLACK pattern on a black panel and Community's strength is saved at 0 — both are wp-admin
+values, which beat code, so only Sean can change them. SPEC-014 is **superseded**, see the
+block at the top of `notes/explorer/splash-plates-to-home.md`.
 
 ## What this project is
 The Blacktop Restaurant Group (BRG) marketing site for Vivo Creative. Pages are built as
@@ -37,10 +52,14 @@ commit as any shortcode change (`--check` in CI-spirit, `--restamp` to bump). Do
 | Slug | WP URL | Composition | State |
 |---|---|---|---|
 | home | `/brg-home/` | stacked sections | live, gated |
-| our-restaurants | `/our-restaurants/` | stacked sections | live, gated |
+| our-restaurants | `/brands/` | stacked sections | live, gated |
 | team | `/team/` | stacked sections | live, gated |
 | community | `/community/` | stacked sections | live, gated |
 | careers | `/careers/` | stacked sections | live, gated |
+
+**The Brands page moved to `/brands/`** — checked 2026-10-03: `/our-restaurants/` now returns
+a WordPress 404, `/brands/` returns the password gate. The section IDs are still
+`our-restaurants-*`; only the WP URL changed.
 
 **Verified behind the gate 2026-08-13, on plugin v2.6.1:** all five render every one of their
 sections, **zero literal `[brg_` tokens**, no leftover `{{tokens}}`, no PHP errors, nav present
