@@ -334,43 +334,63 @@
         d += el.classList.contains('ln-i') ? STAG_LN : STAG_EL;
       });
     });
+    /* HOW EARLY A SECTION REVEALS. Sean, 3 Oct: "the scroll trigger needs to fire earlier…
+       If it's on the screen, it should load" and the crew cards should go "as long as
+       they're more than 3% or 5% on screen".
+
+       Two numbers do that, and they USED TO BE TWO LITERALS written in two places — the
+       observer's threshold and the unreachable-section guard below both said 0.16, with
+       nothing tying them together. Changing one without the other silently breaks tall
+       sections, so they are one constant now.
+
+       RATIO 0.05: five per cent of the section has to be showing. It was 0.16, which on
+       team-members — the tallest section on the site — meant 270px of it had to clear the
+       dead band before anything appeared, so the yellow line and the crew were still blank
+       with the section well into view.
+
+       MARGIN -4%: the band across the bottom of the viewport that does not count as
+       visible. It was -18%, which is most of the reason things read as late. It stays
+       slightly negative rather than 0 so a reveal still begins just after an element
+       crosses the fold rather than exactly on it, which is what stops the animation
+       starting off-screen. */
+    var REVEAL_RATIO  = 0.05;
+    var REVEAL_MARGIN = '0px 0px -4% 0px';
+
     var io = new IntersectionObserver(function (ents) {
       ents.forEach(function (e) {
         if (!e.isIntersecting) return;
         /* A THRESHOLD A TALL SECTION CAN NEVER REACH IS A SECTION THAT NEVER APPEARS.
-           `threshold: 0.16` asks for 16% OF THE SECTION to be visible, but a section can
-           never show more than the viewport, so the most it can ever reach is
-           viewportHeight / sectionHeight. Past about 5 viewports tall that maximum falls
-           under 0.16 and the callback simply never fires — .anim-up then holds the whole
-           section at opacity:0 for ever, and the bottom-of-document guard below only
-           rescues it once the reader reaches the very end of the page.
-           It is viewport-dependent, which is why it shows up as "some sections reveal and
-           some don't": team-members is 2976px, so it clears 0.16 on a 900px window
-           (max 0.248) and fails on a 600px one (max 0.165 → under once rootMargin is
-           applied). The comment above already argued against raising `threshold` for this
-           exact reason; the number stayed anyway.
-           So: keep 0.16 as the FEEL for sections that can reach it, and for one that
-           cannot, fall back to the rootMargin line — which is height-independent and is
-           what that comment calls the correct knob. */
+           The threshold is a fraction of the ELEMENT, but a section can never show more of
+           itself than the viewport holds, so the most it can ever reach is
+           viewportHeight / sectionHeight. Once a section is tall enough that this maximum
+           falls under REVEAL_RATIO the callback simply never fires — .anim-up then holds
+           the whole section at opacity:0 for ever, and the bottom-of-document guard below
+           only rescues it at the very end of the page. It is viewport-dependent, which is
+           why it used to show up as "some sections reveal and some don't": at the old 0.16,
+           team-members cleared it on a 900px window and failed on a 600px one.
+           At 0.05 that is far less likely — a section would have to be ~19 viewports tall —
+           but "less likely" is not "cannot", so the guard stays. */
         var rootH = e.rootBounds ? e.rootBounds.height : innerHeight * 0.82;
-        var unreachable = e.boundingClientRect.height * 0.16 > rootH * 0.95;
-        if (e.intersectionRatio >= 0.16 || unreachable) {
+        var unreachable = e.boundingClientRect.height * REVEAL_RATIO > rootH * 0.95;
+        if (e.intersectionRatio >= REVEAL_RATIO || unreachable) {
           e.target.classList.add('is-in'); io.unobserve(e.target);
         }
       });
     }, {
-      /* THRESHOLD IS DELIBERATELY UNCHANGED. It is a fraction of the ELEMENT, so raising it
-         to delay the reveal is unsafe here: a section taller than the viewport can never
-         reach a high threshold, and a section that never intersects never gets .is-in — its
-         content would sit at opacity:0 permanently. The heroes are 88vh and some stacked
-         sections exceed the viewport, so that is a live risk, not a theoretical one.
-         rootMargin shrinks the VIEWPORT instead and behaves the same at any section height,
-         which makes it the correct knob for "fire later": -8% -> -18% of viewport height. */
-      threshold: [0, 0.16], rootMargin: '0px 0px -18% 0px' });
+      /* NEVER RAISE THE THRESHOLD TO DELAY A REVEAL. It is a fraction of the ELEMENT, so a
+         section taller than the viewport can never reach a high one, and a section that
+         never intersects never gets .is-in — its content sits at opacity:0 permanently.
+         The heroes are 88vh and several stacked sections exceed the viewport, so that is a
+         live risk, not a theoretical one. rootMargin shrinks the VIEWPORT instead and
+         behaves the same at any section height, which makes it the safe knob for timing in
+         EITHER direction. The history: -8% -> -18% when Sean wanted reveals later, then
+         -18% -> -4% on 3 Oct when he wanted them earlier — "if it's on the screen, it
+         should load". */
+      threshold: [0, REVEAL_RATIO], rootMargin: REVEAL_MARGIN });
     root.querySelectorAll('.reveal').forEach(function (s) { io.observe(s); });
 
     /* BOTTOM-OF-DOCUMENT GUARD — without this the FOOTER never appears.
-       rootMargin's -18% puts a dead band across the bottom of the viewport. That is
+       rootMargin's negative bottom puts a dead band across the foot of the viewport. That is
        safe for anything the reader can scroll PAST, and fatal for anything at the end
        of the document: the page runs out of scroll, so the last element never rises
        above the band, never intersects, never gets .is-in — and .anim-up holds it at
