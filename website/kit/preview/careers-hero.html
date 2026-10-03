@@ -53,13 +53,13 @@
     <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
   </div>
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
-  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
+  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a></div>
   <img class="uline anim-up" aria-hidden="true" alt="" width="1122" height="31"
        src="https://blacktoprg.netlify.app/assets/media/lines/line-careers-lg.svg">
   <p class="sub anim-up">{{sub_1}} <span class="hl"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{sub_highlight}}</span></span></p>
   <span class="brgw-doodle brgw-doodle--c" aria-hidden="true" data-mark-pos="{{mark_1_ast_circle_pos}}" data-mark-show="{{mark_1_ast_circle_show}}" data-mark-anim="{{mark_1_ast_circle_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_ast_circle_opacity}}"><img src="{{mark_1_ast_circle_art}}" alt="" width="122" height="118"></span>
   <span class="brgw-doodle brgw-doodle--b" aria-hidden="true" data-mark-pos="{{mark_2_smile_pos}}" data-mark-show="{{mark_2_smile_show}}" data-mark-anim="{{mark_2_smile_anim}}" data-mark-o style="--brgw-mark-o:{{mark_2_smile_opacity}}"><img src="{{mark_2_smile_art}}" alt="" width="215" height="208"></span>
-  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>
 </template>
 <script>
@@ -68,7 +68,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Come work somewhere you actually want to be", "sub_1": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow \u2014", "sub_highlight": "let's talk.", "hl_variant": "h3", "uline_variant": "u3", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_circle_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg", "mark_1_ast_circle_pos": "tr", "mark_1_ast_circle_opacity": "100", "mark_1_ast_circle_show": "1", "mark_1_ast_circle_anim": "keep", "mark_2_smile_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg", "mark_2_smile_pos": "bl", "mark_2_smile_opacity": "100", "mark_2_smile_show": "1", "mark_2_smile_anim": "keep", "cta_label": "", "cta_href": "", "cta_position": "foot"};
+  var D = {"heading": "Come work somewhere you actually want to be", "sub_1": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow \u2014", "sub_highlight": "let's talk.", "hl_variant": "h3", "uline_variant": "u3", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_circle_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg", "mark_1_ast_circle_pos": "tr", "mark_1_ast_circle_opacity": "100", "mark_1_ast_circle_show": "1", "mark_1_ast_circle_anim": "keep", "mark_2_smile_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg", "mark_2_smile_pos": "bl", "mark_2_smile_opacity": "100", "mark_2_smile_show": "1", "mark_2_smile_anim": "keep", "cta_label": "", "cta_href": "", "cta_position": "foot", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

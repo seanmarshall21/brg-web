@@ -954,6 +954,124 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_team_hero_acc_button_style",
+                "label": "Button style",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_team_hero_btn_color",
+                "label": "Button color",
+                "name": "brg_team_hero_btn_color",
+                "type": "select",
+                "instructions": "The button's color. \"As designed\" is the starting point and leaves this section's buttons exactly as they look today — which matters, because several sections paint theirs black on purpose and the give-back slider alternates yellow and black down the slides. Choose a color and it takes over. The words flip to black or white automatically, whichever reads on the color you pick. This applies to every button in this section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "yellow": "Yellow",
+                    "teal": "Teal",
+                    "pink": "Pink",
+                    "orange": "Orange",
+                    "white": "White",
+                    "ink": "Black"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_hero_btn_style",
+                "label": "Filled or outline",
+                "name": "brg_team_hero_btn_style",
+                "type": "select",
+                "instructions": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind — useful over a photo, where a solid block can sit heavily. \"As designed\" leaves it as it is today, which is filled everywhere. Both are exactly the same size, so switching one does not move anything around it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_style",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "filled": "Filled",
+                    "outline": "Outline"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_hero_btn_effect",
+                "label": "Hover effect",
+                "name": "brg_team_hero_btn_effect",
+                "type": "select",
+                "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_effect",
+                    "id": ""
+                },
+                "default_value": "lift",
+                "choices": {
+                    "lift": "Lift",
+                    "grow": "Grow",
+                    "press": "Press down",
+                    "fill": "Fill in",
+                    "none": "None"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_hero_endacc_button_style",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_team_members",
                 "label": "Crew grid",
                 "name": "",
@@ -2672,6 +2790,124 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_team_members_acc_button_style",
+                "label": "Button style",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_team_members_btn_color",
+                "label": "Button color",
+                "name": "brg_team_members_btn_color",
+                "type": "select",
+                "instructions": "The button's color. \"As designed\" is the starting point and leaves this section's buttons exactly as they look today — which matters, because several sections paint theirs black on purpose and the give-back slider alternates yellow and black down the slides. Choose a color and it takes over. The words flip to black or white automatically, whichever reads on the color you pick. This applies to every button in this section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "yellow": "Yellow",
+                    "teal": "Teal",
+                    "pink": "Pink",
+                    "orange": "Orange",
+                    "white": "White",
+                    "ink": "Black"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_members_btn_style",
+                "label": "Filled or outline",
+                "name": "brg_team_members_btn_style",
+                "type": "select",
+                "instructions": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind — useful over a photo, where a solid block can sit heavily. \"As designed\" leaves it as it is today, which is filled everywhere. Both are exactly the same size, so switching one does not move anything around it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_style",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "filled": "Filled",
+                    "outline": "Outline"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_members_btn_effect",
+                "label": "Hover effect",
+                "name": "brg_team_members_btn_effect",
+                "type": "select",
+                "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_effect",
+                    "id": ""
+                },
+                "default_value": "lift",
+                "choices": {
+                    "lift": "Lift",
+                    "grow": "Grow",
+                    "press": "Press down",
+                    "fill": "Fill in",
+                    "none": "None"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_members_endacc_button_style",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_team_apply",
                 "label": "Join the crew",
                 "name": "",
@@ -3090,6 +3326,124 @@
             },
             {
                 "key": "field_brg_team_apply_endacc_mark_all_trim",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_team_apply_acc_button_style",
+                "label": "Button style",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_team_apply_btn_color",
+                "label": "Button color",
+                "name": "brg_team_apply_btn_color",
+                "type": "select",
+                "instructions": "The button's color. \"As designed\" is the starting point and leaves this section's buttons exactly as they look today — which matters, because several sections paint theirs black on purpose and the give-back slider alternates yellow and black down the slides. Choose a color and it takes over. The words flip to black or white automatically, whichever reads on the color you pick. This applies to every button in this section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "yellow": "Yellow",
+                    "teal": "Teal",
+                    "pink": "Pink",
+                    "orange": "Orange",
+                    "white": "White",
+                    "ink": "Black"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_apply_btn_style",
+                "label": "Filled or outline",
+                "name": "brg_team_apply_btn_style",
+                "type": "select",
+                "instructions": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind — useful over a photo, where a solid block can sit heavily. \"As designed\" leaves it as it is today, which is filled everywhere. Both are exactly the same size, so switching one does not move anything around it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_style",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "filled": "Filled",
+                    "outline": "Outline"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_apply_btn_effect",
+                "label": "Hover effect",
+                "name": "brg_team_apply_btn_effect",
+                "type": "select",
+                "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-btn_effect",
+                    "id": ""
+                },
+                "default_value": "lift",
+                "choices": {
+                    "lift": "Lift",
+                    "grow": "Grow",
+                    "press": "Press down",
+                    "fill": "Fill in",
+                    "none": "None"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_apply_endacc_button_style",
                 "label": "",
                 "name": "",
                 "type": "accordion",

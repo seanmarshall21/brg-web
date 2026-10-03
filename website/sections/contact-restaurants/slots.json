@@ -79,5 +79,50 @@
     "label": "Section background — phones",
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
     "group": "Section background — phones"
+  },
+  "btn_color": {
+    "type": "select",
+    "label": "Button color",
+    "doc": "The button's color. \"As designed\" is the starting point and leaves this section's buttons exactly as they look today — which matters, because several sections paint theirs black on purpose and the give-back slider alternates yellow and black down the slides. Choose a color and it takes over. The words flip to black or white automatically, whichever reads on the color you pick. This applies to every button in this section.",
+    "width": 33,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "yellow": "Yellow",
+      "teal": "Teal",
+      "pink": "Pink",
+      "orange": "Orange",
+      "white": "White",
+      "ink": "Black"
+    },
+    "group": "Button style"
+  },
+  "btn_style": {
+    "type": "select",
+    "label": "Filled or outline",
+    "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind — useful over a photo, where a solid block can sit heavily. \"As designed\" leaves it as it is today, which is filled everywhere. Both are exactly the same size, so switching one does not move anything around it.",
+    "width": 33,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "filled": "Filled",
+      "outline": "Outline"
+    },
+    "group": "Button style"
+  },
+  "btn_effect": {
+    "type": "select",
+    "label": "Hover effect",
+    "doc": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+    "width": 33,
+    "default": "lift",
+    "choices": {
+      "lift": "Lift",
+      "grow": "Grow",
+      "press": "Press down",
+      "fill": "Fill in",
+      "none": "None"
+    },
+    "group": "Button style"
   }
 }

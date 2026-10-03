@@ -26,12 +26,72 @@
 .brgw p{margin:0;}
 .brgw .blanco{font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;}
 .brgw .hl{background:var(--yellow);color:var(--ink);padding:.02em .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+/* ---- buttons: color, filled or outline, and the hover effect --------------------------
+   Sean, 3 Oct: "I'd like to be able to pick the color of this CTA and all CTAs that I add…
+   And whether or not it's an outline CTA or a full CTA, and whatever effect it should do."
+
+   Every button on the site is the same element — 31 of them, all `class="btn anim-cta"` —
+   so this is one system rather than a per-section style. The settings are per SECTION and
+   apply to every button in it, including the ones inside a repeater, which is why a slider
+   with eight slides does not become eight sets of style fields.
+
+   THE RING IS AN INSET box-shadow, NOT A BORDER, so an outline button is the exact same
+   size as a filled one. A 3px border would make it 6px wider and taller than its filled
+   neighbour and nudge the layout around it. Keeping the ring in a custom property lets the
+   hover shadow COMPOSE with it in one box-shadow declaration instead of overwriting it —
+   which is what happened on the first attempt, and the outline vanished on hover.
+
+   Defaults reproduce today exactly: yellow, filled, lift. */
 .brgw .btn{
-  display:inline-block;background:var(--yellow);color:var(--ink);text-decoration:none;
+  --brgw-btn-bg:var(--yellow); --brgw-btn-fg:var(--ink); --brgw-btn-ring:0 0 0 0 transparent;
+  display:inline-block;background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);text-decoration:none;
   font-weight:700;font-size:clamp(13px,1.2vw,16px);letter-spacing:.14em;text-transform:uppercase;
-  padding:20px 34px;border-radius:2px;transition:transform .16s ease,box-shadow .2s ease;
+  padding:20px 34px;border-radius:2px;box-shadow:var(--brgw-btn-ring);
+  transition:transform .16s ease,box-shadow .2s ease,background-color .2s ease,color .2s ease;
 }
-.brgw .btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 26px rgba(0,0,0,.22);}
+/* EACH COLOR SETS background AND color DIRECTLY, not only the variables, and that is the
+   difference between a working field and a field that edits nothing. Six sections paint
+   their own buttons black in their fragment CSS — community-partner, careers-positions,
+   contact-restaurants, team-apply, our-restaurants-brands — and community-give alternates
+   yellow and black down the slider by :nth-child. Those rules set `background` outright,
+   so a rule that only moved a custom property would lose to them and the dropdown would do
+   nothing on exactly the sections whose buttons are most distinctive. An attribute selector
+   outranks a section class, so these win.
+   `keep` is the DEFAULT and deliberately matches nothing here: it leaves every one of those
+   designs exactly as it is until someone chooses a color. */
+.brgw .btn[data-btn-color="yellow"]{--brgw-btn-bg:var(--yellow);--brgw-btn-fg:var(--ink);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="teal"]  {--brgw-btn-bg:var(--teal);  --brgw-btn-fg:var(--ink);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="pink"]  {--brgw-btn-bg:var(--pink);  --brgw-btn-fg:var(--white);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="orange"]{--brgw-btn-bg:var(--orange);--brgw-btn-fg:var(--ink);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="white"] {--brgw-btn-bg:var(--white); --brgw-btn-fg:var(--ink);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="ink"]   {--brgw-btn-bg:var(--ink);   --brgw-btn-fg:var(--white);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+
+/* Outline: the chosen color becomes the ring and the words; the fill goes away. */
+/* Outline with color left on `keep` falls back to the button's own painted color via
+   currentColor, so an outline works on the black buttons too without naming a color. */
+.brgw .btn[data-btn-style="outline"]{background:transparent !important;
+  color:var(--brgw-btn-bg);--brgw-btn-ring:inset 0 0 0 3px var(--brgw-btn-bg);}
+.brgw .btn[data-btn-color="keep"][data-btn-style="outline"]{color:currentColor;
+  --brgw-btn-ring:inset 0 0 0 3px currentColor;}
+
+/* Hover. "lift" is what every button has always done and stays the default. */
+.brgw .btn:hover,
+.brgw .btn[data-btn-fx="lift"]:hover{transform:translateY(-3px) scale(1.02);
+  box-shadow:var(--brgw-btn-ring),0 12px 26px rgba(0,0,0,.22);}
+.brgw .btn[data-btn-fx="grow"]:hover{transform:scale(1.06);
+  box-shadow:var(--brgw-btn-ring),0 10px 22px rgba(0,0,0,.2);}
+.brgw .btn[data-btn-fx="press"]:hover{transform:translateY(2px);box-shadow:var(--brgw-btn-ring);}
+/* "fill" is the one that only makes sense on an outline button: the ring floods. */
+.brgw .btn[data-btn-fx="fill"]:hover{transform:none;background:var(--brgw-btn-bg);
+  color:var(--brgw-btn-fg);box-shadow:var(--brgw-btn-ring);}
+.brgw .btn[data-btn-style="outline"][data-btn-fx="fill"]:hover{color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-fx="none"]:hover{transform:none;box-shadow:var(--brgw-btn-ring);}
 
 /* Shared HEADER (nav) — the plugin injects this around every page, links built
    from pages.json. Sticky, thin yellow top rule, active item underlined teal. */

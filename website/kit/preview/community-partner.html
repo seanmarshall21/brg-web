@@ -21,7 +21,7 @@
   <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
-  <a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a>
+  <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a>
   <p class="sub anim-up">{{sub}}</p>
 </section>
 </template>
@@ -31,7 +31,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"cta_label": "Want to partner with us?", "cta_href": "mailto:hello@blacktoprg.com?subject=Community%20partnership", "sub": "Whether you're a nonprofit, school, or local organization \u2014 we'd love to talk.", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
+  var D = {"cta_label": "Want to partner with us?", "cta_href": "mailto:hello@blacktoprg.com?subject=Community%20partnership", "sub": "Whether you're a nonprofit, school, or local organization \u2014 we'd love to talk.", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

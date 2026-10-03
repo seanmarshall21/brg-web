@@ -103,7 +103,7 @@
         <div class="panel">
           <h3 class="blanco">{{slides.title}}</h3>
           <p>{{slides.body}}</p>
-          <a class="btn anim-cta" href="{{slides.cta_href}}">{{slides.cta_label}}</a>
+          <a class="btn anim-cta" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{slides.cta_href}}">{{slides.cta_label}}</a>
         </div>
         <div class="shot brgw-img media" data-brgw-img>
           <img src="{{slides.photo}}" alt="" decoding="async" loading="lazy" data-tone="{{slides.photo_tone}}" data-px="{{slides.photo_px}}" data-px-dir="{{slides.photo_px_dir}}" data-float="{{slides.photo_float}}" data-float-dir="{{slides.photo_float_dir}}">
@@ -114,7 +114,7 @@
       <div class="brgw-slide">
         <div class="panel">
           <h3 class="blanco">Urban Surf 4 Kids</h3>
-          <p>Our flagship give-back partner. We help get kids with disabilities and those facing adversity out on the water &mdash; building confidence, connection, and stoke one wave at a time.</p>
+          <p>As our flagship give-back partner, Urban Surf 4 Kids provides foster youth and kids experiencing hardship out into the water with surf lessons. Together, we use the healing power of surf therapy to share confidence, connection, and pure local stoke.</p>
         </div>
         <div class="shot brgw-img" data-brgw-img>
           <img src="https://blacktoprg.netlify.app/assets/media/bg/surfer.webp" alt="" width="548" height="820"
@@ -133,8 +133,8 @@
       </div>
       <div class="brgw-slide">
         <div class="panel">
-          <h3 class="blanco">Other contributions</h3>
-          <p>From fundraiser nights to donated meals, a lot of what we do never makes it to a press release &mdash; and that's rather the point.</p>
+          <h3 class="blanco">Community Fundraisers</h3>
+          <p>From school dine-out events to youth team fundraisers, helping local groups raise money is a huge part of how we operate. We partner with neighborhood organizations across our shops to donate a portion of sales straight back into their programs, giving local causes a reliable place to hit their goals.</p>
         </div>
         <div class="shot brgw-img" data-brgw-img>
           <img src="https://blacktoprg.netlify.app/assets/media/bg/car.webp" alt="" width="492" height="760"
@@ -153,7 +153,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep"};
+  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
