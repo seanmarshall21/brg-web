@@ -14,5 +14,17 @@ this repo keeps meeting in other costumes: the version grep that compared
 nothing, the deploy file list that went blind, the `git diff` over a pathspec
 that matched nothing and returned the SHA-1 of empty input.
 
+
+`shadowed-redeclaration.php` reproduces the 2026-10-03 outage: a second function
+given a name that was already taken, both behind `if (!function_exists())`. The
+second body never loads, so every call reaches the first function — in the live
+file that meant a settings reader's calls entered the header/footer builder, which
+calls the same name again. Infinite recursion, stack exhausted, 500 on every
+freshly rendered page while the cached homepage still answered 200.
+
+`php -l` passed it, and so did the "declared but NOT defined" assertion above —
+the name *is* defined, just by the wrong block. `array_unique()` in the declared-
+functions helper was collapsing the duplicate before anything could see it.
+
 These files are never deployed. `deploy-mu-plugins.yml` copies
 `website/wp-mu-plugin/*.php` only; nothing here is under that path.

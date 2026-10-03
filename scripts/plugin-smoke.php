@@ -60,10 +60,35 @@ foreach ([
     }
 }
 
+/** Every named declaration in source order, duplicates INCLUDED. Closures have no name
+ *  and are skipped. */
+function smoke_declaration_list(string $src): array {
+    preg_match_all('/^[ \t]*function\s+([a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)\s*\(/m', $src, $m);
+    return $m[1];
+}
+
 /** Named functions the source DECLARES. Closures have no name and are skipped. */
 function smoke_declared_functions(string $src): array {
-    preg_match_all('/^[ \t]*function\s+([a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)\s*\(/m', $src, $m);
-    return array_values(array_unique($m[1]));
+    return array_values(array_unique(smoke_declaration_list($src)));
+}
+
+/** Names this file declares MORE THAN ONCE.
+ *
+ *  The house style wraps every definition in if (!function_exists('name')). That guard
+ *  makes a SECOND declaration of the same name silently dead: the first one has already
+ *  defined it, so the guard is false and the second body never loads. The file parses,
+ *  php -l passes, and function_exists() says yes — so the "declared but NOT defined"
+ *  assertion above is satisfied by the WRONG function.
+ *
+ *  That took /team/ down on 2026-10-03: a settings reader was given the name of the
+ *  existing header/footer builder, so every reader call entered the builder, which calls
+ *  that same name again — infinite recursion until the stack gave out. Only a freshly
+ *  rendered page died, so the cached homepage answered 200 and the outage looked partial.
+ *
+ *  Two declarations of one name in one file is always a mistake here. Rename one. */
+function smoke_duplicate_declarations(string $src): array {
+    $counts = array_count_values(smoke_declaration_list($src));
+    return array_keys(array_filter($counts, function ($n) { return $n > 1; }));
 }
 
 $failed = 0;
@@ -92,6 +117,14 @@ foreach (array_slice($argv, 1) as $file) {
     }
 
     $name = basename($file);
+    $dupes = smoke_duplicate_declarations($src);
+    if ($dupes) {
+        fwrite(STDERR, "::error file={$file}::declared TWICE in one file: " . implode(', ', $dupes) . "\n");
+        fwrite(STDERR, "      Behind if(!function_exists()), the second declaration never loads and every\n");
+        fwrite(STDERR, "      call reaches the FIRST one. php -l passes and function_exists() says yes.\n");
+        fwrite(STDERR, "      This is what took /team/ down on 2026-10-03. Rename one of them.\n");
+        $failed = 1;
+    }
     if ($missing) {
         fwrite(STDERR, "::error file={$file}::declared but NOT defined after load: " . implode(', ', $missing) . "\n");
         fwrite(STDERR, "      A function declared inside another function's body does not exist until that\n");

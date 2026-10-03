@@ -94,6 +94,26 @@ jobs:
             exit 1
           fi
           echo "    fixture correctly REJECTED (exit 1)"
+          # SECOND POSITIVE CONTROL: a name declared twice behind function_exists guards.
+          # The second body never loads, so every call reaches the FIRST function. php -l
+          # passes, function_exists() says yes, and the "declared but NOT defined" check
+          # above is satisfied by the wrong function — which is how /team/ went down on
+          # 2026-10-03 with the homepage still answering 200 from cache.
+          echo "--- positive control: a shadowed re-declaration must be rejected ---"
+          php -l scripts/smoke-fixtures/shadowed-redeclaration.php
+          echo "    (php -l passed it too — same blind spot)"
+          set +e
+          php scripts/plugin-smoke.php scripts/smoke-fixtures/shadowed-redeclaration.php
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then
+            echo "::error::THE SMOKE CHECK ACCEPTED A SHADOWED RE-DECLARATION — it is not checking for one"
+            exit 1
+          elif [ "$rc" -ne 1 ]; then
+            echo "::error::smoke check exited $rc on the shadowed fixture, expected 1 — the checker is broken"
+            exit 1
+          fi
+          echo "    fixture correctly REJECTED (exit 1)"
           echo "--- the real mu-plugins must all load ---"
           php scripts/plugin-smoke.php website/wp-mu-plugin/*.php
 
