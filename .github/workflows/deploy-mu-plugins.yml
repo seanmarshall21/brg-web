@@ -22,7 +22,16 @@ name: Deploy mu-plugins to WordPress
 on:
   push:
     branches: [ main ]
-    paths: [ 'website/wp-mu-plugin/**' ]
+    # The CHECKER is in scope too, not just the plugins. A change to plugin-smoke.php or
+    # to its fixtures never used to fire this workflow, so the one machine that can run
+    # PHP never exercised it — a strengthened check could sit broken and look installed.
+    # Re-copying the same plugin files is idempotent, so the cost of the extra run is
+    # seconds and the thing it buys is knowing the gate still works.
+    paths:
+      - 'website/wp-mu-plugin/**'
+      - 'scripts/plugin-smoke.php'
+      - 'scripts/smoke-fixtures/**'
+      - '.github/workflows/deploy-mu-plugins.yml'
   workflow_dispatch: {}        # manual "Run workflow" button — also the safe-gate option
 
 jobs:
