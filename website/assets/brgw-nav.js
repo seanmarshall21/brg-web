@@ -151,7 +151,7 @@
         setDelay(el, 0.14 + i++ * 0.055);
         dItems.appendChild(el);
       });
-      if (SOCIAL.length) {
+      if (SOCIAL.length && nav.dataset.social !== '0') {
         var eyebrow = document.createElement('span');
         eyebrow.className = 'bnav-drawer-eyebrow';
         eyebrow.textContent = nav.dataset.follow || 'Follow';
@@ -215,7 +215,7 @@
          keeps this one builder serving both roles. n is the POSITION SHOWN, not the
          source index — the menu can be reordered in wp-admin and 01 must still be the
          top row. */
-      if (typeof n === 'number') {
+      if (typeof n === 'number' && nav.dataset.numbers !== '0') {
         var num = document.createElement('span');
         num.className = 'bnav-num'; num.setAttribute('aria-hidden', 'true');
         num.textContent = (n < 9 ? '0' : '') + (n + 1);

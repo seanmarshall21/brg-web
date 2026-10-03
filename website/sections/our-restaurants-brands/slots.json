@@ -297,11 +297,13 @@
   "btn_effect": {
     "type": "select",
     "label": "Hover effect",
-    "doc": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+    "doc": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
     "width": 33,
     "default": "lift",
     "choices": {
       "lift": "Lift",
+      "lift-swap": "Lift and swap color",
+      "underline": "Underline",
       "grow": "Grow",
       "press": "Press down",
       "fill": "Fill in",

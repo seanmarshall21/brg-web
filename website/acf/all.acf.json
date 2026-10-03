@@ -1370,7 +1370,7 @@
         "label": "Hover effect",
         "name": "brg_home_hero_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -1381,6 +1381,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -2765,7 +2767,7 @@
         "label": "Hover effect",
         "name": "brg_home_community_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -2776,6 +2778,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -3470,7 +3474,7 @@
         "label": "Hover effect",
         "name": "brg_home_about_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -3481,6 +3485,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -4477,7 +4483,7 @@
         "label": "Hover effect",
         "name": "brg_home_different_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -4488,6 +4494,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -5216,7 +5224,7 @@
         "label": "Hover effect",
         "name": "brg_home_values_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -5227,6 +5235,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -6350,7 +6360,7 @@
         "label": "Hover effect",
         "name": "brg_our_restaurants_hero_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -6361,6 +6371,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -7187,7 +7199,7 @@
         "label": "Hover effect",
         "name": "brg_our_restaurants_brands_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -7198,6 +7210,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -8512,7 +8526,7 @@
         "label": "Hover effect",
         "name": "brg_team_hero_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -8523,6 +8537,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -10375,7 +10391,7 @@
         "label": "Hover effect",
         "name": "brg_team_members_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -10386,6 +10402,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -10927,7 +10945,7 @@
         "label": "Hover effect",
         "name": "brg_team_apply_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -10938,6 +10956,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -12222,7 +12242,7 @@
         "label": "Hover effect",
         "name": "brg_community_hero_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -12233,6 +12253,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -13128,7 +13150,7 @@
         "label": "Hover effect",
         "name": "brg_community_give_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -13139,6 +13161,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -13964,7 +13988,7 @@
         "label": "Hover effect",
         "name": "brg_community_stats_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -13975,6 +13999,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -14343,7 +14369,7 @@
         "label": "Hover effect",
         "name": "brg_community_partner_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -14354,6 +14380,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -15668,7 +15696,7 @@
         "label": "Hover effect",
         "name": "brg_careers_hero_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -15679,6 +15707,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -16335,7 +16365,7 @@
         "label": "Hover effect",
         "name": "brg_careers_apply_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -16346,6 +16376,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -16978,7 +17010,7 @@
         "label": "Hover effect",
         "name": "brg_careers_positions_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -16989,6 +17021,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -17745,7 +17779,7 @@
         "label": "Hover effect",
         "name": "brg_careers_posts_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -17756,6 +17790,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -18864,7 +18900,7 @@
         "label": "Hover effect",
         "name": "brg_contact_hero_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -18875,6 +18911,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -19000,6 +19038,61 @@
         "default_value": "Anything that doesn't fit the boxes below."
       },
       {
+        "key": "field_brg_contact_routes_route_1_btn_label",
+        "label": "Route 1 — button label",
+        "name": "brg_contact_routes_route_1_btn_label",
+        "type": "text",
+        "instructions": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-route_1_btn_label",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_contact_routes_route_1_btn_href",
+        "label": "Route 1 — button link",
+        "name": "brg_contact_routes_route_1_btn_href",
+        "type": "text",
+        "instructions": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-route_1_btn_href",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_contact_routes_route_1_btn_popup",
+        "label": "Route 1 — button opens a pop-up",
+        "name": "brg_contact_routes_route_1_btn_popup",
+        "type": "select",
+        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-route_1_btn_popup",
+          "id": ""
+        },
+        "default_value": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_contact_routes_route_2_label",
         "label": "Route 2 — label",
         "name": "brg_contact_routes_route_2_label",
@@ -19043,6 +19136,61 @@
           "id": ""
         },
         "default_value": "Press kit, high-res imagery, interviews, or a comment on a story."
+      },
+      {
+        "key": "field_brg_contact_routes_route_2_btn_label",
+        "label": "Route 2 — button label",
+        "name": "brg_contact_routes_route_2_btn_label",
+        "type": "text",
+        "instructions": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-route_2_btn_label",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_contact_routes_route_2_btn_href",
+        "label": "Route 2 — button link",
+        "name": "brg_contact_routes_route_2_btn_href",
+        "type": "text",
+        "instructions": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-route_2_btn_href",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_contact_routes_route_2_btn_popup",
+        "label": "Route 2 — button opens a pop-up",
+        "name": "brg_contact_routes_route_2_btn_popup",
+        "type": "select",
+        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-route_2_btn_popup",
+          "id": ""
+        },
+        "default_value": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
       },
       {
         "key": "field_brg_contact_routes_route_3_label",
@@ -19090,6 +19238,61 @@
         "default_value": "Nonprofits, schools, and local organizations."
       },
       {
+        "key": "field_brg_contact_routes_route_3_btn_label",
+        "label": "Route 3 — button label",
+        "name": "brg_contact_routes_route_3_btn_label",
+        "type": "text",
+        "instructions": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-route_3_btn_label",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_contact_routes_route_3_btn_href",
+        "label": "Route 3 — button link",
+        "name": "brg_contact_routes_route_3_btn_href",
+        "type": "text",
+        "instructions": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-route_3_btn_href",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_contact_routes_route_3_btn_popup",
+        "label": "Route 3 — button opens a pop-up",
+        "name": "brg_contact_routes_route_3_btn_popup",
+        "type": "select",
+        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-route_3_btn_popup",
+          "id": ""
+        },
+        "default_value": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_contact_routes_route_4_label",
         "label": "Route 4 — label",
         "name": "brg_contact_routes_route_4_label",
@@ -19133,6 +19336,61 @@
           "id": ""
         },
         "default_value": "Open roles across Board & Brew and Odie's."
+      },
+      {
+        "key": "field_brg_contact_routes_route_4_btn_label",
+        "label": "Route 4 — button label",
+        "name": "brg_contact_routes_route_4_btn_label",
+        "type": "text",
+        "instructions": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-route_4_btn_label",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_contact_routes_route_4_btn_href",
+        "label": "Route 4 — button link",
+        "name": "brg_contact_routes_route_4_btn_href",
+        "type": "text",
+        "instructions": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-route_4_btn_href",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_contact_routes_route_4_btn_popup",
+        "label": "Route 4 — button opens a pop-up",
+        "name": "brg_contact_routes_route_4_btn_popup",
+        "type": "select",
+        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-route_4_btn_popup",
+          "id": ""
+        },
+        "default_value": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
       },
       {
         "key": "field_brg_contact_routes_acc_section_background",
@@ -19555,7 +19813,7 @@
         "label": "Hover effect",
         "name": "brg_contact_routes_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -19566,6 +19824,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -19949,7 +20209,7 @@
         "label": "Hover effect",
         "name": "brg_contact_restaurants_btn_effect",
         "type": "select",
-        "instructions": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -19960,6 +20220,8 @@
         "default_value": "lift",
         "choices": {
           "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
           "grow": "Grow",
           "press": "Press down",
           "fill": "Fill in",
@@ -20355,6 +20617,27 @@
         "return_format": "url",
         "preview_size": "medium",
         "library": "all"
+      },
+      {
+        "key": "field_brg_brand_footer_logo_size",
+        "label": "Footer logo width",
+        "name": "brg_brand_footer_logo_size",
+        "type": "number",
+        "instructions": "How wide the footer logo is, in pixels. It has been 360 at full width, which reads small on a wide screen. It never grows past the space available, so a large number here simply means 'as big as it fits' on a phone.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-footer_logo_size",
+          "id": ""
+        },
+        "default_value": "360",
+        "min": 120,
+        "max": 720,
+        "step": 10,
+        "placeholder": "",
+        "prepend": "",
+        "append": "px"
       }
     ],
     "location": [
@@ -20374,5 +20657,261 @@
     "hide_on_screen": "",
     "active": true,
     "description": "Site chrome. Edit website/chrome/brand/slots.json and rerun kit/build-acf.py."
+  },
+  {
+    "key": "group_brg_chrome_nav",
+    "title": "Nav — Content",
+    "fields": [
+      {
+        "key": "field_brg_chrome_nav_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "<strong>Nav</strong> — site chrome, shown on every page. These are read directly by the plugin rather than filling a section's <code>{{slots}}</code>.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_nav_logo",
+        "label": "Logo",
+        "name": "brg_nav_logo",
+        "type": "image",
+        "instructions": "The mark in the bar. An SVG stays crisp at any size and is what the bar is built around. Leave empty and the bar falls back to the logo configured in the plugin.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-logo",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_nav_logo_size",
+        "label": "Logo height",
+        "name": "brg_nav_logo_size",
+        "type": "number",
+        "instructions": "How tall the logo is in the bar, in pixels. The design sits around 32. The bar sizes itself from its contents, so a taller logo makes a taller bar — and it still scales down when the page scrolls.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-logo_size",
+          "id": ""
+        },
+        "default_value": "32",
+        "min": 16,
+        "max": 96,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": "px"
+      },
+      {
+        "key": "field_brg_nav_logo_href",
+        "label": "Logo links to",
+        "name": "brg_nav_logo_href",
+        "type": "text",
+        "instructions": "Where clicking the logo goes. Normally the home page. Worth checking if a temporary landing page is ever sitting at the root.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-logo_href",
+          "id": ""
+        },
+        "default_value": "/"
+      },
+      {
+        "key": "field_brg_nav_link_size",
+        "label": "Link size",
+        "name": "brg_nav_link_size",
+        "type": "number",
+        "instructions": "The size of the words in the bar, in pixels. The design sits around 13.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-link_size",
+          "id": ""
+        },
+        "default_value": "13",
+        "min": 9,
+        "max": 22,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": "px"
+      },
+      {
+        "key": "field_brg_nav_link_gap",
+        "label": "Space between links",
+        "name": "brg_nav_link_gap",
+        "type": "number",
+        "instructions": "The gap between one link and the next, in pixels. Tighten this before reducing the size when a long menu is close to wrapping.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-link_gap",
+          "id": ""
+        },
+        "default_value": "26",
+        "min": 8,
+        "max": 64,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": "px"
+      },
+      {
+        "key": "field_brg_nav_left",
+        "label": "Links before the logo",
+        "name": "brg_nav_left",
+        "type": "number",
+        "instructions": "Only used by the layouts that put links on both sides of a centered logo. Anything past this count moves into the More menu rather than crowding the bar.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-left",
+          "id": ""
+        },
+        "default_value": "2",
+        "min": 0,
+        "max": 8,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brg_nav_right",
+        "label": "Links after the logo",
+        "name": "brg_nav_right",
+        "type": "number",
+        "instructions": "As above, for the other side. On a logo-left layout this is the only one that counts.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-right",
+          "id": ""
+        },
+        "default_value": "2",
+        "min": 0,
+        "max": 8,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brg_nav_more_label",
+        "label": "“More” label",
+        "name": "brg_nav_more_label",
+        "type": "text",
+        "instructions": "The wording on the button that opens the overflow menu when there are more links than fit the counts above.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-more_label",
+          "id": ""
+        },
+        "default_value": "More"
+      },
+      {
+        "key": "field_brg_nav_follow_label",
+        "label": "Social heading, in the phone menu",
+        "name": "brg_nav_follow_label",
+        "type": "text",
+        "instructions": "The small heading above the social icons inside the phone menu.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-follow_label",
+          "id": ""
+        },
+        "default_value": "Follow"
+      },
+      {
+        "key": "field_brg_nav_show_numbers",
+        "label": "Number the phone menu",
+        "name": "brg_nav_show_numbers",
+        "type": "select",
+        "instructions": "The 01, 02, 03 running down the phone menu. Off leaves just the words.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-show_numbers",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Numbered",
+          "0": "No numbers"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_nav_show_social",
+        "label": "Social row in the phone menu",
+        "name": "brg_nav_show_social",
+        "type": "select",
+        "instructions": "Whether the social icons appear at the foot of the phone menu. They come from the menu assigned to BRG — Social under Appearance → Menus; hiding them here leaves that menu alone.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-show_social",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Shown",
+          "0": "Hidden"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content-nav"
+        }
+      ]
+    ],
+    "menu_order": 90,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Site chrome. Edit website/chrome/nav/slots.json and rerun kit/build-acf.py."
   }
 ]

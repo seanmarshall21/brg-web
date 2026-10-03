@@ -67,6 +67,11 @@
    outranks a section class, so these win.
    `keep` is the DEFAULT and deliberately matches nothing here: it leaves every one of those
    designs exactly as it is until someone chooses a color. */
+/* A SMALLER BUTTON, for places where the full-size one would dominate — the contact
+   routes sit four to a grid under a single line of description each. Same shape, same
+   color system, same hover; only the padding and type step down. */
+.brgw .btn--sm{padding:12px 20px;font-size:clamp(11px,1vw,13px);letter-spacing:.12em;}
+
 .brgw .btn[data-btn-color="yellow"]{--brgw-btn-bg:var(--yellow);--brgw-btn-fg:var(--ink);
   background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
 .brgw .btn[data-btn-color="teal"]  {--brgw-btn-bg:var(--teal);  --brgw-btn-fg:var(--ink);
@@ -100,6 +105,36 @@
   color:var(--brgw-btn-fg);box-shadow:var(--brgw-btn-ring);}
 .brgw .btn[data-btn-style="outline"][data-btn-fx="fill"]:hover{color:var(--brgw-btn-fg);}
 .brgw .btn[data-btn-fx="none"]:hover{transform:none;box-shadow:var(--brgw-btn-ring);}
+
+/* TWO MORE, asked for by name. "A lift effect, hover colour change combination, and
+   underline."
+
+   lift-swap  rises AND swaps to the opposite ink at once — the strongest of the set, for
+              a single primary action on a page.
+   underline  draws a rule under the words from left to right. It is the one that reads as
+              a LINK rather than a button, which makes it the right choice for the small
+              buttons under the contact routes.
+
+   The underline is a ::after that scales from 0, not a border or a text-decoration: a
+   border would change the button's height on hover and nudge the layout, and
+   text-decoration cannot be animated across browsers. transform-origin flips so it draws
+   outward from the left and retracts back to the left. */
+.brgw .btn[data-btn-fx="lift-swap"]:hover{transform:translateY(-3px) scale(1.02);
+  background:var(--brgw-btn-fg);color:var(--brgw-btn-bg);
+  box-shadow:var(--brgw-btn-ring),0 12px 26px rgba(0,0,0,.22);}
+
+.brgw .btn[data-btn-fx="underline"]{position:relative;}
+.brgw .btn[data-btn-fx="underline"]::after{content:"";position:absolute;
+  left:20px;right:20px;bottom:12px;height:2px;background:currentColor;
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .32s cubic-bezier(.2,.85,.3,1);}
+.brgw .btn[data-btn-fx="underline"]:hover{transform:none;box-shadow:var(--brgw-btn-ring);}
+.brgw .btn[data-btn-fx="underline"]:hover::after{transform:scaleX(1);}
+/* The small button's padding is tighter, so its rule has to sit tighter too. */
+.brgw .btn--sm[data-btn-fx="underline"]::after{left:12px;right:12px;bottom:7px;}
+@media (prefers-reduced-motion:reduce){
+  .brgw .btn[data-btn-fx="underline"]::after{transition:none;}
+}
 
 /* Shared HEADER (nav) — the plugin injects this around every page, links built
    from pages.json. Sticky, thin yellow top rule, active item underlined teal. */
@@ -155,7 +190,9 @@
   .brgw__footer .brgw__social{position:absolute;right:var(--pad);bottom:40px;margin-top:0;}
 }
 .brgw__footer .lockup{display:block;overflow:hidden;margin:0 auto;
-  width:min(360px,62vw);aspect-ratio:717/117;
+  /* Width comes from Brand info as --brgw-footer-logo-w. The min() stays wrapped around
+     it so a big number still cannot overflow a phone — it means 'as wide as it fits'. */
+  width:min(var(--brgw-footer-logo-w,360px),62vw);aspect-ratio:717/117;
   /* The URL now arrives from Brand info as --brgw-footer-logo; the literal below is the
      fallback for a page rendered before that field exists, so the footer can never go blank. */
   background:var(--brgw-footer-logo,url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg')) center/contain no-repeat;

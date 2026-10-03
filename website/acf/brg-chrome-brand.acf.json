@@ -185,6 +185,27 @@
                 "return_format": "url",
                 "preview_size": "medium",
                 "library": "all"
+            },
+            {
+                "key": "field_brg_brand_footer_logo_size",
+                "label": "Footer logo width",
+                "name": "brg_brand_footer_logo_size",
+                "type": "number",
+                "instructions": "How wide the footer logo is, in pixels. It has been 360 at full width, which reads small on a wide screen. It never grows past the space available, so a large number here simply means 'as big as it fits' on a phone.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-footer_logo_size",
+                    "id": ""
+                },
+                "default_value": "360",
+                "min": 120,
+                "max": 720,
+                "step": 10,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
             }
         ],
         "location": [

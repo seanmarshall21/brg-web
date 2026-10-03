@@ -78,13 +78,18 @@
 
 /* Logo */
 .bnav-logo{display:flex;align-items:center;text-decoration:none;line-height:0;}
-.bnav-logo img{height:clamp(28px,3vw,36px);width:auto;display:block;}
+/* Height comes from the Navigation settings page; the shipped clamp is the fallback,
+   so an untouched site is unchanged and a cleared box returns to it. */
+.bnav-logo img{height:var(--bnav-logo-size,clamp(28px,3vw,36px));width:auto;display:block;}
 
 /* Item slots */
-.bnav-grp{display:flex;align-items:center;gap:clamp(14px,2vw,32px);}
+.bnav-grp{gap:var(--bnav-link-gap,26px);display:flex;align-items:center;gap:clamp(14px,2vw,32px);}
 .bnav-grp:empty{display:none;}
 .bnav-item{position:relative;display:inline-flex;align-items:center;}
-.bnav-link{position:relative;display:inline-block;color:var(--ink);text-decoration:none;text-transform:uppercase;
+/* Size and gap come from the Navigation settings page as custom properties. The value
+   the design shipped with stays as the var() fallback, so an untouched site is
+   unchanged and a cleared box returns to it rather than collapsing to nothing. */
+.bnav-link{font-size:var(--bnav-link-size,13px);position:relative;display:inline-block;color:var(--ink);text-decoration:none;text-transform:uppercase;
   letter-spacing:.14em;font-size:clamp(11px,1vw,12px);font-weight:700;opacity:.72;padding:4px 0 12px;white-space:nowrap;
   transition:opacity .16s ease,color .16s ease;font-family:inherit;background:none;border:0;cursor:pointer;}
 .bnav-link:hover,.bnav-link:focus-visible{opacity:1;}

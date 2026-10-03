@@ -59,5 +59,16 @@
     "label": "Footer logo",
     "doc": "The lockup shown in the middle of the footer on every page. It is artwork, not type — the words beside it in the code are only what a screen reader announces. An SVG keeps it crisp at any size; a PNG around 1400px wide also works. Leave empty to keep the built-in Blacktop lockup.",
     "default": "https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg"
+  },
+  "footer_logo_size": {
+    "type": "number",
+    "label": "Footer logo width",
+    "doc": "How wide the footer logo is, in pixels. It has been 360 at full width, which reads small on a wide screen. It never grows past the space available, so a large number here simply means 'as big as it fits' on a phone.",
+    "width": 50,
+    "default": "360",
+    "min": 120,
+    "max": 720,
+    "step": 10,
+    "append": "px"
   }
 }

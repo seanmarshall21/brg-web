@@ -24,6 +24,31 @@
     "doc": "One line under the label.",
     "default": "Anything that doesn't fit the boxes below."
   },
+  "route_1_btn_label": {
+    "type": "text",
+    "label": "Route 1 — button label",
+    "doc": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
+    "width": 34,
+    "default": ""
+  },
+  "route_1_btn_href": {
+    "type": "url",
+    "label": "Route 1 — button link",
+    "doc": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
+    "width": 33,
+    "default": ""
+  },
+  "route_1_btn_popup": {
+    "type": "select",
+    "label": "Route 1 — button opens a pop-up",
+    "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
+    "width": 33,
+    "default": "",
+    "choices": {
+      "": "Open the link",
+      "1": "Pop-up"
+    }
+  },
   "route_2_label": {
     "type": "text",
     "label": "Route 2 — label",
@@ -41,6 +66,31 @@
     "label": "Route 2 — one-liner",
     "doc": "One line under the label.",
     "default": "Press kit, high-res imagery, interviews, or a comment on a story."
+  },
+  "route_2_btn_label": {
+    "type": "text",
+    "label": "Route 2 — button label",
+    "doc": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
+    "width": 34,
+    "default": ""
+  },
+  "route_2_btn_href": {
+    "type": "url",
+    "label": "Route 2 — button link",
+    "doc": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
+    "width": 33,
+    "default": ""
+  },
+  "route_2_btn_popup": {
+    "type": "select",
+    "label": "Route 2 — button opens a pop-up",
+    "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
+    "width": 33,
+    "default": "",
+    "choices": {
+      "": "Open the link",
+      "1": "Pop-up"
+    }
   },
   "route_3_label": {
     "type": "text",
@@ -60,6 +110,31 @@
     "doc": "One line under the label.",
     "default": "Nonprofits, schools, and local organizations."
   },
+  "route_3_btn_label": {
+    "type": "text",
+    "label": "Route 3 — button label",
+    "doc": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
+    "width": 34,
+    "default": ""
+  },
+  "route_3_btn_href": {
+    "type": "url",
+    "label": "Route 3 — button link",
+    "doc": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
+    "width": 33,
+    "default": ""
+  },
+  "route_3_btn_popup": {
+    "type": "select",
+    "label": "Route 3 — button opens a pop-up",
+    "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
+    "width": 33,
+    "default": "",
+    "choices": {
+      "": "Open the link",
+      "1": "Pop-up"
+    }
+  },
   "route_4_label": {
     "type": "text",
     "label": "Route 4 — label",
@@ -77,6 +152,31 @@
     "label": "Route 4 — one-liner",
     "doc": "One line under the label. Write `&` as a literal ampersand.",
     "default": "Open roles across Board & Brew and Odie's."
+  },
+  "route_4_btn_label": {
+    "type": "text",
+    "label": "Route 4 — button label",
+    "doc": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
+    "width": 34,
+    "default": ""
+  },
+  "route_4_btn_href": {
+    "type": "url",
+    "label": "Route 4 — button link",
+    "doc": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
+    "width": 33,
+    "default": ""
+  },
+  "route_4_btn_popup": {
+    "type": "select",
+    "label": "Route 4 — button opens a pop-up",
+    "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
+    "width": 33,
+    "default": "",
+    "choices": {
+      "": "Open the link",
+      "1": "Pop-up"
+    }
   },
   "section_bg": {
     "type": "image",
@@ -179,11 +279,13 @@
   "btn_effect": {
     "type": "select",
     "label": "Hover effect",
-    "doc": "What the button does when someone points at it. Lift is what every button does today — it rises slightly and casts a shadow. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so it is the one to pair with Outline above. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal and is not changed here. Anyone who has switched off animation sees no hover movement whatever is chosen. This applies to every button in this section.",
+    "doc": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
     "width": 33,
     "default": "lift",
     "choices": {
       "lift": "Lift",
+      "lift-swap": "Lift and swap color",
+      "underline": "Underline",
       "grow": "Grow",
       "press": "Press down",
       "fill": "Fill in",
