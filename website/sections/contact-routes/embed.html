@@ -14,7 +14,7 @@
      Two of the four destinations are already live and proven — the general mailto and the
      partnership mailto both work on community-partner today. Careers points at a live page.
      Only the press route is provisional, pending SPEC-005. -->
-<section class="brgw-sec brgw-sec--contact-routes reveal" data-nav="light" aria-label="Who to contact">
+<section class="brgw-sec brgw-sec--contact-routes reveal" data-nav="light" aria-label="Who to contact" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--contact-routes{background:var(--white);color:var(--ink);
   padding:clamp(64px,7.5vw,104px) var(--pad) clamp(70px,8vw,116px);}
@@ -57,10 +57,12 @@
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <h2 class="blanco anim-head">{{heading}}</h2>
+  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
   <div class="grid">
     <div class="cell anim-up"><a class="lbl blanco" href="{{route_1_href}}">{{route_1_label}}</a><p>{{route_1_text}}</p></div>
     <div class="cell anim-up"><a class="lbl blanco" href="{{route_2_href}}">{{route_2_label}}</a><p>{{route_2_text}}</p></div>
     <div class="cell anim-up"><a class="lbl blanco" href="{{route_3_href}}">{{route_3_label}}</a><p>{{route_3_text}}</p></div>
     <div class="cell anim-up"><a class="lbl blanco" href="{{route_4_href}}">{{route_4_label}}</a><p>{{route_4_text}}</p></div>
   </div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>

@@ -8,7 +8,7 @@
      Owns the yellow BOLT seam badge that straddles its top edge — per the cross-section
      bleed rule (notes/controller.md): the element lives in the LOWER section and bleeds
      UPWARD, because later shells paint on top. Nothing here bleeds downward. -->
-<section class="brgw-sec brgw-sec--home-community reveal" data-nav="dark" data-hl="{{hl_variant}}" aria-label="Born in San Diego">
+<section class="brgw-sec brgw-sec--home-community reveal" data-nav="dark" data-hl="{{hl_variant}}" aria-label="Born in San Diego" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-community{position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,132px) var(--pad) clamp(76px,8vw,120px);}
@@ -79,6 +79,7 @@
   <div class="grid">
     <div>
       <h2 class="blanco anim-head">{{heading_1}}<br>{{heading_2}} <span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{heading_mark}}</span></span></h2>
+  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
       <p class="anim-up">{{intro_1}} <strong>{{intro_emphasis}}</strong> {{intro_2}}</p>
       <p class="anim-up">{{body_1}}</p>
       <p class="anim-up">{{body_2}}</p>
@@ -95,6 +96,7 @@
       <span class="cluster" aria-hidden="true" data-mark-pos="{{mark_2_all_trim_pos}}" data-mark-show="{{mark_2_all_trim_show}}" data-mark-anim="{{mark_2_all_trim_anim}}" data-mark-o style="--brgw-mark-o:{{mark_2_all_trim_opacity}}"><img class="brgw-pop" src="{{mark_2_all_trim_art}}" alt="" width="302" height="310" loading="lazy" decoding="async"></span>
     </div>
   </div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>
 </template>
 <script>
@@ -103,7 +105,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading_1": "Born in San Diego.", "heading_2": "Built", "heading_mark": "for community.", "intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.14", "section_bg_px": "0", "section_bg_px_dir": "down", "mark_1_bolt_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg", "mark_1_bolt_pos": "keep", "mark_1_bolt_opacity": "100", "mark_1_bolt_show": "1", "mark_1_bolt_anim": "keep", "mark_2_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_2_all_trim_pos": "keep", "mark_2_all_trim_opacity": "100", "mark_2_all_trim_show": "1", "mark_2_all_trim_anim": "keep"};
+  var D = {"heading_1": "Born in San Diego.", "heading_2": "Built", "heading_mark": "for community.", "intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.14", "section_bg_px": "0", "section_bg_px_dir": "down", "mark_1_bolt_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg", "mark_1_bolt_pos": "keep", "mark_1_bolt_opacity": "100", "mark_1_bolt_show": "1", "mark_1_bolt_anim": "keep", "mark_2_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_2_all_trim_pos": "keep", "mark_2_all_trim_opacity": "100", "mark_2_all_trim_show": "1", "mark_2_all_trim_anim": "keep", "cta_label": "", "cta_href": "", "cta_position": "foot"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

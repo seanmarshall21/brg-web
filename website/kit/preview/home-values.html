@@ -9,7 +9,7 @@
      The comp's grid is RULES, not filled cards: hairline dividers between cells, no borders
      on the outside. Five values, not six — "Do It Right" isn't in the comp, and Stay Stoked's
      copy differs from the old monolith, so the copy here is taken from the export. -->
-<section class="brgw-sec brgw-sec--home-values reveal" data-nav="dark" aria-label="Our core values">
+<section class="brgw-sec brgw-sec--home-values reveal" data-nav="dark" aria-label="Our core values" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-values{position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,130px) var(--pad) clamp(80px,9vw,124px);}
@@ -50,6 +50,7 @@
   <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_ast_pos}}" data-mark-show="{{mark_1_ast_show}}" data-mark-anim="{{mark_1_ast_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_ast_opacity}}"><img src="{{mark_1_ast_art}}" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
 
   <h2 class="blanco anim-head">{{heading}}</h2>
+  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
   <div class="grid">
     <!--brg:repeat values-->
     <div class="cell anim-up"><span class="lbl blanco">{{values.label}}</span><p>{{values.body}}</p></div>
@@ -61,6 +62,7 @@
     <div class="cell anim-up"><span class="lbl blanco">Community</span><p>We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that invest in us.</p></div>
     <!--/brg:repeat-->
   </div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>
 </template>
 <script>
@@ -69,7 +71,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "values": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep"};
+  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "values": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "cta_label": "", "cta_href": "", "cta_position": "foot"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

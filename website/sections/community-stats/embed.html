@@ -5,7 +5,7 @@
      three XX figures are now fixable in wp-admin with no push. Each label is TWO text slots,
      not one — the <br> stays here in the markup because the comp's two-line rhythm is layout,
      not content, and a single rich-text slot would arrive wrapped in <p> and break `.cell p`. -->
-<section class="brgw-sec brgw-sec--community-stats reveal" data-nav="light" aria-label="Community by the numbers">
+<section class="brgw-sec brgw-sec--community-stats reveal" data-nav="light" aria-label="Community by the numbers" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--community-stats{background:var(--white);color:var(--ink);
   padding:clamp(70px,8vw,116px) var(--pad);}
@@ -47,4 +47,5 @@
     <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_3_fig}}</span><p>{{stat_3_line1}}<br>{{stat_3_line2}}</p></div>
     <div class="cell anim-up"><span class="fig blanco brgw-pulse">{{stat_4_fig}}</span><p>{{stat_4_line1}}<br>{{stat_4_line2}}</p></div>
   </div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>

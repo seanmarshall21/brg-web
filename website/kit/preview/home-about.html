@@ -7,7 +7,7 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" aria-label="What we're about">
+<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-about{background:var(--white);color:var(--ink);}
 .brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
@@ -47,6 +47,7 @@
     </div>
     <div class="body">
       <h2 class="blanco anim-head">{{heading}}</h2>
+  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
       <div class="pair">
         <span class="lbl anim-up">{{vision_label}}</span>
         <div class="big blanco anim-up">{{vision_text}}</div>
@@ -57,6 +58,7 @@
       </div>
     </div>
   </div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>
 </template>
 <script>
@@ -65,7 +67,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "What we're about", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": ""};
+  var D = {"heading": "What we're about", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_label": "", "cta_href": "", "cta_position": "foot"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

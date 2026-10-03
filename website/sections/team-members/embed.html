@@ -3,7 +3,7 @@
      Light section. Owns the yellow smiley seam badge, bleeding upward.
      Nine crew cards: colored plate + portrait + tilted black name bar + pull quote.
      Card colors come from the comp; portraits are placeholders until headshots land. -->
-<section class="brgw-sec brgw-sec--team-members reveal" data-nav="light" aria-label="The crew">
+<section class="brgw-sec brgw-sec--team-members reveal" data-nav="light" aria-label="The crew" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--team-members{position:relative;background:var(--white);color:var(--ink);overflow:visible;
   padding:clamp(78px,8.5vw,124px) var(--pad) clamp(74px,8vw,116px);text-align:center;}
@@ -347,4 +347,5 @@
     <figure class="anim-up" style="--c:#E02020"><div class="card"></div><span class="bar"><span class="nm blanco">Name</span><span class="ti">Title</span></span><figcaption>&ldquo;Quote to come.&rdquo;</figcaption></figure>
     <!--/brg:repeat-->
   </div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>

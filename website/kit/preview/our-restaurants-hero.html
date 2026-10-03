@@ -7,7 +7,7 @@
      Type hero (no photo). Same build as the other type heroes — headline, marker
      underline, lede, scattered doodles — differing only in copy, underline color
      and which brand icons scatter. Real icon artwork, not hand-drawn paths. -->
-<section class="brgw-sec brgw-sec--our-restaurants-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Our Restaurants">
+<section class="brgw-sec brgw-sec--our-restaurants-hero brgw-hero reveal" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Our Restaurants" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--our-restaurants-hero{overflow:hidden;}
 /* Underline is now Sean's line-restaurants-lg.svg; its color is baked into the path fill,
@@ -53,11 +53,13 @@
     <span class="hero-scrim" data-scrim="{{overlay_color}}" style="--brgw-scrim-o:{{overlay_strength}}"></span>
   </div>
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
+  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
   <img class="uline anim-up" aria-hidden="true" alt="" width="844" height="28"
        src="https://blacktoprg.netlify.app/assets/media/lines/line-restaurants-lg.svg">
   <p class="sub anim-up">{{sub}}</p>
   <span class="brgw-doodle brgw-doodle--c" aria-hidden="true" data-mark-pos="{{mark_1_ast_circle_pos}}" data-mark-show="{{mark_1_ast_circle_show}}" data-mark-anim="{{mark_1_ast_circle_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_ast_circle_opacity}}"><img src="{{mark_1_ast_circle_art}}" alt="" width="122" height="118"></span>
   <span class="brgw-doodle" aria-hidden="true" data-mark-pos="{{mark_2_bolt_fill_pos}}" data-mark-show="{{mark_2_bolt_fill_show}}" data-mark-anim="{{mark_2_bolt_fill_anim}}" data-mark-o style="--brgw-mark-o:{{mark_2_bolt_fill_opacity}}"><img src="{{mark_2_bolt_fill_art}}" alt="" width="129" height="207"></span>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>
 </template>
 <script>
@@ -66,7 +68,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Two brands. One standard. Zero compromises.", "sub": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for.", "uline_variant": "u3", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_circle_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg", "mark_1_ast_circle_pos": "tr", "mark_1_ast_circle_opacity": "100", "mark_1_ast_circle_show": "1", "mark_1_ast_circle_anim": "keep", "mark_2_bolt_fill_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg", "mark_2_bolt_fill_pos": "bl", "mark_2_bolt_fill_opacity": "100", "mark_2_bolt_fill_show": "1", "mark_2_bolt_fill_anim": "keep"};
+  var D = {"heading": "Two brands. One standard. Zero compromises.", "sub": "Every BRG location is built on the same foundation: quality ingredients, genuine hospitality, and a laid-back vibe worth coming back for.", "uline_variant": "u3", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_circle_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg", "mark_1_ast_circle_pos": "tr", "mark_1_ast_circle_opacity": "100", "mark_1_ast_circle_show": "1", "mark_1_ast_circle_anim": "keep", "mark_2_bolt_fill_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg", "mark_2_bolt_fill_pos": "bl", "mark_2_bolt_fill_opacity": "100", "mark_2_bolt_fill_show": "1", "mark_2_bolt_fill_anim": "keep", "cta_label": "", "cta_href": "", "cta_position": "foot"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

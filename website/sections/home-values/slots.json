@@ -150,5 +150,31 @@
       "none": "Still"
     },
     "group": "Mark — Ast"
+  },
+  "cta_label": {
+    "type": "text",
+    "label": "Button label",
+    "doc": "Leave this empty — as it is now — and this section has no button at all. Type a label and the button appears. Short reads best: it is set in capitals with wide letter spacing, so three or four words is the practical limit before it wraps.",
+    "default": "",
+    "group": "Button"
+  },
+  "cta_href": {
+    "type": "url",
+    "label": "Button link",
+    "doc": "Where the button goes. A path like /careers/ stays on this site; a full address goes off it. A link on its own shows nothing — the label above is what makes the button appear.",
+    "default": "",
+    "group": "Button"
+  },
+  "cta_position": {
+    "type": "select",
+    "label": "Button position",
+    "doc": "Where the button sits. At the bottom is the usual place and the one the rest of the site uses.",
+    "width": 50,
+    "default": "foot",
+    "choices": {
+      "foot": "At the bottom of the section",
+      "head": "Directly under the heading"
+    },
+    "group": "Button"
   }
 }

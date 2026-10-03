@@ -2,7 +2,7 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" aria-label="What we're about">
+<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-about{background:var(--white);color:var(--ink);}
 .brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
@@ -42,6 +42,7 @@
     </div>
     <div class="body">
       <h2 class="blanco anim-head">{{heading}}</h2>
+  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
       <div class="pair">
         <span class="lbl anim-up">{{vision_label}}</span>
         <div class="big blanco anim-up">{{vision_text}}</div>
@@ -52,4 +53,5 @@
       </div>
     </div>
   </div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>

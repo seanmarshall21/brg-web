@@ -3,7 +3,7 @@
      Owns the yellow BOLT seam badge that straddles its top edge — per the cross-section
      bleed rule (notes/controller.md): the element lives in the LOWER section and bleeds
      UPWARD, because later shells paint on top. Nothing here bleeds downward. -->
-<section class="brgw-sec brgw-sec--home-community reveal" data-nav="dark" data-hl="{{hl_variant}}" aria-label="Born in San Diego">
+<section class="brgw-sec brgw-sec--home-community reveal" data-nav="dark" data-hl="{{hl_variant}}" aria-label="Born in San Diego" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-community{position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,132px) var(--pad) clamp(76px,8vw,120px);}
@@ -74,6 +74,7 @@
   <div class="grid">
     <div>
       <h2 class="blanco anim-head">{{heading_1}}<br>{{heading_2}} <span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{heading_mark}}</span></span></h2>
+  <div class="brgw-cta" data-cta-at="head" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
       <p class="anim-up">{{intro_1}} <strong>{{intro_emphasis}}</strong> {{intro_2}}</p>
       <p class="anim-up">{{body_1}}</p>
       <p class="anim-up">{{body_2}}</p>
@@ -90,4 +91,5 @@
       <span class="cluster" aria-hidden="true" data-mark-pos="{{mark_2_all_trim_pos}}" data-mark-show="{{mark_2_all_trim_show}}" data-mark-anim="{{mark_2_all_trim_anim}}" data-mark-o style="--brgw-mark-o:{{mark_2_all_trim_opacity}}"><img class="brgw-pop" src="{{mark_2_all_trim_art}}" alt="" width="302" height="310" loading="lazy" decoding="async"></span>
     </div>
   </div>
+  <div class="brgw-cta" data-cta-at="foot" data-cta="{{cta_label}}"><a class="btn anim-cta" href="{{cta_href}}">{{cta_label}}</a></div>
 </section>

@@ -395,6 +395,28 @@
 .brgw-sec .sec-bg img{width:100%;height:100%;object-fit:cover;display:block;}
 .brgw-sec .sec-bg[data-bg=""]{display:none;}
 
+/* ---- the optional per-section button ------------------------------------------------
+   Twelve sections had no button and no way to add one. Each now carries two, in the
+   markup only: one directly under the heading and one at the foot of the section. The
+   position field shows exactly one of them, and an empty label hides both.
+
+   TWO ELEMENTS RATHER THAN ONE THAT MOVES, on purpose. "Under the heading" and "at the
+   bottom" are different places in the document, and no CSS moves an element between two
+   arbitrary points in a layout that is a grid here, a flex row there and plain flow
+   elsewhere. order: only works inside flex, and giving twelve different sections a flex
+   container to satisfy one optional button would restructure twelve working layouts. The
+   hidden copy costs a few bytes and display:none keeps it out of the accessibility tree,
+   so a screen reader never meets the duplicate.
+
+   ABSENT BY DEFAULT. The label ships empty, so every one of these sections renders exactly
+   as it does today until someone types a label. That is also why the empty state is keyed
+   off the LABEL and not the link: a button with a URL and no words is not a button. */
+.brgw-sec .brgw-cta{display:none;margin:clamp(26px,3.4vw,44px) 0 0;}
+.brgw-sec[data-cta-pos="head"] .brgw-cta[data-cta-at="head"],
+.brgw-sec[data-cta-pos="foot"] .brgw-cta[data-cta-at="foot"]{display:block;}
+/* Wins over both rules above — an unset label hides the button wherever it was put. */
+.brgw-sec .brgw-cta[data-cta=""]{display:none!important;}
+
 /* ---- the decorative marks become editable ------------------------------------------
    Twenty-seven marks across fourteen sections — corner doodles, seam badges, the home
    hero cluster, the placed smiley and SD|CA — each now carrying artwork, position,
