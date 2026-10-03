@@ -222,7 +222,13 @@
    cap — measured 342px wide under both values, with no horizontal overflow. The ch unit
    scales with font-size, so this stays a character count rather than a fixed width. */
 .brgw-hero h1{font-size:clamp(2.4rem,6.4vw,5.4rem);text-transform:uppercase;max-width:24ch;margin:0 auto 8px;}
-.brgw-hero .sub{max-width:52ch;margin:26px auto 0;opacity:.9;line-height:1.6;font-size:clamp(1rem,1.3vw,1.2rem);}
+/* WIDER THAN IT WAS. Sean, 3 Oct, on the Brands hero: "this hero just gets pretty tall.
+   I feel like the body content and the subcopy on the hero should have a wider
+   footprint." It was 52ch, which ran the Brands lede to six lines and pushed the hero
+   well past a screen. 72ch takes the same copy to four.
+   The min() keeps it honest on a phone, where 72ch is wider than the screen and the
+   measure has to come from the viewport instead. */
+.brgw-hero .sub{max-width:min(72ch,92%);margin:26px auto 0;opacity:.9;line-height:1.6;font-size:clamp(1rem,1.3vw,1.2rem);}
 
 /* ── Hero background photo + color overlay ──────────────────────────────────
    Sean, 30 Sep: "I don't recall how I'm able to control the background of that

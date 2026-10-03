@@ -169,10 +169,19 @@
    IT ALSO HANDLES THE WRAPPING CASE WITHOUT A SECOND RULE: fit-content is min(max-content,
    available), so a quote long enough to wrap fills the width and the box's left edge IS the
    paragraph's left edge — which is exactly where Sean asked for it on the multi-line ones. */
+/* THE MARK SITS BESIDE THE WORDS, NOT UNDER THEM. Sean, 3 Oct: "some of these quotes are
+   in strange places. They should be to the left of the text." It was absolutely positioned
+   at left:0 top:-6px INSIDE the caption box, so it sat behind the first words and — being
+   taller than a line of text at 44/33 — hung below them, which on a one-line quote read as
+   a stray blob under the caption rather than as punctuation.
+   The caption now carries left padding the width of the mark plus a gap, and the mark lives
+   in that padding, vertically centred on the text. The box is still width:fit-content and
+   centred, so a short quote stays centred under its card; the mark just moved out of the
+   words. */
 .brgw-sec--team-members figcaption{position:relative;width:fit-content;max-width:100%;
-  margin-inline:auto;}
+  margin-inline:auto;padding-left:calc(clamp(34px,3.6vw,52px) + 10px);}
 .brgw-sec--team-members figcaption::before{
-  content:"";position:absolute;left:0;top:-6px;z-index:0;
+  content:"";position:absolute;left:0;top:50%;translate:0 -50%;z-index:0;
   width:clamp(34px,3.6vw,52px);aspect-ratio:44/33;pointer-events:none;
   background-color:var(--c,var(--yellow));opacity:.15;
   -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2044%2033%22%3E%3Cpath%20d%3D%22M15.1755%2014.4209C16.8517%2015.1877%2018.1388%2016.3378%2019.0367%2017.8713C19.9946%2019.3458%2020.4735%2021.0858%2020.4735%2023.0912C20.4735%2026.0402%2019.5156%2028.429%2017.6%2030.2574C15.6844%2032.0858%2013.2299%2033%2010.2367%2033C7.24354%2033%204.78912%2032.0858%202.87347%2030.2574C0.957823%2028.429%200%2026.0402%200%2023.0912C0%2021.7346%200.179592%2020.378%200.538775%2019.0214C0.897959%2017.6649%201.70612%2015.6595%202.96327%2013.0054L8.7102%200H19.3959L15.1755%2014.4209ZM38.702%2014.4209C40.3782%2015.1877%2041.6653%2016.3378%2042.5633%2017.8713C43.5211%2019.3458%2044%2021.0858%2044%2023.0912C44%2026.0402%2043.0422%2028.429%2041.1265%2030.2574C39.2109%2032.0858%2036.7565%2033%2033.7633%2033C30.7701%2033%2028.3156%2032.0858%2026.4%2030.2574C24.4844%2028.429%2023.5265%2026.0402%2023.5265%2023.0912C23.5265%2021.7346%2023.7061%2020.378%2024.0653%2019.0214C24.4245%2017.6649%2025.2327%2015.6595%2026.4898%2013.0054L32.2367%200H42.9224L38.702%2014.4209Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat left top/contain;
@@ -326,7 +335,7 @@
   <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
-  <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_smile_pos}}" data-mark-show="{{mark_1_smile_show}}" data-mark-anim="{{mark_1_smile_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_smile_opacity}}"><img src="{{mark_1_smile_art}}" alt="" width="150" height="145" loading="lazy" decoding="async"></span>
+  <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_smile_pos}}" data-mark-show="{{mark_1_smile_show}}" data-mark-anim="{{mark_1_smile_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_smile_opacity}}"><img class="brgw-pop" src="{{mark_1_smile_art}}" alt="" width="150" height="145" loading="lazy" decoding="async"></span>
 
   <span class="banner blanco anim-up">{{banner}}</span>
   <p class="lede anim-up">{{lede}}</p>

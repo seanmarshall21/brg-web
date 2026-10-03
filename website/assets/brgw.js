@@ -325,13 +325,41 @@
          would leave the last one starting 1.3s after the first and still animating long
          after the reader has scrolled past it. Clamping the accumulated delay keeps the
          loose feel for a normal 3-6 item section without letting a big grid trail. */
-      var STAG_LN = 120, STAG_EL = 165, STAG_MAX = 780;
-      var items = [].slice.call(sec.querySelectorAll('.ln-i, .anim-up, .anim-cta')), d = 0;
-      items.forEach(function (el) {
-        var delay = d < STAG_MAX ? d : STAG_MAX;
+      var STAG_LN = 120, STAG_EL = 165, STAG_MAX = 1500;
+
+      /* .brgw-pop IS IN THE LIST NOW — the doodles, the placed marks and the seam badge.
+         Sean, 3 Oct: "those should also animate in. They're all a part of the sequence."
+         They already had an entrance, but no delay, so every mark in a section popped at
+         once while the words around them arrived one at a time. */
+      var items = [].slice.call(sec.querySelectorAll('.ln-i, .anim-up, .anim-cta, .brgw-pop'));
+
+      /* THE CLAMP IS A SCALE, NOT A CEILING, and that is the fix for "images should
+         animate in sequentially". The old version held the delay at STAG_MAX once the
+         total passed it, so on the nine-card crew grid the first six cards arrived one by
+         one and the last four landed together — the clamp stopped being a stagger exactly
+         where the grid got interesting. Scaling the STEP instead keeps every item distinct
+         however many there are, and still bounds the whole run: nine cards at 165ms would
+         run 1320ms and fit, twenty would compress to fit 1500ms rather than pile up. */
+      var total = 0;
+      items.forEach(function (el, i) {
+        if (i) total += el.classList.contains('ln-i') ? STAG_LN : STAG_EL;
+      });
+      var scale = total > STAG_MAX ? STAG_MAX / total : 1;
+
+      var d = 0;
+      items.forEach(function (el, i) {
+        if (i) d += (el.classList.contains('ln-i') ? STAG_LN : STAG_EL) * scale;
+        var delay = Math.round(d);
         el.style.transitionDelay = delay + 'ms';
-        if (el.classList.contains('anim-cta')) el.style.animationDelay = delay + 'ms';
-        d += el.classList.contains('ln-i') ? STAG_LN : STAG_EL;
+        if (el.classList.contains('brgw-pop')) {
+          /* TWO animations on a mark — the pop, then the endless jitter that starts after
+             it. animation-delay takes a LIST, and a single value is applied to every
+             animation in it, which would start the jitter at the same moment as the pop
+             and leave the mark twitching while it is still scaling up. Both are named. */
+          el.style.animationDelay = delay + 'ms, ' + (delay + 600) + 'ms';
+        } else if (el.classList.contains('anim-cta')) {
+          el.style.animationDelay = delay + 'ms';
+        }
       });
     });
     /* HOW EARLY A SECTION REVEALS. Sean, 3 Oct: "the scroll trigger needs to fire earlier…
