@@ -877,6 +877,109 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_our_restaurants_hero_buttons",
+                "label": "Buttons",
+                "name": "brg_our_restaurants_hero_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_our_restaurants_hero_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_our_restaurants_hero_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_hero_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_hero_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_our_restaurants_hero_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_our_restaurants_hero_endacc_buttons",
                 "label": "",
                 "name": "",
@@ -996,143 +1099,6 @@
             },
             {
                 "key": "field_brg_our_restaurants_hero_endacc_button_style",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_our_restaurants_hero_acc_buttons",
-                "label": "Buttons",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_our_restaurants_hero_buttons",
-                "label": "Buttons",
-                "name": "brg_our_restaurants_hero_buttons",
-                "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-buttons",
-                    "id": ""
-                },
-                "layout": "block",
-                "button_label": "Add a button",
-                "min": 0,
-                "max": 0,
-                "collapsed": "field_brg_our_restaurants_hero_buttons_label",
-                "sub_fields": [
-                    {
-                        "key": "field_brg_our_restaurants_hero_buttons_label",
-                        "label": "Label",
-                        "name": "label",
-                        "type": "text",
-                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-label",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_hero_buttons_href",
-                        "label": "Link",
-                        "name": "href",
-                        "type": "text",
-                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-href",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_hero_buttons_popup",
-                        "label": "Open in a pop-up",
-                        "name": "popup",
-                        "type": "select",
-                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-popup",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Open the link",
-                            "1": "Pop-up"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    }
-                ]
-            },
-            {
-                "key": "field_brg_our_restaurants_hero_modal_bg",
-                "label": "Pop-up background",
-                "name": "brg_our_restaurants_hero_modal_bg",
-                "type": "select",
-                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-modal_bg",
-                    "id": ""
-                },
-                "default_value": "white",
-                "choices": {
-                    "white": "White",
-                    "ink": "Site dark",
-                    "yellow": "Yellow",
-                    "teal": "Teal"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_hero_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",

@@ -2063,91 +2063,6 @@
                 "library": "all"
             },
             {
-                "key": "field_brg_home_community_endacc_section_background",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_community_acc_section_background_phones",
-                "label": "Section background — phones",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_home_community_section_bg_mobile",
-                "label": "Section background — phones",
-                "name": "brg_home_community_section_bg_mobile",
-                "type": "image",
-                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-section_bg_mobile",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_home_community_endacc_section_background_phones",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_community_acc_section_background",
-                "label": "Section background",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
                 "key": "field_brg_home_community_section_bg_opacity",
                 "label": "Background strength",
                 "name": "brg_home_community_section_bg_opacity",
@@ -2228,6 +2143,57 @@
             },
             {
                 "key": "field_brg_home_community_endacc_section_background",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_home_community_acc_section_background_phones",
+                "label": "Section background — phones",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_community_section_bg_mobile",
+                "label": "Section background — phones",
+                "name": "brg_home_community_section_bg_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_community_endacc_section_background_phones",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -2602,6 +2568,109 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_community_buttons",
+                "label": "Buttons",
+                "name": "brg_home_community_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_home_community_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_home_community_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_community_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_community_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_home_community_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_home_community_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_home_community_endacc_buttons",
                 "label": "",
                 "name": "",
@@ -2721,143 +2790,6 @@
             },
             {
                 "key": "field_brg_home_community_endacc_button_style",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_community_acc_buttons",
-                "label": "Buttons",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_home_community_buttons",
-                "label": "Buttons",
-                "name": "brg_home_community_buttons",
-                "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-buttons",
-                    "id": ""
-                },
-                "layout": "block",
-                "button_label": "Add a button",
-                "min": 0,
-                "max": 0,
-                "collapsed": "field_brg_home_community_buttons_label",
-                "sub_fields": [
-                    {
-                        "key": "field_brg_home_community_buttons_label",
-                        "label": "Label",
-                        "name": "label",
-                        "type": "text",
-                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-label",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_home_community_buttons_href",
-                        "label": "Link",
-                        "name": "href",
-                        "type": "text",
-                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-href",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_home_community_buttons_popup",
-                        "label": "Open in a pop-up",
-                        "name": "popup",
-                        "type": "select",
-                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-popup",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Open the link",
-                            "1": "Pop-up"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    }
-                ]
-            },
-            {
-                "key": "field_brg_home_community_modal_bg",
-                "label": "Pop-up background",
-                "name": "brg_home_community_modal_bg",
-                "type": "select",
-                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-modal_bg",
-                    "id": ""
-                },
-                "default_value": "white",
-                "choices": {
-                    "white": "White",
-                    "ink": "Site dark",
-                    "yellow": "Yellow",
-                    "teal": "Teal"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_home_community_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -3341,6 +3273,109 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_about_buttons",
+                "label": "Buttons",
+                "name": "brg_home_about_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_home_about_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_home_about_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_about_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_about_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_home_about_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_home_about_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_home_about_endacc_buttons",
                 "label": "",
                 "name": "",
@@ -3460,143 +3495,6 @@
             },
             {
                 "key": "field_brg_home_about_endacc_button_style",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_about_acc_buttons",
-                "label": "Buttons",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_home_about_buttons",
-                "label": "Buttons",
-                "name": "brg_home_about_buttons",
-                "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-buttons",
-                    "id": ""
-                },
-                "layout": "block",
-                "button_label": "Add a button",
-                "min": 0,
-                "max": 0,
-                "collapsed": "field_brg_home_about_buttons_label",
-                "sub_fields": [
-                    {
-                        "key": "field_brg_home_about_buttons_label",
-                        "label": "Label",
-                        "name": "label",
-                        "type": "text",
-                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-label",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_home_about_buttons_href",
-                        "label": "Link",
-                        "name": "href",
-                        "type": "text",
-                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-href",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_home_about_buttons_popup",
-                        "label": "Open in a pop-up",
-                        "name": "popup",
-                        "type": "select",
-                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-popup",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Open the link",
-                            "1": "Pop-up"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    }
-                ]
-            },
-            {
-                "key": "field_brg_home_about_modal_bg",
-                "label": "Pop-up background",
-                "name": "brg_home_about_modal_bg",
-                "type": "select",
-                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-modal_bg",
-                    "id": ""
-                },
-                "default_value": "white",
-                "choices": {
-                    "white": "White",
-                    "ink": "Site dark",
-                    "yellow": "Yellow",
-                    "teal": "Teal"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_home_about_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -4193,91 +4091,6 @@
                 "library": "all"
             },
             {
-                "key": "field_brg_home_different_endacc_section_background",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_different_acc_section_background_phones",
-                "label": "Section background — phones",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_home_different_section_bg_mobile",
-                "label": "Section background — phones",
-                "name": "brg_home_different_section_bg_mobile",
-                "type": "image",
-                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-section_bg_mobile",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_home_different_endacc_section_background_phones",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_different_acc_section_background",
-                "label": "Section background",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
                 "key": "field_brg_home_different_section_bg_opacity",
                 "label": "Background strength",
                 "name": "brg_home_different_section_bg_opacity",
@@ -4374,6 +4187,57 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_home_different_acc_section_background_phones",
+                "label": "Section background — phones",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_different_section_bg_mobile",
+                "label": "Section background — phones",
+                "name": "brg_home_different_section_bg_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_different_endacc_section_background_phones",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_home_different_acc_buttons",
                 "label": "Buttons",
                 "name": "",
@@ -4407,6 +4271,109 @@
                 "choices": {
                     "foot": "At the bottom of the section",
                     "head": "Directly under the heading"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_buttons",
+                "label": "Buttons",
+                "name": "brg_home_different_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_home_different_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_home_different_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_different_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_different_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_home_different_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_home_different_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -4551,143 +4518,6 @@
                 "endpoint": 1
             },
             {
-                "key": "field_brg_home_different_acc_buttons",
-                "label": "Buttons",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_home_different_buttons",
-                "label": "Buttons",
-                "name": "brg_home_different_buttons",
-                "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-buttons",
-                    "id": ""
-                },
-                "layout": "block",
-                "button_label": "Add a button",
-                "min": 0,
-                "max": 0,
-                "collapsed": "field_brg_home_different_buttons_label",
-                "sub_fields": [
-                    {
-                        "key": "field_brg_home_different_buttons_label",
-                        "label": "Label",
-                        "name": "label",
-                        "type": "text",
-                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-label",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_home_different_buttons_href",
-                        "label": "Link",
-                        "name": "href",
-                        "type": "text",
-                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-href",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_home_different_buttons_popup",
-                        "label": "Open in a pop-up",
-                        "name": "popup",
-                        "type": "select",
-                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-popup",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Open the link",
-                            "1": "Pop-up"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    }
-                ]
-            },
-            {
-                "key": "field_brg_home_different_modal_bg",
-                "label": "Pop-up background",
-                "name": "brg_home_different_modal_bg",
-                "type": "select",
-                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-modal_bg",
-                    "id": ""
-                },
-                "default_value": "white",
-                "choices": {
-                    "white": "White",
-                    "ink": "Site dark",
-                    "yellow": "Yellow",
-                    "teal": "Teal"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_home_different_endacc_buttons",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
                 "key": "field_brg_tab_home_values",
                 "label": "Core values",
                 "name": "",
@@ -4791,91 +4621,6 @@
                 "library": "all"
             },
             {
-                "key": "field_brg_home_values_endacc_section_background",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_values_acc_section_background_phones",
-                "label": "Section background — phones",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_home_values_section_bg_mobile",
-                "label": "Section background — phones",
-                "name": "brg_home_values_section_bg_mobile",
-                "type": "image",
-                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-section_bg_mobile",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_home_values_endacc_section_background_phones",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_values_acc_section_background",
-                "label": "Section background",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
                 "key": "field_brg_home_values_section_bg_opacity",
                 "label": "Background strength",
                 "name": "brg_home_values_section_bg_opacity",
@@ -4956,6 +4701,57 @@
             },
             {
                 "key": "field_brg_home_values_endacc_section_background",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_home_values_acc_section_background_phones",
+                "label": "Section background — phones",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_values_section_bg_mobile",
+                "label": "Section background — phones",
+                "name": "brg_home_values_section_bg_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_home_values_endacc_section_background_phones",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -5223,6 +5019,109 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_values_buttons",
+                "label": "Buttons",
+                "name": "brg_home_values_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_home_values_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_home_values_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_values_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_home_values_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_home_values_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_home_values_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_home_values_endacc_buttons",
                 "label": "",
                 "name": "",
@@ -5342,143 +5241,6 @@
             },
             {
                 "key": "field_brg_home_values_endacc_button_style",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_home_values_acc_buttons",
-                "label": "Buttons",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_home_values_buttons",
-                "label": "Buttons",
-                "name": "brg_home_values_buttons",
-                "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-buttons",
-                    "id": ""
-                },
-                "layout": "block",
-                "button_label": "Add a button",
-                "min": 0,
-                "max": 0,
-                "collapsed": "field_brg_home_values_buttons_label",
-                "sub_fields": [
-                    {
-                        "key": "field_brg_home_values_buttons_label",
-                        "label": "Label",
-                        "name": "label",
-                        "type": "text",
-                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-label",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_home_values_buttons_href",
-                        "label": "Link",
-                        "name": "href",
-                        "type": "text",
-                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-href",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_home_values_buttons_popup",
-                        "label": "Open in a pop-up",
-                        "name": "popup",
-                        "type": "select",
-                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "50",
-                            "class": "brg-f-popup",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Open the link",
-                            "1": "Pop-up"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    }
-                ]
-            },
-            {
-                "key": "field_brg_home_values_modal_bg",
-                "label": "Pop-up background",
-                "name": "brg_home_values_modal_bg",
-                "type": "select",
-                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-modal_bg",
-                    "id": ""
-                },
-                "default_value": "white",
-                "choices": {
-                    "white": "White",
-                    "ink": "Site dark",
-                    "yellow": "Yellow",
-                    "teal": "Teal"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_home_values_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",

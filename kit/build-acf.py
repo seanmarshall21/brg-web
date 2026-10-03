@@ -241,12 +241,27 @@ def grouped_fields(section_id, slots):
     fields too. The endpoint is what makes the group end where it is written.
 
     Consecutive slots sharing a `group` string form one accordion; a different string
-    starts a new one. Order comes from slots.json: json.load builds its dicts in document
-    order on every Python we run, so the ORDER OF THE FILE IS THE ORDER OF THE ADMIN
-    SCREEN. That means a group's slots have to be written CONSECUTIVELY — a slot of the
-    same group placed further down opens a second accordion with the same heading rather
-    than joining the first.
+    Order comes from slots.json: json.load builds its dicts in document order on every
+    Python we run, so the ORDER OF THE FILE IS THE ORDER OF THE ADMIN SCREEN.
+
+    A GROUP IS GATHERED BY NAME, NOT BY ADJACENCY. The first version required a group's
+    slots to be written consecutively and said so in this docstring, which is a trap
+    dressed up as documentation: the day buttons became a repeater, twelve sections ended
+    up with `cta_position` separated from `buttons` by an unrelated slot and quietly grew
+    TWO accordions both headed "Buttons" — the editor sees the same heading twice and the
+    fields split between them, with nothing to explain why. Collecting by name makes that
+    unrepresentable. A group appears where its FIRST slot appears, and everything else in
+    it follows there; ungrouped slots keep their own order around it.
     """
+    # Gather first: every slot of a group is emitted together, at the position of the
+    # group's first member, whatever order the file happens to list them in.
+    members = {}
+    for k, v in slots.items():
+        g = (v or {}).get('group')
+        if g:
+            members.setdefault(g, []).append(k)
+    emitted_groups = set()
+
     out, open_group = [], None
 
     def close():
@@ -263,9 +278,12 @@ def grouped_fields(section_id, slots):
 
     for k, v in slots.items():
         g = (v or {}).get('group')
+        if g and g in emitted_groups:
+            continue                      # already emitted with its group
         if g != open_group:
             close()
             if g:
+                emitted_groups.add(g)
                 out.append({
                     'key': 'field_brg_' + section_id.replace('-', '_') + '_acc_'
                            + re.sub(r'[^a-z0-9]+', '_', g.lower()).strip('_'),
@@ -279,7 +297,11 @@ def grouped_fields(section_id, slots):
                     'open': 0, 'multi_expand': 1, 'endpoint': 0,
                 })
             open_group = g
-        out.append(field(section_id, k, v))
+        if g:
+            for mk in members[g]:
+                out.append(field(section_id, mk, slots[mk]))
+        else:
+            out.append(field(section_id, k, v))
     close()
     return out
 
