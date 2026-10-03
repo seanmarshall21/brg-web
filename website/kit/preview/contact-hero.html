@@ -13,7 +13,7 @@
      to overrule.
      Doodles are the BRG mark + smiley — the only pair not already used by another hero, and
      the friendliest two, which suits a page whose whole job is "talk to us". -->
-<section class="brgw-sec brgw-sec--contact-hero brgw-hero reveal" data-nav="dark" aria-label="Contact" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--contact-hero brgw-hero reveal" data-bg-style="{{bg_style}}" data-nav="dark" aria-label="Contact" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--contact-hero{overflow:hidden;}
 .brgw-sec--contact-hero .brgw-uline{color:var(--pink);}
@@ -32,6 +32,19 @@
        changes nothing on a hero that has no photo set. Rules live in brgw.css. -->
   <div class="hero-bg" data-bg="{{bg_photo}}" data-vid-set="{{video_id}}"
        aria-hidden="true" data-tone="{{bg_photo_tone}}" data-brgw-frame>
+    <!-- THE SPLASH PAGE'S BACKGROUND, as a hero option (Sean, 3 Oct). Four photo plates
+         that enter once and hand off to a slow drift; the splash's graphics — logo,
+         COMING SOON, doodles, tagline, CTA — are deliberately not here.
+         OFF unless Background style is set to the splash animation, so a hero nobody
+         has touched renders exactly as it does today. Each plate takes its own photo;
+         left empty it keeps the splash original, and --sp-img is only ever READ by a
+         rule gated on data-img being non-empty, so an empty one is never fetched. -->
+    <div class="splash-bg" aria-hidden="true">
+      <span class="sp sp--skater" data-show="{{splash_skater_on}}" data-img="{{splash_skater}}" style="--sp-img:url('{{splash_skater}}')"></span>
+      <span class="sp sp--car"    data-show="{{splash_car_on}}"    data-img="{{splash_car}}"    style="--sp-img:url('{{splash_car}}')"></span>
+      <span class="sp sp--surfer" data-show="{{splash_surfer_on}}" data-img="{{splash_surfer}}" style="--sp-img:url('{{splash_surfer}}')"></span>
+      <span class="sp sp--crown"  data-show="{{splash_crown_on}}"  data-img="{{splash_crown}}"  style="--sp-img:url('{{splash_crown}}')"></span>
+    </div>
     <!-- THE PHOTO IS A REAL <img> NOW, not a CSS background, because the parallax
          engine moves an element and cannot move a background-image. NO src ATTRIBUTE:
          the <img> was rejected here originally because an empty src resolves against
@@ -63,7 +76,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Let's talk.", "sub": "Whatever you need \u2014 a story, a partnership, a job, or just to tell us how we did \u2014 here's who to ask.", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_brg_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg", "mark_1_brg_pos": "tl", "mark_1_brg_opacity": "100", "mark_1_brg_show": "1", "mark_1_brg_anim": "keep", "mark_2_smile_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg", "mark_2_smile_pos": "br", "mark_2_smile_opacity": "100", "mark_2_smile_show": "1", "mark_2_smile_anim": "keep", "cta_position": "foot", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading": "Let's talk.", "sub": "Whatever you need \u2014 a story, a partnership, a job, or just to tell us how we did \u2014 here's who to ask.", "bg_photo": "", "bg_photo_mobile": "", "bg_photo_tone": "color", "bg_photo_px": "0", "bg_photo_px_dir": "down", "overlay_color": "none", "overlay_strength": "0.45", "video_id": "", "video_source": "youtube", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_brg_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg", "mark_1_brg_pos": "tl", "mark_1_brg_opacity": "100", "mark_1_brg_show": "1", "mark_1_brg_anim": "keep", "mark_2_smile_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg", "mark_2_smile_pos": "br", "mark_2_smile_opacity": "100", "mark_2_smile_show": "1", "mark_2_smile_anim": "keep", "cta_position": "foot", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white", "bg_style": "photo", "splash_skater": "", "splash_skater_on": "1", "splash_car": "", "splash_car_on": "1", "splash_surfer": "", "splash_surfer_on": "1", "splash_crown": "", "splash_crown_on": "1"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

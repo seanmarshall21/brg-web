@@ -12,10 +12,10 @@
      not content, and a single rich-text slot would arrive wrapped in <p> and break `.cell p`. -->
 <section class="brgw-sec brgw-sec--community-stats reveal" data-nav="light" aria-label="Community by the numbers" data-cta-pos="{{cta_position}}">
 <style>
-.brgw-sec--community-stats{background:var(--white);color:var(--ink);
+.brgw-sec--community-stats{--brgw-wrap:1080px;background:var(--white);color:var(--ink);
   padding:clamp(70px,8vw,116px) var(--pad);}
 .brgw-sec--community-stats .grid{display:grid;grid-template-columns:1fr;
-  max-width:1080px;margin-inline:auto;}
+  max-width:var(--brgw-wrap);margin-inline:auto;}
 @media(min-width:700px){ .brgw-sec--community-stats .grid{grid-template-columns:1fr 1fr;} }
 .brgw-sec--community-stats .cell{text-align:center;padding:clamp(28px,3.4vw,52px) clamp(20px,2.6vw,40px);
   border-top:1px solid rgba(0,0,0,.16);}

@@ -1117,6 +1117,233 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_our_restaurants_hero_acc_hero_background_splash_animation",
+                "label": "Hero background — splash animation",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_bg_style",
+                "label": "Background style",
+                "name": "brg_our_restaurants_hero_bg_style",
+                "type": "select",
+                "instructions": "What fills the hero behind the words. \"Photo or video\" is how every hero works today. \"Splash animation\" plays the entrance from the coming-soon page — the photos slide and fade in once, then drift slowly. The splash's graphics are not included.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-bg_style",
+                    "id": ""
+                },
+                "default_value": "photo",
+                "choices": {
+                    "photo": "Photo or video",
+                    "splash": "Splash animation"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_splash_skater",
+                "label": "Splash — full-screen photo",
+                "name": "brg_our_restaurants_hero_splash_skater",
+                "type": "image",
+                "instructions": "The one that covers the whole hero and fades in while scaling down. Leave empty for the skater from the splash page.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_skater",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_splash_skater_on",
+                "label": "Full-screen photo",
+                "name": "brg_our_restaurants_hero_splash_skater_on",
+                "type": "select",
+                "instructions": "Hiding this leaves the three smaller plates on the dark base.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_skater_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_splash_car",
+                "label": "Splash — bottom left",
+                "name": "brg_our_restaurants_hero_splash_car",
+                "type": "image",
+                "instructions": "Slides in from the left. Leave empty for the car from the splash page.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_car",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_splash_car_on",
+                "label": "Bottom left",
+                "name": "brg_our_restaurants_hero_splash_car_on",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_car_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_splash_surfer",
+                "label": "Splash — bottom right",
+                "name": "brg_our_restaurants_hero_splash_surfer",
+                "type": "image",
+                "instructions": "Slides in from the bottom right. Leave empty for the surfer from the splash page.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_surfer",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_splash_surfer_on",
+                "label": "Bottom right",
+                "name": "brg_our_restaurants_hero_splash_surfer_on",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_surfer_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_splash_crown",
+                "label": "Splash — top right",
+                "name": "brg_our_restaurants_hero_splash_crown",
+                "type": "image",
+                "instructions": "Fades in and sits small in the top corner. Leave empty for the spray crown from the splash page.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_crown",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_splash_crown_on",
+                "label": "Top right",
+                "name": "brg_our_restaurants_hero_splash_crown_on",
+                "type": "select",
+                "instructions": "This is the one plate that reads as a graphic rather than a photograph, so it has its own switch.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_crown_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_hero_endacc_hero_background_splash_animation",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_tab_our_restaurants_brands",
                 "label": "The restaurants",
                 "name": "",

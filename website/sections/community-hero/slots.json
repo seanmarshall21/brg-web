@@ -402,5 +402,96 @@
       "teal": "Teal"
     },
     "group": "Buttons"
+  },
+  "bg_style": {
+    "type": "select",
+    "label": "Background style",
+    "group": "Hero background — splash animation",
+    "doc": "What fills the hero behind the words. \"Photo or video\" is how every hero works today. \"Splash animation\" plays the entrance from the coming-soon page — the photos slide and fade in once, then drift slowly. The splash's graphics are not included.",
+    "default": "photo",
+    "choices": {
+      "photo": "Photo or video",
+      "splash": "Splash animation"
+    }
+  },
+  "splash_skater": {
+    "type": "image",
+    "label": "Splash — full-screen photo",
+    "doc": "The one that covers the whole hero and fades in while scaling down. Leave empty for the skater from the splash page.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": ""
+  },
+  "splash_skater_on": {
+    "type": "select",
+    "label": "Full-screen photo",
+    "doc": "Hiding this leaves the three smaller plates on the dark base.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "splash_car": {
+    "type": "image",
+    "label": "Splash — bottom left",
+    "doc": "Slides in from the left. Leave empty for the car from the splash page.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": ""
+  },
+  "splash_car_on": {
+    "type": "select",
+    "label": "Bottom left",
+    "doc": "",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "splash_surfer": {
+    "type": "image",
+    "label": "Splash — bottom right",
+    "doc": "Slides in from the bottom right. Leave empty for the surfer from the splash page.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": ""
+  },
+  "splash_surfer_on": {
+    "type": "select",
+    "label": "Bottom right",
+    "doc": "",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "splash_crown": {
+    "type": "image",
+    "label": "Splash — top right",
+    "doc": "Fades in and sits small in the top corner. Leave empty for the spray crown from the splash page.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": ""
+  },
+  "splash_crown_on": {
+    "type": "select",
+    "label": "Top right",
+    "doc": "This is the one plate that reads as a graphic rather than a photograph, so it has its own switch.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
   }
 }

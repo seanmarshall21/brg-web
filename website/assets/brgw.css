@@ -886,3 +886,113 @@
     min-width:0;min-height:0;}
 }
 @media (prefers-reduced-motion:reduce){ .brgw .vid{display:none!important;} }
+
+/* ── THE SPLASH BACKGROUND, as a hero background style ──────────────────────────────
+   Sean, 3 Oct: "use the same background or the same photo entrance animation we have on
+   the splash page as the hero background, the same exact one. The only thing that
+   wouldn't be on it is the graphics."
+
+   So this is the splash's .brg-cs__bg layer and nothing else: four photo plates that
+   enter once and then hand off to a slow drift loop. The logo, the COMING SOON lockup,
+   the doodles, the tagline and the CTA are graphics and are NOT here.
+
+   The numbers are COPIED, not re-derived — same durations, same delays, same easing,
+   same keyframe values as css/brg-coming-soon.css in the splash build. If that file is
+   ever re-tuned, this is the other place to change.
+
+   IT IS OFF BY DEFAULT. A hero with no choice made renders exactly as it does today;
+   the layer only paints under [data-bg-style="splash"]. */
+.brgw .brgw-hero .splash-bg{position:absolute;inset:0;z-index:0;overflow:hidden;
+  pointer-events:none;display:none;background-color:var(--sp-edge);}
+.brgw .brgw-hero[data-bg-style="splash"] .splash-bg{display:block;}
+/* When the splash is driving, the still photo underneath it has nothing to add. Home's
+   hero wraps its photo in .plate-media; the other five put a <picture> straight inside
+   .hero-bg, so both shapes are named here. The <video> holder is left alone — a hero with
+   a video set keeps it, and the splash is simply not chosen in that case. */
+.brgw .brgw-hero[data-bg-style="splash"] .plate-media,
+.brgw .brgw-hero[data-bg-style="splash"] .hero-bg > picture{display:none;}
+
+.brgw .brgw-hero .splash-bg{
+  --sp-edge:#131210;                      /* near-black at the edges (splash --brg-bg-2) */
+  --sp-mute:rgba(16,15,13,.66);           /* veil that drops car/surfer to the skater's level */
+  /* the soft-edged plate the car and surfer sit on, so neither reads as a rectangle */
+  --sp-over:radial-gradient(ellipse 86% 86% at 50% 50%, transparent 58%, var(--sp-edge) 100%),
+            linear-gradient(var(--sp-mute), var(--sp-mute));
+}
+.brgw .brgw-hero .sp{position:absolute;background-repeat:no-repeat;background-position:center;
+  background-size:cover;will-change:transform,opacity;}
+/* A plate switched off in admin, and a plate whose photo was cleared, both go quiet. */
+.brgw .brgw-hero .sp[data-show="0"]{display:none;}
+
+/* 1 — SKATER: full-bleed cover. Fades in while scaling DOWN, and the drift loop starts
+      at the same 1.02 it lands on, so there is no jump at the hand-off. */
+.brgw .brgw-hero .sp--skater{inset:0;width:100%;height:100%;transform-origin:center;
+  -webkit-mask-image:radial-gradient(ellipse 100% 100% at 50% 46%, #000 64%, transparent 100%);
+          mask-image:radial-gradient(ellipse 100% 100% at 50% 46%, #000 64%, transparent 100%);
+  background-image:image-set(url('https://blacktoprg.netlify.app/assets/media/splash/skater.webp') type('image/webp'),
+                             url('https://blacktoprg.netlify.app/assets/media/splash/skater.jpg') type('image/jpeg'));
+  animation:brgw-sp-skater-in 1.4s cubic-bezier(.16,.7,.2,1) both,
+            brgw-sp-skater-drift 36s ease-in-out infinite 1.4s;}
+.brgw .brgw-hero .sp--skater:not([data-img=""]){background-image:var(--sp-img);}
+
+/* 2 & 3 — CAR and SURFER sit on a fully opaque base so the skater never shows through;
+      the softness comes from --sp-over, not from element opacity. */
+.brgw .brgw-hero .sp--car,
+.brgw .brgw-hero .sp--surfer{opacity:1;background-color:var(--sp-edge);}
+.brgw .brgw-hero .sp--car{left:0;bottom:0;width:50%;height:30%;
+  background-image:var(--sp-over),
+                   image-set(url('https://blacktoprg.netlify.app/assets/media/splash/car.webp') type('image/webp'),
+                             url('https://blacktoprg.netlify.app/assets/media/splash/car.jpg') type('image/jpeg'));
+  animation:brgw-sp-car-in 1s cubic-bezier(.2,.7,.2,1) both .9s,
+            brgw-sp-drift-a 40s ease-in-out infinite 1.9s;}
+.brgw .brgw-hero .sp--car:not([data-img=""]){background-image:var(--sp-over),var(--sp-img);}
+
+.brgw .brgw-hero .sp--surfer{right:0;bottom:0;width:54%;height:40%;
+  background-image:var(--sp-over),
+                   image-set(url('https://blacktoprg.netlify.app/assets/media/splash/surfer.webp') type('image/webp'),
+                             url('https://blacktoprg.netlify.app/assets/media/splash/surfer.jpg') type('image/jpeg'));
+  animation:brgw-sp-surfer-in 1s cubic-bezier(.2,.7,.2,1) both 1.05s,
+            brgw-sp-drift-c 30s ease-in-out infinite 2.05s;}
+.brgw .brgw-hero .sp--surfer:not([data-img=""]){background-image:var(--sp-over),var(--sp-img);}
+
+/* 4 — CROWN: the spray crown, knocked out white. It is the one plate that reads as a
+      graphic rather than a photograph, so it has its own switch — see splash_crown_on. */
+.brgw .brgw-hero .sp--crown{top:2%;right:4%;width:40%;aspect-ratio:1/1;height:auto;
+  background-size:contain;opacity:.8;filter:invert(1);transform-origin:center;
+  background-image:image-set(url('https://blacktoprg.netlify.app/assets/media/splash/crown-white.webp') type('image/webp'),
+                             url('https://blacktoprg.netlify.app/assets/media/splash/crown-white.png') type('image/png'));
+  animation:brgw-sp-crown-in .8s cubic-bezier(.2,.7,.2,1) both 1.25s,
+            brgw-sp-drift-c 26s ease-in-out infinite 2.05s;}
+.brgw .brgw-hero .sp--crown:not([data-img=""]){background-image:var(--sp-img);}
+
+/* Desktop positions — the splash lays these out mobile-first and retunes at 992. */
+@media(min-width:992px){
+  .brgw .brgw-hero .sp--car{left:0;bottom:0;width:31%;height:58%;}
+  .brgw .brgw-hero .sp--surfer{right:0;bottom:0;top:auto;width:29%;height:78%;}
+  .brgw .brgw-hero .sp--crown{top:3%;right:3%;width:11%;}
+}
+
+@keyframes brgw-sp-skater-in{0%{opacity:0;transform:scale(1.2);} 100%{opacity:.30;transform:scale(1.02);}}
+@keyframes brgw-sp-car-in{0%{opacity:0;transform:translateX(-60%);} 100%{opacity:1;transform:translateX(0);}}
+@keyframes brgw-sp-surfer-in{0%{opacity:0;transform:translate(58%,46%);} 100%{opacity:1;transform:translate(0,0);}}
+@keyframes brgw-sp-crown-in{0%{opacity:0;transform:scale(.7);} 100%{opacity:.8;transform:scale(1);}}
+@keyframes brgw-sp-skater-drift{
+  0%{transform:scale(1.02) translate3d(0,0,0);}
+  50%{transform:scale(1.05) translate3d(-1%,.8%,0);}
+  100%{transform:scale(1.02) translate3d(0,0,0);}}
+@keyframes brgw-sp-drift-a{
+  0%{transform:translate3d(0,0,0) scale(1.02);}
+  50%{transform:translate3d(-1.4%,1%,0) scale(1.05);}
+  100%{transform:translate3d(0,0,0) scale(1.02);}}
+@keyframes brgw-sp-drift-c{
+  0%{transform:translate3d(0,0,0) rotate(0deg);}
+  50%{transform:translate3d(-1%,-.6%,0) rotate(.4deg);}
+  100%{transform:translate3d(0,0,0) rotate(0deg);}}
+
+/* Same guard the splash carries: motion off, but the picture still composed — the
+   skater rests at the 1.02 it would have landed on rather than at 1.2. */
+@media(prefers-reduced-motion:reduce){
+  .brgw .brgw-hero .sp{animation:none!important;}
+  .brgw .brgw-hero .sp--skater{transform:scale(1.02);opacity:.30;}
+  .brgw .brgw-hero .sp--crown{opacity:.8;}
+}
