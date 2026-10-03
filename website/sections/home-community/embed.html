@@ -5,7 +5,7 @@
      UPWARD, because later shells paint on top. Nothing here bleeds downward. -->
 <section class="brgw-sec brgw-sec--home-community reveal" data-nav="dark" data-hl="{{hl_variant}}" aria-label="Born in San Diego" data-cta-pos="{{cta_position}}">
 <style>
-.brgw-sec--home-community{position:relative;background:#000;overflow:visible;
+.brgw-sec--home-community{--brgw-wrap:1500px;position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,132px) var(--pad) clamp(76px,8vw,120px);}
 .brgw-sec--home-community > *{position:relative;z-index:2;}
 
@@ -14,7 +14,7 @@
 .brgw-sec--home-community .seam img{width:100%;height:auto;display:block;}
 
 .brgw-sec--home-community .grid{display:grid;grid-template-columns:1fr;gap:clamp(40px,5vw,72px);
-  max-width:1500px;margin-inline:auto;align-items:start;}
+  max-width:var(--brgw-wrap);margin-inline:auto;align-items:start;}
 @media(min-width:940px){ .brgw-sec--home-community .grid{grid-template-columns:1fr 1fr;gap:clamp(48px,6vw,110px);} }
 
 .brgw-sec--home-community h2{font-size:clamp(1.75rem,3.5vw,3rem);text-transform:uppercase;

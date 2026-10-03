@@ -14,7 +14,7 @@
       · The "View job" links point at /careers/ until the real LinkedIn job URLs are supplied. -->
 <section class="brgw-sec brgw-sec--careers-posts reveal" data-nav="light" aria-label="Latest openings on LinkedIn" data-cta-pos="{{cta_position}}">
 <style>
-.brgw-sec--careers-posts{position:relative;background:var(--white);color:var(--ink);overflow:hidden;
+.brgw-sec--careers-posts{--brgw-wrap:760px;position:relative;background:var(--white);color:var(--ink);overflow:hidden;
   padding:clamp(66px,7.6vw,110px) var(--pad) clamp(70px,8vw,116px);}
 /* Pale graffiti wash behind the cards, as in the comp. */
 .brgw-sec--careers-posts::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
@@ -23,7 +23,7 @@
 .brgw-sec--careers-posts > *{position:relative;z-index:2;}
 
 .brgw-sec--careers-posts .feed{display:grid;gap:clamp(24px,2.8vw,42px);
-  max-width:760px;margin-inline:auto;}
+  max-width:var(--brgw-wrap);margin-inline:auto;}
 .brgw-sec--careers-posts .post{background:var(--white);border:1px solid rgba(0,0,0,.14);
   border-radius:12px;padding:clamp(18px,1.8vw,26px);box-shadow:0 2px 10px rgba(0,0,0,.05);
   font-size:clamp(.9rem,1vw,.98rem);line-height:1.5;}

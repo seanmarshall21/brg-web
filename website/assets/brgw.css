@@ -606,7 +606,15 @@
    ABSENT BY DEFAULT. The label ships empty, so every one of these sections renders exactly
    as it does today until someone types a label. That is also why the empty state is keyed
    off the LABEL and not the link: a button with a URL and no words is not a button. */
+/* THE BUTTON ROW LINES UP WITH THE COPY, not with the section's edge.
+   The row is a direct child of <section>, so without this it starts at the section's
+   padding while the text inside a centred wrapper starts further in — on home-different
+   that was an 82px step, and it was wrong in all 21 sections at once.
+   --brgw-wrap is declared ONCE on each section and read by both its content wrapper and
+   this row, so the two cannot drift apart. A section that never declares it leaves the var
+   undefined, max-width falls back to none, and the row stays exactly where it is today. */
 .brgw-sec .brgw-cta{display:none;margin:clamp(26px,3.4vw,44px) 0 0;
+  max-width:var(--brgw-wrap);margin-inline:auto;
   flex-wrap:wrap;gap:12px;align-items:center;}
 .brgw-sec[data-cta-pos="head"] .brgw-cta[data-cta-at="head"],
 .brgw-sec[data-cta-pos="foot"] .brgw-cta[data-cta-at="foot"]{display:flex;}

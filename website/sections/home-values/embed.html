@@ -6,7 +6,7 @@
      copy differs from the old monolith, so the copy here is taken from the export. -->
 <section class="brgw-sec brgw-sec--home-values reveal" data-nav="dark" aria-label="Our core values" data-cta-pos="{{cta_position}}">
 <style>
-.brgw-sec--home-values{position:relative;background:#000;overflow:visible;
+.brgw-sec--home-values{--brgw-wrap:1420px;position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,130px) var(--pad) clamp(80px,9vw,124px);}
 .brgw-sec--home-values > *{position:relative;z-index:2;}
 
@@ -20,7 +20,7 @@
 /* Hairline rules between cells, nothing on the outside — gap+background would draw an outer
    border too, so the rules are per-cell insets instead. */
 .brgw-sec--home-values .grid{display:grid;grid-template-columns:1fr;
-  max-width:1420px;margin-inline:auto;}
+  max-width:var(--brgw-wrap);margin-inline:auto;}
 @media(min-width:700px){ .brgw-sec--home-values .grid{grid-template-columns:1fr 1fr;} }
 @media(min-width:1040px){ .brgw-sec--home-values .grid{grid-template-columns:repeat(3,1fr);} }
 .brgw-sec--home-values .cell{padding:clamp(24px,2.6vw,40px) clamp(20px,2.4vw,38px);

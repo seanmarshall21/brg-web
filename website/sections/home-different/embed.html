@@ -5,7 +5,7 @@
      literal design elements in the comp, not photo placeholders. -->
 <section class="brgw-sec brgw-sec--home-different reveal" data-nav="dark" data-hl="{{hl_variant}}" aria-label="A different kind of restaurant company" data-cta-pos="{{cta_position}}">
 <style>
-.brgw-sec--home-different{position:relative;background:#232120;overflow:visible;
+.brgw-sec--home-different{--brgw-wrap:1500px;position:relative;background:#232120;overflow:visible;
   padding:clamp(88px,10vw,150px) var(--pad) clamp(80px,9vw,130px);}
 .brgw-sec--home-different::after{content:"";position:absolute;right:-4%;top:0;width:52%;height:58%;
   z-index:0;pointer-events:none;opacity:.13;
@@ -22,7 +22,7 @@
   /* bolt.svg ships white — invisible on the white tag; the comp's is black. */
 
 .brgw-sec--home-different .grid{display:grid;grid-template-columns:1fr;gap:clamp(44px,5vw,80px);
-  max-width:1500px;margin-inline:auto;align-items:center;}
+  max-width:var(--brgw-wrap);margin-inline:auto;align-items:center;}
 @media(min-width:940px){ .brgw-sec--home-different .grid{grid-template-columns:1.02fr .98fr;gap:clamp(48px,6vw,110px);} }
 
 .brgw-sec--home-different h2{font-size:clamp(1.6rem,3.05vw,2.65rem);text-transform:uppercase;
