@@ -13354,6 +13354,57 @@
         "endpoint": 1
       },
       {
+        "key": "field_brg_community_give_slide_sides",
+        "label": "Which side the words sit on",
+        "name": "brg_community_give_slide_sides",
+        "type": "select",
+        "instructions": "Alternating is the comp: words left, then right, then left, with the photo opposite. Keeping them on one side runs the text block down the same edge the whole way through and the photo always opposite it. The panel color still alternates either way — it is what stops a fixed side reading as one long slab.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-slide_sides",
+          "id": ""
+        },
+        "default_value": "alternate",
+        "choices": {
+          "alternate": "Alternate each slide",
+          "left": "Words always on the left",
+          "right": "Words always on the right"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_community_give_slide_split",
+        "label": "How a slide moves",
+        "name": "brg_community_give_slide_split",
+        "type": "select",
+        "instructions": "Together is the current behavior: the whole slide travels as one strip. As two halves lets the photo lag the words slightly and settle a beat later, so a change reads as two pieces arriving rather than one block sliding. Anyone who has switched off animation sees neither.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-slide_split",
+          "id": ""
+        },
+        "default_value": "",
+        "choices": {
+          "": "Together",
+          "1": "As two halves"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_tab_community_stats",
         "label": "By the numbers",
         "name": "",

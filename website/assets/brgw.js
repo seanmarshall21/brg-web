@@ -513,7 +513,21 @@
       var dotsWrap = sl.querySelector('.brgw-slider__dots');
       var auto = parseInt(sl.dataset.autoplay || '0', 10), i = 0, timer = null, dots = [];
       function draw() { dots.forEach(function (b, k) { b.classList.toggle('is-on', k === i); }); }
-      function go(k) { i = (k + n) % n; track.style.transform = 'translateX(' + (-i * 100) + '%)'; draw(); }
+      /* SPLIT MOTION. Sean, 3 Oct: the slide "should slide as two individual slides instead
+         of one giant one." The track moves as a single strip, which is what makes a slide
+         read as one block. Marking the slider while it travels lets CSS give the two halves
+         different offsets and settle times, so the panel and the photo arrive as two pieces
+         rather than one. The class is removed on transitionend with a TIMER BACKUP, because
+         transitionend does not fire in a hidden tab and the halves would stay offset. */
+      var moveTimer = null;
+      function go(k) {
+        i = (k + n) % n;
+        sl.classList.add('is-moving');
+        clearTimeout(moveTimer);
+        moveTimer = setTimeout(function () { sl.classList.remove('is-moving'); }, 640);
+        track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        draw();
+      }
       function restart() { if (!auto) return; clearInterval(timer); timer = setInterval(function () { go(i + 1); }, auto); }
       if (dotsWrap) {
         for (var d = 0; d < n; d++) (function (d) {

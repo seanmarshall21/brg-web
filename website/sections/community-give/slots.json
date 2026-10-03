@@ -395,5 +395,28 @@
       "foot": "At the bottom of the section"
     },
     "group": "Buttons"
+  },
+  "slide_sides": {
+    "type": "select",
+    "label": "Which side the words sit on",
+    "doc": "Alternating is the comp: words left, then right, then left, with the photo opposite. Keeping them on one side runs the text block down the same edge the whole way through and the photo always opposite it. The panel color still alternates either way — it is what stops a fixed side reading as one long slab.",
+    "width": 50,
+    "default": "alternate",
+    "choices": {
+      "alternate": "Alternate each slide",
+      "left": "Words always on the left",
+      "right": "Words always on the right"
+    }
+  },
+  "slide_split": {
+    "type": "select",
+    "label": "How a slide moves",
+    "doc": "Together is the current behavior: the whole slide travels as one strip. As two halves lets the photo lag the words slightly and settle a beat later, so a change reads as two pieces arriving rather than one block sliding. Anyone who has switched off animation sees neither.",
+    "width": 50,
+    "default": "",
+    "choices": {
+      "": "Together",
+      "1": "As two halves"
+    }
   }
 }

@@ -29,11 +29,21 @@
      cover, so the container sizes it and an uploaded photo of any dimensions cannot shift the
      layout. The button is hidden by :empty when no label is typed, so a row without one does
      not leave an empty yellow box. -->
-<section class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
+<section data-sides="{{slide_sides}}" class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--community-give .intro{padding:clamp(76px,8.4vw,120px) var(--pad) clamp(58px,6vw,86px);
   text-align:center;}
+/* NO WORDS, NO BLOCK — not even its padding. */
+.brgw-sec--community-give .intro[data-has-text=""]{display:none;}
+
+/* THE TITLE SITS OVER THE SECTION ABOVE. Sean, 3 Oct: "the little blue title box should
+   sit over the hero a little bit… the slider and the hero should touch edges." With the
+   intro gone the slider now meets the hero directly, and the banner is lifted so it
+   straddles that join rather than floating in a white band of its own. The lift is half
+   the banner's own height, so it overlaps by the same amount whatever the type scales to.
+   margin-bottom keeps pulling the slider up under it, as it already did. */
+.brgw-sec--community-give .intro[data-has-text=""] + .banner{margin-top:-0.62em;}
 .brgw-sec--community-give .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
   transform:translate(-50%,-50%);z-index:6;}
 .brgw-sec--community-give .seam img{width:100%;height:auto;display:block;}
@@ -53,11 +63,19 @@
   padding:clamp(46px,5.4vw,86px) clamp(28px,4vw,74px);text-align:center;}
 .brgw-sec--community-give .shot{position:relative;background:#5b5b5b;min-height:240px;}
 .brgw-sec--community-give .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-/* Alternate the sides, exactly as the comp does. */
+/* WHICH SIDE THE WORDS SIT ON. The comp alternates — panel left, then right, then left —
+   and that stays the default. Sean, 3 Oct, wanted the other option too: the text block
+   staying on one side the whole way through, so the photo is always opposite it. The
+   section carries data-sides and the slider follows it; nothing about the slides themselves
+   changes, only the order of the two halves. */
 @media(min-width:820px){
-  .brgw-sec--community-give .brgw-slide:nth-child(even) .panel{order:2;}
-  .brgw-sec--community-give .brgw-slide:nth-child(even) .shot{order:1;}
+  .brgw-sec--community-give[data-sides="alternate"] .brgw-slide:nth-child(even) .panel{order:2;}
+  .brgw-sec--community-give[data-sides="alternate"] .brgw-slide:nth-child(even) .shot{order:1;}
+  .brgw-sec--community-give[data-sides="right"] .brgw-slide .panel{order:2;}
+  .brgw-sec--community-give[data-sides="right"] .brgw-slide .shot{order:1;}
 }
+/* The panel colour still alternates whichever side it sits on — it is what stops a fixed
+   side reading as one long slab — so these are not tied to data-sides. */
 .brgw-sec--community-give .brgw-slide:nth-child(odd) .panel{background:#000;color:var(--white);}
 .brgw-sec--community-give .brgw-slide:nth-child(even) .panel{background:var(--yellow);color:var(--ink);}
 .brgw-sec--community-give h3{font-size:clamp(1.3rem,2.4vw,2rem);text-transform:uppercase;margin-bottom:18px;}
@@ -87,7 +105,12 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_ast_pos}}" data-mark-show="{{mark_1_ast_show}}" data-mark-anim="{{mark_1_ast_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_ast_opacity}}"><img class="brgw-pop" src="{{mark_1_ast_art}}" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
 
-  <div class="intro">
+  <!-- data-has-text is the three lede slots concatenated. With all three cleared it is
+       empty, and the rule below collapses the block entirely — padding included. Without
+       it, emptying the intro left its 120px of padding behind as a white band between the
+       hero and the slider, which is exactly what Sean reported. :empty cannot do this: the
+       <p> is still a child even with no words in it. -->
+  <div class="intro" data-has-text="{{lede_1}}{{lede_emphasis}}{{lede_2}}">
     <p class="lede anim-up">{{lede_1}} <b class="blanco">{{lede_emphasis}}</b> {{lede_2}}</p>
   </div>
 
@@ -95,7 +118,7 @@
 
   <!-- The slider is DARK inside a light section. data-nav nests: brgw-nav.js takes the
        nearest labeled ancestor, so the header reads this rather than the section. -->
-  <div class="brgw-slider" data-nav="dark" data-autoplay="6500">
+  <div class="brgw-slider" data-split="{{slide_split}}" data-nav="dark" data-autoplay="6500">
     <div class="brgw-slider__track">
 <!--brg:repeat slides-->
       <div class="brgw-slide">
