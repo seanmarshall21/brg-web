@@ -48,7 +48,8 @@
    straddles that join rather than floating in a white band of its own. The lift is half
    the banner's own height, so it overlaps by the same amount whatever the type scales to.
    margin-bottom keeps pulling the slider up under it, as it already did. */
-.brgw-sec--community-give .intro[data-has-text=""] + .banner{margin-top:-0.62em;}
+/* (The lift that used to be needed here is gone: an absolutely positioned banner is
+   already off the flow, so an empty intro changes nothing about where it sits.) */
 .brgw-sec--community-give .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
   transform:translate(-50%,-50%);z-index:6;}
 .brgw-sec--community-give .seam img{width:100%;height:auto;display:block;}
@@ -57,10 +58,20 @@
 .brgw-sec--community-give .lede b{font-weight:400;font-size:1.14em;}
 
 /* Teal banner straddles the white intro and the dark slider below it. */
-.brgw-sec--community-give .banner{position:relative;z-index:5;display:block;width:max-content;
-  max-width:92%;margin:0 auto -1.1em;background:var(--teal);color:var(--ink);
-  font-size:clamp(1.4rem,3.4vw,3rem);text-transform:uppercase;padding:.08em .38em;
-  transform:rotate(-1.4deg);}
+/* THE TITLE TAKES NO SPACE IN THE FLOW. Sean, 3 Oct: "this isn't touching. I want it all
+   the way touching, so there's no gap." It was position:relative with a negative bottom
+   margin, which pulls the slider up but still leaves the banner's own line box sitting in
+   the section — and that line box is the white strip he could still see between the hero
+   and the slider.
+   Absolute, centred on the section's TOP EDGE, means the two sections meet with nothing in
+   between and the banner straddles the join, half over the hero and half over the slider.
+   translate carries the centring AND the lift; the tilt stays on transform, because the two
+   are separate properties and would otherwise overwrite each other. */
+.brgw-sec--community-give .banner{position:absolute;top:0;left:50%;z-index:5;
+  display:block;width:max-content;max-width:92%;
+  translate:-50% -50%;transform:rotate(-1.4deg);
+  background:var(--teal);color:var(--ink);
+  font-size:clamp(1.4rem,3.4vw,3rem);text-transform:uppercase;padding:.08em .38em;}
 
 .brgw-sec--community-give .brgw-slide{display:grid;grid-template-columns:1fr;min-height:clamp(360px,44vw,620px);}
 @media(min-width:820px){ .brgw-sec--community-give .brgw-slide{grid-template-columns:1fr 1fr;} }
