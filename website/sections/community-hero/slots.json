@@ -295,114 +295,6 @@
     },
     "group": "Mark — Ast circle (white)"
   },
-  "cta_position": {
-    "type": "select",
-    "label": "Where the buttons sit",
-    "doc": "At the bottom is the usual place and the one the rest of the site uses.",
-    "width": 50,
-    "default": "foot",
-    "choices": {
-      "foot": "At the bottom of the section",
-      "head": "Directly under the heading"
-    },
-    "group": "Buttons"
-  },
-  "btn_color": {
-    "type": "select",
-    "label": "Button color",
-    "doc": "The button's color. \"As designed\" is the starting point and leaves this section's buttons exactly as they look today — which matters, because several sections paint theirs black on purpose and the give-back slider alternates yellow and black down the slides. Choose a color and it takes over. The words flip to black or white automatically, whichever reads on the color you pick. This applies to every button in this section.",
-    "width": 33,
-    "default": "keep",
-    "choices": {
-      "keep": "As designed",
-      "yellow": "Yellow",
-      "teal": "Teal",
-      "pink": "Pink",
-      "orange": "Orange",
-      "white": "White",
-      "ink": "Black"
-    },
-    "group": "Button style"
-  },
-  "btn_style": {
-    "type": "select",
-    "label": "Filled or outline",
-    "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind — useful over a photo, where a solid block can sit heavily. \"As designed\" leaves it as it is today, which is filled everywhere. Both are exactly the same size, so switching one does not move anything around it.",
-    "width": 33,
-    "default": "keep",
-    "choices": {
-      "keep": "As designed",
-      "filled": "Filled",
-      "outline": "Outline"
-    },
-    "group": "Button style"
-  },
-  "btn_effect": {
-    "type": "select",
-    "label": "Hover effect",
-    "doc": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
-    "width": 33,
-    "default": "lift",
-    "choices": {
-      "lift": "Lift",
-      "lift-swap": "Lift and swap color",
-      "underline": "Underline",
-      "grow": "Grow",
-      "press": "Press down",
-      "fill": "Fill in",
-      "none": "None"
-    },
-    "group": "Button style"
-  },
-  "buttons": {
-    "type": "repeater",
-    "label": "Buttons",
-    "button": "Add a button",
-    "collapse": "label",
-    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
-    "group": "Buttons",
-    "sub": {
-      "label": {
-        "type": "text",
-        "label": "Label",
-        "doc": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
-        "default": "",
-        "width": 34
-      },
-      "href": {
-        "type": "url",
-        "label": "Link",
-        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
-        "default": "",
-        "width": 33
-      },
-      "popup": {
-        "type": "select",
-        "label": "Open in a pop-up",
-        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
-        "width": 33,
-        "default": "",
-        "choices": {
-          "": "Open the link",
-          "1": "Pop-up"
-        }
-      }
-    }
-  },
-  "modal_bg": {
-    "type": "select",
-    "label": "Pop-up background",
-    "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
-    "default": "white",
-    "choices": {
-      "white": "White",
-      "ink": "Site dark",
-      "yellow": "Yellow",
-      "teal": "Teal"
-    },
-    "group": "Buttons"
-  },
   "bg_style": {
     "type": "select",
     "label": "Background style",
@@ -493,5 +385,141 @@
       "1": "Shown",
       "0": "Hidden"
     }
+  },
+  "cta_position": {
+    "type": "select",
+    "label": "Where the buttons sit",
+    "doc": "At the bottom is the usual place and the one the rest of the site uses.",
+    "width": 50,
+    "default": "foot",
+    "choices": {
+      "foot": "At the bottom of the section",
+      "head": "Directly under the heading"
+    },
+    "group": "Buttons"
+  },
+  "btn_color": {
+    "type": "select",
+    "label": "Button color",
+    "doc": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.",
+    "width": 33,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "yellow": "Yellow",
+      "teal": "Teal",
+      "pink": "Pink",
+      "orange": "Orange",
+      "white": "White",
+      "ink": "Black"
+    },
+    "group": "Buttons"
+  },
+  "btn_style": {
+    "type": "select",
+    "label": "Filled or outline",
+    "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Any one button can be set differently in the list below.",
+    "width": 33,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "filled": "Filled",
+      "outline": "Outline"
+    },
+    "group": "Buttons"
+  },
+  "btn_effect": {
+    "type": "select",
+    "label": "Hover effect",
+    "doc": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+    "width": 33,
+    "default": "lift",
+    "choices": {
+      "lift": "Lift",
+      "lift-swap": "Lift and swap color",
+      "underline": "Underline",
+      "grow": "Grow",
+      "press": "Press down",
+      "fill": "Fill in",
+      "none": "None"
+    },
+    "group": "Buttons"
+  },
+  "buttons": {
+    "type": "repeater",
+    "label": "Buttons",
+    "button": "Add a button",
+    "collapse": "label",
+    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
+    "group": "Buttons",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Label",
+        "doc": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+        "default": "",
+        "width": 34
+      },
+      "href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+        "default": "",
+        "width": 33
+      },
+      "popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+        "width": 33,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      },
+      "color": {
+        "type": "select",
+        "label": "Color",
+        "doc": "Leave on \"Same as the section\" and this button follows the section's color above. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "yellow": "Yellow",
+          "teal": "Teal",
+          "pink": "Pink",
+          "orange": "Orange",
+          "white": "White",
+          "ink": "Black"
+        }
+      },
+      "style": {
+        "type": "select",
+        "label": "Filled or outline",
+        "doc": "Leave on \"Same as the section\" to follow the section. The usual pair is a filled main button next to an outline one.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "filled": "Filled",
+          "outline": "Outline"
+        }
+      }
+    }
+  },
+  "modal_bg": {
+    "type": "select",
+    "label": "Pop-up background",
+    "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+    "width": 50,
+    "default": "white",
+    "choices": {
+      "white": "White",
+      "ink": "Site dark",
+      "yellow": "Yellow",
+      "teal": "Teal"
+    },
+    "group": "Buttons"
   }
 }

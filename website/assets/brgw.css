@@ -93,6 +93,50 @@
 .brgw .btn[data-btn-color="keep"][data-btn-style="outline"]{color:currentColor;
   --brgw-btn-ring:inset 0 0 0 3px currentColor;}
 
+/* ── ONE BUTTON CAN DIFFER FROM THE REST OF ITS SECTION ────────────────────────────
+   Sean, 3 Oct: a section with two buttons needs a main one and a quieter second one,
+   which a single section-wide color cannot express.
+
+   So the ROW carries the section's choice and each button carries its own, blank
+   meaning "follow the row". No PHP and no JS decide this — the cascade does, which is
+   why a blank value needs no fallback syntax the token filler does not have.
+
+   The direct background/color declarations are repeated here rather than left to a
+   generic .btn rule ON PURPOSE: several sections set .btn backgrounds themselves, and a
+   rule less specific than theirs silently loses. That tie has already been shipped
+   twice. These selectors are deliberately heavier than a section's own. */
+.brgw .brgw-cta[data-btn-color="yellow"]{--brgw-row-bg:var(--yellow);--brgw-row-fg:var(--ink);}
+.brgw .brgw-cta[data-btn-color="teal"]  {--brgw-row-bg:var(--teal);--brgw-row-fg:var(--ink);}
+.brgw .brgw-cta[data-btn-color="pink"]  {--brgw-row-bg:var(--pink);--brgw-row-fg:var(--white);}
+.brgw .brgw-cta[data-btn-color="orange"]{--brgw-row-bg:var(--orange);--brgw-row-fg:var(--ink);}
+.brgw .brgw-cta[data-btn-color="white"] {--brgw-row-bg:var(--white);--brgw-row-fg:var(--ink);}
+.brgw .brgw-cta[data-btn-color="ink"]   {--brgw-row-bg:var(--ink);--brgw-row-fg:var(--white);}
+/* A button that chose nothing takes the row's color. One that chose its own already has
+   its own rule above, set on the element itself, so it is unaffected by this. */
+/* The row's colour is carried under DIFFERENT property names, and this rule copies them
+   onto the button. It cannot simply inherit --brgw-btn-bg: the base .btn rule declares
+   that property ON THE BUTTON, and a declaration on the element always beats an inherited
+   value, so the row's colour was silently losing to the default yellow. It only showed up
+   when the row was set to something other than yellow. */
+.brgw .brgw-cta:not([data-btn-color=""]):not([data-btn-color="keep"]) .btn[data-btn-color=""]{
+  --brgw-btn-bg:var(--brgw-row-bg);--brgw-btn-fg:var(--brgw-row-fg);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+/* Outline, chosen for the section: same deal, and !important for the same reason the
+   per-button outline needs it — it has to beat a filled background from a color rule. */
+/* TWO SELECTORS, and the second is not redundant. The colour rule above carries one more
+   attribute match than the plain outline selector, so it was winning on `color` and an
+   outline row came out with filled-button text instead of the ring colour. The second
+   selector matches that same case at equal weight and sits later, so order decides it.
+   The first still covers a button that picked its own colour but not its own fill. */
+.brgw .brgw-cta[data-btn-style="outline"] .btn[data-btn-style=""],
+.brgw .brgw-cta[data-btn-style="outline"] .btn[data-btn-color=""][data-btn-style=""]{
+  background:transparent !important;
+  color:var(--brgw-btn-bg);--brgw-btn-ring:inset 0 0 0 3px var(--brgw-btn-bg);}
+/* Outline with the color left on "as designed" falls back to whatever the button is
+   already painted, so an outline works on the black buttons without naming a color. */
+.brgw .brgw-cta[data-btn-color="keep"][data-btn-style="outline"] .btn[data-btn-color=""][data-btn-style=""]{
+  color:currentColor;--brgw-btn-ring:inset 0 0 0 3px currentColor;}
+
 /* Hover. "lift" is what every button has always done and stays the default. */
 .brgw .btn:hover,
 .brgw .btn[data-btn-fx="lift"]:hover{transform:translateY(-3px) scale(1.02);

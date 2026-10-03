@@ -249,7 +249,7 @@
   "btn_color": {
     "type": "select",
     "label": "Button color",
-    "doc": "The button's color. \"As designed\" is the starting point and leaves this section's buttons exactly as they look today — which matters, because several sections paint theirs black on purpose and the give-back slider alternates yellow and black down the slides. Choose a color and it takes over. The words flip to black or white automatically, whichever reads on the color you pick. This applies to every button in this section.",
+    "doc": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.",
     "width": 33,
     "default": "keep",
     "choices": {
@@ -261,12 +261,12 @@
       "white": "White",
       "ink": "Black"
     },
-    "group": "Button style"
+    "group": "Buttons"
   },
   "btn_style": {
     "type": "select",
     "label": "Filled or outline",
-    "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind — useful over a photo, where a solid block can sit heavily. \"As designed\" leaves it as it is today, which is filled everywhere. Both are exactly the same size, so switching one does not move anything around it.",
+    "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Any one button can be set differently in the list below.",
     "width": 33,
     "default": "keep",
     "choices": {
@@ -274,7 +274,7 @@
       "filled": "Filled",
       "outline": "Outline"
     },
-    "group": "Button style"
+    "group": "Buttons"
   },
   "btn_effect": {
     "type": "select",
@@ -291,14 +291,14 @@
       "fill": "Fill in",
       "none": "None"
     },
-    "group": "Button style"
+    "group": "Buttons"
   },
   "buttons": {
     "type": "repeater",
     "label": "Buttons",
     "button": "Add a button",
     "collapse": "label",
-    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nTheir color, fill and hover come from Button style below and apply to all of them.",
+    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
     "group": "Buttons",
     "sub": {
       "label": {
@@ -324,6 +324,34 @@
         "choices": {
           "": "Open the link",
           "1": "Pop-up"
+        }
+      },
+      "color": {
+        "type": "select",
+        "label": "Color",
+        "doc": "Leave on \"Same as the section\" and this button follows the section's color above. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "yellow": "Yellow",
+          "teal": "Teal",
+          "pink": "Pink",
+          "orange": "Orange",
+          "white": "White",
+          "ink": "Black"
+        }
+      },
+      "style": {
+        "type": "select",
+        "label": "Filled or outline",
+        "doc": "Leave on \"Same as the section\" to follow the section. The usual pair is a filled main button next to an outline one.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "filled": "Filled",
+          "outline": "Outline"
         }
       }
     }
