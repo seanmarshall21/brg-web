@@ -307,31 +307,31 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
          * choices become data-attributes, text is printed. The logo and the social links
          * still come from Brand info, because that is where the company's details live —
          * this tab governs how they are PRESENTED, not what they are. */
-        $logo = vcc_chrome( 'footer', 'logo' );
+        $logo = vcc_chrome_setting( 'footer', 'logo' );
         if ( $logo === '' ) $logo = vcc_brand( 'footer_logo' );
         $name = vcc_brand( 'name' );
         if ( $name === '' || $name === null ) $name = 'Blacktop Restaurant Group';
 
         $fvars = '';
-        $fw = intval( vcc_chrome( 'footer', 'logo_width' ) );
+        $fw = intval( vcc_chrome_setting( 'footer', 'logo_width' ) );
         if ( is_string( $logo ) && $logo !== '' ) $fvars .= '--brgw-footer-logo:url(\'' . esc_url( $logo ) . '\');';
         if ( $fw >= 120 && $fw <= 720 )           $fvars .= '--brgw-footer-logo-w:' . $fw . 'px;';
-        $pt = intval( vcc_chrome( 'footer', 'pad_top' ) );
-        $pb = intval( vcc_chrome( 'footer', 'pad_bottom' ) );
+        $pt = intval( vcc_chrome_setting( 'footer', 'pad_top' ) );
+        $pb = intval( vcc_chrome_setting( 'footer', 'pad_bottom' ) );
         if ( $pt >= 0 && $pt <= 180 ) $fvars .= '--brgw-footer-pt:' . $pt . 'px;';
         if ( $pb >= 0 && $pb <= 180 ) $fvars .= '--brgw-footer-pb:' . $pb . 'px;';
-        $ss = intval( vcc_chrome( 'footer', 'social_size' ) );
+        $ss = intval( vcc_chrome_setting( 'footer', 'social_size' ) );
         if ( $ss >= 12 && $ss <= 48 )  $fvars .= '--brgw-footer-social:' . $ss . 'px;';
 
-        $falign  = vcc_chrome( 'footer', 'align' );
-        $fsocial = vcc_chrome( 'footer', 'show_social' ) === '0' ? '0' : '1';
-        $fhref   = vcc_chrome( 'footer', 'logo_href' );
-        $flegal  = vcc_chrome( 'footer', 'legal' );
+        $falign  = vcc_chrome_setting( 'footer', 'align' );
+        $fsocial = vcc_chrome_setting( 'footer', 'show_social' ) === '0' ? '0' : '1';
+        $fhref   = vcc_chrome_setting( 'footer', 'logo_href' );
+        $flegal  = vcc_chrome_setting( 'footer', 'legal' );
 
         /* LEGAL LINKS, written as "Label|/path" and separated by commas — the shape an editor
          * can hold in their head. Anything without a pipe is skipped rather than rendered as
          * a link to nowhere. */
-        $flinksRaw = vcc_chrome( 'footer', 'links' );
+        $flinksRaw = vcc_chrome_setting( 'footer', 'links' );
         $flinks = '';
         if ( is_string( $flinksRaw ) && $flinksRaw !== '' ) {
             $items = array();
@@ -782,8 +782,8 @@ if ( ! function_exists( 'vcc_footer_keys' ) ) {
 /* One reader for both. Precedence is shortcode attribute > saved value > the default
  * declared in slots.json, the same order a section slot uses, so a shortcode can still make
  * one placement differ and an untouched site renders exactly as designed. */
-if ( ! function_exists( 'vcc_chrome' ) ) {
-    function vcc_chrome( $which, $key, $atts = null, $cfg = null ) {
+if ( ! function_exists( 'vcc_chrome_setting' ) ) {
+    function vcc_chrome_setting( $which, $key, $atts = null, $cfg = null ) {
         $map = $which === 'footer' ? vcc_footer_keys() : vcc_header_keys();
         if ( ! isset( $map[ $key ] ) ) return '';
         if ( is_array( $atts ) && isset( $atts[ $key ] ) && $atts[ $key ] !== '' ) {
@@ -823,7 +823,7 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
         $loc  = isset( $cfg['nav_menu'] ) ? $cfg['nav_menu'] : '';
         /* The editor's logo wins; the path in the plugin config is the fallback, so a site
          * that has never opened this page looks exactly as it did. */
-        $logo = vcc_chrome( 'header', 'logo', $atts );
+        $logo = vcc_chrome_setting( 'header', 'logo', $atts );
         if ( $logo === '' ) $logo = isset( $cfg['nav_logo'] ) ? $base . $cfg['nav_logo'] : '';
 
         /* The SOCIAL menu. brg_social has been a registered location since v2.2 and
@@ -860,10 +860,10 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
 
         // Layout controls (shortcode attrs): layout=left|split|center|compact, left/right (per-side
         // counts, overflow → More drawer), sticky=pin|hide (hide-on-scroll-down). Default = left.
-        $layout = preg_replace( '/[^a-z]/', '', strtolower( vcc_chrome( 'header', 'layout', $atts ) ) );
+        $layout = preg_replace( '/[^a-z]/', '', strtolower( vcc_chrome_setting( 'header', 'layout', $atts ) ) );
         if ( ! in_array( $layout, array( 'left', 'split', 'center', 'compact' ), true ) ) $layout = 'left';
-        $left   = max( 0, intval( vcc_chrome( 'header', 'left', $atts ) ) );
-        $right  = max( 0, intval( vcc_chrome( 'header', 'right', $atts ) ) );
+        $left   = max( 0, intval( vcc_chrome_setting( 'header', 'left', $atts ) ) );
+        $right  = max( 0, intval( vcc_chrome_setting( 'header', 'right', $atts ) ) );
         $sticky = ( is_array( $atts ) && isset( $atts['sticky'] ) && $atts['sticky'] === 'hide' ) ? 'hide' : 'pin';
 
         // Background: bg=solid|none|frost, bgcolor="#hex|rgb()|name", opacity="0–1".
@@ -895,35 +895,35 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
             $n = intval( $v );
             return ( $n >= $lo && $n <= $hi ) ? $prop . ':' . $n . 'px;' : '';
         };
-        $style .= $px( vcc_chrome( 'header', 'link_size',       $atts ),  9,  22, '--bnav-link-size' );
-        $style .= $px( vcc_chrome( 'header', 'link_gap',        $atts ),  8,  64, '--bnav-link-gap' );
-        $style .= $px( vcc_chrome( 'header', 'logo_height',     $atts ), 16,  96, '--bnav-logo-size' );
-        $style .= $px( vcc_chrome( 'header', 'tm_link_size',    $atts ), 18,  84, '--bnav-tm-link' );
-        $style .= $px( vcc_chrome( 'header', 'tm_gap',          $atts ),  0,  80, '--bnav-tm-gap' );
-        $style .= $px( vcc_chrome( 'header', 'tm_wordmark_size',$atts ), 60, 420, '--bnav-tm-wm' );
-        $style .= $px( vcc_chrome( 'header', 'tm_label_size',   $atts ),  8,  20, '--bnav-tm-label' );
+        $style .= $px( vcc_chrome_setting( 'header', 'link_size',       $atts ),  9,  22, '--bnav-link-size' );
+        $style .= $px( vcc_chrome_setting( 'header', 'link_gap',        $atts ),  8,  64, '--bnav-link-gap' );
+        $style .= $px( vcc_chrome_setting( 'header', 'logo_height',     $atts ), 16,  96, '--bnav-logo-size' );
+        $style .= $px( vcc_chrome_setting( 'header', 'tm_link_size',    $atts ), 18,  84, '--bnav-tm-link' );
+        $style .= $px( vcc_chrome_setting( 'header', 'tm_gap',          $atts ),  0,  80, '--bnav-tm-gap' );
+        $style .= $px( vcc_chrome_setting( 'header', 'tm_wordmark_size',$atts ), 60, 420, '--bnav-tm-wm' );
+        $style .= $px( vcc_chrome_setting( 'header', 'tm_label_size',   $atts ),  8,  20, '--bnav-tm-label' );
 
         $onoff = function ( $v ) { return $v === '0' ? '0' : '1'; };
         $data = array(
-            'more'          => vcc_chrome( 'header', 'more_label',        $atts ),
-            'follow'        => vcc_chrome( 'header', 'social_label',      $atts ),
-            'menulabel'     => vcc_chrome( 'header', 'menu_label',        $atts ),
-            'barmax'        => intval( vcc_chrome( 'header', 'bar_max',   $atts ) ),
-            'wordmark'      => vcc_chrome( 'header', 'wordmark',          $atts ),
-            'meta'          => vcc_chrome( 'header', 'wordmark_line',     $atts ),
-            'brand'         => vcc_chrome( 'header', 'brand_name',        $atts ),
-            'pin-pages'     => vcc_chrome( 'header', 'pin_pages',         $atts ),
-            'pin-social'    => vcc_chrome( 'header', 'pin_social',        $atts ),
-            'pin-wordmark'  => vcc_chrome( 'header', 'pin_wordmark',      $atts ),
-            'order-pages'   => vcc_chrome( 'header', 'order_pages',       $atts ),
-            'order-social'  => vcc_chrome( 'header', 'order_social',      $atts ),
-            'order-wordmark'=> vcc_chrome( 'header', 'order_wordmark',    $atts ),
-            'show-pages'    => $onoff( vcc_chrome( 'header', 'show_pages',        $atts ) ),
-            'social'        => $onoff( vcc_chrome( 'header', 'show_social',       $atts ) ),
-            'show-wordmark' => $onoff( vcc_chrome( 'header', 'show_wordmark',     $atts ) ),
-            'menulabel-on'  => $onoff( vcc_chrome( 'header', 'show_menu_label',   $atts ) ),
-            'sociallabel-on'=> $onoff( vcc_chrome( 'header', 'show_social_label', $atts ) ),
-            'numbers'       => $onoff( vcc_chrome( 'header', 'show_numbers',      $atts ) ),
+            'more'          => vcc_chrome_setting( 'header', 'more_label',        $atts ),
+            'follow'        => vcc_chrome_setting( 'header', 'social_label',      $atts ),
+            'menulabel'     => vcc_chrome_setting( 'header', 'menu_label',        $atts ),
+            'barmax'        => intval( vcc_chrome_setting( 'header', 'bar_max',   $atts ) ),
+            'wordmark'      => vcc_chrome_setting( 'header', 'wordmark',          $atts ),
+            'meta'          => vcc_chrome_setting( 'header', 'wordmark_line',     $atts ),
+            'brand'         => vcc_chrome_setting( 'header', 'brand_name',        $atts ),
+            'pin-pages'     => vcc_chrome_setting( 'header', 'pin_pages',         $atts ),
+            'pin-social'    => vcc_chrome_setting( 'header', 'pin_social',        $atts ),
+            'pin-wordmark'  => vcc_chrome_setting( 'header', 'pin_wordmark',      $atts ),
+            'order-pages'   => vcc_chrome_setting( 'header', 'order_pages',       $atts ),
+            'order-social'  => vcc_chrome_setting( 'header', 'order_social',      $atts ),
+            'order-wordmark'=> vcc_chrome_setting( 'header', 'order_wordmark',    $atts ),
+            'show-pages'    => $onoff( vcc_chrome_setting( 'header', 'show_pages',        $atts ) ),
+            'social'        => $onoff( vcc_chrome_setting( 'header', 'show_social',       $atts ) ),
+            'show-wordmark' => $onoff( vcc_chrome_setting( 'header', 'show_wordmark',     $atts ) ),
+            'menulabel-on'  => $onoff( vcc_chrome_setting( 'header', 'show_menu_label',   $atts ) ),
+            'sociallabel-on'=> $onoff( vcc_chrome_setting( 'header', 'show_social_label', $atts ) ),
+            'numbers'       => $onoff( vcc_chrome_setting( 'header', 'show_numbers',      $atts ) ),
         );
         $dataAttr = '';
         foreach ( $data as $k => $v ) {
@@ -931,9 +931,9 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
             $dataAttr .= ' data-' . $k . '="' . esc_attr( $v ) . '"';
         }
 
-        $brand    = vcc_chrome( 'header', 'brand_name', $atts );
+        $brand    = vcc_chrome_setting( 'header', 'brand_name', $atts );
         if ( $brand === '' ) $brand = 'Blacktop Restaurant Group';
-        $logoHref = vcc_chrome( 'header', 'logo_href', $atts );
+        $logoHref = vcc_chrome_setting( 'header', 'logo_href', $atts );
         if ( $logoHref === '' ) $logoHref = $home;
 
         $header = '<header class="bnav lay-' . esc_attr( $layout ) . ' bg-' . esc_attr( $bg ) . '"'
