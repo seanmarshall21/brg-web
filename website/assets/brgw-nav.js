@@ -271,6 +271,37 @@
       });
     }
 
+    /* SHRINK ON SCROLL. Ported from Oak + Elm, where the bar goes 100px -> 70px as soon as
+       the page moves. Ours is padding-driven (see brgw-nav.css) because this bar sizes
+       itself from its contents.
+
+       THE THRESHOLD IS 8px, NOT 0: at 0 a trackpad's sub-pixel jitter at the top of the
+       page flips the class back and forth and the bar visibly flutters.
+
+       reserve() IS CALLED AGAIN after the class flips, because the bar is position:fixed
+       and its wrapper holds an equal spacer so content is not hidden under it — shrinking
+       the bar without re-measuring would leave a gap the height of the shrink. */
+    var shrunk = false;
+    function onShrinkScroll() {
+      var want = window.pageYOffset > 8;
+      if (want === shrunk) return;
+      shrunk = want;
+      nav.classList.toggle('is-scrolled', want);
+      reserve();
+    }
+    onShrinkScroll();
+    window.addEventListener('scroll', onShrinkScroll, { passive: true });
+
+    /* CLOSE WHEN THE WINDOW CROSSES TO DESKTOP. Leaving the takeover open while the links
+       reappear in the bar behind it strands the reader in a panel with no obvious way out
+       — the X is a mobile-only control. Oak + Elm hit this and close on the same event. */
+    if (window.matchMedia) {
+      var phone = window.matchMedia('(max-width: 860px)');
+      var onBp = function (e) { if (!e.matches && drawer.classList.contains('open')) setDrawer(false); };
+      if (phone.addEventListener) phone.addEventListener('change', onBp);
+      else if (phone.addListener) phone.addListener(onBp);   // older Safari
+    }
+
     // sticky="hide" → hide-on-scroll-down / show-on-up.
     if (nav.dataset.sticky === 'hide') {
       var lastY = window.pageYOffset, ticking = false;

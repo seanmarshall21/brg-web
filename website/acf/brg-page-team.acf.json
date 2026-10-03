@@ -3322,7 +3322,7 @@
                 "label": "Position",
                 "name": "brg_team_apply_mark_1_all_trim_pos",
                 "type": "select",
-                "instructions": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+                "instructions": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type. This mark was hanging 24% below the section with overflow hidden, so its lower quarter was cut off; it now sits at the top right.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -3330,7 +3330,7 @@
                     "class": "brg-f-mark_1_all_trim_pos",
                     "id": ""
                 },
-                "default_value": "keep",
+                "default_value": "tr",
                 "choices": {
                     "keep": "Where the design put it",
                     "tl": "Top left",
