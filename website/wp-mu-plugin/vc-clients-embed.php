@@ -813,6 +813,100 @@ if ( ! function_exists( 'vcc_chrome_setting' ) ) {
     }
 }
 
+/* ── The header logo, inlined so part of it can change color ──────────────────────────
+ * Sean, 3 Oct: the white "RESTAURANT GROUP" should flip to black over a light section,
+ * the way the menu links already do. A logo loaded through <img> cannot be restyled by
+ * the page at all — the browser treats it as an opaque picture — so the only way to
+ * recolour one piece of it is to put the SVG in the document.
+ *
+ * Returns '' for anything it is not completely sure about: a non-SVG logo, a logo on a
+ * host that is not ours, an unreadable file. The caller then emits the <img> it always
+ * did, so the worst case is today's behaviour.
+ *
+ * THREE THINGS ARE DONE TO THE FILE, and each is here for a reason:
+ *
+ * 1. SANITISED. An inlined SVG is live markup in the page, not a picture. The file comes
+ *    from the media library, so it is not hostile — but "trusted today" is not a property
+ *    worth betting a site on, and a script tag inside an uploaded SVG is a known trick.
+ *
+ * 2. ITS CLASS NAMES ARE NAMESPACED. An SVG's <style> block is NOT scoped to that SVG —
+ *    once inlined, its rules apply to the whole document. Illustrator names every export
+ *    .st0/.st1/.st2, so two inlined logos would silently restyle each other. This is the
+ *    same shape as the collision that took /team/ down this morning, so it is designed
+ *    out rather than remembered.
+ *
+ * 3. WHITE BECOMES A VARIABLE. Rather than hunting for one class by name — which would
+ *    break the next time the logo is re-exported — every white fill becomes
+ *    var(--bnav-logo-ink, <the original white>). Nothing changes until something sets
+ *    that property, and brgw-nav.css sets it only on .on-light. So the rule is "the white
+ *    parts of the logo turn black over a light section", which survives a re-export. */
+if ( ! function_exists( 'vcc_logo_svg' ) ) {
+    function vcc_logo_svg( $url ) {
+        if ( ! is_string( $url ) || $url === '' ) return '';
+        $path = (string) parse_url( $url, PHP_URL_PATH );
+        if ( strtolower( substr( $path, -4 ) ) !== '.svg' ) return '';
+
+        /* Our own hosts only — the site itself and the CDN the fragments come from. */
+        $host = strtolower( (string) parse_url( $url, PHP_URL_HOST ) );
+        $ours = array( strtolower( (string) parse_url( home_url(), PHP_URL_HOST ) ) );
+        if ( isset( $GLOBALS['VCC_CLIENTS']['brg']['base'] ) ) {
+            $ours[] = strtolower( (string) parse_url( $GLOBALS['VCC_CLIENTS']['brg']['base'], PHP_URL_HOST ) );
+        }
+        if ( ! in_array( $host, array_values( array_filter( $ours ) ), true ) ) return '';
+
+        $raw = vcc_fetch( $url, VCC_TTL );
+        if ( ! is_string( $raw ) || $raw === '' ) return '';
+        $i = stripos( $raw, '<svg' );
+        $j = strripos( $raw, '</svg>' );
+        if ( $i === false || $j === false || $j <= $i ) return '';
+        $svg = substr( $raw, $i, $j - $i + 6 );
+
+        /* 1 — sanitise */
+        /* <use> is deliberately NOT stripped: it normally points at a <defs> id inside the
+         * same file, and removing it would quietly blank part of some other logo rather
+         * than failing cleanly to the <img>. Browsers already refuse a cross-origin <use>. */
+        $svg = preg_replace( '#<(script|foreignObject|iframe)\b[^>]*>.*?</\1\s*>#is', '', $svg );
+        $svg = preg_replace( '#<(script|foreignObject|iframe)\b[^>]*/\s*>#is', '', $svg );
+        $svg = preg_replace( '#\son[a-z]+\s*=\s*("[^"]*"|\'[^\']*\')#i', '', $svg );
+        $svg = preg_replace( '#(xlink:href|href)\s*=\s*("|\')\s*(javascript|data):[^"\']*\2#i', '', $svg );
+        if ( ! is_string( $svg ) || $svg === '' ) return '';
+
+        /* 2 — namespace the file's own class names, selectors and attributes together */
+        $uid = 'bl' . substr( md5( $url ), 0, 6 );
+        $classes = array();
+        if ( preg_match_all( '/\.([A-Za-z_][\w-]*)\s*(?=[\{,])/', $svg, $m ) ) {
+            $classes = array_values( array_unique( $m[1] ) );
+        }
+        if ( $classes ) {
+            $svg = preg_replace_callback( '/class\s*=\s*"([^"]*)"/', function ( $m ) use ( $classes, $uid ) {
+                $out = array();
+                foreach ( preg_split( '/\s+/', trim( $m[1] ) ) as $c ) {
+                    if ( $c === '' ) continue;
+                    $out[] = in_array( $c, $classes, true ) ? $uid . '-' . $c : $c;
+                }
+                return 'class="' . implode( ' ', $out ) . '"';
+            }, $svg );
+            foreach ( $classes as $c ) {
+                $svg = preg_replace( '/\.' . preg_quote( $c, '/' ) . '(?=\s*[\{,])/', '.' . $uid . '-' . $c, $svg );
+            }
+        }
+
+        /* 3 — white becomes a variable, in the style block and on any inline attribute */
+        $svg = preg_replace( '/fill\s*:\s*(#fff(?:fff)?|white)\b/i', 'fill:var(--bnav-logo-ink,$1)', $svg );
+        $svg = preg_replace( '/fill\s*=\s*"\s*(#fff(?:fff)?|white)\s*"/i', 'fill="var(--bnav-logo-ink,$1)"', $svg );
+
+        /* The <a> around it already carries the accessible name, so the art is decorative.
+         * width/height are dropped from the ROOT TAG ONLY — stripping them globally would
+         * also hit the <rect> that draws the yellow box. */
+        $end = strpos( $svg, '>' );
+        if ( $end === false ) return '';
+        $open = substr( $svg, 0, $end + 1 );
+        $open = preg_replace( '/\s(width|height)\s*=\s*("[^"]*"|\'[^\']*\')/i', '', $open );
+        $open = preg_replace( '/<svg\b/i', '<svg aria-hidden="true" focusable="false"', $open, 1 );
+        return $open . substr( $svg, $end + 1 );
+    }
+}
+
 if ( ! function_exists( 'vcc_render_nav' ) ) {
     function vcc_render_nav( $client, $atts ) {
         $cfg = isset( $GLOBALS['VCC_CLIENTS'][ $client ] ) ? $GLOBALS['VCC_CLIENTS'][ $client ] : null;
@@ -942,7 +1036,9 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
                 . '" data-right="' . esc_attr( $right ) . '" data-sticky="' . esc_attr( $sticky ) . '"'
                 . $dataAttr . '>'
                 . '<a class="bnav-logo" href="' . esc_url( $logoHref ) . '" aria-label="' . esc_attr( $brand ) . ' — home">'
-                . ( $logo ? '<img src="' . esc_url( $logo ) . '" alt="Blacktop Restaurant Group">' : '' )
+                . ( $logo ? ( ( $inline = vcc_logo_svg( $logo ) )
+                      ? $inline
+                      : '<img src="' . esc_url( $logo ) . '" alt="' . esc_attr( $brand ) . '">' ) : '' )
                 . '</a>'
                 . $menu                                             // hidden <ul class="nav-src"> source (JS reads it)
                 . $social                                           // hidden <ul class="nav-social-src">, may be empty

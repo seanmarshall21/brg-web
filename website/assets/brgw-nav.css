@@ -24,12 +24,12 @@
    animating the height is a layout change on a fixed element over the whole page. */
 .bnav{transition:transform .35s cubic-bezier(.5,0,.2,1),padding .3s ease,background-color .3s ease;}
 .bnav.is-scrolled{padding-top:9px;padding-bottom:9px;}
-.bnav-logo img{transition:transform .35s ease;transform-origin:left center;}
-.bnav.is-scrolled .bnav-logo img{transform:scale(.78);}
-.bnav.lay-split.is-scrolled .bnav-logo img,
-.bnav.lay-center.is-scrolled .bnav-logo img{transform-origin:center;}
+.bnav-logo img,.bnav-logo svg{transition:transform .35s ease;transform-origin:left center;}
+.bnav.is-scrolled .bnav-logo img,.bnav.is-scrolled .bnav-logo svg{transform:scale(.78);}
+.bnav.lay-split.is-scrolled .bnav-logo img,.bnav.lay-split.is-scrolled .bnav-logo svg,
+.bnav.lay-center.is-scrolled .bnav-logo img,.bnav.lay-center.is-scrolled .bnav-logo svg{transform-origin:center;}
 @media (prefers-reduced-motion:reduce){
-  .bnav,.bnav-logo img{transition:none;}
+  .bnav,.bnav-logo img,.bnav-logo svg{transition:none;}
 }
 .bnav .nav-src{display:none;}                 /* source menu — data only, JS reads it */
 
@@ -80,7 +80,18 @@
 .bnav-logo{display:flex;align-items:center;text-decoration:none;line-height:0;}
 /* Height comes from the Navigation settings page; the shipped clamp is the fallback,
    so an untouched site is unchanged and a cleared box returns to it. */
-.bnav-logo img{height:var(--bnav-logo-size,clamp(28px,3vw,36px));width:auto;display:block;}
+.bnav-logo img,.bnav-logo svg{height:var(--bnav-logo-size,clamp(28px,3vw,36px));width:auto;display:block;}
+
+/* THE WHITE HALF OF THE LOGO FOLLOWS THE MENU LINKS.
+   The header logo is inlined as real SVG (vcc_logo_svg in the mu-plugin) so the page can
+   reach inside it; every white fill in that file was rewritten to
+   var(--bnav-logo-ink, <its original white>). Setting the property here is therefore the
+   whole switch, and it is set in exactly one place — over a section labelled light.
+   Nothing is named after a class in the logo file, so re-exporting the logo cannot break
+   this; only the colour white matters. The fade matches .bnav-link's own. */
+.bnav-logo svg *{transition:fill .25s ease;}
+.bnav.on-light .bnav-logo svg{--bnav-logo-ink:var(--ink);}
+@media(prefers-reduced-motion:reduce){ .bnav-logo svg *{transition:none;} }
 
 /* Item slots */
 .bnav-grp{gap:var(--bnav-link-gap,26px);display:flex;align-items:center;gap:clamp(14px,2vw,32px);}
