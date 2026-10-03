@@ -2464,40 +2464,6 @@
                 ]
             },
             {
-                "key": "field_brg_community_give_endacc_buttons",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_community_give_acc_button_style",
-                "label": "Button style",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
                 "key": "field_brg_community_give_modal_bg",
                 "label": "Pop-up background",
                 "name": "brg_community_give_modal_bg",
@@ -2525,7 +2491,7 @@
                 "placeholder": ""
             },
             {
-                "key": "field_brg_community_give_endacc_button_style",
+                "key": "field_brg_community_give_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",
