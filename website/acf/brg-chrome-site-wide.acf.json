@@ -1319,7 +1319,7 @@
                 "default_value": "left",
                 "choices": {
                     "left": "Bottom left",
-                    "center": "Centred",
+                    "center": "Centered",
                     "right": "Bottom right"
                 },
                 "return_format": "value",

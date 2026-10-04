@@ -233,7 +233,7 @@ if ( ! function_exists( 'vcc_shared_assets' ) ) {
     }
 }
 
-/* ── Neutralise any literal [client… token in our output (WP re-runs do_shortcode
+/* ── Neutralize any literal [client… token in our output (WP re-runs do_shortcode
       on rendered content) so it can't recursively re-expand. ─────────────────── */
 if ( ! function_exists( 'vcc_guard' ) ) {
     function vcc_guard( $client, $out ) {
@@ -277,7 +277,7 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
                 . '<span>Restaurant Group</span></a><nav class="brgw-nav">' . $links . '</nav></header>';
         /* LinkedIn, bottom right — BugHerd #32, reported by joyce@blacktoprg.com 14 Sep.
          * A LUCIDE LINE ICON drawn inline, per the house rule: no emoji, and no second
-         * request for a 1KB mark. stroke="currentColor" so it inherits the footer's colour
+         * request for a 1KB mark. stroke="currentColor" so it inherits the footer's color
          * rather than carrying a hex that has to be kept in step with the palette.
          * aria-label, not title text: the link has no visible words, so without it a screen
          * reader announces "link" and nothing else. */
@@ -570,7 +570,7 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
              * where the line turns. A `html`/wysiwyg field would have allowed the break AND the
              * markup, which is why it was never the answer for a headline.
              *
-             * \r\n and \r are normalised first: a paste from Word or Notes carries \r\n, which
+             * \r\n and \r are normalized first: a paste from Word or Notes carries \r\n, which
              * would otherwise leave a stray carriage return inside the tag. */
             else if ( $type === 'lines' ) {
                 $val = esc_html( (string) $val );
@@ -743,7 +743,7 @@ if ( ! function_exists( 'vcc_render_chrome' ) ) {
 }
 
 /* ── Render the WP-menu-driven nav (v2.2: [brg_nav]). Content = wp_nav_menu() for the
-      configured location; styling/behaviour = brgw-nav.css/js. brgw-nav.js injects the
+      configured location; styling/behavior = brgw-nav.css/js. brgw-nav.js injects the
       pen-stroke marker underline + builds the mobile takeover from the same menu. ──── */
 /* ── Header and footer settings, edited in wp-admin ───────────────────────────────
  * Declared in website/chrome/header|footer/slots.json, which generate the Site-wide
@@ -852,11 +852,11 @@ if ( ! function_exists( 'vcc_chrome_setting' ) ) {
  * Sean, 3 Oct: the white "RESTAURANT GROUP" should flip to black over a light section,
  * the way the menu links already do. A logo loaded through <img> cannot be restyled by
  * the page at all — the browser treats it as an opaque picture — so the only way to
- * recolour one piece of it is to put the SVG in the document.
+ * recolor one piece of it is to put the SVG in the document.
  *
  * Returns '' for anything it is not completely sure about: a non-SVG logo, a logo on a
  * host that is not ours, an unreadable file. The caller then emits the <img> it always
- * did, so the worst case is today's behaviour.
+ * did, so the worst case is today's behavior.
  *
  * THREE THINGS ARE DONE TO THE FILE, and each is here for a reason:
  *

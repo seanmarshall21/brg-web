@@ -34,7 +34,7 @@
      NO vector-effect="non-scaling-stroke" here, and that is deliberate rather than an
      omission. It looks like the right tool — it holds the stroke weight even while the box
      stretches to each item's width — but it moves DASH lengths into screen space, which
-     defeats pathLength="1". The reveal is a dash animation: pathLength normalises the path
+     defeats pathLength="1". The reveal is a dash animation: pathLength normalizes the path
      to 1 so `stroke-dasharray:1` is one dash covering the whole line. In screen space that
      becomes a 1-PIXEL dash with 1-pixel gaps, and the underline renders as fragments that
      shift by a pixel instead of drawing. Sean saw it immediately: "it goes off the path,
@@ -45,7 +45,7 @@
   /* Platform marks, keyed by the menu label lower-cased with non-letters stripped, so
      "Instagram", "instagram" and "Instagram " all match. Inline rather than fetched:
      these render inside a drawer that opens instantly, and a network round trip for a
-     16px glyph is a visible pop. currentColor so the existing link colour drives them. */
+     16px glyph is a visible pop. currentColor so the existing link color drives them. */
   var SOCIAL_ICONS = {
     instagram: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.3.84-.4.4-.64.8-.84 1.3-.16.4-.35 1-.4 2.1C2.6 8.5 2.6 8.9 2.6 12s0 3.5.06 4.7c.05 1.1.24 1.7.4 2.1.2.5.44.9.84 1.3.4.4.8.64 1.3.84.4.16 1 .35 2.1.4 1.2.06 1.6.06 4.7.06s3.5 0 4.7-.06c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.3-.84.4-.4.64-.8.84-1.3.16-.4.35-1 .4-2.1.06-1.2.06-1.6.06-4.7s0-3.5-.06-4.7c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.44-.9-.84-1.3-.4-.4-.8-.64-1.3-.84-.4-.16-1-.35-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2zm5.1-.3a1.15 1.15 0 1 1 0-2.3 1.15 1.15 0 0 1 0 2.3z"/></svg>',
     facebook:  '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>',
@@ -184,7 +184,7 @@
           /* Sean: "any platform — I would write Instagram, and it would recognize that
              it's Instagram." So the menu item's LABEL identifies the platform; nothing
              extra to configure, no class to remember, no field to fill in. Falls back to
-             the plain label for anything unrecognised, so a new platform still renders
+             the plain label for anything unrecognized, so a new platform still renders
              as a working link rather than disappearing. */
           var key = (it.label || '').replace(/<[^>]*>/g, '').trim().toLowerCase().replace(/[^a-z]/g, '');
           a.className = 'bnav-social-link' + (SOCIAL_ICONS[key] ? ' has-icon is-' + key : '');
@@ -356,7 +356,7 @@
         var shade = sec ? sec.getAttribute('data-nav') : '';
         // Both classes are set explicitly, and an unlabelled area clears BOTH rather than
         // falling through to one of them. The header's default (white links over dark
-        // imagery) is then what shows, which is the behaviour every page had before any
+        // imagery) is then what shows, which is the behavior every page had before any
         // section was labelled — so a section nobody has labelled cannot turn the menu
         // invisible against its own background.
         nav.classList.toggle('on-dark', shade === 'dark');

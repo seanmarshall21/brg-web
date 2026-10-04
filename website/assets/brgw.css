@@ -113,21 +113,21 @@
 .brgw .brgw-cta[data-btn-color="ink"]   {--brgw-row-bg:var(--ink);--brgw-row-fg:var(--white);}
 /* A button that chose nothing takes the row's color. One that chose its own already has
    its own rule above, set on the element itself, so it is unaffected by this. */
-/* The row's colour is carried under DIFFERENT property names, and this rule copies them
+/* The row's color is carried under DIFFERENT property names, and this rule copies them
    onto the button. It cannot simply inherit --brgw-btn-bg: the base .btn rule declares
    that property ON THE BUTTON, and a declaration on the element always beats an inherited
-   value, so the row's colour was silently losing to the default yellow. It only showed up
+   value, so the row's color was silently losing to the default yellow. It only showed up
    when the row was set to something other than yellow. */
 .brgw .brgw-cta:not([data-btn-color=""]):not([data-btn-color="keep"]) .btn[data-btn-color=""]{
   --brgw-btn-bg:var(--brgw-row-bg);--brgw-btn-fg:var(--brgw-row-fg);
   background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
 /* Outline, chosen for the section: same deal, and !important for the same reason the
    per-button outline needs it — it has to beat a filled background from a color rule. */
-/* TWO SELECTORS, and the second is not redundant. The colour rule above carries one more
+/* TWO SELECTORS, and the second is not redundant. The color rule above carries one more
    attribute match than the plain outline selector, so it was winning on `color` and an
-   outline row came out with filled-button text instead of the ring colour. The second
+   outline row came out with filled-button text instead of the ring color. The second
    selector matches that same case at equal weight and sits later, so order decides it.
-   The first still covers a button that picked its own colour but not its own fill. */
+   The first still covers a button that picked its own color but not its own fill. */
 .brgw .brgw-cta[data-btn-style="outline"] .btn[data-btn-style=""],
 .brgw .brgw-cta[data-btn-style="outline"] .btn[data-btn-color=""][data-btn-style=""]{
   background:transparent !important;
@@ -150,7 +150,7 @@
 .brgw .btn[data-btn-style="outline"][data-btn-fx="fill"]:hover{color:var(--brgw-btn-fg);}
 .brgw .btn[data-btn-fx="none"]:hover{transform:none;box-shadow:var(--brgw-btn-ring);}
 
-/* TWO MORE, asked for by name. "A lift effect, hover colour change combination, and
+/* TWO MORE, asked for by name. "A lift effect, hover color change combination, and
    underline."
 
    lift-swap  rises AND swaps to the opposite ink at once — the strongest of the set, for
@@ -245,7 +245,7 @@
   display:flex;gap:14px;justify-content:inherit;flex-wrap:wrap;}
 .brgw__footer[data-align="center"] .legal{justify-content:center;}
 /* ITS OWN CORNER. Sean wants the copyright bottom-left while the lockup above it stays
-   centred, so this row stops inheriting the footer's alignment. These sit after the rule
+   centered, so this row stops inheriting the footer's alignment. These sit after the rule
    above on purpose — same weight, and later wins. */
 .brgw__footer .legal[data-legal-align="left"]{justify-content:flex-start;text-align:left;}
 .brgw__footer .legal[data-legal-align="center"]{justify-content:center;text-align:center;}
@@ -254,7 +254,7 @@
    than letting the links trail off the end of the copyright. */
 @media(max-width:600px){
   /* Stacked, the row's horizontal placement is align-items — justify-content has become
-     the vertical axis, so on its own it left-aligned the links under a centred line. */
+     the vertical axis, so on its own it left-aligned the links under a centered line. */
   .brgw__footer .legal{flex-direction:column;gap:6px;}
   .brgw__footer .legal[data-legal-align="left"]{align-items:flex-start;}
   .brgw__footer .legal[data-legal-align="center"]{align-items:center;}
@@ -672,7 +672,7 @@
    off the LABEL and not the link: a button with a URL and no words is not a button. */
 /* THE BUTTON ROW LINES UP WITH THE COPY, not with the section's edge.
    The row is a direct child of <section>, so without this it starts at the section's
-   padding while the text inside a centred wrapper starts further in — on home-different
+   padding while the text inside a centered wrapper starts further in — on home-different
    that was an 82px step, and it was wrong in all 21 sections at once.
    --brgw-wrap is declared ONCE on each section and read by both its content wrapper and
    this row, so the two cannot drift apart. A section that never declares it leaves the var
@@ -728,7 +728,7 @@
 .brgw .brgw-sec [data-mark-pos="br"]{bottom:var(--brgw-doodle-bottom);top:auto;right:8%;left:auto;}
 .brgw .brgw-sec [data-mark-pos="ml"]{top:50%;bottom:auto;left:8%;right:auto;margin-top:-1.5em;}
 .brgw .brgw-sec [data-mark-pos="mr"]{top:50%;bottom:auto;right:8%;left:auto;margin-top:-1.5em;}
-/* The three centred positions need the element's own width taken off. translate (not
+/* The three centered positions need the element's own width taken off. translate (not
    transform) is used so the jitter animation, which owns transform on the IMAGE inside,
    is untouched — and so a mark that is also parallaxed cannot fight it. */
 .brgw .brgw-sec [data-mark-pos="tc"]{top:var(--brgw-doodle-top);bottom:auto;left:50%;right:auto;translate:-50% 0;}

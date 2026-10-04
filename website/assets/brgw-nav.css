@@ -47,14 +47,14 @@
 /* sticky = hide-on-scroll-down (JS toggles .is-hidden) */
 .bnav.is-hidden{transform:translateY(-100%);}
 
-/* REGISTER INVERT — the header re-colours itself against whatever is under it.
+/* REGISTER INVERT — the header re-colors itself against whatever is under it.
    Sections opt in with data-nav="dark" or data-nav="light"; brgw-nav.js reads what sits
    beneath the bar on scroll and sets one of these.
 
    `on-light` was missing entirely until 2026-09-24. Only the dark half existed, so a
    transparent header with white links crossed a white section and vanished — the exact
    thing Sean asked for from Temper, reported as already working. Nothing anywhere set a
-   dark link colour.
+   dark link color.
 
    Transitioned, because the flip happens mid-scroll and a hard swap reads as a flicker. */
 .bnav .bnav-link,.bnav .bnav-ham i{transition:color .25s ease,background-color .25s ease;}
@@ -63,14 +63,14 @@
 .bnav.on-dark .bnav-link{color:#fff;} .bnav.on-dark .bnav-ham i{background:#fff;}
 
 /* Over a LIGHT section: ink text on a transparent bar. No background is painted — the
-   section's own colour is the backdrop, exactly as the dark case leaves it. */
+   section's own color is the backdrop, exactly as the dark case leaves it. */
 .bnav.on-light .bnav-link{color:var(--ink);}
 .bnav.on-light .bnav-ham i{background:var(--ink);}
-/* THE UNDERLINE STAYS TEAL ON BOTH. Sean, 2 Oct: the link text should re-colour against
+/* THE UNDERLINE STAYS TEAL ON BOTH. Sean, 2 Oct: the link text should re-color against
    the background, but the active underline should not — it is the brand accent and the
    one fixed point as the nav crosses from dark to light. It used to flip to ink here,
    which read as the active marker changing identity rather than adapting. Removed rather
-   than restated as teal, so there is exactly one place the colour is set (var(--acc) on
+   than restated as teal, so there is exactly one place the color is set (var(--acc) on
    .bnav-uline path) and no second value to keep in step.
    The mobile drawer's yellow is deliberate and separate: it sits on its own dark panel,
    never over page content, so it is not crossing anything. */
@@ -88,7 +88,7 @@
    var(--bnav-logo-ink, <its original white>). Setting the property here is therefore the
    whole switch, and it is set in exactly one place — over a section labelled light.
    Nothing is named after a class in the logo file, so re-exporting the logo cannot break
-   this; only the colour white matters. The fade matches .bnav-link's own. */
+   this; only the color white matters. The fade matches .bnav-link's own. */
 .bnav-logo svg *{transition:fill .25s ease;}
 .bnav.on-light .bnav-logo svg{--bnav-logo-ink:var(--ink);}
 @media(prefers-reduced-motion:reduce){ .bnav-logo svg *{transition:none;} }
@@ -166,7 +166,7 @@
   letter-spacing:.18em;text-transform:uppercase;color:rgba(35,31,32,.45);}
 .bnav-social{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;}
 /* With an icon the label becomes the accessible name and the glyph carries the meaning —
-   showing both is redundant and wraps the row on a phone. Unrecognised platforms keep
+   showing both is redundant and wraps the row on a phone. Unrecognized platforms keep
    their text, so a new one is never invisible. */
 .bnav-social-link.has-icon .lbl{position:absolute;width:1px;height:1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;}
@@ -242,7 +242,7 @@
 
    VISIBILITY, never display:none — a display change cannot be transitioned, so the
    panel would snap instead of sliding. (fc-brands names this as the first of three
-   non-obvious behaviours, and it is the one that looks like a broken animation.) */
+   non-obvious behaviors, and it is the one that looks like a broken animation.) */
 @media (max-width: 860px) {
   .bnav-drawer.is-full{
     inset:0; width:100%; max-width:none; border-radius:0;
