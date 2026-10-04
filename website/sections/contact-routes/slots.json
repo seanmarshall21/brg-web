@@ -8,174 +8,346 @@
   },
   "route_1_label": {
     "type": "text",
-    "label": "Route 1 — label",
+    "label": "Heading",
     "doc": "The teal link text. Short — it is a button, not a sentence.",
-    "default": "General"
+    "default": "General",
+    "group": "Box 1 — top left",
+    "width": 50
   },
   "route_1_href": {
     "type": "url",
-    "label": "Route 1 — link",
+    "label": "Heading links to",
     "doc": "LIVE AND PROVEN — this mailto already works on community-partner.",
-    "default": "mailto:hello@blacktoprg.com"
+    "default": "mailto:hello@blacktoprg.com",
+    "group": "Box 1 — top left",
+    "width": 50
   },
   "route_1_text": {
     "type": "textarea",
-    "label": "Route 1 — one-liner",
+    "label": "One-liner",
     "doc": "One line under the label.",
-    "default": "Anything that doesn't fit the boxes below."
+    "default": "Anything that doesn't fit the boxes below.",
+    "group": "Box 1 — top left"
   },
-  "route_1_btn_label": {
-    "type": "text",
-    "label": "Route 1 — button label",
-    "doc": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
-    "width": 34,
-    "default": ""
-  },
-  "route_1_btn_href": {
-    "type": "url",
-    "label": "Route 1 — button link",
-    "doc": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
-    "width": 33,
-    "default": ""
-  },
-  "route_1_btn_popup": {
-    "type": "select",
-    "label": "Route 1 — button opens a pop-up",
-    "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
-    "width": 33,
-    "default": "",
-    "choices": {
-      "": "Open the link",
-      "1": "Pop-up"
+  "route_1_buttons": {
+    "type": "repeater",
+    "label": "Buttons",
+    "button": "Add a button",
+    "collapse": "label",
+    "doc": "Buttons for this box. Add as many as you need — they sit in a row and wrap onto the next line when there is no space. Leave the list empty and the box has no button at all.\n\nColor and fill fall back to the section's Button style below; set them on a row to make one button differ.",
+    "group": "Box 1 — top left",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Label",
+        "doc": "The words on the button. A button with no label is not drawn.",
+        "default": "",
+        "width": 34
+      },
+      "href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+        "default": "",
+        "width": 33
+      },
+      "popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A mail or phone link always hands off to the app and is never shown in a panel.",
+        "width": 33,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      },
+      "color": {
+        "type": "select",
+        "label": "Color",
+        "doc": "Leave on \"Same as the section\" to follow the section's button color.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "yellow": "Yellow",
+          "teal": "Teal",
+          "pink": "Pink",
+          "orange": "Orange",
+          "white": "White",
+          "ink": "Black"
+        }
+      },
+      "style": {
+        "type": "select",
+        "label": "Filled or outline",
+        "doc": "Leave on \"Same as the section\" to follow the section.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "filled": "Filled",
+          "outline": "Outline"
+        }
+      }
     }
   },
   "route_2_label": {
     "type": "text",
-    "label": "Route 2 — label",
+    "label": "Heading",
     "doc": "The teal link text.",
-    "default": "Press & media"
+    "default": "Press & media",
+    "group": "Box 2 — top right",
+    "width": 50
   },
   "route_2_href": {
     "type": "url",
-    "label": "Route 2 — link",
+    "label": "Heading links to",
     "doc": "Points at the general inbox with a press subject line, the same pattern as route_3's proven partnership mailto. INTENDED DESTINATION is /press/#inquiries — switch it back the day the Press page ships (Expo SPEC-005). It is a mailto today because a slot default is LIVE COPY, so an aspirational default ships as a real defect: /press/ does not exist, and a dead link on a page whose whole job is routing people correctly is worse than a slightly generic destination.",
-    "default": "mailto:hello@blacktoprg.com?subject=Press%20enquiry"
+    "default": "mailto:hello@blacktoprg.com?subject=Press%20enquiry",
+    "group": "Box 2 — top right",
+    "width": 50
   },
   "route_2_text": {
     "type": "textarea",
-    "label": "Route 2 — one-liner",
+    "label": "One-liner",
     "doc": "One line under the label.",
-    "default": "Press kit, high-res imagery, interviews, or a comment on a story."
+    "default": "Press kit, high-res imagery, interviews, or a comment on a story.",
+    "group": "Box 2 — top right"
   },
-  "route_2_btn_label": {
-    "type": "text",
-    "label": "Route 2 — button label",
-    "doc": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
-    "width": 34,
-    "default": ""
-  },
-  "route_2_btn_href": {
-    "type": "url",
-    "label": "Route 2 — button link",
-    "doc": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
-    "width": 33,
-    "default": ""
-  },
-  "route_2_btn_popup": {
-    "type": "select",
-    "label": "Route 2 — button opens a pop-up",
-    "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
-    "width": 33,
-    "default": "",
-    "choices": {
-      "": "Open the link",
-      "1": "Pop-up"
+  "route_2_buttons": {
+    "type": "repeater",
+    "label": "Buttons",
+    "button": "Add a button",
+    "collapse": "label",
+    "doc": "Buttons for this box. Add as many as you need — they sit in a row and wrap onto the next line when there is no space. Leave the list empty and the box has no button at all.\n\nColor and fill fall back to the section's Button style below; set them on a row to make one button differ.",
+    "group": "Box 2 — top right",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Label",
+        "doc": "The words on the button. A button with no label is not drawn.",
+        "default": "",
+        "width": 34
+      },
+      "href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+        "default": "",
+        "width": 33
+      },
+      "popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A mail or phone link always hands off to the app and is never shown in a panel.",
+        "width": 33,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      },
+      "color": {
+        "type": "select",
+        "label": "Color",
+        "doc": "Leave on \"Same as the section\" to follow the section's button color.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "yellow": "Yellow",
+          "teal": "Teal",
+          "pink": "Pink",
+          "orange": "Orange",
+          "white": "White",
+          "ink": "Black"
+        }
+      },
+      "style": {
+        "type": "select",
+        "label": "Filled or outline",
+        "doc": "Leave on \"Same as the section\" to follow the section.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "filled": "Filled",
+          "outline": "Outline"
+        }
+      }
     }
   },
   "route_3_label": {
     "type": "text",
-    "label": "Route 3 — label",
+    "label": "Heading",
     "doc": "The teal link text.",
-    "default": "Partnerships & giveback"
+    "default": "Partnerships & giveback",
+    "group": "Box 3 — bottom left",
+    "width": 50
   },
   "route_3_href": {
     "type": "url",
-    "label": "Route 3 — link",
+    "label": "Heading links to",
     "doc": "LIVE AND PROVEN — the same mailto community-partner uses, subject line included.",
-    "default": "mailto:hello@blacktoprg.com?subject=Community%20partnership"
+    "default": "mailto:hello@blacktoprg.com?subject=Community%20partnership",
+    "group": "Box 3 — bottom left",
+    "width": 50
   },
   "route_3_text": {
     "type": "textarea",
-    "label": "Route 3 — one-liner",
+    "label": "One-liner",
     "doc": "One line under the label.",
-    "default": "Nonprofits, schools, and local organizations."
+    "default": "Nonprofits, schools, and local organizations.",
+    "group": "Box 3 — bottom left"
   },
-  "route_3_btn_label": {
-    "type": "text",
-    "label": "Route 3 — button label",
-    "doc": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
-    "width": 34,
-    "default": ""
-  },
-  "route_3_btn_href": {
-    "type": "url",
-    "label": "Route 3 — button link",
-    "doc": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
-    "width": 33,
-    "default": ""
-  },
-  "route_3_btn_popup": {
-    "type": "select",
-    "label": "Route 3 — button opens a pop-up",
-    "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
-    "width": 33,
-    "default": "",
-    "choices": {
-      "": "Open the link",
-      "1": "Pop-up"
+  "route_3_buttons": {
+    "type": "repeater",
+    "label": "Buttons",
+    "button": "Add a button",
+    "collapse": "label",
+    "doc": "Buttons for this box. Add as many as you need — they sit in a row and wrap onto the next line when there is no space. Leave the list empty and the box has no button at all.\n\nColor and fill fall back to the section's Button style below; set them on a row to make one button differ.",
+    "group": "Box 3 — bottom left",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Label",
+        "doc": "The words on the button. A button with no label is not drawn.",
+        "default": "",
+        "width": 34
+      },
+      "href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+        "default": "",
+        "width": 33
+      },
+      "popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A mail or phone link always hands off to the app and is never shown in a panel.",
+        "width": 33,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      },
+      "color": {
+        "type": "select",
+        "label": "Color",
+        "doc": "Leave on \"Same as the section\" to follow the section's button color.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "yellow": "Yellow",
+          "teal": "Teal",
+          "pink": "Pink",
+          "orange": "Orange",
+          "white": "White",
+          "ink": "Black"
+        }
+      },
+      "style": {
+        "type": "select",
+        "label": "Filled or outline",
+        "doc": "Leave on \"Same as the section\" to follow the section.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "filled": "Filled",
+          "outline": "Outline"
+        }
+      }
     }
   },
   "route_4_label": {
     "type": "text",
-    "label": "Route 4 — label",
+    "label": "Heading",
     "doc": "The teal link text.",
-    "default": "Careers"
+    "default": "Careers",
+    "group": "Box 4 — bottom right",
+    "width": 50
   },
   "route_4_href": {
     "type": "url",
-    "label": "Route 4 — link",
+    "label": "Heading links to",
     "doc": "Points at the live careers page.",
-    "default": "/careers/"
+    "default": "/careers/",
+    "group": "Box 4 — bottom right",
+    "width": 50
   },
   "route_4_text": {
     "type": "textarea",
-    "label": "Route 4 — one-liner",
+    "label": "One-liner",
     "doc": "One line under the label. Write `&` as a literal ampersand.",
-    "default": "Open roles across Board & Brew and Odie's."
+    "default": "Open roles across Board & Brew and Odie's.",
+    "group": "Box 4 — bottom right"
   },
-  "route_4_btn_label": {
-    "type": "text",
-    "label": "Route 4 — button label",
-    "doc": "Leave empty and this route has no button, just the heading and the line under it. Short reads best: it sits four to a row.",
-    "width": 34,
-    "default": ""
-  },
-  "route_4_btn_href": {
-    "type": "url",
-    "label": "Route 4 — button link",
-    "doc": "Where the button goes. mailto:someone@blacktoprg.com opens a mail window; a path like /careers/ stays on this site.",
-    "width": 33,
-    "default": ""
-  },
-  "route_4_btn_popup": {
-    "type": "select",
-    "label": "Route 4 — button opens a pop-up",
-    "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A form set to require a Google sign-in cannot be shown that way and has to stay an ordinary link.",
-    "width": 33,
-    "default": "",
-    "choices": {
-      "": "Open the link",
-      "1": "Pop-up"
+  "route_4_buttons": {
+    "type": "repeater",
+    "label": "Buttons",
+    "button": "Add a button",
+    "collapse": "label",
+    "doc": "Buttons for this box. Add as many as you need — they sit in a row and wrap onto the next line when there is no space. Leave the list empty and the box has no button at all.\n\nColor and fill fall back to the section's Button style below; set them on a row to make one button differ.",
+    "group": "Box 4 — bottom right",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Label",
+        "doc": "The words on the button. A button with no label is not drawn.",
+        "default": "",
+        "width": 34
+      },
+      "href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+        "default": "",
+        "width": 33
+      },
+      "popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page. A mail or phone link always hands off to the app and is never shown in a panel.",
+        "width": 33,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      },
+      "color": {
+        "type": "select",
+        "label": "Color",
+        "doc": "Leave on \"Same as the section\" to follow the section's button color.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "yellow": "Yellow",
+          "teal": "Teal",
+          "pink": "Pink",
+          "orange": "Orange",
+          "white": "White",
+          "ink": "Black"
+        }
+      },
+      "style": {
+        "type": "select",
+        "label": "Filled or outline",
+        "doc": "Leave on \"Same as the section\" to follow the section.",
+        "width": 50,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "filled": "Filled",
+          "outline": "Outline"
+        }
+      }
     }
   },
   "section_bg": {

@@ -689,6 +689,11 @@
    the element genuinely empty and :empty matches. That is why this works with no JS: the
    row has to disappear for the 21 sections nobody has added a button to, which is all of
    them today. */
+/* A BUTTON ROW THAT BELONGS TO SOMETHING, not to the section. The four contact boxes each
+   carry their own list, so this row must not obey the section's "where the buttons sit"
+   switch the way the section's own row does — but it still has to disappear when nobody has
+   added a button, which the :empty rule below handles for every row alike. */
+.brgw-sec .brgw-cta.brgw-cta--inline{display:flex;margin:14px 0 0;max-width:none;}
 .brgw-sec .brgw-cta:empty{display:none!important;}
 /* And a row that has buttons must not show one that was left unlabelled. */
 .brgw-sec .brgw-cta .btn[data-cta=""]{display:none;}

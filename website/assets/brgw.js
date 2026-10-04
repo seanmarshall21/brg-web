@@ -891,9 +891,24 @@
     root.addEventListener('click', function (e) {
       var a = e.target.closest ? e.target.closest('[data-brgw-modal]') : null;
       if (!a) return;
-      var url = a.getAttribute('data-brgw-modal');
-      if (!url || url === '1' || url === 'true') url = a.getAttribute('href');
+      var flag = a.getAttribute('data-brgw-modal');
+
+      /* EMPTY MEANS NO POP-UP. This read `if (!url || ...) url = href`, so an EMPTY
+         attribute fell through to the href and opened the panel — and empty is the
+         default for "Open in a pop-up". Every button on the site was opening a modal and
+         the "Open the link" setting had never once done anything. Sean, 4 Oct: a mailto:
+         button "opens up the mailto link, but it also opens up a modal".
+         The attribute is present on every button because the markup always writes it, so
+         its VALUE is the only thing that may decide this — never its presence. */
+      if (!flag || flag === '0' || flag === 'false') return;
+
+      var url = (flag === '1' || flag === 'true') ? a.getAttribute('href') : flag;
       if (!url || url === '#') return;
+
+      /* A scheme that hands off to another app cannot be framed, and trying leaves an
+         empty white panel sitting over the page after the mail window opens. */
+      if (/^\s*(mailto:|tel:|sms:)/i.test(url)) return;
+
       e.preventDefault();
       show(url, a.getAttribute('data-brgw-modal-bg'), a.textContent.trim());
     });
