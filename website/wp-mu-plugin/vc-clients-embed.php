@@ -331,13 +331,33 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
         /* LEGAL LINKS, written as "Label|/path" and separated by commas — the shape an editor
          * can hold in their head. Anything without a pipe is skipped rather than rendered as
          * a link to nowhere. */
+        /* LEGAL LINKS — one per line, "Words|/path". Sean, 4 Oct: "I just don't know where
+         * or how to input it in here." The format was only ever stated inside the field's
+         * help tooltip, which is a place nobody looks. The field is a multi-line box now so
+         * it is visibly a list, and this parser stopped being fussy:
+         *   - lines are the separator; a single line of comma-separated pairs still works,
+         *     which is what the field used to ask for;
+         *   - the bar is optional. A bare /privacy-policy/ becomes "Privacy Policy", so
+         *     pasting a path does the obvious thing instead of silently rendering nothing. */
         $flinksRaw = vcc_chrome_setting( 'footer', 'links' );
         $flinks = '';
-        if ( is_string( $flinksRaw ) && $flinksRaw !== '' ) {
+        if ( is_string( $flinksRaw ) && trim( $flinksRaw ) !== '' ) {
+            $lines = preg_split( '/[\r\n]+/', trim( $flinksRaw ) );
+            if ( count( $lines ) === 1 && strpos( $lines[0], ',' ) !== false ) {
+                $lines = explode( ',', $lines[0] );           // the old single-line format
+            }
             $items = array();
-            foreach ( explode( ',', $flinksRaw ) as $pair ) {
-                if ( strpos( $pair, '|' ) === false ) continue;
-                list( $lbl, $href ) = array_map( 'trim', explode( '|', $pair, 2 ) );
+            foreach ( $lines as $pair ) {
+                $pair = trim( $pair );
+                if ( $pair === '' ) continue;
+                if ( strpos( $pair, '|' ) !== false ) {
+                    list( $lbl, $href ) = array_map( 'trim', explode( '|', $pair, 2 ) );
+                } else {
+                    $href = $pair;
+                    $segs = array_values( array_filter( explode( '/', (string) parse_url( $href, PHP_URL_PATH ) ) ) );
+                    $slug = $segs ? end( $segs ) : $href;
+                    $lbl  = ucwords( str_replace( array( '-', '_' ), ' ', $slug ) );
+                }
                 if ( $lbl === '' || $href === '' ) continue;
                 $items[] = '<a href="' . esc_url( $href ) . '">' . esc_html( $lbl ) . '</a>';
             }
@@ -348,8 +368,22 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
         if ( is_string( $fhref ) && $fhref !== '' ) {
             $lock = '<a class="lockup-link" href="' . esc_url( $fhref ) . '">' . $lock . '</a>';
         }
-        $small = ( $flegal !== '' || $flinks !== '' )
-               ? '<p class="legal anim-up">' . esc_html( $flegal ) . $flinks . '</p>' : '';
+        /* {year} IS FILLED IN HERE, then corrected by the browser. PHP renders the year the
+         * page was BUILT, and a cached page can outlive a New Year — so the markup carries
+         * a span that brgw.js resets to the real current year on load. Without JS the server
+         * value still shows, which is right every day but a handful. Escape first, then swap
+         * the token: {year} has no HTML-special characters, so it survives esc_html intact. */
+        $legalHtml = esc_html( $flegal );
+        if ( strpos( $legalHtml, '{year}' ) !== false ) {
+            $legalHtml = str_replace( '{year}',
+                '<span data-brgw-year>' . esc_html( date_i18n( 'Y' ) ) . '</span>', $legalHtml );
+        }
+        $lalign = vcc_chrome_setting( 'footer', 'legal_align' );
+        if ( ! in_array( $lalign, array( 'left', 'center', 'right' ), true ) ) $lalign = 'left';
+        $small = ( $legalHtml !== '' || $flinks !== '' )
+               ? '<p class="legal anim-up" data-legal-align="' . esc_attr( $lalign ) . '">'
+                 . ( $legalHtml !== '' ? '<span class="legal-text">' . $legalHtml . '</span>' : '' )
+                 . $flinks . '</p>' : '';
 
         $footer = '<footer class="brgw__footer reveal" data-align="' . esc_attr( $falign ) . '"'
                 . ' data-social="' . esc_attr( $fsocial ) . '"'
@@ -774,6 +808,7 @@ if ( ! function_exists( 'vcc_footer_keys' ) ) {
             'show_social' => 'brg_footer_show_social',
             'social_size' => 'brg_footer_social_size',
             'legal'       => 'brg_footer_legal',
+            'legal_align' => 'brg_footer_legal_align',
             'links'       => 'brg_footer_links',
         );
     }

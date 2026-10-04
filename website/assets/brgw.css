@@ -244,6 +244,22 @@
 .brgw__footer .legal{margin:14px 0 0;font-size:clamp(11px,1vw,13px);opacity:.62;
   display:flex;gap:14px;justify-content:inherit;flex-wrap:wrap;}
 .brgw__footer[data-align="center"] .legal{justify-content:center;}
+/* ITS OWN CORNER. Sean wants the copyright bottom-left while the lockup above it stays
+   centred, so this row stops inheriting the footer's alignment. These sit after the rule
+   above on purpose — same weight, and later wins. */
+.brgw__footer .legal[data-legal-align="left"]{justify-content:flex-start;text-align:left;}
+.brgw__footer .legal[data-legal-align="center"]{justify-content:center;text-align:center;}
+.brgw__footer .legal[data-legal-align="right"]{justify-content:flex-end;text-align:right;}
+/* On a phone the row wraps; keep the two parts on their own lines and hard left rather
+   than letting the links trail off the end of the copyright. */
+@media(max-width:600px){
+  /* Stacked, the row's horizontal placement is align-items — justify-content has become
+     the vertical axis, so on its own it left-aligned the links under a centred line. */
+  .brgw__footer .legal{flex-direction:column;gap:6px;}
+  .brgw__footer .legal[data-legal-align="left"]{align-items:flex-start;}
+  .brgw__footer .legal[data-legal-align="center"]{align-items:center;}
+  .brgw__footer .legal[data-legal-align="right"]{align-items:flex-end;}
+}
 .brgw__footer .legal-links{display:flex;gap:14px;flex-wrap:wrap;}
 .brgw__footer .legal a{color:inherit;}
 .brgw__footer .lockup-link{display:block;text-decoration:none;color:inherit;}

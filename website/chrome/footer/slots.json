@@ -93,15 +93,29 @@
   "legal": {
     "type": "text",
     "label": "Small print",
-    "doc": "A line under the lockup — a copyright line, or anything that has to appear on every page. Leave empty for none.",
+    "doc": "The copyright line at the foot of every page. Type {year} anywhere in it and the current year is filled in automatically — you never have to come back in January. Leave empty for no small print at all.",
+    "group": "Footer — small print",
+    "width": 60,
+    "default": "© {year} Blacktop Restaurant Group. All rights reserved."
+  },
+  "links": {
+    "type": "lines",
+    "label": "Legal links",
+    "doc": "ONE LINK PER LINE, written as the words you want, then a vertical bar, then the page path. For example:\n\nPrivacy Policy|/privacy-policy/\nCookie Policy|/cookie-policy/\n\nYou can also just paste a path on its own — /privacy-policy/ — and the words are made from it. A full web address works too, for anything off this site.",
     "group": "Footer — small print",
     "default": ""
   },
-  "links": {
-    "type": "text",
-    "label": "Legal links",
-    "doc": "Links shown beside the small print, written as Label|/path and separated by commas. For example: Privacy|/privacy-policy/, Cookies|/cookie-policy/",
+  "legal_align": {
+    "type": "select",
+    "label": "Small print sits",
+    "doc": "Which corner the copyright line and the legal links sit in, independently of how the rest of the footer is aligned.",
     "group": "Footer — small print",
-    "default": ""
+    "width": 40,
+    "default": "left",
+    "choices": {
+      "left": "Bottom left",
+      "center": "Centred",
+      "right": "Bottom right"
+    }
   }
 }

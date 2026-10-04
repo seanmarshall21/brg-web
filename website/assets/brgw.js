@@ -784,6 +784,17 @@
     requestAnimationFrame(update);
   }
 
+  /* ---- THE COPYRIGHT YEAR ---------------------------------------------------------
+     PHP already wrote the year the page was built. A cached page can outlive a New Year,
+     so this corrects it on load; it touches nothing if the two already agree, and if this
+     script never runs the server's value is still shown. */
+  function brgwYear() {
+    var y = String(new Date().getFullYear());
+    [].forEach.call(document.querySelectorAll('[data-brgw-year]'), function (el) {
+      if (el.textContent !== y) el.textContent = y;
+    });
+  }
+
   /* ---- MODAL, for the Google Forms ------------------------------------------------
      Sean, 3 Oct: "can I just take them and put them into a modal pop-up that just fits it
      and matches the background color?"
@@ -865,7 +876,7 @@
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); }
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
