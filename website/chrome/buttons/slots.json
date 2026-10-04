@@ -1,0 +1,22 @@
+{
+  "_label": "Buttons",
+  "_page": "site-wide",
+  "_page_label": "Site-wide",
+  "_order": 3,
+  "btn_effect": {
+    "type": "select",
+    "label": "Hover effect",
+    "doc": "What EVERY button on the site does when someone points at it, unless something nearer overrules it. There are three levels and the nearest one wins: this, then a section's own Hover effect, then a single button's own on its row in the list. Set it here once and only change the exceptions.\n\nLift is what every button has always done — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink; it is the loudest of the set, best kept for one main action. Underline draws a rule under the words and leaves the button still, which reads as a link. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only. Anyone who has switched off animation on their device sees no hover movement whatever is chosen here.",
+    "group": "Buttons — site-wide",
+    "default": "lift",
+    "choices": {
+      "lift": "Lift",
+      "lift-swap": "Lift and swap color",
+      "underline": "Underline",
+      "grow": "Grow",
+      "press": "Press down",
+      "fill": "Fill in",
+      "none": "None"
+    }
+  }
+}

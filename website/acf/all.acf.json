@@ -1959,6 +1959,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_hero_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -3217,6 +3248,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_community_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -3939,6 +4001,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_about_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -4977,6 +5070,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_different_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -5733,6 +5857,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_values_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -7309,6 +7464,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_our_restaurants_hero_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -8324,6 +8510,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_our_restaurants_brands_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -9923,6 +10140,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_team_hero_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -11817,6 +12065,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_team_members_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -12547,6 +12826,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_team_apply_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -14123,6 +14433,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_community_hero_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -15265,6 +15606,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_community_give_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -15964,6 +16336,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_community_stats_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -16521,6 +16924,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_community_partner_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -18127,6 +18561,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_careers_hero_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -18979,6 +19444,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_careers_apply_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -19646,6 +20142,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_careers_positions_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -20269,6 +20796,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_careers_posts_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -21830,6 +22388,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_contact_hero_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -22118,6 +22707,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_contact_routes_route_1_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -22322,6 +22942,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_contact_routes_route_2_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -22540,6 +23191,37 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+          },
+          {
+            "key": "field_brg_contact_routes_route_3_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
           }
         ]
       },
@@ -22744,6 +23426,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_contact_routes_route_4_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -23202,6 +23915,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_contact_routes_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -23781,6 +24525,37 @@
               "": "Same as the section",
               "filled": "Filled",
               "outline": "Outline"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_contact_restaurants_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
             },
             "return_format": "value",
             "allow_null": 0,
@@ -25445,11 +26220,91 @@
         "endpoint": 1
       },
       {
+        "key": "field_brg_chrome_tab_buttons",
+        "label": "Buttons",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_buttons_acc_buttons_site_wide",
+        "label": "Buttons — site-wide",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_buttons_btn_effect",
+        "label": "Hover effect",
+        "name": "brg_buttons_btn_effect",
+        "type": "select",
+        "instructions": "What EVERY button on the site does when someone points at it, unless something nearer overrules it. There are three levels and the nearest one wins: this, then a section's own Hover effect, then a single button's own on its row in the list. Set it here once and only change the exceptions.\n\nLift is what every button has always done — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink; it is the loudest of the set, best kept for one main action. Underline draws a rule under the words and leaves the button still, which reads as a link. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only. Anyone who has switched off animation on their device sees no hover movement whatever is chosen here.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-btn_effect",
+          "id": ""
+        },
+        "default_value": "lift",
+        "choices": {
+          "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
+          "grow": "Grow",
+          "press": "Press down",
+          "fill": "Fill in",
+          "none": "None"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_buttons_endacc_buttons_site_wide",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
         "key": "field_brg_chrome_site_wide_opts",
         "label": "Shortcode &amp; options",
         "name": "",
         "type": "message",
-        "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>logo</code></td><td>Logo</td><td>an image URL</td></tr><tr><td><code>logo_height</code></td><td>Logo height</td><td>a number (16–96)</td></tr><tr><td><code>brand_name</code></td><td>Brand name (read aloud by screen readers)</td><td>text</td></tr><tr><td><code>logo_href</code></td><td>Logo links to</td><td>a link or page path</td></tr><tr><td><code>layout</code></td><td>Layout</td><td>left · split · center · compact</td></tr><tr><td><code>link_size</code></td><td>Link text size</td><td>a number (9–22)</td></tr><tr><td><code>link_gap</code></td><td>Space between links</td><td>a number (8–64)</td></tr><tr><td><code>left</code></td><td>Links before the logo</td><td>a number (0–8)</td></tr><tr><td><code>right</code></td><td>Links after the logo</td><td>a number (0–8)</td></tr><tr><td><code>more_label</code></td><td>“More” button text</td><td>text</td></tr><tr><td><code>bar_max</code></td><td>Links on the bar before “More”</td><td>a number (0–12)</td></tr><tr><td><code>pin_pages</code></td><td>Pages</td><td>top · bottom</td></tr><tr><td><code>pin_social</code></td><td>Social</td><td>top · bottom</td></tr><tr><td><code>pin_wordmark</code></td><td>Wordmark</td><td>top · bottom</td></tr><tr><td><code>order_pages</code></td><td>Pages</td><td>1 · 2 · 3</td></tr><tr><td><code>order_social</code></td><td>Social</td><td>1 · 2 · 3</td></tr><tr><td><code>order_wordmark</code></td><td>Wordmark</td><td>1 · 2 · 3</td></tr><tr><td><code>tm_link_size</code></td><td>Page link size</td><td>a number (18–84)</td></tr><tr><td><code>tm_gap</code></td><td>Space between blocks</td><td>a number (0–80)</td></tr><tr><td><code>tm_wordmark_size</code></td><td>Wordmark size</td><td>a number (60–420)</td></tr><tr><td><code>tm_label_size</code></td><td>Small label size</td><td>a number (8–20)</td></tr><tr><td><code>show_pages</code></td><td>Pages</td><td>1 · 0</td></tr><tr><td><code>show_social</code></td><td>Social</td><td>1 · 0</td></tr><tr><td><code>show_wordmark</code></td><td>Wordmark</td><td>1 · 0</td></tr><tr><td><code>show_menu_label</code></td><td>“Menu” label</td><td>1 · 0</td></tr><tr><td><code>show_social_label</code></td><td>“Follow” label</td><td>1 · 0</td></tr><tr><td><code>show_numbers</code></td><td>Numbers (01, 02…)</td><td>1 · 0</td></tr><tr><td><code>menu_label</code></td><td>“Menu” label text</td><td>text</td></tr><tr><td><code>social_label</code></td><td>“Follow” label text</td><td>text</td></tr><tr><td><code>wordmark</code></td><td>Wordmark</td><td>an image URL</td></tr><tr><td><code>wordmark_line</code></td><td>Line under the wordmark</td><td>text</td></tr><tr><td><code>logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>logo_width</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>logo_href</code></td><td>Footer logo links to</td><td>a link or page path</td></tr><tr><td><code>pad_top</code></td><td>Space above</td><td>a number (0–180)</td></tr><tr><td><code>pad_bottom</code></td><td>Space below</td><td>a number (0–180)</td></tr><tr><td><code>align</code></td><td>Alignment</td><td>center · left · split</td></tr><tr><td><code>show_social</code></td><td>Social icon</td><td>1 · 0</td></tr><tr><td><code>social_size</code></td><td>Social icon size</td><td>a number (12–48)</td></tr><tr><td><code>legal</code></td><td>Small print</td><td>text</td></tr><tr><td><code>links</code></td><td>Legal links</td><td>text</td></tr><tr><td><code>legal_align</code></td><td>Small print sits</td><td>left · center · right</td></tr></tbody></table>",
+        "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>logo</code></td><td>Logo</td><td>an image URL</td></tr><tr><td><code>logo_height</code></td><td>Logo height</td><td>a number (16–96)</td></tr><tr><td><code>brand_name</code></td><td>Brand name (read aloud by screen readers)</td><td>text</td></tr><tr><td><code>logo_href</code></td><td>Logo links to</td><td>a link or page path</td></tr><tr><td><code>layout</code></td><td>Layout</td><td>left · split · center · compact</td></tr><tr><td><code>link_size</code></td><td>Link text size</td><td>a number (9–22)</td></tr><tr><td><code>link_gap</code></td><td>Space between links</td><td>a number (8–64)</td></tr><tr><td><code>left</code></td><td>Links before the logo</td><td>a number (0–8)</td></tr><tr><td><code>right</code></td><td>Links after the logo</td><td>a number (0–8)</td></tr><tr><td><code>more_label</code></td><td>“More” button text</td><td>text</td></tr><tr><td><code>bar_max</code></td><td>Links on the bar before “More”</td><td>a number (0–12)</td></tr><tr><td><code>pin_pages</code></td><td>Pages</td><td>top · bottom</td></tr><tr><td><code>pin_social</code></td><td>Social</td><td>top · bottom</td></tr><tr><td><code>pin_wordmark</code></td><td>Wordmark</td><td>top · bottom</td></tr><tr><td><code>order_pages</code></td><td>Pages</td><td>1 · 2 · 3</td></tr><tr><td><code>order_social</code></td><td>Social</td><td>1 · 2 · 3</td></tr><tr><td><code>order_wordmark</code></td><td>Wordmark</td><td>1 · 2 · 3</td></tr><tr><td><code>tm_link_size</code></td><td>Page link size</td><td>a number (18–84)</td></tr><tr><td><code>tm_gap</code></td><td>Space between blocks</td><td>a number (0–80)</td></tr><tr><td><code>tm_wordmark_size</code></td><td>Wordmark size</td><td>a number (60–420)</td></tr><tr><td><code>tm_label_size</code></td><td>Small label size</td><td>a number (8–20)</td></tr><tr><td><code>show_pages</code></td><td>Pages</td><td>1 · 0</td></tr><tr><td><code>show_social</code></td><td>Social</td><td>1 · 0</td></tr><tr><td><code>show_wordmark</code></td><td>Wordmark</td><td>1 · 0</td></tr><tr><td><code>show_menu_label</code></td><td>“Menu” label</td><td>1 · 0</td></tr><tr><td><code>show_social_label</code></td><td>“Follow” label</td><td>1 · 0</td></tr><tr><td><code>show_numbers</code></td><td>Numbers (01, 02…)</td><td>1 · 0</td></tr><tr><td><code>menu_label</code></td><td>“Menu” label text</td><td>text</td></tr><tr><td><code>social_label</code></td><td>“Follow” label text</td><td>text</td></tr><tr><td><code>wordmark</code></td><td>Wordmark</td><td>an image URL</td></tr><tr><td><code>wordmark_line</code></td><td>Line under the wordmark</td><td>text</td></tr><tr><td><code>logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>logo_width</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>logo_href</code></td><td>Footer logo links to</td><td>a link or page path</td></tr><tr><td><code>pad_top</code></td><td>Space above</td><td>a number (0–180)</td></tr><tr><td><code>pad_bottom</code></td><td>Space below</td><td>a number (0–180)</td></tr><tr><td><code>align</code></td><td>Alignment</td><td>center · left · split</td></tr><tr><td><code>show_social</code></td><td>Social icon</td><td>1 · 0</td></tr><tr><td><code>social_size</code></td><td>Social icon size</td><td>a number (12–48)</td></tr><tr><td><code>legal</code></td><td>Small print</td><td>text</td></tr><tr><td><code>links</code></td><td>Legal links</td><td>text</td></tr><tr><td><code>legal_align</code></td><td>Small print sits</td><td>left · center · right</td></tr><tr><td><code>btn_effect</code></td><td>Hover effect</td><td>lift · lift-swap · underline · grow · press · fill · none</td></tr></tbody></table>",
         "new_lines": "",
         "esc_html": 0,
         "required": 0,

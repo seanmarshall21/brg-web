@@ -1532,6 +1532,37 @@
                         "ui": 0,
                         "ajax": 0,
                         "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_careers_hero_buttons_effect",
+                        "label": "Hover effect",
+                        "name": "effect",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "brg-f-effect",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "lift": "Lift",
+                            "lift-swap": "Lift and swap color",
+                            "underline": "Underline",
+                            "grow": "Grow",
+                            "press": "Press down",
+                            "fill": "Fill in",
+                            "none": "None"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
                     }
                 ]
             },
@@ -2384,6 +2415,37 @@
                         "ui": 0,
                         "ajax": 0,
                         "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_careers_apply_buttons_effect",
+                        "label": "Hover effect",
+                        "name": "effect",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "brg-f-effect",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "lift": "Lift",
+                            "lift-swap": "Lift and swap color",
+                            "underline": "Underline",
+                            "grow": "Grow",
+                            "press": "Press down",
+                            "fill": "Fill in",
+                            "none": "None"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
                     }
                 ]
             },
@@ -3051,6 +3113,37 @@
                         "ui": 0,
                         "ajax": 0,
                         "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_careers_positions_buttons_effect",
+                        "label": "Hover effect",
+                        "name": "effect",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "brg-f-effect",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "lift": "Lift",
+                            "lift-swap": "Lift and swap color",
+                            "underline": "Underline",
+                            "grow": "Grow",
+                            "press": "Press down",
+                            "fill": "Fill in",
+                            "none": "None"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
                     }
                 ]
             },
@@ -3674,6 +3767,37 @@
                             "": "Same as the section",
                             "filled": "Filled",
                             "outline": "Outline"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_careers_posts_buttons_effect",
+                        "label": "Hover effect",
+                        "name": "effect",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "brg-f-effect",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "lift": "Lift",
+                            "lift-swap": "Lift and swap color",
+                            "underline": "Underline",
+                            "grow": "Grow",
+                            "press": "Press down",
+                            "fill": "Fill in",
+                            "none": "None"
                         },
                         "return_format": "value",
                         "allow_null": 0,

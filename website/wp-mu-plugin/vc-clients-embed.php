@@ -639,7 +639,7 @@ if ( ! function_exists( 'vcc_render_page' ) ) {
 
         $out = "\n<!-- vc_embed " . esc_html( $client . '/' . $slug ) . ' v' . VCC_VERSION . " -->\n"
              . $css
-             . '<div class="brgw brgw-shell">' . $header . $frag . $footer . '</div>'
+             . vcc_shell_open() . $header . $frag . $footer . '</div>'
              . $js;
         return vcc_guard( $client, $out );
     }
@@ -716,7 +716,7 @@ if ( ! function_exists( 'vcc_render_section' ) ) {
 
         $out = "\n<!-- vc_embed " . esc_html( $client . '/section/' . $id ) . ' v' . VCC_VERSION . " -->\n"
              . $css
-             . '<div class="brgw brgw-shell">' . $frag . '</div>'
+             . vcc_shell_open() . $frag . '</div>'
              . $js;
         return vcc_guard( $client, $out );
     }
@@ -736,7 +736,7 @@ if ( ! function_exists( 'vcc_render_chrome' ) ) {
         $piece = ( $which === 'footer' ) ? $footer : $header;
         $out = "\n<!-- vc_embed " . esc_html( $client . '/' . $which ) . ' v' . VCC_VERSION . " -->\n"
              . $css
-             . '<div class="brgw brgw-shell">' . $piece . '</div>'
+             . vcc_shell_open() . $piece . '</div>'
              . $js;
         return vcc_guard( $client, $out );
     }
@@ -817,9 +817,34 @@ if ( ! function_exists( 'vcc_footer_keys' ) ) {
 /* One reader for both. Precedence is shortcode attribute > saved value > the default
  * declared in slots.json, the same order a section slot uses, so a shortcode can still make
  * one placement differ and an untouched site renders exactly as designed. */
+if ( ! function_exists( 'vcc_buttons_keys' ) ) {
+    function vcc_buttons_keys() {
+        /* TOKEN KEY => OPTION NAME, written out for the same reasons as the header and footer
+         * maps above: the names exist in this file, so build-acf.py's reader check can see
+         * them and a human can grep for them. */
+        return array(
+            'btn_effect' => 'brg_buttons_btn_effect',
+        );
+    }
+}
+
+if ( ! function_exists( 'vcc_shell_open' ) ) {
+    function vcc_shell_open() {
+        /* THE TOP OF THE BUTTON CASCADE. Three levels decide a button's hover, nearest wins:
+         * this shell (site-wide), the button row (the section's own choice), then the button
+         * itself. The value rides on the wrapper that every rendered page already has, so
+         * nothing else needed a new container. */
+        $fx = vcc_chrome_setting( 'buttons', 'btn_effect' );
+        $ok = array( 'lift', 'lift-swap', 'underline', 'grow', 'press', 'fill', 'none' );
+        if ( ! in_array( $fx, $ok, true ) ) $fx = 'lift';
+        return '<div class="brgw brgw-shell" data-btn-fx="' . esc_attr( $fx ) . '">';
+    }
+}
+
 if ( ! function_exists( 'vcc_chrome_setting' ) ) {
     function vcc_chrome_setting( $which, $key, $atts = null, $cfg = null ) {
-        $map = $which === 'footer' ? vcc_footer_keys() : vcc_header_keys();
+        $map = $which === 'footer'  ? vcc_footer_keys()
+             : ( $which === 'buttons' ? vcc_buttons_keys() : vcc_header_keys() );
         if ( ! isset( $map[ $key ] ) ) return '';
         if ( is_array( $atts ) && isset( $atts[ $key ] ) && $atts[ $key ] !== '' ) {
             return (string) $atts[ $key ];
@@ -1083,7 +1108,7 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
 
         list( $css, $js ) = vcc_shared_assets( $client, $cfg, $ttl );
         $out = "\n<!-- vc_embed " . esc_html( $client . '/nav' ) . ' v' . VCC_VERSION . " -->\n"
-             . $css . '<div class="brgw brgw-shell">' . $header . '</div>' . $js;
+             . $css . vcc_shell_open() . $header . '</div>' . $js;
         return vcc_guard( $client, $out );
     }
 }

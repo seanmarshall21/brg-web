@@ -807,6 +807,29 @@
     requestAnimationFrame(update);
   }
 
+  /* ---- WHICH HOVER A BUTTON ACTUALLY GETS ------------------------------------------
+     Three levels, nearest wins: the page shell carries the site-wide choice, the button
+     row carries its section's, and a button may carry its own. A blank means "follow
+     whatever is nearer out".
+
+     RESOLVED HERE RATHER THAN IN CSS, deliberately. Each effect is a whole rule body —
+     a transform, a shadow, and for the underline a pseudo-element — so a three-level
+     cascade in CSS would need a selector variant per level per effect: twenty-one groups
+     to hand-maintain and keep in specificity order. Two of today's bugs came from exactly
+     that, on the color system, at only two levels. Copying the resolved value onto the
+     button instead leaves the seven rules that already exist doing all the work.
+
+     Without JS a button keeps whatever the markup gave it and the stylesheet's own
+     default applies, which is the lift every button has always had. */
+  function brgwBtnFx(root) {
+    [].forEach.call(root.querySelectorAll('.btn'), function (b) {
+      if (b.getAttribute('data-btn-fx')) return;        // it chose for itself
+      var src = b.parentElement && b.parentElement.closest('[data-btn-fx]');
+      var fx  = src && src.getAttribute('data-btn-fx');
+      if (fx) b.setAttribute('data-btn-fx', fx);
+    });
+  }
+
   /* ---- THE COPYRIGHT YEAR ---------------------------------------------------------
      PHP already wrote the year the page was built. A cached page can outlive a New Year,
      so this corrects it on load; it touches nothing if the two already agree, and if this
@@ -914,7 +937,7 @@
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); }
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

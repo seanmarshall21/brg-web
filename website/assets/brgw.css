@@ -693,7 +693,10 @@
    carry their own list, so this row must not obey the section's "where the buttons sit"
    switch the way the section's own row does — but it still has to disappear when nobody has
    added a button, which the :empty rule below handles for every row alike. */
-.brgw-sec .brgw-cta.brgw-cta--inline{display:flex;margin:14px 0 0;max-width:none;}
+/* row-gap is deliberately tighter than the column gap: when a list is long enough to
+   wrap, two lines of buttons sitting 12px apart read as two separate groups rather
+   than one wrapped row. Sean, 4 Oct. */
+.brgw-sec .brgw-cta.brgw-cta--inline{display:flex;margin:14px 0 0;max-width:none;gap:7px 12px;}
 .brgw-sec .brgw-cta:empty{display:none!important;}
 /* And a row that has buttons must not show one that was left unlabelled. */
 .brgw-sec .brgw-cta .btn[data-cta=""]{display:none;}

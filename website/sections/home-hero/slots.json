@@ -691,6 +691,23 @@
           "filled": "Filled",
           "outline": "Outline"
         }
+      },
+      "effect": {
+        "type": "select",
+        "label": "Hover effect",
+        "doc": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+        "width": 100,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
+          "grow": "Grow",
+          "press": "Press down",
+          "fill": "Fill in",
+          "none": "None"
+        }
       }
     }
   },
