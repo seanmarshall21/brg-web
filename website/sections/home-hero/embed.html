@@ -138,10 +138,10 @@
          left empty it keeps the splash original, and --sp-img is only ever READ by a
          rule gated on data-img being non-empty, so an empty one is never fetched. -->
     <div class="splash-bg" aria-hidden="true">
-      <span class="sp sp--skater" data-show="{{splash_skater_on}}" data-img="{{splash_skater}}" style="--sp-img:url('{{splash_skater}}')"></span>
-      <span class="sp sp--car"    data-show="{{splash_car_on}}"    data-img="{{splash_car}}"    style="--sp-img:url('{{splash_car}}')"></span>
-      <span class="sp sp--surfer" data-show="{{splash_surfer_on}}" data-img="{{splash_surfer}}" style="--sp-img:url('{{splash_surfer}}')"></span>
-      <span class="sp sp--crown"  data-show="{{splash_crown_on}}"  data-img="{{splash_crown}}"  style="--sp-img:url('{{splash_crown}}')"></span>
+      <span class="sp sp--skater" data-brgw-frame data-px-bleed data-px="{{splash_skater_px}}" data-px-dir="{{splash_skater_px_dir}}" data-show="{{splash_skater_on}}" data-img="{{splash_skater}}" style="--sp-img:url('{{splash_skater}}')"></span>
+      <span class="sp sp--car" data-brgw-frame data-px="{{splash_car_px}}" data-px-dir="{{splash_car_px_dir}}"    data-show="{{splash_car_on}}"    data-img="{{splash_car}}"    style="--sp-img:url('{{splash_car}}')"></span>
+      <span class="sp sp--surfer" data-brgw-frame data-px="{{splash_surfer_px}}" data-px-dir="{{splash_surfer_px_dir}}" data-show="{{splash_surfer_on}}" data-img="{{splash_surfer}}" style="--sp-img:url('{{splash_surfer}}')"></span>
+      <span class="sp sp--crown" data-brgw-frame data-px="{{splash_crown_px}}" data-px-dir="{{splash_crown_px_dir}}"  data-show="{{splash_crown_on}}"  data-img="{{splash_crown}}"  style="--sp-img:url('{{splash_crown}}')"></span>
     </div>
     <div class="grit"></div>
     <div class="veil"></div>

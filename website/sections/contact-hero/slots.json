@@ -515,5 +515,101 @@
       "teal": "Teal"
     },
     "group": "Buttons"
+  },
+  "splash_skater_px": {
+    "type": "number",
+    "label": "Splash — Full-screen photo — movement",
+    "doc": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "0",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
+  },
+  "splash_skater_px_dir": {
+    "type": "select",
+    "label": "Splash — Full-screen photo — movement direction",
+    "doc": "Which way this plate travels as the page scrolls.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "splash_car_px": {
+    "type": "number",
+    "label": "Splash — Bottom left — movement",
+    "doc": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "0",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
+  },
+  "splash_car_px_dir": {
+    "type": "select",
+    "label": "Splash — Bottom left — movement direction",
+    "doc": "Which way this plate travels as the page scrolls.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "splash_surfer_px": {
+    "type": "number",
+    "label": "Splash — Bottom right — movement",
+    "doc": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "0",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
+  },
+  "splash_surfer_px_dir": {
+    "type": "select",
+    "label": "Splash — Bottom right — movement direction",
+    "doc": "Which way this plate travels as the page scrolls.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "splash_crown_px": {
+    "type": "number",
+    "label": "Splash — Top right — movement",
+    "doc": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "0",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
+  },
+  "splash_crown_px_dir": {
+    "type": "select",
+    "label": "Splash — Top right — movement direction",
+    "doc": "Which way this plate travels as the page scrolls.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
   }
 }

@@ -1075,6 +1075,190 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_team_hero_splash_skater_px",
+                "label": "Splash — Full-screen photo — movement",
+                "name": "brg_team_hero_splash_skater_px",
+                "type": "number",
+                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_skater_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_team_hero_splash_skater_px_dir",
+                "label": "Splash — Full-screen photo — movement direction",
+                "name": "brg_team_hero_splash_skater_px_dir",
+                "type": "select",
+                "instructions": "Which way this plate travels as the page scrolls.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_skater_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_hero_splash_car_px",
+                "label": "Splash — Bottom left — movement",
+                "name": "brg_team_hero_splash_car_px",
+                "type": "number",
+                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_car_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_team_hero_splash_car_px_dir",
+                "label": "Splash — Bottom left — movement direction",
+                "name": "brg_team_hero_splash_car_px_dir",
+                "type": "select",
+                "instructions": "Which way this plate travels as the page scrolls.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_car_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_hero_splash_surfer_px",
+                "label": "Splash — Bottom right — movement",
+                "name": "brg_team_hero_splash_surfer_px",
+                "type": "number",
+                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_surfer_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_team_hero_splash_surfer_px_dir",
+                "label": "Splash — Bottom right — movement direction",
+                "name": "brg_team_hero_splash_surfer_px_dir",
+                "type": "select",
+                "instructions": "Which way this plate travels as the page scrolls.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_surfer_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_hero_splash_crown_px",
+                "label": "Splash — Top right — movement",
+                "name": "brg_team_hero_splash_crown_px",
+                "type": "number",
+                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_crown_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_team_hero_splash_crown_px_dir",
+                "label": "Splash — Top right — movement direction",
+                "name": "brg_team_hero_splash_crown_px_dir",
+                "type": "select",
+                "instructions": "Which way this plate travels as the page scrolls.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_crown_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_team_hero_endacc_hero_background_splash_animation",
                 "label": "",
                 "name": "",

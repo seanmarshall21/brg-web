@@ -739,6 +739,29 @@
           st.maxWidth = 'none'; st.maxHeight = 'none'; st.objectFit = 'cover';
           items.push({ box: frame, target: img, amt: amt, dir: pxDir, tau: 3 * 0.06, cur: null });
         }
+        /* A LAYER PAINTED AS A CSS BACKGROUND has no <img> to slide inside a frame, so the
+           layer itself is what moves. The note above has always said the attributes may sit
+           on "the layer itself for a hero background painted as a CSS background" — but the
+           branch above requires an <img>, so that half was a promise the code never kept.
+           The splash plates are the first thing to use it.
+
+           `translate` is written, never `transform`, so this composes with the entrance and
+           drift animations these plates already run rather than overwriting them.
+
+           A FULL-BLEED PLATE WOULD SHOW ITS EDGE when moved, so one that says so is grown
+           by exactly the travel plus the usual reserve — and only when parallax is actually
+           switched on, which is why it is done here and not in the stylesheet. A plate that
+           covers only part of the hero needs none of that; moving it IS the effect. */
+        if (!img && amt > 0) {
+          if (frame.hasAttribute('data-px-bleed')) {
+            var g = amt + EDGE;
+            frame.style.top = frame.style.left = (-g) + '%';
+            frame.style.right = frame.style.bottom = 'auto';
+            frame.style.width = frame.style.height = (100 + 2 * g) + '%';
+          }
+          items.push({ box: frame, target: frame, amt: amt, dir: pxDir,
+                       tau: 3 * 0.06, cur: null, selfMove: true });
+        }
         /* NEVER FLOAT A FULL-BLEED FRAME: it fills its section, so moving it only reveals
            the background behind. The hero backdrop is marked data-brgw-frame for exactly
            this reason and is excluded here. */
@@ -770,7 +793,7 @@
            our per-frame re-apply takes over on the first frame after GSAP lets go. */
         if (window.gsap && window.gsap.isTweening && window.gsap.isTweening(it.target)) continue;
         var h = r.height, top = r.top;
-        if (it.float && it.cur !== null) top -= it.cur;        // measure where it sits WITHOUT its own drift
+        if ((it.float || it.selfMove) && it.cur !== null) top -= it.cur;  // it moves ITSELF: measure where it sits without that
         if (top + h < -200 || top > vh + 200) { it.cur = null; continue; }
         var p = ((vh / 2) - (top + h / 2)) / (vh / 2 + h / 2); // -1 entering at the bottom, +1 leaving the top
         p = Math.max(-1, Math.min(1, p));
