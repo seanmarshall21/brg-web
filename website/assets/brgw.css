@@ -1010,7 +1010,10 @@
    file paints it black, which on a dark hero is a shape you cannot read — the splash
    gets away with it because of what sits behind it there. Put the filter back on this
    one line to match the splash exactly. */
-.brgw .brgw-hero .sp--crown{top:2%;right:4%;width:40%;aspect-ratio:1/1;height:auto;
+/* 22%, not the splash's 40%. The splash can give the crown 40% of a phone screen
+   because nothing else is up there; a hero has a headline, and at 375px the 40% version
+   measured 150px and sat ON TOP of it. Verified clear at 375 and 768. */
+.brgw .brgw-hero .sp--crown{top:2%;right:4%;width:22%;aspect-ratio:1/1;height:auto;
   background-size:contain;opacity:.8;transform-origin:center;
   background-image:image-set(url('https://blacktoprg.netlify.app/assets/media/splash/crown-white.webp') type('image/webp'),
                              url('https://blacktoprg.netlify.app/assets/media/splash/crown-white.png') type('image/png'));
