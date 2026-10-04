@@ -1363,8 +1363,8 @@
                 }
             },
             {
-                "key": "field_brg_buttons_acc_buttons_site_wide",
-                "label": "Buttons — site-wide",
+                "key": "field_brg_buttons_acc_buttons_the_default_for_every_button",
+                "label": "Buttons — the default for every button",
                 "name": "",
                 "type": "accordion",
                 "instructions": "",
@@ -1380,6 +1380,58 @@
                 "endpoint": 0
             },
             {
+                "key": "field_brg_buttons_size",
+                "label": "Size",
+                "name": "brg_buttons_size",
+                "type": "select",
+                "instructions": "How big a button is unless something nearer overrules it. Large is what every button has been until now. The three levels are this, then a section's own, then a single button's own row.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-size",
+                    "id": ""
+                },
+                "default_value": "large",
+                "choices": {
+                    "large": "Large",
+                    "medium": "Medium",
+                    "small": "Small"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_buttons_style",
+                "label": "Filled, outline or text",
+                "name": "brg_buttons_style",
+                "type": "select",
+                "instructions": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Text only drops the box entirely and leaves the words, which reads as a link — pair it with the Underline hover.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-style",
+                    "id": ""
+                },
+                "default_value": "filled",
+                "choices": {
+                    "filled": "Filled",
+                    "outline": "Outline",
+                    "text": "Text only"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_buttons_btn_effect",
                 "label": "Hover effect",
                 "name": "brg_buttons_btn_effect",
@@ -1388,7 +1440,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "34",
                     "class": "brg-f-btn_effect",
                     "id": ""
                 },
@@ -1410,7 +1462,383 @@
                 "placeholder": ""
             },
             {
-                "key": "field_brg_buttons_endacc_buttons_site_wide",
+                "key": "field_brg_buttons_endacc_buttons_the_default_for_every_button",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_buttons_acc_buttons_light",
+                "label": "Buttons — light",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_buttons_light_bg",
+                "label": "Color",
+                "name": "brg_buttons_light_bg",
+                "type": "color_picker",
+                "instructions": "The light button's background. Every button set to Light on any page uses this, so changing it here changes them all at once.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-light_bg",
+                    "id": ""
+                },
+                "default_value": "#ffffff"
+            },
+            {
+                "key": "field_brg_buttons_light_fg",
+                "label": "Text on it",
+                "name": "brg_buttons_light_fg",
+                "type": "color_picker",
+                "instructions": "The words on that background. Pick something that stays readable against it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-light_fg",
+                    "id": ""
+                },
+                "default_value": "#231F20"
+            },
+            {
+                "key": "field_brg_buttons_light_hover_bg",
+                "label": "Hover color",
+                "name": "brg_buttons_light_hover_bg",
+                "type": "color_picker",
+                "instructions": "What the background becomes while someone is pointing at it. Leave it the same as the color above for no change on hover.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-light_hover_bg",
+                    "id": ""
+                },
+                "default_value": "#ffffff"
+            },
+            {
+                "key": "field_brg_buttons_light_hover_fg",
+                "label": "Text on hover",
+                "name": "brg_buttons_light_hover_fg",
+                "type": "color_picker",
+                "instructions": "The words while hovering.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-light_hover_fg",
+                    "id": ""
+                },
+                "default_value": "#231F20"
+            },
+            {
+                "key": "field_brg_buttons_endacc_buttons_light",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_buttons_acc_buttons_dark",
+                "label": "Buttons — dark",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_buttons_dark_bg",
+                "label": "Color",
+                "name": "brg_buttons_dark_bg",
+                "type": "color_picker",
+                "instructions": "The dark button's background. Every button set to Dark on any page uses this, so changing it here changes them all at once.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-dark_bg",
+                    "id": ""
+                },
+                "default_value": "#231F20"
+            },
+            {
+                "key": "field_brg_buttons_dark_fg",
+                "label": "Text on it",
+                "name": "brg_buttons_dark_fg",
+                "type": "color_picker",
+                "instructions": "The words on that background. Pick something that stays readable against it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-dark_fg",
+                    "id": ""
+                },
+                "default_value": "#ffffff"
+            },
+            {
+                "key": "field_brg_buttons_dark_hover_bg",
+                "label": "Hover color",
+                "name": "brg_buttons_dark_hover_bg",
+                "type": "color_picker",
+                "instructions": "What the background becomes while someone is pointing at it. Leave it the same as the color above for no change on hover.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-dark_hover_bg",
+                    "id": ""
+                },
+                "default_value": "#231F20"
+            },
+            {
+                "key": "field_brg_buttons_dark_hover_fg",
+                "label": "Text on hover",
+                "name": "brg_buttons_dark_hover_fg",
+                "type": "color_picker",
+                "instructions": "The words while hovering.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-dark_hover_fg",
+                    "id": ""
+                },
+                "default_value": "#ffffff"
+            },
+            {
+                "key": "field_brg_buttons_endacc_buttons_dark",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_buttons_acc_buttons_accent",
+                "label": "Buttons — accent",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_buttons_accent_bg",
+                "label": "Color",
+                "name": "brg_buttons_accent_bg",
+                "type": "color_picker",
+                "instructions": "The accent button's background. Every button set to Accent on any page uses this, so changing it here changes them all at once.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-accent_bg",
+                    "id": ""
+                },
+                "default_value": "#FCE200"
+            },
+            {
+                "key": "field_brg_buttons_accent_fg",
+                "label": "Text on it",
+                "name": "brg_buttons_accent_fg",
+                "type": "color_picker",
+                "instructions": "The words on that background. Pick something that stays readable against it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-accent_fg",
+                    "id": ""
+                },
+                "default_value": "#231F20"
+            },
+            {
+                "key": "field_brg_buttons_accent_hover_bg",
+                "label": "Hover color",
+                "name": "brg_buttons_accent_hover_bg",
+                "type": "color_picker",
+                "instructions": "What the background becomes while someone is pointing at it. Leave it the same as the color above for no change on hover.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-accent_hover_bg",
+                    "id": ""
+                },
+                "default_value": "#FCE200"
+            },
+            {
+                "key": "field_brg_buttons_accent_hover_fg",
+                "label": "Text on hover",
+                "name": "brg_buttons_accent_hover_fg",
+                "type": "color_picker",
+                "instructions": "The words while hovering.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-accent_hover_fg",
+                    "id": ""
+                },
+                "default_value": "#231F20"
+            },
+            {
+                "key": "field_brg_buttons_endacc_buttons_accent",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_buttons_acc_buttons_alt_accent",
+                "label": "Buttons — alt accent",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_buttons_alt_bg",
+                "label": "Color",
+                "name": "brg_buttons_alt_bg",
+                "type": "color_picker",
+                "instructions": "The alt accent button's background. Every button set to Alt accent on any page uses this, so changing it here changes them all at once.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-alt_bg",
+                    "id": ""
+                },
+                "default_value": "#19C7C2"
+            },
+            {
+                "key": "field_brg_buttons_alt_fg",
+                "label": "Text on it",
+                "name": "brg_buttons_alt_fg",
+                "type": "color_picker",
+                "instructions": "The words on that background. Pick something that stays readable against it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-alt_fg",
+                    "id": ""
+                },
+                "default_value": "#231F20"
+            },
+            {
+                "key": "field_brg_buttons_alt_hover_bg",
+                "label": "Hover color",
+                "name": "brg_buttons_alt_hover_bg",
+                "type": "color_picker",
+                "instructions": "What the background becomes while someone is pointing at it. Leave it the same as the color above for no change on hover.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-alt_hover_bg",
+                    "id": ""
+                },
+                "default_value": "#19C7C2"
+            },
+            {
+                "key": "field_brg_buttons_alt_hover_fg",
+                "label": "Text on hover",
+                "name": "brg_buttons_alt_hover_fg",
+                "type": "color_picker",
+                "instructions": "The words while hovering.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-alt_hover_fg",
+                    "id": ""
+                },
+                "default_value": "#231F20"
+            },
+            {
+                "key": "field_brg_buttons_endacc_buttons_alt_accent",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -1431,7 +1859,7 @@
                 "label": "Shortcode &amp; options",
                 "name": "",
                 "type": "message",
-                "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>logo</code></td><td>Logo</td><td>an image URL</td></tr><tr><td><code>logo_height</code></td><td>Logo height</td><td>a number (16–96)</td></tr><tr><td><code>brand_name</code></td><td>Brand name (read aloud by screen readers)</td><td>text</td></tr><tr><td><code>logo_href</code></td><td>Logo links to</td><td>a link or page path</td></tr><tr><td><code>layout</code></td><td>Layout</td><td>left · split · center · compact</td></tr><tr><td><code>link_size</code></td><td>Link text size</td><td>a number (9–22)</td></tr><tr><td><code>link_gap</code></td><td>Space between links</td><td>a number (8–64)</td></tr><tr><td><code>left</code></td><td>Links before the logo</td><td>a number (0–8)</td></tr><tr><td><code>right</code></td><td>Links after the logo</td><td>a number (0–8)</td></tr><tr><td><code>more_label</code></td><td>“More” button text</td><td>text</td></tr><tr><td><code>bar_max</code></td><td>Links on the bar before “More”</td><td>a number (0–12)</td></tr><tr><td><code>pin_pages</code></td><td>Pages</td><td>top · bottom</td></tr><tr><td><code>pin_social</code></td><td>Social</td><td>top · bottom</td></tr><tr><td><code>pin_wordmark</code></td><td>Wordmark</td><td>top · bottom</td></tr><tr><td><code>order_pages</code></td><td>Pages</td><td>1 · 2 · 3</td></tr><tr><td><code>order_social</code></td><td>Social</td><td>1 · 2 · 3</td></tr><tr><td><code>order_wordmark</code></td><td>Wordmark</td><td>1 · 2 · 3</td></tr><tr><td><code>tm_link_size</code></td><td>Page link size</td><td>a number (18–84)</td></tr><tr><td><code>tm_gap</code></td><td>Space between blocks</td><td>a number (0–80)</td></tr><tr><td><code>tm_wordmark_size</code></td><td>Wordmark size</td><td>a number (60–420)</td></tr><tr><td><code>tm_label_size</code></td><td>Small label size</td><td>a number (8–20)</td></tr><tr><td><code>show_pages</code></td><td>Pages</td><td>1 · 0</td></tr><tr><td><code>show_social</code></td><td>Social</td><td>1 · 0</td></tr><tr><td><code>show_wordmark</code></td><td>Wordmark</td><td>1 · 0</td></tr><tr><td><code>show_menu_label</code></td><td>“Menu” label</td><td>1 · 0</td></tr><tr><td><code>show_social_label</code></td><td>“Follow” label</td><td>1 · 0</td></tr><tr><td><code>show_numbers</code></td><td>Numbers (01, 02…)</td><td>1 · 0</td></tr><tr><td><code>menu_label</code></td><td>“Menu” label text</td><td>text</td></tr><tr><td><code>social_label</code></td><td>“Follow” label text</td><td>text</td></tr><tr><td><code>wordmark</code></td><td>Wordmark</td><td>an image URL</td></tr><tr><td><code>wordmark_line</code></td><td>Line under the wordmark</td><td>text</td></tr><tr><td><code>logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>logo_width</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>logo_href</code></td><td>Footer logo links to</td><td>a link or page path</td></tr><tr><td><code>pad_top</code></td><td>Space above</td><td>a number (0–180)</td></tr><tr><td><code>pad_bottom</code></td><td>Space below</td><td>a number (0–180)</td></tr><tr><td><code>align</code></td><td>Alignment</td><td>center · left · split</td></tr><tr><td><code>show_social</code></td><td>Social icon</td><td>1 · 0</td></tr><tr><td><code>social_size</code></td><td>Social icon size</td><td>a number (12–48)</td></tr><tr><td><code>legal</code></td><td>Small print</td><td>text</td></tr><tr><td><code>links</code></td><td>Legal links</td><td>text</td></tr><tr><td><code>legal_align</code></td><td>Small print sits</td><td>left · center · right</td></tr><tr><td><code>btn_effect</code></td><td>Hover effect</td><td>lift · lift-swap · underline · grow · press · fill · none</td></tr></tbody></table>",
+                "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>logo</code></td><td>Logo</td><td>an image URL</td></tr><tr><td><code>logo_height</code></td><td>Logo height</td><td>a number (16–96)</td></tr><tr><td><code>brand_name</code></td><td>Brand name (read aloud by screen readers)</td><td>text</td></tr><tr><td><code>logo_href</code></td><td>Logo links to</td><td>a link or page path</td></tr><tr><td><code>layout</code></td><td>Layout</td><td>left · split · center · compact</td></tr><tr><td><code>link_size</code></td><td>Link text size</td><td>a number (9–22)</td></tr><tr><td><code>link_gap</code></td><td>Space between links</td><td>a number (8–64)</td></tr><tr><td><code>left</code></td><td>Links before the logo</td><td>a number (0–8)</td></tr><tr><td><code>right</code></td><td>Links after the logo</td><td>a number (0–8)</td></tr><tr><td><code>more_label</code></td><td>“More” button text</td><td>text</td></tr><tr><td><code>bar_max</code></td><td>Links on the bar before “More”</td><td>a number (0–12)</td></tr><tr><td><code>pin_pages</code></td><td>Pages</td><td>top · bottom</td></tr><tr><td><code>pin_social</code></td><td>Social</td><td>top · bottom</td></tr><tr><td><code>pin_wordmark</code></td><td>Wordmark</td><td>top · bottom</td></tr><tr><td><code>order_pages</code></td><td>Pages</td><td>1 · 2 · 3</td></tr><tr><td><code>order_social</code></td><td>Social</td><td>1 · 2 · 3</td></tr><tr><td><code>order_wordmark</code></td><td>Wordmark</td><td>1 · 2 · 3</td></tr><tr><td><code>tm_link_size</code></td><td>Page link size</td><td>a number (18–84)</td></tr><tr><td><code>tm_gap</code></td><td>Space between blocks</td><td>a number (0–80)</td></tr><tr><td><code>tm_wordmark_size</code></td><td>Wordmark size</td><td>a number (60–420)</td></tr><tr><td><code>tm_label_size</code></td><td>Small label size</td><td>a number (8–20)</td></tr><tr><td><code>show_pages</code></td><td>Pages</td><td>1 · 0</td></tr><tr><td><code>show_social</code></td><td>Social</td><td>1 · 0</td></tr><tr><td><code>show_wordmark</code></td><td>Wordmark</td><td>1 · 0</td></tr><tr><td><code>show_menu_label</code></td><td>“Menu” label</td><td>1 · 0</td></tr><tr><td><code>show_social_label</code></td><td>“Follow” label</td><td>1 · 0</td></tr><tr><td><code>show_numbers</code></td><td>Numbers (01, 02…)</td><td>1 · 0</td></tr><tr><td><code>menu_label</code></td><td>“Menu” label text</td><td>text</td></tr><tr><td><code>social_label</code></td><td>“Follow” label text</td><td>text</td></tr><tr><td><code>wordmark</code></td><td>Wordmark</td><td>an image URL</td></tr><tr><td><code>wordmark_line</code></td><td>Line under the wordmark</td><td>text</td></tr><tr><td><code>logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>logo_width</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>logo_href</code></td><td>Footer logo links to</td><td>a link or page path</td></tr><tr><td><code>pad_top</code></td><td>Space above</td><td>a number (0–180)</td></tr><tr><td><code>pad_bottom</code></td><td>Space below</td><td>a number (0–180)</td></tr><tr><td><code>align</code></td><td>Alignment</td><td>center · left · split</td></tr><tr><td><code>show_social</code></td><td>Social icon</td><td>1 · 0</td></tr><tr><td><code>social_size</code></td><td>Social icon size</td><td>a number (12–48)</td></tr><tr><td><code>legal</code></td><td>Small print</td><td>text</td></tr><tr><td><code>links</code></td><td>Legal links</td><td>text</td></tr><tr><td><code>legal_align</code></td><td>Small print sits</td><td>left · center · right</td></tr><tr><td><code>size</code></td><td>Size</td><td>large · medium · small</td></tr><tr><td><code>style</code></td><td>Filled, outline or text</td><td>filled · outline · text</td></tr><tr><td><code>btn_effect</code></td><td>Hover effect</td><td>lift · lift-swap · underline · grow · press · fill · none</td></tr><tr><td><code>light_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>light_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>light_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>light_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>dark_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>dark_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>dark_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>dark_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>accent_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>accent_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>accent_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>accent_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>alt_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>alt_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>alt_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>alt_hover_fg</code></td><td>Text on hover</td><td>text</td></tr></tbody></table>",
                 "new_lines": "",
                 "esc_html": 0,
                 "required": 0,

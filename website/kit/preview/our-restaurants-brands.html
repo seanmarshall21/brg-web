@@ -51,7 +51,7 @@
       <h3 class="blanco anim-head">{{bnb_heading}}</h3>
       <p class="anim-up">{{bnb_body_1}}</p>
       <p class="anim-up">{{bnb_body_2}}</p>
-      <a class="btn anim-cta" data-btn-color="{{buttons.color}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" href="{{bnb_cta_href}}" target="_blank" rel="noopener">{{bnb_cta_label}}</a>
+      <a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" href="{{bnb_cta_href}}" target="_blank" rel="noopener">{{bnb_cta_label}}</a>
     </div>
   </div>
 
@@ -64,10 +64,10 @@
       <h3 class="blanco anim-head">{{odies_heading}}</h3>
       <p class="anim-up">{{odies_body_1}}</p>
       <p class="anim-up">{{odies_body_2}}</p>
-      <a class="btn anim-cta" data-btn-color="{{buttons.color}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" href="{{odies_cta_href}}" target="_blank" rel="noopener">{{odies_cta_label}}</a>
+      <a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" href="{{odies_cta_href}}" target="_blank" rel="noopener">{{odies_cta_label}}</a>
     </div>
   </div>
-  <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-color="{{buttons.color}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
+  <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>
 </template>
 <script>
@@ -76,7 +76,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"bnb_heading": "Board & Brew", "bnb_body_1": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool.", "bnb_body_2": "12 locations across San Diego and Orange County \u2014 each one a neighborhood staple.", "bnb_cta_label": "Visit Us", "bnb_cta_href": "https://boardandbrew.com", "odies_heading": "Odie's Pizza Co.", "odies_body_1": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast \u2014 think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around.", "odies_body_2": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way.", "odies_cta_label": "Visit Us", "odies_cta_href": "https://odiespizza.com", "bnb_image": "https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg", "bnb_image_tone": "color", "bnb_image_px": "0", "bnb_image_px_dir": "down", "odies_image": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg", "odies_image_tone": "color", "odies_image_px": "0", "odies_image_px_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "cta_position": "foot", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"bnb_heading": "Board & Brew", "bnb_body_1": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool.", "bnb_body_2": "12 locations across San Diego and Orange County \u2014 each one a neighborhood staple.", "bnb_cta_label": "Visit Us", "bnb_cta_href": "https://boardandbrew.com", "odies_heading": "Odie's Pizza Co.", "odies_body_1": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast \u2014 think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around.", "odies_body_2": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way.", "odies_cta_label": "Visit Us", "odies_cta_href": "https://odiespizza.com", "bnb_image": "https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg", "bnb_image_tone": "color", "bnb_image_px": "0", "bnb_image_px_dir": "down", "odies_image": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg", "odies_image_tone": "color", "odies_image_px": "0", "odies_image_px_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

@@ -1288,27 +1288,58 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_our_restaurants_hero_btn_size",
+                "label": "Size",
+                "name": "brg_our_restaurants_hero_btn_size",
+                "type": "select",
+                "instructions": "How big this section's buttons are. \"As set site-wide\" follows the Buttons tab on the Site-wide page; any single button can still differ on its own row.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-btn_size",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "As set site-wide",
+                    "large": "Large",
+                    "medium": "Medium",
+                    "small": "Small"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_our_restaurants_hero_btn_color",
                 "label": "Button color",
                 "name": "brg_our_restaurants_hero_btn_color",
                 "type": "select",
-                "instructions": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.",
+                "instructions": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.\n\nLight, Dark, Accent and Alt accent are ROLES — what each one looks like is set once on the Site-wide page, so changing Accent there repaints every accent button on the site. The named shades below them are fixed colors for anything that has to be one particular color.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "25",
                     "class": "brg-f-btn_color",
                     "id": ""
                 },
                 "default_value": "keep",
                 "choices": {
                     "keep": "As designed",
-                    "yellow": "Yellow",
-                    "teal": "Teal",
-                    "pink": "Pink",
-                    "orange": "Orange",
-                    "white": "White",
-                    "ink": "Black"
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -1326,7 +1357,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "25",
                     "class": "brg-f-btn_style",
                     "id": ""
                 },
@@ -1334,7 +1365,8 @@
                 "choices": {
                     "keep": "As designed",
                     "filled": "Filled",
-                    "outline": "Outline"
+                    "outline": "Outline",
+                    "text": "Text only"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -1352,7 +1384,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "25",
                     "class": "brg-f-btn_effect",
                     "id": ""
                 },
@@ -1463,12 +1495,16 @@
                         "default_value": "",
                         "choices": {
                             "": "Same as the section",
-                            "yellow": "Yellow",
-                            "teal": "Teal",
-                            "pink": "Pink",
-                            "orange": "Orange",
-                            "white": "White",
-                            "ink": "Black"
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -1494,7 +1530,8 @@
                         "choices": {
                             "": "Same as the section",
                             "filled": "Filled",
-                            "outline": "Outline"
+                            "outline": "Outline",
+                            "text": "Text only"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -1512,7 +1549,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "100",
+                            "width": "50",
                             "class": "brg-f-effect",
                             "id": ""
                         },
@@ -1526,6 +1563,33 @@
                             "press": "Press down",
                             "fill": "Fill in",
                             "none": "None"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_hero_buttons_size",
+                        "label": "Size",
+                        "name": "size",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" to follow it.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-size",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "large": "Large",
+                            "medium": "Medium",
+                            "small": "Small"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -2341,27 +2405,58 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_our_restaurants_brands_btn_size",
+                "label": "Size",
+                "name": "brg_our_restaurants_brands_btn_size",
+                "type": "select",
+                "instructions": "How big this section's buttons are. \"As set site-wide\" follows the Buttons tab on the Site-wide page; any single button can still differ on its own row.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-btn_size",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "As set site-wide",
+                    "large": "Large",
+                    "medium": "Medium",
+                    "small": "Small"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_our_restaurants_brands_btn_color",
                 "label": "Button color",
                 "name": "brg_our_restaurants_brands_btn_color",
                 "type": "select",
-                "instructions": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.",
+                "instructions": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.\n\nLight, Dark, Accent and Alt accent are ROLES — what each one looks like is set once on the Site-wide page, so changing Accent there repaints every accent button on the site. The named shades below them are fixed colors for anything that has to be one particular color.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "25",
                     "class": "brg-f-btn_color",
                     "id": ""
                 },
                 "default_value": "keep",
                 "choices": {
                     "keep": "As designed",
-                    "yellow": "Yellow",
-                    "teal": "Teal",
-                    "pink": "Pink",
-                    "orange": "Orange",
-                    "white": "White",
-                    "ink": "Black"
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -2379,7 +2474,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "25",
                     "class": "brg-f-btn_style",
                     "id": ""
                 },
@@ -2387,7 +2482,8 @@
                 "choices": {
                     "keep": "As designed",
                     "filled": "Filled",
-                    "outline": "Outline"
+                    "outline": "Outline",
+                    "text": "Text only"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -2405,7 +2501,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "25",
                     "class": "brg-f-btn_effect",
                     "id": ""
                 },
@@ -2516,12 +2612,16 @@
                         "default_value": "",
                         "choices": {
                             "": "Same as the section",
-                            "yellow": "Yellow",
-                            "teal": "Teal",
-                            "pink": "Pink",
-                            "orange": "Orange",
-                            "white": "White",
-                            "ink": "Black"
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -2547,7 +2647,8 @@
                         "choices": {
                             "": "Same as the section",
                             "filled": "Filled",
-                            "outline": "Outline"
+                            "outline": "Outline",
+                            "text": "Text only"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -2565,7 +2666,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "100",
+                            "width": "50",
                             "class": "brg-f-effect",
                             "id": ""
                         },
@@ -2579,6 +2680,33 @@
                             "press": "Press down",
                             "fill": "Fill in",
                             "none": "None"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_size",
+                        "label": "Size",
+                        "name": "size",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" to follow it.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "brg-f-size",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "large": "Large",
+                            "medium": "Medium",
+                            "small": "Small"
                         },
                         "return_format": "value",
                         "allow_null": 0,

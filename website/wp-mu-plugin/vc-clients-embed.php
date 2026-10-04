@@ -823,21 +823,70 @@ if ( ! function_exists( 'vcc_buttons_keys' ) ) {
          * maps above: the names exist in this file, so build-acf.py's reader check can see
          * them and a human can grep for them. */
         return array(
+            'size'       => 'brg_buttons_size',
+            'style'      => 'brg_buttons_style',
             'btn_effect' => 'brg_buttons_btn_effect',
+            'light_bg'    => 'brg_buttons_light_bg',
+            'light_fg'    => 'brg_buttons_light_fg',
+            'light_hover_bg' => 'brg_buttons_light_hover_bg',
+            'light_hover_fg' => 'brg_buttons_light_hover_fg',
+            'dark_bg'     => 'brg_buttons_dark_bg',
+            'dark_fg'     => 'brg_buttons_dark_fg',
+            'dark_hover_bg' => 'brg_buttons_dark_hover_bg',
+            'dark_hover_fg' => 'brg_buttons_dark_hover_fg',
+            'accent_bg'   => 'brg_buttons_accent_bg',
+            'accent_fg'   => 'brg_buttons_accent_fg',
+            'accent_hover_bg' => 'brg_buttons_accent_hover_bg',
+            'accent_hover_fg' => 'brg_buttons_accent_hover_fg',
+            'alt_bg'      => 'brg_buttons_alt_bg',
+            'alt_fg'      => 'brg_buttons_alt_fg',
+            'alt_hover_bg' => 'brg_buttons_alt_hover_bg',
+            'alt_hover_fg' => 'brg_buttons_alt_hover_fg',
         );
     }
 }
 
 if ( ! function_exists( 'vcc_shell_open' ) ) {
     function vcc_shell_open() {
-        /* THE TOP OF THE BUTTON CASCADE. Three levels decide a button's hover, nearest wins:
-         * this shell (site-wide), the button row (the section's own choice), then the button
-         * itself. The value rides on the wrapper that every rendered page already has, so
-         * nothing else needed a new container. */
+        /* THE TOP OF THE BUTTON CASCADE. Four things are decided here for every button on
+         * the site, and each may be overruled by the section it is in and then by the button
+         * itself: size, fill, hover, and the four COLOR ROLES.
+         *
+         * The roles are the point of this page. A button is set to Accent rather than to
+         * yellow, so changing what Accent means repaints every accent button on the site at
+         * once. The literal colors are still offered on each button for anything that has to
+         * be one specific shade, and nothing already set changes.
+         *
+         * Colors leave as CUSTOM PROPERTIES rather than as rules, so the stylesheet keeps
+         * every clamp, hover and outline behavior it already has and simply reads a
+         * different value. A field left empty emits nothing and the stylesheet's own
+         * fallback — the brand palette — applies. */
         $fx = vcc_chrome_setting( 'buttons', 'btn_effect' );
-        $ok = array( 'lift', 'lift-swap', 'underline', 'grow', 'press', 'fill', 'none' );
-        if ( ! in_array( $fx, $ok, true ) ) $fx = 'lift';
-        return '<div class="brgw brgw-shell" data-btn-fx="' . esc_attr( $fx ) . '">';
+        if ( ! in_array( $fx, array( 'lift','lift-swap','underline','grow','press','fill','none' ), true ) ) $fx = 'lift';
+        $size = vcc_chrome_setting( 'buttons', 'size' );
+        if ( ! in_array( $size, array( 'large','medium','small' ), true ) ) $size = 'large';
+        $style = vcc_chrome_setting( 'buttons', 'style' );
+        if ( ! in_array( $style, array( 'filled','outline','text' ), true ) ) $style = 'filled';
+
+        $vars = '';
+        foreach ( array( 'light','dark','accent','alt' ) as $role ) {
+            foreach ( array( 'bg' => 'bg', 'fg' => 'fg', 'hover_bg' => 'hbg', 'hover_fg' => 'hfg' ) as $k => $short ) {
+                $v = vcc_chrome_setting( 'buttons', $role . '_' . $k );
+                /* A HEX STRING ONLY. The value is pasted straight into a style attribute, so
+                 * anything that is not plainly a color is dropped rather than escaped and
+                 * hoped for. */
+                if ( is_string( $v ) && preg_match( '/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/', trim( $v ) ) ) {
+                    $vars .= '--brgw-role-' . $role . '-' . $short . ':' . trim( $v ) . ';';
+                }
+            }
+        }
+
+        return '<div class="brgw brgw-shell"'
+             . ' data-btn-fx="' . esc_attr( $fx ) . '"'
+             . ' data-btn-size="' . esc_attr( $size ) . '"'
+             . ' data-btn-style="' . esc_attr( $style ) . '"'
+             . ( $vars !== '' ? ' style="' . esc_attr( $vars ) . '"' : '' )
+             . '>';
     }
 }
 

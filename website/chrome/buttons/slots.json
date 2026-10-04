@@ -3,11 +3,37 @@
   "_page": "site-wide",
   "_page_label": "Site-wide",
   "_order": 3,
+  "size": {
+    "type": "select",
+    "label": "Size",
+    "doc": "How big a button is unless something nearer overrules it. Large is what every button has been until now. The three levels are this, then a section's own, then a single button's own row.",
+    "group": "Buttons — the default for every button",
+    "width": 33,
+    "default": "large",
+    "choices": {
+      "large": "Large",
+      "medium": "Medium",
+      "small": "Small"
+    }
+  },
+  "style": {
+    "type": "select",
+    "label": "Filled, outline or text",
+    "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Text only drops the box entirely and leaves the words, which reads as a link — pair it with the Underline hover.",
+    "group": "Buttons — the default for every button",
+    "width": 33,
+    "default": "filled",
+    "choices": {
+      "filled": "Filled",
+      "outline": "Outline",
+      "text": "Text only"
+    }
+  },
   "btn_effect": {
     "type": "select",
     "label": "Hover effect",
     "doc": "What EVERY button on the site does when someone points at it, unless something nearer overrules it. There are three levels and the nearest one wins: this, then a section's own Hover effect, then a single button's own on its row in the list. Set it here once and only change the exceptions.\n\nLift is what every button has always done — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink; it is the loudest of the set, best kept for one main action. Underline draws a rule under the words and leaves the button still, which reads as a link. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only. Anyone who has switched off animation on their device sees no hover movement whatever is chosen here.",
-    "group": "Buttons — site-wide",
+    "group": "Buttons — the default for every button",
     "default": "lift",
     "choices": {
       "lift": "Lift",
@@ -17,6 +43,135 @@
       "press": "Press down",
       "fill": "Fill in",
       "none": "None"
-    }
+    },
+    "width": 34
+  },
+  "light_bg": {
+    "type": "color",
+    "label": "Color",
+    "doc": "The light button's background. Every button set to Light on any page uses this, so changing it here changes them all at once.",
+    "group": "Buttons — light",
+    "width": 25,
+    "default": "#ffffff"
+  },
+  "light_fg": {
+    "type": "color",
+    "label": "Text on it",
+    "doc": "The words on that background. Pick something that stays readable against it.",
+    "group": "Buttons — light",
+    "width": 25,
+    "default": "#231F20"
+  },
+  "light_hover_bg": {
+    "type": "color",
+    "label": "Hover color",
+    "doc": "What the background becomes while someone is pointing at it. Leave it the same as the color above for no change on hover.",
+    "group": "Buttons — light",
+    "width": 25,
+    "default": "#ffffff"
+  },
+  "light_hover_fg": {
+    "type": "color",
+    "label": "Text on hover",
+    "doc": "The words while hovering.",
+    "group": "Buttons — light",
+    "width": 25,
+    "default": "#231F20"
+  },
+  "dark_bg": {
+    "type": "color",
+    "label": "Color",
+    "doc": "The dark button's background. Every button set to Dark on any page uses this, so changing it here changes them all at once.",
+    "group": "Buttons — dark",
+    "width": 25,
+    "default": "#231F20"
+  },
+  "dark_fg": {
+    "type": "color",
+    "label": "Text on it",
+    "doc": "The words on that background. Pick something that stays readable against it.",
+    "group": "Buttons — dark",
+    "width": 25,
+    "default": "#ffffff"
+  },
+  "dark_hover_bg": {
+    "type": "color",
+    "label": "Hover color",
+    "doc": "What the background becomes while someone is pointing at it. Leave it the same as the color above for no change on hover.",
+    "group": "Buttons — dark",
+    "width": 25,
+    "default": "#231F20"
+  },
+  "dark_hover_fg": {
+    "type": "color",
+    "label": "Text on hover",
+    "doc": "The words while hovering.",
+    "group": "Buttons — dark",
+    "width": 25,
+    "default": "#ffffff"
+  },
+  "accent_bg": {
+    "type": "color",
+    "label": "Color",
+    "doc": "The accent button's background. Every button set to Accent on any page uses this, so changing it here changes them all at once.",
+    "group": "Buttons — accent",
+    "width": 25,
+    "default": "#FCE200"
+  },
+  "accent_fg": {
+    "type": "color",
+    "label": "Text on it",
+    "doc": "The words on that background. Pick something that stays readable against it.",
+    "group": "Buttons — accent",
+    "width": 25,
+    "default": "#231F20"
+  },
+  "accent_hover_bg": {
+    "type": "color",
+    "label": "Hover color",
+    "doc": "What the background becomes while someone is pointing at it. Leave it the same as the color above for no change on hover.",
+    "group": "Buttons — accent",
+    "width": 25,
+    "default": "#FCE200"
+  },
+  "accent_hover_fg": {
+    "type": "color",
+    "label": "Text on hover",
+    "doc": "The words while hovering.",
+    "group": "Buttons — accent",
+    "width": 25,
+    "default": "#231F20"
+  },
+  "alt_bg": {
+    "type": "color",
+    "label": "Color",
+    "doc": "The alt accent button's background. Every button set to Alt accent on any page uses this, so changing it here changes them all at once.",
+    "group": "Buttons — alt accent",
+    "width": 25,
+    "default": "#19C7C2"
+  },
+  "alt_fg": {
+    "type": "color",
+    "label": "Text on it",
+    "doc": "The words on that background. Pick something that stays readable against it.",
+    "group": "Buttons — alt accent",
+    "width": 25,
+    "default": "#231F20"
+  },
+  "alt_hover_bg": {
+    "type": "color",
+    "label": "Hover color",
+    "doc": "What the background becomes while someone is pointing at it. Leave it the same as the color above for no change on hover.",
+    "group": "Buttons — alt accent",
+    "width": 25,
+    "default": "#19C7C2"
+  },
+  "alt_hover_fg": {
+    "type": "color",
+    "label": "Text on hover",
+    "doc": "The words while hovering.",
+    "group": "Buttons — alt accent",
+    "width": 25,
+    "default": "#231F20"
   }
 }

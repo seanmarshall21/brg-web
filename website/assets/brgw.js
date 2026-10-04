@@ -822,11 +822,23 @@
      Without JS a button keeps whatever the markup gave it and the stylesheet's own
      default applies, which is the lift every button has always had. */
   function brgwBtnFx(root) {
+    /* FOUR ATTRIBUTES, one rule: a button that left something blank takes it from the
+       nearest thing outwards that filled it in — its row (the section's choice), then the
+       page shell (the site-wide choice). Color and fill ALSO resolve in CSS at the row
+       level, which is deliberate belt and braces: that half keeps working with no JS at
+       all, and this pass only ever writes the same value the cascade would have produced,
+       plus the site-wide level that CSS alone cannot reach. */
+    var ATTRS = ['data-btn-fx', 'data-btn-size', 'data-btn-style', 'data-btn-color'];
     [].forEach.call(root.querySelectorAll('.btn'), function (b) {
-      if (b.getAttribute('data-btn-fx')) return;        // it chose for itself
-      var src = b.parentElement && b.parentElement.closest('[data-btn-fx]');
-      var fx  = src && src.getAttribute('data-btn-fx');
-      if (fx) b.setAttribute('data-btn-fx', fx);
+      for (var i = 0; i < ATTRS.length; i++) {
+        var a = ATTRS[i];
+        if (b.getAttribute(a)) continue;                 // it chose for itself
+        var src = b.parentElement && b.parentElement.closest('[' + a + ']');
+        var v   = src && src.getAttribute(a);
+        /* "keep" is the section saying "leave this as the design made it", which is not a
+           value to copy down — a button below it should go on looking for one. */
+        if (v && v !== 'keep') b.setAttribute(a, v);
+      }
     });
   }
 

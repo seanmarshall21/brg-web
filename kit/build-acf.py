@@ -46,6 +46,10 @@ TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'text', 'image': 'image',
         # — Sean's "what you input is not what it returns". Requires return_format 'value',
         # or ACF hands back the label and prose lands in an attribute.
         'select': 'select',
+        # `color` is ACF's color picker, used for the four button roles on the Site-wide
+        # page. It stores a hex string, which is exactly what a CSS custom property wants,
+        # so the value travels to the page untouched.
+        'color': 'color_picker',
         # `number` is a plain number box, used for the parallax amounts. Sean, 2 Oct:
         # "I should be able to control it numerically instead of just saying subtle,
         # medium, etc." The dropdowns it replaces offered 0/6/10/16 and nothing between,

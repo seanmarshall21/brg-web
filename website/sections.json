@@ -91,7 +91,7 @@
       "title": "Team — crew grid",
       "group": "grid",
       "status": "live",
-      "summary": "Nine crew cards; headshots still colour plates pending real portraits."
+      "summary": "Nine crew cards; headshots still color plates pending real portraits."
     },
     {
       "id": "team-apply",
@@ -133,7 +133,7 @@
       "title": "Contact — hero",
       "group": "hero",
       "status": "live",
-      "summary": "Hero with the pink marker underline reused from team-hero; no sixth colour invented."
+      "summary": "Hero with the pink marker underline reused from team-hero; no sixth color invented."
     },
     {
       "id": "contact-routes",

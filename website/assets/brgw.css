@@ -72,6 +72,66 @@
    color system, same hover; only the padding and type step down. */
 .brgw .btn--sm{padding:12px 20px;font-size:clamp(11px,1vw,13px);letter-spacing:.12em;}
 
+/* ── THREE SIZES ───────────────────────────────────────────────────────────────────
+   Large is exactly what .btn has always been, so a button that names no size is
+   unchanged. .btn--sm stays as an alias for small because the contact boxes still use
+   the class in their markup. */
+.brgw .btn[data-btn-size="large"]{padding:20px 34px;font-size:clamp(13px,1.2vw,16px);letter-spacing:.14em;}
+.brgw .btn[data-btn-size="medium"]{padding:15px 26px;font-size:clamp(12px,1.08vw,14.5px);letter-spacing:.13em;}
+.brgw .btn[data-btn-size="small"]{padding:12px 20px;font-size:clamp(11px,1vw,13px);letter-spacing:.12em;}
+
+/* ── THE FOUR ROLES ────────────────────────────────────────────────────────────────
+   Sean, 4 Oct: "four different default colors: a light version, a dark version, an
+   accent, and an alt accent… set the default normal color and hover color for each".
+
+   A button is set to a ROLE, not to a shade, so changing what Accent means on the
+   Site-wide page repaints every accent button at once. Each role reads a custom property
+   the page shell sets, and falls back to the brand palette when that page has never been
+   saved — so these work before anyone opens it.
+
+   HOVER IS THE SAME TWO PROPERTIES, reassigned. Every existing effect already reads
+   --brgw-btn-bg and --brgw-btn-fg, so an outline button's ring recolors on hover and
+   "Fill in" floods with the HOVER color, both without a rule of their own.
+
+   The literal colors above are untouched and still offered, so nothing already chosen
+   moves. */
+.brgw .btn[data-btn-color="light"]{
+  --brgw-btn-bg:var(--brgw-role-light-bg,var(--white));--brgw-btn-fg:var(--brgw-role-light-fg,var(--ink));
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="light"]:hover{
+  --brgw-btn-bg:var(--brgw-role-light-hbg,var(--brgw-role-light-bg,var(--white)));
+  --brgw-btn-fg:var(--brgw-role-light-hfg,var(--brgw-role-light-fg,var(--ink)));
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .brgw-cta[data-btn-color="light"]{
+  --brgw-row-bg:var(--brgw-role-light-bg,var(--white));--brgw-row-fg:var(--brgw-role-light-fg,var(--ink));}
+.brgw .btn[data-btn-color="dark"]{
+  --brgw-btn-bg:var(--brgw-role-dark-bg,var(--ink));--brgw-btn-fg:var(--brgw-role-dark-fg,var(--white));
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="dark"]:hover{
+  --brgw-btn-bg:var(--brgw-role-dark-hbg,var(--brgw-role-dark-bg,var(--ink)));
+  --brgw-btn-fg:var(--brgw-role-dark-hfg,var(--brgw-role-dark-fg,var(--white)));
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .brgw-cta[data-btn-color="dark"]{
+  --brgw-row-bg:var(--brgw-role-dark-bg,var(--ink));--brgw-row-fg:var(--brgw-role-dark-fg,var(--white));}
+.brgw .btn[data-btn-color="accent"]{
+  --brgw-btn-bg:var(--brgw-role-accent-bg,var(--yellow));--brgw-btn-fg:var(--brgw-role-accent-fg,var(--ink));
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="accent"]:hover{
+  --brgw-btn-bg:var(--brgw-role-accent-hbg,var(--brgw-role-accent-bg,var(--yellow)));
+  --brgw-btn-fg:var(--brgw-role-accent-hfg,var(--brgw-role-accent-fg,var(--ink)));
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .brgw-cta[data-btn-color="accent"]{
+  --brgw-row-bg:var(--brgw-role-accent-bg,var(--yellow));--brgw-row-fg:var(--brgw-role-accent-fg,var(--ink));}
+.brgw .btn[data-btn-color="alt"]{
+  --brgw-btn-bg:var(--brgw-role-alt-bg,var(--teal));--brgw-btn-fg:var(--brgw-role-alt-fg,var(--ink));
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-color="alt"]:hover{
+  --brgw-btn-bg:var(--brgw-role-alt-hbg,var(--brgw-role-alt-bg,var(--teal)));
+  --brgw-btn-fg:var(--brgw-role-alt-hfg,var(--brgw-role-alt-fg,var(--ink)));
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
+.brgw .brgw-cta[data-btn-color="alt"]{
+  --brgw-row-bg:var(--brgw-role-alt-bg,var(--teal));--brgw-row-fg:var(--brgw-role-alt-fg,var(--ink));}
+
 .brgw .btn[data-btn-color="yellow"]{--brgw-btn-bg:var(--yellow);--brgw-btn-fg:var(--ink);
   background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
 .brgw .btn[data-btn-color="teal"]  {--brgw-btn-bg:var(--teal);  --brgw-btn-fg:var(--ink);
@@ -92,6 +152,19 @@
   color:var(--brgw-btn-bg);--brgw-btn-ring:inset 0 0 0 3px var(--brgw-btn-bg);}
 .brgw .btn[data-btn-color="keep"][data-btn-style="outline"]{color:currentColor;
   --brgw-btn-ring:inset 0 0 0 3px currentColor;}
+
+/* ── TEXT ONLY ─────────────────────────────────────────────────────────────────────
+   No box at all: the words take the button's own color and the side padding goes, so it
+   sits in a row of copy like a link. Pairs with the Underline hover.
+
+   IT LIVES HERE, AFTER THE COLOR RULES, AND THAT POSITION IS THE WHOLE RULE. A color rule
+   and a style rule carry identical weight, so whichever is written second decides `color`.
+   Written above them, this one lost and a text button came out in the ink meant for a
+   filled background — white words on a white page. Every style rule now sits after every
+   color rule: color says WHAT the palette is, style says HOW it is used. */
+.brgw .btn[data-btn-style="text"]{background:transparent !important;box-shadow:none !important;
+  padding-left:0;padding-right:0;color:var(--brgw-btn-bg);--brgw-btn-ring:0 0 0 0 transparent;}
+.brgw .btn[data-btn-style="text"]:hover{box-shadow:none !important;}
 
 /* ── ONE BUTTON CAN DIFFER FROM THE REST OF ITS SECTION ────────────────────────────
    Sean, 3 Oct: a section with two buttons needs a main one and a quieter second one,
