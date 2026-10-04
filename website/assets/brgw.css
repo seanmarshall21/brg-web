@@ -1005,8 +1005,13 @@
 
 /* 4 — CROWN: the spray crown, knocked out white. It is the one plate that reads as a
       graphic rather than a photograph, so it has its own switch — see splash_crown_on. */
+/* NO invert(1) HERE, and the splash has one. Sean supplied a white spray crown on
+   2026-10-04 (splash-crown-wht.webp, 960px, replacing the 520px one). Inverting a white
+   file paints it black, which on a dark hero is a shape you cannot read — the splash
+   gets away with it because of what sits behind it there. Put the filter back on this
+   one line to match the splash exactly. */
 .brgw .brgw-hero .sp--crown{top:2%;right:4%;width:40%;aspect-ratio:1/1;height:auto;
-  background-size:contain;opacity:.8;filter:invert(1);transform-origin:center;
+  background-size:contain;opacity:.8;transform-origin:center;
   background-image:image-set(url('https://blacktoprg.netlify.app/assets/media/splash/crown-white.webp') type('image/webp'),
                              url('https://blacktoprg.netlify.app/assets/media/splash/crown-white.png') type('image/png'));
   animation:brgw-sp-crown-in .8s cubic-bezier(.2,.7,.2,1) both 1.25s,
