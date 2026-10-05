@@ -147,16 +147,16 @@
                 "endpoint": 0
             },
             {
-                "key": "field_brg_careers_hero_bg_style",
+                "key": "field_brg_careers_hero_bg_mode",
                 "label": "Background",
-                "name": "brg_careers_hero_bg_style",
+                "name": "brg_careers_hero_bg_mode",
                 "type": "select",
                 "instructions": "WHAT FILLS THE HERO BEHIND THE WORDS — one choice, and only that one's settings appear below. Until now a photo, a video, a pattern and the splash could all be set at once with nothing deciding between them, which is why it was hard to tell what you were looking at.\n\nPhoto is the full-bleed picture. Video plays a Vimeo or YouTube clip. Splash animation is the entrance from the coming-soon page. Pattern is a flat graphic wash. None leaves just the color.\n\nNothing is deleted when you switch — a photo you set is still there if you come back to Photo.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "100",
-                    "class": "brg-f-bg_style",
+                    "class": "brg-f-bg_mode",
                     "id": ""
                 },
                 "default_value": "video",
@@ -218,7 +218,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -243,7 +243,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -268,7 +268,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -301,7 +301,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -330,7 +330,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -397,7 +397,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "video"
                         }
@@ -420,7 +420,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "video"
                         }
@@ -487,7 +487,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -512,7 +512,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -545,7 +545,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -570,7 +570,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -603,7 +603,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -628,7 +628,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -661,7 +661,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -686,7 +686,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -719,7 +719,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -748,7 +748,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -781,7 +781,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -810,7 +810,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -843,7 +843,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -872,7 +872,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -905,7 +905,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -934,7 +934,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -1001,7 +1001,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "pattern"
                         }
@@ -1026,7 +1026,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "pattern"
                         }
@@ -1051,7 +1051,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "pattern"
                         }
@@ -1092,7 +1092,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "pattern"
                         }
@@ -1121,7 +1121,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_careers_hero_bg_style",
+                            "field": "field_brg_careers_hero_bg_mode",
                             "operator": "==",
                             "value": "pattern"
                         }
