@@ -30,7 +30,7 @@
     "doc": "How the hand-drawn underline (line-careers-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalog: website/lab/README.md.",
     "default": "u3"
   },
-  "bg_mode": {
+  "bg_style": {
     "type": "select",
     "label": "Background",
     "doc": "WHAT FILLS THE HERO BEHIND THE WORDS — one choice, and only that one's settings appear below. Until now a photo, a video, a pattern and the splash could all be set at once with nothing deciding between them, which is why it was hard to tell what you were looking at.\n\nPhoto is the full-bleed picture. Video plays a Vimeo or YouTube clip. Splash animation is the entrance from the coming-soon page. Pattern is a flat graphic wash. None leaves just the color.\n\nNothing is deleted when you switch — a photo you set is still there if you come back to Photo.",
@@ -51,7 +51,7 @@
     "doc": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
     "group": "Hero background — photo",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "photo"
       ]
     }
@@ -62,7 +62,7 @@
     "doc": "Optional. A version of the hero photo for phones, used below 768px wide. Leave empty and the main photo above is used at every size. Worth setting when the main photo is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or tighter version reads far better.",
     "group": "Hero background — photo",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "photo"
       ]
     }
@@ -79,7 +79,7 @@
     },
     "group": "Hero background — photo",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "photo"
       ]
     }
@@ -96,7 +96,7 @@
     "append": "%",
     "group": "Hero background — photo",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "photo"
       ]
     }
@@ -113,7 +113,7 @@
     },
     "group": "Hero background — photo",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "photo"
       ]
     }
@@ -125,7 +125,7 @@
     "default": "",
     "group": "Hero background — video",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "video"
       ]
     }
@@ -141,7 +141,7 @@
     },
     "group": "Hero background — video",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "video"
       ]
     }
@@ -154,7 +154,7 @@
     "width": 50,
     "default": "",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -171,7 +171,7 @@
       "0": "Hidden"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -184,7 +184,7 @@
     "width": 50,
     "default": "",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -201,7 +201,7 @@
       "0": "Hidden"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -214,7 +214,7 @@
     "width": 50,
     "default": "",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -231,7 +231,7 @@
       "0": "Hidden"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -244,7 +244,7 @@
     "width": 50,
     "default": "",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -261,7 +261,7 @@
       "0": "Hidden"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -278,7 +278,7 @@
     "step": 1,
     "append": "%",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -295,7 +295,7 @@
       "up": "Up"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -312,7 +312,7 @@
     "step": 1,
     "append": "%",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -329,7 +329,7 @@
       "up": "Up"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -346,7 +346,7 @@
     "step": 1,
     "append": "%",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -363,7 +363,7 @@
       "up": "Up"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -380,7 +380,7 @@
     "step": 1,
     "append": "%",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -397,7 +397,7 @@
       "up": "Up"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "splash"
       ]
     }
@@ -408,7 +408,7 @@
     "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below. ON A HERO THIS SITS BEHIND THE HERO PHOTO, so it only shows where that photo does not: with a background photo set, the photo covers the section edge to edge and this is hidden entirely. Use it on a hero with no photo, where it replaces the flat color.",
     "group": "Hero background — pattern",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "pattern"
       ]
     }
@@ -419,7 +419,7 @@
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
     "group": "Hero background — pattern",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "pattern"
       ]
     }
@@ -444,7 +444,7 @@
       "1": "100% — exactly as supplied"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "pattern"
       ]
     }
@@ -461,7 +461,7 @@
     "append": "%",
     "group": "Hero background — pattern",
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "pattern"
       ]
     }
@@ -478,7 +478,7 @@
       "up": "Up"
     },
     "show_if": {
-      "bg_mode": [
+      "bg_style": [
         "pattern"
       ]
     }

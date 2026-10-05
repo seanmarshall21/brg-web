@@ -1079,6 +1079,15 @@
 .brgw .brgw-hero[data-bg-style="splash"] .splash-bg{display:block;}
 .brgw .brgw-hero[data-bg-style="pattern"] .sec-bg{display:block;}
 
+/* A CHOOSER MUST NEVER PRODUCE AN EMPTY HERO. "Photo" is the value this field shipped
+   with before the chooser existed, so a hero that has a video and no photo can be sitting
+   on that word without anyone having picked it — and the rule above would then hide the
+   only background it has. Where the chosen mode has nothing in it and a video does, the
+   video still plays. It costs the exclusivity only in the one case where honouring it
+   would leave the hero blank, which is not a choice anybody made. */
+.brgw .brgw-hero[data-bg-style="photo"] .hero-bg[data-bg=""]:not([data-vid-set=""]) .vid{display:block;}
+.brgw .brgw-hero[data-bg-style="photo"] .hero-bg[data-bg=""]:not([data-vid-set=""]){display:block;}
+
 .brgw .brgw-hero .splash-bg{
   --sp-edge:#131210;                      /* near-black at the edges (splash --brg-bg-2) */
   --sp-mute:rgba(16,15,13,.66);           /* veil that drops car/surfer to the skater's level */

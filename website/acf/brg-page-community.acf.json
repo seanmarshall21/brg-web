@@ -117,16 +117,16 @@
                 "endpoint": 0
             },
             {
-                "key": "field_brg_community_hero_bg_mode",
+                "key": "field_brg_community_hero_bg_style",
                 "label": "Background",
-                "name": "brg_community_hero_bg_mode",
+                "name": "brg_community_hero_bg_style",
                 "type": "select",
                 "instructions": "WHAT FILLS THE HERO BEHIND THE WORDS — one choice, and only that one's settings appear below. Until now a photo, a video, a pattern and the splash could all be set at once with nothing deciding between them, which is why it was hard to tell what you were looking at.\n\nPhoto is the full-bleed picture. Video plays a Vimeo or YouTube clip. Splash animation is the entrance from the coming-soon page. Pattern is a flat graphic wash. None leaves just the color.\n\nNothing is deleted when you switch — a photo you set is still there if you come back to Photo.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "100",
-                    "class": "brg-f-bg_mode",
+                    "class": "brg-f-bg_style",
                     "id": ""
                 },
                 "default_value": "video",
@@ -188,7 +188,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -213,7 +213,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -238,7 +238,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -271,7 +271,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -300,7 +300,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "photo"
                         }
@@ -367,7 +367,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "video"
                         }
@@ -390,7 +390,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "video"
                         }
@@ -457,7 +457,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -482,7 +482,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -515,7 +515,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -540,7 +540,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -573,7 +573,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -598,7 +598,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -631,7 +631,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -656,7 +656,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -689,7 +689,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -718,7 +718,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -751,7 +751,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -780,7 +780,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -813,7 +813,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -842,7 +842,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -875,7 +875,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -904,7 +904,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "splash"
                         }
@@ -971,7 +971,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "pattern"
                         }
@@ -996,7 +996,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "pattern"
                         }
@@ -1021,7 +1021,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "pattern"
                         }
@@ -1062,7 +1062,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "pattern"
                         }
@@ -1091,7 +1091,7 @@
                 "conditional_logic": [
                     [
                         {
-                            "field": "field_brg_community_hero_bg_mode",
+                            "field": "field_brg_community_hero_bg_style",
                             "operator": "==",
                             "value": "pattern"
                         }
