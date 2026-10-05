@@ -9,7 +9,7 @@
      default u3, the angled wipe. SPEC-003's reasoning still holds and is why u3 is the
      default: a scaleX stretches the taper, a wipe reveals it at true width. -->
 <section class="brgw-sec brgw-sec--home-hero brgw-hero reveal" data-bg-style="{{bg_style}}" data-nav="dark" data-uline="{{uline_variant}}"
-         style="--brgw-veil-c:{{veil_center}};--brgw-veil-e:{{veil_edge}};--brgw-plate-o:{{photo_strength}}"
+         style="--brgw-veil-c:{{veil_center}};--brgw-veil-e:{{veil_edge}};--brgw-plate-o:{{photo_strength}};--brgw-grit-o:{{grit_strength}}"
          aria-label="Blacktop Restaurant Group" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-hero{position:relative;overflow:hidden;background:var(--bg2);
@@ -42,6 +42,7 @@
 @property --brgw-plate-o{syntax:"<number>";inherits:true;initial-value:42;}
 @property --brgw-veil-c {syntax:"<number>";inherits:true;initial-value:58;}
 @property --brgw-veil-e {syntax:"<number>";inherits:true;initial-value:90;}
+@property --brgw-grit-o {syntax:"<number>";inherits:true;initial-value:40;}
 
 /* THE VIGNETTE IS ADJUSTABLE NOW. Sean reported the home hero as "overlay too dark"
    weeks ago and the answer each time was that this is not the overlay — it is a designed
@@ -55,7 +56,7 @@
   background:radial-gradient(125% 95% at 50% 42%,
     rgba(19,18,16,calc(var(--brgw-veil-c) / 100)),
     rgba(19,18,16,calc(var(--brgw-veil-e) / 100)) 82%);}
-.brgw-sec--home-hero .grit{position:absolute;inset:-4%;z-index:1;opacity:.4;mix-blend-mode:overlay;
+.brgw-sec--home-hero .grit{position:absolute;inset:-4%;z-index:1;opacity:calc(var(--brgw-grit-o,40) / 100);mix-blend-mode:overlay;
   background:center/cover no-repeat url('https://blacktoprg.netlify.app/assets/media/bg/grit.webp');
   animation:brgw-hh-drift 52s ease-in-out infinite;}
 

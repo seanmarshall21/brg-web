@@ -127,7 +127,7 @@
   },
   "photo_strength": {
     "type": "number",
-    "label": "Background photo — strength",
+    "label": "Background strength",
     "doc": "How strongly the background collage shows, as a percentage. THIS IS USUALLY THE ONE YOU WANT. The hero has always held this photo at 42%, which is most of why it reads as dark; the two vignette settings below only darken what is left. Raise this toward 100 to bring the picture forward. The white headline needs some darkness behind it, so check the headline is still easy to read after a big change.\n\nIT GOVERNS THE SPLASH ANIMATION TOO. When Background style is set to the splash, this same number holds back its full-screen plate — so if the splash looks like it is not showing, this is the number to raise. The three smaller plates are solid and are not affected by it.",
     "width": 33,
     "default": "42",
@@ -142,6 +142,73 @@
         "splash"
       ]
     }
+  },
+  "grit_strength": {
+    "type": "number",
+    "label": "Grain",
+    "doc": "The speckled texture laid over the background. It has always been here at 40% and had no control at all, which made it the one layer you could not turn down — set it to 0 for none. It sits over whichever background is chosen.",
+    "group": "Hero darkness",
+    "width": 33,
+    "default": "40",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "append": "%"
+  },
+  "veil_center": {
+    "type": "number",
+    "label": "Vignette — middle",
+    "doc": "How dark the middle of the hero is, behind the headline, as a percentage. 58 is the value this hero has always used. Lower lets more of the photo through in the middle; higher pushes the picture further back.",
+    "width": 33,
+    "default": "58",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "append": "%",
+    "group": "Hero darkness"
+  },
+  "veil_edge": {
+    "type": "number",
+    "label": "Vignette — edges",
+    "doc": "How dark the outer edges are, as a percentage. 90 is the value this hero has always used. This is the setting that makes the corners almost black. The darkness fades smoothly between this and the middle value above.",
+    "width": 33,
+    "default": "90",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "append": "%",
+    "group": "Hero darkness"
+  },
+  "overlay_color": {
+    "type": "select",
+    "label": "Overlay color",
+    "doc": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
+    "default": "none",
+    "choices": {
+      "none": "None — no overlay",
+      "black": "Black",
+      "ink": "Ink — the BRG near-black",
+      "teal": "Teal",
+      "yellow": "Yellow",
+      "pink": "Pink"
+    },
+    "group": "Hero darkness"
+  },
+  "overlay_strength": {
+    "type": "select",
+    "label": "Overlay strength",
+    "doc": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
+    "default": "0.45",
+    "choices": {
+      "0": "0% — overlay off",
+      "0.15": "15% — barely there",
+      "0.3": "30% — light",
+      "0.45": "45% — usual for white type",
+      "0.6": "60% — strong",
+      "0.75": "75% — very strong",
+      "0.9": "90% — photo barely visible"
+    },
+    "group": "Hero darkness"
   },
   "video_id": {
     "type": "text",
@@ -507,61 +574,6 @@
         "pattern"
       ]
     }
-  },
-  "veil_center": {
-    "type": "number",
-    "label": "Vignette — middle",
-    "doc": "How dark the middle of the hero is, behind the headline, as a percentage. 58 is the value this hero has always used. Lower lets more of the photo through in the middle; higher pushes the picture further back.",
-    "width": 33,
-    "default": "58",
-    "min": 0,
-    "max": 100,
-    "step": 1,
-    "append": "%",
-    "group": "Hero darkness"
-  },
-  "veil_edge": {
-    "type": "number",
-    "label": "Vignette — edges",
-    "doc": "How dark the outer edges are, as a percentage. 90 is the value this hero has always used. This is the setting that makes the corners almost black. The darkness fades smoothly between this and the middle value above.",
-    "width": 33,
-    "default": "90",
-    "min": 0,
-    "max": 100,
-    "step": 1,
-    "append": "%",
-    "group": "Hero darkness"
-  },
-  "overlay_color": {
-    "type": "select",
-    "label": "Overlay color",
-    "doc": "A flat color laid over the background photo to keep the headline readable. This does nothing when no photo is set. Choose None to turn the overlay off entirely.",
-    "default": "none",
-    "choices": {
-      "none": "None — no overlay",
-      "black": "Black",
-      "ink": "Ink — the BRG near-black",
-      "teal": "Teal",
-      "yellow": "Yellow",
-      "pink": "Pink"
-    },
-    "group": "Hero darkness"
-  },
-  "overlay_strength": {
-    "type": "select",
-    "label": "Overlay strength",
-    "doc": "How much of the overlay color shows through. Only has an effect once an overlay color is chosen above. 45% is the usual setting for white type over a photo — go higher if the headline still fights the picture, lower if the photo is already dark.",
-    "default": "0.45",
-    "choices": {
-      "0": "0% — overlay off",
-      "0.15": "15% — barely there",
-      "0.3": "30% — light",
-      "0.45": "45% — usual for white type",
-      "0.6": "60% — strong",
-      "0.75": "75% — very strong",
-      "0.9": "90% — photo barely visible"
-    },
-    "group": "Hero darkness"
   },
   "mark_1_smile_art": {
     "type": "image",

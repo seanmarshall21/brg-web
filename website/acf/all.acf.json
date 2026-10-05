@@ -213,7 +213,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_home_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -375,7 +383,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_home_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -404,7 +420,7 @@
       },
       {
         "key": "field_brg_home_hero_photo_strength",
-        "label": "Background photo — strength",
+        "label": "Background strength",
         "name": "brg_home_hero_photo_strength",
         "type": "number",
         "instructions": "How strongly the background collage shows, as a percentage. THIS IS USUALLY THE ONE YOU WANT. The hero has always held this photo at 42%, which is most of why it reads as dark; the two vignette settings below only darken what is left. Raise this toward 100 to bring the picture forward. The white headline needs some darkness behind it, so check the headline is still easy to read after a big change.\n\nIT GOVERNS THE SPLASH ANIMATION TOO. When Background style is set to the splash, this same number holds back its full-screen plate — so if the splash looks like it is not showing, this is the number to raise. The three smaller plates are solid and are not affected by it.",
@@ -431,6 +447,27 @@
           "id": ""
         },
         "default_value": "42",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": "%"
+      },
+      {
+        "key": "field_brg_home_hero_grit_strength",
+        "label": "Grain",
+        "name": "brg_home_hero_grit_strength",
+        "type": "number",
+        "instructions": "The speckled texture laid over the background. It has always been here at 40% and had no control at all, which made it the one layer you could not turn down — set it to 0 for none. It sits over whichever background is chosen.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-grit_strength",
+          "id": ""
+        },
+        "default_value": "40",
         "min": 0,
         "max": 100,
         "step": 1,
@@ -563,7 +600,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_home_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -636,7 +681,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_home_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -653,7 +706,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_home_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -1150,7 +1211,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_home_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -1167,7 +1236,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_home_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -1337,7 +1414,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_home_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -6726,7 +6811,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_our_restaurants_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -6888,7 +6981,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_our_restaurants_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -6905,7 +7006,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_our_restaurants_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -6978,7 +7087,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_our_restaurants_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -6995,7 +7112,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_our_restaurants_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -7492,7 +7617,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_our_restaurants_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -7509,7 +7642,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_our_restaurants_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -7679,7 +7820,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_our_restaurants_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -9832,7 +9981,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_team_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -9994,7 +10151,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_team_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -10011,7 +10176,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_team_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -10084,7 +10257,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_team_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -10101,7 +10282,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_team_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -10598,7 +10787,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_team_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -10615,7 +10812,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_team_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -10785,7 +10990,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_team_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -14605,7 +14818,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_community_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -14767,7 +14988,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_community_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -14784,7 +15013,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_community_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -14857,7 +15094,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_community_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -14874,7 +15119,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_community_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -15371,7 +15624,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_community_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -15388,7 +15649,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_community_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -15558,7 +15827,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_community_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -19284,7 +19561,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_careers_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -19446,7 +19731,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_careers_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -19463,7 +19756,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_careers_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -19536,7 +19837,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_careers_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -19553,7 +19862,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_careers_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -20050,7 +20367,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_careers_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -20067,7 +20392,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_careers_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -20237,7 +20570,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_careers_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -23662,7 +24003,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_contact_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -23824,7 +24173,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_contact_hero_bg_style",
+              "operator": "==",
+              "value": "photo"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -23841,7 +24198,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_contact_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -23914,7 +24279,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_contact_hero_bg_style",
+              "operator": "==",
+              "value": "video"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -23931,7 +24304,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_contact_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -24428,7 +24809,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_contact_hero_bg_style",
+              "operator": "==",
+              "value": "splash"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",
@@ -24445,7 +24834,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_contact_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "brg-acc",
@@ -24615,7 +25012,15 @@
         "type": "accordion",
         "instructions": "",
         "required": 0,
-        "conditional_logic": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_brg_contact_hero_bg_style",
+              "operator": "==",
+              "value": "pattern"
+            }
+          ]
+        ],
         "wrapper": {
           "width": "",
           "class": "",

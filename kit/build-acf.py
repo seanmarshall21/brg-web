@@ -174,6 +174,25 @@ def show_if(section_id, defn):
     return [[{'field': t, 'operator': '==', 'value': v[0]} for t, v in ands]]
 
 
+def group_condition(slots, names, section_id):
+    """A group's heading hides with its fields.
+
+    ACF accordions are flat markers, not containers, so conditional logic on a field says
+    nothing about the heading above it: hide every field in "Hero background — video" and
+    the heading still sits there, an empty bar promising settings that are not coming.
+    Sean saw exactly that with the splash chosen.
+
+    So when EVERY member of a group carries the same show_if, the opening marker and its
+    endpoint carry it too and the whole group disappears. When members disagree — Hero
+    darkness holds one field shown for two modes and others shown always — the heading
+    stays, which is right: something in there is always visible.
+    """
+    conds = [(slots[n] or {}).get('show_if') for n in names]
+    if not conds or any(c != conds[0] or not c for c in conds):
+        return 0
+    return show_if(section_id, {'show_if': conds[0]})
+
+
 def field(section_id, slot, defn):
     name = 'brg_' + section_id.replace('-', '_') + '_' + slot
 
@@ -303,11 +322,12 @@ def grouped_fields(section_id, slots):
     def close():
         if open_group is None:
             return
+        endcond = group_condition(slots, members.get(open_group, []), section_id)
         out.append({
             'key': 'field_brg_' + section_id.replace('-', '_') + '_endacc_'
                    + re.sub(r'[^a-z0-9]+', '_', open_group.lower()).strip('_'),
             'label': '', 'name': '', 'type': 'accordion',
-            'instructions': '', 'required': 0, 'conditional_logic': 0,
+            'instructions': '', 'required': 0, 'conditional_logic': endcond,
             'wrapper': {'width': '', 'class': '', 'id': ''},
             'open': 0, 'multi_expand': 0, 'endpoint': 1,
         })
@@ -324,7 +344,8 @@ def grouped_fields(section_id, slots):
                     'key': 'field_brg_' + section_id.replace('-', '_') + '_acc_'
                            + re.sub(r'[^a-z0-9]+', '_', g.lower()).strip('_'),
                     'label': g, 'name': '', 'type': 'accordion',
-                    'instructions': '', 'required': 0, 'conditional_logic': 0,
+                    'instructions': '', 'required': 0,
+                    'conditional_logic': group_condition(slots, members[g], section_id),
                     'wrapper': {'width': '', 'class': 'brg-acc', 'id': ''},
                     # CLOSED BY DEFAULT: the point is to get these off the screen until
                     # wanted. multi_expand lets a second group open without shutting this

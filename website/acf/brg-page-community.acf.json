@@ -168,7 +168,15 @@
                 "type": "accordion",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_community_hero_bg_style",
+                            "operator": "==",
+                            "value": "photo"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "brg-acc",
@@ -330,7 +338,15 @@
                 "type": "accordion",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_community_hero_bg_style",
+                            "operator": "==",
+                            "value": "photo"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "",
@@ -347,7 +363,15 @@
                 "type": "accordion",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_community_hero_bg_style",
+                            "operator": "==",
+                            "value": "video"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "brg-acc",
@@ -420,7 +444,15 @@
                 "type": "accordion",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_community_hero_bg_style",
+                            "operator": "==",
+                            "value": "video"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "",
@@ -437,7 +469,15 @@
                 "type": "accordion",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_community_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "brg-acc",
@@ -934,7 +974,15 @@
                 "type": "accordion",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_community_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "",
@@ -951,7 +999,15 @@
                 "type": "accordion",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_community_hero_bg_style",
+                            "operator": "==",
+                            "value": "pattern"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "brg-acc",
@@ -1121,7 +1177,15 @@
                 "type": "accordion",
                 "instructions": "",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_community_hero_bg_style",
+                            "operator": "==",
+                            "value": "pattern"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "",
                     "class": "",
