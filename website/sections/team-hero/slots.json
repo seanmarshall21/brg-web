@@ -176,6 +176,23 @@
       ]
     }
   },
+  "splash_tint": {
+    "type": "number",
+    "label": "Side photos — veil",
+    "doc": "A flat dark wash over the bottom-left and bottom-right photos only, so they sit back from the full-screen one behind them. It has always been 66% and had no control — set it to 0 to show those two photos at full strength. The soft fade at their edges is not affected; that is what stops them reading as rectangles.",
+    "group": "Hero background — splash animation",
+    "width": 50,
+    "default": "66",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "append": "%",
+    "show_if": {
+      "bg_style": [
+        "splash"
+      ]
+    }
+  },
   "splash_car": {
     "type": "image",
     "label": "Splash — bottom left",

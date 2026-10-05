@@ -35,7 +35,7 @@
          has touched renders exactly as it does today. Each plate takes its own photo;
          left empty it keeps the splash original, and --sp-img is only ever READ by a
          rule gated on data-img being non-empty, so an empty one is never fetched. -->
-    <div class="splash-bg" aria-hidden="true">
+    <div class="splash-bg" style="--brgw-sp-tint:{{splash_tint}}" aria-hidden="true">
       <span class="sp sp--skater" data-brgw-frame data-px-bleed data-px="{{splash_skater_px}}" data-px-dir="{{splash_skater_px_dir}}" data-show="{{splash_skater_on}}" data-img="{{splash_skater}}" style="--sp-img:url('{{splash_skater}}')"></span>
       <span class="sp sp--car" data-brgw-frame data-px="{{splash_car_px}}" data-px-dir="{{splash_car_px_dir}}"    data-show="{{splash_car_on}}"    data-img="{{splash_car}}"    style="--sp-img:url('{{splash_car}}')"></span>
       <span class="sp sp--surfer" data-brgw-frame data-px="{{splash_surfer_px}}" data-px-dir="{{splash_surfer_px_dir}}" data-show="{{splash_surfer_on}}" data-img="{{splash_surfer}}" style="--sp-img:url('{{splash_surfer}}')"></span>

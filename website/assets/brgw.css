@@ -1090,8 +1090,17 @@
 
 .brgw .brgw-hero .splash-bg{
   --sp-edge:#131210;                      /* near-black at the edges (splash --brg-bg-2) */
-  --sp-mute:rgba(16,15,13,.66);           /* veil that drops car/surfer to the skater's level */
-  /* the soft-edged plate the car and surfer sit on, so neither reads as a rectangle */
+  /* THE FLAT VEIL OVER THE TWO SIDE PLATES, now a number. Sean, 5 Oct: "Why is there an
+     overlay on the internal photos also, and where do I control that?" There was no
+     control — it was a fixed 66% wash inherited from the splash page, where it exists to
+     drop the car and surfer to the faint skater's level. On a hero where the editor has
+     put his own photographs in those slots, holding them at a third of their strength
+     with nothing in the admin to say so is the same fault as the grain.
+     Default 66 reproduces exactly what shipped; 0 removes the veil entirely. */
+  --sp-mute:rgba(16,15,13,calc(var(--brgw-sp-tint,66) / 100));
+  /* The radial stays solid and is NOT scaled by that number: it is what stops the two
+     plates reading as hard-edged rectangles, which is a shape job rather than a darkness
+     one, and folding it into the same control would make "no veil" mean "visible seams". */
   --sp-over:radial-gradient(ellipse 86% 86% at 50% 50%, transparent 58%, var(--sp-edge) 100%),
             linear-gradient(var(--sp-mute), var(--sp-mute));
 }

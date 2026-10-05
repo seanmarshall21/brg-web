@@ -576,6 +576,35 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_team_hero_splash_tint",
+                "label": "Side photos — veil",
+                "name": "brg_team_hero_splash_tint",
+                "type": "number",
+                "instructions": "A flat dark wash over the bottom-left and bottom-right photos only, so they sit back from the full-screen one behind them. It has always been 66% and had no control — set it to 0 to show those two photos at full strength. The soft fade at their edges is not affected; that is what stops them reading as rectangles.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_team_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_tint",
+                    "id": ""
+                },
+                "default_value": "66",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
                 "key": "field_brg_team_hero_splash_car",
                 "label": "Splash — bottom left",
                 "name": "brg_team_hero_splash_car",
