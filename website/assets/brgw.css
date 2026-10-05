@@ -1125,7 +1125,18 @@
   .brgw .brgw-hero .sp--crown{top:3%;right:3%;width:11%;}
 }
 
-@keyframes brgw-sp-skater-in{0%{opacity:0;transform:scale(1.2);} 100%{opacity:.30;transform:scale(1.02);}}
+/* THE FULL-SCREEN PLATE ANSWERS TO THE HERO'S OWN STRENGTH CONTROL.
+   It was a hard-coded .30, copied from the splash page where it sits on a near-black
+   screen with nothing over it. A hero also lays a veil, a grit layer and a scrim on top,
+   so at .30 the picture was there and invisible — Sean, 5 Oct: "the splash section is not
+   showing up". Worse, switching to the splash silently retired "Background photo —
+   strength", the one control whose help text says it is usually the one you want, because
+   that drives the still photo the splash replaces.
+   --brgw-plate-o is registered with inherits:true and an initial value of 42, so on a hero
+   that has it the editor's number now governs both background types; anywhere it was never
+   registered the var falls back to the splash's own 30 and nothing moves. */
+@keyframes brgw-sp-skater-in{0%{opacity:0;transform:scale(1.2);}
+  100%{opacity:calc(var(--brgw-plate-o,30) / 100);transform:scale(1.02);}}
 @keyframes brgw-sp-car-in{0%{opacity:0;transform:translateX(-60%);} 100%{opacity:1;transform:translateX(0);}}
 @keyframes brgw-sp-surfer-in{0%{opacity:0;transform:translate(58%,46%);} 100%{opacity:1;transform:translate(0,0);}}
 @keyframes brgw-sp-crown-in{0%{opacity:0;transform:scale(.7);} 100%{opacity:.8;transform:scale(1);}}
@@ -1146,6 +1157,6 @@
    skater rests at the 1.02 it would have landed on rather than at 1.2. */
 @media(prefers-reduced-motion:reduce){
   .brgw .brgw-hero .sp{animation:none!important;}
-  .brgw .brgw-hero .sp--skater{transform:scale(1.02);opacity:.30;}
+  .brgw .brgw-hero .sp--skater{transform:scale(1.02);opacity:calc(var(--brgw-plate-o,30) / 100);}
   .brgw .brgw-hero .sp--crown{opacity:.8;}
 }
