@@ -477,11 +477,12 @@
    The photo doubles as the video's POSTER for free: it is this element's background, and
    the video paints on top of it, so it covers the load, a blocked embed, and the
    reduced-motion case where .vid is hidden outright. */
-/* An empty background container collapses — EXCEPT when the splash animation is
-   driving it, because the splash lives inside this container and the normal case for
-   it is exactly "no still photo and no video set". Without the guard, choosing the
-   splash hid the entire background. */
-.brgw-hero:not([data-bg-style="splash"]) .hero-bg[data-bg=""][data-vid-set=""]{display:none;}
+/* An empty background container collapses — but ONLY when a photo is what was asked for.
+   The splash and the video both live inside this container, and the normal case for each
+   is exactly "no still photo and no video id", so the old guard hid the whole background
+   the moment either was chosen. Scoped to the photo case, which is the only one where an
+   empty container means there is genuinely nothing to show. */
+.brgw-hero[data-bg-style="photo"] .hero-bg[data-bg=""][data-vid-set=""]{display:none;}
 /* VIDEO-ONLY IS A VISIBLE LAYER WITH AN EMPTY url(), so the empty case is stated rather
    than left to the engine. Chrome was measured making no request for url("") — checked,
    not assumed — but that is one browser, and the failure it would hide is the same one
@@ -1048,14 +1049,35 @@
    IT IS OFF BY DEFAULT. A hero with no choice made renders exactly as it does today;
    the layer only paints under [data-bg-style="splash"]. */
 .brgw .brgw-hero .splash-bg{position:absolute;inset:0;z-index:0;overflow:hidden;
-  pointer-events:none;display:none;background-color:var(--sp-edge);}
+  pointer-events:none;background-color:var(--sp-edge);}
+/* ── ONE HERO BACKGROUND AT A TIME ─────────────────────────────────────────────────
+   Sean, 5 Oct: "This is confusing… being able to choose from the background image, the
+   background, and the splash background, and which one is visible… I should be able to
+   say which background I want to use, and then it only takes feedback from that setting.
+   There are too many things being applied."
+
+   He was describing a real fault, not a preference. A photo, a video, a pattern and the
+   splash were four independent mechanisms that all rendered if set, stacking in whatever
+   order the markup happened to put them, with no field deciding between them — so the
+   only way to find out what you were looking at was to clear things until it changed.
+
+   EVERYTHING OFF, THEN ONE BACK ON. Written this way round on purpose: a background added
+   later is hidden by default and has to be named here to appear, instead of quietly
+   joining the pile. Only .brgw-hero is touched, so the other fifteen sections keep their
+   section background exactly as it is.
+
+   Home's hero wraps its photo in .plate-media; the other five put a <picture> straight
+   inside .hero-bg, so both shapes are named. */
+.brgw .brgw-hero[data-bg-style] .sec-bg,
+.brgw .brgw-hero[data-bg-style] .plate-media,
+.brgw .brgw-hero[data-bg-style] .hero-bg > picture,
+.brgw .brgw-hero[data-bg-style] .vid,
+.brgw .brgw-hero[data-bg-style] .splash-bg{display:none;}
+.brgw .brgw-hero[data-bg-style="photo"] .plate-media,
+.brgw .brgw-hero[data-bg-style="photo"] .hero-bg > picture{display:block;}
+.brgw .brgw-hero[data-bg-style="video"] .vid{display:block;}
 .brgw .brgw-hero[data-bg-style="splash"] .splash-bg{display:block;}
-/* When the splash is driving, the still photo underneath it has nothing to add. Home's
-   hero wraps its photo in .plate-media; the other five put a <picture> straight inside
-   .hero-bg, so both shapes are named here. The <video> holder is left alone — a hero with
-   a video set keeps it, and the splash is simply not chosen in that case. */
-.brgw .brgw-hero[data-bg-style="splash"] .plate-media,
-.brgw .brgw-hero[data-bg-style="splash"] .hero-bg > picture{display:none;}
+.brgw .brgw-hero[data-bg-style="pattern"] .sec-bg{display:block;}
 
 .brgw .brgw-hero .splash-bg{
   --sp-edge:#131210;                      /* near-black at the edges (splash --brg-bg-2) */

@@ -130,25 +130,8 @@
                 "default_value": "u3"
             },
             {
-                "key": "field_brg_careers_hero_bg_photo",
-                "label": "Background photo",
-                "name": "brg_careers_hero_bg_photo",
-                "type": "image",
-                "instructions": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-bg_photo",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_careers_hero_acc_background_photo_phones",
-                "label": "Background photo — phones",
+                "key": "field_brg_careers_hero_acc_hero_background",
+                "label": "Hero background",
                 "name": "",
                 "type": "accordion",
                 "instructions": "",
@@ -164,24 +147,35 @@
                 "endpoint": 0
             },
             {
-                "key": "field_brg_careers_hero_bg_photo_mobile",
-                "label": "Background photo — phones",
-                "name": "brg_careers_hero_bg_photo_mobile",
-                "type": "image",
-                "instructions": "Optional. A version of the hero photo for phones, used below 768px wide. Leave empty and the main photo above is used at every size. Worth setting when the main photo is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or tighter version reads far better.",
+                "key": "field_brg_careers_hero_bg_style",
+                "label": "Background",
+                "name": "brg_careers_hero_bg_style",
+                "type": "select",
+                "instructions": "WHAT FILLS THE HERO BEHIND THE WORDS — one choice, and only that one's settings appear below. Until now a photo, a video, a pattern and the splash could all be set at once with nothing deciding between them, which is why it was hard to tell what you were looking at.\n\nPhoto is the full-bleed picture. Video plays a Vimeo or YouTube clip. Splash animation is the entrance from the coming-soon page. Pattern is a flat graphic wash. None leaves just the color.\n\nNothing is deleted when you switch — a photo you set is still there if you come back to Photo.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
-                    "class": "brg-f-bg_photo_mobile",
+                    "width": "100",
+                    "class": "brg-f-bg_style",
                     "id": ""
                 },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
+                "default_value": "video",
+                "choices": {
+                    "photo": "Photo",
+                    "video": "Video",
+                    "splash": "Splash animation",
+                    "pattern": "Pattern",
+                    "none": "None — just the color"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
             },
             {
-                "key": "field_brg_careers_hero_endacc_background_photo_phones",
+                "key": "field_brg_careers_hero_endacc_hero_background",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -198,13 +192,88 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_careers_hero_acc_hero_background_photo",
+                "label": "Hero background — photo",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_hero_bg_photo",
+                "label": "Background photo",
+                "name": "brg_careers_hero_bg_photo",
+                "type": "image",
+                "instructions": "Optional. Leave this empty and the hero keeps the flat dark color it has today — nothing changes until you choose a photo. The photo fills the whole hero and is cropped to fit, so its exact size does not matter; around 1920px on the long edge is plenty and anything bigger only slows the page. Light photos make white headlines hard to read, which is what the two overlay settings below are for. If you also set a background video below, this photo is what shows while the video loads and for anyone who has animation switched off.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "photo"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-bg_photo",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_bg_photo_mobile",
+                "label": "Background photo — phones",
+                "name": "brg_careers_hero_bg_photo_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the hero photo for phones, used below 768px wide. Leave empty and the main photo above is used at every size. Worth setting when the main photo is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or tighter version reads far better.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "photo"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-bg_photo_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
                 "key": "field_brg_careers_hero_bg_photo_tone",
                 "label": "Background photo — color",
                 "name": "brg_careers_hero_bg_photo_tone",
                 "type": "select",
                 "instructions": "Color is the default. Switch this photo to black and white when you want it that way on purpose — the photography on this site was only ever gray because the placeholder images were. Affects this photo alone.",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "photo"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "50",
                     "class": "brg-f-bg_photo_tone",
@@ -229,7 +298,15 @@
                 "type": "number",
                 "instructions": "How far this photo drifts inside its frame as you scroll, as a percentage of the frame's height. 0 is off. The dropdown this replaces offered 6, 10 and 16 as Subtle, Medium and Strong, so anything already set still reads exactly the same — you can now pick the values in between. 40 is the ceiling: the page itself stops there, so a larger number would do nothing. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed.",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "photo"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "50",
                     "class": "brg-f-bg_photo_px",
@@ -250,7 +327,15 @@
                 "type": "select",
                 "instructions": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
                 "required": 0,
-                "conditional_logic": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "photo"
+                        }
+                    ]
+                ],
                 "wrapper": {
                     "width": "50",
                     "class": "brg-f-bg_photo_px_dir",
@@ -267,6 +352,831 @@
                 "ui": 0,
                 "ajax": 0,
                 "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_endacc_hero_background_photo",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_hero_acc_hero_background_video",
+                "label": "Hero background — video",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_hero_video_id",
+                "label": "Background video (optional)",
+                "name": "brg_careers_hero_video_id",
+                "type": "text",
+                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero color if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "video"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-video_id",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_careers_hero_video_source",
+                "label": "Video from",
+                "name": "brg_careers_hero_video_source",
+                "type": "select",
+                "instructions": "Which service the link is from. Only matters when a video is set.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "video"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-video_source",
+                    "id": ""
+                },
+                "default_value": "youtube",
+                "choices": {
+                    "youtube": "YouTube",
+                    "vimeo": "Vimeo"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_endacc_hero_background_video",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_hero_acc_hero_background_splash_animation",
+                "label": "Hero background — splash animation",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_hero_splash_skater",
+                "label": "Splash — full-screen photo",
+                "name": "brg_careers_hero_splash_skater",
+                "type": "image",
+                "instructions": "The one that covers the whole hero and fades in while scaling down. Leave empty for the skater from the splash page.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_skater",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_splash_skater_on",
+                "label": "Full-screen photo",
+                "name": "brg_careers_hero_splash_skater_on",
+                "type": "select",
+                "instructions": "Hiding this leaves the three smaller plates on the dark base.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_skater_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_splash_car",
+                "label": "Splash — bottom left",
+                "name": "brg_careers_hero_splash_car",
+                "type": "image",
+                "instructions": "Slides in from the left. Leave empty for the car from the splash page.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_car",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_splash_car_on",
+                "label": "Bottom left",
+                "name": "brg_careers_hero_splash_car_on",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_car_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_splash_surfer",
+                "label": "Splash — bottom right",
+                "name": "brg_careers_hero_splash_surfer",
+                "type": "image",
+                "instructions": "Slides in from the bottom right. Leave empty for the surfer from the splash page.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_surfer",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_splash_surfer_on",
+                "label": "Bottom right",
+                "name": "brg_careers_hero_splash_surfer_on",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_surfer_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_splash_crown",
+                "label": "Splash — top right",
+                "name": "brg_careers_hero_splash_crown",
+                "type": "image",
+                "instructions": "Fades in and sits small in the top corner. Leave empty for the spray crown from the splash page.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_crown",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_splash_crown_on",
+                "label": "Top right",
+                "name": "brg_careers_hero_splash_crown_on",
+                "type": "select",
+                "instructions": "This is the one plate that reads as a graphic rather than a photograph, so it has its own switch.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_crown_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_splash_skater_px",
+                "label": "Splash — Full-screen photo — movement",
+                "name": "brg_careers_hero_splash_skater_px",
+                "type": "number",
+                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_skater_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_hero_splash_skater_px_dir",
+                "label": "Splash — Full-screen photo — movement direction",
+                "name": "brg_careers_hero_splash_skater_px_dir",
+                "type": "select",
+                "instructions": "Which way this plate travels as the page scrolls.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_skater_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_splash_car_px",
+                "label": "Splash — Bottom left — movement",
+                "name": "brg_careers_hero_splash_car_px",
+                "type": "number",
+                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_car_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_hero_splash_car_px_dir",
+                "label": "Splash — Bottom left — movement direction",
+                "name": "brg_careers_hero_splash_car_px_dir",
+                "type": "select",
+                "instructions": "Which way this plate travels as the page scrolls.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_car_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_splash_surfer_px",
+                "label": "Splash — Bottom right — movement",
+                "name": "brg_careers_hero_splash_surfer_px",
+                "type": "number",
+                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_surfer_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_hero_splash_surfer_px_dir",
+                "label": "Splash — Bottom right — movement direction",
+                "name": "brg_careers_hero_splash_surfer_px_dir",
+                "type": "select",
+                "instructions": "Which way this plate travels as the page scrolls.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_surfer_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_splash_crown_px",
+                "label": "Splash — Top right — movement",
+                "name": "brg_careers_hero_splash_crown_px",
+                "type": "number",
+                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_crown_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_hero_splash_crown_px_dir",
+                "label": "Splash — Top right — movement direction",
+                "name": "brg_careers_hero_splash_crown_px_dir",
+                "type": "select",
+                "instructions": "Which way this plate travels as the page scrolls.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "splash"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-splash_crown_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_endacc_hero_background_splash_animation",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_hero_acc_hero_background_pattern",
+                "label": "Hero background — pattern",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg",
+                "label": "Section background",
+                "name": "brg_careers_hero_section_bg",
+                "type": "image",
+                "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below. ON A HERO THIS SITS BEHIND THE HERO PHOTO, so it only shows where that photo does not: with a background photo set, the photo covers the section edge to edge and this is hidden entirely. Use it on a hero with no photo, where it replaces the flat color.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "pattern"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg_mobile",
+                "label": "Section background — phones",
+                "name": "brg_careers_hero_section_bg_mobile",
+                "type": "image",
+                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "pattern"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-f-section_bg_mobile",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg_opacity",
+                "label": "Background strength",
+                "name": "brg_careers_hero_section_bg_opacity",
+                "type": "select",
+                "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "pattern"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_opacity",
+                    "id": ""
+                },
+                "default_value": "0.18",
+                "choices": {
+                    "0": "Off",
+                    "0.08": "8% — barely there",
+                    "0.12": "12%",
+                    "0.18": "18%",
+                    "0.25": "25%",
+                    "0.4": "40%",
+                    "0.5": "50%",
+                    "0.7": "70%",
+                    "0.85": "85%",
+                    "1": "100% — exactly as supplied"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg_px",
+                "label": "Background movement",
+                "name": "brg_careers_hero_section_bg_px",
+                "type": "number",
+                "instructions": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "pattern"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px",
+                    "id": ""
+                },
+                "default_value": "0",
+                "min": 0,
+                "max": 40,
+                "step": 1,
+                "placeholder": "",
+                "prepend": "",
+                "append": "%"
+            },
+            {
+                "key": "field_brg_careers_hero_section_bg_px_dir",
+                "label": "Background movement direction",
+                "name": "brg_careers_hero_section_bg_px_dir",
+                "type": "select",
+                "instructions": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_brg_careers_hero_bg_style",
+                            "operator": "==",
+                            "value": "pattern"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_px_dir",
+                    "id": ""
+                },
+                "default_value": "down",
+                "choices": {
+                    "down": "Down",
+                    "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_endacc_hero_background_pattern",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_hero_acc_hero_darkness",
+                "label": "Hero darkness",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
             },
             {
                 "key": "field_brg_careers_hero_overlay_color",
@@ -328,211 +1238,7 @@
                 "placeholder": ""
             },
             {
-                "key": "field_brg_careers_hero_video_id",
-                "label": "Background video (optional)",
-                "name": "brg_careers_hero_video_id",
-                "type": "text",
-                "instructions": "Paste a YouTube or Vimeo link, or just the ID. Leave blank to use the photo above, or the flat hero color if there is no photo. The video plays silently on a loop with no controls. The photo shows while the video loads, if the video is blocked, and for visitors who have switched off animation — so it is worth setting one as well.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-video_id",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
-                "key": "field_brg_careers_hero_video_source",
-                "label": "Video from",
-                "name": "brg_careers_hero_video_source",
-                "type": "select",
-                "instructions": "Which service the link is from. Only matters when a video is set.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-video_source",
-                    "id": ""
-                },
-                "default_value": "youtube",
-                "choices": {
-                    "youtube": "YouTube",
-                    "vimeo": "Vimeo"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_acc_section_background",
-                "label": "Section background",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_careers_hero_section_bg",
-                "label": "Section background",
-                "name": "brg_careers_hero_section_bg",
-                "type": "image",
-                "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below. ON A HERO THIS SITS BEHIND THE HERO PHOTO, so it only shows where that photo does not: with a background photo set, the photo covers the section edge to edge and this is hidden entirely. Use it on a hero with no photo, where it replaces the flat color.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-section_bg",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_careers_hero_section_bg_opacity",
-                "label": "Background strength",
-                "name": "brg_careers_hero_section_bg_opacity",
-                "type": "select",
-                "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-section_bg_opacity",
-                    "id": ""
-                },
-                "default_value": "0.18",
-                "choices": {
-                    "0": "Off",
-                    "0.08": "8% — barely there",
-                    "0.12": "12%",
-                    "0.18": "18%",
-                    "0.25": "25%",
-                    "0.4": "40%",
-                    "0.5": "50%",
-                    "0.7": "70%",
-                    "0.85": "85%",
-                    "1": "100% — exactly as supplied"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_section_bg_px",
-                "label": "Background movement",
-                "name": "brg_careers_hero_section_bg_px",
-                "type": "number",
-                "instructions": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-section_bg_px",
-                    "id": ""
-                },
-                "default_value": "0",
-                "min": 0,
-                "max": 40,
-                "step": 1,
-                "placeholder": "",
-                "prepend": "",
-                "append": "%"
-            },
-            {
-                "key": "field_brg_careers_hero_section_bg_px_dir",
-                "label": "Background movement direction",
-                "name": "brg_careers_hero_section_bg_px_dir",
-                "type": "select",
-                "instructions": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-section_bg_px_dir",
-                    "id": ""
-                },
-                "default_value": "down",
-                "choices": {
-                    "down": "Down",
-                    "up": "Up"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_endacc_section_background",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_careers_hero_acc_section_background_phones",
-                "label": "Section background — phones",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_careers_hero_section_bg_mobile",
-                "label": "Section background — phones",
-                "name": "brg_careers_hero_section_bg_mobile",
-                "type": "image",
-                "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-section_bg_mobile",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_careers_hero_endacc_section_background_phones",
+                "key": "field_brg_careers_hero_endacc_hero_darkness",
                 "label": "",
                 "name": "",
                 "type": "accordion",
@@ -849,417 +1555,6 @@
             },
             {
                 "key": "field_brg_careers_hero_endacc_mark_smile_yellow",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_careers_hero_acc_hero_background_splash_animation",
-                "label": "Hero background — splash animation",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_careers_hero_bg_style",
-                "label": "Background style",
-                "name": "brg_careers_hero_bg_style",
-                "type": "select",
-                "instructions": "What fills the hero behind the words. \"Photo or video\" is how every hero works today. \"Splash animation\" plays the entrance from the coming-soon page — the photos slide and fade in once, then drift slowly. The splash's graphics are not included.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-bg_style",
-                    "id": ""
-                },
-                "default_value": "photo",
-                "choices": {
-                    "photo": "Photo or video",
-                    "splash": "Splash animation"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_splash_skater",
-                "label": "Splash — full-screen photo",
-                "name": "brg_careers_hero_splash_skater",
-                "type": "image",
-                "instructions": "The one that covers the whole hero and fades in while scaling down. Leave empty for the skater from the splash page.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_skater",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_careers_hero_splash_skater_on",
-                "label": "Full-screen photo",
-                "name": "brg_careers_hero_splash_skater_on",
-                "type": "select",
-                "instructions": "Hiding this leaves the three smaller plates on the dark base.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_skater_on",
-                    "id": ""
-                },
-                "default_value": "1",
-                "choices": {
-                    "1": "Shown",
-                    "0": "Hidden"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_splash_car",
-                "label": "Splash — bottom left",
-                "name": "brg_careers_hero_splash_car",
-                "type": "image",
-                "instructions": "Slides in from the left. Leave empty for the car from the splash page.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_car",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_careers_hero_splash_car_on",
-                "label": "Bottom left",
-                "name": "brg_careers_hero_splash_car_on",
-                "type": "select",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_car_on",
-                    "id": ""
-                },
-                "default_value": "1",
-                "choices": {
-                    "1": "Shown",
-                    "0": "Hidden"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_splash_surfer",
-                "label": "Splash — bottom right",
-                "name": "brg_careers_hero_splash_surfer",
-                "type": "image",
-                "instructions": "Slides in from the bottom right. Leave empty for the surfer from the splash page.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_surfer",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_careers_hero_splash_surfer_on",
-                "label": "Bottom right",
-                "name": "brg_careers_hero_splash_surfer_on",
-                "type": "select",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_surfer_on",
-                    "id": ""
-                },
-                "default_value": "1",
-                "choices": {
-                    "1": "Shown",
-                    "0": "Hidden"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_splash_crown",
-                "label": "Splash — top right",
-                "name": "brg_careers_hero_splash_crown",
-                "type": "image",
-                "instructions": "Fades in and sits small in the top corner. Leave empty for the spray crown from the splash page.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_crown",
-                    "id": ""
-                },
-                "return_format": "url",
-                "preview_size": "medium",
-                "library": "all"
-            },
-            {
-                "key": "field_brg_careers_hero_splash_crown_on",
-                "label": "Top right",
-                "name": "brg_careers_hero_splash_crown_on",
-                "type": "select",
-                "instructions": "This is the one plate that reads as a graphic rather than a photograph, so it has its own switch.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_crown_on",
-                    "id": ""
-                },
-                "default_value": "1",
-                "choices": {
-                    "1": "Shown",
-                    "0": "Hidden"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_splash_skater_px",
-                "label": "Splash — Full-screen photo — movement",
-                "name": "brg_careers_hero_splash_skater_px",
-                "type": "number",
-                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_skater_px",
-                    "id": ""
-                },
-                "default_value": "0",
-                "min": 0,
-                "max": 40,
-                "step": 1,
-                "placeholder": "",
-                "prepend": "",
-                "append": "%"
-            },
-            {
-                "key": "field_brg_careers_hero_splash_skater_px_dir",
-                "label": "Splash — Full-screen photo — movement direction",
-                "name": "brg_careers_hero_splash_skater_px_dir",
-                "type": "select",
-                "instructions": "Which way this plate travels as the page scrolls.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_skater_px_dir",
-                    "id": ""
-                },
-                "default_value": "down",
-                "choices": {
-                    "down": "Down",
-                    "up": "Up"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_splash_car_px",
-                "label": "Splash — Bottom left — movement",
-                "name": "brg_careers_hero_splash_car_px",
-                "type": "number",
-                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_car_px",
-                    "id": ""
-                },
-                "default_value": "0",
-                "min": 0,
-                "max": 40,
-                "step": 1,
-                "placeholder": "",
-                "prepend": "",
-                "append": "%"
-            },
-            {
-                "key": "field_brg_careers_hero_splash_car_px_dir",
-                "label": "Splash — Bottom left — movement direction",
-                "name": "brg_careers_hero_splash_car_px_dir",
-                "type": "select",
-                "instructions": "Which way this plate travels as the page scrolls.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_car_px_dir",
-                    "id": ""
-                },
-                "default_value": "down",
-                "choices": {
-                    "down": "Down",
-                    "up": "Up"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_splash_surfer_px",
-                "label": "Splash — Bottom right — movement",
-                "name": "brg_careers_hero_splash_surfer_px",
-                "type": "number",
-                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_surfer_px",
-                    "id": ""
-                },
-                "default_value": "0",
-                "min": 0,
-                "max": 40,
-                "step": 1,
-                "placeholder": "",
-                "prepend": "",
-                "append": "%"
-            },
-            {
-                "key": "field_brg_careers_hero_splash_surfer_px_dir",
-                "label": "Splash — Bottom right — movement direction",
-                "name": "brg_careers_hero_splash_surfer_px_dir",
-                "type": "select",
-                "instructions": "Which way this plate travels as the page scrolls.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_surfer_px_dir",
-                    "id": ""
-                },
-                "default_value": "down",
-                "choices": {
-                    "down": "Down",
-                    "up": "Up"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_splash_crown_px",
-                "label": "Splash — Top right — movement",
-                "name": "brg_careers_hero_splash_crown_px",
-                "type": "number",
-                "instructions": "How far this plate drifts as you scroll, as a percentage of THAT PLATE's own height — so the same number moves the big background photo further than it moves the small corner mark, which is usually what you want. 0 is off. Set neighboring plates in opposite directions — that disagreement is what reads as depth. 40 is the ceiling.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_crown_px",
-                    "id": ""
-                },
-                "default_value": "0",
-                "min": 0,
-                "max": 40,
-                "step": 1,
-                "placeholder": "",
-                "prepend": "",
-                "append": "%"
-            },
-            {
-                "key": "field_brg_careers_hero_splash_crown_px_dir",
-                "label": "Splash — Top right — movement direction",
-                "name": "brg_careers_hero_splash_crown_px_dir",
-                "type": "select",
-                "instructions": "Which way this plate travels as the page scrolls.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "50",
-                    "class": "brg-f-splash_crown_px_dir",
-                    "id": ""
-                },
-                "default_value": "down",
-                "choices": {
-                    "down": "Down",
-                    "up": "Up"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_careers_hero_endacc_hero_background_splash_animation",
                 "label": "",
                 "name": "",
                 "type": "accordion",

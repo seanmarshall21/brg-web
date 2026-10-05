@@ -142,6 +142,38 @@ def assert_options_page_agrees():
                  f"Groups would attach to a page that does not exist and the Section Content "
                  f"screen would render empty, with no error.")
 
+def show_if(section_id, defn):
+    """ACF conditional logic from a slot's `show_if`.
+
+    A background chooser is only an improvement if the settings it does not govern GO
+    AWAY. Sean, 5 Oct: "I should be able to say… which background I want to use, and then
+    it only takes feedback from that setting. There are too many things being applied."
+    Without this the chooser is one more field on a page of thirty-six.
+
+    Declared as   "show_if": {"bg_style": ["photo", "video"]}   — this field appears when
+    bg_style holds any of those values. ACF's shape is a list of OR-groups each holding
+    AND-conditions; one key with several values is the OR case, several keys is the AND
+    case, which is why the two nest the way they do.
+
+    The referenced slot must live in the SAME section: the key is built the same way its
+    own field key is, so a typo produces a condition pointing at a field that does not
+    exist, and ACF quietly shows the field always. check() verifies the target exists.
+    """
+    cond = defn.get('show_if')
+    if not cond:
+        return 0
+    ands = []
+    for slot, values in cond.items():
+        target = 'field_brg_' + section_id.replace('-', '_') + '_' + slot
+        vals = values if isinstance(values, (list, tuple)) else [values]
+        ands.append((target, [str(v) for v in vals]))
+    # one slot with N values -> N OR-groups; several slots -> one group of ANDs
+    if len(ands) == 1:
+        target, vals = ands[0]
+        return [[{'field': target, 'operator': '==', 'value': v}] for v in vals]
+    return [[{'field': t, 'operator': '==', 'value': v[0]} for t, v in ands]]
+
+
 def field(section_id, slot, defn):
     name = 'brg_' + section_id.replace('-', '_') + '_' + slot
 
@@ -160,7 +192,7 @@ def field(section_id, slot, defn):
             'key': 'field_' + name, 'label': defn.get('label', slot.replace('_', ' ').title()),
             'name': name, 'type': 'repeater',
             'instructions': admin_html(defn.get('doc', '')), 'required': 0,
-            'conditional_logic': 0,
+            'conditional_logic': show_if(section_id, defn),
             'wrapper': {'width': '', 'class': 'brg-f-' + slot, 'id': ''},
             'layout': defn.get('layout', 'block'),
             'button_label': defn.get('button', 'Add row'),
@@ -194,7 +226,7 @@ def field(section_id, slot, defn):
     f = {
         'key': 'field_' + name, 'label': defn.get('label', slot.replace('_', ' ').title()),
         'name': name, 'type': t, 'instructions': admin_html(defn.get('doc', '')), 'required': 0,
-        'conditional_logic': 0,
+        'conditional_logic': show_if(section_id, defn),
         # A class named after the slot, so the admin stylesheet can lay a row out by
         # MEANING rather than by position. Sean asked for the headshot beside a 2x3 block
         # of the other six, which no combination of widths can express — fields flow in a
@@ -531,6 +563,21 @@ def check():
         html = open(frag, encoding='utf-8').read() if os.path.exists(frag) else ''
         declared_map, origin = slots_for(s)
         declared = set(declared_map.keys())
+
+        # A show_if pointing at a slot that does not exist is the worst kind of wrong: ACF
+        # finds no such field, the condition never matches as false, and the field simply
+        # shows ALWAYS — which looks exactly like the feature working. Checked by name here
+        # because the key is built from the name and nothing downstream can tell the
+        # difference.
+        for k, d in declared_map.items():
+            if not isinstance(d, dict):
+                continue
+            for target, _vals in (d.get('show_if') or {}).items():
+                if target not in declared_map:
+                    print(f"  ✗ {s['id']}: slot '{k}' is shown only when '{target}' has a value, "
+                          f"but there is no slot called '{target}' in this section — ACF would "
+                          f"show the field unconditionally and the condition would be invisible.")
+                    bad += 1
         # `-` is in the class so --check can SEE a hyphenated token at all. Slot names are
         # underscores by convention, so any hyphenated token is orphaned by construction and
         # gets reported below. Grammar is defined in kit/README.md; four sites must agree.
