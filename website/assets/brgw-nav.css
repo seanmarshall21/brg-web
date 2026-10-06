@@ -107,7 +107,13 @@
 .bnav-more .pl{color:var(--acc);font-size:1.1em;margin-left:2px;}
 
 /* Pen-stroke marker underline — injected per item; draws on hover AND active */
-.bnav-uline{position:absolute;left:-6%;right:-6%;bottom:2px;width:112%;height:8px;overflow:visible;pointer-events:none;}
+/* THE STROKE MATCHES THE WORD. It used to be left:-6%/right:-6%/width:112%, a fixed
+   12% overhang meant to read as a marker overshooting. Measured on the live bar it
+   put 47.3px of stroke under a 42.2px "Home" and 97.5 under an 87px "Community" —
+   a constant proportion, so it looked like a mistake at every width rather than a
+   flourish at any. The anchor is already shrink-wrapped to its text, so 100% of it
+   IS the text. */
+.bnav-uline{position:absolute;left:0;right:0;bottom:2px;width:100%;height:8px;overflow:visible;pointer-events:none;}
 /* stroke-width is a SCREEN px value now: vector-effect="non-scaling-stroke" on the
    path means the viewBox no longer scales it, so this is the drawn weight directly.
    The artwork's own weight is 5 units in a 7-unit-tall box; at the ~11px the mark
@@ -192,7 +198,17 @@
   .bnav-social-link::after{transition:none;}
 }
 
-.bnav-drawer .bnav-uline{position:relative;left:0;right:auto;width:min(280px,55%);height:.32em;bottom:.14em;display:block;}
+/* Was width:min(280px,55%) — a share of the ROW, which is full-bleed, so the stroke
+   had no relationship to the word above it: far too long under HOME, short of the
+   end under COMMUNITY. Shrink-wrapping the row to its text makes 100% mean the text,
+   and the row stays display:block so the mask-and-rise entrance is untouched. */
+.bnav-drawer .bnav-item{width:fit-content;max-width:100%;position:relative;}
+/* ABSOLUTE, or the two sizes chase each other. An inline SVG carries an intrinsic
+   width, so while the stroke was in normal flow it set a FLOOR on the shrink-wrapped
+   row — 109px under a 95px "Home" — and the stroke then measured 100% of that inflated
+   row. Hiding it dropped the row to exactly the text, which is how the loop showed
+   itself. Out of flow, the row is sized by its words alone and 100% means the word. */
+.bnav-drawer .bnav-uline{position:absolute;left:0;right:0;width:100%;height:.32em;bottom:.02em;display:block;}
 .bnav-drawer .bnav-uline path{stroke:var(--yellow);stroke-width:9;}
 .bnav-drawer .is-active .bnav-uline path{visibility:visible;stroke-dashoffset:0;}
 .bnav-drawer-close{all:unset;cursor:pointer;position:absolute;top:26px;right:26px;font-size:12px;letter-spacing:.14em;
