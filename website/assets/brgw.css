@@ -253,6 +253,53 @@
   .brgw .btn[data-btn-fx="underline"]::after{transition:none;}
 }
 
+/* ── HOVER COLOR ───────────────────────────────────────────────────────────────────
+   Until now only the four NAMED roles could change on hover, because their hover colour
+   lived in a role variable. Pick teal, pink, white or ink — six of the ten choices — and
+   there was no hover colour anywhere, so every effect that works by changing colour had
+   nothing to change to. "fill" was the worst of them: it set background to the very
+   variable the button already used, so it was a guaranteed no-op. Brands was set to
+   teal + fill, which is exactly that combination, and hovering did nothing at all.
+
+   A button now names its hover colour the same way it names its colour, from the same
+   list, and these rules only redefine the two VARIABLES. Every effect above already
+   reads those variables, so each one picks the new colour up without being touched —
+   which is why there is no per-effect wiring here.
+
+   AFTER the effects on purpose: same specificity, so source order decides. The text-only
+   style was written before the colour rules once and lost every tie. */
+.brgw .btn[data-btn-hover="light"]:hover{--brgw-btn-bg:var(--brgw-role-light-hbg,var(--brgw-role-light-bg,var(--white)));--brgw-btn-fg:var(--brgw-role-light-hfg,var(--brgw-role-light-fg,var(--ink)));}
+.brgw .btn[data-btn-hover="dark"]:hover{--brgw-btn-bg:var(--brgw-role-dark-hbg,var(--brgw-role-dark-bg,var(--ink)));--brgw-btn-fg:var(--brgw-role-dark-hfg,var(--brgw-role-dark-fg,var(--white)));}
+.brgw .btn[data-btn-hover="accent"]:hover{--brgw-btn-bg:var(--brgw-role-accent-hbg,var(--brgw-role-accent-bg,var(--yellow)));--brgw-btn-fg:var(--brgw-role-accent-hfg,var(--brgw-role-accent-fg,var(--ink)));}
+.brgw .btn[data-btn-hover="alt"]:hover{--brgw-btn-bg:var(--brgw-role-alt-hbg,var(--brgw-role-alt-bg,var(--teal)));--brgw-btn-fg:var(--brgw-role-alt-hfg,var(--brgw-role-alt-fg,var(--ink)));}
+.brgw .btn[data-btn-hover="yellow"]:hover{--brgw-btn-bg:var(--yellow);--brgw-btn-fg:var(--ink);}
+.brgw .btn[data-btn-hover="teal"]:hover{--brgw-btn-bg:var(--teal);--brgw-btn-fg:var(--ink);}
+.brgw .btn[data-btn-hover="pink"]:hover{--brgw-btn-bg:var(--pink);--brgw-btn-fg:var(--white);}
+.brgw .btn[data-btn-hover="orange"]:hover{--brgw-btn-bg:var(--orange);--brgw-btn-fg:var(--ink);}
+.brgw .btn[data-btn-hover="white"]:hover{--brgw-btn-bg:var(--white);--brgw-btn-fg:var(--ink);}
+.brgw .btn[data-btn-hover="ink"]:hover{--brgw-btn-bg:var(--ink);--brgw-btn-fg:var(--white);}
+
+/* The row and the shell pass a hover colour down the same way they pass a colour. */
+.brgw .brgw-cta[data-btn-hover]:not([data-btn-hover=""]):not([data-btn-hover="keep"]) .btn:not([data-btn-hover]):hover{
+  --brgw-btn-bg:var(--brgw-row-hbg,var(--brgw-btn-bg));--brgw-btn-fg:var(--brgw-row-hfg,var(--brgw-btn-fg));}
+
+/* ── "fill" CANNOT BE A NO-OP ──────────────────────────────────────────────────────
+   With no hover colour named there is nothing to fill WITH, so it swaps to the button's
+   own opposite ink instead. An effect that is switched on always shows something. */
+.brgw .btn[data-btn-fx="fill"]:not([data-btn-hover]):hover,
+.brgw .btn[data-btn-fx="fill"][data-btn-hover=""]:hover,
+.brgw .btn[data-btn-fx="fill"][data-btn-hover="keep"]:hover{
+  background:var(--brgw-btn-fg);color:var(--brgw-btn-bg);}
+
+/* OUTLINE + fill: the ring floods. The outline rule sets background:transparent with
+   !important so the fill never showed — the one place where matching it is the only way
+   through. Sean: "Outline: there's a fill, and there's a lift... It fills the inside with
+   the colour that you select, and the outline also." */
+.brgw .btn[data-btn-style="outline"][data-btn-fx="fill"]:hover{
+  background:var(--brgw-btn-bg) !important;color:var(--brgw-btn-fg);}
+.brgw .btn[data-btn-style="outline"][data-btn-fx="fill"][data-btn-hover]:not([data-btn-hover=""]):not([data-btn-hover="keep"]):hover{
+  background:var(--brgw-btn-bg) !important;}
+
 /* Shared HEADER (nav) — the plugin injects this around every page, links built
    from pages.json. Sticky, thin yellow top rule, active item underlined teal. */
 /* Scale reference — the 1920 comp: yellow bar 24px, logo 267×67, nav caps ~10px,

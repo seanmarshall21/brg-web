@@ -846,7 +846,7 @@
        level, which is deliberate belt and braces: that half keeps working with no JS at
        all, and this pass only ever writes the same value the cascade would have produced,
        plus the site-wide level that CSS alone cannot reach. */
-    var ATTRS = ['data-btn-fx', 'data-btn-size', 'data-btn-style', 'data-btn-color'];
+    var ATTRS = ['data-btn-fx', 'data-btn-size', 'data-btn-style', 'data-btn-color', 'data-btn-hover'];
     [].forEach.call(root.querySelectorAll('.btn'), function (b) {
       for (var i = 0; i < ATTRS.length; i++) {
         var a = ATTRS[i];
