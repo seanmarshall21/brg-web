@@ -2542,7 +2542,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "25",
                     "class": "brg-f-columns",
                     "id": ""
                 },
@@ -2558,6 +2558,111 @@
                 "ui": 0,
                 "ajax": 0,
                 "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_members_columns_sm",
+                "label": "Columns on a phone",
+                "name": "brg_team_members_columns_sm",
+                "type": "select",
+                "instructions": "How many cards sit side by side on a phone — under 640px wide. Two makes each card half the width, so the photo gets smaller and the name plate has less room; it suits a big crew, where one-at-a-time means a lot of scrolling. The gap tightens automatically at two so the cards do not touch.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-columns_sm",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "1 — one at a time",
+                    "2": "2 across"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_members_card_max",
+                "label": "Widest a card gets — wide screens",
+                "name": "brg_team_members_card_max",
+                "type": "select",
+                "instructions": "A ceiling on how wide one card can grow. \"No limit\" lets each card fill its column, which is how it behaves today. Setting a width holds the cards to that size and centres them in their columns instead, which stops a short row from stretching into very wide cards.\n\nThese are fixed steps rather than a box to type in on purpose: an empty box would send an invalid width to the page and the rule would be dropped silently.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-card_max",
+                    "id": ""
+                },
+                "default_value": "none",
+                "choices": {
+                    "none": "No limit — fill the column",
+                    "240px": "240px",
+                    "280px": "280px",
+                    "320px": "320px",
+                    "360px": "360px",
+                    "400px": "400px",
+                    "440px": "440px",
+                    "480px": "480px",
+                    "520px": "520px"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_members_card_max_sm",
+                "label": "Widest a card gets — phones",
+                "name": "brg_team_members_card_max_sm",
+                "type": "select",
+                "instructions": "The same ceiling for phones, under 640px. Useful with one column, where a card otherwise runs the full width of the screen and the photo becomes very tall.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-card_max_sm",
+                    "id": ""
+                },
+                "default_value": "none",
+                "choices": {
+                    "none": "No limit — fill the column",
+                    "200px": "200px",
+                    "240px": "240px",
+                    "260px": "260px",
+                    "280px": "280px",
+                    "300px": "300px",
+                    "340px": "340px",
+                    "380px": "380px"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_team_members_endacc_",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
             },
             {
                 "key": "field_brg_team_members_quote_mark",

@@ -32,6 +32,22 @@
 @media(min-width:1240px){
   .brgw-sec--team-members .grid[data-cols="4"]{grid-template-columns:repeat(4,1fr);}
 }
+/* PHONES. One card at a time is the design; two is for a big crew, where one-at-a-time
+   is a lot of scrolling. The gap has to come in at two or the cards touch — the wide-screen
+   gap is a third of the screen once the cards are half of it. */
+@media(max-width:639px){
+  .brgw-sec--team-members .grid[data-cols-sm="2"]{grid-template-columns:1fr 1fr;gap:clamp(16px,4.5vw,28px);}
+}
+/* A CEILING ON THE CARD, not on the grid. Capping the grid would pull the whole block in
+   and leave the section looking narrow; capping the figure holds each card to a size and
+   centres it in the column it already has, so the rhythm of the grid survives.
+   `none` is a real value here, which is why these are fixed steps and not a typed number:
+   an empty box would emit an invalid width and the browser would drop the rule without
+   saying so. */
+.brgw-sec--team-members figure{max-width:var(--card-max,none);margin-inline:auto;}
+@media(max-width:639px){
+  .brgw-sec--team-members figure{max-width:var(--card-max-sm,var(--card-max,none));}
+}
 
 .brgw-sec--team-members figure{margin:0;}
 
@@ -360,7 +376,7 @@
   <span class="dood d4" aria-hidden="true" data-mark-pos="{{mark_5_bolt_fill_pos}}" data-mark-show="{{mark_5_bolt_fill_show}}" data-mark-anim="{{mark_5_bolt_fill_anim}}" data-mark-o style="--brgw-mark-o:{{mark_5_bolt_fill_opacity}}"><img class="brgw-pop" src="{{mark_5_bolt_fill_art}}" alt="" width="129" height="207" loading="lazy" decoding="async"></span>
   <span class="dood d5" aria-hidden="true" data-mark-pos="{{mark_6_brg_pos}}" data-mark-show="{{mark_6_brg_show}}" data-mark-anim="{{mark_6_brg_anim}}" data-mark-o style="--brgw-mark-o:{{mark_6_brg_opacity}}"><img class="brgw-pop" src="{{mark_6_brg_art}}" alt="" width="265" height="192" loading="lazy" decoding="async"></span>
 
-  <div class="grid" data-brgw-each data-cols="{{columns}}" data-quote="{{quote_mark}}" style="--ar:{{card_shape}}">
+  <div class="grid" data-brgw-each data-cols="{{columns}}" data-cols-sm="{{columns_sm}}" data-quote="{{quote_mark}}" style="--ar:{{card_shape}};--card-max:{{card_max}};--card-max-sm:{{card_max_sm}}">
     <!--brg:repeat members-->
       <figure data-color="{{members.bg_color}}"><div class="card" data-brgw-frame data-photo="{{members.photo}}" data-fit="{{photo_fit}}" data-crop="{{members.crop}}" data-overflow="{{members.overflow}}" data-hovercrop="{{members.hovercrop}}" data-tone="{{members.photo_tone}}" data-px="{{members.photo_px}}" data-px-dir="{{members.photo_px_dir}}"><img src="{{members.photo}}" alt="" loading="lazy" decoding="async" width="800" height="1000"></div><span class="bar"><span class="nm blanco">{{members.name}}</span><span class="ti">{{members.title}}</span></span><figcaption>{{members.quote}}</figcaption></figure>
     <!--brg:empty-->

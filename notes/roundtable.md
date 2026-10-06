@@ -618,3 +618,26 @@ section's slots.json shows width churn.
 Verified end to end by hovering, not by reading: site-wide accent -> rgb(252,226,0);
 section ink beats it -> rgb(35,31,32); the button's own white beats both -> rgb(255,255,255).
 Both checks pass (kit/build.py --check, build-acf.py --check).
+
+## 2026-10-06 — Conti in team-members (finn's), announced
+
+Sean wants to try two columns on a phone, and a ceiling on card width. Added to
+website/sections/team-members/:
+
+  columns      relabelled "Columns on a wide screen" (unchanged behaviour)
+  columns_sm   1 or 2, default 1 — a no-op until changed. At 2 the gap tightens, or the
+               cards touch: the wide gap is a third of the screen once cards are half of it.
+  card_max     ceiling per card on wide screens, default "No limit"
+  card_max_sm  the same for phones
+
+The ceiling sits on the FIGURE, not the grid. Capping the grid pulls the whole block in and
+the section reads narrow; capping the figure holds each card and centres it in the column it
+already has, so the grid rhythm survives.
+
+Fixed steps, not a typed number, on purpose: a blank number box emits `--card-max:px`, which
+is invalid, and the browser drops the rule with no error. A select can only ever emit a real
+value. Same trap as the empty-hero guard.
+
+Measured at 390px: 1 col -> one 342px column, no ceiling; 2 col -> two 162px columns with
+the figure ceiling at 260px (not binding at that width, which is correct — it only engages
+once the column is wider than the ceiling).
