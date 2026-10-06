@@ -29,7 +29,7 @@
      cover, so the container sizes it and an uploaded photo of any dimensions cannot shift the
      layout. The button is hidden by :empty when no label is typed, so a row without one does
      not leave an empty yellow box. -->
-<section data-sides="{{slide_sides}}" class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
+<section data-sides="{{slide_sides}}" data-mfirst="{{slide_mobile_first}}" class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--community-give .intro{padding:clamp(76px,8.4vw,120px) var(--pad) clamp(58px,6vw,86px);
@@ -70,6 +70,14 @@
 
 .brgw-sec--community-give .brgw-slide{display:grid;grid-template-columns:1fr;min-height:clamp(360px,44vw,620px);}
 @media(min-width:820px){ .brgw-sec--community-give .brgw-slide{grid-template-columns:1fr 1fr;} }
+/* WHICH HALF IS ON TOP ON A PHONE. The left/right alternation below only exists at 820px
+   and up; stacked, the order is whatever the markup says, which is always the words. Sean
+   wants the photo first as an option: the eye lands on the picture and every slide stacks
+   the same way, instead of inheriting an alternation that is invisible once stacked. */
+@media(max-width:819px){
+  .brgw-sec--community-give[data-mfirst="image"] .brgw-slide .shot{order:1;}
+  .brgw-sec--community-give[data-mfirst="image"] .brgw-slide .panel{order:2;}
+}
 .brgw-sec--community-give .panel{display:flex;flex-direction:column;justify-content:center;
   padding:clamp(46px,5.4vw,86px) clamp(28px,4vw,74px);text-align:center;}
 .brgw-sec--community-give .shot{position:relative;background:#5b5b5b;min-height:240px;}
@@ -129,7 +137,7 @@
 
   <!-- The slider is DARK inside a light section. data-nav nests: brgw-nav.js takes the
        nearest labeled ancestor, so the header reads this rather than the section. -->
-  <div class="brgw-slider" data-split="{{slide_split}}" data-nav="dark" data-autoplay="6500">
+  <div class="brgw-slider" data-eq=".panel" data-split="{{slide_split}}" data-nav="dark" data-autoplay="6500">
     <div class="brgw-slider__track">
 <!--brg:repeat slides-->
       <div class="brgw-slide">

@@ -2915,6 +2915,48 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_community_give_slide_mobile_first",
+                "label": "On a phone, what comes first",
+                "name": "brg_community_give_slide_mobile_first",
+                "type": "select",
+                "instructions": "On a phone the two halves stack instead of sitting side by side, and this says which one is on top. \"The words\" is how it reads today. \"The photo\" puts the picture at the top of every slide, so the eye lands on the image first and the stack is the same every time rather than following the left-right alternation used on wide screens.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-slide_mobile_first",
+                    "id": ""
+                },
+                "default_value": "text",
+                "choices": {
+                    "text": "The words",
+                    "image": "The photo"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_community_give_endacc_",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_community_give_slide_split",
                 "label": "How a slide moves",
                 "name": "brg_community_give_slide_split",

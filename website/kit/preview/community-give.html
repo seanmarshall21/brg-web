@@ -34,7 +34,7 @@
      cover, so the container sizes it and an uploaded photo of any dimensions cannot shift the
      layout. The button is hidden by :empty when no label is typed, so a row without one does
      not leave an empty yellow box. -->
-<section data-sides="{{slide_sides}}" class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
+<section data-sides="{{slide_sides}}" data-mfirst="{{slide_mobile_first}}" class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--community-give .intro{padding:clamp(76px,8.4vw,120px) var(--pad) clamp(58px,6vw,86px);
@@ -75,6 +75,14 @@
 
 .brgw-sec--community-give .brgw-slide{display:grid;grid-template-columns:1fr;min-height:clamp(360px,44vw,620px);}
 @media(min-width:820px){ .brgw-sec--community-give .brgw-slide{grid-template-columns:1fr 1fr;} }
+/* WHICH HALF IS ON TOP ON A PHONE. The left/right alternation below only exists at 820px
+   and up; stacked, the order is whatever the markup says, which is always the words. Sean
+   wants the photo first as an option: the eye lands on the picture and every slide stacks
+   the same way, instead of inheriting an alternation that is invisible once stacked. */
+@media(max-width:819px){
+  .brgw-sec--community-give[data-mfirst="image"] .brgw-slide .shot{order:1;}
+  .brgw-sec--community-give[data-mfirst="image"] .brgw-slide .panel{order:2;}
+}
 .brgw-sec--community-give .panel{display:flex;flex-direction:column;justify-content:center;
   padding:clamp(46px,5.4vw,86px) clamp(28px,4vw,74px);text-align:center;}
 .brgw-sec--community-give .shot{position:relative;background:#5b5b5b;min-height:240px;}
@@ -134,7 +142,7 @@
 
   <!-- The slider is DARK inside a light section. data-nav nests: brgw-nav.js takes the
        nearest labeled ancestor, so the header reads this rather than the section. -->
-  <div class="brgw-slider" data-split="{{slide_split}}" data-nav="dark" data-autoplay="6500">
+  <div class="brgw-slider" data-eq=".panel" data-split="{{slide_split}}" data-nav="dark" data-autoplay="6500">
     <div class="brgw-slider__track">
 <!--brg:repeat slides-->
       <div class="brgw-slide">
@@ -203,7 +211,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "slide_sides": "alternate", "slide_split": "", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "slide_sides": "alternate", "slide_mobile_first": "text", "slide_split": "", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

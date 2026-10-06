@@ -641,3 +641,23 @@ value. Same trap as the empty-hero guard.
 Measured at 390px: 1 col -> one 342px column, no ceiling; 2 col -> two 162px columns with
 the figure ceiling at 260px (not binding at that width, which is correct — it only engages
 once the column is wider than the ceiling).
+
+## 2026-10-06 — Conti in community-give + brgw.js (finn's), announced
+
+Measured on the live phone layout first, because the screenshots read as "the tiles are
+different sizes" and that turned out to be wrong. Every SLIDE was already 725px — the flex
+track equalises them. What differed was the split inside: panel 428/403/485 with the photo
+absorbing the remainder, 297/321/240. So the photo's top edge jumped on every move.
+
+No CSS can fix that — the panels sit in separate flex items and cannot size to each other's
+content. Added `data-eq="<selector>"` to the shared slider engine: it resets, measures the
+tallest match across the slides and pins them all to it, re-running on resize and after
+document.fonts.ready, since both change how many lines the words take. The reset matters —
+without it each pass measures the floor the last one set and the panels only ever grow.
+
+Also `slide_mobile_first` (The words / The photo, default The words so it is a no-op). The
+left-right alternation only exists at 820px and up; stacked, the order was always whatever
+the markup said.
+
+Harness at 390px with three deliberately uneven texts: panels 509/509/509, photos 240/240/240,
+slides 749/749/749, and the photo carries order:1 with the image option on.

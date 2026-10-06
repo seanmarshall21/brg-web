@@ -313,6 +313,18 @@
       "right": "Words always on the right"
     }
   },
+  "slide_mobile_first": {
+    "type": "select",
+    "label": "On a phone, what comes first",
+    "width": 25,
+    "default": "text",
+    "doc": "On a phone the two halves stack instead of sitting side by side, and this says which one is on top. \"The words\" is how it reads today. \"The photo\" puts the picture at the top of every slide, so the eye lands on the image first and the stack is the same every time rather than following the left-right alternation used on wide screens.",
+    "choices": {
+      "text": "The words",
+      "image": "The photo"
+    },
+    "group": ""
+  },
   "slide_split": {
     "type": "select",
     "label": "How a slide moves",

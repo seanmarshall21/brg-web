@@ -555,6 +555,37 @@
           dotsWrap.appendChild(b); dots.push(b);
         })(d);
       }
+      /* EQUAL TILES. The flex track already makes every SLIDE the same height — measured
+         725px on all three — but the split inside is content-driven, so the words took 403px
+         on one slide and 485px on another and the photo absorbed the difference. The photo's
+         top edge therefore jumped on every move, which is what reads as "the tiles are
+         different sizes". No CSS fixes this: the panels are in separate flex items and cannot
+         size to each other's content.
+
+         So measure once and pin the tallest. Reset before measuring, or each pass would
+         measure the floor the last one set and the panels would only ever grow. Re-run on
+         resize and after the fonts land, because both change how many lines the words take. */
+      var eqSel = sl.getAttribute('data-eq');
+      function equalize() {
+        if (!eqSel) return;
+        var parts = [];
+        for (var q = 0; q < slides.length; q++) {
+          var el = slides[q].querySelector(eqSel);
+          if (!el) return;                       // one missing and the set is not comparable
+          parts.push(el);
+        }
+        parts.forEach(function (el) { el.style.removeProperty('min-height'); });
+        var tallest = 0;
+        parts.forEach(function (el) { tallest = Math.max(tallest, el.getBoundingClientRect().height); });
+        if (tallest > 0) parts.forEach(function (el) { el.style.minHeight = tallest + 'px'; });
+      }
+      equalize();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(equalize).catch(function () {});
+      var eqTimer = null;
+      window.addEventListener('resize', function () {
+        clearTimeout(eqTimer); eqTimer = setTimeout(equalize, 180);
+      });
+
       var x0 = null;
       sl.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
       sl.addEventListener('touchend', function (e) {
