@@ -67,6 +67,15 @@ add_action( 'acf/init', function () {
     if ( function_exists( 'acf_add_options_page' ) ) {
         $brg_menu_title = brg_menu_opt( 'brg_brand_admin_menu_title', 'Section Content' );
         $brg_menu_icon  = brg_menu_opt( 'brg_brand_admin_menu_icon', 'dashicons-layout' );
+        /* AN UPLOADED ICON WINS. ACF stores an image field as the attachment ID, and this
+         * runs before ACF can turn that into a URL — wp_get_attachment_url does it without
+         * ACF, and is available by the time acf/init fires. A non-numeric or deleted
+         * attachment falls through to the Dashicons name rather than showing a broken icon. */
+        $brg_icon_id = brg_menu_opt( 'brg_brand_admin_menu_icon_image', '' );
+        if ( $brg_icon_id !== '' && ctype_digit( (string) $brg_icon_id ) ) {
+            $brg_icon_url = wp_get_attachment_url( (int) $brg_icon_id );
+            if ( $brg_icon_url ) $brg_menu_icon = $brg_icon_url;
+        }
         $brg_menu_pos   = (int) brg_menu_opt( 'brg_brand_admin_menu_position', 2 );
         if ( $brg_menu_pos < 1 || $brg_menu_pos > 100 ) $brg_menu_pos = 2;
         acf_add_options_page( array(
@@ -156,22 +165,25 @@ add_action( 'acf/init', function () {
          * menu array afterwards. A slug the editor did not mention keeps its generated place
          * AFTER the ones they did, so naming two pages pulls exactly those two to the top
          * instead of silently reordering the rest. */
-        $brg_order = brg_menu_opt( 'brg_brand_admin_menu_order', '' );
-        if ( $brg_order !== '' ) {
-            $want = array();
-            foreach ( preg_split( '/[\r\n,]+/', $brg_order ) as $i => $line ) {
-                $line = trim( $line );
-                if ( $line !== '' ) $want[ $line ] = $i;
-            }
-            if ( $want ) {
-                usort( $groups, function ( $a, $b ) use ( $want ) {
-                    $sa = $a['location'][0][0]['value'] ?? '';
-                    $sb = $b['location'][0][0]['value'] ?? '';
-                    $ra = array_key_exists( $sa, $want ) ? $want[ $sa ] : PHP_INT_MAX;
-                    $rb = array_key_exists( $sb, $want ) ? $want[ $sb ] : PHP_INT_MAX;
-                    return $ra === $rb ? 0 : ( $ra < $rb ? -1 : 1 );
-                } );
-            }
+        /* READ THE REPEATER STRAIGHT FROM THE OPTIONS TABLE. ACF stores a repeater as a row
+         * COUNT under the field's own name plus one option per row —
+         * options_brg_brand_admin_menu_pages_0_page — and get_field cannot help here because
+         * the field groups have not been registered yet when this runs. Reading the rows
+         * directly is the same trick the menu title uses, one level deeper. */
+        $want = array();
+        $brg_rows = (int) brg_menu_opt( 'brg_brand_admin_menu_pages', 0 );
+        for ( $i = 0; $i < $brg_rows; $i++ ) {
+            $slug = brg_menu_opt( 'brg_brand_admin_menu_pages_' . $i . '_page', '' );
+            if ( $slug !== '' && ! isset( $want[ $slug ] ) ) $want[ $slug ] = count( $want );
+        }
+        if ( $want ) {
+            usort( $groups, function ( $a, $b ) use ( $want ) {
+                $sa = $a['location'][0][0]['value'] ?? '';
+                $sb = $b['location'][0][0]['value'] ?? '';
+                $ra = array_key_exists( $sa, $want ) ? $want[ $sa ] : PHP_INT_MAX;
+                $rb = array_key_exists( $sb, $want ) ? $want[ $sb ] : PHP_INT_MAX;
+                return $ra === $rb ? 0 : ( $ra < $rb ? -1 : 1 );
+            } );
         }
         $seen = array();
         foreach ( $groups as $g ) {

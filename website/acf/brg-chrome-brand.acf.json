@@ -241,10 +241,10 @@
             },
             {
                 "key": "field_brg_brand_admin_menu_icon",
-                "label": "Menu icon",
+                "label": "Menu icon — built-in",
                 "name": "brg_brand_admin_menu_icon",
                 "type": "text",
-                "instructions": "The little icon beside the menu name. Type a Dashicons name — the set WordPress ships with — for example dashicons-layout, dashicons-admin-appearance, dashicons-screenoptions or dashicons-art. The full list is at developer.wordpress.org/resource/dashicons. An unknown name shows a blank square, which is the only way to get this wrong.",
+                "instructions": "A Dashicons name — the icon set WordPress ships with — for example dashicons-layout, dashicons-art or dashicons-screenoptions. The full list is at developer.wordpress.org/resource/dashicons. Ignored entirely if you upload your own below.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -276,19 +276,74 @@
                 "append": ""
             },
             {
-                "key": "field_brg_brand_admin_menu_order",
-                "label": "Order of the pages inside it",
-                "name": "brg_brand_admin_menu_order",
-                "type": "textarea",
-                "instructions": "ONE PAGE PER LINE, in the order you want them in the sidebar. Use the short name from the web address — home, brands, team, community, careers, contact, brand-info, site-wide. Anything you leave out keeps its current place after the ones you list, so you can put just two lines here to pull those two to the top. Leave it empty for the order they are generated in.",
+                "key": "field_brg_brand_admin_menu_icon_image",
+                "label": "Menu icon — your own",
+                "name": "brg_brand_admin_menu_icon_image",
+                "type": "image",
+                "instructions": "Upload or pick an icon from the Media Library instead. It wins over the built-in name beside it. A small square works best — WordPress draws it at 20 by 20 pixels — and a white or very light PNG or SVG reads properly against the dark sidebar. Leave it empty to use the built-in icon.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "100",
-                    "class": "brg-f-admin_menu_order",
+                    "width": "50",
+                    "class": "brg-f-admin_menu_icon_image",
                     "id": ""
                 },
-                "default_value": ""
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_brand_admin_menu_pages",
+                "label": "Order of the pages inside it",
+                "name": "brg_brand_admin_menu_pages",
+                "type": "repeater",
+                "instructions": "DRAG THE ROWS to set the order they appear in the sidebar. Add a row per page you want to place; anything you leave out keeps its usual position after the ones you list, so you can add just two rows to pull those two to the top. Leave the list empty for the order they are generated in.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": 100,
+                    "class": "brg-f-admin_menu_pages",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a page",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_brand_admin_menu_pages_page",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_brand_admin_menu_pages_page",
+                        "label": "Page",
+                        "name": "page",
+                        "type": "select",
+                        "instructions": "Which page this row is.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "brg-f-page",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "— choose a page —",
+                            "brg-section-content-home": "Home",
+                            "brg-section-content-our-restaurants": "Brands",
+                            "brg-section-content-team": "Team",
+                            "brg-section-content-community": "Community",
+                            "brg-section-content-careers": "Careers",
+                            "brg-section-content-contact": "Contact",
+                            "brg-section-content-brand": "Brand info",
+                            "brg-section-content-site-wide": "Site-wide"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
             },
             {
                 "key": "field_brg_brand_endacc_admin_menu",
@@ -312,7 +367,7 @@
                 "label": "Shortcode &amp; options",
                 "name": "",
                 "type": "message",
-                "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>name</code></td><td>Business name</td><td>text</td></tr><tr><td><code>email</code></td><td>Email address</td><td>text</td></tr><tr><td><code>phone</code></td><td>Phone number</td><td>text</td></tr><tr><td><code>address</code></td><td>Address</td><td>text</td></tr><tr><td><code>careers_email</code></td><td>Careers email</td><td>text</td></tr><tr><td><code>instagram</code></td><td>Instagram</td><td>a link or page path</td></tr><tr><td><code>facebook</code></td><td>Facebook</td><td>a link or page path</td></tr><tr><td><code>tiktok</code></td><td>TikTok</td><td>a link or page path</td></tr><tr><td><code>linkedin</code></td><td>LinkedIn</td><td>a link or page path</td></tr><tr><td><code>privacy</code></td><td>Privacy policy page</td><td>a link or page path</td></tr><tr><td><code>footer_logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>footer_logo_size</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>admin_menu_title</code></td><td>Menu name</td><td>text</td></tr><tr><td><code>admin_menu_icon</code></td><td>Menu icon</td><td>text</td></tr><tr><td><code>admin_menu_position</code></td><td>Where it sits in the sidebar</td><td>a number (1–100)</td></tr><tr><td><code>admin_menu_order</code></td><td>Order of the pages inside it</td><td>text</td></tr></tbody></table>",
+                "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>name</code></td><td>Business name</td><td>text</td></tr><tr><td><code>email</code></td><td>Email address</td><td>text</td></tr><tr><td><code>phone</code></td><td>Phone number</td><td>text</td></tr><tr><td><code>address</code></td><td>Address</td><td>text</td></tr><tr><td><code>careers_email</code></td><td>Careers email</td><td>text</td></tr><tr><td><code>instagram</code></td><td>Instagram</td><td>a link or page path</td></tr><tr><td><code>facebook</code></td><td>Facebook</td><td>a link or page path</td></tr><tr><td><code>tiktok</code></td><td>TikTok</td><td>a link or page path</td></tr><tr><td><code>linkedin</code></td><td>LinkedIn</td><td>a link or page path</td></tr><tr><td><code>privacy</code></td><td>Privacy policy page</td><td>a link or page path</td></tr><tr><td><code>footer_logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>footer_logo_size</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>admin_menu_title</code></td><td>Menu name</td><td>text</td></tr><tr><td><code>admin_menu_icon</code></td><td>Menu icon — built-in</td><td>text</td></tr><tr><td><code>admin_menu_position</code></td><td>Where it sits in the sidebar</td><td>a number (1–100)</td></tr><tr><td><code>admin_menu_icon_image</code></td><td>Menu icon — your own</td><td>an image URL</td></tr><tr><td><code>admin_menu_pages</code></td><td>Order of the pages inside it</td><td>text</td></tr></tbody></table>",
                 "new_lines": "",
                 "esc_html": 0,
                 "required": 0,

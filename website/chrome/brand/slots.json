@@ -92,8 +92,8 @@
   },
   "admin_menu_icon": {
     "type": "text",
-    "label": "Menu icon",
-    "doc": "The little icon beside the menu name. Type a Dashicons name — the set WordPress ships with — for example dashicons-layout, dashicons-admin-appearance, dashicons-screenoptions or dashicons-art. The full list is at developer.wordpress.org/resource/dashicons. An unknown name shows a blank square, which is the only way to get this wrong.",
+    "label": "Menu icon — built-in",
+    "doc": "A Dashicons name — the icon set WordPress ships with — for example dashicons-layout, dashicons-art or dashicons-screenoptions. The full list is at developer.wordpress.org/resource/dashicons. Ignored entirely if you upload your own below.",
     "group": "Admin menu",
     "width": 50,
     "default": "dashicons-layout"
@@ -109,12 +109,41 @@
     "max": 100,
     "step": 1
   },
-  "admin_menu_order": {
-    "type": "lines",
+  "admin_menu_icon_image": {
+    "type": "image",
+    "label": "Menu icon — your own",
+    "doc": "Upload or pick an icon from the Media Library instead. It wins over the built-in name beside it. A small square works best — WordPress draws it at 20 by 20 pixels — and a white or very light PNG or SVG reads properly against the dark sidebar. Leave it empty to use the built-in icon.",
+    "group": "Admin menu",
+    "width": 50,
+    "default": ""
+  },
+  "admin_menu_pages": {
+    "type": "repeater",
     "label": "Order of the pages inside it",
-    "doc": "ONE PAGE PER LINE, in the order you want them in the sidebar. Use the short name from the web address — home, brands, team, community, careers, contact, brand-info, site-wide. Anything you leave out keeps its current place after the ones you list, so you can put just two lines here to pull those two to the top. Leave it empty for the order they are generated in.",
+    "button": "Add a page",
+    "collapse": "page",
+    "doc": "DRAG THE ROWS to set the order they appear in the sidebar. Add a row per page you want to place; anything you leave out keeps its usual position after the ones you list, so you can add just two rows to pull those two to the top. Leave the list empty for the order they are generated in.",
     "group": "Admin menu",
     "width": 100,
-    "default": ""
+    "sub": {
+      "page": {
+        "type": "select",
+        "label": "Page",
+        "doc": "Which page this row is.",
+        "width": 100,
+        "default": "",
+        "choices": {
+          "": "— choose a page —",
+          "brg-section-content-home": "Home",
+          "brg-section-content-our-restaurants": "Brands",
+          "brg-section-content-team": "Team",
+          "brg-section-content-community": "Community",
+          "brg-section-content-careers": "Careers",
+          "brg-section-content-contact": "Contact",
+          "brg-section-content-brand": "Brand info",
+          "brg-section-content-site-wide": "Site-wide"
+        }
+      }
+    }
   }
 }

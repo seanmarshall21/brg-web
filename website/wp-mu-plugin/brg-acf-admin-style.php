@@ -139,6 +139,50 @@ add_action( 'admin_head', function () {
 	/* The first field after a tab shouldn't carry the row rule — the tab is the divider. */
 	.acf-field-tab + .acf-field { border-top: 0; }
 
+	/* ── Group headings have to be unmistakably headings ────────────────────
+	   Sean, 5 Oct: "we need thicker separators between all of the sections… it's very
+	   hard to tell where one starts and the other one ends", naming Hero darkness
+	   against Hero background and the splash group against it.
+
+	   He is describing a real structural trap, not a taste. ACF accordions are FLAT
+	   MARKERS, not containers: the heading is a sibling of the fields that follow it,
+	   nested in nothing, so by default a group boundary carries exactly the same
+	   hairline as the border between two ordinary fields. There is no box to see.
+	   Everything below is therefore drawn on the heading itself. */
+	.acf-field-accordion > .acf-label,
+	.acf-field.acf-accordion > .acf-label { margin: 0; }
+	.acf-field-accordion,
+	.acf-field.acf-accordion {
+		border-top: 6px solid #d7dce1 !important;   /* the separator he asked for */
+		margin-top: 26px;
+		background: #f1f3f5;
+	}
+	/* The first group on a page needs no gap above it — the page note is already there. */
+	.acf-fields > .acf-field-accordion:first-child,
+	.acf-fields > .acf-field.acf-accordion:first-child { margin-top: 0; }
+	/* An accordion that CLOSES a group carries no title; it must not draw a second bar. */
+	.acf-field-accordion.-endpoint,
+	.acf-field.acf-accordion.-endpoint {
+		border-top: 0 !important; margin-top: 0; background: none;
+	}
+	.acf-accordion-title {
+		font-size: 14px !important;
+		font-weight: 800 !important;
+		letter-spacing: .02em;
+		color: #14181c !important;
+		padding: 13px 14px !important;
+		text-transform: none;
+	}
+	.acf-accordion-title label { font-weight: 800 !important; }
+	/* Open and closed should be tellable at a glance, not only by the chevron. */
+	.acf-field-accordion.-open > .acf-label .acf-accordion-title,
+	.acf-field.acf-accordion.-open > .acf-label .acf-accordion-title {
+		background: #e7ebef; box-shadow: inset 4px 0 0 #1c1a16;
+	}
+	.acf-accordion-title:hover { background: #e4e8ec; }
+	/* The fields belonging to an open group sit on white so the grey bar reads as its lid. */
+	.acf-field-accordion .acf-accordion-content { background: #fff; }
+
 	/* ── Repeater rows read as separate records, not one long form ────────── */
 	/* Sean: "they blend together too easily." With a headshot, name, title and quote
 	   per person and nothing between them, row two looks like more of row one. ACF
