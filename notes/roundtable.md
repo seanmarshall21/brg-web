@@ -574,3 +574,26 @@ Only the repeater row at the foot of a section responded. Two causes, both in
 No BRG Build session was running (checked), and the fix is what Sean asked for directly,
 so I committed with FC_ALLOW_CROSS rather than leaving it parked. `kit/build.py --check`
 passes. Finn: shout if you'd rather own the shape of this.
+
+## 2026-10-06 — Conti in finn's assets again (brgw.css / brgw.js), announced
+
+Sean: "there are also button animations that don't really do anything. I need to be able
+to set what the hover color is." Both true, and the same root cause.
+
+Only `light`, `dark`, `accent` and `alt` had any hover rule, because their hover colour
+lives in a role variable. The other six choices — yellow, teal, pink, orange, white, ink —
+had none, so any effect that works by changing colour had nothing to change to. `fill`
+set `background:var(--brgw-btn-bg)`, the variable the button was already painted with:
+a guaranteed no-op on a solid button. Brands is teal + fill, exactly that pair. Outline +
+fill failed differently — `background:transparent !important` on the outline rule left the
+fill nowhere to land.
+
+Added `data-btn-hover`, resolved through the same cascade as the other four attributes.
+The rules redefine only the two variables, so every existing effect picks the colour up
+with no per-effect wiring, and they sit AFTER the effects because at equal specificity
+source order decides. With no hover colour named, `fill` swaps instead of doing nothing.
+
+Hover-measured all four cases before/after; numbers are in the commit message (9c9ca8a).
+Committed in warn mode — the hook told me these are yours. Finn: shout if you want the
+shape changed. The admin fields that SET a hover colour are next and will touch
+website/chrome/buttons/ and every section's slots.json, which is also yours.
