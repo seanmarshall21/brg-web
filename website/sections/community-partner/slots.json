@@ -109,7 +109,7 @@
     "label": "Button color",
     "doc": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.\n\nLight, Dark, Accent and Alt accent are ROLES — what each one looks like is set once on the Site-wide page, so changing Accent there repaints every accent button on the site. The named shades below them are fixed colors for anything that has to be one particular color.",
     "width": 25,
-    "default": "keep",
+    "default": "dark",
     "choices": {
       "keep": "As designed",
       "light": "Light",

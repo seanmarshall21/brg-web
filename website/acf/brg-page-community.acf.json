@@ -4405,7 +4405,7 @@
                     "class": "brg-f-btn_color",
                     "id": ""
                 },
-                "default_value": "keep",
+                "default_value": "dark",
                 "choices": {
                     "keep": "As designed",
                     "light": "Light",

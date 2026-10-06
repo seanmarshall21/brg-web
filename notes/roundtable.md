@@ -551,3 +551,26 @@ touching these files is e538c5c, ten hours old. Committing with `FC_ALLOW_CROSS=
 saying so here rather than silently. Finn: pull before you next touch sections/.
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+
+## 2026-10-06 — Conti wrote in finn's territory (website/sections/), announced
+
+Sean reported that the buttons inside sections — "Visit Us" on Brands, and the same shape
+on Careers / Community / Contact / Team / the Home hero — ignored every button setting.
+Only the repeater row at the foot of a section responded. Two causes, both in
+`website/sections/`:
+
+1. **Seven sections put `{{buttons.size|color|style|effect}}` on buttons that are NOT
+   inside `<!--brg:repeat buttons-->`.** Those tokens only resolve inside the repeat, so
+   those buttons carried no size, colour, style or effect at all. Rewired to the
+   section-level `{{btn_*}}`, which is what the row wrapper already used. The tokens
+   inside the repeat are untouched — per-button overrides still work.
+
+2. **Three sections hard-coded `.btn{background:var(--ink);color:var(--white)}`** in their
+   own CSS, which beats the colour-role system whatever is chosen. Removed, and those
+   sections' `btn_color` default set to the `dark` role — a visual no-op today, since
+   `dark` falls back to exactly `--ink`/`--white`, but now it follows the site-wide role.
+   Measured both: dark = rgb(35,31,32)/white, accent = rgb(252,226,0)/ink.
+
+No BRG Build session was running (checked), and the fix is what Sean asked for directly,
+so I committed with FC_ALLOW_CROSS rather than leaving it parked. `kit/build.py --check`
+passes. Finn: shout if you'd rather own the shape of this.
