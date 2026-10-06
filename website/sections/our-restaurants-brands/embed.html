@@ -3,7 +3,7 @@
      Light section. Owns the yellow asterisk seam badge, bleeding upward per the bleed rule.
      Brand plates are the real label artwork (bnb-img-label / odies-img-label), each on the
      image-reveal + parallax hooks. -->
-<section class="brgw-sec brgw-sec--our-restaurants-brands reveal" data-nav="light" aria-label="Our brands" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--our-restaurants-brands reveal" data-nav="light" aria-label="Our brands" data-cta-pos="{{cta_position}}" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}">
 <style>
 .brgw-sec--our-restaurants-brands{--brgw-wrap:1400px;position:relative;background:var(--white);color:var(--ink);overflow:visible;
   padding:clamp(78px,8.5vw,124px) var(--pad) clamp(74px,8vw,116px);}
@@ -50,7 +50,7 @@
       <h3 class="blanco anim-head">{{bnb_heading}}</h3>
       <p class="anim-up">{{bnb_body_1}}</p>
       <p class="anim-up">{{bnb_body_2}}</p>
-      <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{bnb_cta_href}}" target="_blank" rel="noopener">{{bnb_cta_label}}</a>
+      <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{bnb_cta_color}}" data-btn-hover="{{bnb_cta_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{bnb_cta_href}}" target="_blank" rel="noopener">{{bnb_cta_label}}</a>
     </div>
   </div>
 
@@ -63,7 +63,7 @@
       <h3 class="blanco anim-head">{{odies_heading}}</h3>
       <p class="anim-up">{{odies_body_1}}</p>
       <p class="anim-up">{{odies_body_2}}</p>
-      <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{odies_cta_href}}" target="_blank" rel="noopener">{{odies_cta_label}}</a>
+      <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{odies_cta_color}}" data-btn-hover="{{odies_cta_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{odies_cta_href}}" target="_blank" rel="noopener">{{odies_cta_label}}</a>
     </div>
   </div>
   <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>

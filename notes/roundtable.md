@@ -661,3 +661,28 @@ the markup said.
 
 Harness at 390px with three deliberately uneven texts: panels 509/509/509, photos 240/240/240,
 slides 749/749/749, and the photo carries order:1 with the image option on.
+
+## 2026-10-06 — Conti: the named CTAs get their own color (finn's sections), announced
+
+Sean could not style the Brands "Visit Us" buttons individually. They are NAMED fields
+(bnb_cta_*, odies_cta_*) baked into the design, not rows in the Buttons repeater, so the
+per-button controls never applied to them. Eight such CTAs across seven sections.
+
+Each now has its own Color and Hover color — 16 fields, not 40. Size, fill and effect stay
+sectional: those are layout decisions that should match within a section, and Sean has
+asked twice to make the admin narrower, not wider.
+
+The fallback is the interesting part. These buttons sit outside .brgw-cta, so a blank value
+had nothing nearer than the page shell to inherit from and would have skipped the SECTION
+setting entirely. Rather than wrap each button in a carrier element — eight different
+parents, real layout risk — the SECTION ROOT now carries data-btn-color/data-btn-hover.
+brgw.js already walks up to the nearest ancestor that has them, and all 28 colour rules in
+brgw.css target .btn or .brgw-cta, so a section root carrying them is invisible to CSS and
+feeds only the cascade. The repeater row still sits nearer, so it keeps winning for its own
+buttons.
+
+Verified: section dark/accent, B&B blank -> resolves dark/accent, rgb(35,31,32) on white;
+Odie's set to teal/ink -> rgb(25,199,194) on ink.
+
+(The spelling checker caught "colour" in 16 generated docs before this went anywhere. Third
+time I have made that mistake — American spelling, every label and doc.)

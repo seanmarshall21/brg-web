@@ -39,6 +39,48 @@
     "default": "https://boardandbrew.com",
     "width": 50
   },
+  "bnb_cta_color": {
+    "type": "select",
+    "label": "Board & Brew — button color",
+    "width": 25,
+    "default": "",
+    "doc": "The color of this one button. \"Same as the section\" means it follows the section's Button color below, which is how it behaves today. Set it to let this button differ from the others in the section.",
+    "choices": {
+      "": "Same as the section",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
+  "bnb_cta_hover": {
+    "type": "select",
+    "label": "Board & Brew — button hover color",
+    "width": 25,
+    "default": "",
+    "doc": "The color this one button changes to on hover. \"Same as the section\" follows the section's Button hover color.",
+    "choices": {
+      "": "Same as the section",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
   "odies_heading": {
     "type": "text",
     "label": "Odie's — name",
@@ -73,6 +115,48 @@
     "doc": "Opens in a new tab; target/rel are in the markup.",
     "default": "https://odiespizza.com",
     "width": 50
+  },
+  "odies_cta_color": {
+    "type": "select",
+    "label": "Odie's — button color",
+    "width": 25,
+    "default": "",
+    "doc": "The color of this one button. \"Same as the section\" means it follows the section's Button color below, which is how it behaves today. Set it to let this button differ from the others in the section.",
+    "choices": {
+      "": "Same as the section",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
+  "odies_cta_hover": {
+    "type": "select",
+    "label": "Odie's — button hover color",
+    "width": 25,
+    "default": "",
+    "doc": "The color this one button changes to on hover. \"Same as the section\" follows the section's Button hover color.",
+    "choices": {
+      "": "Same as the section",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
   },
   "bnb_image": {
     "type": "image",

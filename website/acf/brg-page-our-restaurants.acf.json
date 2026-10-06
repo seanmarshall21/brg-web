@@ -2230,6 +2230,608 @@
                 "default_value": "https://boardandbrew.com"
             },
             {
+                "key": "field_brg_our_restaurants_brands_acc_buttons",
+                "label": "Buttons",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_cta_color",
+                "label": "Board & Brew — button color",
+                "name": "brg_our_restaurants_brands_bnb_cta_color",
+                "type": "select",
+                "instructions": "The color of this one button. \"Same as the section\" means it follows the section's Button color below, which is how it behaves today. Set it to let this button differ from the others in the section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-bnb_cta_color",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_cta_hover",
+                "label": "Board & Brew — button hover color",
+                "name": "brg_our_restaurants_brands_bnb_cta_hover",
+                "type": "select",
+                "instructions": "The color this one button changes to on hover. \"Same as the section\" follows the section's Button hover color.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-bnb_cta_hover",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_cta_color",
+                "label": "Odie's — button color",
+                "name": "brg_our_restaurants_brands_odies_cta_color",
+                "type": "select",
+                "instructions": "The color of this one button. \"Same as the section\" means it follows the section's Button color below, which is how it behaves today. Set it to let this button differ from the others in the section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-odies_cta_color",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_cta_hover",
+                "label": "Odie's — button hover color",
+                "name": "brg_our_restaurants_brands_odies_cta_hover",
+                "type": "select",
+                "instructions": "The color this one button changes to on hover. \"Same as the section\" follows the section's Button hover color.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-odies_cta_hover",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_cta_position",
+                "label": "Where the buttons sit",
+                "name": "brg_our_restaurants_brands_cta_position",
+                "type": "select",
+                "instructions": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "100",
+                    "class": "brg-f-cta_position",
+                    "id": ""
+                },
+                "default_value": "foot",
+                "choices": {
+                    "foot": "At the bottom of the section"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_btn_size",
+                "label": "Size",
+                "name": "brg_our_restaurants_brands_btn_size",
+                "type": "select",
+                "instructions": "How big this section's buttons are. \"As set site-wide\" follows the Buttons tab on the Site-wide page; any single button can still differ on its own row.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_size",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "As set site-wide",
+                    "large": "Large",
+                    "medium": "Medium",
+                    "small": "Small"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_btn_color",
+                "label": "Button color",
+                "name": "brg_our_restaurants_brands_btn_color",
+                "type": "select",
+                "instructions": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.\n\nLight, Dark, Accent and Alt accent are ROLES — what each one looks like is set once on the Site-wide page, so changing Accent there repaints every accent button on the site. The named shades below them are fixed colors for anything that has to be one particular color.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "dark",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_btn_hover",
+                "label": "Button hover color",
+                "name": "brg_our_restaurants_brands_btn_hover",
+                "type": "select",
+                "instructions": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_hover",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_btn_style",
+                "label": "Filled or outline",
+                "name": "brg_our_restaurants_brands_btn_style",
+                "type": "select",
+                "instructions": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Any one button can be set differently in the list below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_style",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "filled": "Filled",
+                    "outline": "Outline",
+                    "text": "Text only"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_btn_effect",
+                "label": "Hover effect",
+                "name": "brg_our_restaurants_brands_btn_effect",
+                "type": "select",
+                "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_effect",
+                    "id": ""
+                },
+                "default_value": "lift",
+                "choices": {
+                    "lift": "Lift",
+                    "lift-swap": "Lift and swap color",
+                    "underline": "Underline",
+                    "grow": "Grow",
+                    "press": "Press down",
+                    "fill": "Fill in",
+                    "none": "None"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_buttons",
+                "label": "Buttons",
+                "name": "brg_our_restaurants_brands_buttons",
+                "type": "repeater",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": 100,
+                    "class": "brg-f-buttons",
+                    "id": ""
+                },
+                "layout": "block",
+                "button_label": "Add a button",
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_brg_our_restaurants_brands_buttons_label",
+                "sub_fields": [
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_label",
+                        "label": "Label",
+                        "name": "label",
+                        "type": "text",
+                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "34",
+                            "class": "brg-f-label",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_href",
+                        "label": "Link",
+                        "name": "href",
+                        "type": "text",
+                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "33",
+                            "class": "brg-f-href",
+                            "id": ""
+                        },
+                        "default_value": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_popup",
+                        "label": "Open in a pop-up",
+                        "name": "popup",
+                        "type": "select",
+                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "33",
+                            "class": "brg-f-popup",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Open the link",
+                            "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_color",
+                        "label": "Color",
+                        "name": "color",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's color above. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-color",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_hover",
+                        "label": "Hover color",
+                        "name": "hover",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-hover",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_style",
+                        "label": "Filled or outline",
+                        "name": "style",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" to follow the section. The usual pair is a filled main button next to an outline one.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-style",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "filled": "Filled",
+                            "outline": "Outline",
+                            "text": "Text only"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_effect",
+                        "label": "Hover effect",
+                        "name": "effect",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-effect",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "lift": "Lift",
+                            "lift-swap": "Lift and swap color",
+                            "underline": "Underline",
+                            "grow": "Grow",
+                            "press": "Press down",
+                            "fill": "Fill in",
+                            "none": "None"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_our_restaurants_brands_buttons_size",
+                        "label": "Size",
+                        "name": "size",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" to follow it.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-size",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "large": "Large",
+                            "medium": "Medium",
+                            "small": "Small"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_modal_bg",
+                "label": "Pop-up background",
+                "name": "brg_our_restaurants_brands_modal_bg",
+                "type": "select",
+                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "100",
+                    "class": "brg-f-modal_bg",
+                    "id": ""
+                },
+                "default_value": "white",
+                "choices": {
+                    "white": "White",
+                    "ink": "Site dark",
+                    "yellow": "Yellow",
+                    "teal": "Teal"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_endacc_buttons",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_our_restaurants_brands_odies_heading",
                 "label": "Odie's — name",
                 "name": "brg_our_restaurants_brands_odies_heading",
@@ -2804,472 +3406,6 @@
             },
             {
                 "key": "field_brg_our_restaurants_brands_endacc_mark_ast",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_acc_buttons",
-                "label": "Buttons",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_cta_position",
-                "label": "Where the buttons sit",
-                "name": "brg_our_restaurants_brands_cta_position",
-                "type": "select",
-                "instructions": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "100",
-                    "class": "brg-f-cta_position",
-                    "id": ""
-                },
-                "default_value": "foot",
-                "choices": {
-                    "foot": "At the bottom of the section"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_btn_size",
-                "label": "Size",
-                "name": "brg_our_restaurants_brands_btn_size",
-                "type": "select",
-                "instructions": "How big this section's buttons are. \"As set site-wide\" follows the Buttons tab on the Site-wide page; any single button can still differ on its own row.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-btn_size",
-                    "id": ""
-                },
-                "default_value": "",
-                "choices": {
-                    "": "As set site-wide",
-                    "large": "Large",
-                    "medium": "Medium",
-                    "small": "Small"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_btn_color",
-                "label": "Button color",
-                "name": "brg_our_restaurants_brands_btn_color",
-                "type": "select",
-                "instructions": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.\n\nLight, Dark, Accent and Alt accent are ROLES — what each one looks like is set once on the Site-wide page, so changing Accent there repaints every accent button on the site. The named shades below them are fixed colors for anything that has to be one particular color.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-btn_color",
-                    "id": ""
-                },
-                "default_value": "dark",
-                "choices": {
-                    "keep": "As designed",
-                    "light": "Light",
-                    "dark": "Dark",
-                    "accent": "Accent",
-                    "alt": "Alt accent",
-                    "yellow": "Yellow (a specific shade)",
-                    "teal": "Teal (a specific shade)",
-                    "pink": "Pink (a specific shade)",
-                    "orange": "Orange (a specific shade)",
-                    "white": "White (a specific shade)",
-                    "ink": "Black (a specific shade)"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_btn_hover",
-                "label": "Button hover color",
-                "name": "brg_our_restaurants_brands_btn_hover",
-                "type": "select",
-                "instructions": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-btn_hover",
-                    "id": ""
-                },
-                "default_value": "keep",
-                "choices": {
-                    "keep": "As designed",
-                    "light": "Light",
-                    "dark": "Dark",
-                    "accent": "Accent",
-                    "alt": "Alt accent",
-                    "yellow": "Yellow (a specific shade)",
-                    "teal": "Teal (a specific shade)",
-                    "pink": "Pink (a specific shade)",
-                    "orange": "Orange (a specific shade)",
-                    "white": "White (a specific shade)",
-                    "ink": "Black (a specific shade)"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_btn_style",
-                "label": "Filled or outline",
-                "name": "brg_our_restaurants_brands_btn_style",
-                "type": "select",
-                "instructions": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Any one button can be set differently in the list below.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-btn_style",
-                    "id": ""
-                },
-                "default_value": "keep",
-                "choices": {
-                    "keep": "As designed",
-                    "filled": "Filled",
-                    "outline": "Outline",
-                    "text": "Text only"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_btn_effect",
-                "label": "Hover effect",
-                "name": "brg_our_restaurants_brands_btn_effect",
-                "type": "select",
-                "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "20",
-                    "class": "brg-f-btn_effect",
-                    "id": ""
-                },
-                "default_value": "lift",
-                "choices": {
-                    "lift": "Lift",
-                    "lift-swap": "Lift and swap color",
-                    "underline": "Underline",
-                    "grow": "Grow",
-                    "press": "Press down",
-                    "fill": "Fill in",
-                    "none": "None"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_buttons",
-                "label": "Buttons",
-                "name": "brg_our_restaurants_brands_buttons",
-                "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": 100,
-                    "class": "brg-f-buttons",
-                    "id": ""
-                },
-                "layout": "block",
-                "button_label": "Add a button",
-                "min": 0,
-                "max": 0,
-                "collapsed": "field_brg_our_restaurants_brands_buttons_label",
-                "sub_fields": [
-                    {
-                        "key": "field_brg_our_restaurants_brands_buttons_label",
-                        "label": "Label",
-                        "name": "label",
-                        "type": "text",
-                        "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "34",
-                            "class": "brg-f-label",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_brands_buttons_href",
-                        "label": "Link",
-                        "name": "href",
-                        "type": "text",
-                        "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "33",
-                            "class": "brg-f-href",
-                            "id": ""
-                        },
-                        "default_value": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_brands_buttons_popup",
-                        "label": "Open in a pop-up",
-                        "name": "popup",
-                        "type": "select",
-                        "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "33",
-                            "class": "brg-f-popup",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Open the link",
-                            "1": "Pop-up"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_brands_buttons_color",
-                        "label": "Color",
-                        "name": "color",
-                        "type": "select",
-                        "instructions": "Leave on \"Same as the section\" and this button follows the section's color above. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-color",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Same as the section",
-                            "light": "Light",
-                            "dark": "Dark",
-                            "accent": "Accent",
-                            "alt": "Alt accent",
-                            "yellow": "Yellow (a specific shade)",
-                            "teal": "Teal (a specific shade)",
-                            "pink": "Pink (a specific shade)",
-                            "orange": "Orange (a specific shade)",
-                            "white": "White (a specific shade)",
-                            "ink": "Black (a specific shade)"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_brands_buttons_hover",
-                        "label": "Hover color",
-                        "name": "hover",
-                        "type": "select",
-                        "instructions": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-hover",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Same as the section",
-                            "light": "Light",
-                            "dark": "Dark",
-                            "accent": "Accent",
-                            "alt": "Alt accent",
-                            "yellow": "Yellow (a specific shade)",
-                            "teal": "Teal (a specific shade)",
-                            "pink": "Pink (a specific shade)",
-                            "orange": "Orange (a specific shade)",
-                            "white": "White (a specific shade)",
-                            "ink": "Black (a specific shade)"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_brands_buttons_style",
-                        "label": "Filled or outline",
-                        "name": "style",
-                        "type": "select",
-                        "instructions": "Leave on \"Same as the section\" to follow the section. The usual pair is a filled main button next to an outline one.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-style",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Same as the section",
-                            "filled": "Filled",
-                            "outline": "Outline",
-                            "text": "Text only"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_brands_buttons_effect",
-                        "label": "Hover effect",
-                        "name": "effect",
-                        "type": "select",
-                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-effect",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Same as the section",
-                            "lift": "Lift",
-                            "lift-swap": "Lift and swap color",
-                            "underline": "Underline",
-                            "grow": "Grow",
-                            "press": "Press down",
-                            "fill": "Fill in",
-                            "none": "None"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    },
-                    {
-                        "key": "field_brg_our_restaurants_brands_buttons_size",
-                        "label": "Size",
-                        "name": "size",
-                        "type": "select",
-                        "instructions": "Leave on \"Same as the section\" to follow it.",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "20",
-                            "class": "brg-f-size",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "choices": {
-                            "": "Same as the section",
-                            "large": "Large",
-                            "medium": "Medium",
-                            "small": "Small"
-                        },
-                        "return_format": "value",
-                        "allow_null": 0,
-                        "multiple": 0,
-                        "ui": 0,
-                        "ajax": 0,
-                        "placeholder": ""
-                    }
-                ]
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_modal_bg",
-                "label": "Pop-up background",
-                "name": "brg_our_restaurants_brands_modal_bg",
-                "type": "select",
-                "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "100",
-                    "class": "brg-f-modal_bg",
-                    "id": ""
-                },
-                "default_value": "white",
-                "choices": {
-                    "white": "White",
-                    "ink": "Site dark",
-                    "yellow": "Yellow",
-                    "teal": "Teal"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_our_restaurants_brands_endacc_buttons",
                 "label": "",
                 "name": "",
                 "type": "accordion",

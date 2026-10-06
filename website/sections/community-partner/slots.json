@@ -14,6 +14,48 @@
     "default": "mailto:hello@blacktoprg.com?subject=Community%20partnership",
     "width": 50
   },
+  "cta_color": {
+    "type": "select",
+    "label": "button color",
+    "width": 25,
+    "default": "",
+    "doc": "The color of this one button. \"Same as the section\" means it follows the section's Button color below, which is how it behaves today. Set it to let this button differ from the others in the section.",
+    "choices": {
+      "": "Same as the section",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
+  "cta_hover": {
+    "type": "select",
+    "label": "button hover color",
+    "width": 25,
+    "default": "",
+    "doc": "The color this one button changes to on hover. \"Same as the section\" follows the section's Button hover color.",
+    "choices": {
+      "": "Same as the section",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
   "sub": {
     "type": "textarea",
     "label": "Sub copy",
