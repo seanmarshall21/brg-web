@@ -146,7 +146,13 @@
 /* Drawer (More on desktop · full menu on mobile) + scrim */
 .bnav-scrim{position:fixed;inset:0;z-index:61;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .3s ease;}
 .bnav-scrim.open{opacity:1;visibility:visible;}
-.bnav-drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);z-index:62;background:#131210;color:#fff;
+/* The palette is repeated here ON PURPOSE. brgw-nav.js appends the drawer to <body>
+   so it can be position:fixed without a transformed ancestor trapping it — which
+   means it is NOT a descendant of .bnav and inherited none of these. `color:var(--yellow)`
+   on the row numbers resolved to nothing and fell back to the inherited white, which is
+   why the numbers have never once been yellow. */
+.bnav-drawer{ --acc:#19C7C2; --yellow:#FCE200; --ink:#231F20;
+  position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);z-index:62;background:#131210;color:#fff;
   transform:translateX(100%);transition:transform .5s cubic-bezier(.16,.84,.44,1);will-change:transform;
   display:flex;flex-direction:column;padding:92px clamp(24px,5vw,48px) 40px;overflow:auto;}
 .bnav-drawer.open{transform:translateX(0);}
@@ -216,10 +222,16 @@
   .bnav-drawer.is-full .bnav-wordmark.is-art{width:var(--bnav-tm-wm,160px);max-width:70%;}
 
   /* SHOW / HIDE, each block independently. */
-  .bnav[data-show-pages="0"]    ~ .bnav-drawer .bnav-drawer-items > .bnav-item,
-  .bnav[data-numbers="0"]        ~ .bnav-drawer .bnav-num,
-  .bnav[data-sociallabel-on="0"] ~ .bnav-drawer .bnav-drawer-eyebrow,
-  .bnav[data-show-wordmark="0"]  ~ .bnav-drawer .bnav-wordmark{display:none;}
+  /* READ OFF THE DRAWER, NOT OFF THE BAR. These were `.bnav[...] ~ .bnav-drawer`, a
+     sibling combinator — but the bar sits inside .brgw-shell and the drawer is appended
+     to <body>, so the two share no parent and not one of these rules could ever match.
+     Four switches on the Header tab accepted input and changed nothing. brgw-nav.js now
+     copies the bar's data-* onto the drawer, so the state is on the element being styled
+     and no longer depends on where either one happens to sit in the document. */
+  .bnav-drawer[data-show-pages="0"]    .bnav-drawer-items > .bnav-item,
+  .bnav-drawer[data-numbers="0"]        .bnav-num,
+  .bnav-drawer[data-sociallabel-on="0"] .bnav-drawer-eyebrow,
+  .bnav-drawer[data-show-wordmark="0"]  .bnav-wordmark{display:none;}
 
   /* TOP OR BOTTOM, and the order within each group. The panel is a column with two groups;
      a block pinned to the bottom is pushed there by order, and `order` is also how the

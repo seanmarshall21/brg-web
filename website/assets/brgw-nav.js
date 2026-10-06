@@ -90,6 +90,28 @@
     var drawer = document.createElement('aside'); drawer.className = 'bnav-drawer'; drawer.setAttribute('aria-hidden', 'true');
     drawer.innerHTML = '<button class="bnav-drawer-close" aria-label="Close">Close &times;</button><div class="bnav-drawer-items"></div>';
     document.body.appendChild(scrim); document.body.appendChild(drawer);
+
+    /* THE DRAWER HAS TO CARRY ITS OWN SETTINGS. It is appended to <body> so that
+       position:fixed is measured against the viewport rather than a transformed ancestor.
+       That also puts it outside .brgw-shell, where the bar lives — so the bar's data-*
+       was unreachable by any selector the drawer's rules could write, and the inline
+       --bnav-tm-* sizes were never inherited. Every show/hide and every size in the
+       Header tab's phone-menu section was a control that changed nothing: no error, no
+       warning, just a settings page that did not settle anything.
+
+       Copying rather than re-reading keeps it honest — add a field tomorrow and it
+       reaches the drawer with no second place to remember. */
+    (function carrySettings() {
+      var i;
+      for (i = 0; i < nav.attributes.length; i++) {
+        var at = nav.attributes[i];
+        if (at.name.indexOf('data-') === 0) drawer.setAttribute(at.name, at.value);
+      }
+      for (i = 0; i < nav.style.length; i++) {
+        var prop = nav.style[i];
+        if (prop.indexOf('--bnav') === 0) drawer.style.setProperty(prop, nav.style.getPropertyValue(prop));
+      }
+    })();
     var dItems = drawer.querySelector('.bnav-drawer-items');
     var lastFocus = null, hideTimer = null;
     function setDrawer(o) {
