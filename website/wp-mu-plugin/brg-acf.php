@@ -32,16 +32,6 @@ if ( ! defined( 'BRG_ACF_TTL' ) ) define( 'BRG_ACF_TTL', 300 ); // seconds; ?brg
  * so that one is asserted at generation time instead. */
 if ( ! defined( 'BRG_ACF_PAGE' ) ) define( 'BRG_ACF_PAGE', 'brg-section-content' );
 
-add_action( 'acf/init', function () {
-
-    // 1) The PARENT options page. Each page of the site then gets its own SUB-page,
-    //    registered in step 2 from the field groups themselves — so the admin sidebar is
-    //    the navigation (Home / Brands / Team / …) instead of one long screen of cards.
-    //
-    //    The first group's location is the parent slug itself, which is the standard WP
-    //    pattern for "clicking the parent lands on the first child": without it WordPress
-    //    adds an auto sub-menu entry repeating the parent's title and pointing at an
-    //    empty page.
 /* ── THE MENU'S OWN NAME, ICON, PLACE AND ORDER ───────────────────────────────────────
  * Sean, 5 Oct: the admin menu title and icon should be settable in Brand info, Section
  * Content should sit first, and the pages inside it should be re-orderable.
@@ -64,6 +54,16 @@ if ( ! function_exists( 'brg_menu_opt' ) ) {
     }
 }
 
+add_action( 'acf/init', function () {
+
+    // 1) The PARENT options page. Each page of the site then gets its own SUB-page,
+    //    registered in step 2 from the field groups themselves — so the admin sidebar is
+    //    the navigation (Home / Brands / Team / …) instead of one long screen of cards.
+    //
+    //    The first group's location is the parent slug itself, which is the standard WP
+    //    pattern for "clicking the parent lands on the first child": without it WordPress
+    //    adds an auto sub-menu entry repeating the parent's title and pointing at an
+    //    empty page.
     if ( function_exists( 'acf_add_options_page' ) ) {
         $brg_menu_title = brg_menu_opt( 'brg_brand_admin_menu_title', 'Section Content' );
         $brg_menu_icon  = brg_menu_opt( 'brg_brand_admin_menu_icon', 'dashicons-layout' );

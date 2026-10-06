@@ -1240,7 +1240,11 @@ add_action( 'init', function () {
  *
  * GUARDED because `brand` is a short, generic name: if another plugin has already claimed
  * it, ours stands down rather than overwriting theirs and breaking their pages. */
-if ( ! shortcode_exists( 'brand' ) ) {
+/* shortcode_exists() is a WordPress function, and the deploy's smoke check loads this file
+ * with only the handful of WP functions it stubs — so calling it unguarded fataled the check
+ * before anything was copied. Guarded, the check loads the file and the real site still gets
+ * the collision test. */
+if ( ! function_exists( 'shortcode_exists' ) || ! shortcode_exists( 'brand' ) ) {
     add_shortcode( 'brand', function ( $atts ) {
         $atts = (array) $atts;
         $key  = '';
