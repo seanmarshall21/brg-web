@@ -836,6 +836,7 @@ if ( ! function_exists( 'vcc_buttons_keys' ) ) {
             'size'       => 'brg_buttons_size',
             'style'      => 'brg_buttons_style',
             'btn_effect' => 'brg_buttons_btn_effect',
+            'btn_hover'  => 'brg_buttons_btn_hover',
             'light_bg'    => 'brg_buttons_light_bg',
             'light_fg'    => 'brg_buttons_light_fg',
             'light_hover_bg' => 'brg_buttons_light_hover_bg',
@@ -877,6 +878,13 @@ if ( ! function_exists( 'vcc_shell_open' ) ) {
         if ( ! in_array( $size, array( 'large','medium','small' ), true ) ) $size = 'large';
         $style = vcc_chrome_setting( 'buttons', 'style' );
         if ( ! in_array( $style, array( 'filled','outline','text' ), true ) ) $style = 'filled';
+        /* The hover COLOUR, the fourth thing decided here. "keep" is not a value to send
+         * down — it is the site saying "leave each button to its own colour" — so it is
+         * emitted as empty and a section or a button below is free to name one. Same rule
+         * the other three already follow, and the same rule brgw.js applies on the way
+         * down: a "keep" is never copied onto something that chose nothing. */
+        $hover = vcc_chrome_setting( 'buttons', 'btn_hover' );
+        if ( ! in_array( $hover, array( 'light','dark','accent','alt','yellow','teal','pink','orange','white','ink' ), true ) ) $hover = '';
 
         /* THE SIXTEEN ROLE COLORS, WRITTEN OUT. Composing these names from two nested loops
          * read as tidier and cost a real bug elsewhere in this file: a name that is built at
@@ -910,6 +918,7 @@ if ( ! function_exists( 'vcc_shell_open' ) ) {
              . ' data-btn-fx="' . esc_attr( $fx ) . '"'
              . ' data-btn-size="' . esc_attr( $size ) . '"'
              . ' data-btn-style="' . esc_attr( $style ) . '"'
+             . ( $hover !== '' ? ' data-btn-hover="' . esc_attr( $hover ) . '"' : '' )
              . ( $vars !== '' ? ' style="' . esc_attr( $vars ) . '"' : '' )
              . '>';
     }

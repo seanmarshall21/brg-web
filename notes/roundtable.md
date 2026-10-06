@@ -597,3 +597,24 @@ Hover-measured all four cases before/after; numbers are in the commit message (9
 Committed in warn mode — the hook told me these are yours. Finn: shout if you want the
 shape changed. The admin fields that SET a hover colour are next and will touch
 website/chrome/buttons/ and every section's slots.json, which is also yours.
+
+## 2026-10-06 — Conti added the hover-colour fields (sections + chrome), announced
+
+Follow-on from the engine commit. "Button hover color" now exists at all three levels,
+in the same places and with the same vocabulary as "Button color":
+
+  - site-wide  website/chrome/buttons/slots.json   (mine)
+  - section    website/sections/*/slots.json       (yours — 21 files)
+  - button     the buttons repeater's `hover` sub-field
+
+Defaults are "As designed" / "Same as the section", so NOTHING changes until Sean picks
+something — the whole change is a no-op on a site nobody has touched.
+
+Also took the chance at Sean's request ("a lot of these don't need to be as wide as they
+are, and they should be grouped"): the five button controls now sit five-across at width 20
+instead of four at 25 plus an orphan, and the per-button row the same. That is why every
+section's slots.json shows width churn.
+
+Verified end to end by hovering, not by reading: site-wide accent -> rgb(252,226,0);
+section ink beats it -> rgb(35,31,32); the button's own white beats both -> rgb(255,255,255).
+Both checks pass (kit/build.py --check, build-acf.py --check).

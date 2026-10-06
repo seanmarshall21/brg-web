@@ -8,7 +8,7 @@
     "label": "Size",
     "doc": "How big a button is unless something nearer overrules it. Large is what every button has been until now. The three levels are this, then a section's own, then a single button's own row.",
     "group": "Buttons — the default for every button",
-    "width": 33,
+    "width": 25,
     "default": "large",
     "choices": {
       "large": "Large",
@@ -21,7 +21,7 @@
     "label": "Filled, outline or text",
     "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Text only drops the box entirely and leaves the words, which reads as a link — pair it with the Underline hover.",
     "group": "Buttons — the default for every button",
-    "width": 33,
+    "width": 25,
     "default": "filled",
     "choices": {
       "filled": "Filled",
@@ -44,7 +44,28 @@
       "fill": "Fill in",
       "none": "None"
     },
-    "width": 34
+    "width": 25
+  },
+  "btn_hover": {
+    "type": "select",
+    "label": "Hover color",
+    "doc": "The color EVERY button changes to when someone points at it, unless something nearer overrules it: this, then a section's own, then a single button's own. \"As designed\" leaves each button to its own color, and an effect like Fill in swaps to the opposite ink so it still shows something.",
+    "width": 25,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons — the default for every button"
   },
   "light_bg": {
     "type": "color",

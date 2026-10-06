@@ -674,7 +674,7 @@
     "label": "Size",
     "doc": "How big this section's buttons are. \"As set site-wide\" follows the Buttons tab on the Site-wide page; any single button can still differ on its own row.",
     "group": "Buttons",
-    "width": 25,
+    "width": 20,
     "default": "",
     "choices": {
       "": "As set site-wide",
@@ -687,7 +687,28 @@
     "type": "select",
     "label": "Button color",
     "doc": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.\n\nLight, Dark, Accent and Alt accent are ROLES — what each one looks like is set once on the Site-wide page, so changing Accent there repaints every accent button on the site. The named shades below them are fixed colors for anything that has to be one particular color.",
-    "width": 25,
+    "width": 20,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
+  "btn_hover": {
+    "type": "select",
+    "label": "Button hover color",
+    "doc": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
+    "width": 20,
     "default": "keep",
     "choices": {
       "keep": "As designed",
@@ -708,7 +729,7 @@
     "type": "select",
     "label": "Filled or outline",
     "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Any one button can be set differently in the list below.",
-    "width": 25,
+    "width": 20,
     "default": "keep",
     "choices": {
       "keep": "As designed",
@@ -722,7 +743,7 @@
     "type": "select",
     "label": "Hover effect",
     "doc": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
-    "width": 25,
+    "width": 20,
     "default": "lift",
     "choices": {
       "lift": "Lift",
@@ -772,7 +793,27 @@
         "type": "select",
         "label": "Color",
         "doc": "Leave on \"Same as the section\" and this button follows the section's color above. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
-        "width": 50,
+        "width": 20,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)"
+        }
+      },
+      "hover": {
+        "type": "select",
+        "label": "Hover color",
+        "doc": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+        "width": 20,
         "default": "",
         "choices": {
           "": "Same as the section",
@@ -792,7 +833,7 @@
         "type": "select",
         "label": "Filled or outline",
         "doc": "Leave on \"Same as the section\" to follow the section. The usual pair is a filled main button next to an outline one.",
-        "width": 50,
+        "width": 20,
         "default": "",
         "choices": {
           "": "Same as the section",
@@ -805,7 +846,7 @@
         "type": "select",
         "label": "Hover effect",
         "doc": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
-        "width": 50,
+        "width": 20,
         "default": "",
         "choices": {
           "": "Same as the section",
@@ -822,7 +863,7 @@
         "type": "select",
         "label": "Size",
         "doc": "Leave on \"Same as the section\" to follow it.",
-        "width": 50,
+        "width": 20,
         "default": "",
         "choices": {
           "": "Same as the section",

@@ -1714,7 +1714,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_size",
                     "id": ""
                 },
@@ -1741,8 +1741,42 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_hero_btn_hover",
+                "label": "Button hover color",
+                "name": "brg_careers_hero_btn_hover",
+                "type": "select",
+                "instructions": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_hover",
                     "id": ""
                 },
                 "default_value": "keep",
@@ -1775,7 +1809,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_style",
                     "id": ""
                 },
@@ -1802,7 +1836,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_effect",
                     "id": ""
                 },
@@ -1906,8 +1940,42 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-color",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_careers_hero_buttons_hover",
+                        "label": "Hover color",
+                        "name": "hover",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-hover",
                             "id": ""
                         },
                         "default_value": "",
@@ -1940,7 +2008,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-style",
                             "id": ""
                         },
@@ -1967,7 +2035,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-effect",
                             "id": ""
                         },
@@ -1998,7 +2066,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-size",
                             "id": ""
                         },
@@ -2661,7 +2729,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_size",
                     "id": ""
                 },
@@ -2688,8 +2756,42 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_apply_btn_hover",
+                "label": "Button hover color",
+                "name": "brg_careers_apply_btn_hover",
+                "type": "select",
+                "instructions": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_hover",
                     "id": ""
                 },
                 "default_value": "keep",
@@ -2722,7 +2824,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_style",
                     "id": ""
                 },
@@ -2749,7 +2851,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_effect",
                     "id": ""
                 },
@@ -2853,8 +2955,42 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-color",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_careers_apply_buttons_hover",
+                        "label": "Hover color",
+                        "name": "hover",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-hover",
                             "id": ""
                         },
                         "default_value": "",
@@ -2887,7 +3023,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-style",
                             "id": ""
                         },
@@ -2914,7 +3050,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-effect",
                             "id": ""
                         },
@@ -2945,7 +3081,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-size",
                             "id": ""
                         },
@@ -3423,7 +3559,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_size",
                     "id": ""
                 },
@@ -3450,8 +3586,42 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_positions_btn_hover",
+                "label": "Button hover color",
+                "name": "brg_careers_positions_btn_hover",
+                "type": "select",
+                "instructions": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_hover",
                     "id": ""
                 },
                 "default_value": "keep",
@@ -3484,7 +3654,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_style",
                     "id": ""
                 },
@@ -3511,7 +3681,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_effect",
                     "id": ""
                 },
@@ -3615,8 +3785,42 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-color",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_careers_positions_buttons_hover",
+                        "label": "Hover color",
+                        "name": "hover",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-hover",
                             "id": ""
                         },
                         "default_value": "",
@@ -3649,7 +3853,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-style",
                             "id": ""
                         },
@@ -3676,7 +3880,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-effect",
                             "id": ""
                         },
@@ -3707,7 +3911,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-size",
                             "id": ""
                         },
@@ -4148,7 +4352,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_size",
                     "id": ""
                 },
@@ -4175,8 +4379,42 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_posts_btn_hover",
+                "label": "Button hover color",
+                "name": "brg_careers_posts_btn_hover",
+                "type": "select",
+                "instructions": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "20",
+                    "class": "brg-f-btn_hover",
                     "id": ""
                 },
                 "default_value": "keep",
@@ -4209,7 +4447,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_style",
                     "id": ""
                 },
@@ -4236,7 +4474,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "25",
+                    "width": "20",
                     "class": "brg-f-btn_effect",
                     "id": ""
                 },
@@ -4340,8 +4578,42 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-color",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_careers_posts_buttons_hover",
+                        "label": "Hover color",
+                        "name": "hover",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-hover",
                             "id": ""
                         },
                         "default_value": "",
@@ -4374,7 +4646,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-style",
                             "id": ""
                         },
@@ -4401,7 +4673,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-effect",
                             "id": ""
                         },
@@ -4432,7 +4704,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "50",
+                            "width": "20",
                             "class": "brg-f-size",
                             "id": ""
                         },

@@ -17,6 +17,10 @@
 .brgw-sec--team-apply .sub{max-width:60ch;margin:clamp(18px,2.2vw,28px) auto 0;
   font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.6;}
 .brgw-sec--team-apply .btn{margin-top:clamp(26px,3vw,40px);}
+.brgw-sec--team-apply .btn[data-btn-color="keep"],
+.brgw-sec--team-apply .btn[data-btn-color=""]{
+  --brgw-btn-bg:var(--ink);--brgw-btn-fg:var(--white);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
 .brgw-sec--team-apply .cluster{position:absolute;right:2%;bottom:-24%;width:clamp(130px,15vw,230px);
   z-index:2;pointer-events:none;}
 .brgw-sec--team-apply .cluster img{width:100%;height:auto;display:block;}
@@ -32,9 +36,9 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <h2 class="blanco anim-head" data-head="words">{{heading}}</h2>
   <p class="sub anim-up">{{sub}}</p>
-  <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a>
+  <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a>
   <span class="cluster" aria-hidden="true" data-mark-pos="{{mark_1_all_trim_pos}}" data-mark-show="{{mark_1_all_trim_show}}" data-mark-anim="{{mark_1_all_trim_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_all_trim_opacity}}"><img class="brgw-pop" src="{{mark_1_all_trim_art}}" alt="" width="302" height="310" loading="lazy" decoding="async"></span>
-  <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
+  <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>
 </template>
 <script>
@@ -43,7 +47,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"cta_label": "Apply Today", "cta_href": "/careers/", "heading": "Want to be part of the team?", "sub": "We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience.", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_1_all_trim_pos": "tr", "mark_1_all_trim_opacity": "100", "mark_1_all_trim_show": "1", "mark_1_all_trim_anim": "keep", "cta_position": "foot", "btn_size": "", "btn_color": "dark", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"cta_label": "Apply Today", "cta_href": "/careers/", "heading": "Want to be part of the team?", "sub": "We're always looking for people who lead with heart, stay stoked under pressure, and believe a great guest experience starts with a great team experience.", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_1_all_trim_pos": "tr", "mark_1_all_trim_opacity": "100", "mark_1_all_trim_show": "1", "mark_1_all_trim_anim": "keep", "cta_position": "foot", "btn_size": "", "btn_color": "dark", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
