@@ -13,12 +13,12 @@
   "logo_width": {
     "type": "number",
     "label": "Footer logo width",
-    "doc": "How wide it is, in pixels. It never grows past the space available, so a large number means “as big as it fits” on a phone.",
+    "doc": "How wide the footer logo is, in pixels. 120 to 960 — the stylesheet also wraps it in \"or 62% of the screen, whichever is smaller\", so a big number still cannot overflow a phone. The logo keeps its own proportions, so any shape of logo works and the height follows the width.",
     "group": "Logo",
     "width": 50,
     "default": "360",
     "min": 120,
-    "max": 720,
+    "max": 960,
     "step": 10,
     "append": "px"
   },

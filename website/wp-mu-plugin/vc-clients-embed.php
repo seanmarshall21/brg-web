@@ -313,8 +313,11 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
 
         $fvars = '';
         $fw = intval( vcc_chrome_setting( 'footer', 'logo_width' ) );
-        if ( is_string( $logo ) && $logo !== '' ) $fvars .= '--brgw-footer-logo:url(\'' . esc_url( $logo ) . '\');';
-        if ( $fw >= 120 && $fw <= 720 )           $fvars .= '--brgw-footer-logo-w:' . $fw . 'px;';
+        /* THE BOUNDS HERE AND THE FIELD'S min/max MUST AGREE. They did not: the field offered
+         * up to 720 and Sean typed 800, so this test silently threw it away and the logo stayed
+         * at the stylesheet's 360 default — a number accepted by the box and discarded on the
+         * way to the page, with nothing to say so. Both are 120–960 now. */
+        if ( $fw >= 120 && $fw <= 960 )           $fvars .= '--brgw-footer-logo-w:' . $fw . 'px;';
         $pt = intval( vcc_chrome_setting( 'footer', 'pad_top' ) );
         $pb = intval( vcc_chrome_setting( 'footer', 'pad_bottom' ) );
         if ( $pt >= 0 && $pt <= 180 ) $fvars .= '--brgw-footer-pt:' . $pt . 'px;';
@@ -363,7 +366,15 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
             if ( $items ) $flinks = '<span class="legal-links">' . implode( '', $items ) . '</span>';
         }
 
-        $lock = '<div class="lockup anim-up">' . esc_html( $name ) . '</div>';
+        /* A REAL <img>, so the logo carries its own proportions — see the note on .lockup in
+         * brgw.css. The literal below is the same fallback the stylesheet used to hold, kept
+         * so the footer can never render with no logo at all. The company name becomes the
+         * image's alt text, which is what a screen reader should read out. */
+        $logo_src = ( is_string( $logo ) && $logo !== '' )
+            ? $logo
+            : 'https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg';
+        $lock = '<img class="lockup anim-up" src="' . esc_url( $logo_src ) . '"'
+              . ' alt="' . esc_attr( $name ) . '" decoding="async">';
         if ( is_string( $fhref ) && $fhref !== '' ) {
             $lock = '<a class="lockup-link" href="' . esc_url( $fhref ) . '">' . $lock . '</a>';
         }

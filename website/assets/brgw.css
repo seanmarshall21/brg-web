@@ -337,14 +337,17 @@
 .brgw__footer .legal a{color:inherit;}
 .brgw__footer .lockup-link{display:block;text-decoration:none;color:inherit;}
 
-.brgw__footer .lockup{display:block;overflow:hidden;margin:0 auto;
-  /* Width comes from Brand info as --brgw-footer-logo-w. The min() stays wrapped around
-     it so a big number still cannot overflow a phone — it means 'as wide as it fits'. */
-  width:min(var(--brgw-footer-logo-w,360px),62vw);aspect-ratio:717/117;
-  /* The URL now arrives from Brand info as --brgw-footer-logo; the literal below is the
-     fallback for a page rendered before that field exists, so the footer can never go blank. */
-  background:var(--brgw-footer-logo,url('https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg')) center/contain no-repeat;
-  text-indent:-200vw;white-space:nowrap;}
+/* THE LOGO IS A REAL <img> AND SETS ITS OWN SHAPE. It used to be a background on a box
+   with aspect-ratio:717/117 hard-coded — the proportions of the wide horizontal logo it
+   shipped with. Point the footer at the STACKED logo, which is nearly square, and the box
+   is still forced to 6:1: raising the width to 800 makes a 800x130 strip and `contain`
+   draws the logo small in the middle of it with empty space either side. Sean, 6 Oct:
+   "it grew the space to the left and right… it's compressed inside of the container."
+   A real image carries its own proportions, so any logo shape works and the width control
+   does the obvious thing. It also gives the logo a proper alt instead of hiding a line of
+   text off-screen with text-indent. */
+.brgw__footer .lockup{display:block;margin:0 auto;
+  width:min(var(--brgw-footer-logo-w,360px),62vw);height:auto;}
 .brgw__footer .lockup b,.brgw__footer .lockup br{all:unset;}
 .brgw__footer .lockup br{display:none;}
 
