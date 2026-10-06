@@ -1180,27 +1180,8 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
                 . '<button class="bnav-ham" aria-label="Menu"><i></i><i></i></button>'
                 . '</header>';
 
-        /* TEMPORARY, and only when asked for with ?brg_navdiag=1 — the public page is
-           byte-identical without it. The social row renders nothing on the live site while
-           every line of this file says it should, and the one gate I cannot read from
-           outside is what WordPress reports for the location. No new function name: the
-           v2.9.0 outage came from adding one that already existed. Remove once answered. */
-        $diag = '';
-        if ( isset( $_GET['brg_navdiag'] ) && current_user_can( 'edit_theme_options' ) ) {
-            $reg  = function_exists( 'get_registered_nav_menus' ) ? array_keys( (array) get_registered_nav_menus() ) : array();
-            $locs = function_exists( 'get_nav_menu_locations' ) ? (array) get_nav_menu_locations() : array();
-            $diag = "<!-- navdiag"
-                  . ' sloc=' . wp_json_encode( $sloc )
-                  . ' registered=' . wp_json_encode( $reg )
-                  . ' assigned=' . wp_json_encode( $locs )
-                  . ' has_nav_menu=' . wp_json_encode( $sloc && function_exists( 'has_nav_menu' ) ? has_nav_menu( $sloc ) : null )
-                  . ' social_len=' . strlen( (string) $social )
-                  . ' theme=' . wp_json_encode( function_exists( 'get_stylesheet' ) ? get_stylesheet() : '?' )
-                  . " -->\n";
-        }
-
         list( $css, $js ) = vcc_shared_assets( $client, $cfg, $ttl );
-        $out = "\n<!-- vc_embed " . esc_html( $client . '/nav' ) . ' v' . VCC_VERSION . " -->\n" . $diag
+        $out = "\n<!-- vc_embed " . esc_html( $client . '/nav' ) . ' v' . VCC_VERSION . " -->\n"
              . $css . vcc_shell_open() . $header . '</div>' . $js;
         return vcc_guard( $client, $out );
     }
