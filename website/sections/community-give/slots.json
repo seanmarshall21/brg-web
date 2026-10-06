@@ -37,7 +37,8 @@
       "photo": {
         "type": "image",
         "label": "Photo",
-        "doc": "Fills the image half of the slide, cropped to fit, so the exact size does not matter. Portrait or landscape both work. A tall crop around 1200px on the long edge is plenty — bigger files only slow the page."
+        "doc": "Fills the image half of the slide, cropped to fit, so the exact size does not matter. Portrait or landscape both work. A tall crop around 1200px on the long edge is plenty — bigger files only slow the page.",
+        "width": 100
       },
       "photo_tone": {
         "type": "select",
@@ -103,7 +104,8 @@
       "body": {
         "type": "textarea",
         "label": "Text",
-        "doc": "The paragraph under the title, capped at 44 characters wide. Around 200 characters sits best; much longer and the panel grows taller than the photo beside it."
+        "doc": "The paragraph under the title, capped at 44 characters wide. Around 200 characters sits best; much longer and the panel grows taller than the photo beside it.",
+        "width": 100
       },
       "cta_label": {
         "type": "text",
@@ -157,7 +159,8 @@
         "type": "text",
         "label": "Background video (optional)",
         "doc": "Paste a YouTube or Vimeo link, or just the ID. Leave blank and the photo above is used. The video plays silently on a loop with no controls, and the photo shows while it loads, if the video is blocked, or for visitors who have switched off animation.",
-        "default": ""
+        "default": "",
+        "width": 50
       },
       "video_source": {
         "type": "select",
@@ -167,7 +170,8 @@
         "choices": {
           "youtube": "YouTube",
           "vimeo": "Vimeo"
-        }
+        },
+        "width": 50
       }
     },
     "width": 100

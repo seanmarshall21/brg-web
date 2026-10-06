@@ -44,7 +44,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -1787,7 +1787,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },
@@ -2042,7 +2042,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -2138,7 +2138,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-route_1_buttons",
                     "id": ""
                 },
@@ -2412,7 +2412,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-route_2_buttons",
                     "id": ""
                 },
@@ -2686,7 +2686,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-route_3_buttons",
                     "id": ""
                 },
@@ -2960,7 +2960,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-route_4_buttons",
                     "id": ""
                 },
@@ -3513,7 +3513,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },
@@ -3768,7 +3768,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -4187,7 +4187,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },

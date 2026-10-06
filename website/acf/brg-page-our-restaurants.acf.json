@@ -44,7 +44,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -1802,7 +1802,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },
@@ -2057,7 +2057,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -2076,7 +2076,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-divider",
                     "id": ""
                 },
@@ -2919,7 +2919,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },

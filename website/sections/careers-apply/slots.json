@@ -60,7 +60,8 @@
         "type": "textarea",
         "label": "Bullet",
         "doc": "One line of the list. Plain text; a star is drawn automatically, so do not type one.",
-        "default": ""
+        "default": "",
+        "width": 100
       }
     },
     "width": 100

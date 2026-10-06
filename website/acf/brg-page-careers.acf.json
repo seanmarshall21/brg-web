@@ -44,7 +44,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -1832,7 +1832,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },
@@ -2087,7 +2087,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -2106,7 +2106,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-divider",
                     "id": ""
                 },
@@ -2230,7 +2230,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-offers",
                     "id": ""
                 },
@@ -2249,7 +2249,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "",
+                            "width": "100",
                             "class": "brg-f-text",
                             "id": ""
                         },
@@ -2779,7 +2779,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },
@@ -3034,7 +3034,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -3541,7 +3541,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },
@@ -3796,7 +3796,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-show-section",
                     "id": ""
                 },
@@ -3815,7 +3815,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-posts",
                     "id": ""
                 },
@@ -3864,7 +3864,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "",
+                            "width": "100",
                             "class": "brg-f-body",
                             "id": ""
                         },
@@ -3879,7 +3879,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "",
+                            "width": "100",
                             "class": "brg-f-job_meta",
                             "id": ""
                         },
@@ -4266,7 +4266,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "brg-f-buttons",
                     "id": ""
                 },

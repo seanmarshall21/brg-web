@@ -212,7 +212,7 @@ def field(section_id, slot, defn):
             'name': name, 'type': 'repeater',
             'instructions': admin_html(defn.get('doc', '')), 'required': 0,
             'conditional_logic': show_if(section_id, defn),
-            'wrapper': {'width': '', 'class': 'brg-f-' + slot, 'id': ''},
+            'wrapper': {'width': defn.get('width', 100), 'class': 'brg-f-' + slot, 'id': ''},
             'layout': defn.get('layout', 'block'),
             'button_label': defn.get('button', 'Add row'),
             'min': 0, 'max': 0,
@@ -390,7 +390,7 @@ def visibility_field(section_id):
             "below stays exactly as it is and comes straight back when you tick it again. "
             "Takes up to two minutes to show on the site."),
         'required': 0, 'conditional_logic': 0,
-        'wrapper': {'width': '', 'class': 'brg-show-section', 'id': ''},
+        'wrapper': {'width': 100, 'class': 'brg-show-section', 'id': ''},
         'message': '', 'default_value': 1, 'ui': 1,
         'ui_on_text': 'Shown', 'ui_off_text': 'Hidden',
     }
@@ -423,7 +423,7 @@ def divider_field(section_id):
             "The round badge that sits between this section and the one above it. Untick to "
             "remove just the badge — the section itself stays."),
         'required': 0, 'conditional_logic': 0,
-        'wrapper': {'width': '', 'class': 'brg-show-divider', 'id': ''},
+        'wrapper': {'width': 100, 'class': 'brg-show-divider', 'id': ''},
         'message': '', 'default_value': 1, 'ui': 1,
         'ui_on_text': 'Shown', 'ui_off_text': 'Hidden',
     }
@@ -880,7 +880,7 @@ def main():
                         "<table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th>"
                         "<th>Value</th></tr></thead><tbody>" + ''.join(rows) + "</tbody></table>"),
             'new_lines': '', 'esc_html': 0, 'required': 0, 'conditional_logic': 0,
-            'wrapper': {'width': '', 'class': '', 'id': ''},
+            'wrapper': {'width': 100, 'class': '', 'id': ''},
         })
         g = {
             'key': 'group_brg_chrome_' + page.replace('-', '_'),

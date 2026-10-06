@@ -11,37 +11,43 @@
         "type": "text",
         "label": "Job title",
         "doc": "The role, shown in the card at the bottom of the post. This also names the row in this list.",
-        "default": ""
+        "default": "",
+        "width": 50
       },
       "author": {
         "type": "text",
         "label": "Posted by",
         "doc": "The name at the top of the post. Normally Blacktop Restaurant Group.",
-        "default": "Blacktop Restaurant Group"
+        "default": "Blacktop Restaurant Group",
+        "width": 50
       },
       "body": {
         "type": "textarea",
         "label": "Post text",
         "doc": "The body of the post. Write & and em dashes as literal characters — the field escapes them, so an entity shows on the page as the entity.",
-        "default": ""
+        "default": "",
+        "width": 100
       },
       "job_meta": {
         "type": "lines",
         "label": "Under the job title",
         "doc": "Company and location. PRESS RETURN between them to break the line exactly where you want.",
-        "default": "Job by Blacktop Restaurant Group\nSan Diego, California, United States (On-site)"
+        "default": "Job by Blacktop Restaurant Group\nSan Diego, California, United States (On-site)",
+        "width": 100
       },
       "job_href": {
         "type": "url",
         "label": "Link",
         "doc": "Where the button goes. Points at /careers/ until the real LinkedIn job URLs are supplied.",
-        "default": "/careers/"
+        "default": "/careers/",
+        "width": 50
       },
       "view_label": {
         "type": "text",
         "label": "Button label",
         "doc": "The small link on the job card.",
-        "default": "View job"
+        "default": "View job",
+        "width": 50
       }
     },
     "width": 100

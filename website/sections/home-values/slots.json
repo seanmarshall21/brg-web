@@ -85,7 +85,8 @@
         "type": "textarea",
         "label": "Description",
         "doc": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
-        "default": ""
+        "default": "",
+        "width": 100
       }
     },
     "width": 100

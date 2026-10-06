@@ -1865,7 +1865,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": 100,
                     "class": "",
                     "id": ""
                 }
