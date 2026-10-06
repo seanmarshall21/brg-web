@@ -93,7 +93,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-heading",
                     "id": ""
                 },
@@ -108,7 +108,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-sub",
                     "id": ""
                 },
@@ -248,7 +248,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-bg_photo",
                     "id": ""
                 },
@@ -273,7 +273,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-bg_photo_mobile",
                     "id": ""
                 },
@@ -360,7 +360,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-bg_photo_px_dir",
                     "id": ""
                 },
@@ -484,7 +484,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "34",
                     "class": "brg-f-veil_center",
                     "id": ""
                 },
@@ -526,7 +526,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "67",
                     "class": "brg-f-overlay_color",
                     "id": ""
                 },
@@ -555,7 +555,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-overlay_strength",
                     "id": ""
                 },
@@ -853,7 +853,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-splash_car_on",
                     "id": ""
                 },
@@ -911,7 +911,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-splash_surfer_on",
                     "id": ""
                 },
@@ -1217,7 +1217,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-splash_crown_px_dir",
                     "id": ""
                 },
@@ -1300,7 +1300,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -1325,7 +1325,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -1420,7 +1420,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -1487,7 +1487,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_1_smile_art",
                     "id": ""
                 },
@@ -1645,7 +1645,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_2_brg_art",
                     "id": ""
                 },
@@ -1803,7 +1803,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_3_bolt_art",
                     "id": ""
                 },
@@ -1961,7 +1961,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_4_ast_art",
                     "id": ""
                 },
@@ -2119,7 +2119,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -2456,7 +2456,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },
@@ -2554,7 +2554,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-heading_1",
                     "id": ""
                 },
@@ -2599,7 +2599,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-intro_1",
                     "id": ""
                 },
@@ -2614,7 +2614,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-intro_emphasis",
                     "id": ""
                 },
@@ -2629,7 +2629,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-intro_2",
                     "id": ""
                 },
@@ -2644,7 +2644,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-body_1",
                     "id": ""
                 },
@@ -2659,7 +2659,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-body_2",
                     "id": ""
                 },
@@ -2674,7 +2674,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-hl_variant",
                     "id": ""
                 },
@@ -2689,7 +2689,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-photo_1",
                     "id": ""
                 },
@@ -2798,7 +2798,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-photo_1_float_dir",
                     "id": ""
                 },
@@ -2823,7 +2823,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-photo_2",
                     "id": ""
                 },
@@ -2932,7 +2932,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-photo_2_float_dir",
                     "id": ""
                 },
@@ -2974,7 +2974,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -3045,7 +3045,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -3104,7 +3104,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -3155,7 +3155,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_1_bolt_art",
                     "id": ""
                 },
@@ -3313,7 +3313,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_2_all_trim_art",
                     "id": ""
                 },
@@ -3471,7 +3471,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -3809,7 +3809,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },
@@ -3918,7 +3918,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-vision_text",
                     "id": ""
                 },
@@ -3933,7 +3933,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-mission_label",
                     "id": ""
                 },
@@ -3948,7 +3948,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mission_text",
                     "id": ""
                 },
@@ -3963,7 +3963,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-photo",
                     "id": ""
                 },
@@ -4072,7 +4072,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-photo_float_dir",
                     "id": ""
                 },
@@ -4114,7 +4114,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -4185,7 +4185,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -4244,7 +4244,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -4295,7 +4295,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -4633,7 +4633,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },
@@ -4731,7 +4731,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-heading_1",
                     "id": ""
                 },
@@ -4746,7 +4746,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-heading_mark",
                     "id": ""
                 },
@@ -4761,7 +4761,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-body_1",
                     "id": ""
                 },
@@ -4776,7 +4776,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-body_2",
                     "id": ""
                 },
@@ -4791,7 +4791,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-body_3",
                     "id": ""
                 },
@@ -4806,7 +4806,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-hl_variant",
                     "id": ""
                 },
@@ -4821,7 +4821,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-photo_1",
                     "id": ""
                 },
@@ -4930,7 +4930,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-photo_1_float_dir",
                     "id": ""
                 },
@@ -4955,7 +4955,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-photo_2",
                     "id": ""
                 },
@@ -5064,7 +5064,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-photo_2_float_dir",
                     "id": ""
                 },
@@ -5089,7 +5089,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-photo_3",
                     "id": ""
                 },
@@ -5198,7 +5198,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-photo_3_float_dir",
                     "id": ""
                 },
@@ -5240,7 +5240,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -5311,7 +5311,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -5370,7 +5370,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -5421,7 +5421,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -5759,7 +5759,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },
@@ -5857,7 +5857,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-heading",
                     "id": ""
                 },
@@ -5889,7 +5889,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -5960,7 +5960,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -6019,7 +6019,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -6121,7 +6121,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_1_ast_art",
                     "id": ""
                 },
@@ -6279,7 +6279,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -6617,7 +6617,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },

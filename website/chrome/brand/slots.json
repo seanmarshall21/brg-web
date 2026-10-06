@@ -5,66 +5,77 @@
     "type": "text",
     "label": "Business name",
     "doc": "Used wherever the company is named in copy.",
-    "default": "Blacktop Restaurant Group"
+    "default": "Blacktop Restaurant Group",
+    "width": 50
   },
   "email": {
     "type": "text",
     "label": "Email address",
-    "doc": "The general enquiries address. Referenced as #brand-email in a link, or [brand email] in text. Becomes a mailto: link on its own — type just the address."
+    "doc": "The general enquiries address. Referenced as #brand-email in a link, or [brand email] in text. Becomes a mailto: link on its own — type just the address.",
+    "width": 50
   },
   "phone": {
     "type": "text",
     "label": "Phone number",
-    "doc": "Written the way it should READ on the page, e.g. (760) 555-0134. Becomes a tel: link on its own, with everything except digits and a leading + stripped for the dialling part."
+    "doc": "Written the way it should READ on the page, e.g. (760) 555-0134. Becomes a tel: link on its own, with everything except digits and a leading + stripped for the dialling part.",
+    "width": 100
   },
   "address": {
     "type": "textarea",
     "label": "Address",
-    "doc": "Shown on the contact page and anywhere the location is named."
+    "doc": "Shown on the contact page and anywhere the location is named.",
+    "width": 100
   },
   "careers_email": {
     "type": "text",
     "label": "Careers email",
-    "doc": "Where job enquiries go, if different from the general address. Referenced as #brand-careers_email."
+    "doc": "Where job enquiries go, if different from the general address. Referenced as #brand-careers_email.",
+    "width": 50
   },
   "instagram": {
     "type": "url",
     "label": "Instagram",
-    "doc": "Full https:// address of the profile. Leave blank and nothing linking to it shows."
+    "doc": "Full https:// address of the profile. Leave blank and nothing linking to it shows.",
+    "width": 50
   },
   "facebook": {
     "type": "url",
     "label": "Facebook",
-    "doc": "Full https:// address. Leave blank and nothing linking to it shows."
+    "doc": "Full https:// address. Leave blank and nothing linking to it shows.",
+    "width": 50
   },
   "tiktok": {
     "type": "url",
     "label": "TikTok",
-    "doc": "Full https:// address. Leave blank and nothing linking to it shows."
+    "doc": "Full https:// address. Leave blank and nothing linking to it shows.",
+    "width": 50
   },
   "linkedin": {
     "type": "url",
     "label": "LinkedIn",
     "doc": "Full https:// address. Leave blank and nothing linking to it shows.",
-    "default": "https://www.linkedin.com/company/blacktop-restaurant-group/"
+    "default": "https://www.linkedin.com/company/blacktop-restaurant-group/",
+    "width": 50
   },
   "privacy": {
     "type": "url",
     "label": "Privacy policy page",
     "doc": "Path or full address of the privacy policy.",
-    "default": "/privacy-policy/"
+    "default": "/privacy-policy/",
+    "width": 50
   },
   "footer_logo": {
     "type": "image",
     "label": "Footer logo",
     "doc": "The lockup shown in the middle of the footer on every page. It is artwork, not type — the words beside it in the code are only what a screen reader announces. An SVG keeps it crisp at any size; a PNG around 1400px wide also works. Leave empty to keep the built-in Blacktop lockup.",
-    "default": "https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg"
+    "default": "https://blacktoprg.netlify.app/assets/media/logos/logo-brg-footer-lg.svg",
+    "width": 100
   },
   "footer_logo_size": {
     "type": "number",
     "label": "Footer logo width",
     "doc": "How wide the footer logo is, in pixels. It has been 360 at full width, which reads small on a wide screen. It never grows past the space available, so a large number here simply means 'as big as it fits' on a phone.",
-    "width": 50,
+    "width": 100,
     "default": "360",
     "min": 120,
     "max": 720,

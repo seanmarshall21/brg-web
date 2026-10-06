@@ -4,37 +4,43 @@
     "type": "text",
     "label": "Button label",
     "doc": "The wording on the hero button. Short reads best — it sits under the tagline.",
-    "default": "Explore Our Restaurants"
+    "default": "Explore Our Restaurants",
+    "width": 50
   },
   "cta_href": {
     "type": "url",
     "label": "Button link",
     "doc": "Where the hero button goes. A path like /brands/ stays on this site; a full address goes off it.",
-    "default": "/brands/"
+    "default": "/brands/",
+    "width": 50
   },
   "heading": {
     "type": "lines",
     "label": "Headline",
     "doc": "The hero headline. PRESS RETURN where you want the line to break — it breaks exactly there. Two lines is the design; three starts eating the fold on a phone.",
-    "default": "We're in the business\nof making your day great."
+    "default": "We're in the business\nof making your day great.",
+    "width": 100
   },
   "sub": {
     "type": "lines",
     "label": "Sub copy",
     "doc": "Sits under the marker underline, capped at 52ch. Plain text; markup is escaped. Write `&` and `—` as literal characters. PRESS RETURN to force a line break exactly where you want one.",
-    "default": "From a classic Board & Brew sandwich to a slice at Odie's — we're here for the moments that matter."
+    "default": "From a classic Board & Brew sandwich to a slice at Odie's — we're here for the moments that matter.",
+    "width": 100
   },
   "tagline": {
     "type": "text",
     "label": "Yellow tagline",
     "doc": "The short line beneath the sub, in the display face. White, not yellow, per the comp. ~40 characters.",
-    "default": "Good food. Real people. Rad experience."
+    "default": "Good food. Real people. Rad experience.",
+    "width": 50
   },
   "uline_variant": {
     "type": "text",
     "label": "Underline animation",
     "doc": "How the hand-drawn underline reveals. `u3` (default) filled brush + ~5deg angled wipe — keeps the taper. `wipe` straight-edged reveal, the conservative fallback with no skewed edge to overhang. `u1` scaleX bar, the lab's baseline, kept so the taper argument can be re-checked live. Unknown or blank renders the mark STATIC and visible, never hidden. u2/u4 (dasharray draws) need the artwork inline as SVG and are not available on an <img>. Catalog: website/lab/README.md.",
-    "default": "u3"
+    "default": "u3",
+    "width": 50
   },
   "bg_style": {
     "type": "select",
@@ -61,7 +67,8 @@
       "bg_style": [
         "photo"
       ]
-    }
+    },
+    "width": 100
   },
   "bg_photo_mobile": {
     "type": "image",
@@ -72,7 +79,8 @@
       "bg_style": [
         "photo"
       ]
-    }
+    },
+    "width": 100
   },
   "bg_photo_tone": {
     "type": "select",
@@ -112,7 +120,7 @@
     "type": "select",
     "label": "Background photo — movement direction",
     "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -159,7 +167,7 @@
     "type": "number",
     "label": "Vignette — middle",
     "doc": "How dark the middle of the hero is, behind the headline, as a percentage. 58 is the value this hero has always used. Lower lets more of the photo through in the middle; higher pushes the picture further back.",
-    "width": 33,
+    "width": 34,
     "default": "58",
     "min": 0,
     "max": 100,
@@ -192,7 +200,8 @@
       "yellow": "Yellow",
       "pink": "Pink"
     },
-    "group": "Hero darkness"
+    "group": "Hero darkness",
+    "width": 67
   },
   "overlay_strength": {
     "type": "select",
@@ -208,7 +217,8 @@
       "0.75": "75% — very strong",
       "0.9": "90% — photo barely visible"
     },
-    "group": "Hero darkness"
+    "group": "Hero darkness",
+    "width": 100
   },
   "video_id": {
     "type": "text",
@@ -220,7 +230,8 @@
       "bg_style": [
         "video"
       ]
-    }
+    },
+    "width": 50
   },
   "video_source": {
     "type": "select",
@@ -236,7 +247,8 @@
       "bg_style": [
         "video"
       ]
-    }
+    },
+    "width": 50
   },
   "splash_skater": {
     "type": "image",
@@ -303,7 +315,7 @@
     "label": "Bottom left",
     "doc": "",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "1",
     "choices": {
       "1": "Shown",
@@ -333,7 +345,7 @@
     "label": "Bottom right",
     "doc": "",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "1",
     "choices": {
       "1": "Shown",
@@ -499,7 +511,7 @@
     "label": "Splash — Top right — movement direction",
     "doc": "Which way this plate travels as the page scrolls.",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -520,7 +532,8 @@
       "bg_style": [
         "pattern"
       ]
-    }
+    },
+    "width": 100
   },
   "section_bg_mobile": {
     "type": "image",
@@ -531,7 +544,8 @@
       "bg_style": [
         "pattern"
       ]
-    }
+    },
+    "width": 100
   },
   "section_bg_opacity": {
     "type": "select",
@@ -579,7 +593,7 @@
     "type": "select",
     "label": "Background movement direction",
     "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "group": "Hero background — pattern",
     "choices": {
@@ -597,7 +611,8 @@
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-smile.svg",
-    "group": "Mark — Smile"
+    "group": "Mark — Smile",
+    "width": 100
   },
   "mark_1_smile_pos": {
     "type": "select",
@@ -663,7 +678,8 @@
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-brg.svg",
-    "group": "Mark — Brg"
+    "group": "Mark — Brg",
+    "width": 100
   },
   "mark_2_brg_pos": {
     "type": "select",
@@ -729,7 +745,8 @@
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-bolt.svg",
-    "group": "Mark — Bolt"
+    "group": "Mark — Bolt",
+    "width": 100
   },
   "mark_3_bolt_pos": {
     "type": "select",
@@ -795,7 +812,8 @@
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-ast.svg",
-    "group": "Mark — Ast"
+    "group": "Mark — Ast",
+    "width": 100
   },
   "mark_4_ast_pos": {
     "type": "select",
@@ -860,7 +878,7 @@
     "type": "select",
     "label": "Where the buttons sit",
     "doc": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
-    "width": 50,
+    "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section"
@@ -1029,13 +1047,14 @@
           "small": "Small"
         }
       }
-    }
+    },
+    "width": 100
   },
   "modal_bg": {
     "type": "select",
     "label": "Pop-up background",
     "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
+    "width": 100,
     "default": "white",
     "choices": {
       "white": "White",

@@ -7,7 +7,8 @@
     "type": "image",
     "label": "Logo",
     "doc": "The mark in the bar. An SVG stays crisp at any size.",
-    "group": "Logo"
+    "group": "Logo",
+    "width": 100
   },
   "logo_height": {
     "type": "number",
@@ -34,7 +35,8 @@
     "label": "Logo links to",
     "doc": "Where clicking the logo goes. Worth checking if a temporary landing page is ever sitting at the root.",
     "group": "Logo",
-    "default": "/"
+    "default": "/",
+    "width": 100
   },
   "layout": {
     "type": "select",
@@ -144,7 +146,7 @@
     "label": "Wordmark",
     "doc": "Same choice for the wordmark at the foot of the menu.",
     "group": "Phone menu — top or bottom",
-    "width": 33,
+    "width": 34,
     "default": "bottom",
     "choices": {
       "top": "Pinned to top",
@@ -182,7 +184,7 @@
     "label": "Wordmark",
     "doc": "Where this block sits within its group.",
     "group": "Phone menu — order (top to bottom)",
-    "width": 33,
+    "width": 34,
     "default": "3",
     "choices": {
       "1": "1st",
@@ -219,7 +221,7 @@
     "label": "Wordmark size",
     "doc": "How wide the wordmark is at the foot of the menu.",
     "group": "Phone menu — sizes",
-    "width": 33,
+    "width": 34,
     "default": "160",
     "min": 60,
     "max": 420,
@@ -231,7 +233,7 @@
     "label": "Small label size",
     "doc": "The size of the “Menu” and “Follow” labels.",
     "group": "Phone menu — sizes",
-    "width": 50,
+    "width": 100,
     "default": "11",
     "min": 8,
     "max": 20,
@@ -267,7 +269,7 @@
     "label": "Wordmark",
     "doc": "The wordmark at the foot of the menu.",
     "group": "Phone menu — show / hide",
-    "width": 33,
+    "width": 34,
     "default": "1",
     "choices": {
       "1": "Shown",
@@ -303,7 +305,7 @@
     "label": "Numbers (01, 02…)",
     "doc": "The running numbers beside each page link.",
     "group": "Phone menu — show / hide",
-    "width": 33,
+    "width": 34,
     "default": "1",
     "choices": {
       "1": "Shown",
@@ -338,7 +340,7 @@
     "label": "Line under the wordmark",
     "doc": "A short line beneath it, like a strapline. Leave empty for none.",
     "group": "Phone menu — text",
-    "width": 50,
+    "width": 100,
     "default": ""
   }
 }

@@ -92,7 +92,8 @@
     "type": "image",
     "label": "Section background",
     "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
-    "group": "Section background"
+    "group": "Section background",
+    "width": 100
   },
   "section_bg_opacity": {
     "type": "select",
@@ -130,7 +131,7 @@
     "type": "select",
     "label": "Background movement direction",
     "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "group": "Section background",
     "choices": {
@@ -142,13 +143,14 @@
     "type": "image",
     "label": "Section background — phones",
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
-    "group": "Section background — phones"
+    "group": "Section background — phones",
+    "width": 100
   },
   "cta_position": {
     "type": "select",
     "label": "Where the buttons sit",
     "doc": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
-    "width": 50,
+    "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section"
@@ -317,13 +319,14 @@
           "small": "Small"
         }
       }
-    }
+    },
+    "width": 100
   },
   "modal_bg": {
     "type": "select",
     "label": "Pop-up background",
     "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
+    "width": 100,
     "default": "white",
     "choices": {
       "white": "White",

@@ -4,37 +4,43 @@
     "type": "text",
     "label": "Heading",
     "doc": "Sits above the vision/mission pair, in the display face. ~24 characters.",
-    "default": "What we're about"
+    "default": "What we're about",
+    "width": 50
   },
   "vision_label": {
     "type": "text",
     "label": "Vision — label",
     "doc": "The small caps label above the vision statement.",
-    "default": "Our Vision"
+    "default": "Our Vision",
+    "width": 50
   },
   "vision_text": {
     "type": "textarea",
     "label": "Vision — statement",
     "doc": "Display face, large. Short — it is a slogan, not a paragraph.",
-    "default": "Make your day great!"
+    "default": "Make your day great!",
+    "width": 100
   },
   "mission_label": {
     "type": "text",
     "label": "Mission — label",
     "doc": "The small caps label above the mission statement.",
-    "default": "Our Mission"
+    "default": "Our Mission",
+    "width": 100
   },
   "mission_text": {
     "type": "textarea",
     "label": "Mission — statement",
     "doc": "Display face, large. One sentence; past ~90 characters it starts to unbalance the column against the photo.",
-    "default": "To amp up our communities by creating real connections and rad experiences."
+    "default": "To amp up our communities by creating real connections and rad experiences.",
+    "width": 100
   },
   "photo": {
     "type": "image",
     "label": "Photo",
     "doc": "The wide photo in this section. Landscape, around 1600x1067. Cropped to fit, so the exact size is forgiving. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp"
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp",
+    "width": 100
   },
   "photo_tone": {
     "type": "select",
@@ -84,7 +90,7 @@
     "type": "select",
     "label": "Photo — drift direction",
     "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -95,7 +101,8 @@
     "type": "image",
     "label": "Section background",
     "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
-    "group": "Section background"
+    "group": "Section background",
+    "width": 100
   },
   "section_bg_opacity": {
     "type": "select",
@@ -133,7 +140,7 @@
     "type": "select",
     "label": "Background movement direction",
     "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "group": "Section background",
     "choices": {
@@ -145,13 +152,14 @@
     "type": "image",
     "label": "Section background — phones",
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
-    "group": "Section background — phones"
+    "group": "Section background — phones",
+    "width": 100
   },
   "cta_position": {
     "type": "select",
     "label": "Where the buttons sit",
     "doc": "At the bottom is the usual place and the one the rest of the site uses.",
-    "width": 50,
+    "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section",
@@ -321,13 +329,14 @@
           "small": "Small"
         }
       }
-    }
+    },
+    "width": 100
   },
   "modal_bg": {
     "type": "select",
     "label": "Pop-up background",
     "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
+    "width": 100,
     "default": "white",
     "choices": {
       "white": "White",

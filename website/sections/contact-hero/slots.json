@@ -4,13 +4,15 @@
     "type": "lines",
     "label": "Headline",
     "doc": "Display face, wraps inside 18ch. Under ~50 characters is a hint not a limit — word length drives the break more than character count. Short is the point here: it is a sign-off, not a sentence. PRESS RETURN to force a line break exactly where you want one.",
-    "default": "Let's talk."
+    "default": "Let's talk.",
+    "width": 100
   },
   "sub": {
     "type": "lines",
     "label": "Sub copy",
     "doc": "Does real work: it tells the visitor this page is a switchboard, so the cards below read as an answer rather than a runaround. Write `—` as a literal em dash. PRESS RETURN to force a line break exactly where you want one.",
-    "default": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask."
+    "default": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask.",
+    "width": 100
   },
   "bg_style": {
     "type": "select",
@@ -36,7 +38,8 @@
       "bg_style": [
         "photo"
       ]
-    }
+    },
+    "width": 100
   },
   "bg_photo_mobile": {
     "type": "image",
@@ -47,7 +50,8 @@
       "bg_style": [
         "photo"
       ]
-    }
+    },
+    "width": 100
   },
   "bg_photo_tone": {
     "type": "select",
@@ -87,7 +91,7 @@
     "type": "select",
     "label": "Background photo — movement direction",
     "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -110,7 +114,8 @@
       "bg_style": [
         "video"
       ]
-    }
+    },
+    "width": 50
   },
   "video_source": {
     "type": "select",
@@ -126,7 +131,8 @@
       "bg_style": [
         "video"
       ]
-    }
+    },
+    "width": 50
   },
   "splash_skater": {
     "type": "image",
@@ -193,7 +199,7 @@
     "label": "Bottom left",
     "doc": "",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "1",
     "choices": {
       "1": "Shown",
@@ -223,7 +229,7 @@
     "label": "Bottom right",
     "doc": "",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "1",
     "choices": {
       "1": "Shown",
@@ -389,7 +395,7 @@
     "label": "Splash — Top right — movement direction",
     "doc": "Which way this plate travels as the page scrolls.",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -410,7 +416,8 @@
       "bg_style": [
         "pattern"
       ]
-    }
+    },
+    "width": 100
   },
   "section_bg_mobile": {
     "type": "image",
@@ -421,7 +428,8 @@
       "bg_style": [
         "pattern"
       ]
-    }
+    },
+    "width": 100
   },
   "section_bg_opacity": {
     "type": "select",
@@ -469,7 +477,7 @@
     "type": "select",
     "label": "Background movement direction",
     "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "group": "Hero background — pattern",
     "choices": {
@@ -495,7 +503,8 @@
       "yellow": "Yellow",
       "pink": "Pink"
     },
-    "group": "Hero darkness"
+    "group": "Hero darkness",
+    "width": 50
   },
   "overlay_strength": {
     "type": "select",
@@ -511,14 +520,16 @@
       "0.75": "75% — very strong",
       "0.9": "90% — photo barely visible"
     },
-    "group": "Hero darkness"
+    "group": "Hero darkness",
+    "width": 50
   },
   "mark_1_brg_art": {
     "type": "image",
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg",
-    "group": "Mark — Brg (yellow)"
+    "group": "Mark — Brg (yellow)",
+    "width": 100
   },
   "mark_1_brg_pos": {
     "type": "select",
@@ -584,7 +595,8 @@
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg",
-    "group": "Mark — Smile (yellow)"
+    "group": "Mark — Smile (yellow)",
+    "width": 100
   },
   "mark_2_smile_pos": {
     "type": "select",
@@ -649,7 +661,7 @@
     "type": "select",
     "label": "Where the buttons sit",
     "doc": "At the bottom is the usual place and the one the rest of the site uses.",
-    "width": 50,
+    "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section",
@@ -819,13 +831,14 @@
           "small": "Small"
         }
       }
-    }
+    },
+    "width": 100
   },
   "modal_bg": {
     "type": "select",
     "label": "Pop-up background",
     "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
+    "width": 100,
     "default": "white",
     "choices": {
       "white": "White",

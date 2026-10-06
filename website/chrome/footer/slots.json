@@ -7,7 +7,8 @@
     "type": "image",
     "label": "Footer logo",
     "doc": "The lockup across the foot of every page. It is artwork, not type — the words behind it exist only as the name a screen reader reads out.",
-    "group": "Logo"
+    "group": "Logo",
+    "width": 100
   },
   "logo_width": {
     "type": "number",
@@ -58,7 +59,7 @@
     "label": "Alignment",
     "doc": "Where the lockup and the social icon sit.",
     "group": "Footer — layout",
-    "width": 50,
+    "width": 100,
     "default": "center",
     "choices": {
       "center": "Centered",
@@ -98,13 +99,6 @@
     "width": 60,
     "default": "© {year} Blacktop Restaurant Group. All rights reserved."
   },
-  "links": {
-    "type": "lines",
-    "label": "Legal links",
-    "doc": "ONE LINK PER LINE, written as the words you want, then a vertical bar, then the page path. For example:\n\nPrivacy Policy|/privacy-policy/\nCookie Policy|/cookie-policy/\n\nYou can also just paste a path on its own — /privacy-policy/ — and the words are made from it. A full web address works too, for anything off this site.",
-    "group": "Footer — small print",
-    "default": ""
-  },
   "legal_align": {
     "type": "select",
     "label": "Small print sits",
@@ -117,5 +111,13 @@
       "center": "Centered",
       "right": "Bottom right"
     }
+  },
+  "links": {
+    "type": "lines",
+    "label": "Legal links",
+    "doc": "ONE LINK PER LINE, written as the words you want, then a vertical bar, then the page path. For example:\n\nPrivacy Policy|/privacy-policy/\nCookie Policy|/cookie-policy/\n\nYou can also just paste a path on its own — /privacy-policy/ — and the words are made from it. A full web address works too, for anything off this site.",
+    "group": "Footer — small print",
+    "default": "",
+    "width": 100
   }
 }

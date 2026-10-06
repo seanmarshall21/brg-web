@@ -4,31 +4,36 @@
     "type": "lines",
     "label": "Headline",
     "doc": "The hero display headline. Approved editable by Sean 2026-08-13. LENGTH IS A HINT, NOT A LIMIT — under ~50 characters keeps it to 3 lines at 1440, but character count is only a proxy because WORD length drives the break: careers-hero renders 4 lines at 42 characters where community-hero renders 3 at 43, same rule and same width. 4 lines is the practical ceiling; at ~70 characters the headline is 5 lines and consumes the whole fold, pushing the next section off-screen. Measured, not guessed. The hero doodles were pinned to the padding band first (b324b35) so a longer headline can no longer drag one into the type — before that fix the top mark fell 43px between a 3-line and a 5-line headline and ended up level with the first line. NOTE this headline STARTS a line closer to the ceiling than the other three — it is already 4 lines at its current 42 characters, so it has roughly one line of headroom rather than two. PRESS RETURN to force a line break exactly where you want one.",
-    "default": "Come work somewhere you actually want to be"
+    "default": "Come work somewhere you actually want to be",
+    "width": 100
   },
   "sub_1": {
     "type": "textarea",
     "label": "Sub copy — before the highlight",
     "doc": "Everything up to and including the em dash. The space before the highlight is in the markup, so no trailing space here.",
-    "default": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —"
+    "default": "We're building careers here, not just filling shifts. If you're driven, hospitality-minded, and ready to grow —",
+    "width": 100
   },
   "sub_highlight": {
     "type": "text",
     "label": "Sub copy — highlighted phrase",
     "doc": "Sits in the yellow marker block that closes the sentence. Short — it is a highlight, not a clause.",
-    "default": "let's talk."
+    "default": "let's talk.",
+    "width": 50
   },
   "hl_variant": {
     "type": "text",
     "label": "Highlight animation",
     "doc": "How the marker highlight behind the sub copy arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP; switch to it if you lengthen 'Sub highlight' enough to reflow, because h3's block is one rigid shape that cannot wrap with the text. `h0` static, no animation. Unknown or blank renders a static painted mark, never blank. Catalog: website/lab/README.md.",
-    "default": "h3"
+    "default": "h3",
+    "width": 50
   },
   "uline_variant": {
     "type": "text",
     "label": "Underline animation",
     "doc": "How the hand-drawn underline (line-careers-lg.svg) reveals. `u3` (default) filled brush + ~5deg angled wipe, keeps the taper. `wipe` straight-edged reveal, the conservative fallback. `u1` scaleX bar — this is what this hero used BEFORE the artwork swap, kept so the old look can be compared live. Unknown or blank renders the mark static and visible, never hidden. Catalog: website/lab/README.md.",
-    "default": "u3"
+    "default": "u3",
+    "width": 100
   },
   "bg_style": {
     "type": "select",
@@ -54,7 +59,8 @@
       "bg_style": [
         "photo"
       ]
-    }
+    },
+    "width": 100
   },
   "bg_photo_mobile": {
     "type": "image",
@@ -65,7 +71,8 @@
       "bg_style": [
         "photo"
       ]
-    }
+    },
+    "width": 100
   },
   "bg_photo_tone": {
     "type": "select",
@@ -105,7 +112,7 @@
     "type": "select",
     "label": "Background photo — movement direction",
     "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -128,7 +135,8 @@
       "bg_style": [
         "video"
       ]
-    }
+    },
+    "width": 50
   },
   "video_source": {
     "type": "select",
@@ -144,7 +152,8 @@
       "bg_style": [
         "video"
       ]
-    }
+    },
+    "width": 50
   },
   "splash_skater": {
     "type": "image",
@@ -211,7 +220,7 @@
     "label": "Bottom left",
     "doc": "",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "1",
     "choices": {
       "1": "Shown",
@@ -241,7 +250,7 @@
     "label": "Bottom right",
     "doc": "",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "1",
     "choices": {
       "1": "Shown",
@@ -407,7 +416,7 @@
     "label": "Splash — Top right — movement direction",
     "doc": "Which way this plate travels as the page scrolls.",
     "group": "Hero background — splash animation",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -428,7 +437,8 @@
       "bg_style": [
         "pattern"
       ]
-    }
+    },
+    "width": 100
   },
   "section_bg_mobile": {
     "type": "image",
@@ -439,7 +449,8 @@
       "bg_style": [
         "pattern"
       ]
-    }
+    },
+    "width": 100
   },
   "section_bg_opacity": {
     "type": "select",
@@ -487,7 +498,7 @@
     "type": "select",
     "label": "Background movement direction",
     "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "group": "Hero background — pattern",
     "choices": {
@@ -513,7 +524,8 @@
       "yellow": "Yellow",
       "pink": "Pink"
     },
-    "group": "Hero darkness"
+    "group": "Hero darkness",
+    "width": 50
   },
   "overlay_strength": {
     "type": "select",
@@ -529,14 +541,16 @@
       "0.75": "75% — very strong",
       "0.9": "90% — photo barely visible"
     },
-    "group": "Hero darkness"
+    "group": "Hero darkness",
+    "width": 50
   },
   "mark_1_ast_circle_art": {
     "type": "image",
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-ast-circle-wht.svg",
-    "group": "Mark — Ast circle (white)"
+    "group": "Mark — Ast circle (white)",
+    "width": 100
   },
   "mark_1_ast_circle_pos": {
     "type": "select",
@@ -602,7 +616,8 @@
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg",
-    "group": "Mark — Smile (yellow)"
+    "group": "Mark — Smile (yellow)",
+    "width": 100
   },
   "mark_2_smile_pos": {
     "type": "select",
@@ -667,7 +682,7 @@
     "type": "select",
     "label": "Where the buttons sit",
     "doc": "At the bottom is the usual place and the one the rest of the site uses.",
-    "width": 50,
+    "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section",
@@ -837,13 +852,14 @@
           "small": "Small"
         }
       }
-    }
+    },
+    "width": 100
   },
   "modal_bg": {
     "type": "select",
     "label": "Pop-up background",
     "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
+    "width": 100,
     "default": "white",
     "choices": {
       "white": "White",

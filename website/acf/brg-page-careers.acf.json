@@ -63,7 +63,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-heading",
                     "id": ""
                 },
@@ -78,7 +78,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-sub_1",
                     "id": ""
                 },
@@ -123,7 +123,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-uline_variant",
                     "id": ""
                 },
@@ -233,7 +233,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-bg_photo",
                     "id": ""
                 },
@@ -258,7 +258,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-bg_photo_mobile",
                     "id": ""
                 },
@@ -345,7 +345,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-bg_photo_px_dir",
                     "id": ""
                 },
@@ -646,7 +646,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-splash_car_on",
                     "id": ""
                 },
@@ -704,7 +704,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-splash_surfer_on",
                     "id": ""
                 },
@@ -1010,7 +1010,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-splash_crown_px_dir",
                     "id": ""
                 },
@@ -1093,7 +1093,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -1118,7 +1118,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -1213,7 +1213,7 @@
                     ]
                 ],
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -1373,7 +1373,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_1_ast_circle_art",
                     "id": ""
                 },
@@ -1531,7 +1531,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_2_smile_art",
                     "id": ""
                 },
@@ -1689,7 +1689,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -2027,7 +2027,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },
@@ -2155,7 +2155,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-heading_1",
                     "id": ""
                 },
@@ -2170,7 +2170,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-heading_mark",
                     "id": ""
                 },
@@ -2185,7 +2185,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-body_1",
                     "id": ""
                 },
@@ -2200,7 +2200,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-body_2",
                     "id": ""
                 },
@@ -2215,7 +2215,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-offers_heading",
                     "id": ""
                 },
@@ -2266,7 +2266,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-hl_variant",
                     "id": ""
                 },
@@ -2298,7 +2298,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -2369,7 +2369,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -2428,7 +2428,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -2479,7 +2479,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-mark_1_ast_art",
                     "id": ""
                 },
@@ -2637,7 +2637,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -2974,7 +2974,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },
@@ -3083,7 +3083,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-heading",
                     "id": ""
                 },
@@ -3098,7 +3098,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-sub",
                     "id": ""
                 },
@@ -3113,7 +3113,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-photo",
                     "id": ""
                 },
@@ -3176,7 +3176,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-photo_px_dir",
                     "id": ""
                 },
@@ -3218,7 +3218,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -3289,7 +3289,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -3348,7 +3348,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -3399,7 +3399,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -3736,7 +3736,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },
@@ -3943,7 +3943,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg",
                     "id": ""
                 },
@@ -4014,7 +4014,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-section_bg_px_dir",
                     "id": ""
                 },
@@ -4073,7 +4073,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-section_bg_mobile",
                     "id": ""
                 },
@@ -4124,7 +4124,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-cta_position",
                     "id": ""
                 },
@@ -4461,7 +4461,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-modal_bg",
                     "id": ""
                 },

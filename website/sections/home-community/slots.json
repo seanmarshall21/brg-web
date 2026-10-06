@@ -4,61 +4,71 @@
     "type": "lines",
     "label": "Heading",
     "doc": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
-    "default": "Born in San Diego."
+    "default": "Born in San Diego.",
+    "width": 100
   },
   "heading_2": {
     "type": "text",
     "label": "Heading — before the marked words",
     "doc": "The words on the second line that come immediately before the highlighted ones.",
-    "default": "Built"
+    "default": "Built",
+    "width": 50
   },
   "heading_mark": {
     "type": "text",
     "label": "Heading — the marked words",
     "doc": "The words the highlight sits behind. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
-    "default": "for community."
+    "default": "for community.",
+    "width": 50
   },
   "intro_1": {
     "type": "textarea",
     "label": "Intro — before the emphasis",
     "doc": "Opening clause, up to the colon. The space before the bold phrase is in the markup, so no trailing space here.",
-    "default": "Blacktop Restaurant Group started with a simple belief:"
+    "default": "Blacktop Restaurant Group started with a simple belief:",
+    "width": 100
   },
   "intro_emphasis": {
     "type": "text",
     "label": "Intro — bold phrase",
     "doc": "Rendered bold, mid-sentence. A clause, not a paragraph.",
-    "default": "that a great meal is really just an excuse to connect."
+    "default": "that a great meal is really just an excuse to connect.",
+    "width": 100
   },
   "intro_2": {
     "type": "textarea",
     "label": "Intro — after the emphasis",
     "doc": "The rest of the paragraph. Carries the founding year, so it needs editing if that is ever restated.",
-    "default": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home."
+    "default": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.",
+    "width": 100
   },
   "body_1": {
     "type": "textarea",
     "label": "Body copy — first paragraph",
     "doc": "Plain text; markup is escaped. Write `—` as a literal em dash.",
-    "default": "We're not a corporation chasing locations — we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling."
+    "default": "We're not a corporation chasing locations — we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.",
+    "width": 100
   },
   "body_2": {
     "type": "textarea",
     "label": "Body copy — second paragraph",
     "doc": "Carries the live location counts, so it needs editing whenever they change — which is the main reason it is a field. Write `&` and `—` as literal characters. CROSS-SECTION FACT — this number also appears in `our-restaurants-brands` -> Board & Brew second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
-    "default": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started."
+    "default": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside — and we're just getting started.",
+    "width": 100
   },
   "hl_variant": {
     "type": "text",
     "label": "Highlight animation",
     "doc": "How the marker highlight behind “for community.” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalog: website/lab/README.md.",
-    "default": "h3"
+    "default": "h3",
+    "width": 100
   },
   "photo_1": {
     "type": "image",
     "label": "Photo — tall, front",
     "doc": "The taller photo in front. Portrait crop, around 733x1100. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp"
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp",
+    "width": 100
   },
   "photo_1_tone": {
     "type": "select",
@@ -108,7 +118,7 @@
     "type": "select",
     "label": "Photo — tall, front — drift direction",
     "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -119,7 +129,8 @@
     "type": "image",
     "label": "Photo — behind",
     "doc": "The photo set behind and slightly offset. Portrait crop, around 548x820. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp",
+    "width": 100
   },
   "photo_2_tone": {
     "type": "select",
@@ -169,7 +180,7 @@
     "type": "select",
     "label": "Photo — behind — drift direction",
     "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -181,14 +192,16 @@
     "label": "Section background",
     "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
     "group": "Section background",
-    "default": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp"
+    "default": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp",
+    "width": 100
   },
   "section_bg_mobile": {
     "type": "image",
     "label": "Section background — phones",
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
     "group": "Section background — phones",
-    "default": ""
+    "default": "",
+    "width": 100
   },
   "section_bg_opacity": {
     "type": "select",
@@ -226,7 +239,7 @@
     "type": "select",
     "label": "Background movement direction",
     "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "group": "Section background",
     "choices": {
@@ -239,7 +252,8 @@
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg",
-    "group": "Mark — Bolt"
+    "group": "Mark — Bolt",
+    "width": 100
   },
   "mark_1_bolt_pos": {
     "type": "select",
@@ -305,7 +319,8 @@
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg",
-    "group": "Mark — All trim"
+    "group": "Mark — All trim",
+    "width": 100
   },
   "mark_2_all_trim_pos": {
     "type": "select",
@@ -370,7 +385,7 @@
     "type": "select",
     "label": "Where the buttons sit",
     "doc": "At the bottom is the usual place and the one the rest of the site uses.",
-    "width": 50,
+    "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section",
@@ -540,13 +555,14 @@
           "small": "Small"
         }
       }
-    }
+    },
+    "width": 100
   },
   "modal_bg": {
     "type": "select",
     "label": "Pop-up background",
     "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
+    "width": 100,
     "default": "white",
     "choices": {
       "white": "White",

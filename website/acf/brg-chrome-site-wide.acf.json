@@ -61,7 +61,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-logo",
                     "id": ""
                 },
@@ -114,7 +114,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-logo_href",
                     "id": ""
                 },
@@ -428,7 +428,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "34",
                     "class": "brg-f-pin_wordmark",
                     "id": ""
                 },
@@ -539,7 +539,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "34",
                     "class": "brg-f-order_wordmark",
                     "id": ""
                 },
@@ -641,7 +641,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "34",
                     "class": "brg-f-tm_wordmark_size",
                     "id": ""
                 },
@@ -662,7 +662,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-tm_label_size",
                     "id": ""
                 },
@@ -767,7 +767,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "34",
                     "class": "brg-f-show_wordmark",
                     "id": ""
                 },
@@ -842,7 +842,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "33",
+                    "width": "34",
                     "class": "brg-f-show_numbers",
                     "id": ""
                 },
@@ -948,7 +948,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-wordmark_line",
                     "id": ""
                 },
@@ -1013,7 +1013,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "100",
                     "class": "brg-f-logo",
                     "id": ""
                 },
@@ -1142,7 +1142,7 @@
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "50",
+                    "width": "100",
                     "class": "brg-f-align",
                     "id": ""
                 },
@@ -1289,21 +1289,6 @@
                 "default_value": "© {year} Blacktop Restaurant Group. All rights reserved."
             },
             {
-                "key": "field_brg_footer_links",
-                "label": "Legal links",
-                "name": "brg_footer_links",
-                "type": "textarea",
-                "instructions": "ONE LINK PER LINE, written as the words you want, then a vertical bar, then the page path. For example:\n\nPrivacy Policy|/privacy-policy/\nCookie Policy|/cookie-policy/\n\nYou can also just paste a path on its own — /privacy-policy/ — and the words are made from it. A full web address works too, for anything off this site.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-f-links",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
                 "key": "field_brg_footer_legal_align",
                 "label": "Small print sits",
                 "name": "brg_footer_legal_align",
@@ -1328,6 +1313,21 @@
                 "ui": 0,
                 "ajax": 0,
                 "placeholder": ""
+            },
+            {
+                "key": "field_brg_footer_links",
+                "label": "Legal links",
+                "name": "brg_footer_links",
+                "type": "textarea",
+                "instructions": "ONE LINK PER LINE, written as the words you want, then a vertical bar, then the page path. For example:\n\nPrivacy Policy|/privacy-policy/\nCookie Policy|/cookie-policy/\n\nYou can also just paste a path on its own — /privacy-policy/ — and the words are made from it. A full web address works too, for anything off this site.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "100",
+                    "class": "brg-f-links",
+                    "id": ""
+                },
+                "default_value": ""
             },
             {
                 "key": "field_brg_footer_endacc_footer_small_print",
@@ -1859,7 +1859,7 @@
                 "label": "Shortcode &amp; options",
                 "name": "",
                 "type": "message",
-                "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>logo</code></td><td>Logo</td><td>an image URL</td></tr><tr><td><code>logo_height</code></td><td>Logo height</td><td>a number (16–96)</td></tr><tr><td><code>brand_name</code></td><td>Brand name (read aloud by screen readers)</td><td>text</td></tr><tr><td><code>logo_href</code></td><td>Logo links to</td><td>a link or page path</td></tr><tr><td><code>layout</code></td><td>Layout</td><td>left · split · center · compact</td></tr><tr><td><code>link_size</code></td><td>Link text size</td><td>a number (9–22)</td></tr><tr><td><code>link_gap</code></td><td>Space between links</td><td>a number (8–64)</td></tr><tr><td><code>left</code></td><td>Links before the logo</td><td>a number (0–8)</td></tr><tr><td><code>right</code></td><td>Links after the logo</td><td>a number (0–8)</td></tr><tr><td><code>more_label</code></td><td>“More” button text</td><td>text</td></tr><tr><td><code>bar_max</code></td><td>Links on the bar before “More”</td><td>a number (0–12)</td></tr><tr><td><code>pin_pages</code></td><td>Pages</td><td>top · bottom</td></tr><tr><td><code>pin_social</code></td><td>Social</td><td>top · bottom</td></tr><tr><td><code>pin_wordmark</code></td><td>Wordmark</td><td>top · bottom</td></tr><tr><td><code>order_pages</code></td><td>Pages</td><td>1 · 2 · 3</td></tr><tr><td><code>order_social</code></td><td>Social</td><td>1 · 2 · 3</td></tr><tr><td><code>order_wordmark</code></td><td>Wordmark</td><td>1 · 2 · 3</td></tr><tr><td><code>tm_link_size</code></td><td>Page link size</td><td>a number (18–84)</td></tr><tr><td><code>tm_gap</code></td><td>Space between blocks</td><td>a number (0–80)</td></tr><tr><td><code>tm_wordmark_size</code></td><td>Wordmark size</td><td>a number (60–420)</td></tr><tr><td><code>tm_label_size</code></td><td>Small label size</td><td>a number (8–20)</td></tr><tr><td><code>show_pages</code></td><td>Pages</td><td>1 · 0</td></tr><tr><td><code>show_social</code></td><td>Social</td><td>1 · 0</td></tr><tr><td><code>show_wordmark</code></td><td>Wordmark</td><td>1 · 0</td></tr><tr><td><code>show_menu_label</code></td><td>“Menu” label</td><td>1 · 0</td></tr><tr><td><code>show_social_label</code></td><td>“Follow” label</td><td>1 · 0</td></tr><tr><td><code>show_numbers</code></td><td>Numbers (01, 02…)</td><td>1 · 0</td></tr><tr><td><code>menu_label</code></td><td>“Menu” label text</td><td>text</td></tr><tr><td><code>social_label</code></td><td>“Follow” label text</td><td>text</td></tr><tr><td><code>wordmark</code></td><td>Wordmark</td><td>an image URL</td></tr><tr><td><code>wordmark_line</code></td><td>Line under the wordmark</td><td>text</td></tr><tr><td><code>logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>logo_width</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>logo_href</code></td><td>Footer logo links to</td><td>a link or page path</td></tr><tr><td><code>pad_top</code></td><td>Space above</td><td>a number (0–180)</td></tr><tr><td><code>pad_bottom</code></td><td>Space below</td><td>a number (0–180)</td></tr><tr><td><code>align</code></td><td>Alignment</td><td>center · left · split</td></tr><tr><td><code>show_social</code></td><td>Social icon</td><td>1 · 0</td></tr><tr><td><code>social_size</code></td><td>Social icon size</td><td>a number (12–48)</td></tr><tr><td><code>legal</code></td><td>Small print</td><td>text</td></tr><tr><td><code>links</code></td><td>Legal links</td><td>text</td></tr><tr><td><code>legal_align</code></td><td>Small print sits</td><td>left · center · right</td></tr><tr><td><code>size</code></td><td>Size</td><td>large · medium · small</td></tr><tr><td><code>style</code></td><td>Filled, outline or text</td><td>filled · outline · text</td></tr><tr><td><code>btn_effect</code></td><td>Hover effect</td><td>lift · lift-swap · underline · grow · press · fill · none</td></tr><tr><td><code>light_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>light_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>light_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>light_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>dark_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>dark_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>dark_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>dark_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>accent_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>accent_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>accent_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>accent_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>alt_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>alt_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>alt_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>alt_hover_fg</code></td><td>Text on hover</td><td>text</td></tr></tbody></table>",
+                "message": "<p>Any field on this page can also be set right in the shortcode — that wins over what is saved here, for that one placement. Extra option: <code>ttl=\"0\"</code> always fetches the newest copy.</p><table class=\"widefat striped\"><thead><tr><th>Option</th><th>Field</th><th>Value</th></tr></thead><tbody><tr><td><code>logo</code></td><td>Logo</td><td>an image URL</td></tr><tr><td><code>logo_height</code></td><td>Logo height</td><td>a number (16–96)</td></tr><tr><td><code>brand_name</code></td><td>Brand name (read aloud by screen readers)</td><td>text</td></tr><tr><td><code>logo_href</code></td><td>Logo links to</td><td>a link or page path</td></tr><tr><td><code>layout</code></td><td>Layout</td><td>left · split · center · compact</td></tr><tr><td><code>link_size</code></td><td>Link text size</td><td>a number (9–22)</td></tr><tr><td><code>link_gap</code></td><td>Space between links</td><td>a number (8–64)</td></tr><tr><td><code>left</code></td><td>Links before the logo</td><td>a number (0–8)</td></tr><tr><td><code>right</code></td><td>Links after the logo</td><td>a number (0–8)</td></tr><tr><td><code>more_label</code></td><td>“More” button text</td><td>text</td></tr><tr><td><code>bar_max</code></td><td>Links on the bar before “More”</td><td>a number (0–12)</td></tr><tr><td><code>pin_pages</code></td><td>Pages</td><td>top · bottom</td></tr><tr><td><code>pin_social</code></td><td>Social</td><td>top · bottom</td></tr><tr><td><code>pin_wordmark</code></td><td>Wordmark</td><td>top · bottom</td></tr><tr><td><code>order_pages</code></td><td>Pages</td><td>1 · 2 · 3</td></tr><tr><td><code>order_social</code></td><td>Social</td><td>1 · 2 · 3</td></tr><tr><td><code>order_wordmark</code></td><td>Wordmark</td><td>1 · 2 · 3</td></tr><tr><td><code>tm_link_size</code></td><td>Page link size</td><td>a number (18–84)</td></tr><tr><td><code>tm_gap</code></td><td>Space between blocks</td><td>a number (0–80)</td></tr><tr><td><code>tm_wordmark_size</code></td><td>Wordmark size</td><td>a number (60–420)</td></tr><tr><td><code>tm_label_size</code></td><td>Small label size</td><td>a number (8–20)</td></tr><tr><td><code>show_pages</code></td><td>Pages</td><td>1 · 0</td></tr><tr><td><code>show_social</code></td><td>Social</td><td>1 · 0</td></tr><tr><td><code>show_wordmark</code></td><td>Wordmark</td><td>1 · 0</td></tr><tr><td><code>show_menu_label</code></td><td>“Menu” label</td><td>1 · 0</td></tr><tr><td><code>show_social_label</code></td><td>“Follow” label</td><td>1 · 0</td></tr><tr><td><code>show_numbers</code></td><td>Numbers (01, 02…)</td><td>1 · 0</td></tr><tr><td><code>menu_label</code></td><td>“Menu” label text</td><td>text</td></tr><tr><td><code>social_label</code></td><td>“Follow” label text</td><td>text</td></tr><tr><td><code>wordmark</code></td><td>Wordmark</td><td>an image URL</td></tr><tr><td><code>wordmark_line</code></td><td>Line under the wordmark</td><td>text</td></tr><tr><td><code>logo</code></td><td>Footer logo</td><td>an image URL</td></tr><tr><td><code>logo_width</code></td><td>Footer logo width</td><td>a number (120–720)</td></tr><tr><td><code>logo_href</code></td><td>Footer logo links to</td><td>a link or page path</td></tr><tr><td><code>pad_top</code></td><td>Space above</td><td>a number (0–180)</td></tr><tr><td><code>pad_bottom</code></td><td>Space below</td><td>a number (0–180)</td></tr><tr><td><code>align</code></td><td>Alignment</td><td>center · left · split</td></tr><tr><td><code>show_social</code></td><td>Social icon</td><td>1 · 0</td></tr><tr><td><code>social_size</code></td><td>Social icon size</td><td>a number (12–48)</td></tr><tr><td><code>legal</code></td><td>Small print</td><td>text</td></tr><tr><td><code>legal_align</code></td><td>Small print sits</td><td>left · center · right</td></tr><tr><td><code>links</code></td><td>Legal links</td><td>text</td></tr><tr><td><code>size</code></td><td>Size</td><td>large · medium · small</td></tr><tr><td><code>style</code></td><td>Filled, outline or text</td><td>filled · outline · text</td></tr><tr><td><code>btn_effect</code></td><td>Hover effect</td><td>lift · lift-swap · underline · grow · press · fill · none</td></tr><tr><td><code>light_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>light_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>light_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>light_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>dark_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>dark_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>dark_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>dark_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>accent_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>accent_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>accent_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>accent_hover_fg</code></td><td>Text on hover</td><td>text</td></tr><tr><td><code>alt_bg</code></td><td>Color</td><td>text</td></tr><tr><td><code>alt_fg</code></td><td>Text on it</td><td>text</td></tr><tr><td><code>alt_hover_bg</code></td><td>Hover color</td><td>text</td></tr><tr><td><code>alt_hover_fg</code></td><td>Text on hover</td><td>text</td></tr></tbody></table>",
                 "new_lines": "",
                 "esc_html": 0,
                 "required": 0,

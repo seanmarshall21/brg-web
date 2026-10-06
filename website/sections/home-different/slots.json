@@ -4,43 +4,50 @@
     "type": "lines",
     "label": "Heading",
     "doc": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
-    "default": "of\nrestaurant company"
+    "default": "of\nrestaurant company",
+    "width": 100
   },
   "heading_mark": {
     "type": "text",
     "label": "Heading — the marked words",
     "doc": "The words the highlight sits behind. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
-    "default": "A different kind"
+    "default": "A different kind",
+    "width": 100
   },
   "body_1": {
     "type": "textarea",
     "label": "Body copy — first paragraph",
     "doc": "Plain text; markup is escaped.",
-    "default": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that."
+    "default": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.",
+    "width": 100
   },
   "body_2": {
     "type": "textarea",
     "label": "Body copy — second paragraph",
     "doc": "Write `—` as a literal em dash.",
-    "default": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work — that energy is contagious. You feel it the moment you walk in."
+    "default": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work — that energy is contagious. You feel it the moment you walk in.",
+    "width": 100
   },
   "body_3": {
     "type": "textarea",
     "label": "Body copy — third paragraph",
     "doc": "Write `—` as a literal em dash.",
-    "default": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time."
+    "default": "We're building something that lasts — not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.",
+    "width": 100
   },
   "hl_variant": {
     "type": "text",
     "label": "Highlight animation",
     "doc": "How the marker highlight behind “A different kind” arrives. `h3` (default) rough hand-drawn block + ~5deg angled wipe, closest to the comps. `h1` background wipe — THE ONLY ONE THAT SURVIVES A LINE WRAP. `h0` static, no animation, which is what this mark did before. Unknown or blank renders a static painted mark, never blank. Color and padding are unchanged from the original design. Catalog: website/lab/README.md.",
-    "default": "h3"
+    "default": "h3",
+    "width": 100
   },
   "photo_1": {
     "type": "image",
     "label": "Photo — large",
     "doc": "The large landscape photo. Around 1600x1067. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp"
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp",
+    "width": 100
   },
   "photo_1_tone": {
     "type": "select",
@@ -90,7 +97,7 @@
     "type": "select",
     "label": "Photo — large — drift direction",
     "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -101,7 +108,8 @@
     "type": "image",
     "label": "Photo — tall",
     "doc": "Portrait crop, around 733x1100. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp"
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp",
+    "width": 100
   },
   "photo_2_tone": {
     "type": "select",
@@ -151,7 +159,7 @@
     "type": "select",
     "label": "Photo — tall — drift direction",
     "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -162,7 +170,8 @@
     "type": "image",
     "label": "Photo — small",
     "doc": "Portrait crop, around 548x820. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp"
+    "default": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp",
+    "width": 100
   },
   "photo_3_tone": {
     "type": "select",
@@ -212,7 +221,7 @@
     "type": "select",
     "label": "Photo — small — drift direction",
     "doc": "Which way this frame drifts. Set a large and a small photo in opposite directions.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -224,14 +233,16 @@
     "label": "Section background",
     "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
     "group": "Section background",
-    "default": "https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/difkind-bkgnd.webp"
+    "default": "https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/difkind-bkgnd.webp",
+    "width": 100
   },
   "section_bg_mobile": {
     "type": "image",
     "label": "Section background — phones",
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
     "group": "Section background — phones",
-    "default": ""
+    "default": "",
+    "width": 100
   },
   "section_bg_opacity": {
     "type": "select",
@@ -269,7 +280,7 @@
     "type": "select",
     "label": "Background movement direction",
     "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "group": "Section background",
     "choices": {
@@ -281,7 +292,7 @@
     "type": "select",
     "label": "Where the buttons sit",
     "doc": "At the bottom is the usual place and the one the rest of the site uses.",
-    "width": 50,
+    "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section",
@@ -451,13 +462,14 @@
           "small": "Small"
         }
       }
-    }
+    },
+    "width": 100
   },
   "modal_bg": {
     "type": "select",
     "label": "Pop-up background",
     "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
+    "width": 100,
     "default": "white",
     "choices": {
       "white": "White",

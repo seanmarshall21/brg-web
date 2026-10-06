@@ -8,67 +8,78 @@
     "type": "text",
     "label": "Board & Brew — name",
     "doc": "The brand name. Write `&` as a literal ampersand.",
-    "default": "Board & Brew"
+    "default": "Board & Brew",
+    "width": 100
   },
   "bnb_body_1": {
     "type": "textarea",
     "label": "Board & Brew — first paragraph",
     "doc": "Write `&` as a literal ampersand.",
-    "default": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool."
+    "default": "San Diego's iconic sandwich shop. Board & Brew has been handcrafting sandos with fresh-baked bread and premium ingredients since before craft sandwiches were cool.",
+    "width": 100
   },
   "bnb_body_2": {
     "type": "textarea",
     "label": "Board & Brew — second paragraph",
     "doc": "Carries the live location count, so it needs editing whenever that changes. Write `—` as a literal em dash. CROSS-SECTION FACT — this number also appears in `home-community` -> Body copy second paragraph, and `community-stats` -> Stat 1 figure. Going ACF-editable REMOVED the check that used to catch a mismatch: it was three greppable strings in the repo, and it is now three database rows that nothing repo-side can compare. If you change one, change all three. (`doc` strings are per-field by construction, so this warning has to be repeated in each — there is nowhere on this project that can hold a cross-section fact.)",
-    "default": "12 locations across San Diego and Orange County — each one a neighborhood staple."
+    "default": "12 locations across San Diego and Orange County — each one a neighborhood staple.",
+    "width": 100
   },
   "bnb_cta_label": {
     "type": "text",
     "label": "Board & Brew — button label",
     "doc": "~12 characters.",
-    "default": "Visit Us"
+    "default": "Visit Us",
+    "width": 50
   },
   "bnb_cta_href": {
     "type": "url",
     "label": "Board & Brew — button link",
     "doc": "Opens in a new tab; target/rel are in the markup.",
-    "default": "https://boardandbrew.com"
+    "default": "https://boardandbrew.com",
+    "width": 50
   },
   "odies_heading": {
     "type": "text",
     "label": "Odie's — name",
     "doc": "The brand name. CANONICAL FORM — Sean 2026-08-13: the official name carries the Co. at the end. Body copy is deliberately NOT swept to match; he asked that prose follow whatever copy is provided, and both forms are in use interchangeably. So this field is the one place the official name is asserted — change it here, leave the paragraphs alone.",
-    "default": "Odie's Pizza Co."
+    "default": "Odie's Pizza Co.",
+    "width": 100
   },
   "odies_body_1": {
     "type": "textarea",
     "label": "Odie's — first paragraph",
     "doc": "Write `—` as a literal em dash.",
-    "default": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast — think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around."
+    "default": "Oceanside's newest pizza obsession. Odie's Pizza Co. brings sourdough pies and radical vibes to the Southern California coast — think big slices, bold flavors, and a neighborhood vibe that makes you want to stick around.",
+    "width": 100
   },
   "odies_body_2": {
     "type": "textarea",
     "label": "Odie's — second paragraph",
     "doc": "Says more locations are coming, so it will need editing when they land.",
-    "default": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way."
+    "default": "Our flagship is right in the heart of downtown Oceanside, and more locations are on the way.",
+    "width": 100
   },
   "odies_cta_label": {
     "type": "text",
     "label": "Odie's — button label",
     "doc": "~12 characters.",
-    "default": "Visit Us"
+    "default": "Visit Us",
+    "width": 50
   },
   "odies_cta_href": {
     "type": "url",
     "label": "Odie's — button link",
     "doc": "Opens in a new tab; target/rel are in the markup.",
-    "default": "https://odiespizza.com"
+    "default": "https://odiespizza.com",
+    "width": 50
   },
   "bnb_image": {
     "type": "image",
     "label": "Board & Brew — image",
     "doc": "The artwork in the Board & Brew panel. Landscape, around 800x550. An SVG logo lockup or a photo both work. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg"
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/bnb-img-label.svg",
+    "width": 100
   },
   "bnb_image_tone": {
     "type": "select",
@@ -96,7 +107,7 @@
     "type": "select",
     "label": "Board & Brew — image — movement direction",
     "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -107,7 +118,8 @@
     "type": "image",
     "label": "Odie's — image",
     "doc": "The artwork in the Odie's panel. Landscape, around 800x550. Leave empty to keep the current picture.",
-    "default": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg"
+    "default": "https://blacktoprg.netlify.app/assets/media/imgs/odies-img-label.svg",
+    "width": 100
   },
   "odies_image_tone": {
     "type": "select",
@@ -135,7 +147,7 @@
     "type": "select",
     "label": "Odie's — image — movement direction",
     "doc": "Which way this photo travels as the page scrolls. Neighboring photos set in opposite directions are what reads as depth.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "choices": {
       "down": "Down",
@@ -146,7 +158,8 @@
     "type": "image",
     "label": "Section background",
     "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
-    "group": "Section background"
+    "group": "Section background",
+    "width": 100
   },
   "section_bg_opacity": {
     "type": "select",
@@ -184,7 +197,7 @@
     "type": "select",
     "label": "Background movement direction",
     "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
-    "width": 50,
+    "width": 100,
     "default": "down",
     "group": "Section background",
     "choices": {
@@ -196,14 +209,16 @@
     "type": "image",
     "label": "Section background — phones",
     "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
-    "group": "Section background — phones"
+    "group": "Section background — phones",
+    "width": 100
   },
   "mark_1_ast_art": {
     "type": "image",
     "label": "Artwork",
     "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
     "default": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg",
-    "group": "Mark — Ast"
+    "group": "Mark — Ast",
+    "width": 100
   },
   "mark_1_ast_pos": {
     "type": "select",
@@ -268,7 +283,7 @@
     "type": "select",
     "label": "Where the buttons sit",
     "doc": "At the bottom is the usual place and the one the rest of the site uses. This section has no heading, so the bottom is the only position offered.",
-    "width": 50,
+    "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section"
@@ -437,13 +452,14 @@
           "small": "Small"
         }
       }
-    }
+    },
+    "width": 100
   },
   "modal_bg": {
     "type": "select",
     "label": "Pop-up background",
     "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
-    "width": 50,
+    "width": 100,
     "default": "white",
     "choices": {
       "white": "White",
