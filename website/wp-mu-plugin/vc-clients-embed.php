@@ -1222,6 +1222,49 @@ add_action( 'init', function () {
 }, 20 );
 
 /* Generic one-off (rare): [vc_embed url="https://xxx.netlify.app/foo/embed.html"] */
+/* ── [brand email] OUTSIDE OUR FRAGMENTS ──────────────────────────────────────────────
+ * Sean, 5 Oct: the splash page's contact email should come from Brand info.
+ *
+ * It could not. The splash is an Oxygen page built in WordPress, and brand tokens are
+ * resolved in exactly one place — inside a fragment, as it renders — so the syntax Brand
+ * info's own note tells you to use, "[brand phone]", did nothing anywhere else on the
+ * site. A shortcode makes the documented syntax true everywhere instead of only where it
+ * happened to be wired.
+ *
+ *   [brand email]             the address, as text
+ *   [brand email as=mailto]   mailto:…  — for a link's href
+ *   [brand email as=link]     a finished <a> with the address as its words
+ *
+ * Any Brand info key works: email, careers_email, phone, name, address, instagram…
+ * An empty field prints nothing rather than an empty link.
+ *
+ * GUARDED because `brand` is a short, generic name: if another plugin has already claimed
+ * it, ours stands down rather than overwriting theirs and breaking their pages. */
+if ( ! shortcode_exists( 'brand' ) ) {
+    add_shortcode( 'brand', function ( $atts ) {
+        $atts = (array) $atts;
+        $key  = '';
+        foreach ( $atts as $k => $v ) {
+            if ( is_int( $k ) ) { $key = strtolower( trim( (string) $v ) ); break; }
+        }
+        if ( $key === '' && isset( $atts['key'] ) ) $key = strtolower( trim( (string) $atts['key'] ) );
+        if ( $key === '' || ! function_exists( 'vcc_brand' ) ) return '';
+
+        $val = (string) vcc_brand( $key );
+        if ( $val === '' ) return '';
+        $as = isset( $atts['as'] ) ? strtolower( trim( (string) $atts['as'] ) ) : '';
+        if ( $as === 'mailto' || $as === 'href' || $as === 'url' ) {
+            return esc_url( vcc_brand_link( $key ) );
+        }
+        if ( $as === 'link' ) {
+            $href = vcc_brand_link( $key );
+            if ( $href === '' ) return esc_html( $val );
+            return '<a href="' . esc_url( $href ) . '">' . esc_html( $val ) . '</a>';
+        }
+        return esc_html( $val );
+    } );
+}
+
 add_shortcode( 'vc_embed', function ( $atts ) {
     $a = shortcode_atts( array( 'url' => '', 'ttl' => (string) VCC_TTL ), $atts, 'vc_embed' );
     if ( ! $a['url'] ) return '<!-- vc_embed: no url -->';

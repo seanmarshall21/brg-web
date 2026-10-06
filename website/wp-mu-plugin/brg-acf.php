@@ -42,15 +42,41 @@ add_action( 'acf/init', function () {
     //    pattern for "clicking the parent lands on the first child": without it WordPress
     //    adds an auto sub-menu entry repeating the parent's title and pointing at an
     //    empty page.
+/* ── THE MENU'S OWN NAME, ICON, PLACE AND ORDER ───────────────────────────────────────
+ * Sean, 5 Oct: the admin menu title and icon should be settable in Brand info, Section
+ * Content should sit first, and the pages inside it should be re-orderable.
+ *
+ * READ WITH get_option, NOT get_field. This runs on acf/init, BEFORE the field groups are
+ * fetched and registered, so ACF cannot answer yet — but the saved value is an ordinary
+ * option row and is readable the whole time. A field nobody has touched has no row, and
+ * the fallback here is what shipped, so an untouched site looks exactly as it did.
+ */
+if ( ! function_exists( 'brg_menu_opt' ) ) {
+    function brg_menu_opt( $option, $fallback ) {
+        /* The FULL option name is passed in by every caller rather than composed from a
+         * suffix here. Composed reads tidier and is worse: the names would exist nowhere in
+         * this repo's PHP, so build-acf.py's field->reader check reports each one as a field
+         * that accepts input and changes nothing, and anyone grepping for one finds no
+         * reader either. Same reason the header and footer key maps are written out. */
+        $v = get_option( 'options_' . $option, null );
+        if ( $v === null || $v === false || trim( (string) $v ) === '' ) return $fallback;
+        return trim( (string) $v );
+    }
+}
+
     if ( function_exists( 'acf_add_options_page' ) ) {
+        $brg_menu_title = brg_menu_opt( 'brg_brand_admin_menu_title', 'Section Content' );
+        $brg_menu_icon  = brg_menu_opt( 'brg_brand_admin_menu_icon', 'dashicons-layout' );
+        $brg_menu_pos   = (int) brg_menu_opt( 'brg_brand_admin_menu_position', 2 );
+        if ( $brg_menu_pos < 1 || $brg_menu_pos > 100 ) $brg_menu_pos = 2;
         acf_add_options_page( array(
-            'page_title'      => 'Section Content',
-            'menu_title'      => 'Section Content',
+            'page_title'      => $brg_menu_title,
+            'menu_title'      => $brg_menu_title,
             'menu_slug'       => BRG_ACF_PAGE,
             'capability'      => 'edit_posts',
             'autoload'        => true,
-            'icon_url'        => 'dashicons-layout',
-            'position'        => 26,
+            'icon_url'        => $brg_menu_icon,
+            'position'        => $brg_menu_pos,
             'update_button'   => 'Save content',
             'updated_message' => 'Section content saved.',
         ) );
@@ -125,6 +151,28 @@ add_action( 'acf/init', function () {
     }
 
     if ( function_exists( 'acf_add_options_sub_page' ) ) {
+        /* THE SIDEBAR ORDER IS THE ORDER THESE ARE REGISTERED IN, so the editor's list is
+         * applied by sorting the groups before the loop rather than by touching WordPress's
+         * menu array afterwards. A slug the editor did not mention keeps its generated place
+         * AFTER the ones they did, so naming two pages pulls exactly those two to the top
+         * instead of silently reordering the rest. */
+        $brg_order = brg_menu_opt( 'brg_brand_admin_menu_order', '' );
+        if ( $brg_order !== '' ) {
+            $want = array();
+            foreach ( preg_split( '/[\r\n,]+/', $brg_order ) as $i => $line ) {
+                $line = trim( $line );
+                if ( $line !== '' ) $want[ $line ] = $i;
+            }
+            if ( $want ) {
+                usort( $groups, function ( $a, $b ) use ( $want ) {
+                    $sa = $a['location'][0][0]['value'] ?? '';
+                    $sb = $b['location'][0][0]['value'] ?? '';
+                    $ra = array_key_exists( $sa, $want ) ? $want[ $sa ] : PHP_INT_MAX;
+                    $rb = array_key_exists( $sb, $want ) ? $want[ $sb ] : PHP_INT_MAX;
+                    return $ra === $rb ? 0 : ( $ra < $rb ? -1 : 1 );
+                } );
+            }
+        }
         $seen = array();
         foreach ( $groups as $g ) {
             if ( empty( $g['location'][0][0]['value'] ) ) continue;

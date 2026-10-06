@@ -12,7 +12,7 @@ there is NO manual import: declare a slot, run this, push.
   Field name convention (must match the plugin): brg_<section-id with _>_<slot>
   Location: options_page == brg-section-content  (registered by wp-mu-plugin/brg-acf.php)
 """
-import json, os, re, sys
+import glob, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _guard import refuse_if_worktree
@@ -720,8 +720,13 @@ def check():
     # is field -> READER: the plugin must actually call get_field() for each one, or the
     # editor gets a field that edits nothing. This is fc-brands' tools/acf-readers.py,
     # scoped to the two or three chrome groups we have rather than every section.
-    php_path = os.path.join(ROOT, 'website', 'wp-mu-plugin', 'vc-clients-embed.php')
-    php = open(php_path, encoding='utf-8').read() if os.path.exists(php_path) else ''
+    # EVERY mu-plugin file, not just the embed one. The admin menu's own title, icon and
+    # position are read by brg-acf.php — it is the file that registers the menu — so a check
+    # that looked only at vc-clients-embed.php would call a working reader missing and push
+    # whoever hit it into writing the read in the wrong file to satisfy the guard.
+    php = ''
+    for _f in sorted(glob.glob(os.path.join(ROOT, 'website', 'wp-mu-plugin', '*.php'))):
+        php += open(_f, encoding='utf-8').read() + '\n'
     for cid, label, decl, _p, _pl, _o in chrome_groups():
         for k in decl:
             fname = 'brg_' + cid.replace('-', '_') + '_' + k
@@ -734,8 +739,8 @@ def check():
             composed = re.search(
                 r"vcc_chrome\(\s*'" + re.escape(cid) + r"'\s*,\s*'" + re.escape(k) + r"'", php)
             if fname not in php and not composed:
-                print(f"  ✗ chrome/{cid}: slot '{k}' is never read — nothing in "
-                      f"vc-clients-embed.php mentions {fname}, so the field would accept "
+                print(f"  ✗ chrome/{cid}: slot '{k}' is never read — no file in "
+                      f"website/wp-mu-plugin/ mentions {fname}, so the field would accept "
                       f"input that changes nothing on the page.")
                 bad += 1
 

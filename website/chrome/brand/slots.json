@@ -81,5 +81,40 @@
     "max": 720,
     "step": 10,
     "append": "px"
+  },
+  "admin_menu_title": {
+    "type": "text",
+    "label": "Menu name",
+    "doc": "What this whole area is called in the black sidebar on the left. It is \"Section Content\" today. Changing it renames the menu only — no page, address or saved content moves.",
+    "group": "Admin menu",
+    "width": 50,
+    "default": "Section Content"
+  },
+  "admin_menu_icon": {
+    "type": "text",
+    "label": "Menu icon",
+    "doc": "The little icon beside the menu name. Type a Dashicons name — the set WordPress ships with — for example dashicons-layout, dashicons-admin-appearance, dashicons-screenoptions or dashicons-art. The full list is at developer.wordpress.org/resource/dashicons. An unknown name shows a blank square, which is the only way to get this wrong.",
+    "group": "Admin menu",
+    "width": 50,
+    "default": "dashicons-layout"
+  },
+  "admin_menu_position": {
+    "type": "number",
+    "label": "Where it sits in the sidebar",
+    "doc": "Lower numbers sit higher. 2 puts it directly under Dashboard, at the very top, which is what it is set to. Posts is 5, Media 10, Pages 20, Appearance 60. A number already taken by another plugin can make one of the two disappear, so move in steps of 2.",
+    "group": "Admin menu",
+    "width": 50,
+    "default": "2",
+    "min": 1,
+    "max": 100,
+    "step": 1
+  },
+  "admin_menu_order": {
+    "type": "lines",
+    "label": "Order of the pages inside it",
+    "doc": "ONE PAGE PER LINE, in the order you want them in the sidebar. Use the short name from the web address — home, brands, team, community, careers, contact, brand-info, site-wide. Anything you leave out keeps its current place after the ones you list, so you can put just two lines here to pull those two to the top. Leave it empty for the order they are generated in.",
+    "group": "Admin menu",
+    "width": 100,
+    "default": ""
   }
 }
