@@ -312,6 +312,39 @@
       "0": "Hidden"
     }
   },
+  "num_pos": {
+    "type": "select",
+    "label": "Where the number sits",
+    "width": 33,
+    "default": "above",
+    "doc": "The running number beside each page link in the phone menu. Above puts it on its own line over the word, which is how it reads today. Beside puts it on the same line, to the left of the word, which is tighter and lets more of the menu fit on one screen.",
+    "choices": {
+      "above": "Above the word",
+      "left": "Beside it, on the left"
+    },
+    "group": "Phone menu — numbers"
+  },
+  "num_align": {
+    "type": "select",
+    "label": "Line it up with",
+    "width": 33,
+    "default": "top",
+    "doc": "Only applies when the number sits beside the word. Top lines the number up with the top of the letters, bottom sits it on the same line the letters stand on, and middle centres it against the word.\n\nBottom uses the letters' own baseline rather than the bottom of their box, because the box includes the space descenders need and the number would look like it had slipped.",
+    "choices": {
+      "top": "The top of the word",
+      "middle": "The middle",
+      "bottom": "The line it stands on"
+    },
+    "group": "Phone menu — numbers"
+  },
+  "num_color": {
+    "type": "color",
+    "label": "Number color",
+    "width": 34,
+    "default": "",
+    "doc": "The color of the numbers. Left empty they are the brand yellow, which is the design. Anything set here applies to every number in the phone menu.",
+    "group": "Phone menu — numbers"
+  },
   "menu_label": {
     "type": "text",
     "label": "“Menu” label text",

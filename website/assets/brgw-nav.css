@@ -304,7 +304,20 @@
   /* The row number. Counted in JS so it follows the order rows are SHOWN, which is not
      always source order once the menu is reordered in wp-admin. */
   .bnav-drawer.is-full .bnav-num{display:block;font:700 .62rem/1 'Montserrat',system-ui,sans-serif;
-    letter-spacing:.2em;color:var(--yellow);opacity:.75;margin-bottom:2px;}
+    letter-spacing:.2em;color:var(--bnav-num-color,var(--yellow));opacity:.75;margin-bottom:2px;}
+
+  /* BESIDE THE WORD INSTEAD OF OVER IT. The row is already shrink-wrapped to its text, so
+     turning it into a flex row puts the number on the same line without the words moving.
+     The underline is absolutely positioned inside the row, so it is not a flex item and
+     keeps spanning the row exactly as before. */
+  .bnav-drawer.is-full[data-num-pos="left"] .bnav-item{display:flex;gap:.45em;}
+  .bnav-drawer.is-full[data-num-pos="left"] .bnav-num{margin-bottom:0;flex:none;}
+  .bnav-drawer.is-full[data-num-pos="left"][data-num-align="top"]    .bnav-item{align-items:flex-start;}
+  .bnav-drawer.is-full[data-num-pos="left"][data-num-align="middle"] .bnav-item{align-items:center;}
+  /* "the line it stands on" is BASELINE, not flex-end. The row's box carries the space
+     descenders need, so flex-end would drop the number below the letters and read as a
+     slip rather than a choice. */
+  .bnav-drawer.is-full[data-num-pos="left"][data-num-align="bottom"] .bnav-item{align-items:baseline;}
   .bnav-drawer.is-full .bnav-drawer-eyebrow{margin-top:auto; padding-top:26px;}
 }
 

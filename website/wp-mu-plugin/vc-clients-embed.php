@@ -793,6 +793,9 @@ if ( ! function_exists( 'vcc_header_keys' ) ) {
             'show_menu_label'   => 'brg_header_show_menu_label',
             'show_social_label' => 'brg_header_show_social_label',
             'show_numbers'      => 'brg_header_show_numbers',
+            'num_pos'           => 'brg_header_num_pos',
+            'num_align'         => 'brg_header_num_align',
+            'num_color'         => 'brg_header_num_color',
             'menu_label'        => 'brg_header_menu_label',
             'social_label'      => 'brg_header_social_label',
             'wordmark'          => 'brg_header_wordmark',
@@ -1140,6 +1143,15 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
         $style .= $px( vcc_chrome_setting( 'header', 'tm_wordmark_size',$atts ), 60, 420, '--bnav-tm-wm' );
         $style .= $px( vcc_chrome_setting( 'header', 'tm_label_size',   $atts ),  8,  20, '--bnav-tm-label' );
 
+        /* The number's colour rides out as a CUSTOM PROPERTY, not a data-attribute, because
+         * it is a value the stylesheet reads rather than a state it switches on. Hex only,
+         * and anything else is dropped rather than escaped and hoped for — the same rule the
+         * button roles follow, and for the same reason: this is pasted into a style attribute. */
+        $numc = vcc_chrome_setting( 'header', 'num_color', $atts );
+        if ( is_string( $numc ) && preg_match( '/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/', trim( $numc ) ) ) {
+            $style .= '--bnav-num-color:' . trim( $numc ) . ';';
+        }
+
         $onoff = function ( $v ) { return $v === '0' ? '0' : '1'; };
         $data = array(
             'more'          => vcc_chrome_setting( 'header', 'more_label',        $atts ),
@@ -1161,6 +1173,8 @@ if ( ! function_exists( 'vcc_render_nav' ) ) {
             'menulabel-on'  => $onoff( vcc_chrome_setting( 'header', 'show_menu_label',   $atts ) ),
             'sociallabel-on'=> $onoff( vcc_chrome_setting( 'header', 'show_social_label', $atts ) ),
             'numbers'       => $onoff( vcc_chrome_setting( 'header', 'show_numbers',      $atts ) ),
+            'num-pos'       => vcc_chrome_setting( 'header', 'num_pos',           $atts ),
+            'num-align'     => vcc_chrome_setting( 'header', 'num_align',         $atts ),
         );
         $dataAttr = '';
         foreach ( $data as $k => $v ) {
