@@ -12,6 +12,10 @@
 .brgw-sec--team-apply .sub{max-width:60ch;margin:clamp(18px,2.2vw,28px) auto 0;
   font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.6;}
 .brgw-sec--team-apply .btn{margin-top:clamp(26px,3vw,40px);}
+.brgw-sec--team-apply .btn[data-btn-color="keep"],
+.brgw-sec--team-apply .btn[data-btn-color=""]{
+  --brgw-btn-bg:var(--ink);--brgw-btn-fg:var(--white);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
 .brgw-sec--team-apply .cluster{position:absolute;right:2%;bottom:-24%;width:clamp(130px,15vw,230px);
   z-index:2;pointer-events:none;}
 .brgw-sec--team-apply .cluster img{width:100%;height:auto;display:block;}

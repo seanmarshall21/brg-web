@@ -4,7 +4,10 @@
 <style>
 .brgw-sec--community-partner{background:var(--white);color:var(--ink);text-align:center;
   padding:clamp(30px,4vw,56px) var(--pad) clamp(60px,7vw,96px);}
-.brgw-sec--community-partner .btn{}
+.brgw-sec--community-partner .btn[data-btn-color="keep"],
+.brgw-sec--community-partner .btn[data-btn-color=""]{
+  --brgw-btn-bg:var(--ink);--brgw-btn-fg:var(--white);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
 .brgw-sec--community-partner .sub{max-width:62ch;margin:clamp(20px,2.4vw,30px) auto 0;
   font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.6;opacity:.86;}
 </style>

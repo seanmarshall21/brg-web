@@ -26,6 +26,10 @@
 .brgw-sec--our-restaurants-brands p{opacity:.86;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:46ch;}
 .brgw-sec--our-restaurants-brands p + p{margin-top:1.1em;}
 .brgw-sec--our-restaurants-brands .btn{margin-top:clamp(24px,2.6vw,36px);}
+.brgw-sec--our-restaurants-brands .btn[data-btn-color="keep"],
+.brgw-sec--our-restaurants-brands .btn[data-btn-color=""]{
+  --brgw-btn-bg:var(--ink);--brgw-btn-fg:var(--white);
+  background:var(--brgw-btn-bg);color:var(--brgw-btn-fg);}
 </style>
   <!-- Section background: a pattern or photo behind everything in this section.
        NO src ON THE <img>, only <source srcset>: an empty src resolves against the
