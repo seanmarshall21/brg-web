@@ -138,7 +138,6 @@ if ( ! function_exists( 'vcc_brand_keys' ) ) {
             'linkedin'      => 'brg_brand_linkedin',
             'privacy'       => 'brg_brand_privacy',
             'footer_logo'   => 'brg_brand_footer_logo',
-            'footer_logo_size' => 'brg_brand_footer_logo_size',
         );
     }
 }
@@ -868,15 +867,30 @@ if ( ! function_exists( 'vcc_shell_open' ) ) {
         $style = vcc_chrome_setting( 'buttons', 'style' );
         if ( ! in_array( $style, array( 'filled','outline','text' ), true ) ) $style = 'filled';
 
+        /* THE SIXTEEN ROLE COLORS, WRITTEN OUT. Composing these names from two nested loops
+         * read as tidier and cost a real bug elsewhere in this file: a name that is built at
+         * runtime exists nowhere in the source, so nobody can grep for it and the
+         * field->reader check cannot see it. Brand info carried a dead "Footer logo width"
+         * for exactly that reason until Sean edited it and the logo did not move. */
+        $role_props = array(
+            'light_bg'       => 'light-bg',   'light_fg'       => 'light-fg',
+            'light_hover_bg' => 'light-hbg',  'light_hover_fg' => 'light-hfg',
+            'dark_bg'        => 'dark-bg',    'dark_fg'        => 'dark-fg',
+            'dark_hover_bg'  => 'dark-hbg',   'dark_hover_fg'  => 'dark-hfg',
+            'accent_bg'      => 'accent-bg',  'accent_fg'      => 'accent-fg',
+            'accent_hover_bg'=> 'accent-hbg', 'accent_hover_fg'=> 'accent-hfg',
+            'alt_bg'         => 'alt-bg',     'alt_fg'         => 'alt-fg',
+            'alt_hover_bg'   => 'alt-hbg',    'alt_hover_fg'   => 'alt-hfg',
+        );
         $vars = '';
-        foreach ( array( 'light','dark','accent','alt' ) as $role ) {
-            foreach ( array( 'bg' => 'bg', 'fg' => 'fg', 'hover_bg' => 'hbg', 'hover_fg' => 'hfg' ) as $k => $short ) {
-                $v = vcc_chrome_setting( 'buttons', $role . '_' . $k );
+        {
+            foreach ( $role_props as $slot => $prop ) {
+                $v = vcc_chrome_setting( 'buttons', $slot );
                 /* A HEX STRING ONLY. The value is pasted straight into a style attribute, so
                  * anything that is not plainly a color is dropped rather than escaped and
                  * hoped for. */
                 if ( is_string( $v ) && preg_match( '/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/', trim( $v ) ) ) {
-                    $vars .= '--brgw-role-' . $role . '-' . $short . ':' . trim( $v ) . ';';
+                    $vars .= '--brgw-role-' . $prop . ':' . trim( $v ) . ';';
                 }
             }
         }
