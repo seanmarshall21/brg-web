@@ -495,9 +495,27 @@
   }
 
   function startRevealGate() {
-    // Gate on Blanco so split measures correct line breaks + no fallback-font flash.
+    /* WAIT FOR THE PAGE, NOT JUST THE FONT. Sean, 6 Oct: "all animations should happen
+       after the page loads… right now they're visible, so they turn off and then animate in."
+
+       This gated on Blanco alone, which usually resolves from cache in a few milliseconds —
+       so the reveal fired while the photographs were still downloading, and on anything
+       slower than a fast connection the entrance was over before the section had anything
+       in it to look at. The font still matters (the headline splitter measures line breaks
+       against it), so both are waited on, not one instead of the other.
+
+       THE TIMEOUTS ARE THE POINT, not decoration. `load` waits for every image on the page,
+       which on a hero full of photography can be seconds, so 2500ms caps it — past that the
+       reveal starts regardless and late images simply arrive behind a section already shown.
+       The 3500ms hard stop below is the last line: whatever happens, nothing stays hidden. */
     var fontP = (document.fonts && document.fonts.load) ? document.fonts.load("1em 'Blanco Cavelary'") : Promise.resolve();
-    Promise.race([fontP.catch(function () {}), new Promise(function (r) { setTimeout(r, 1800); })]).then(startAll);
+    var loadP = (document.readyState === 'complete')
+      ? Promise.resolve()
+      : new Promise(function (r) { window.addEventListener('load', r, { once: true }); });
+    Promise.race([
+      Promise.all([fontP.catch(function () {}), loadP]),
+      new Promise(function (r) { setTimeout(r, 2500); })
+    ]).then(startAll);
     setTimeout(startAll, 3500); // hard fallback — nothing stays hidden
   }
 
