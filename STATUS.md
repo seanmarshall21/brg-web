@@ -3,7 +3,14 @@
 _Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-10-03 (Conti) — 21/21 sections built · **every section ACF-editable
+**Last updated:** 2026-10-07 (Conti) — **start here: `notes/handoff-2026-10-07.md`**, then the
+line below. Today: team page spacing, all five controls on the eight named CTAs, contact hero
+underline, hover colours at three levels, the social row root cause (a stale duplicate plugin
+in WPCode #364, now trashed), and five tokens that were reaching the live Community page as
+literal text. New: `scripts/sweep-live.py`, and `kit/build.py --check` now rejects a token used
+inside the wrong repeat. **Run sessions in the CLONE — see the top of `CLAUDE.md`.**
+
+**Previously updated:** 2026-10-03 (Conti) — 21/21 sections built · **every section ACF-editable
 (754 fields live)** · plugin **v2.6.1**, deployed by the Action · monoliths retired · five seats
 on clone-per-chat + territory hook
 

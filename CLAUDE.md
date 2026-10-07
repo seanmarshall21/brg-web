@@ -3,6 +3,41 @@
 Read `MANIFESTO.md` (how the chats work), `STATUS.md` (where the project is), and
 `notes/roundtable.md` (what's live between us), and **your queue on the Atlas board** before acting.
 
+## Where to run the session — read this before anything else
+
+**Run in the clone, `~/Documents/GitHub/brg-web`. Not in a worktree.**
+
+In a worktree a chat CANNOT PUSH AT ALL, and it will not find out until its first
+push is refused. The chain, each link reasonable on its own:
+
+1. `kit/_guard.py` refuses to let the generators WRITE from a worktree.
+2. The documented override is `BRG_ALLOW_WORKTREE=1`.
+3. Claude's own safety classifier blocks that env var as a bypass flag.
+4. `kit pages --check` goes stale whenever slots or ACF change, so the pre-push
+   gate fails.
+5. `git push --no-verify` is blocked too, as a CI bypass.
+
+Cannot regenerate, cannot bypass, cannot push. On 2026-10-07 five commits of
+finished, verified work stacked up this way over several hours while Sean watched
+a site that never changed. He could not tell the difference between that and a
+chat doing nothing, and he was right not to be able to.
+
+In the clone the guard never fires and the gate passes. Same work, no blockage.
+
+Check at session start, and say the answer out loud before building anything:
+
+```bash
+git rev-parse --path-format=absolute --absolute-git-dir
+git rev-parse --path-format=absolute --git-common-dir     # differs = worktree
+```
+
+If you are in a worktree anyway, agree with Sean HOW pushes will happen BEFORE
+you write code, and never let a second unpushed commit accumulate behind a
+blocker you cannot clear yourself. Stop at the first refused push, not the fifth.
+
+**And: "done" is not "committed".** Done means the change is on
+blacktoprestaurantgroup.com and you fetched the page to prove it. Say which URL.
+
 ## First: know which clone you're in
 
 Every chat gets its own clone, and each clone is labelled in its own git config. **Verify your
