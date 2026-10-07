@@ -3,7 +3,7 @@
      Light section. Owns the yellow smiley seam badge, bleeding upward.
      Nine crew cards: colored plate + portrait + tilted black name bar + pull quote.
      Card colors come from the comp; portraits are placeholders until headshots land. -->
-<section class="brgw-sec brgw-sec--team-members reveal" data-nav="light" aria-label="The crew" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--team-members reveal" data-nav="light" aria-label="The crew" data-cta-pos="{{cta_position}}" data-banner-pos="{{banner_pos}}" data-pad-top="{{pad_top}}">
 <style>
 .brgw-sec--team-members{--brgw-wrap:1440px;position:relative;background:var(--white);color:var(--ink);overflow:visible;
   padding:clamp(78px,8.5vw,124px) var(--pad) clamp(74px,8vw,116px);text-align:center;}
@@ -13,9 +13,42 @@
 
 .brgw-sec--team-members .lede{max-width:74ch;margin:0 auto clamp(26px,3vw,40px);
   font-size:clamp(.98rem,1.15vw,1.1rem);line-height:1.6;opacity:.9;}
+/* AN EMPTY INTRO IS NOT A SMALL INTRO. With the paragraph cleared the <p> is still there,
+   still a line box, still carrying its bottom margin — about 28px of line plus 26-40px of
+   margin of nothing. That is a third of the white space the client is seeing, and it is
+   invisible in the editor because the field looks empty and therefore harmless. */
+.brgw-sec--team-members .lede:empty{display:none;}
+
 .brgw-sec--team-members .banner{display:inline-block;background:var(--yellow);color:var(--ink);
   font-size:clamp(1.1rem,2.4vw,2rem);text-transform:uppercase;padding:.1em .5em;
-  margin-bottom:clamp(42px,5vw,74px);}
+  margin-bottom:clamp(42px,5vw,74px);text-align:center;}
+/* Two lines inside ONE banner, not two banners. The break is typed, so it holds at every
+   width instead of landing wherever the box happens to run out. */
+.brgw-sec--team-members .banner .l1,
+.brgw-sec--team-members .banner .l2{display:block;}
+.brgw-sec--team-members .banner .l2:empty{display:none;}
+
+/* ON THE SPLIT. Same treatment as the Community page's teal banner: absolute on the
+   section's top edge and lifted half its own height, so it straddles the join with the hero
+   and takes NO space in the flow. Taking no space is the point — in the flow it leaves a
+   band of white above the crew whatever the margins are set to. */
+.brgw-sec--team-members[data-banner-pos="split"] .banner{
+  position:absolute;top:0;left:50%;z-index:5;
+  display:block;width:max-content;max-width:92%;
+  translate:-50% -50%;transform:rotate(-1.4deg);
+  margin-bottom:0;}
+/* With the banner out of the flow the built-in top padding is sized for something that is
+   no longer there, so the split default is tighter. Any fixed step below still wins. */
+.brgw-sec--team-members[data-banner-pos="split"]{padding-top:clamp(46px,5vw,72px);}
+
+/* MANUAL TOP SPACING. Fixed steps rather than a typed number: an empty box emits an
+   invalid length and the browser drops the rule without saying so. */
+.brgw-sec--team-members[data-pad-top="24"]{padding-top:24px;}
+.brgw-sec--team-members[data-pad-top="40"]{padding-top:40px;}
+.brgw-sec--team-members[data-pad-top="56"]{padding-top:56px;}
+.brgw-sec--team-members[data-pad-top="72"]{padding-top:72px;}
+.brgw-sec--team-members[data-pad-top="96"]{padding-top:96px;}
+.brgw-sec--team-members[data-pad-top="124"]{padding-top:124px;}
 
 /* 1440, up from 1320 — Sean, 1 Oct. The column count is a field; the LADDER below it is
    not, because the useful number of columns is decided by how wide a card ends up, not by
@@ -367,7 +400,7 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_smile_pos}}" data-mark-show="{{mark_1_smile_show}}" data-mark-anim="{{mark_1_smile_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_smile_opacity}}"><img class="brgw-pop" src="{{mark_1_smile_art}}" alt="" width="150" height="145" loading="lazy" decoding="async"></span>
 
-  <span class="banner blanco anim-up">{{banner}}</span>
+  <span class="banner blanco anim-up"><span class="l1">{{banner}}</span><span class="l2">{{banner_2}}</span></span>
   <p class="lede anim-up">{{lede}}</p>
 
   <span class="dood d1" aria-hidden="true" data-mark-pos="{{mark_2_ast_circle_pos}}" data-mark-show="{{mark_2_ast_circle_show}}" data-mark-anim="{{mark_2_ast_circle_anim}}" data-mark-o style="--brgw-mark-o:{{mark_2_ast_circle_opacity}}"><img class="brgw-pop" src="{{mark_2_ast_circle_art}}" alt="" width="122" height="118" loading="lazy" decoding="async"></span>

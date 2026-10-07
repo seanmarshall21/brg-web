@@ -705,3 +705,20 @@ No stacking change needed — .hero-bg is z-index 0, .vid is 1.
 
 Measured, three states: normal photo block + video block; reduced motion video none, photo
 block covering 980x260; video with no photo, picture display:none.
+
+## 2026-10-07 — Conti: team page spacing (finn's sections), announced
+
+Client feedback: too much white between the hero and the crew. Three causes, not one:
+section padding-top clamp(78,8.5vw,124), the banner's own margin-bottom clamp(42,5vw,74),
+and — the one nobody could see — an EMPTY <p class="lede">. Clearing the intro field leaves
+the paragraph in place, still a line box, still carrying its bottom margin: roughly 28px of
+line plus 26-40px of margin of nothing. Invisible in the editor because the field looks empty.
+
+Added: lede:empty{display:none}; banner_2 (a typed second line, so the break holds at every
+width); banner_pos (split | below) using the community-give technique — absolute on the
+section's top edge, lifted half its height, taking NO space in the flow; pad_top as fixed
+steps (a blank number box emits an invalid length and the rule is dropped silently).
+team-hero gets more padding, bottom more than top, because the banner now hangs into it.
+
+Measured at 1280: section top to first photo row 250px -> 64px; banner at -55px from the
+section top in split mode. Sean approved from a mock-up before this was committed.

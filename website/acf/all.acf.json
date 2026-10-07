@@ -12729,11 +12729,98 @@
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
-          "width": "100",
+          "width": "50",
           "class": "brg-f-banner",
           "id": ""
         },
         "default_value": "We work hard, we have fun, and we take care of our people"
+      },
+      {
+        "key": "field_brg_team_members_banner_2",
+        "label": "Banner line 2",
+        "name": "brg_team_members_banner_2",
+        "type": "text",
+        "instructions": "A second line inside the same yellow banner. Leave it empty and the banner is one line, exactly as now. Splitting it is a wording decision, not an automatic wrap: the break lands where you put it and stays there at every screen width.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-banner_2",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_team_members_banner_pos",
+        "label": "Where the banner sits",
+        "name": "brg_team_members_banner_pos",
+        "type": "select",
+        "instructions": "On the split lifts the banner onto the line where this section meets the hero above, half over each, and it takes no space in the flow — the same treatment as the teal banner on the Community page. Inside the section puts it back in the flow below the join, where it was.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-banner_pos",
+          "id": ""
+        },
+        "default_value": "split",
+        "choices": {
+          "split": "On the split with the hero",
+          "below": "Inside the section, below the join"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_team_members_pad_top",
+        "label": "Space above the crew",
+        "name": "brg_team_members_pad_top",
+        "type": "select",
+        "instructions": "How much room sits between the top of this section and the first row of photos. \"As designed\" is the built-in spacing, which changes with the screen width. The fixed steps below hold the same gap at every width — useful when the banner sits on the split and the old spacing leaves a hole.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-pad_top",
+          "id": ""
+        },
+        "default_value": "design",
+        "choices": {
+          "design": "As designed",
+          "24": "24px — tight",
+          "40": "40px",
+          "56": "56px",
+          "72": "72px",
+          "96": "96px",
+          "124": "124px — roomy"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_team_members_endacc_",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
       },
       {
         "key": "field_brg_team_members_members",
