@@ -1126,6 +1126,19 @@
 .brgw .brgw-hero[data-bg-style="photo"] .plate-media,
 .brgw .brgw-hero[data-bg-style="photo"] .hero-bg > picture{display:block;}
 .brgw .brgw-hero[data-bg-style="video"] .vid{display:block;}
+/* THE PHOTO STAYS UNDER THE VIDEO, as the fallback. The exclusivity block above hid it,
+   which made the field's own help text false — it promises "the photo shows while it
+   loads, if the video is blocked, or for visitors who have switched off animation", and
+   none of those three were true. The reduced-motion case was the worst of them: .vid is
+   display:none there, so those visitors got an EMPTY hero.
+
+   Exclusivity was the right call for the four background STYLES, which genuinely compete.
+   A video and its own poster do not compete — one sits over the other. .hero-bg is z-index
+   0 and .vid is 1, so this needs no stacking changes, only permission to render.
+
+   Scoped to :not([data-bg=""]) so a video with no photo behind it does not render an empty
+   <img> — that hero is still allowed to be video-only. */
+.brgw .brgw-hero[data-bg-style="video"] .hero-bg:not([data-bg=""]) > picture{display:block;}
 .brgw .brgw-hero[data-bg-style="splash"] .splash-bg{display:block;}
 .brgw .brgw-hero[data-bg-style="pattern"] .sec-bg{display:block;}
 

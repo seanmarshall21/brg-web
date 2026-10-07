@@ -686,3 +686,22 @@ Odie's set to teal/ink -> rgb(25,199,194) on ink.
 
 (The spelling checker caught "colour" in 16 generated docs before this went anywhere. Third
 time I have made that mistake — American spelling, every label and doc.)
+
+## 2026-10-07 — Conti fixed a fallback I broke myself (brgw.css, finn's), announced
+
+Sean asked for a fallback image behind a video background. No new field was needed: the
+hero PHOTO is already meant to be that, and the video_id slot's own help text promises it —
+"the photo shows while it loads, if the video is blocked, or for visitors who have switched
+off animation". None of the three was true.
+
+My fault. The hero background exclusivity block I added (brgw.css ~1121) hides
+`.hero-bg > picture` whenever a style other than photo is chosen, video included. Exclusivity
+was right for the four competing STYLES; a video and its own poster do not compete, one sits
+over the other. The reduced-motion case was the worst of it: `.vid` is display:none there,
+so those visitors got an entirely EMPTY hero.
+
+One rule, scoped to :not([data-bg=""]) so a video-only hero still renders no empty <img>.
+No stacking change needed — .hero-bg is z-index 0, .vid is 1.
+
+Measured, three states: normal photo block + video block; reduced motion video none, photo
+block covering 980x260; video with no photo, picture display:none.
