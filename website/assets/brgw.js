@@ -367,74 +367,69 @@
         }
       });
     });
-    /* HOW EARLY A SECTION REVEALS. Sean, 3 Oct: "the scroll trigger needs to fire earlier…
-       If it's on the screen, it should load" and the crew cards should go "as long as
-       they're more than 3% or 5% on screen".
+    /* HOW EARLY A SECTION REVEALS: WHEN ITS FIRST ANIMATED ELEMENT IS HALF ON SCREEN.
 
-       Two numbers do that, and they USED TO BE TWO LITERALS written in two places — the
-       observer's threshold and the unreachable-section guard below both said 0.16, with
-       nothing tying them together. Changing one without the other silently breaks tall
-       sections, so they are one constant now.
+       The observed thing used to be the SECTION, with two knobs — a ratio of the section
+       and a dead band across the foot of the viewport — and every value of those knobs was
+       wrong for some section. Sean, 3 Oct: "if it's on the screen, it should load." Sean,
+       7 Oct, morning: reveals "fire before I scroll to them" — the band was 36px and the
+       words began rising below the screen edge. Sean, 7 Oct, evening, phone screenshot: the
+       crew banner "doesn't trigger until you start scrolling. It's on screen here so it
+       should trigger after load" — by then the band was 110px, sized to the sections' top
+       padding, and team-members' banner hangs ABOVE the section's top edge, so the banner
+       was fully on screen while the section had not cleared band-plus-ratio.
 
-       RATIO 0.05: five per cent of the section has to be showing. It was 0.16, which on
-       team-members — the tallest section on the site — meant 270px of it had to clear the
-       dead band before anything appeared, so the yellow line and the crew were still blank
-       with the section well into view.
+       No band sized to the section can be right for both, because what the reader sees is
+       not the section's box; it is the first thing in it that moves. So that is what is
+       observed now: the section's first animated element (its first split line, fade-up or
+       button — a doodle is skipped, since marks can sit anywhere), and the section reveals
+       when HALF of that element is inside the viewport. A banner on screen after load fires
+       on load. A headline below the fold fires when its first line is half up, which is the
+       earliest moment its rise is visible. No band, no padding arithmetic, and the same
+       rule on a phone and a desktop.
 
-       MARGIN -110px: the band across the bottom of the viewport that does not count as
-       visible. Sean, 7 Oct: reveals "fire before I scroll to them". They did, and the
-       numbers say why. The sections start their content 66-120px below their own top edge
-       (brgw.css: padding-top clamp(66px…120px)), but at -4% (36px on a 900px window) plus
-       the 5% ratio a section fired with only ~75-110px of itself above the fold, so the
-       headline began its rise while still BELOW the screen edge — the words were moving
-       where nobody could see them, and were already settled by the time they scrolled in.
-
-       So the band is sized to the padding, in PIXELS because the padding is in pixels:
-       110px covers the whole top pad at every width, and the 5% ratio on top means the
-       first line of the headline is on screen when it starts. A percentage would scale
-       with the window and the padding does not; -12% was 108px on a laptop and 168px on
-       a tall desktop, later than needed for no reason.
-
-       History: -8% -> -18% (Sean wanted later) -> -4% on 3 Oct (earlier: "if it's on
-       the screen, it should load") -> -110px on 7 Oct. The 3 Oct wish is kept where it
-       was really about: the per-child crew cards below use their own smaller band. */
-    var REVEAL_RATIO  = 0.05;
-    var REVEAL_MARGIN = '0px 0px -110px 0px';
-    /* The crew-card observer keeps the early trigger. Sean, 3 Oct: the cards should go
-       "as long as they're more than 3% or 5% on screen" — a card has no padding to clear,
-       so a band sized for a section's padding would just make the grid late. */
+       The threshold is now a fraction of a LINE, not of a section, so the "a tall section
+       can never reach it" cliff below is all but gone — but the guard stays, because a
+       fade-up block can be a whole card grid. */
+    var REVEAL_RATIO  = 0.5;
+    var REVEAL_MARGIN = '0px';
+    /* The crew-card observer keeps its early trigger. Sean, 3 Oct: the cards should go
+       "as long as they're more than 3% or 5% on screen". */
     var EACH_MARGIN   = '0px 0px -4% 0px';
+
+    /* The element whose arrival on screen reveals the section. Queried after the split, so
+       a headline's first line is a candidate — as its MASK (.ln), never the inner .ln-i:
+       the inner line starts translated 160% below the mask, the mask is overflow:hidden,
+       and IntersectionObserver clips a target by its ancestors, so the inner line would
+       never intersect anything and the section would never reveal. A section with
+       nothing animated is observed as itself, which is the old behavior for it. */
+    var leadOf = new Map();
+    function lead(sec) {
+      var el = sec.querySelector('.ln, .anim-up, .anim-cta') || sec;
+      leadOf.set(sec, el);
+      return el;
+    }
+    function secOf(el) {
+      var s = el.closest('.reveal');
+      return s || el;
+    }
 
     var io = new IntersectionObserver(function (ents) {
       ents.forEach(function (e) {
         if (!e.isIntersecting) return;
-        /* A THRESHOLD A TALL SECTION CAN NEVER REACH IS A SECTION THAT NEVER APPEARS.
-           The threshold is a fraction of the ELEMENT, but a section can never show more of
-           itself than the viewport holds, so the most it can ever reach is
-           viewportHeight / sectionHeight. Once a section is tall enough that this maximum
-           falls under REVEAL_RATIO the callback simply never fires — .anim-up then holds
-           the whole section at opacity:0 for ever, and the bottom-of-document guard below
-           only rescues it at the very end of the page. It is viewport-dependent, which is
-           why it used to show up as "some sections reveal and some don't": at the old 0.16,
-           team-members cleared it on a 900px window and failed on a 600px one.
-           At 0.05 that is far less likely — a section would have to be ~19 viewports tall —
-           but "less likely" is not "cannot", so the guard stays. */
-        var rootH = e.rootBounds ? e.rootBounds.height : innerHeight * 0.82;
+        /* A THRESHOLD AN ELEMENT CAN NEVER REACH IS A SECTION THAT NEVER APPEARS. The
+           threshold is a fraction of the observed element, and an element can never show
+           more of itself than the viewport holds. A single line or a banner is far shorter
+           than any screen, so this is rare now — but a .anim-up can wrap a whole grid, and
+           "rare" is not "cannot", so the guard stays. */
+        var rootH = e.rootBounds ? e.rootBounds.height : innerHeight;
         var unreachable = e.boundingClientRect.height * REVEAL_RATIO > rootH * 0.95;
         if (e.intersectionRatio >= REVEAL_RATIO || unreachable) {
-          e.target.classList.add('is-in'); io.unobserve(e.target);
+          secOf(e.target).classList.add('is-in'); io.unobserve(e.target);
         }
       });
-    }, {
-      /* NEVER RAISE THE THRESHOLD TO DELAY A REVEAL. It is a fraction of the ELEMENT, so a
-         section taller than the viewport can never reach a high one, and a section that
-         never intersects never gets .is-in — its content sits at opacity:0 permanently.
-         The heroes are 88vh and several stacked sections exceed the viewport, so that is a
-         live risk, not a theoretical one. rootMargin shrinks the VIEWPORT instead and
-         behaves the same at any section height, which makes it the safe knob for timing in
-         EITHER direction. The history is with REVEAL_MARGIN above. */
-      threshold: [0, REVEAL_RATIO], rootMargin: REVEAL_MARGIN });
-    root.querySelectorAll('.reveal').forEach(function (s) { io.observe(s); });
+    }, { threshold: [0, REVEAL_RATIO], rootMargin: REVEAL_MARGIN });
+    root.querySelectorAll('.reveal').forEach(function (s) { io.observe(lead(s)); });
 
     /* ---- PER-CHILD REVEAL, for a grid taller than the screen -------------------------
        Sean, 3 Oct: "when I go down to the next sections, they all load in at the same
@@ -490,7 +485,7 @@
       if (innerHeight + Math.ceil(scrollY) < document.documentElement.scrollHeight - 2) return;
       root.querySelectorAll('.reveal:not(.is-in)').forEach(function (s) {
         var top = s.getBoundingClientRect().top;
-        if (top < innerHeight) { s.classList.add('is-in'); io.unobserve(s); }
+        if (top < innerHeight) { s.classList.add('is-in'); io.unobserve(leadOf.get(s) || s); }
       });
     };
     addEventListener('scroll', atEnd, { passive: true });

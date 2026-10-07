@@ -810,3 +810,16 @@ parks the incoming half with no-trans for one frame, and takes a `dir` from the 
 wrap from the last slide to the first still reads as "next". Phones keep the strip.
 community-give maps data-sides to grid-column in that mode (order means nothing there) and
 moves the min-height to the track. The wp-admin choice is now "As two columns".
+
+## 2026-10-07 — Conti in brgw.js (finn's), announced: the reveal trigger is the first element now
+
+Sean, phone screenshot: the crew banner "doesn't trigger until you start scrolling. It's on
+screen here so it should trigger after load." The 110px band from this morning was sized to
+the sections' top padding; team-members' banner hangs ABOVE the section top, so it was on
+screen while the section had not cleared band-plus-ratio. No band can suit both.
+
+The observer now watches each section's FIRST animated element — the first line's mask
+(.ln, never .ln-i, which starts 160% below an overflow:hidden mask and would never
+intersect), fade-up or button — and the section reveals when half of it is on screen. No
+band, no padding arithmetic. Supersedes the -110px entry above. The crew-card per-child
+observer is unchanged.

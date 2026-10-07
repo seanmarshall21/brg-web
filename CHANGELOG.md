@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.07.6 (2026-10-07)
+- Reveal trigger: a section now reveals when the first thing in it that moves is half on screen, so a banner that is on screen after load animates on load, and a headline starts rising the moment its first line is visible.
+
 ## 2026.10.07.5 (2026-10-07)
 - Community slider: "As two columns" replaces the bouncing "As two halves". Two boxes side by side that never move; the words and the photo slide up inside their own box, in step. Phones keep the single strip.
 
