@@ -7,6 +7,12 @@ Read `MANIFESTO.md` (how the chats work), `STATUS.md` (where the project is), an
 
 **Run in the clone, `~/Documents/GitHub/brg-web`. Not in a worktree.**
 
+**Pull it first, and look before you pull.** The clone sat from August to October with
+uncommitted edits in it while every commit went to origin from a worktree, so on 2026-10-07
+it was 156 behind with changes that looked unshipped. Run `git status` and `git stash list`,
+stash or commit what you find (never drop it: it is Sean's call whether it is wanted), then
+`git pull`.
+
 In a worktree a chat CANNOT PUSH AT ALL, and it will not find out until its first
 push is refused. The chain, each link reasonable on its own:
 
@@ -71,6 +77,10 @@ Read that as:
 
 ## The board is in Atlas, not in this repo
 
+> **2026-10-07, Sean: Atlas is out of commission while it is reworked.** Every `localhost:8000`
+> call in this file returns nothing. Skip them. Until it is back, the work board is the ClickUp
+> list "BRG — Website" and BugHerd is intake; read BugHerd at the start of a session.
+
 **What's next, who's blocked, what shipped → the Atlas board**, project `brg-web`. Read it before
 you start anything and work the order it returns; that order is Sean's answer to "what next", so
 don't ask him and don't reorder it.
@@ -128,10 +138,16 @@ Atlas board with `owner` set to them. Genuine emergency: say what you're doing o
 
 ```bash
 git pull                                    # rebase; install.sh sets pull.rebase true
+python3 scripts/stamp.py "what changed"     # if the push deploys (anything under website/): new build stamp + CHANGELOG entry
 git add <your explicit pathspec>            # never `git add -A`, never `git add notes/`
 git commit                                  # pre-commit checks territory
-git push origin HEAD:main                   # pre-push runs kit --check, node --check, php -l
+git push origin HEAD:main                   # pre-push runs kit --check, node --check, php -l, and refuses a deploy whose stamp did not move
 ```
+
+**Every deploy carries a build stamp.** `scripts/stamp.py` writes `brgw build YYYY.MM.DD.N` on
+line 1 of `brgw.css` (inlined into every live page) and the matching entry in `CHANGELOG.md`.
+That number is how Sean tells what the site is running: `?build` on any page URL shows it as a
+badge. `python3 scripts/stamp.py --live` says whether the live site is on the repo's build.
 
 End every commit message with:
 

@@ -227,6 +227,49 @@ else
 fi
 
 
+# ── Build stamp: a push that DEPLOYS must carry a new stamp ─────────────────────
+# The only version a live page used to carry was VCC_VERSION, the plugin's, which does
+# not move when CSS, JS or fragments change — which is almost everything. So Sean could
+# not tell what was live. scripts/stamp.py writes `brgw build YYYY.MM.DD.N` on line 1 of
+# brgw.css (inlined into every page) and the matching entry in CHANGELOG.md. This gate
+# makes forgetting impossible, in two parts:
+#   1. --check   the two carriers agree (css line 1 == newest CHANGELOG heading).
+#   2. moved?    if this push changes anything Netlify deploys — the SAME path list as the
+#                ignore rule in netlify.toml, and deletions count, hence a fresh diff rather
+#                than $changed — the stamp at the tip must differ from the stamp on the
+#                remote. Compared on the pushed range, so stacked commits are one deploy.
+# No bypass flag on purpose: restamping costs one command and there is no legitimate
+# reason to deploy a version nobody can name.
+if [ -f scripts/stamp.py ] && command -v python3 >/dev/null 2>&1; then
+  deploying=$(git diff --name-only "$range" -- website netlify netlify.toml package.json 2>/dev/null || true)
+  if [ -z "$deploying" ]; then
+    say "build stamp" "n/a (nothing in this push deploys)"
+  else
+    if out=$(python3 scripts/stamp.py --check 2>&1); then
+      say "build stamp" "$out"
+    else
+      say "build stamp" "FAILED"
+      echo "$out" | sed 's/^/      /'
+      fail=1
+    fi
+    case "$range" in
+      *..*)
+        before_ref="${range%%..*}"; after_ref="${range##*..}"
+        before=$(git show "$before_ref:website/assets/brgw.css" 2>/dev/null | sed -n '1s/^\/\* brgw build \([0-9.]*\) \*\/.*/\1/p')
+        after=$(git show "$after_ref:website/assets/brgw.css" 2>/dev/null | sed -n '1s/^\/\* brgw build \([0-9.]*\) \*\/.*/\1/p')
+        if [ -n "$after" ] && [ "$before" != "$after" ]; then
+          say "build stamp moved" "OK (${before:-none} → $after)"
+        else
+          say "build stamp moved" "NO — this push deploys but the stamp is still ${after:-missing}"
+          echo "$deploying" | sed 's/^/      deploys: /' | head -8
+          echo "      → run: python3 scripts/stamp.py \"what changed\"   then add brgw.css + CHANGELOG.md to the commit"
+          fail=1
+        fi
+        ;;
+    esac
+  fi
+fi
+
 if [ "$fail" -ne 0 ]; then
   echo
   echo "  push refused. Fix the above, or bypass with: git push --no-verify"

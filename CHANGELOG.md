@@ -1,0 +1,18 @@
+# Change log
+
+What changed on the site, newest first. Each heading is a **build stamp** (`YYYY.MM.DD.N`),
+and the same stamp is on line 1 of `website/assets/brgw.css`, which the plugin inlines into
+every live page. So the number on the site maps to an entry here.
+
+To read the stamp on the live site: add `?build` to any page URL
+(`https://blacktoprestaurantgroup.com/brg-home/?build`) and a small badge shows the build
+and the plugin version. Or search the page source for `brgw build`.
+
+Written by `python3 scripts/stamp.py "what changed"`. A push that deploys without a new
+stamp is refused by pre-push, so every deploy has an entry.
+
+
+## 2026.10.07.1 (2026-10-07)
+- Build stamp and change log: every deploy now carries `brgw build YYYY.MM.DD.N` on line 1 of brgw.css, inlined into every live page. Add `?build` to any page URL to see it as a badge with the plugin version.
+- pre-push refuses a push that deploys without a new stamp, or whose brgw.css stamp and CHANGELOG.md entry disagree (scripts/stamp.py --check).
+- CLAUDE.md: pull the clone first and check for stranded edits; Atlas is out of commission, skip its calls.

@@ -998,7 +998,39 @@
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); }
+  /* ── Build stamp — which version of this code is the page running? ──────────────
+     brgw.css carries `brgw build YYYY.MM.DD.N` on its first line (scripts/stamp.py
+     writes it; pre-push refuses a deploy whose stamp did not move). The plugin inlines
+     that stylesheet into every page, so the stamp is already in the page source. This
+     only makes it reachable without view-source:
+       <html data-brgw-build="…">      and   console: "brgw build …"
+       ?build on any page URL          a small badge, bottom left: build + plugin version
+     The plugin version is read from the <!-- vc_embed … vX.Y.Z --> comment the PHP
+     emits, so the badge shows both numbers: the PHP moves rarely, the build moves on
+     every push. Sean, 7 Oct: "I can know what version we're on on the site."
+     A page that LINKS the stylesheet instead of inlining it (the kit previews) has no
+     inline tag to read, and the function does nothing there on purpose. */
+  function brgwBuild() {
+    var tag = document.getElementById('vcc-brg-css'), m = tag && /brgw build (\S+)/.exec(tag.textContent || '');
+    if (!m) return;
+    var build = m[1];
+    document.documentElement.setAttribute('data-brgw-build', build);
+    try { console.info('brgw build ' + build); } catch (e) {}
+    if (!/[?&#]build(?:[=&#]|$)/.test(location.search + location.hash)) return;
+    var plugin = '', w = document.createTreeWalker(document.body, NodeFilter.SHOW_COMMENT, null);
+    while (w.nextNode()) {
+      var c = /vc_embed \S+ v(\S+)/.exec(w.currentNode.nodeValue || '');
+      if (c) { plugin = c[1]; break; }
+    }
+    var b = document.createElement('div');
+    b.setAttribute('data-brgw-badge', '');
+    b.style.cssText = 'position:fixed;left:12px;bottom:12px;z-index:2147483647;background:#231f20;color:#fff;'
+      + 'font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;padding:8px 10px;border-radius:4px;opacity:.92;pointer-events:none;';
+    b.textContent = 'build ' + build + (plugin ? ' · plugin v' + plugin : '');
+    document.body.appendChild(b);
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

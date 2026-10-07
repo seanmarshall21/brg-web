@@ -742,3 +742,21 @@ artwork block at 490px (the min(490px,62%) cap).
 Note for anyone measuring in the browser pane: it had collapsed to innerWidth 0 and every
 width read 0, which looked exactly like a broken rule. Check window.innerWidth before
 believing a zero.
+
+## 2026-10-07 — Conti in brgw.css + brgw.js (finn's), announced: the build stamp
+
+Sean could not tell what version the site was on, because the only version on a page was
+VCC_VERSION, the plugin's, which does not move when CSS, JS or fragments move. Now every
+deploy carries `brgw build YYYY.MM.DD.N`:
+
+  brgw.css line 1   the carrier — the plugin inlines this file into every page, so the stamp
+                    reaches every page at no extra request. Written by scripts/stamp.py,
+                    never by hand. If you edit brgw.css, leave line 1 to the script.
+  brgw.js           brgwBuild(): reads the stamp from the inlined <style>, sets
+                    <html data-brgw-build>, logs it, and draws a badge when the URL has ?build.
+                    Runs last in boot(); does nothing on a page that links the stylesheet.
+  CHANGELOG.md      the entry behind the number. Root file, conti's.
+  pre-push          refuses a push that deploys without a new stamp. No bypass flag.
+
+The workflow change for every seat: `python3 scripts/stamp.py "what changed"` before the
+commit, whenever the push touches website/. It is in CLAUDE.md under Committing.

@@ -32,6 +32,18 @@ doc string is not a contract change.
 - This mirrors fc-brands, so BRG and Temper track contracts the same way. Our upstream ledger
   (`notes/upstream-fc-brands.md`) records **their** contract hashes; this registry records **ours**.
 
+## Build stamp — which version is the SITE on
+Contract hashes version a shortcode's attributes; they say nothing about the CSS, JS and
+fragments that make up the page, and the plugin's `VCC_VERSION` only moves when the PHP does.
+So from 2026-10-07 every deploy carries a **build stamp**, `YYYY.MM.DD.N`:
+
+- `python3 scripts/stamp.py "what changed"` writes it to line 1 of `website/assets/brgw.css`
+  (inlined into every live page) and adds the entry to `CHANGELOG.md`.
+- `pre-push` refuses a push that deploys without a new stamp, and any push where the two
+  carriers disagree.
+- Reading it live: `?build` on any page URL draws a badge (build + plugin version); the page
+  source contains `brgw build …`; `python3 scripts/stamp.py --live` compares live to repo.
+
 ## Editable sections (ACF) — `kit/build-acf.py`
 A section becomes WordPress-editable (change image/text without code) by declaring `slots` on
 it in `website/sections.json`, then generating its field group:

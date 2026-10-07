@@ -29,7 +29,7 @@ MAP = os.path.join(HERE, "territory.tsv")
 # Adding to this list is a deliberate act — the guard blocked package.json on first
 # commit and this line is the answer to that, not a way around it.
 ROOT_ALLOWED = {
-    ".gitignore", "CLAUDE.md", "GO-LIVE.md", "HANDOFF.md", "KICKOFF.md",
+    ".gitignore", "CHANGELOG.md", "CLAUDE.md", "GO-LIVE.md", "HANDOFF.md", "KICKOFF.md",
     "MANIFESTO.md", "README.md", "SHORTCODES.md", "STATUS.md", "netlify.toml",
     "package.json", "package-lock.json",   # Netlify Functions deps; nothing here ships to website/
 }
