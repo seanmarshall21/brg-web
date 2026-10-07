@@ -1723,7 +1723,8 @@
                     "": "As set site-wide",
                     "large": "Large",
                     "medium": "Medium",
-                    "small": "Small"
+                    "small": "Small",
+                    "x-small": "Extra small"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -2075,7 +2076,8 @@
                             "": "Same as the section",
                             "large": "Large",
                             "medium": "Medium",
-                            "small": "Small"
+                            "small": "Small",
+                            "x-small": "Extra small"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -2317,7 +2319,8 @@
                     "": "Same as the section",
                     "large": "Large",
                     "medium": "Medium",
-                    "small": "Small"
+                    "small": "Small",
+                    "x-small": "Extra small"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -2426,7 +2429,8 @@
                     "": "As set site-wide",
                     "large": "Large",
                     "medium": "Medium",
-                    "small": "Small"
+                    "small": "Small",
+                    "x-small": "Extra small"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -2778,7 +2782,8 @@
                             "": "Same as the section",
                             "large": "Large",
                             "medium": "Medium",
-                            "small": "Small"
+                            "small": "Small",
+                            "x-small": "Extra small"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -3466,7 +3471,8 @@
                     "": "Same as the section",
                     "large": "Large",
                     "medium": "Medium",
-                    "small": "Small"
+                    "small": "Small",
+                    "x-small": "Extra small"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -3575,7 +3581,8 @@
                     "": "As set site-wide",
                     "large": "Large",
                     "medium": "Medium",
-                    "small": "Small"
+                    "small": "Small",
+                    "x-small": "Extra small"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -3927,7 +3934,8 @@
                             "": "Same as the section",
                             "large": "Large",
                             "medium": "Medium",
-                            "small": "Small"
+                            "small": "Small",
+                            "x-small": "Extra small"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -4667,7 +4675,8 @@
                     "": "As set site-wide",
                     "large": "Large",
                     "medium": "Medium",
-                    "small": "Small"
+                    "small": "Small",
+                    "x-small": "Extra small"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -5019,7 +5028,8 @@
                             "": "Same as the section",
                             "large": "Large",
                             "medium": "Medium",
-                            "small": "Small"
+                            "small": "Small",
+                            "x-small": "Extra small"
                         },
                         "return_format": "value",
                         "allow_null": 0,

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.14.0
+ * Version: 2.14.1
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.14.0' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.14.1' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -878,7 +878,7 @@ if ( ! function_exists( 'vcc_shell_open' ) ) {
         $fx = vcc_chrome_setting( 'buttons', 'btn_effect' );
         if ( ! in_array( $fx, array( 'lift','lift-swap','underline','grow','press','fill','none' ), true ) ) $fx = 'lift';
         $size = vcc_chrome_setting( 'buttons', 'size' );
-        if ( ! in_array( $size, array( 'large','medium','small' ), true ) ) $size = 'large';
+        if ( ! in_array( $size, array( 'large','medium','small','x-small' ), true ) ) $size = 'large';
         $style = vcc_chrome_setting( 'buttons', 'style' );
         if ( ! in_array( $style, array( 'filled','outline','text' ), true ) ) $style = 'filled';
         /* The hover COLOUR, the fourth thing decided here. "keep" is not a value to send

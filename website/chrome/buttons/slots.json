@@ -13,7 +13,7 @@
     "choices": {
       "large": "Large",
       "medium": "Medium",
-      "small": "Small"
+      "small": "Small", "x-small": "Extra small"
     }
   },
   "style": {

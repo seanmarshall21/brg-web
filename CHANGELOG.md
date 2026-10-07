@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.07.4 (2026-10-07)
+- New button size, Extra small (6px 10px padding, 10 to 12px type). Available at every level: site-wide, section, and each button.
+
 ## 2026.10.07.3 (2026-10-07)
 - Every button now has its own five controls (size, color, hover color, filled or outline, hover effect). The two buttons inside each Community slide and the Contact box buttons were the ones missing them.
 - The help text on every Buttons list now explains the three levels: site-wide, section, and each button's own row.

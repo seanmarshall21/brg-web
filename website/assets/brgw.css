@@ -1,4 +1,4 @@
-/* brgw build 2026.10.07.3 */
+/* brgw build 2026.10.07.4 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -73,13 +73,15 @@
    color system, same hover; only the padding and type step down. */
 .brgw .btn--sm{padding:12px 20px;font-size:clamp(11px,1vw,13px);letter-spacing:.12em;}
 
-/* ── THREE SIZES ───────────────────────────────────────────────────────────────────
+/* ── FOUR SIZES ────────────────────────────────────────────────────────────────────
    Large is exactly what .btn has always been, so a button that names no size is
    unchanged. .btn--sm stays as an alias for small because the contact boxes still use
-   the class in their markup. */
+   the class in their markup. Extra small is Sean's own numbers, 7 Oct: "the small
+   buttons are still pretty big." */
 .brgw .btn[data-btn-size="large"]{padding:20px 34px;font-size:clamp(13px,1.2vw,16px);letter-spacing:.14em;}
 .brgw .btn[data-btn-size="medium"]{padding:15px 26px;font-size:clamp(12px,1.08vw,14.5px);letter-spacing:.13em;}
 .brgw .btn[data-btn-size="small"]{padding:12px 20px;font-size:clamp(11px,1vw,13px);letter-spacing:.12em;}
+.brgw .btn[data-btn-size="x-small"]{padding:6px 10px;font-size:clamp(10px,.8vw,12px);letter-spacing:.06em;}
 
 /* ── THE FOUR ROLES ────────────────────────────────────────────────────────────────
    Sean, 4 Oct: "four different default colors: a light version, a dark version, an

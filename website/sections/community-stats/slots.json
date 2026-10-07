@@ -168,7 +168,7 @@
       "": "As set site-wide",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small"
+      "small": "Small", "x-small": "Extra small"
     }
   },
   "btn_color": {
@@ -357,7 +357,7 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small"
+          "small": "Small", "x-small": "Extra small"
         }
       }
     },
