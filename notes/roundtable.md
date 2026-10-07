@@ -789,3 +789,11 @@ and nothing else. "I wanted to do each individual button." Two places were short
 
 And the help text on all 21 Buttons lists said "Hover is set for the whole section", which
 stopped being true the day rows got hover. It now says where each of the three levels lives.
+
+## 2026-10-07 — Conti in brgw.css + 21 slots files (finn's), announced: an Extra small button size
+
+Sean: "the small buttons are still pretty big." One rule, his numbers (6px 10px, clamp(10px,
+.8vw,12px), .06em), as data-btn-size="x-small". The choice is in all 57 size lists (site-wide,
+section, every Buttons row, every named button, both slide buttons). The plugin whitelists the
+SITE-WIDE size and would have thrown the new value back to large, so v2.14.1 adds the word;
+deployed and verified by the Action. Note: the commit message says 36 lists; it is 57.
