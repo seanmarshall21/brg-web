@@ -722,3 +722,23 @@ team-hero gets more padding, bottom more than top, because the banner now hangs 
 
 Measured at 1280: section top to first photo row 250px -> 64px; banner at -55px from the
 section top in split mode. Sean approved from a mock-up before this was committed.
+
+## 2026-10-07 — Conti: contact-hero underline choice (finn's), announced
+
+Sean: every hero has the underline animation option except Contact. True, and not an
+oversight in the settings — Contact is the only hero with no hand-drawn underline artwork.
+It uses the plain CSS line (.brgw-uline) while the other five use <img class="uline">, and
+the u3/wipe/u1 variants act on the artwork. There was nothing for the control to drive, so
+offering it would have been a control that changed nothing.
+
+There is no line-contact-*.svg in the repo; line-purp-lg.svg is the only unused set. Which
+line Contact gets is a design call, so: added uline_art (image) beside a new uline_variant.
+Both marks now exist in the markup and the chosen state picks one — empty artwork and
+Contact is byte-identical to today, artwork chosen and it behaves like every other hero.
+
+Measured at 1200px: no artwork -> plain line block, artwork none; artwork -> plain line none,
+artwork block at 490px (the min(490px,62%) cap).
+
+Note for anyone measuring in the browser pane: it had collapsed to innerWidth 0 and every
+width read 0, which looked exactly like a broken rule. Check window.innerWidth before
+believing a zero.

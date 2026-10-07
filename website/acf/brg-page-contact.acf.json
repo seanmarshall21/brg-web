@@ -85,6 +85,55 @@
                 "default_value": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask."
             },
             {
+                "key": "field_brg_contact_hero_uline_art",
+                "label": "Underline artwork",
+                "name": "brg_contact_hero_uline_art",
+                "type": "image",
+                "instructions": "The hand-drawn line under the headline. Every other hero uses one; Contact has never had one drawn for it, which is why the animation choice beside this has had nothing to act on. Leave it empty and Contact keeps the plain drawn line it has today. Pick artwork and the line becomes the same kind of mark the other heroes use, and the animation choice starts working.\n\nThe sets are in the media library as line-<page>-lg.svg. line-purp-lg.svg is the one set not already spoken for.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-uline_art",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_brg_contact_hero_uline_variant",
+                "label": "Underline animation",
+                "name": "brg_contact_hero_uline_variant",
+                "type": "text",
+                "instructions": "How the underline artwork reveals, once artwork is chosen beside this. \"u3\" is a filled brush with an angled wipe that keeps the taper. \"wipe\" is a straight-edged reveal. \"u1\" is a scaleX bar. Anything unknown or blank renders the mark static and visible, never hidden. It does nothing while Underline artwork is empty, because the plain line has no artwork to reveal.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-uline_variant",
+                    "id": ""
+                },
+                "default_value": "u3"
+            },
+            {
+                "key": "field_brg_contact_hero_endacc_",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_contact_hero_acc_hero_background",
                 "label": "Hero background",
                 "name": "",

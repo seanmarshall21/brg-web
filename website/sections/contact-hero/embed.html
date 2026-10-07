@@ -8,10 +8,18 @@
      to overrule.
      Doodles are the BRG mark + smiley — the only pair not already used by another hero, and
      the friendliest two, which suits a page whose whole job is "talk to us". -->
-<section class="brgw-sec brgw-sec--contact-hero brgw-hero reveal" data-bg-style="{{bg_style}}" data-nav="dark" aria-label="Contact" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--contact-hero brgw-hero reveal" data-bg-style="{{bg_style}}" data-nav="dark" aria-label="Contact" data-cta-pos="{{cta_position}}" data-uline="{{uline_variant}}" data-uline-art="{{uline_art}}">
 <style>
 .brgw-sec--contact-hero{overflow:hidden;}
 .brgw-sec--contact-hero .brgw-uline{color:var(--pink);}
+/* ONE LINE OR THE OTHER. Contact is the only hero without hand-drawn underline artwork, so
+   it has always used the plain CSS line — and the animation variants act on the artwork,
+   which is why the choice could not be offered here. Both marks now exist in the markup and
+   the chosen state decides which renders: no artwork and Contact looks exactly as it does
+   today, artwork and it behaves like every other hero. An empty src never draws. */
+.brgw-sec--contact-hero .uline{display:none;width:min(490px,62%);margin:16px auto 0;height:auto;}
+.brgw-sec--contact-hero:not([data-uline-art=""]) .uline{display:block;}
+.brgw-sec--contact-hero:not([data-uline-art=""]) .brgw-uline{display:none;}
 </style>
   <!-- Section background: a pattern or photo behind everything in this section.
        NO src ON THE <img>, only <source srcset>: an empty src resolves against the
@@ -59,6 +67,7 @@
   <h1 class="blanco anim-head" data-head="words">{{heading}}</h1>
   <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
   <span class="brgw-uline anim-up" aria-hidden="true"></span>
+  <img class="uline anim-up" aria-hidden="true" alt="" width="647" height="25" src="{{uline_art}}">
   <p class="sub anim-up">{{sub}}</p>
   <span class="brgw-doodle" aria-hidden="true" data-mark-pos="{{mark_1_brg_pos}}" data-mark-show="{{mark_1_brg_show}}" data-mark-anim="{{mark_1_brg_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_brg_opacity}}"><img src="{{mark_1_brg_art}}" alt="" width="265" height="192"></span>
   <span class="brgw-doodle brgw-doodle--c" aria-hidden="true" data-mark-pos="{{mark_2_smile_pos}}" data-mark-show="{{mark_2_smile_show}}" data-mark-anim="{{mark_2_smile_anim}}" data-mark-o style="--brgw-mark-o:{{mark_2_smile_opacity}}"><img src="{{mark_2_smile_art}}" alt="" width="215" height="208"></span>

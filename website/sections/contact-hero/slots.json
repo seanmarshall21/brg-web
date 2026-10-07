@@ -14,6 +14,22 @@
     "default": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask.",
     "width": 100
   },
+  "uline_art": {
+    "type": "image",
+    "label": "Underline artwork",
+    "width": 50,
+    "default": "",
+    "doc": "The hand-drawn line under the headline. Every other hero uses one; Contact has never had one drawn for it, which is why the animation choice beside this has had nothing to act on. Leave it empty and Contact keeps the plain drawn line it has today. Pick artwork and the line becomes the same kind of mark the other heroes use, and the animation choice starts working.\n\nThe sets are in the media library as line-<page>-lg.svg. line-purp-lg.svg is the one set not already spoken for.",
+    "group": ""
+  },
+  "uline_variant": {
+    "type": "text",
+    "label": "Underline animation",
+    "width": 50,
+    "default": "u3",
+    "group": "",
+    "doc": "How the underline artwork reveals, once artwork is chosen beside this. \"u3\" is a filled brush with an angled wipe that keeps the taper. \"wipe\" is a straight-edged reveal. \"u1\" is a scaleX bar. Anything unknown or blank renders the mark static and visible, never hidden. It does nothing while Underline artwork is empty, because the plain line has no artwork to reveal."
+  },
   "bg_style": {
     "type": "select",
     "label": "Background",
