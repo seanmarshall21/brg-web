@@ -1,4 +1,4 @@
-/* brgw build 2026.10.07.1 */
+/* brgw build 2026.10.07.2 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -996,7 +996,15 @@
    WRAP BEHAVIOR IS THE REAL CHOICE. h1 paints the text's own background box and
    follows it across a line break. h3 is one rigid block behind a run of text and
    cannot wrap with it. Verdicts: website/lab/README.md */
-[data-hl]{--brgw-h-dur:.52s;--brgw-h-delay:.12s;--brgw-h-ease:cubic-bezier(.2,.7,.2,1);}
+/* AFTER THE WORDS, NOT WITH THEM. Sean, 7 Oct: the highlight should land after the split
+   text, not alongside it. --brgw-delay is the stagger brgw.js hands each headline line
+   (.ln-i) and each block, and custom properties inherit, so a mark inside a line reads its
+   own line's delay without the engine knowing a mark is there. The sum is taken where it is
+   USED (the .hl-t / .hl-b rules), not here: a calc() on the section would resolve
+   --brgw-delay at the section, where it is 0. .5s on top: the line's rise is .9s on a curve
+   that has done most of its travel by the half-way point, so the words are readable before
+   the mark starts across them. */
+[data-hl]{--brgw-h-dur:.52s;--brgw-h-delay:.5s;--brgw-h-ease:cubic-bezier(.2,.7,.2,1);}
 [data-hl] .hl,[data-hl] .mark{position:relative;background:none;padding:0;}
 [data-hl] .hl-b{display:none;}
 [data-hl] .hl-t{position:relative;z-index:1;color:var(--ink);
@@ -1007,7 +1015,7 @@
 [data-hl="h1"] .hl-t{background:linear-gradient(var(--brgw-hl-c,var(--yellow)),
   var(--brgw-hl-c,var(--yellow))) left center/0% 100% no-repeat;}
 .is-in[data-hl="h1"] .hl-t{background-size:100% 100%;
-  transition:background-size var(--brgw-h-dur) var(--brgw-h-ease) var(--brgw-h-delay);}
+  transition:background-size var(--brgw-h-dur) var(--brgw-h-ease) calc(var(--brgw-delay,0ms) + var(--brgw-h-delay));}
 
 /* h3 ★ default — rough hand-drawn block + angled wipe. Wobbled edges and uneven
    corners are what sell "drawn" in the comps; a clean rect reads as a UI chip. */
@@ -1027,7 +1035,7 @@
   clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
 [data-hl="h3"] .hl-b path{fill:var(--brgw-hl-c,var(--yellow));}
 .is-in[data-hl="h3"] .hl-b{
-  animation:brgw-hwipe var(--brgw-h-dur) var(--brgw-h-ease) var(--brgw-h-delay) forwards;}
+  animation:brgw-hwipe var(--brgw-h-dur) var(--brgw-h-ease) calc(var(--brgw-delay,0ms) + var(--brgw-h-delay)) forwards;}
 @keyframes brgw-hwipe{
   from{clip-path:polygon(0 0,0 0,-5% 100%,0 100%);}
   to  {clip-path:polygon(0 0,105% 0,100% 100%,0 100%);}}

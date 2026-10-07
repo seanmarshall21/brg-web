@@ -760,3 +760,16 @@ deploy carries `brgw build YYYY.MM.DD.N`:
 
 The workflow change for every seat: `python3 scripts/stamp.py "what changed"` before the
 commit, whenever the push touches website/. It is in CLAUDE.md under Committing.
+
+## 2026-10-07 — Conti in brgw.js + brgw.css (finn's), announced: reveal timing
+
+Sean: reveals fire before he scrolls to them. Measured cause: sections start their content
+66-120px below their top edge, but a section fired with ~75-110px of itself above the fold
+(-4% band + 5% ratio), so the headline rose below the screen edge. The section observer's
+band is now -110px, sized to the padding and in pixels because the padding is in pixels.
+The crew-card observer keeps its own -4% band (EACH_MARGIN): a card has no padding to clear.
+
+Highlights now wait for their own line: the h1 wipe and h3 block delay is
+calc(var(--brgw-delay) + .5s), where --brgw-delay is the stagger the engine already hands
+each .ln-i, inherited by the mark inside it. The calc sits on the .hl-t/.hl-b rules, not on
+the section, because a custom property resolves where it is declared.

@@ -12,6 +12,10 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.07.2 (2026-10-07)
+- Reveal timing: a section now reveals once about 110px of it has cleared the bottom of the screen, so the headline starts its rise on screen instead of below it. Crew cards keep their early trigger.
+- Highlights (the yellow marks in headlines) now start after their own line has risen, instead of alongside it.
+
 ## 2026.10.07.1 (2026-10-07)
 - Build stamp and change log: every deploy now carries `brgw build YYYY.MM.DD.N` on line 1 of brgw.css, inlined into every live page. Add `?build` to any page URL to see it as a badge with the plugin version.
 - pre-push refuses a push that deploys without a new stamp, or whose brgw.css stamp and CHANGELOG.md entry disagree (scripts/stamp.py --check).

@@ -381,13 +381,29 @@
        dead band before anything appeared, so the yellow line and the crew were still blank
        with the section well into view.
 
-       MARGIN -4%: the band across the bottom of the viewport that does not count as
-       visible. It was -18%, which is most of the reason things read as late. It stays
-       slightly negative rather than 0 so a reveal still begins just after an element
-       crosses the fold rather than exactly on it, which is what stops the animation
-       starting off-screen. */
+       MARGIN -110px: the band across the bottom of the viewport that does not count as
+       visible. Sean, 7 Oct: reveals "fire before I scroll to them". They did, and the
+       numbers say why. The sections start their content 66-120px below their own top edge
+       (brgw.css: padding-top clamp(66px…120px)), but at -4% (36px on a 900px window) plus
+       the 5% ratio a section fired with only ~75-110px of itself above the fold, so the
+       headline began its rise while still BELOW the screen edge — the words were moving
+       where nobody could see them, and were already settled by the time they scrolled in.
+
+       So the band is sized to the padding, in PIXELS because the padding is in pixels:
+       110px covers the whole top pad at every width, and the 5% ratio on top means the
+       first line of the headline is on screen when it starts. A percentage would scale
+       with the window and the padding does not; -12% was 108px on a laptop and 168px on
+       a tall desktop, later than needed for no reason.
+
+       History: -8% -> -18% (Sean wanted later) -> -4% on 3 Oct (earlier: "if it's on
+       the screen, it should load") -> -110px on 7 Oct. The 3 Oct wish is kept where it
+       was really about: the per-child crew cards below use their own smaller band. */
     var REVEAL_RATIO  = 0.05;
-    var REVEAL_MARGIN = '0px 0px -4% 0px';
+    var REVEAL_MARGIN = '0px 0px -110px 0px';
+    /* The crew-card observer keeps the early trigger. Sean, 3 Oct: the cards should go
+       "as long as they're more than 3% or 5% on screen" — a card has no padding to clear,
+       so a band sized for a section's padding would just make the grid late. */
+    var EACH_MARGIN   = '0px 0px -4% 0px';
 
     var io = new IntersectionObserver(function (ents) {
       ents.forEach(function (e) {
@@ -416,9 +432,7 @@
          The heroes are 88vh and several stacked sections exceed the viewport, so that is a
          live risk, not a theoretical one. rootMargin shrinks the VIEWPORT instead and
          behaves the same at any section height, which makes it the safe knob for timing in
-         EITHER direction. The history: -8% -> -18% when Sean wanted reveals later, then
-         -18% -> -4% on 3 Oct when he wanted them earlier — "if it's on the screen, it
-         should load". */
+         EITHER direction. The history is with REVEAL_MARGIN above. */
       threshold: [0, REVEAL_RATIO], rootMargin: REVEAL_MARGIN });
     root.querySelectorAll('.reveal').forEach(function (s) { io.observe(s); });
 
@@ -454,7 +468,7 @@
             el.classList.add('each-in');
             eio.unobserve(el);
           });
-        }, { threshold: [0, 0.08], rootMargin: REVEAL_MARGIN });
+        }, { threshold: [0, 0.08], rootMargin: EACH_MARGIN });
         kids.forEach(function (k) { eio.observe(k); });
     });
 
