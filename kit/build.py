@@ -159,7 +159,25 @@ def main():
     html_out, md_out = render_html(reg), render_md(reg)
 
     if mode == '--check':
-        stale = drift or (open(MD).read() != md_out)
+        # A TOKEN FROM THE WRONG REPEAT NEVER RESOLVES, and nothing else notices.
+        # community-give carried data-btn-size="{{buttons.size}}" INSIDE the slides
+        # repeat for weeks: brg:repeat fills only its own row's fields, so those five
+        # tokens reached the live page as literal text in an attribute. The slot/token
+        # coupling check passes — the slot exists and is used somewhere — and the page
+        # still renders, so only reading the shipped HTML ever showed it.
+        import glob as _glob, re as _re
+        orphans = []
+        for _f in sorted(_glob.glob('website/sections/*/embed.html')):
+            _sec = _f.split('/')[2]; _s = open(_f).read()
+            for _m in _re.finditer(r'<!--brg:repeat (\w+)-->(.*?)(?:<!--brg:empty-->|<!--/brg:repeat-->)', _s, _re.S):
+                _name, _body = _m.group(1), _m.group(2)
+                for _own, _fld in sorted(set(_re.findall(r'\{\{(\w+)\.(\w+)\}\}', _body))):
+                    if _own != _name:
+                        orphans.append(f"{_sec}: {{{{{_own}.{_fld}}}}} used inside the '{_name}' repeat")
+        for _o in orphans:
+            print(f"ORPHAN TOKEN: {_o} — it can never resolve; use the section-level slot")
+
+        stale = drift or orphans or (open(MD).read() != md_out)
         if drift:
             for i, s, cc in drift:
                 print(f"DRIFT: {i} contract moved {s} -> {cc} without a version bump. Run: python3 kit/build.py --restamp")
