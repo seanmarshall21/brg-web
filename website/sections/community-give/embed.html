@@ -128,6 +128,22 @@
 /* Dots sit over the image half, as in the comp, not on a separate bar. */
 .brgw-sec--community-give .brgw-slider__dots{position:absolute;right:clamp(20px,3vw,54px);
   bottom:clamp(18px,2.4vw,38px);background:none;padding:0;z-index:4;}
+/* DOTS GO DARK OVER A YELLOW PANEL. Sean, 7 Oct: "the slider button icons are yellow, but
+   on the second slide it's over a yellow slide." The dots sit bottom-right. On a wide screen
+   the right column holds the PANEL on the even slides when alternating, or on every slide
+   when the words sit right; the even slides' panels are yellow. On a phone the dots sit
+   over whatever half is at the bottom, which is the panel only when the photo leads. The
+   engine writes data-on-parity on the slider for exactly this. */
+@media(min-width:820px){
+  .brgw-sec--community-give[data-sides="alternate"] .brgw-slider[data-on-parity="even"] .brgw-dot,
+  .brgw-sec--community-give[data-sides="right"] .brgw-slider[data-on-parity="even"] .brgw-dot{background:rgba(0,0,0,.26);}
+  .brgw-sec--community-give[data-sides="alternate"] .brgw-slider[data-on-parity="even"] .brgw-dot.is-on,
+  .brgw-sec--community-give[data-sides="right"] .brgw-slider[data-on-parity="even"] .brgw-dot.is-on{background:var(--ink);}
+}
+@media(max-width:819px){
+  .brgw-sec--community-give[data-mfirst="image"] .brgw-slider[data-on-parity="even"] .brgw-dot{background:rgba(0,0,0,.26);}
+  .brgw-sec--community-give[data-mfirst="image"] .brgw-slider[data-on-parity="even"] .brgw-dot.is-on{background:var(--ink);}
+}
 </style>
   <!-- Section background: a pattern or photo behind everything in this section.
        NO src ON THE <img>, only <source srcset>: an empty src resolves against the

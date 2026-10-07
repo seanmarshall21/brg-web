@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.07.8 (2026-10-07)
+- Community page: the teal banner is back (a section whose first animated element is hidden never revealed), photos no longer show-vanish-animate on load, every slide's photo opens when its slide arrives, and the dots go dark over the yellow panel.
+
 ## 2026.10.07.7 (2026-10-07)
 - Crew quotes: the words now get 75% of their column on every screen (the quote mark hangs in the gutter beside them instead of eating the width). A long quote on a phone no longer runs to thirteen lines.
 

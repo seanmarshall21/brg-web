@@ -823,3 +823,20 @@ The observer now watches each section's FIRST animated element — the first lin
 intersect), fade-up or button — and the section reveals when half of it is on screen. No
 band, no padding arithmetic. Supersedes the -110px entry above. The crew-card per-child
 observer is unchanged.
+
+## 2026-10-07 — Conti in brgw.js + brgw.css + community-give (finn's), announced: four Community fixes
+
+Sean, desktop screenshots of /community/: the teal banner gone, photos showing then vanishing
+then animating, blank photo columns on the later slides, yellow dots on the yellow panel.
+
+  banner        my build-6 bug: the section's first animated element was the cleared intro
+                paragraph, 0x0, which never intersects. lead() now skips anything without a box.
+  flash         <html class="brgw-motion"> is set as brgw.js runs (not under reduced motion,
+                removed if GSAP fails) and brgw.css pre-hides [data-brgw-img] to the layer's own
+                starting state, so GSAP's first clip changes nothing visible.
+  slider photos a scroll trigger is a position measured once; a parked slide is measured out of
+                sight and never re-measured. Photos inside any .brgw-slider now open on the
+                engine's brgw:slide event (and at layer init for the slide already showing).
+                The engine marks the active slide is-on in both modes and writes data-on /
+                data-on-parity on the slider.
+  dots          community-give colors them by what is under them: dark over a yellow panel.

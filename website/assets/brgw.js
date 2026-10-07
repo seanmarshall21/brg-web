@@ -6,6 +6,18 @@
    a timeout guarantees reveal even if the font is slow. */
 (function () {
   function debounce(fn, ms) { var t; return function () { clearTimeout(t); t = setTimeout(fn, ms); }; }
+
+  /* LOAD, VANISH, ANIMATE — no. Sean, 7 Oct: the images "load first, then they disappear,
+     and then they animate in." The image reveal is a GSAP layer that loads lazily AFTER the
+     page has loaded, and its first act was to clip every photo to nothing — so every photo
+     showed, vanished, and then opened. This class goes on <html> the moment this script
+     runs, and brgw.css hides [data-brgw-img] under it from the first frame, so GSAP's clip
+     is a no-op by the time it lands. Not under reduced motion (nothing will animate, so
+     nothing may hide), and REMOVED if GSAP never arrives — see startMotion — so a photo can
+     never be hidden by a layer that is not there to show it. */
+  if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    document.documentElement.classList.add('brgw-motion');
+  }
   /* ── Text-attached marks — the asterisk contract ────────────────────────────
      Sean ruled 2026-08-18; spec in notes/explorer/text-attached-underline.md §0.6.
 
@@ -405,7 +417,15 @@
        nothing animated is observed as itself, which is the old behavior for it. */
     var leadOf = new Map();
     function lead(sec) {
-      var el = sec.querySelector('.ln, .anim-up, .anim-cta') || sec;
+      /* THE FIRST ONE WITH A BOX. Sean, 7 Oct, evening: the Community teal banner was gone.
+         That section's first animated element is its intro paragraph, which he had cleared;
+         an empty block is 0x0, a 0x0 element never intersects anything, and the section
+         never revealed. Any element with no size is skipped. */
+      var els = sec.querySelectorAll('.ln, .anim-up, .anim-cta'), el = sec;
+      for (var q = 0; q < els.length; q++) {
+        var r = els[q].getBoundingClientRect();
+        if (r.width > 0 && r.height > 0) { el = els[q]; break; }
+      }
       leadOf.set(sec, el);
       return el;
     }
@@ -582,7 +602,17 @@
           slides[i].classList.add('is-on');
         } else {
           track.style.transform = 'translateX(' + (-i * 100) + '%)';
+          slides.forEach(function (s, q) { s.classList.toggle('is-on', q === i); });
         }
+        /* WHICH SLIDE IS SHOWING, for anything that is not the slider. data-on-parity lets a
+           section color its dots by what sits under them (the second slide's panel is yellow,
+           and yellow dots on a yellow panel are no dots). The event lets the image layer open
+           a photo the moment its slide arrives. */
+        sl.setAttribute('data-on', String(i + 1));
+        sl.setAttribute('data-on-parity', (i % 2 === 0) ? 'odd' : 'even');
+        try {
+          document.dispatchEvent(new CustomEvent('brgw:slide', { detail: { slider: sl, slide: slides[i], index: i } }));
+        } catch (err) { /* an old browser without CustomEvent keeps the scroll reveal only */ }
         draw();
       }
       function restart() { if (!auto) return; clearInterval(timer); timer = setInterval(function () { go(i + 1, 1); }, auto); }
@@ -675,14 +705,36 @@
        zero-height window pinned to the bottom edge opening to full — but it never
        triggers layout, and the image's position is untouched by definition, which is
        the property this effect depends on. */
+    function revealImg(box) {
+      if (box.dataset.brgwShown) return;
+      box.dataset.brgwShown = '1';
+      var img = box.querySelector('img');
+      gsap.timeline()
+        .to(box, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'power3.inOut' }, 0)
+        .to(img, { scale: 1, duration: 1.6, ease: 'power3.out' }, 0);
+    }
     document.querySelectorAll('[data-brgw-img]').forEach(function (box) {
       var img = box.querySelector('img');
       if (!img) return;
       gsap.set(box, { clipPath: 'inset(100% 0% 0% 0%)' });
       gsap.set(img, { scale: 2, transformOrigin: '50% 50%' });
-      gsap.timeline({ scrollTrigger: { trigger: box, start: 'top 82%', once: true } })
-        .to(box, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'power3.inOut' }, 0)
-        .to(img, { scale: 1, duration: 1.6, ease: 'power3.out' }, 0);
+      /* A PHOTO IN A SLIDER OPENS WHEN ITS SLIDE IS SHOWN, NOT WHEN IT SCROLLS INTO VIEW.
+         Sean, 7 Oct: "the second and third slide photos aren't loading." A scroll trigger
+         is a position on the page, measured once; a slide that is parked out of sight (the
+         two-column mode moves it a full box down, the strip moves it a screen sideways) is
+         measured there, and when the slider brings it in nothing re-measures, so its photo
+         stays clipped to nothing. The slider engine announces every change on the document
+         (brgw:slide) and the photo opens then. The slide already showing when this layer
+         lands opens now, because its announcement came before anyone was listening. */
+      var slide = box.closest('.brgw-slider__track > *');
+      if (slide) {
+        if (slide.classList.contains('is-on')) revealImg(box);
+        return;
+      }
+      ST.create({ trigger: box, start: 'top 82%', once: true, onEnter: function () { revealImg(box); } });
+    });
+    document.addEventListener('brgw:slide', function (e) {
+      [].forEach.call(e.detail.slide.querySelectorAll('[data-brgw-img]'), revealImg);
     });
 
     /* The yPercent parallax that used to live here is GONE, replaced by brgwMotion()
@@ -720,11 +772,14 @@
   }
 
   function startMotion() {
+    var html = document.documentElement;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // stays static
-    if (!document.querySelector(MOTION_SEL)) return;                    // nothing to drive
+    if (!document.querySelector(MOTION_SEL)) { html.classList.remove('brgw-motion'); return; } // nothing to drive
     if (window.__brgwMotion) return; window.__brgwMotion = 1;
     var go = function () {
-      ensureGsap().then(initMotion).catch(function () { /* no GSAP → CSS baseline stands */ });
+      ensureGsap().then(initMotion).catch(function () {
+        html.classList.remove('brgw-motion');   // no GSAP → the CSS pre-hide must not stand
+      });
     };
     if (document.readyState === 'complete') go();
     else window.addEventListener('load', go);

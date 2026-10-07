@@ -1,4 +1,4 @@
-/* brgw build 2026.10.07.7 */
+/* brgw build 2026.10.07.8 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -943,6 +943,13 @@
 
 .brgw-img{position:relative;overflow:hidden;display:block;}
 .brgw-img img{display:block;width:100%;height:100%;object-fit:cover;}
+/* HIDDEN FROM THE FIRST FRAME, so the GSAP reveal has nothing to take away. brgw.js puts
+   brgw-motion on <html> as it runs (never under reduced motion, and it removes it again if
+   GSAP fails to load), and these match the layer's own starting state exactly — clipped to
+   nothing, image at twice its size — so when the layer lands nothing visibly changes until
+   the reveal plays. Without this every photo showed, vanished, then opened. */
+html.brgw-motion .brgw [data-brgw-img]{clip-path:inset(100% 0 0 0);}
+html.brgw-motion .brgw [data-brgw-img] img{transform:scale(2);transform-origin:50% 50%;}
 
 /* ---- doodle pop-in (splash motion, gated on the reveal engine) ---------------
    The coming-soon splash pops its doodle from scale .2 with an overshoot, then
