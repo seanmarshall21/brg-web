@@ -3,7 +3,12 @@
 _Living snapshot so any chat/machine can pick up where we are. The **Controller** maintains
 this; other chats request edits via their `notes/*.md`. Update whenever state changes._
 
-**Last updated:** 2026-10-07 (Conti) — **start here: `notes/handoff-2026-10-07.md`**, then the
+**Last updated:** 2026-10-07 evening (Conti) — **every deploy now carries a build stamp.** Line 1
+of `brgw.css` says `brgw build YYYY.MM.DD.N`, `CHANGELOG.md` says what is behind it, `?build` on
+any live URL shows it as a badge, and pre-push refuses a deploy whose stamp did not move. Live
+today: 2026.10.07.1 (the stamp) and 2026.10.07.2 (reveal timing: sections wait until their headline
+is on screen; highlights wait for their own line). Atlas is out of commission (Sean, 7 Oct): skip
+its calls. Earlier today — **start here: `notes/handoff-2026-10-07.md`**, then the
 line below. Today: team page spacing, all five controls on the eight named CTAs, contact hero
 underline, hover colours at three levels, the social row root cause (a stale duplicate plugin
 in WPCode #364, now trashed), and five tokens that were reaching the live Community page as
