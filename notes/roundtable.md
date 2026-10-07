@@ -773,3 +773,19 @@ Highlights now wait for their own line: the h1 wipe and h3 block delay is
 calc(var(--brgw-delay) + .5s), where --brgw-delay is the stagger the engine already hands
 each .ln-i, inherited by the mark inside it. The calc sits on the .hl-t/.hl-b rules, not on
 the section, because a custom property resolves where it is declared.
+
+## 2026-10-07 — Conti in finn's slots + two fragments, announced: every button gets its five controls
+
+Sean, with the Community admin open: the slide's JOIN US button had label, link and pop-up
+and nothing else. "I wanted to do each individual button." Two places were short:
+
+  community-give slides   each of the two buttons per slide now carries its own size, color,
+                          hover color, fill and hover effect (cta_* and cta2_*). The .btnrow is
+                          now also a .brgw-cta--inline carrying the section's values, so a
+                          button left on "Same as the section" resolves exactly like a
+                          Buttons-list row. The slide's own spacing rule out-specifies the
+                          shared inline rule on purpose.
+  contact-routes boxes    the four box lists had size/color/fill/effect but no hover color.
+
+And the help text on all 21 Buttons lists said "Hover is set for the whole section", which
+stopped being true the day rows got hover. It now says where each of the three levels lives.

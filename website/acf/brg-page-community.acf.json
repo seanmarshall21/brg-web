@@ -1832,7 +1832,7 @@
                 "label": "Buttons",
                 "name": "brg_community_hero_buttons",
                 "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nSize, color, hover color, fill and hover effect are set for the whole section above; open any button's row and the same five controls are there for that one button. Left on \"Same as the section\" a button follows the section, and the section follows the Site-wide page.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -2219,7 +2219,7 @@
                 "label": "Slides",
                 "name": "brg_community_give_slides",
                 "type": "repeater",
-                "instructions": "One row per slide, in the order they appear. Drag to reorder. Any number works: the slider builds its own dots, and the panel color alternates black / yellow by position, so adding or removing a slide re-colors the rest automatically — do not try to set a color per slide. Until the first row is added the page keeps the three slides it shows today.",
+                "instructions": "One row per slide, in the order they appear. Drag to reorder. Any number works: the slider builds its own dots, and the panel color alternates black / yellow by position, so adding or removing a slide re-colors the rest automatically — do not try to set a color per slide. Until the first row is added the page keeps the three slides it shows today.\n\nEach slide's two buttons carry their own size, color, hover color, fill and hover effect. Left on \"Same as the section\" they follow the Buttons settings for this section below, which in turn follow the Site-wide page.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -2453,6 +2453,159 @@
                         "placeholder": ""
                     },
                     {
+                        "key": "field_brg_community_give_slides_cta_size",
+                        "label": "Button — size",
+                        "name": "cta_size",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" to follow the section's Size under Buttons below.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta_size",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "large": "Large",
+                            "medium": "Medium",
+                            "small": "Small"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta_color",
+                        "label": "Button — color",
+                        "name": "cta_color",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Button color under Buttons below. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta_color",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta_hover",
+                        "label": "Button — hover color",
+                        "name": "cta_hover",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Button hover color under Buttons below. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta_hover",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta_style",
+                        "label": "Button — filled or outline",
+                        "name": "cta_style",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" to follow the section's setting under Buttons below. The usual pair is a filled main button next to an outline one.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta_style",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "filled": "Filled",
+                            "outline": "Outline",
+                            "text": "Text only"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta_effect",
+                        "label": "Button — hover effect",
+                        "name": "cta_effect",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta_effect",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "lift": "Lift",
+                            "lift-swap": "Lift and swap color",
+                            "underline": "Underline",
+                            "grow": "Grow",
+                            "press": "Press down",
+                            "fill": "Fill in",
+                            "none": "None"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
                         "key": "field_brg_community_give_slides_cta2_label",
                         "label": "Second button label",
                         "name": "cta2_label",
@@ -2499,6 +2652,159 @@
                         "choices": {
                             "": "Open the link",
                             "1": "Pop-up"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta2_size",
+                        "label": "Second button — size",
+                        "name": "cta2_size",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" to follow the section's Size under Buttons below.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta2_size",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "large": "Large",
+                            "medium": "Medium",
+                            "small": "Small"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta2_color",
+                        "label": "Second button — color",
+                        "name": "cta2_color",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Button color under Buttons below. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta2_color",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta2_hover",
+                        "label": "Second button — hover color",
+                        "name": "cta2_hover",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Button hover color under Buttons below. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta2_hover",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "light": "Light",
+                            "dark": "Dark",
+                            "accent": "Accent",
+                            "alt": "Alt accent",
+                            "yellow": "Yellow (a specific shade)",
+                            "teal": "Teal (a specific shade)",
+                            "pink": "Pink (a specific shade)",
+                            "orange": "Orange (a specific shade)",
+                            "white": "White (a specific shade)",
+                            "ink": "Black (a specific shade)"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta2_style",
+                        "label": "Second button — filled or outline",
+                        "name": "cta2_style",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" to follow the section's setting under Buttons below. The usual pair is a filled main button next to an outline one.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta2_style",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "filled": "Filled",
+                            "outline": "Outline",
+                            "text": "Text only"
+                        },
+                        "return_format": "value",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_brg_community_give_slides_cta2_effect",
+                        "label": "Second button — hover effect",
+                        "name": "cta2_effect",
+                        "type": "select",
+                        "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "brg-f-cta2_effect",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "choices": {
+                            "": "Same as the section",
+                            "lift": "Lift",
+                            "lift-swap": "Lift and swap color",
+                            "underline": "Underline",
+                            "grow": "Grow",
+                            "press": "Press down",
+                            "fill": "Fill in",
+                            "none": "None"
                         },
                         "return_format": "value",
                         "allow_null": 0,
@@ -3179,7 +3485,7 @@
                 "label": "Buttons",
                 "name": "brg_community_give_buttons",
                 "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nSize, color, hover color, fill and hover effect are set for the whole section above; open any button's row and the same five controls are there for that one button. Left on \"Same as the section\" a button follows the section, and the section follows the Site-wide page.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -4041,7 +4347,7 @@
                 "label": "Buttons",
                 "name": "brg_community_stats_buttons",
                 "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nSize, color, hover color, fill and hover effect are set for the whole section above; open any button's row and the same five controls are there for that one button. Left on \"Same as the section\" a button follows the section, and the section follows the Site-wide page.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -4725,7 +5031,7 @@
                 "label": "Buttons",
                 "name": "brg_community_partner_buttons",
                 "type": "repeater",
-                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
+                "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nSize, color, hover color, fill and hover effect are set for the whole section above; open any button's row and the same five controls are there for that one button. Left on \"Same as the section\" a button follows the section, and the section follows the Site-wide page.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

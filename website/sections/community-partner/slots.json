@@ -270,7 +270,7 @@
     "label": "Buttons",
     "button": "Add a button",
     "collapse": "label",
-    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nColor and fill are set for the whole section above, and any single button can override them on its own row. Hover is set for the whole section.",
+    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nSize, color, hover color, fill and hover effect are set for the whole section above; open any button's row and the same five controls are there for that one button. Left on \"Same as the section\" a button follows the section, and the section follows the Site-wide page.",
     "group": "Buttons",
     "sub": {
       "label": {

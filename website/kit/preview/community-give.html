@@ -107,8 +107,8 @@
   max-width:44ch;margin-inline:auto;opacity:.9;}
 /* A slide with no button label renders an EMPTY <a>, which would otherwise show as a bare
    yellow block. :empty hides it, so the button is genuinely optional per slide. */
-.brgw-sec--community-give .btnrow{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
-  margin-top:clamp(18px,2vw,26px);}
+.brgw-sec--community-give .panel .btnrow.brgw-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+  margin:clamp(18px,2vw,26px) 0 0;max-width:none;}
 /* An empty label means that button was not filled in, so it is not a button. */
 .brgw-sec--community-give .btnrow .btn[data-cta=""]{display:none;}
 .brgw-sec--community-give .panel .btn{margin-top:clamp(18px,2vw,26px);align-self:center;}
@@ -152,12 +152,18 @@
           <!-- Up to two buttons per slide. A slide with one label fills one button and
                leaves the other hidden; a slide with neither shows no row at all. They
                cannot be a repeater: the plugin's brg:repeat grammar does not nest, and
-               these already sit inside the slides repeater. -->
-          <div class="btnrow">
-            <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}"
+               these already sit inside the slides repeater.
+               EACH BUTTON CARRIES ITS OWN FIVE CONTROLS (Sean, 7 Oct: "I wanted to do each
+               individual button"). The row carries the section's values, so a button left
+               on "Same as the section" resolves exactly as a Buttons-list row does: the CSS
+               row rules and brgw.js's walk-up both see the row first. The row is a
+               .brgw-cta--inline for that reason, not for layout; the rule below keeps the
+               slide's own spacing by out-specifying the shared inline rule. -->
+          <div class="btnrow brgw-cta brgw-cta--inline" data-btn-size="{{btn_size}}" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}">
+            <a class="btn anim-cta" data-btn-size="{{slides.cta_size}}" data-btn-color="{{slides.cta_color}}" data-btn-hover="{{slides.cta_hover}}" data-btn-style="{{slides.cta_style}}" data-btn-fx="{{slides.cta_effect}}"
                data-cta="{{slides.cta_label}}" href="{{slides.cta_href}}"
                data-brgw-modal="{{slides.cta_popup}}" data-brgw-modal-bg="{{modal_bg}}">{{slides.cta_label}}</a>
-            <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}"
+            <a class="btn anim-cta" data-btn-size="{{slides.cta2_size}}" data-btn-color="{{slides.cta2_color}}" data-btn-hover="{{slides.cta2_hover}}" data-btn-style="{{slides.cta2_style}}" data-btn-fx="{{slides.cta2_effect}}"
                data-cta="{{slides.cta2_label}}" href="{{slides.cta2_href}}"
                data-brgw-modal="{{slides.cta2_popup}}" data-brgw-modal-bg="{{modal_bg}}">{{slides.cta2_label}}</a>
           </div>

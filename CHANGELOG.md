@@ -12,6 +12,10 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.07.3 (2026-10-07)
+- Every button now has its own five controls (size, color, hover color, filled or outline, hover effect). The two buttons inside each Community slide and the Contact box buttons were the ones missing them.
+- The help text on every Buttons list now explains the three levels: site-wide, section, and each button's own row.
+
 ## 2026.10.07.2 (2026-10-07)
 - Reveal timing: a section now reveals once about 110px of it has cleared the bottom of the screen, so the headline starts its rise on screen instead of below it. Crew cards keep their early trigger.
 - Highlights (the yellow marks in headlines) now start after their own line has risen, instead of alongside it.
