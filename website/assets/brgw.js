@@ -545,22 +545,52 @@
       var dotsWrap = sl.querySelector('.brgw-slider__dots');
       var auto = parseInt(sl.dataset.autoplay || '0', 10), i = 0, timer = null, dots = [];
       function draw() { dots.forEach(function (b, k) { b.classList.toggle('is-on', k === i); }); }
-      /* SPLIT MOTION. Sean, 3 Oct: the slide "should slide as two individual slides instead
-         of one giant one." The track moves as a single strip, which is what makes a slide
-         read as one block. Marking the slider while it travels lets CSS give the two halves
-         different offsets and settle times, so the panel and the photo arrive as two pieces
-         rather than one. The class is removed on transitionend with a TIMER BACKUP, because
-         transitionend does not fire in a hidden tab and the halves would stay offset. */
-      var moveTimer = null;
-      function go(k) {
+      /* TWO COLUMNS, SYNCED. Sean, 7 Oct: "two sliders next to each other that are synced
+         together, so their bounding box doesn't move at all, and they slide within their
+         bounding box." With data-split="1" on a wide screen the track is a two-column grid
+         (brgw.css) and this hands out the positions: the outgoing slide's halves rise out
+         of the top, the incoming halves come up from below — or the reverse on a step
+         back. `dir` is the travel direction, passed by the caller so the wrap from the
+         last slide to the first still reads as "next" rather than running backwards.
+
+         A half is PARKED on the entry side first, with transitions off for one frame
+         (no-trans + a forced reflow), then released; without that it would animate from
+         wherever it last was. On a phone, or with the option off, the track is the strip
+         it always was. The mode is re-read on every move, so a window resized across
+         820px switches cleanly: go(i, 0) re-places the current slide in the new mode. */
+      function cols() { return sl.dataset.split === '1' && window.matchMedia('(min-width:820px)').matches; }
+      function park(s, cls) {
+        s.classList.add('no-trans');
+        s.classList.remove('is-on', 'is-above', 'is-below');
+        s.classList.add(cls);
+        void s.offsetWidth;                                   // commit without animating
+        s.classList.remove('no-trans');
+      }
+      function go(k, dir) {
+        var from = i;
         i = (k + n) % n;
-        sl.classList.add('is-moving');
-        clearTimeout(moveTimer);
-        moveTimer = setTimeout(function () { sl.classList.remove('is-moving'); }, 640);
-        track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        if (dir === undefined) dir = (i === from) ? 0 : (i > from ? 1 : -1);
+        if (cols()) {
+          track.style.transform = 'none';
+          slides.forEach(function (s, q) {
+            if (q === i || (q === from && dir !== 0)) return;
+            park(s, 'is-below');                              // out of sight, no motion
+          });
+          if (dir !== 0 && from !== i) {
+            park(slides[i], dir < 0 ? 'is-above' : 'is-below');
+            slides[from].classList.remove('is-on');
+            slides[from].classList.add(dir < 0 ? 'is-below' : 'is-above');
+          } else if (dir === 0) {
+            park(slides[i], 'is-on');
+          }
+          slides[i].classList.remove('is-above', 'is-below');
+          slides[i].classList.add('is-on');
+        } else {
+          track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        }
         draw();
       }
-      function restart() { if (!auto) return; clearInterval(timer); timer = setInterval(function () { go(i + 1); }, auto); }
+      function restart() { if (!auto) return; clearInterval(timer); timer = setInterval(function () { go(i + 1, 1); }, auto); }
       if (dotsWrap) {
         for (var d = 0; d < n; d++) (function (d) {
           var b = document.createElement('button'); b.className = 'brgw-dot';
@@ -597,18 +627,18 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(equalize).catch(function () {});
       var eqTimer = null;
       window.addEventListener('resize', function () {
-        clearTimeout(eqTimer); eqTimer = setTimeout(equalize, 180);
+        clearTimeout(eqTimer); eqTimer = setTimeout(function () { equalize(); go(i, 0); }, 180);
       });
 
       var x0 = null;
       sl.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
       sl.addEventListener('touchend', function (e) {
         if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0;
-        if (Math.abs(dx) > 40) { go(i + (dx < 0 ? 1 : -1)); restart(); } x0 = null;
+        if (Math.abs(dx) > 40) { go(i + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); restart(); } x0 = null;
       });
       sl.addEventListener('mouseenter', function () { clearInterval(timer); });
       sl.addEventListener('mouseleave', restart);
-      go(0); restart();
+      go(0, 0); restart();
     });
   }
 

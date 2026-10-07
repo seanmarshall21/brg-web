@@ -140,7 +140,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       },
       "cta_color": {
@@ -248,7 +249,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       },
       "cta2_color": {
@@ -494,12 +496,12 @@
   "slide_split": {
     "type": "select",
     "label": "How a slide moves",
-    "doc": "Together is the current behavior: the whole slide travels as one strip. As two halves lets the photo lag the words slightly and settle a beat later, so a change reads as two pieces arriving rather than one block sliding. Anyone who has switched off animation sees neither.",
+    "doc": "Together is the original: the whole slide travels sideways as one strip. As two columns keeps two boxes side by side that never move; on a change the words and the photo each slide up inside their own box, in step, so the frame holds still and only what is in it changes. On a phone the slides are one strip either way. Anyone who has switched off animation sees neither.",
     "width": 50,
     "default": "",
     "choices": {
       "": "Together",
-      "1": "As two halves"
+      "1": "As two columns"
     }
   },
   "cta_position": {
@@ -524,7 +526,8 @@
       "": "As set site-wide",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     }
   },
   "btn_color": {
@@ -713,7 +716,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },

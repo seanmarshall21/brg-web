@@ -93,6 +93,21 @@
   .brgw-sec--community-give[data-sides="right"] .brgw-slide .panel{order:2;}
   .brgw-sec--community-give[data-sides="right"] .brgw-slide .shot{order:1;}
 }
+/* THE SAME SIDES IN COLUMN MODE ("As two columns" in wp-admin). There the slide is
+   display:contents and its halves are grid items of the track, so `order` means nothing
+   and the side is a grid-column instead: words left and photo right, swapped on the even
+   slides when alternating, swapped on every slide when the words sit right. Left runs
+   photo, words, photo; right runs words, photo, words — the comp, with the boxes fixed.
+   The slide's min-height is lost with display:contents, so the track carries it. */
+@media(min-width:820px){
+  .brgw-sec--community-give .brgw-slider[data-split="1"] .brgw-slider__track{min-height:clamp(360px,44vw,620px);}
+  .brgw-sec--community-give .brgw-slider[data-split="1"] .brgw-slide > .panel{grid-column:1;}
+  .brgw-sec--community-give .brgw-slider[data-split="1"] .brgw-slide > .shot{grid-column:2;}
+  .brgw-sec--community-give[data-sides="alternate"] .brgw-slider[data-split="1"] .brgw-slide:nth-child(even) > .panel,
+  .brgw-sec--community-give[data-sides="right"] .brgw-slider[data-split="1"] .brgw-slide > .panel{grid-column:2;}
+  .brgw-sec--community-give[data-sides="alternate"] .brgw-slider[data-split="1"] .brgw-slide:nth-child(even) > .shot,
+  .brgw-sec--community-give[data-sides="right"] .brgw-slider[data-split="1"] .brgw-slide > .shot{grid-column:1;}
+}
 /* The panel colour still alternates whichever side it sits on — it is what stops a fixed
    side reading as one long slab — so these are not tied to data-sides. */
 .brgw-sec--community-give .brgw-slide:nth-child(odd) .panel{background:#000;color:var(--white);}

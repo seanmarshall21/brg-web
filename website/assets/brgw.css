@@ -1,4 +1,4 @@
-/* brgw build 2026.10.07.4 */
+/* brgw build 2026.10.07.5 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -599,17 +599,41 @@
 .brgw-slider{position:relative;overflow:hidden;}
 .brgw-slider__track{display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1);will-change:transform;}
 .brgw-slider__track > *{flex:0 0 100%;min-width:100%;}
-/* ---- split motion: the two halves of a slide travel as two pieces -------------------
-   Off by default, so a slider that has not asked for it behaves exactly as before. With
-   it on, the half that is NOT the panel lags slightly and settles a beat later, which is
-   what makes a slide read as two individual slides rather than one strip. The offset is
-   small on purpose — the track is already moving 100%, and a large second motion reads as
-   a glitch rather than as depth. */
-.brgw-slider[data-split="1"] .brgw-slide > *{transition:translate .62s cubic-bezier(.4,0,.2,1);}
-.brgw-slider[data-split="1"] .brgw-slide > *:nth-child(2){transition-delay:.09s;}
-.brgw-slider[data-split="1"].is-moving .brgw-slide > *:nth-child(2){translate:7% 0;}
+/* ---- TWO COLUMNS, SYNCED (data-split="1", 820px and up) -------------------------------
+   Sean, 7 Oct: "two sliders next to each other that are synced together, so their
+   bounding box doesn't move at all, and they slide within their bounding box." The first
+   version of this nudged the photo 7% while the whole strip travelled, which read as a
+   bounce; the strip itself was the thing he did not want to see move.
+
+   So on a wide screen the track stops being a strip. It becomes a two-column grid, each
+   slide is display:contents so its two halves become grid items, and every half sits in
+   row 1 of its column — the halves of all the slides stacked in two fixed cells. A change
+   is a VERTICAL slide inside those cells: the outgoing half rises out of the top, the
+   incoming comes up from below (down for a step back). The slider's own overflow:hidden
+   is the clip, and because both columns span its full height, each half is clipped to
+   exactly its own box — which is why the motion is vertical: a horizontal slide would
+   cross into the neighbour's column, and clipping that needs a wrapper per column.
+
+   brgw.js hands out the classes: .is-on (in place), .is-above (risen out), .is-below
+   (waiting underneath); .no-trans parks a half somewhere without animating, so the
+   incoming half can be placed below the box in one frame and slide up in the next.
+   visibility follows the motion with a delay, so a hidden half cannot be tabbed into.
+   On a phone the slides stay one strip, which is what the spec says for mobile. */
+@media (min-width:820px){
+  .brgw-slider[data-split="1"] .brgw-slider__track{display:grid;grid-template-columns:1fr 1fr;
+    transition:none;transform:none!important;}
+  .brgw-slider[data-split="1"] .brgw-slide{display:contents;}
+  .brgw-slider[data-split="1"] .brgw-slide > *{grid-row:1;min-width:0;
+    transition:translate .62s cubic-bezier(.4,0,.2,1),visibility 0s linear .62s;}
+  .brgw-slider[data-split="1"] .brgw-slide > :first-child{grid-column:1;}
+  .brgw-slider[data-split="1"] .brgw-slide > :nth-child(2){grid-column:2;}
+  .brgw-slider[data-split="1"] .brgw-slide.is-above > *{translate:0 -100%;visibility:hidden;}
+  .brgw-slider[data-split="1"] .brgw-slide.is-below > *{translate:0 100%;visibility:hidden;}
+  .brgw-slider[data-split="1"] .brgw-slide.is-on > *{translate:0 0;visibility:visible;transition-delay:0s,0s;}
+  .brgw-slider[data-split="1"] .brgw-slide.no-trans > *{transition:none;}
+}
 @media (prefers-reduced-motion:reduce){
-  .brgw-slider[data-split="1"] .brgw-slide > *{transition:none;translate:none!important;}
+  .brgw-slider[data-split="1"] .brgw-slide > *{transition:none!important;}
 }
 .brgw-slider__dots{display:flex;gap:11px;justify-content:center;padding:22px 0;background:#000;}
 .brgw-dot{width:11px;height:11px;border-radius:50%;border:0;padding:0;cursor:pointer;

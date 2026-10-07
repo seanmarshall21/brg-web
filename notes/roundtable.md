@@ -797,3 +797,16 @@ Sean: "the small buttons are still pretty big." One rule, his numbers (6px 10px,
 section, every Buttons row, every named button, both slide buttons). The plugin whitelists the
 SITE-WIDE size and would have thrown the new value back to large, so v2.14.1 adds the word;
 deployed and verified by the Action. Note: the commit message says 36 lists; it is 57.
+
+## 2026-10-07 — Conti in brgw.css + brgw.js + community-give (finn's), announced: the two-column slider
+
+Sean: the "As two halves" bounce looked awkward; the spec is two boxes side by side, synced,
+that never move, with the content sliding inside each. Built in the SHARED engine as what
+data-split="1" now means at 820px and up: the track is a two-column grid, each slide is
+display:contents, every half sits in row 1 of its column, and a change is a vertical slide
+inside the cell (the slider's overflow:hidden is the clip; both columns span its height, so
+each half is clipped to exactly its own box). brgw.js hands out is-on / is-above / is-below,
+parks the incoming half with no-trans for one frame, and takes a `dir` from the caller so the
+wrap from the last slide to the first still reads as "next". Phones keep the strip.
+community-give maps data-sides to grid-column in that mode (order means nothing there) and
+moves the min-height to the track. The wp-admin choice is now "As two columns".
