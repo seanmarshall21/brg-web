@@ -2315,6 +2315,91 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_our_restaurants_brands_bnb_cta_size",
+                "label": "Board & Brew — button size",
+                "name": "brg_our_restaurants_brands_bnb_cta_size",
+                "type": "select",
+                "instructions": "The size of this one button. \"Same as the section\" follows the section's Size below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-bnb_cta_size",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "large": "Large",
+                    "medium": "Medium",
+                    "small": "Small"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_cta_style",
+                "label": "Board & Brew — button filled or outline",
+                "name": "brg_our_restaurants_brands_bnb_cta_style",
+                "type": "select",
+                "instructions": "Filled, outline or text, for this one button. \"Same as the section\" follows the section's setting below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-bnb_cta_style",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "filled": "Filled",
+                    "outline": "Outline",
+                    "text": "Text only"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_bnb_cta_effect",
+                "label": "Board & Brew — button hover effect",
+                "name": "brg_our_restaurants_brands_bnb_cta_effect",
+                "type": "select",
+                "instructions": "What this one button does on hover. \"Same as the section\" follows the section's Hover effect below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-bnb_cta_effect",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "lift": "Lift",
+                    "lift-swap": "Lift and swap color",
+                    "underline": "Underline",
+                    "grow": "Grow",
+                    "press": "Press down",
+                    "fill": "Fill in",
+                    "none": "None"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_our_restaurants_brands_odies_cta_color",
                 "label": "Odie's — button color",
                 "name": "brg_our_restaurants_brands_odies_cta_color",
@@ -2374,6 +2459,91 @@
                     "orange": "Orange (a specific shade)",
                     "white": "White (a specific shade)",
                     "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_cta_size",
+                "label": "Odie's — button size",
+                "name": "brg_our_restaurants_brands_odies_cta_size",
+                "type": "select",
+                "instructions": "The size of this one button. \"Same as the section\" follows the section's Size below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-odies_cta_size",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "large": "Large",
+                    "medium": "Medium",
+                    "small": "Small"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_cta_style",
+                "label": "Odie's — button filled or outline",
+                "name": "brg_our_restaurants_brands_odies_cta_style",
+                "type": "select",
+                "instructions": "Filled, outline or text, for this one button. \"Same as the section\" follows the section's setting below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-odies_cta_style",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "filled": "Filled",
+                    "outline": "Outline",
+                    "text": "Text only"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_our_restaurants_brands_odies_cta_effect",
+                "label": "Odie's — button hover effect",
+                "name": "brg_our_restaurants_brands_odies_cta_effect",
+                "type": "select",
+                "instructions": "What this one button does on hover. \"Same as the section\" follows the section's Hover effect below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-odies_cta_effect",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "lift": "Lift",
+                    "lift-swap": "Lift and swap color",
+                    "underline": "Underline",
+                    "grow": "Grow",
+                    "press": "Press down",
+                    "fill": "Fill in",
+                    "none": "None"
                 },
                 "return_format": "value",
                 "allow_null": 0,

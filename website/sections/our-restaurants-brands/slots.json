@@ -81,6 +81,52 @@
     },
     "group": "Buttons"
   },
+  "bnb_cta_size": {
+    "type": "select",
+    "label": "Board & Brew — button size",
+    "width": 25,
+    "default": "",
+    "doc": "The size of this one button. \"Same as the section\" follows the section's Size below.",
+    "choices": {
+      "": "Same as the section",
+      "large": "Large",
+      "medium": "Medium",
+      "small": "Small"
+    },
+    "group": "Buttons"
+  },
+  "bnb_cta_style": {
+    "type": "select",
+    "label": "Board & Brew — button filled or outline",
+    "width": 25,
+    "default": "",
+    "doc": "Filled, outline or text, for this one button. \"Same as the section\" follows the section's setting below.",
+    "choices": {
+      "": "Same as the section",
+      "filled": "Filled",
+      "outline": "Outline",
+      "text": "Text only"
+    },
+    "group": "Buttons"
+  },
+  "bnb_cta_effect": {
+    "type": "select",
+    "label": "Board & Brew — button hover effect",
+    "width": 25,
+    "default": "",
+    "doc": "What this one button does on hover. \"Same as the section\" follows the section's Hover effect below.",
+    "choices": {
+      "": "Same as the section",
+      "lift": "Lift",
+      "lift-swap": "Lift and swap color",
+      "underline": "Underline",
+      "grow": "Grow",
+      "press": "Press down",
+      "fill": "Fill in",
+      "none": "None"
+    },
+    "group": "Buttons"
+  },
   "odies_heading": {
     "type": "text",
     "label": "Odie's — name",
@@ -155,6 +201,52 @@
       "orange": "Orange (a specific shade)",
       "white": "White (a specific shade)",
       "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
+  "odies_cta_size": {
+    "type": "select",
+    "label": "Odie's — button size",
+    "width": 25,
+    "default": "",
+    "doc": "The size of this one button. \"Same as the section\" follows the section's Size below.",
+    "choices": {
+      "": "Same as the section",
+      "large": "Large",
+      "medium": "Medium",
+      "small": "Small"
+    },
+    "group": "Buttons"
+  },
+  "odies_cta_style": {
+    "type": "select",
+    "label": "Odie's — button filled or outline",
+    "width": 25,
+    "default": "",
+    "doc": "Filled, outline or text, for this one button. \"Same as the section\" follows the section's setting below.",
+    "choices": {
+      "": "Same as the section",
+      "filled": "Filled",
+      "outline": "Outline",
+      "text": "Text only"
+    },
+    "group": "Buttons"
+  },
+  "odies_cta_effect": {
+    "type": "select",
+    "label": "Odie's — button hover effect",
+    "width": 25,
+    "default": "",
+    "doc": "What this one button does on hover. \"Same as the section\" follows the section's Hover effect below.",
+    "choices": {
+      "": "Same as the section",
+      "lift": "Lift",
+      "lift-swap": "Lift and swap color",
+      "underline": "Underline",
+      "grow": "Grow",
+      "press": "Press down",
+      "fill": "Fill in",
+      "none": "None"
     },
     "group": "Buttons"
   },

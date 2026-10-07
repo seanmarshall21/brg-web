@@ -6,7 +6,15 @@
 <template id="frag"><!-- BRG · section: team-hero  →  [brg_team-hero] -->
 <section class="brgw-sec brgw-sec--team-hero brgw-hero reveal" data-bg-style="{{bg_style}}" data-nav="dark" data-uline="{{uline_variant}}" aria-label="Team" data-cta-pos="{{cta_position}}">
 <style>
-.brgw-sec--team-hero{overflow:hidden;}
+/* MORE ROOM, AND ROOM FOR THE BANNER. Sean, 7 Oct: the crew sat too close to the top of
+   the page, and the hero reads short. The shared hero is clamp(90px,15vh,170px) top and
+   clamp(56px,8vh,90px) bottom; this lifts both for the team hero only — the bottom more
+   than the top, because the yellow banner now straddles this hero's bottom edge and the
+   sub copy has to clear the half of it that hangs up into here. Scoped to this section:
+   every other hero keeps the shared figure. */
+.brgw-sec--team-hero{overflow:hidden;
+  padding-top:clamp(112px,17vh,200px);
+  padding-bottom:clamp(88px,11vh,132px);}
 /* Underline is now Sean's line-team-lg.svg; its color is baked into the path fill,
    so the old `color:var(--pink)` is gone rather than left as a rule that does nothing.
    Geometry matches the blob it replaces; the reveal is the shared system in brgw.css. */

@@ -103,7 +103,7 @@
             },
             {
                 "key": "field_brg_home_hero_cta_color",
-                "label": "button color",
+                "label": "Button color",
                 "name": "brg_home_hero_cta_color",
                 "type": "select",
                 "instructions": "The color of this one button. \"Same as the section\" means it follows the section's Button color below, which is how it behaves today. Set it to let this button differ from the others in the section.",
@@ -137,7 +137,7 @@
             },
             {
                 "key": "field_brg_home_hero_cta_hover",
-                "label": "button hover color",
+                "label": "Button hover color",
                 "name": "brg_home_hero_cta_hover",
                 "type": "select",
                 "instructions": "The color this one button changes to on hover. \"Same as the section\" follows the section's Button hover color.",
@@ -161,6 +161,91 @@
                     "orange": "Orange (a specific shade)",
                     "white": "White (a specific shade)",
                     "ink": "Black (a specific shade)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_hero_cta_size",
+                "label": "Button size",
+                "name": "brg_home_hero_cta_size",
+                "type": "select",
+                "instructions": "The size of this one button. \"Same as the section\" follows the section's Size below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-cta_size",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "large": "Large",
+                    "medium": "Medium",
+                    "small": "Small"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_hero_cta_style",
+                "label": "Button filled or outline",
+                "name": "brg_home_hero_cta_style",
+                "type": "select",
+                "instructions": "Filled, outline or text, for this one button. \"Same as the section\" follows the section's setting below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-cta_style",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "filled": "Filled",
+                    "outline": "Outline",
+                    "text": "Text only"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_hero_cta_effect",
+                "label": "Button hover effect",
+                "name": "brg_home_hero_cta_effect",
+                "type": "select",
+                "instructions": "What this one button does on hover. \"Same as the section\" follows the section's Hover effect below.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-cta_effect",
+                    "id": ""
+                },
+                "default_value": "",
+                "choices": {
+                    "": "Same as the section",
+                    "lift": "Lift",
+                    "lift-swap": "Lift and swap color",
+                    "underline": "Underline",
+                    "grow": "Grow",
+                    "press": "Press down",
+                    "fill": "Fill in",
+                    "none": "None"
                 },
                 "return_format": "value",
                 "allow_null": 0,

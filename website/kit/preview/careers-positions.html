@@ -45,7 +45,7 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <h2 class="blanco anim-head" data-head="words">{{heading}}</h2>
   <p class="sub anim-up">{{sub}}</p>
-  <a class="btn anim-cta" data-btn-size="{{btn_size}}" data-btn-color="{{cta_color}}" data-btn-hover="{{cta_hover}}" data-btn-style="{{btn_style}}" data-btn-fx="{{btn_effect}}" href="{{cta_href}}">{{cta_label}}</a>
+  <a class="btn anim-cta" data-btn-size="{{cta_size}}" data-btn-color="{{cta_color}}" data-btn-hover="{{cta_hover}}" data-btn-style="{{cta_style}}" data-btn-fx="{{cta_effect}}" href="{{cta_href}}">{{cta_label}}</a>
   <span class="surfer" data-brgw-frame aria-hidden="true"><img src="{{photo}}" alt="" width="578" height="709" loading="lazy" decoding="async" data-tone="{{photo_tone}}" data-px="{{photo_px}}" data-px-dir="{{photo_px_dir}}"></span>
   <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>
@@ -56,7 +56,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"cta_label": "Open Positions", "cta_href": "/careers/#roles", "cta_color": "", "cta_hover": "", "heading": "Ready to join the crew?", "sub": "Browse our open roles below \u2014 from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co.", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-srfr-img-crop.png", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"cta_label": "Open Positions", "cta_href": "/careers/#roles", "cta_color": "", "cta_hover": "", "cta_size": "", "cta_style": "", "cta_effect": "", "heading": "Ready to join the crew?", "sub": "Browse our open roles below \u2014 from front-of-house to leadership positions across Board & Brew and Odie's Pizza Co.", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-srfr-img-crop.png", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
