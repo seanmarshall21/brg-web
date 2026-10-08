@@ -125,6 +125,29 @@
 .brgw-sec--community-give .panel .btn:empty{display:none;}
 .brgw-sec--community-give .brgw-slide:nth-child(odd) .panel .btn{background:var(--yellow);color:var(--ink);}
 .brgw-sec--community-give .brgw-slide:nth-child(even) .panel .btn{background:var(--ink);color:var(--white);}
+/* THE WORDS SIDE ARRIVES TOO. Sean, 8 Oct: "the box side doesn't animate in. It's already
+   visible when you land on the screen." The photo half wipes open from the bottom when its
+   slide is shown (brgw.js, the image layer); the panel now does the same, on the same
+   curve and over the same 1.25s, and its title, text and buttons rise in behind the wipe
+   a beat apart. It plays when the slide is SHOWN — the first slide when the section
+   reveals (.is-in), every later one as it arrives (.is-on) — so it is never spent on a
+   slide nobody is looking at.
+   The resting state is CLOSED, so nothing shows before the section reveals; the delayed
+   zero-length transition is what lets a slide on its way OUT keep its words until it has
+   left the box, instead of snapping shut the instant it stops being the active one. */
+@keyframes cg-panel-in{from{clip-path:inset(100% 0 0 0);}to{clip-path:inset(0 0 0 0);}}
+@keyframes cg-rise{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
+.brgw-sec--community-give .brgw-slide > .panel{clip-path:inset(100% 0 0 0);transition:clip-path 0s linear .75s;}
+.brgw-sec--community-give .brgw-slide > .panel > *{opacity:0;transform:translateY(28px);
+  transition:opacity 0s linear .75s,transform 0s linear .75s;}
+.brgw-sec--community-give.is-in .brgw-slide.is-on > .panel{animation:cg-panel-in 1.25s cubic-bezier(.65,0,.35,1) both;}
+.brgw-sec--community-give.is-in .brgw-slide.is-on > .panel > *{animation:cg-rise .85s cubic-bezier(.22,.9,.24,1) .25s both;}
+.brgw-sec--community-give.is-in .brgw-slide.is-on > .panel > :nth-child(2){animation-delay:.38s;}
+.brgw-sec--community-give.is-in .brgw-slide.is-on > .panel > :nth-child(3){animation-delay:.51s;}
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--community-give .brgw-slide > .panel{clip-path:none!important;animation:none!important;}
+  .brgw-sec--community-give .brgw-slide > .panel > *{opacity:1!important;transform:none!important;animation:none!important;}
+}
 /* Dots sit over the image half, as in the comp, not on a separate bar. */
 .brgw-sec--community-give .brgw-slider__dots{position:absolute;right:clamp(20px,3vw,54px);
   bottom:clamp(18px,2.4vw,38px);background:none;padding:0;z-index:4;}

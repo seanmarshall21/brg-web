@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.08.1 (2026-10-08)
+- Community slider: the words side now wipes in with its photo and its title, text and buttons rise in behind it; the hidden slides are parked before the page paints, so the flash is gone.
+
 ## 2026.10.07.8 (2026-10-07)
 - Community page: the teal banner is back (a section whose first animated element is hidden never revealed), photos no longer show-vanish-animate on load, every slide's photo opens when its slide arrives, and the dots go dark over the yellow panel.
 

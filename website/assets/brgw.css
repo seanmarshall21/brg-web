@@ -1,4 +1,4 @@
-/* brgw build 2026.10.07.8 */
+/* brgw build 2026.10.08.1 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -627,6 +627,12 @@
     transition:translate .62s cubic-bezier(.4,0,.2,1),visibility 0s linear .62s;}
   .brgw-slider[data-split="1"] .brgw-slide > :first-child{grid-column:1;}
   .brgw-slider[data-split="1"] .brgw-slide > :nth-child(2){grid-column:2;}
+  /* PARKED BEFORE THE SCRIPT RUNS. The engine parks every slide but the first at boot,
+     which is DOMContentLoaded — and until then all three sat stacked in the two cells,
+     three titles over each other for a frame. Sean, 8 Oct: "still a little bit of a
+     flash." The stylesheet parks them from the first paint; the engine's own classes
+     below have the same weight and come later, so they win the moment they are set. */
+  .brgw-slider[data-split="1"] .brgw-slide:nth-child(n+2) > *{translate:0 100%;visibility:hidden;}
   .brgw-slider[data-split="1"] .brgw-slide.is-above > *{translate:0 -100%;visibility:hidden;}
   .brgw-slider[data-split="1"] .brgw-slide.is-below > *{translate:0 100%;visibility:hidden;}
   .brgw-slider[data-split="1"] .brgw-slide.is-on > *{translate:0 0;visibility:visible;transition-delay:0s,0s;}
