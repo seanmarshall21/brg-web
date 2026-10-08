@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.08.2 (2026-10-08)
+- Community slider: a slide on its way out keeps its words until it has left the box.
+
 ## 2026.10.08.1 (2026-10-08)
 - Community slider: the words side now wipes in with its photo and its title, text and buttons rise in behind it; the hidden slides are parked before the page paints, so the flash is gone.
 

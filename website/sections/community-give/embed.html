@@ -132,14 +132,15 @@
    a beat apart. It plays when the slide is SHOWN — the first slide when the section
    reveals (.is-in), every later one as it arrives (.is-on) — so it is never spent on a
    slide nobody is looking at.
-   The resting state is CLOSED, so nothing shows before the section reveals; the delayed
-   zero-length transition is what lets a slide on its way OUT keep its words until it has
-   left the box, instead of snapping shut the instant it stops being the active one. */
+   Panels are CLOSED only until the section reveals, then open at rest. A slide on its
+   way out must keep its words until it has left the box; closing it at rest and relying on
+   a delayed transition does not do that — Chrome snaps a removed animation straight to the
+   resting value, measured at 250ms into the change — so the resting state after reveal is
+   open, and only the arrival animates. */
 @keyframes cg-panel-in{from{clip-path:inset(100% 0 0 0);}to{clip-path:inset(0 0 0 0);}}
 @keyframes cg-rise{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
-.brgw-sec--community-give .brgw-slide > .panel{clip-path:inset(100% 0 0 0);transition:clip-path 0s linear .75s;}
-.brgw-sec--community-give .brgw-slide > .panel > *{opacity:0;transform:translateY(28px);
-  transition:opacity 0s linear .75s,transform 0s linear .75s;}
+.brgw-sec--community-give:not(.is-in) .brgw-slide > .panel{clip-path:inset(100% 0 0 0);}
+.brgw-sec--community-give:not(.is-in) .brgw-slide > .panel > *{opacity:0;transform:translateY(28px);}
 .brgw-sec--community-give.is-in .brgw-slide.is-on > .panel{animation:cg-panel-in 1.25s cubic-bezier(.65,0,.35,1) both;}
 .brgw-sec--community-give.is-in .brgw-slide.is-on > .panel > *{animation:cg-rise .85s cubic-bezier(.22,.9,.24,1) .25s both;}
 .brgw-sec--community-give.is-in .brgw-slide.is-on > .panel > :nth-child(2){animation-delay:.38s;}
