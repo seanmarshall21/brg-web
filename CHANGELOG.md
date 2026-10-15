@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.15.1 (2026-10-15)
+- Crew cards: the title box now takes a line break. Press Return in a crew member's title to put the rest on a second line.
+
 ## 2026.10.08.2 (2026-10-08)
 - Community slider: a slide on its way out keeps its words until it has left the box.
 

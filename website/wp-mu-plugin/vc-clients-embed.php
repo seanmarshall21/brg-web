@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.14.1
+ * Version: 2.14.2
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.14.1' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.14.2' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
@@ -498,6 +498,15 @@ if ( ! function_exists( 'vcc_fill_slots' ) ) {
                             }
                             else if ( $stype === 'url' )  $sval = esc_url( (string) $sval );
                             else if ( $stype === 'html' ) $sval = wp_kses_post( (string) $sval );
+                            /* `lines` in a ROW, same rule as the scalar case below: escape
+                             * first, then the editor's line breaks become <br>. This branch was
+                             * missing, so a `lines` sub-field collapsed its Return to a space.
+                             * Sean, 15 Oct: a crew member's title needs a second line. */
+                            else if ( $stype === 'lines' ) {
+                                $sval = esc_html( (string) $sval );
+                                $sval = str_replace( array( "\r\n", "\r" ), "\n", $sval );
+                                $sval = preg_replace( '/\n+/', '<br>', $sval );
+                            }
                             else                          $sval = esc_html( (string) $sval );
                             $piece = str_replace( '{{' . $name . '.' . $sk . '}}', $sval, $piece );
                         }

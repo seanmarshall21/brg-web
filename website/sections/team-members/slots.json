@@ -69,9 +69,11 @@
         "width": 50
       },
       "title": {
-        "type": "text",
+        "type": "lines",
         "label": "Title",
-        "width": 50
+        "width": 50,
+        "rows": 2,
+        "doc": "PRESS RETURN to put the rest of the title on a second line, exactly where you want the break. One line is fine too."
       },
       "quote": {
         "type": "text",
@@ -752,7 +754,8 @@
       "": "As set site-wide",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     }
   },
   "btn_color": {
@@ -941,7 +944,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },

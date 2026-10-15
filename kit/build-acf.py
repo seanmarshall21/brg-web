@@ -257,6 +257,11 @@ def field(section_id, slot, defn):
                     'class': 'brg-f-' + slot, 'id': ''},
         'default_value': defn.get('default', ''),
     }
+    # `rows` sets a text box's height in the admin. A `lines` field that holds a two-line
+    # title should not be an eight-line box: the height is a promise about how much is
+    # expected, and a tall box invites a paragraph where a second line was meant.
+    if t == 'textarea' and defn.get('rows'):
+        f['rows'] = int(defn['rows'])
     if t == 'image':
         f.update({'return_format': 'url', 'preview_size': 'medium', 'library': 'all'})
         f.pop('default_value', None)

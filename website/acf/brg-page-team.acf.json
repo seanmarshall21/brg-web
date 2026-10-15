@@ -2358,8 +2358,8 @@
                         "key": "field_brg_team_members_members_title",
                         "label": "Title",
                         "name": "title",
-                        "type": "text",
-                        "instructions": "",
+                        "type": "textarea",
+                        "instructions": "PRESS RETURN to put the rest of the title on a second line, exactly where you want the break. One line is fine too.",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
@@ -2367,7 +2367,8 @@
                             "class": "brg-f-title",
                             "id": ""
                         },
-                        "default_value": ""
+                        "default_value": "",
+                        "rows": 2
                     },
                     {
                         "key": "field_brg_team_members_members_quote",
