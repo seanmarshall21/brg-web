@@ -371,7 +371,10 @@ add_action( 'admin_head', function () {
 	(function () {
 		var TEXT = '<b>This list is empty, so the page is showing the built-in sample text.</b> ' +
 		           'Add a row and it replaces the sample.';
-		function sync() {
+		/* Assignments, not `function name()` declarations, on purpose: the deploy's smoke
+		   check reads every `function name(` in this FILE as a PHP declaration and refused
+		   the deploy because "sync" and "later" were never defined after load. */
+		var sync = function () {
 			var lists = document.querySelectorAll('.acf-field-repeater.brg-fallback');
 			for (var i = 0; i < lists.length; i++) {
 				var f = lists[i];
@@ -389,7 +392,7 @@ add_action( 'admin_head', function () {
 				note.style.display = rows ? 'none' : '';
 			}
 		}
-		function later() { setTimeout(sync, 250); }
+		var later = function () { setTimeout(sync, 250); };
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sync);
 		else sync();
 		if (window.acf && acf.addAction) {

@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.20.2 (2026-10-20)
+- wp-admin sample-text notice: the deploy check misread two script functions as PHP; rewritten so it deploys.
+
 ## 2026.10.20.1 (2026-10-20)
 - wp-admin: a list that is still showing the built-in sample text now says so, right above the list, until a row is added (Home values, Careers offers and posts, Community slides).
 
