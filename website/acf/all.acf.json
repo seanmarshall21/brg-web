@@ -6488,7 +6488,7 @@
         "conditional_logic": 0,
         "wrapper": {
           "width": 100,
-          "class": "brg-f-values",
+          "class": "brg-f-values brg-fallback",
           "id": ""
         },
         "layout": "block",
@@ -18472,7 +18472,7 @@
         "conditional_logic": 0,
         "wrapper": {
           "width": 100,
-          "class": "brg-f-slides",
+          "class": "brg-f-slides brg-fallback",
           "id": ""
         },
         "layout": "block",
@@ -24695,7 +24695,7 @@
         "conditional_logic": 0,
         "wrapper": {
           "width": 100,
-          "class": "brg-f-offers",
+          "class": "brg-f-offers brg-fallback",
           "id": ""
         },
         "layout": "block",
@@ -26106,7 +26106,7 @@
         "conditional_logic": 0,
         "wrapper": {
           "width": 100,
-          "class": "brg-f-posts",
+          "class": "brg-f-posts brg-fallback",
           "id": ""
         },
         "layout": "block",

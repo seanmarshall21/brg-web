@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.20.1 (2026-10-20)
+- wp-admin: a list that is still showing the built-in sample text now says so, right above the list, until a row is added (Home values, Careers offers and posts, Community slides).
+
 ## 2026.10.15.1 (2026-10-15)
 - Crew cards: the title box now takes a line break. Press Return in a crew member's title to put the rest on a second line.
 

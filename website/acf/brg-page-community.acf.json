@@ -2226,7 +2226,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": 100,
-                    "class": "brg-f-slides",
+                    "class": "brg-f-slides brg-fallback",
                     "id": ""
                 },
                 "layout": "block",

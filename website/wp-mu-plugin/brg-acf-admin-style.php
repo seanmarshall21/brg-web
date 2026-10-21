@@ -2,9 +2,9 @@
 /**
  * BRG — Section Content admin styling
  * -----------------------------------------------------------------------------
- * Version: 1.0.0
- * CSS ONLY. Nothing here touches fields, names, values or storage. Deleting this
- * file undoes all of it and loses nothing.
+ * Version: 1.1.0
+ * CSS, plus one small script that only adds a notice. Nothing here touches fields,
+ * names, values or storage. Deleting this file undoes all of it and loses nothing.
  *
  * WHY IT EXISTS. Nineteen field groups and sixty-two fields on one options page
  * render as nineteen boxes that blend into each other. It is not a cosmetic
@@ -348,6 +348,56 @@ add_action( 'admin_head', function () {
 		.brg-f-members .acf-row > .acf-fields > .brg-f-overflow,
 		.brg-f-members .acf-row > .acf-fields > .brg-f-hovercrop { grid-column: span 4; }
 	}
+	/* ── "This list is empty, the page is showing sample text" ───────────── */
+	.brg-fallback-note {
+		background: #fff8e5;
+		border-left: 4px solid #dba617;
+		border-radius: 4px;
+		padding: 9px 12px;
+		margin: 0 0 10px;
+		font-size: 13px;
+		line-height: 1.45;
+		color: #3c3a36;
+	}
+	.brg-fallback-note b { color: #1c1a16; }
 </style>
+<script id="brg-acf-admin-fallback">
+	/* SAMPLE TEXT IS NOT A SECRET. Sean, 7 Oct: four sections rendered their built-in
+	   sample copy for weeks, and nothing on the page or in here said so, so he read it as
+	   hard-coded text. The generator marks a list whose empty state renders sample copy
+	   (wrapper class brg-fallback, decided from the fragment). This shows a notice above
+	   such a list while it has no rows, and hides it the moment a row exists. Presentation
+	   only: it reads the row count from the screen and writes nothing. */
+	(function () {
+		var TEXT = '<b>This list is empty, so the page is showing the built-in sample text.</b> ' +
+		           'Add a row and it replaces the sample.';
+		function sync() {
+			var lists = document.querySelectorAll('.acf-field-repeater.brg-fallback');
+			for (var i = 0; i < lists.length; i++) {
+				var f = lists[i];
+				var input = f.querySelector(':scope > .acf-input');
+				var rep = input && input.querySelector(':scope > .acf-repeater');
+				if (!rep) continue;
+				var rows = rep.querySelectorAll(':scope > table > tbody > .acf-row:not(.acf-clone)').length;
+				var note = input.querySelector(':scope > .brg-fallback-note');
+				if (!note) {
+					note = document.createElement('div');
+					note.className = 'brg-fallback-note';
+					note.innerHTML = TEXT;
+					input.insertBefore(note, rep);
+				}
+				note.style.display = rows ? 'none' : '';
+			}
+		}
+		function later() { setTimeout(sync, 250); }
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sync);
+		else sync();
+		if (window.acf && acf.addAction) {
+			acf.addAction('ready', sync);
+			acf.addAction('append', later);
+			acf.addAction('remove', later);
+		}
+	})();
+</script>
 	<?php
 } );

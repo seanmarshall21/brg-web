@@ -212,7 +212,9 @@ def field(section_id, slot, defn):
             'name': name, 'type': 'repeater',
             'instructions': admin_html(defn.get('doc', '')), 'required': 0,
             'conditional_logic': show_if(section_id, defn),
-            'wrapper': {'width': defn.get('width', 100), 'class': 'brg-f-' + slot, 'id': ''},
+            'wrapper': {'width': defn.get('width', 100),
+                        'class': 'brg-f-' + slot + (' brg-fallback' if has_fallback_copy(section_id, slot) else ''),
+                        'id': ''},
             'layout': defn.get('layout', 'block'),
             'button_label': defn.get('button', 'Add row'),
             'min': 0, 'max': 0,
@@ -414,6 +416,31 @@ def has_divider(section_id):
         return False
     with open(path, encoding='utf-8') as fh:
         return 'class="seam"' in fh.read()
+
+
+def has_fallback_copy(section_id, slot):
+    """True when the fragment renders built-in sample copy for this list while it is empty.
+
+    A `<!--brg:repeat slot-->…<!--brg:empty-->FALLBACK<!--/brg:repeat-->` block keeps the
+    page looking finished before anyone has typed a row — and that is the problem Sean hit:
+    four sections showed sample text for weeks and nothing in wp-admin said so, so he read
+    it as hard-coded copy. The admin needs to say "this is sample text" exactly where the
+    row would be added, and only while the list is empty. This marks the list so the admin
+    script (brg-acf-admin-style.php) can. Decided from the FRAGMENT, never from a hand-kept
+    list: a list whose empty state renders nothing (the Buttons lists) gets no notice.
+    Same test as scripts/sweep-live.py uses to report it on the live page."""
+    path = os.path.join(ROOT, 'website', 'sections', section_id, 'embed.html')
+    if not os.path.exists(path):
+        return False
+    with open(path, encoding='utf-8') as fh:
+        frag = fh.read()
+    m = re.search(r"<!--brg:repeat " + re.escape(slot) + r"-->.*?<!--brg:empty-->(.*?)<!--/brg:repeat-->", frag, re.S)
+    if not m:
+        return False
+    words = re.sub(r"<[^>]+>", " ", m.group(1))
+    words = re.sub(r"\{\{[^}]+\}\}", " ", words)
+    words = [w for w in re.split(r"\s+", words) if len(w) > 6 and w.isalpha()]
+    return len(words) >= 4
 
 
 def divider_field(section_id):

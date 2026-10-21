@@ -6488,7 +6488,7 @@
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": 100,
-                    "class": "brg-f-values",
+                    "class": "brg-f-values brg-fallback",
                     "id": ""
                 },
                 "layout": "block",
