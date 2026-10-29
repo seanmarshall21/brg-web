@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.29.1 (2026-10-29)
+- "What We're About" can now have a highlight on the end of its heading. In wp-admin, Home, set "Heading — the marked words" and pick the animation; it is empty today, so the page is unchanged until you do.
+
 ## 2026.10.20.2 (2026-10-20)
 - wp-admin sample-text notice: the deploy check misread two script functions as PHP; rewritten so it deploys.
 

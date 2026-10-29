@@ -3,9 +3,28 @@
   "heading": {
     "type": "text",
     "label": "Heading",
-    "doc": "Sits above the vision/mission pair, in the display face. ~24 characters.",
+    "doc": "The heading. With the box beside this one left empty, this is the whole heading. To highlight the end of it, shorten this to the words BEFORE the highlight and type the highlighted words in the next box.",
     "default": "What we're about",
     "width": 50
+  },
+  "heading_mark": {
+    "type": "text",
+    "label": "Heading — the marked words",
+    "doc": "The words the highlight sits behind, after the heading. Empty means no highlight, which is how it is today. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
+    "default": "",
+    "width": 50
+  },
+  "hl_variant": {
+    "type": "select",
+    "label": "Highlight animation",
+    "doc": "How the highlight behind the marked words arrives. It does nothing while the marked-words box is empty. Rough block is the one closest to the design comps.",
+    "default": "h3",
+    "width": 100,
+    "choices": {
+      "h3": "Rough block, wipes in",
+      "h1": "Straight wipe, survives a line wrap",
+      "h0": "Static, no animation"
+    }
   },
   "vision_label": {
     "type": "text",
@@ -178,7 +197,8 @@
       "": "As set site-wide",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     }
   },
   "btn_color": {
@@ -367,7 +387,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },

@@ -840,3 +840,14 @@ then animating, blank photo columns on the later slides, yellow dots on the yell
                 The engine marks the active slide is-on in both modes and writes data-on /
                 data-on-parity on the slider.
   dots          community-give colors them by what is under them: dark over a yellow panel.
+
+## 2026-10-29 — Conti in home-about (finn's), announced: "What We're About" gets a highlight option
+
+The last open item from the 7 Oct handoff: home-about was the one body section with no highlight
+markup, so wp-admin offered no highlight there. It now has what home-community has: data-hl on the
+section root, a `.mark` after the heading, and two admin fields: "Heading — the marked words"
+(heading_mark) and "Highlight animation" (hl_variant, a dropdown this time: rough block / straight
+wipe / static, same stored values h3 / h1 / h0 as the text boxes on the other sections).
+It ships EMPTY, so the page does not change until Sean types the words: the plugin fills
+data-mark="{{heading_mark}}" and a section rule hides the mark while that is empty (an empty mark
+would otherwise paint a small block).

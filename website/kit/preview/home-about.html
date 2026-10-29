@@ -7,7 +7,7 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" aria-label="What we're about" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-about{background:var(--white);color:var(--ink);}
 .brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
@@ -24,6 +24,12 @@
 .brgw-sec--home-about h2{display:inline-block;align-self:center;background:var(--yellow);color:var(--ink);
   font-size:clamp(1.7rem,3.4vw,3rem);text-transform:uppercase;padding:.04em .3em;
   transform:rotate(-1.6deg);}
+/* NO MARKED WORDS, NO MARK. Sean, 7 Oct: "What We're About" had no highlight option at all.
+   It has one now, and it ships EMPTY so the page does not change until he types the words
+   he wants marked. An empty mark would still paint a small block (the text span has padding
+   and the h3 block is sized from it), so the attribute the plugin fills in is what hides it.
+   Specificity (0,3,0) beats the shared [data-hl="h3"] .mark display rule (0,2,0). */
+.brgw-sec--home-about .mark[data-mark=""]{display:none;}
 .brgw-sec--home-about .lbl{display:inline-block;align-self:center;background:var(--teal);color:var(--white);
   font-weight:700;font-size:clamp(.66rem,.82vw,.76rem);letter-spacing:.22em;text-transform:uppercase;
   padding:9px 20px;}
@@ -46,7 +52,7 @@
            decoding="async" loading="lazy" data-tone="{{photo_tone}}" data-px="{{photo_px}}" data-px-dir="{{photo_px_dir}}" data-float="{{photo_float}}" data-float-dir="{{photo_float_dir}}">
     </div>
     <div class="body">
-      <h2 class="blanco anim-head">{{heading}}</h2>
+      <h2 class="blanco anim-head">{{heading}} <span class="mark" data-mark="{{heading_mark}}"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{heading_mark}}</span></span></h2>
   <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
       <div class="pair">
         <span class="lbl anim-up">{{vision_label}}</span>
@@ -67,7 +73,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "What we're about", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading": "What we're about", "heading_mark": "", "hl_variant": "h3", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

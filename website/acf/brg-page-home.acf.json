@@ -4178,7 +4178,7 @@
                 "label": "Heading",
                 "name": "brg_home_about_heading",
                 "type": "text",
-                "instructions": "Sits above the vision/mission pair, in the display face. ~24 characters.",
+                "instructions": "The heading. With the box beside this one left empty, this is the whole heading. To highlight the end of it, shorten this to the words BEFORE the highlight and type the highlighted words in the next box.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -4187,6 +4187,47 @@
                     "id": ""
                 },
                 "default_value": "What we're about"
+            },
+            {
+                "key": "field_brg_home_about_heading_mark",
+                "label": "Heading — the marked words",
+                "name": "brg_home_about_heading_mark",
+                "type": "text",
+                "instructions": "The words the highlight sits behind, after the heading. Empty means no highlight, which is how it is today. Keep it short: the mark is drawn to the width of these words, and a long phrase stretches it thin.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-heading_mark",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_home_about_hl_variant",
+                "label": "Highlight animation",
+                "name": "brg_home_about_hl_variant",
+                "type": "select",
+                "instructions": "How the highlight behind the marked words arrives. It does nothing while the marked-words box is empty. Rough block is the one closest to the design comps.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "100",
+                    "class": "brg-f-hl_variant",
+                    "id": ""
+                },
+                "default_value": "h3",
+                "choices": {
+                    "h3": "Rough block, wipes in",
+                    "h1": "Straight wipe, survives a line wrap",
+                    "h0": "Static, no animation"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
             },
             {
                 "key": "field_brg_home_about_vision_label",
