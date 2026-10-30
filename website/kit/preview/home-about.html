@@ -7,13 +7,17 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-about{background:var(--white);color:var(--ink);}
 .brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
 @media(min-width:940px){ .brgw-sec--home-about .grid{grid-template-columns:1fr 1fr;} }
 
-.brgw-sec--home-about .shot{position:relative;min-height:clamp(260px,46vw,620px);overflow:hidden;}
+.brgw-sec--home-about .shot{position:relative;min-height:clamp(260px,34vw,480px);overflow:hidden;}
+/* Photo height is a setting. "tall" is what it was before Erin asked for the vision and
+   mission to shrink (30 Oct): the photo was driving the section's height. */
+.brgw-sec--home-about[data-shot="tall"] .shot{min-height:clamp(260px,46vw,620px);}
+.brgw-sec--home-about[data-shot="short"] .shot{min-height:clamp(220px,26vw,360px);}
 /* Scale + reveal are owned by the GSAP layer (data-brgw-img); the CSS here only
    guarantees the picture is visible and correctly cropped if that layer never loads. */
 .brgw-sec--home-about .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
@@ -33,9 +37,59 @@
 .brgw-sec--home-about .lbl{display:inline-block;align-self:center;background:var(--teal);color:var(--white);
   font-weight:700;font-size:clamp(.66rem,.82vw,.76rem);letter-spacing:.22em;text-transform:uppercase;
   padding:9px 20px;}
-.brgw-sec--home-about .big{font-size:clamp(1.35rem,2.5vw,2.05rem);text-transform:uppercase;
-  max-width:22ch;margin-inline:auto;}
-.brgw-sec--home-about .pair{display:grid;gap:clamp(14px,1.6vw,22px);}
+.brgw-sec--home-about .big{font-size:clamp(1rem,1.55vw,1.3rem);text-transform:uppercase;
+  line-height:1.25;max-width:24ch;margin-inline:auto;}
+.brgw-sec--home-about .pair{display:grid;gap:clamp(10px,1.1vw,14px);align-content:start;}
+.brgw-sec--home-about .pair .lbl{justify-self:center;}
+/* Vision and mission side by side, one tight block (Erin, 30 Oct: "shrink them down into a
+   tighter side-by-side block so they don't dominate the page"). One column on a phone. */
+.brgw-sec--home-about .mv{display:grid;grid-template-columns:1fr;gap:clamp(22px,2.4vw,32px);}
+@media(min-width:560px){ .brgw-sec--home-about .mv{grid-template-columns:1fr 1fr;gap:clamp(18px,2vw,30px);} }
+.brgw-sec--home-about .body{gap:clamp(18px,2.2vw,30px);}
+
+/* ---- CORE VALUES, in this section (hidden until values_on = on) -------------------------
+   Erin 30 Oct: fold Core Values into What We're About; Clayton: a wheel, with the definition
+   appearing when the cursor goes over a value. The names sit round a ring; the definition of
+   the one pointed at (or focused, or tapped) shows in the middle. One is always showing, so
+   the middle is never an empty circle. The positions are trigonometry in CSS (cos/sin on an
+   angle from --i and --n, which brgw.js sets), so any number of values spaces itself.
+   Below 700px, or in a browser without cos(), the ring becomes a row of names with the
+   definition in a panel underneath: five labels round a circle is too tight at 390px. */
+.brgw-sec--home-about .values-blk{display:none;padding:clamp(40px,5vw,72px) var(--pad) clamp(52px,6vw,90px);
+  text-align:center;border-top:1px solid rgba(35,31,32,.14);}
+.brgw-sec--home-about[data-values="on"] .values-blk{display:block;}
+.brgw-sec--home-about .vh{font-size:clamp(1.3rem,2.3vw,1.9rem);text-transform:uppercase;
+  margin-bottom:clamp(22px,3vw,40px);}
+.brgw-sec--home-about .wheel{width:100%;max-width:640px;margin-inline:auto;}
+.brgw-sec--home-about .ring{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:18px;}
+.brgw-sec--home-about .vl{font:inherit;cursor:pointer;border:0;background:var(--teal);color:var(--white);
+  font-weight:700;font-size:clamp(.7rem,.9vw,.8rem);letter-spacing:.2em;text-transform:uppercase;
+  padding:10px 20px;transition:background-color .2s ease,color .2s ease,transform .2s ease;}
+.brgw-sec--home-about .vl:hover,
+.brgw-sec--home-about .vl:focus-visible,
+.brgw-sec--home-about .vl.is-on{background:var(--yellow);color:var(--ink);}
+.brgw-sec--home-about .vl:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+.brgw-sec--home-about .core{display:grid;align-items:center;justify-items:center;padding:24px 22px;
+  border:2px solid var(--ink);min-height:8.5em;}
+.brgw-sec--home-about .def{grid-area:1/1;margin:0;font-size:clamp(.92rem,1.05vw,1rem);line-height:1.55;
+  opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s;}
+.brgw-sec--home-about .def.is-on{opacity:1;visibility:visible;transition:opacity .25s ease;}
+@media(min-width:700px){ @supports (left:calc(50% + 1% * cos(10deg))){
+  .brgw-sec--home-about .wheel{position:relative;aspect-ratio:1;max-width:600px;}
+  .brgw-sec--home-about .wheel::before{content:"";position:absolute;inset:9%;border:2px dashed rgba(35,31,32,.35);border-radius:50%;}
+  .brgw-sec--home-about .ring{display:block;margin:0;}
+  .brgw-sec--home-about .vl{position:absolute;white-space:nowrap;
+    left:calc(50% + 41% * cos(calc(var(--i, 0) / var(--n, 5) * 360deg - 90deg)));
+    top:calc(50% + 41% * sin(calc(var(--i, 0) / var(--n, 5) * 360deg - 90deg)));
+    transform:translate(-50%,-50%);}
+  .brgw-sec--home-about .vl:hover,
+  .brgw-sec--home-about .vl.is-on{transform:translate(-50%,-50%) scale(1.06);}
+  .brgw-sec--home-about .core{position:absolute;inset:22%;border-radius:50%;padding:0 6%;min-height:0;}
+  .brgw-sec--home-about .def{font-size:clamp(.78rem,1vw,.95rem);}
+} }
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--home-about .def,.brgw-sec--home-about .vl{transition:none;}
+}
 </style>
   <!-- Section background: a pattern or photo behind everything in this section.
        NO src ON THE <img>, only <source srcset>: an empty src resolves against the
@@ -54,13 +108,42 @@
     <div class="body">
       <h2 class="blanco anim-head">{{heading}} <span class="mark" data-mark="{{heading_mark}}"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{heading_mark}}</span></span></h2>
   <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
-      <div class="pair">
-        <span class="lbl anim-up">{{vision_label}}</span>
-        <div class="big blanco anim-up">{{vision_text}}</div>
+      <div class="mv">
+        <div class="pair">
+          <span class="lbl anim-up">{{vision_label}}</span>
+          <div class="big blanco anim-up">{{vision_text}}</div>
+        </div>
+        <div class="pair">
+          <span class="lbl anim-up">{{mission_label}}</span>
+          <div class="big blanco anim-up">{{mission_text}}</div>
+        </div>
       </div>
-      <div class="pair">
-        <span class="lbl anim-up">{{mission_label}}</span>
-        <div class="big blanco anim-up">{{mission_text}}</div>
+    </div>
+  </div>
+  <div class="values-blk" aria-label="Our core values">
+    <h3 class="vh blanco anim-up">{{values_heading}}</h3>
+    <div class="wheel anim-up" data-wheel>
+      <div class="ring">
+      <!--brg:repeat values-->
+      <button type="button" class="vl blanco">{{values.label}}</button>
+      <!--brg:empty-->
+      <button type="button" class="vl blanco">Leadership</button>
+      <button type="button" class="vl blanco">Culture</button>
+      <button type="button" class="vl blanco">Advocate</button>
+      <button type="button" class="vl blanco">Stay Stoked</button>
+      <button type="button" class="vl blanco">Community</button>
+      <!--/brg:repeat-->
+      </div>
+      <div class="core" aria-live="polite">
+      <!--brg:repeat values-->
+      <p class="def">{{values.body}}</p>
+      <!--brg:empty-->
+      <p class="def">We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p>
+      <p class="def">Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p>
+      <p class="def">We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p>
+      <p class="def">Life's too short to be boring about food. We bring energy, passion, and a little fun to everything we do.</p>
+      <p class="def">We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that invest in us.</p>
+      <!--/brg:repeat-->
       </div>
     </div>
   </div>
@@ -73,7 +156,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "What we're about", "heading_mark": "", "hl_variant": "h3", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading": "What we're about", "heading_mark": "", "hl_variant": "h3", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo_height": "medium", "values_on": "off", "values_heading": "Our core values", "values": "", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

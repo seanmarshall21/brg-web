@@ -851,3 +851,17 @@ wipe / static, same stored values h3 / h1 / h0 as the text boxes on the other se
 It ships EMPTY, so the page does not change until Sean types the words: the plugin fills
 data-mark="{{heading_mark}}" and a section rule hides the mark while that is empty (an empty mark
 would otherwise paint a small block).
+
+## 2026-10-30 — Conti in home-about (finn's), announced: vision and mission side by side, core values wheel
+
+From Erin's list via Sean. home-about now has (1) vision and mission in one tight two-column
+block (one column on a phone), with a "Photo height" setting (tall = as it was, medium default,
+short); (2) a core values wheel below, with Sean's "Core values — show in this section" switch,
+a heading field and a "Core values" repeater (same five defaults as home-values). The values
+block ships HIDDEN (values_on = off), so the live page only changes in the vision/mission block
+and photo height until Sean switches it on and removes the separate Core Values section in Oxygen
+(home-different sits between the two on the page today, so merging means that Oxygen step).
+Wheel: names round a ring (cos/sin in CSS from --i/--n, set by brgwWheel in brgw.js); hover,
+focus or tap shows the definition in the middle; one is always showing; under 700px, or with no
+cos(), a row of names with a panel under it. Measured in headless Chrome at 1440 and 390: hover
+and touch both switch it; no sideways scroll.

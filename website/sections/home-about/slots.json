@@ -54,6 +54,60 @@
     "default": "To amp up our communities by creating real connections and rad experiences.",
     "width": 100
   },
+  "photo_height": {
+    "type": "select",
+    "label": "Photo height",
+    "doc": "How tall the photo beside the words is. Short keeps the section compact now that the vision and mission sit side by side; Tall is how it was before. On a phone the photo is always a short band above the words.",
+    "default": "medium",
+    "width": 50,
+    "choices": {
+      "tall": "Tall (as it was)",
+      "medium": "Medium",
+      "short": "Short"
+    }
+  },
+  "values_on": {
+    "type": "select",
+    "label": "Core values — show in this section",
+    "doc": "Shows the core values wheel below the vision and mission, so the story reads as one section. It is HIDDEN until you switch it on. When you do, remove the separate Core Values section from the page in Oxygen, or the values will show twice.",
+    "default": "off",
+    "width": 50,
+    "choices": {
+      "off": "Hidden (as it is today)",
+      "on": "Shown"
+    }
+  },
+  "values_heading": {
+    "type": "text",
+    "label": "Core values — heading",
+    "doc": "The title above the wheel.",
+    "default": "Our core values",
+    "width": 100
+  },
+  "values": {
+    "type": "repeater",
+    "label": "Core values",
+    "button": "Add a value",
+    "collapse": "label",
+    "doc": "The values around the wheel. Point at a name (or tap it on a phone) and its description appears in the middle.\n\nUNTIL YOU ADD THE FIRST ONE HERE the wheel shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community. Adding one replaces all five, so add every value you want, not only the one you are changing. Five to seven fits the wheel best.",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Name",
+        "doc": "The short name on the card, set in the brand face. One or two words reads best.",
+        "default": "",
+        "width": 100
+      },
+      "body": {
+        "type": "textarea",
+        "label": "Description",
+        "doc": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
+        "default": "",
+        "width": 100
+      }
+    },
+    "width": 100
+  },
   "photo": {
     "type": "image",
     "label": "Photo",

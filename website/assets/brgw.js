@@ -989,6 +989,35 @@
      PHP already wrote the year the page was built. A cached page can outlive a New Year,
      so this corrects it on load; it touches nothing if the two already agree, and if this
      script never runs the server's value is still shown. */
+  /* ---- CORE VALUES WHEEL ([data-wheel], in home-about) ------------------------------
+     Names round a ring, the description of the one pointed at in the middle. The ring's
+     maths is CSS (cos/sin on --i and --n); this sets those two numbers and moves the
+     "on" state. A mouse switches on hover, a keyboard on focus, a finger on tap (a phone
+     has no hover). One is always on, so the middle is never empty. */
+  function brgwWheel(root) {
+    [].forEach.call((root || document).querySelectorAll('[data-wheel]'), function (w) {
+      if (w.getAttribute('data-wheel-init')) return; w.setAttribute('data-wheel-init', '1');
+      var names = [].slice.call(w.querySelectorAll('.vl'));
+      var defs = [].slice.call(w.querySelectorAll('.def'));
+      if (!names.length) return;
+      w.style.setProperty('--n', String(names.length));
+      function on(i) {
+        names.forEach(function (n, k) {
+          n.classList.toggle('is-on', k === i);
+          n.setAttribute('aria-pressed', k === i ? 'true' : 'false');
+        });
+        defs.forEach(function (d, k) { d.classList.toggle('is-on', k === i); });
+      }
+      names.forEach(function (n, i) {
+        n.style.setProperty('--i', String(i));
+        n.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') on(i); });
+        n.addEventListener('focus', function () { on(i); });
+        n.addEventListener('click', function () { on(i); });
+      });
+      on(0);
+    });
+  }
+
   function brgwYear() {
     var y = String(new Date().getFullYear());
     [].forEach.call(document.querySelectorAll('[data-brgw-year]'), function (el) {
@@ -1124,7 +1153,7 @@
     document.body.appendChild(b);
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwBuild(); }
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

@@ -4290,6 +4290,123 @@
         "default_value": "To amp up our communities by creating real connections and rad experiences."
       },
       {
+        "key": "field_brg_home_about_photo_height",
+        "label": "Photo height",
+        "name": "brg_home_about_photo_height",
+        "type": "select",
+        "instructions": "How tall the photo beside the words is. Short keeps the section compact now that the vision and mission sit side by side; Tall is how it was before. On a phone the photo is always a short band above the words.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-photo_height",
+          "id": ""
+        },
+        "default_value": "medium",
+        "choices": {
+          "tall": "Tall (as it was)",
+          "medium": "Medium",
+          "short": "Short"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_about_values_on",
+        "label": "Core values — show in this section",
+        "name": "brg_home_about_values_on",
+        "type": "select",
+        "instructions": "Shows the core values wheel below the vision and mission, so the story reads as one section. It is HIDDEN until you switch it on. When you do, remove the separate Core Values section from the page in Oxygen, or the values will show twice.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_on",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "Hidden (as it is today)",
+          "on": "Shown"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_about_values_heading",
+        "label": "Core values — heading",
+        "name": "brg_home_about_values_heading",
+        "type": "text",
+        "instructions": "The title above the wheel.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-values_heading",
+          "id": ""
+        },
+        "default_value": "Our core values"
+      },
+      {
+        "key": "field_brg_home_about_values",
+        "label": "Core values",
+        "name": "brg_home_about_values",
+        "type": "repeater",
+        "instructions": "The values around the wheel. Point at a name (or tap it on a phone) and its description appears in the middle.\n\nUNTIL YOU ADD THE FIRST ONE HERE the wheel shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community. Adding one replaces all five, so add every value you want, not only the one you are changing. Five to seven fits the wheel best.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-f-values brg-fallback",
+          "id": ""
+        },
+        "layout": "block",
+        "button_label": "Add a value",
+        "min": 0,
+        "max": 0,
+        "collapsed": "field_brg_home_about_values_label",
+        "sub_fields": [
+          {
+            "key": "field_brg_home_about_values_label",
+            "label": "Name",
+            "name": "label",
+            "type": "text",
+            "instructions": "The short name on the card, set in the brand face. One or two words reads best.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-label",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_home_about_values_body",
+            "label": "Description",
+            "name": "body",
+            "type": "textarea",
+            "instructions": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-body",
+              "id": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
         "key": "field_brg_home_about_photo",
         "label": "Photo",
         "name": "brg_home_about_photo",
