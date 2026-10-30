@@ -152,7 +152,7 @@ badge. `python3 scripts/stamp.py --live` says whether the live site is on the re
 End every commit message with:
 
 ```
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
 ```
 
 ## Join Atlas first — one call, and it tells you what's left
