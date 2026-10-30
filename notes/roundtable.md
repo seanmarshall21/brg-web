@@ -865,3 +865,18 @@ Wheel: names round a ring (cos/sin in CSS from --i/--n, set by brgwWheel in brgw
 focus or tap shows the definition in the middle; one is always showing; under 700px, or with no
 cos(), a row of names with a panel under it. Measured in headless Chrome at 1440 and 390: hover
 and touch both switch it; no sideways scroll.
+
+## 2026-10-30 (later) — Conti in home-about (finn's), announced: core values COLUMNS and LIST
+
+Sean asked for two more layouts for the core values (reference images: numbered vertical columns where
+the open one is wide and solid and the rest are narrow at 60%; and a numbered list on the left with
+photo and words on the right). Both are options of a new "Core values — layout" dropdown (wheel,
+columns, list) in home-about, reading the same values list, which now has a Photo per value.
+Also new fields: Background (light/dark), auto-play on/off and seconds, and a photo look for light
+backgrounds (normal, black and white, soft multiply, strength 10-60%) and for dark ones (normal,
+black and white, soft screen, strength 10-40%), chosen separately because Sean asked for separate
+light and dark settings. Still shipped hidden (values_on = off) and wheel by default.
+Under 800px both are a stack of rows that open downward. The numbers are set by brgwVset in brgw.js
+(data-no), not a CSS counter, because a counter reads 00 through the list's display:contents rows.
+Measured in headless Chrome at 1440 and 390: hover opens and holds, auto-play steps every 5 s and
+pauses on hover, a tap opens and switches the button to Play, no sideways scroll.

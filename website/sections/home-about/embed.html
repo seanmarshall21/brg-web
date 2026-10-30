@@ -2,7 +2,7 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-about{background:var(--white);color:var(--ink);}
 .brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
@@ -85,6 +85,95 @@
 @media (prefers-reduced-motion:reduce){
   .brgw-sec--home-about .def,.brgw-sec--home-about .vl{transition:none;}
 }
+
+/* The numbers come from brgw.js (data-no on each name), not a CSS counter: a counter does not
+   count through the list layout's display:contents rows and every name read 00. */
+/* ---- CORE VALUES, two more layouts: COLUMNS and LIST (Sean, 30 Oct) -------------------------
+   Both read the same values list as the wheel, plus a photo per value, and the Layout setting
+   picks which one shows. Columns: numbered, side by side; the open one is wide and solid, the
+   rest narrow at 60%. List: numbered names on the left, the open one's photo and words on the
+   right. Both can step through by themselves (a pause button shows), and under 800px both are a
+   stack of rows where the open row grows downward, because five columns are 78px each at 390px.
+   The photo look is chosen separately for a light and a dark background (the Background box
+   picks which pair applies): normal, black and white, or soft, which multiplies on light and
+   screens on dark at a strength you set. A photo with full strength needs light words and a
+   dark shade at its foot, so those looks flip the words white; Soft keeps the tone's own words. */
+.brgw-sec--home-about .vset,.brgw-sec--home-about .vpause{display:none;}
+.brgw-sec--home-about[data-vlayout="columns"] .vset,.brgw-sec--home-about[data-vlayout="list"] .vset{display:block;}
+.brgw-sec--home-about[data-vlayout="columns"] .wheel,.brgw-sec--home-about[data-vlayout="list"] .wheel{display:none;}
+.brgw-sec--home-about[data-vlayout="columns"] .vpause:not([hidden]),.brgw-sec--home-about[data-vlayout="list"] .vpause:not([hidden]){display:inline-block;}
+.brgw-sec--home-about{--v-tone-fg:var(--ink);--v-tone-bg:#fff;--v-fg:var(--ink);--v-bg:#fff;--v-blend:normal;--v-filter:none;--v-scrim:0;}
+.brgw-sec--home-about[data-vtone="dark"]{--v-tone-fg:#fff;--v-tone-bg:#000;--v-fg:#fff;--v-bg:#000;}
+.brgw-sec--home-about[data-vtone="dark"] .values-blk{background:#000;color:#fff;border-top-color:rgba(255,255,255,.2);}
+.brgw-sec--home-about[data-vtone="dark"] .wheel::before{border-color:rgba(255,255,255,.4);}
+.brgw-sec--home-about[data-vtone="dark"] .core{border-color:#fff;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="normal"],.brgw-sec--home-about[data-vtone="dark"][data-vid="normal"]{--v-fg:#fff;--v-bg:var(--ink);--v-scrim:.55;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="bw"],.brgw-sec--home-about[data-vtone="dark"][data-vid="bw"]{--v-fg:#fff;--v-bg:var(--ink);--v-scrim:.55;--v-filter:grayscale(1);}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"]{--v-blend:multiply;}
+.brgw-sec--home-about[data-vtone="dark"][data-vid="soft"]{--v-blend:screen;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vila="10"]{--v-imgop:.1;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vila="20"]{--v-imgop:.2;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vila="30"]{--v-imgop:.3;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vila="40"]{--v-imgop:.4;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vila="60"]{--v-imgop:.6;}
+.brgw-sec--home-about[data-vtone="dark"][data-vid="soft"][data-vida="10"]{--v-imgop:.1;}
+.brgw-sec--home-about[data-vtone="dark"][data-vid="soft"][data-vida="20"]{--v-imgop:.2;}
+.brgw-sec--home-about[data-vtone="dark"][data-vid="soft"][data-vida="30"]{--v-imgop:.3;}
+.brgw-sec--home-about[data-vtone="dark"][data-vid="soft"][data-vida="40"]{--v-imgop:.4;}
+
+.brgw-sec--home-about .vi{position:relative;isolation:isolate;overflow:hidden;opacity:.6;background:var(--v-bg);color:var(--v-fg);
+  transition:opacity .35s ease;}
+.brgw-sec--home-about .vi.is-on{opacity:1;}
+.brgw-sec--home-about .vset{max-width:1320px;margin-inline:auto;text-align:left;}
+.brgw-sec--home-about .vbg{position:absolute;inset:0;z-index:0;}
+.brgw-sec--home-about .vbg img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:var(--v-blend);
+  opacity:var(--v-imgop,1);filter:var(--v-filter);}
+.brgw-sec--home-about .vbg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,var(--v-scrim)),rgba(0,0,0,0) 70%);}
+.brgw-sec--home-about .vn{position:relative;z-index:1;display:block;width:100%;border:0;background:none;color:inherit;font:inherit;
+  cursor:pointer;text-align:left;text-transform:uppercase;font-size:clamp(1.05rem,1.6vw,1.4rem);padding:18px 16px 18px 52px;}
+.brgw-sec--home-about .vn::before{content:attr(data-no);position:absolute;left:16px;top:21px;
+  font-family:inherit;font-size:.7rem;font-weight:700;letter-spacing:.18em;opacity:.8;}
+.brgw-sec--home-about .vn:focus-visible{outline:2px solid currentColor;outline-offset:-4px;}
+.brgw-sec--home-about .vp{position:relative;z-index:1;margin:0;max-height:0;overflow:hidden;padding:0 16px 0 52px;
+  font-size:clamp(.92rem,1.05vw,1rem);line-height:1.55;transition:max-height .45s ease;}
+.brgw-sec--home-about .vi.is-on .vp{max-height:16em;padding-bottom:20px;}
+.brgw-sec--home-about .vi + .vi{border-top:1px solid rgba(128,128,128,.4);}
+.brgw-sec--home-about .vpause{margin-top:18px;border:0;background:none;color:inherit;font:inherit;font-size:.72rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;cursor:pointer;text-decoration:underline;text-underline-offset:4px;}
+.brgw-sec--home-about .vx{display:contents;}
+@media(min-width:800px){
+  .brgw-sec--home-about[data-vlayout="columns"] .vset{display:flex;height:clamp(420px,44vw,620px);}
+  .brgw-sec--home-about[data-vlayout="columns"] .vi{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;
+    transition:flex-grow .55s cubic-bezier(.2,.8,.2,1),opacity .35s ease;}
+  .brgw-sec--home-about[data-vlayout="columns"] .vi + .vi{border-top:0;box-shadow:inset 1px 0 0 rgba(128,128,128,.4);}
+  .brgw-sec--home-about[data-vlayout="columns"] .vi.is-on{flex-grow:3.4;}
+  .brgw-sec--home-about[data-vlayout="columns"] .vx{display:block;position:absolute;inset:0;pointer-events:none;}
+  /* the name sits at the foot of the column and the number at the top: the name is static so
+     the number is placed against the column, not against the name */
+  .brgw-sec--home-about[data-vlayout="columns"] .vn{position:static;padding:0 20px 24px;font-size:clamp(.95rem,1.35vw,1.3rem);}
+  .brgw-sec--home-about[data-vlayout="columns"] .vn::before{left:20px;top:22px;}
+  .brgw-sec--home-about[data-vlayout="columns"] .vp{position:absolute;left:20px;right:20px;bottom:5.2em;max-height:none;overflow:visible;padding:0;
+    opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .45s ease;}
+  .brgw-sec--home-about[data-vlayout="columns"] .vi.is-on .vp{opacity:1;transform:none;transition-delay:.18s;padding-bottom:0;}
+  .brgw-sec--home-about[data-vlayout="list"] .vset{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+    grid-template-rows:repeat(var(--n,5),auto);column-gap:clamp(32px,5vw,80px);align-items:start;}
+  .brgw-sec--home-about[data-vlayout="list"] .vi{display:contents;opacity:1;}
+  .brgw-sec--home-about[data-vlayout="list"] .vi + .vi{border-top:0;}
+  .brgw-sec--home-about[data-vlayout="list"] .vn{grid-column:1;color:var(--v-tone-fg);opacity:.4;transition:opacity .3s ease;
+    font-size:clamp(1.5rem,3vw,2.7rem);padding:18px 0 18px 3.2em;border-top:1px solid rgba(128,128,128,.4);}
+  .brgw-sec--home-about[data-vlayout="list"] .vn::before{left:0;top:calc(18px + .55em);}
+  .brgw-sec--home-about[data-vlayout="list"] .vi.is-on .vn{opacity:1;}
+  .brgw-sec--home-about[data-vlayout="list"] .vx{display:block;grid-column:2;grid-row:1 / span var(--n,5);position:relative;opacity:0;visibility:hidden;
+    transition:opacity .35s ease;color:var(--v-tone-fg);background:var(--v-tone-bg);isolation:isolate;}
+  .brgw-sec--home-about[data-vlayout="list"] .vi.is-on .vx{opacity:1;visibility:visible;}
+  .brgw-sec--home-about[data-vlayout="list"] .vbg{position:relative;inset:auto;aspect-ratio:4 / 3;background:rgba(128,128,128,.18);}
+  .brgw-sec--home-about[data-vlayout="list"] .vbg::after{display:none;}
+  .brgw-sec--home-about[data-vlayout="list"] .vp{max-height:none;overflow:visible;padding:20px 0 0;color:var(--v-tone-fg);font-size:clamp(1rem,1.2vw,1.15rem);}
+}
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--home-about .vi,.brgw-sec--home-about .vp,.brgw-sec--home-about .vx{transition:none!important;}
+}
 </style>
   <!-- Section background: a pattern or photo behind everything in this section.
        NO src ON THE <img>, only <source srcset>: an empty src resolves against the
@@ -141,6 +230,18 @@
       <!--/brg:repeat-->
       </div>
     </div>
+    <div class="vset" data-vset data-autoplay="{{values_autoplay}}" data-secs="{{values_secs}}">
+      <!--brg:repeat values-->
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">{{values.label}}</button><div class="vx"><div class="vbg" aria-hidden="true"><picture><source srcset="{{values.image}}"><img alt="" loading="lazy" decoding="async" width="800" height="1000"></picture></div><p class="vp">{{values.body}}</p></div></div>
+      <!--brg:empty-->
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Leadership</button><div class="vx"><div class="vbg" aria-hidden="true"></div><p class="vp">We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p></div></div>
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Culture</button><div class="vx"><div class="vbg" aria-hidden="true"></div><p class="vp">Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p></div></div>
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Advocate</button><div class="vx"><div class="vbg" aria-hidden="true"></div><p class="vp">We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p></div></div>
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Stay Stoked</button><div class="vx"><div class="vbg" aria-hidden="true"></div><p class="vp">Life's too short to be boring about food. We bring energy, passion, and a little fun to everything we do.</p></div></div>
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Community</button><div class="vx"><div class="vbg" aria-hidden="true"></div><p class="vp">We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that invest in us.</p></div></div>
+      <!--/brg:repeat-->
+    </div>
+    <button type="button" class="vpause" hidden aria-pressed="false">Pause</button>
   </div>
   <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>

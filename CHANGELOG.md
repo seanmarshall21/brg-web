@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.30.2 (2026-10-30)
+- home: core values columns and list layouts, photo per value, light and dark photo looks
+
 ## 2026.10.30.1 (2026-10-30)
 - home: vision and mission side by side, core values wheel (hidden until switched on)
 

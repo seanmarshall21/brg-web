@@ -1018,6 +1018,52 @@
     });
   }
 
+  /* ---- CORE VALUES, COLUMNS and LIST ([data-vset], in home-about) ------------------------
+     One item is open at a time. A mouse opens one by pointing at it, a keyboard by focus, a
+     finger by tap. It can step through by itself: it pauses while the pointer is on it or
+     the page is out of view, stops when someone picks one (the Pause button resumes it),
+     and never starts for a visitor who has asked for less motion. */
+  function brgwVset(root) {
+    [].forEach.call((root || document).querySelectorAll('[data-vset]'), function (v) {
+      if (v.getAttribute('data-vset-init')) return; v.setAttribute('data-vset-init', '1');
+      var items = [].slice.call(v.querySelectorAll('.vi'));
+      if (!items.length) return;
+      v.style.setProperty('--n', String(items.length));
+      var cur = 0, hover = false, paused = false, inView = true, timer = null;
+      var secs = (parseInt(v.getAttribute('data-secs'), 10) || 5) * 1000;
+      var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var auto = v.getAttribute('data-autoplay') === 'on' && !calm && items.length > 1;
+      var btn = v.parentNode.querySelector('.vpause');
+      function on(i) {
+        cur = i;
+        items.forEach(function (it, k) {
+          it.classList.toggle('is-on', k === i);
+          var b = it.querySelector('.vn'); if (b) b.setAttribute('aria-expanded', k === i ? 'true' : 'false');
+        });
+      }
+      function label() { if (btn) { btn.textContent = paused ? 'Play' : 'Pause'; btn.setAttribute('aria-pressed', paused ? 'true' : 'false'); } }
+      items.forEach(function (it, i) {
+        it.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = true; on(i); } });
+        it.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hover = false; });
+        var b = it.querySelector('.vn');
+        if (!b) return;
+        b.setAttribute('data-no', (i < 9 ? '0' : '') + (i + 1));
+        b.addEventListener('focus', function () { on(i); });
+        b.addEventListener('click', function () { on(i); if (auto) { paused = true; label(); } });
+      });
+      on(0);
+      if (!auto) return;
+      if (btn) { btn.hidden = false; label(); btn.addEventListener('click', function () { paused = !paused; label(); }); }
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }).observe(v);
+      }
+      timer = setInterval(function () {
+        if (paused || hover || !inView || v.offsetParent === null) return;
+        on((cur + 1) % items.length);
+      }, secs);
+    });
+  }
+
   function brgwYear() {
     var y = String(new Date().getFullYear());
     [].forEach.call(document.querySelectorAll('[data-brgw-year]'), function (el) {
@@ -1153,7 +1199,7 @@
     document.body.appendChild(b);
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwBuild(); }
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

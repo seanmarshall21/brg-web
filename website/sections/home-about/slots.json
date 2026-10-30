@@ -77,6 +77,105 @@
       "on": "Shown"
     }
   },
+  "values_layout": {
+    "type": "select",
+    "label": "Core values — layout",
+    "doc": "How the values are laid out. Wheel: names round a ring, the description in the middle. Columns: numbered columns side by side; the one you point at or tap grows wide and the rest shrink. List: a numbered list on the left with the photo and description on the right. All three read from the same list of values below, so you can flip between them to compare.",
+    "default": "wheel",
+    "width": 50,
+    "choices": {
+      "wheel": "Wheel",
+      "columns": "Columns",
+      "list": "List"
+    }
+  },
+  "values_tone": {
+    "type": "select",
+    "label": "Core values — background",
+    "doc": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black.",
+    "default": "light",
+    "width": 50,
+    "choices": {
+      "light": "Light (white)",
+      "dark": "Dark (black)"
+    }
+  },
+  "values_autoplay": {
+    "type": "select",
+    "label": "Columns and list — auto-play",
+    "doc": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It pauses while someone points at it, stops once someone picks one, and does nothing for visitors who have asked their device to reduce motion. A pause button shows beside it while this is on.",
+    "default": "on",
+    "width": 50,
+    "choices": {
+      "on": "On",
+      "off": "Off"
+    }
+  },
+  "values_secs": {
+    "type": "select",
+    "label": "Columns and list — seconds on each",
+    "doc": "How long each value stays open before the next one.",
+    "default": "5",
+    "width": 50,
+    "choices": {
+      "3": "3 seconds",
+      "4": "4 seconds",
+      "5": "5 seconds",
+      "7": "7 seconds",
+      "10": "10 seconds"
+    }
+  },
+  "values_img_light": {
+    "type": "select",
+    "label": "Photo look on a light background",
+    "doc": "Used when the background above is Light. Normal shows the photo as it is. Black and white takes the color out. Soft multiply lays the photo faintly over the white, darkening it, so the words stay dark and easy to read.",
+    "default": "soft",
+    "width": 50,
+    "choices": {
+      "normal": "Normal",
+      "bw": "Black and white",
+      "soft": "Soft, multiply"
+    }
+  },
+  "values_img_light_amt": {
+    "type": "select",
+    "label": "Light — how strong the soft look is",
+    "doc": "Only used when the look is Soft. A higher number shows more of the photo.",
+    "default": "30",
+    "width": 50,
+    "choices": {
+      "10": "10%",
+      "20": "20%",
+      "30": "30%",
+      "40": "40%",
+      "60": "60%"
+    }
+  },
+  "values_img_dark": {
+    "type": "select",
+    "label": "Photo look on a dark background",
+    "doc": "Used when the background above is Dark. Normal shows the photo as it is. Black and white takes the color out. Soft screen lays the photo faintly over the black, lightening it, so the words stay white and easy to read.",
+    "default": "soft",
+    "width": 50,
+    "choices": {
+      "normal": "Normal",
+      "bw": "Black and white",
+      "soft": "Soft, screen"
+    }
+  },
+  "values_img_dark_amt": {
+    "type": "select",
+    "label": "Dark — how strong the soft look is",
+    "doc": "Only used when the look is Soft. A higher number shows more of the photo.",
+    "default": "10",
+    "width": 50,
+    "choices": {
+      "10": "10%",
+      "20": "20%",
+      "30": "30%",
+      "40": "40%"
+    }
+  },
   "values_heading": {
     "type": "text",
     "label": "Core values — heading",
@@ -89,7 +188,7 @@
     "label": "Core values",
     "button": "Add a value",
     "collapse": "label",
-    "doc": "The values around the wheel. Point at a name (or tap it on a phone) and its description appears in the middle.\n\nUNTIL YOU ADD THE FIRST ONE HERE the wheel shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community. Adding one replaces all five, so add every value you want, not only the one you are changing. Five to seven fits the wheel best.",
+    "doc": "The values, shown as the wheel, the columns or the list (the Layout box above picks). On the wheel, point at a name (or tap it) and its description appears in the middle. In the columns and the list, the photo is the background of the column or the picture beside the list.\n\nUNTIL YOU ADD THE FIRST ONE HERE the section shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community, with no photos. Adding one replaces all five, so add every value you want, not only the one you are changing. Five fits the columns best.",
     "sub": {
       "label": {
         "type": "text",
@@ -102,6 +201,13 @@
         "type": "textarea",
         "label": "Description",
         "doc": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
+        "default": "",
+        "width": 100
+      },
+      "image": {
+        "type": "image",
+        "label": "Photo",
+        "doc": "Used by the columns and the list; the wheel ignores it. Portrait or square works best for the columns, around 800x1000. Leave empty for a plain color.",
         "default": "",
         "width": 100
       }
