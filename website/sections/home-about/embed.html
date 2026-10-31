@@ -2,7 +2,7 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-about{background:var(--white);color:var(--ink);}
 .brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
@@ -109,7 +109,10 @@
 .brgw-sec--home-about[data-vtone="dark"] .core{border-color:#fff;}
 .brgw-sec--home-about[data-vtone="light"][data-vil="normal"],.brgw-sec--home-about[data-vtone="dark"][data-vid="normal"]{--v-fg:#fff;--v-bg:var(--ink);--v-scrim:.55;}
 .brgw-sec--home-about[data-vtone="light"][data-vil="bw"],.brgw-sec--home-about[data-vtone="dark"][data-vid="bw"]{--v-fg:#fff;--v-bg:var(--ink);--v-scrim:.55;--v-filter:grayscale(1);}
-.brgw-sec--home-about[data-vtone="light"][data-vil="soft"]{--v-blend:multiply;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"]{--v-blend:multiply;--v-base:#c9c9c9;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vsb="white"]{--v-base:#fff;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vsb="light"]{--v-base:#e4e4e4;}
+.brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vsb="slate"]{--v-base:#a8a8a8;}
 .brgw-sec--home-about[data-vtone="dark"][data-vid="soft"]{--v-blend:screen;}
 .brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vila="10"]{--v-imgop:.1;}
 .brgw-sec--home-about[data-vtone="light"][data-vil="soft"][data-vila="20"]{--v-imgop:.2;}
@@ -121,7 +124,7 @@
 .brgw-sec--home-about[data-vtone="dark"][data-vid="soft"][data-vida="30"]{--v-imgop:.3;}
 .brgw-sec--home-about[data-vtone="dark"][data-vid="soft"][data-vida="40"]{--v-imgop:.4;}
 
-.brgw-sec--home-about .vi{position:relative;isolation:isolate;overflow:hidden;opacity:.6;background:var(--v-bg);color:var(--v-fg);
+.brgw-sec--home-about .vi{position:relative;isolation:isolate;overflow:hidden;opacity:.6;background:var(--v-base,var(--v-bg));color:var(--v-fg);
   transition:opacity .35s ease;}
 .brgw-sec--home-about .vi.is-on{opacity:1;}
 .brgw-sec--home-about .vset{max-width:1320px;margin-inline:auto;text-align:left;}
@@ -131,9 +134,9 @@
 .brgw-sec--home-about .vbg::after{content:"";position:absolute;inset:0;
   background:linear-gradient(to top,rgba(0,0,0,var(--v-scrim)),rgba(0,0,0,0) 70%);}
 .brgw-sec--home-about .vn{position:relative;z-index:1;display:block;width:100%;border:0;background:none;color:inherit;font:inherit;
-  cursor:pointer;text-align:left;text-transform:uppercase;font-size:clamp(1.05rem,1.6vw,1.4rem);padding:18px 16px 18px 52px;}
+  cursor:pointer;text-align:left;text-transform:uppercase;font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;font-size:clamp(1.05rem,1.6vw,1.4rem);padding:18px 16px 18px 52px;}
 .brgw-sec--home-about .vn::before{content:attr(data-no);position:absolute;left:16px;top:21px;
-  font-family:inherit;font-size:.7rem;font-weight:700;letter-spacing:.18em;opacity:.8;}
+  font-family:'Montserrat',system-ui,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;opacity:.8;}
 .brgw-sec--home-about .vn:focus-visible{outline:2px solid currentColor;outline-offset:-4px;}
 .brgw-sec--home-about .vp{position:relative;z-index:1;margin:0;max-height:0;overflow:hidden;padding:0 16px 0 52px;
   font-size:clamp(.92rem,1.05vw,1rem);line-height:1.55;transition:max-height .45s ease;}
@@ -144,16 +147,22 @@
 .brgw-sec--home-about .vx{display:contents;}
 @media(min-width:800px){
   .brgw-sec--home-about[data-vlayout="columns"] .vset{display:flex;height:clamp(420px,44vw,620px);}
-  .brgw-sec--home-about[data-vlayout="columns"] .vi{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;
+  .brgw-sec--home-about[data-vlayout="columns"] .vset{container-type:inline-size;}
+  .brgw-sec--home-about[data-vlayout="columns"] .vi{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;
     transition:flex-grow .55s cubic-bezier(.2,.8,.2,1),opacity .35s ease;}
   .brgw-sec--home-about[data-vlayout="columns"] .vi + .vi{border-top:0;box-shadow:inset 1px 0 0 rgba(128,128,128,.4);}
   .brgw-sec--home-about[data-vlayout="columns"] .vi.is-on{flex-grow:3.4;}
   .brgw-sec--home-about[data-vlayout="columns"] .vx{display:block;position:absolute;inset:0;pointer-events:none;}
-  /* the name sits at the foot of the column and the number at the top: the name is static so
-     the number is placed against the column, not against the name */
-  .brgw-sec--home-about[data-vlayout="columns"] .vn{position:static;padding:0 20px 24px;font-size:clamp(.95rem,1.35vw,1.3rem);}
-  .brgw-sec--home-about[data-vlayout="columns"] .vn::before{left:20px;top:22px;}
-  .brgw-sec--home-about[data-vlayout="columns"] .vp{position:absolute;left:20px;right:20px;bottom:5.2em;max-height:none;overflow:visible;padding:0;
+  /* the number sits at the top of the column and the name right under it; the description stays at
+     the foot. The name is as wide as a CLOSED column (one share out of 3.4 + 4 = 7.4, less the side
+     padding), so a name that wraps to two lines closed wraps the same way when its column opens. */
+  .brgw-sec--home-about[data-vlayout="columns"]{--v-pad:clamp(12px,1.4vw,20px);}
+  .brgw-sec--home-about[data-vlayout="columns"] .vn{position:static;box-sizing:content-box;
+    width:calc(min(100vw,1320px) / 7.4 - 2 * var(--v-pad));
+    width:calc(100cqw / 7.4 - 2 * var(--v-pad));
+    padding:calc(var(--v-pad) + 26px) var(--v-pad) 0;font-size:clamp(.72rem,1.5vw,1.45rem);line-height:1.15;overflow-wrap:normal;}
+  .brgw-sec--home-about[data-vlayout="columns"] .vn::before{left:var(--v-pad);top:var(--v-pad);}
+  .brgw-sec--home-about[data-vlayout="columns"] .vp{position:absolute;left:var(--v-pad);right:var(--v-pad);bottom:var(--v-pad);max-height:none;overflow:visible;padding:0;
     opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .45s ease;}
   .brgw-sec--home-about[data-vlayout="columns"] .vi.is-on .vp{opacity:1;transform:none;transition-delay:.18s;padding-bottom:0;}
   .brgw-sec--home-about[data-vlayout="list"] .vset{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
@@ -167,7 +176,7 @@
   .brgw-sec--home-about[data-vlayout="list"] .vx{display:block;grid-column:2;grid-row:1 / span var(--n,5);position:relative;opacity:0;visibility:hidden;
     transition:opacity .35s ease;color:var(--v-tone-fg);background:var(--v-tone-bg);isolation:isolate;}
   .brgw-sec--home-about[data-vlayout="list"] .vi.is-on .vx{opacity:1;visibility:visible;}
-  .brgw-sec--home-about[data-vlayout="list"] .vbg{position:relative;inset:auto;aspect-ratio:4 / 3;background:rgba(128,128,128,.18);}
+  .brgw-sec--home-about[data-vlayout="list"] .vbg{position:relative;inset:auto;aspect-ratio:4 / 3;background:var(--v-base,rgba(128,128,128,.18));}
   .brgw-sec--home-about[data-vlayout="list"] .vbg::after{display:none;}
   .brgw-sec--home-about[data-vlayout="list"] .vp{max-height:none;overflow:visible;padding:20px 0 0;color:var(--v-tone-fg);font-size:clamp(1rem,1.2vw,1.15rem);}
 }

@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.31.1 (2026-10-31)
+- home: core values columns: name under the number in the headline font, name width locked so it never re-wraps, soft look sits on a gray color
+
 ## 2026.10.30.2 (2026-10-30)
 - home: core values columns and list layouts, photo per value, light and dark photo looks
 

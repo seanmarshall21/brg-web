@@ -151,6 +151,19 @@
       "60": "60%"
     }
   },
+  "values_soft_base": {
+    "type": "select",
+    "label": "Light — color under the soft photo",
+    "doc": "Only used when the look is Soft. The photo is multiplied onto this color, so any white in the photo shows as this color instead of plain white, and the whole column reads darker. White is how it was before.",
+    "default": "mid",
+    "width": 50,
+    "choices": {
+      "white": "White",
+      "light": "Light gray",
+      "mid": "Mid gray",
+      "slate": "Slate gray"
+    }
+  },
   "values_img_dark": {
     "type": "select",
     "label": "Photo look on a dark background",

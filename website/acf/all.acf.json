@@ -4499,6 +4499,33 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_home_about_values_soft_base",
+        "label": "Light — color under the soft photo",
+        "name": "brg_home_about_values_soft_base",
+        "type": "select",
+        "instructions": "Only used when the look is Soft. The photo is multiplied onto this color, so any white in the photo shows as this color instead of plain white, and the whole column reads darker. White is how it was before.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_soft_base",
+          "id": ""
+        },
+        "default_value": "mid",
+        "choices": {
+          "white": "White",
+          "light": "Light gray",
+          "mid": "Mid gray",
+          "slate": "Slate gray"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_about_values_img_dark",
         "label": "Photo look on a dark background",
         "name": "brg_home_about_values_img_dark",
