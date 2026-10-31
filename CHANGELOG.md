@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.10.31.2 (2026-10-31)
+- home: core values: photo only on the open item and fades in, words rise in after the column finishes widening, no pause button (hover pauses), columns become rows when the block is narrow, What We're About section background anchors to its own section
+
 ## 2026.10.31.1 (2026-10-31)
 - home: core values columns: name under the number in the headline font, name width locked so it never re-wraps, soft look sits on a gray color
 

@@ -9,7 +9,9 @@
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
 <section class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
-.brgw-sec--home-about{background:var(--white);color:var(--ink);}
+/* position:relative makes THIS section the anchor for its .sec-bg layer. Without it the layer
+   anchors to the page and a background chosen here appeared on the hero (Sean, 31 Oct). */
+.brgw-sec--home-about{--v-pad:clamp(12px,1.4vw,20px);position:relative;background:var(--white);color:var(--ink);}
 .brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
 @media(min-width:940px){ .brgw-sec--home-about .grid{grid-template-columns:1fr 1fr;} }
 
@@ -103,10 +105,9 @@
    picks which pair applies): normal, black and white, or soft, which multiplies on light and
    screens on dark at a strength you set. A photo with full strength needs light words and a
    dark shade at its foot, so those looks flip the words white; Soft keeps the tone's own words. */
-.brgw-sec--home-about .vset,.brgw-sec--home-about .vpause{display:none;}
+.brgw-sec--home-about .vset{display:none;}
 .brgw-sec--home-about[data-vlayout="columns"] .vset,.brgw-sec--home-about[data-vlayout="list"] .vset{display:block;}
 .brgw-sec--home-about[data-vlayout="columns"] .wheel,.brgw-sec--home-about[data-vlayout="list"] .wheel{display:none;}
-.brgw-sec--home-about[data-vlayout="columns"] .vpause:not([hidden]),.brgw-sec--home-about[data-vlayout="list"] .vpause:not([hidden]){display:inline-block;}
 .brgw-sec--home-about{--v-tone-fg:var(--ink);--v-tone-bg:#fff;--v-fg:var(--ink);--v-bg:#fff;--v-blend:normal;--v-filter:none;--v-scrim:0;}
 .brgw-sec--home-about[data-vtone="dark"]{--v-tone-fg:#fff;--v-tone-bg:#000;--v-fg:#fff;--v-bg:#000;}
 .brgw-sec--home-about[data-vtone="dark"] .values-blk{background:#000;color:#fff;border-top-color:rgba(255,255,255,.2);}
@@ -132,12 +133,26 @@
 .brgw-sec--home-about .vi{position:relative;isolation:isolate;overflow:hidden;opacity:.6;background:var(--v-base,var(--v-bg));color:var(--v-fg);
   transition:opacity .35s ease;}
 .brgw-sec--home-about .vi.is-on{opacity:1;}
+.brgw-sec--home-about .values-blk{container:vb / inline-size;}
 .brgw-sec--home-about .vset{max-width:1320px;margin-inline:auto;text-align:left;}
 .brgw-sec--home-about .vbg{position:absolute;inset:0;z-index:0;}
+/* A photo shows ONLY on the open item: it fades in and settles from a slight zoom. The fade is on
+   the <img> itself, not on .vbg, because an opacity or transform on .vbg would wall the blend
+   mode off from the column color behind it and multiply/screen would do nothing. */
 .brgw-sec--home-about .vbg img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:var(--v-blend);
-  opacity:var(--v-imgop,1);filter:var(--v-filter);}
-.brgw-sec--home-about .vbg::after{content:"";position:absolute;inset:0;
+  opacity:0;transform:scale(1.1);filter:var(--v-filter);
+  transition:opacity .25s ease,transform .25s ease;}
+.brgw-sec--home-about .vi.is-on .vbg img{opacity:var(--v-imgop,1);transform:none;
+  transition:opacity .8s ease .1s,transform 1.4s cubic-bezier(.2,.8,.2,1) .1s;}
+.brgw-sec--home-about .vbg::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity .25s ease;
   background:linear-gradient(to top,rgba(0,0,0,var(--v-scrim)),rgba(0,0,0,0) 70%);}
+.brgw-sec--home-about .vi.is-on .vbg::after{opacity:1;transition:opacity .8s ease .1s;}
+/* Split text: words are wrapped by the script and rise in one after another, but only once the
+   column has finished widening (.is-set), so no line ever re-breaks while words are moving. */
+.brgw-sec--home-about .vp .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em;}
+.brgw-sec--home-about .vp .wi{display:inline-block;transform:translateY(115%);opacity:0;transition:opacity .15s ease;}
+.brgw-sec--home-about .vi.is-set .vp .wi{transform:none;opacity:1;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .4s ease;transition-delay:calc(var(--i,0) * 28ms);}
 .brgw-sec--home-about .vn{position:relative;z-index:1;display:block;width:100%;border:0;background:none;color:inherit;font:inherit;
   cursor:pointer;text-align:left;text-transform:uppercase;font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;font-size:clamp(1.05rem,1.6vw,1.4rem);padding:18px 16px 18px 52px;}
 .brgw-sec--home-about .vn::before{content:attr(data-no);position:absolute;left:16px;top:21px;
@@ -147,10 +162,8 @@
   font-size:clamp(.92rem,1.05vw,1rem);line-height:1.55;transition:max-height .45s ease;}
 .brgw-sec--home-about .vi.is-on .vp{max-height:16em;padding-bottom:20px;}
 .brgw-sec--home-about .vi + .vi{border-top:1px solid rgba(128,128,128,.4);}
-.brgw-sec--home-about .vpause{margin-top:18px;border:0;background:none;color:inherit;font:inherit;font-size:.72rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;cursor:pointer;text-decoration:underline;text-underline-offset:4px;}
 .brgw-sec--home-about .vx{display:contents;}
-@media(min-width:800px){
+@container vb (min-width:720px){
   .brgw-sec--home-about[data-vlayout="columns"] .vset{display:flex;height:clamp(420px,44vw,620px);}
   .brgw-sec--home-about[data-vlayout="columns"] .vset{container-type:inline-size;}
   .brgw-sec--home-about[data-vlayout="columns"] .vi{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;
@@ -161,15 +174,14 @@
   /* the number sits at the top of the column and the name right under it; the description stays at
      the foot. The name is as wide as a CLOSED column (one share out of 3.4 + 4 = 7.4, less the side
      padding), so a name that wraps to two lines closed wraps the same way when its column opens. */
-  .brgw-sec--home-about[data-vlayout="columns"]{--v-pad:clamp(12px,1.4vw,20px);}
   .brgw-sec--home-about[data-vlayout="columns"] .vn{position:static;box-sizing:content-box;
     width:calc(min(100vw,1320px) / 7.4 - 2 * var(--v-pad));
     width:calc(100cqw / 7.4 - 2 * var(--v-pad));
     padding:calc(var(--v-pad) + 26px) var(--v-pad) 0;font-size:clamp(.72rem,1.5vw,1.45rem);line-height:1.15;overflow-wrap:normal;}
   .brgw-sec--home-about[data-vlayout="columns"] .vn::before{left:var(--v-pad);top:var(--v-pad);}
-  .brgw-sec--home-about[data-vlayout="columns"] .vp{position:absolute;left:var(--v-pad);right:var(--v-pad);bottom:var(--v-pad);max-height:none;overflow:visible;padding:0;
-    opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .45s ease;}
-  .brgw-sec--home-about[data-vlayout="columns"] .vi.is-on .vp{opacity:1;transform:none;transition-delay:.18s;padding-bottom:0;}
+  .brgw-sec--home-about[data-vlayout="columns"] .vp{position:absolute;left:var(--v-pad);bottom:var(--v-pad);box-sizing:content-box;max-height:none;overflow:visible;padding:0;
+    width:calc(100cqw * 3.4 / 7.4 - 2 * var(--v-pad));opacity:0;}
+  .brgw-sec--home-about[data-vlayout="columns"] .vi.is-on .vp{opacity:1;padding-bottom:0;}
   .brgw-sec--home-about[data-vlayout="list"] .vset{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
     grid-template-rows:repeat(var(--n,5),auto);column-gap:clamp(32px,5vw,80px);align-items:start;}
   .brgw-sec--home-about[data-vlayout="list"] .vi{display:contents;opacity:1;}
@@ -255,7 +267,6 @@
       <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Community</button><div class="vx"><div class="vbg" aria-hidden="true"></div><p class="vp">We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that invest in us.</p></div></div>
       <!--/brg:repeat-->
     </div>
-    <button type="button" class="vpause" hidden aria-pressed="false">Pause</button>
   </div>
   <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>

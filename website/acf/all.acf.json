@@ -4396,7 +4396,7 @@
         "label": "Columns and list — auto-play",
         "name": "brg_home_about_values_autoplay",
         "type": "select",
-        "instructions": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It pauses while someone points at it, stops once someone picks one, and does nothing for visitors who have asked their device to reduce motion. A pause button shows beside it while this is on.",
+        "instructions": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It stops on whichever one someone is pointing at or has tapped, carries on a few seconds after they leave, and does nothing for visitors who have asked their device to reduce motion.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {

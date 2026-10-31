@@ -1029,38 +1029,63 @@
       var items = [].slice.call(v.querySelectorAll('.vi'));
       if (!items.length) return;
       v.style.setProperty('--n', String(items.length));
-      var cur = 0, hover = false, paused = false, inView = true, timer = null;
+      var cur = -1, hover = false, focused = false, inView = true, timer = null, setTimer = null;
       var secs = (parseInt(v.getAttribute('data-secs'), 10) || 5) * 1000;
       var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var auto = v.getAttribute('data-autoplay') === 'on' && !calm && items.length > 1;
-      var btn = v.parentNode.querySelector('.vpause');
+      /* Split text: every word of a description goes in its own clip box so it can rise in on its
+         own. It is set on the open item only AFTER the column has finished widening, because the
+         description's width is the open column's final width and the words must not move while
+         the column is still growing. */
+      items.forEach(function (it) {
+        var p = it.querySelector('.vp');
+        if (!p || p.getAttribute('data-split')) return;
+        var words = (p.textContent || '').split(/\s+/).filter(Boolean);
+        p.textContent = '';
+        words.forEach(function (w, k) {
+          var o = document.createElement('span'); o.className = 'w';
+          var i = document.createElement('span'); i.className = 'wi'; i.style.setProperty('--i', String(k)); i.textContent = w;
+          o.appendChild(i); p.appendChild(o);
+          if (k < words.length - 1) p.appendChild(document.createTextNode(' '));
+        });
+        p.setAttribute('data-split', '1');
+      });
       function on(i) {
+        if (i === cur) return;
         cur = i;
+        clearTimeout(setTimer);
+        var wide = window.getComputedStyle(v).display === 'flex';
         items.forEach(function (it, k) {
           it.classList.toggle('is-on', k === i);
+          if (k !== i) it.classList.remove('is-set');
           var b = it.querySelector('.vn'); if (b) b.setAttribute('aria-expanded', k === i ? 'true' : 'false');
         });
+        setTimer = setTimeout(function () { items[i].classList.add('is-set'); }, calm ? 0 : (wide ? 620 : 260));
       }
-      function label() { if (btn) { btn.textContent = paused ? 'Play' : 'Pause'; btn.setAttribute('aria-pressed', paused ? 'true' : 'false'); } }
+      function arm() {
+        clearInterval(timer);
+        if (!auto) return;
+        timer = setInterval(function () {
+          if (hover || focused || !inView || v.offsetParent === null) return;
+          on((cur + 1) % items.length);
+        }, secs);
+      }
       items.forEach(function (it, i) {
         it.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = true; on(i); } });
-        it.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hover = false; });
+        it.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hover = false; arm(); } });
         var b = it.querySelector('.vn');
         if (!b) return;
         b.setAttribute('data-no', (i < 9 ? '0' : '') + (i + 1));
-        b.addEventListener('focus', function () { on(i); });
-        b.addEventListener('click', function () { on(i); if (auto) { paused = true; label(); } });
+        b.addEventListener('focus', function () { focused = true; on(i); });
+        b.addEventListener('blur', function () { focused = false; arm(); });
+        b.addEventListener('click', function () { on(i); arm(); });
       });
       on(0);
       if (!auto) return;
-      if (btn) { btn.hidden = false; label(); btn.addEventListener('click', function () { paused = !paused; label(); }); }
       if ('IntersectionObserver' in window) {
         new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }).observe(v);
       }
-      timer = setInterval(function () {
-        if (paused || hover || !inView || v.offsetParent === null) return;
-        on((cur + 1) % items.length);
-      }, secs);
+      arm();
     });
   }
 
