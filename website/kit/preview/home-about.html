@@ -289,6 +289,11 @@
 (function(){
   var D = {"heading": "What we're about", "heading_mark": "", "hl_variant": "h3", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo_height": "medium", "values_on": "off", "values_layout": "wheel", "values_tone": "light", "values_color": "keep", "values_color_custom": "", "values_text": "auto", "values_heading_style": "marker", "values_heading_mark": "", "values_autoplay": "on", "values_secs": "5", "values_img_light": "soft", "values_img_light_amt": "30", "values_soft_base": "mid", "values_img_dark": "soft", "values_img_dark_amt": "10", "values_heading": "Our core values", "values": "", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "photo_side": "left", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
+  // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
+  // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.
+  raw = raw.replace(/<!--brg:repeat [a-z0-9_-]+-->([\s\S]*?)<!--\/brg:repeat-->/gi, function(m, inner){
+    var i = inner.indexOf('<!--brg:empty-->'); return i < 0 ? '' : inner.slice(i + 16);
+  });
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
   var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){

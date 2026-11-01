@@ -80,6 +80,25 @@ color:var(--ink);font:400 .8rem/1.5 var(--sans);padding:9px 10px;resize:vertical
 .ctl textarea{min-height:64px}
 .ctl input:focus,.ctl textarea:focus{outline:0;border-color:var(--teal)}
 .hint{margin:5px 0 0;font-size:.7rem;color:rgba(244,241,234,.4)}
+.grp{border:1px solid var(--line);border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,.02)}
+.grp>summary{cursor:pointer;list-style:none;padding:10px 12px;font:800 .64rem/1 var(--sans);letter-spacing:.12em;
+text-transform:uppercase;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+.grp>summary::-webkit-details-marker{display:none}
+.grp>summary::after{content:"+";color:var(--dim);font-size:.9rem}
+.grp[open]>summary::after{content:"−"}
+.grp>summary em{font-style:normal;color:var(--dim);margin-left:auto;margin-right:10px;font-weight:600}
+.grp .ctl{padding:0 12px;position:relative}
+.grp .ctl:last-child{padding-bottom:4px}
+.ctl select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:7px;color:var(--ink);
+font:400 .8rem/1.5 var(--sans);padding:9px 10px}
+.tip{display:inline-block;margin-left:6px;width:15px;height:15px;line-height:15px;text-align:center;border-radius:50%;
+border:1px solid var(--dim);color:var(--dim);font:700 .6rem/15px var(--sans);letter-spacing:0;cursor:help;outline:0}
+.tip:hover,.tip:focus{color:var(--yellow);border-color:var(--yellow)}
+.tipbody{display:none;position:absolute;left:8px;right:8px;top:100%;z-index:20;margin-top:2px;padding:10px 12px;
+background:#000;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.5);
+font:400 .72rem/1.5 var(--sans);letter-spacing:0;text-transform:none;color:var(--ink);white-space:pre-wrap;text-align:left}
+.tipbody code{display:block;margin-top:8px;font-family:var(--mono);color:var(--dim)}
+.tip:hover .tipbody,.tip:focus .tipbody{display:block}
 .prev{min-width:0;display:flex;flex-direction:column;background:var(--bg)}
 .bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .pill{font:700 .6rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
@@ -134,18 +153,43 @@ function reload(id){const f=document.querySelector('[data-frame="'+id+'"]');if(f
 function controls(sec,host){
   const keys=Object.keys(sec.slots);
   if(!keys.length){host.appendChild(el('p','muted','No editable variables — this section is code by design.'));return;}
+  // Group the fields into drop-downs: a field's own group if it has one, else the words before the
+  // first " — " in its label ("Core values — layout" goes under Core values), else Content.
+  const groups=new Map();
   keys.forEach(k=>{
-    const def=sec.slots[k]||{}, cur=st(sec.id).slots[k]!==undefined?st(sec.id).slots[k]:(def.default||'');
-    const row=el('div','ctl');
-    row.appendChild(el('label',null,esc(def.label||k)+' <em>'+esc(k)+'</em>'));
-    const long=(def.type==='textarea')||String(cur).length>60;
-    const inp=document.createElement(long?'textarea':'input');
-    if(!long)inp.type='text';
-    inp.value=cur; inp.spellcheck=false;
-    inp.addEventListener('input',()=>{st(sec.id).slots[k]=inp.value;clearTimeout(inp._t);inp._t=setTimeout(()=>reload(sec.id),260);});
-    row.appendChild(inp);
-    if(def.doc)row.appendChild(el('p','hint',esc(def.doc)));
-    host.appendChild(row);
+    const def=sec.slots[k]||{};
+    const lab=def.label||k, dash=lab.indexOf(' — ');
+    const g=def.group||(dash>0?lab.slice(0,dash):'Content');
+    if(!groups.has(g))groups.set(g,[]);
+    groups.get(g).push(k);
+  });
+  let first=true;
+  groups.forEach((list,g)=>{
+    const box=el('details','grp');
+    if(first||groups.size===1)box.open=true; first=false;
+    box.appendChild(el('summary','',esc(g)+' <em>'+list.length+'</em>'));
+    list.forEach(k=>{
+      const def=sec.slots[k]||{}, cur=st(sec.id).slots[k]!==undefined?st(sec.id).slots[k]:(def.default||'');
+      const row=el('div','ctl');
+      const lab=def.label||k, dash=lab.indexOf(' — ');
+      const shown=(!def.group&&dash>0)?lab.slice(dash+3):lab;
+      row.appendChild(el('label',null,esc(shown)+(def.doc?' <span class="tip" tabindex="0">?<span class="tipbody">'+esc(def.doc)+'<code>'+esc(k)+'</code></span></span>':'')));
+      let inp;
+      if(def.type==='select'&&def.choices){
+        inp=document.createElement('select');
+        Object.keys(def.choices).forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=def.choices[v];if(String(cur)===v)o.selected=true;inp.appendChild(o);});
+        inp.addEventListener('change',()=>{st(sec.id).slots[k]=inp.value;reload(sec.id);});
+      }else{
+        const long=(def.type==='textarea')||String(cur).length>60;
+        inp=document.createElement(long?'textarea':'input');
+        if(!long)inp.type='text';
+        inp.value=cur; inp.spellcheck=false;
+        inp.addEventListener('input',()=>{st(sec.id).slots[k]=inp.value;clearTimeout(inp._t);inp._t=setTimeout(()=>reload(sec.id),260);});
+      }
+      row.appendChild(inp);
+      box.appendChild(row);
+    });
+    host.appendChild(box);
   });
   const reset=el('button','btn wide','reset to defaults');
   reset.onclick=()=>{st(sec.id).slots={};host.innerHTML='';controls(sec,host);reload(sec.id);};

@@ -123,6 +123,11 @@
 (function(){
   var D = {"posts": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
+  // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
+  // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.
+  raw = raw.replace(/<!--brg:repeat [a-z0-9_-]+-->([\s\S]*?)<!--\/brg:repeat-->/gi, function(m, inner){
+    var i = inner.indexOf('<!--brg:empty-->'); return i < 0 ? '' : inner.slice(i + 16);
+  });
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
   var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
