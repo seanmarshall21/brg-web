@@ -91,14 +91,77 @@
   },
   "values_tone": {
     "type": "select",
-    "label": "Core values — background",
-    "doc": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a background color for the core values (further down) overrides this and makes it follow that color's brightness.",
+    "label": "Core values — light or dark",
+    "doc": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a background color for the core values (the next box) overrides this and makes it follow that color's brightness.",
     "default": "light",
     "width": 50,
     "choices": {
       "light": "Light (white)",
       "dark": "Dark (black)"
     }
+  },
+  "values_color": {
+    "type": "select",
+    "label": "Core values — background color",
+    "width": 34,
+    "default": "keep",
+    "group": "Core values — heading and background",
+    "doc": "A background color for the core values part alone, so it can differ from the rest of this section. \"As designed\" uses the Light or Dark choice above (white or black). Any other choice is painted instead, and the Light or Dark choice then follows its brightness on its own, so the photo looks and words stay right.\n\nLight, Dark, Accent and Alt accent are ROLES set once on the Site-wide page. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The section's own background color (further down) still colors the rest of the section.",
+    "choices": {
+      "keep": "As designed",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)",
+      "custom": "Custom (use the color box)"
+    }
+  },
+  "values_color_custom": {
+    "type": "color",
+    "label": "Core values — custom color",
+    "width": 33,
+    "default": "",
+    "group": "Core values — heading and background",
+    "doc": "Used only when the background color above is Custom. Left empty, a Custom choice does nothing."
+  },
+  "values_text": {
+    "type": "select",
+    "label": "Core values — words",
+    "width": 33,
+    "default": "auto",
+    "group": "Core values — heading and background",
+    "doc": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while the background color is \"As designed\".",
+    "choices": {
+      "auto": "Automatic",
+      "dark": "Dark words",
+      "light": "Light words"
+    }
+  },
+  "values_heading_style": {
+    "type": "select",
+    "label": "Core values — heading style",
+    "width": 34,
+    "default": "marker",
+    "group": "Core values — heading and background",
+    "doc": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
+    "choices": {
+      "marker": "Yellow marker block (like the section title)",
+      "plain": "Plain words"
+    }
+  },
+  "values_heading_mark": {
+    "type": "text",
+    "label": "Core values — heading — highlighted words",
+    "width": 66,
+    "default": "",
+    "group": "Core values — heading and background",
+    "doc": "Words in the heading to highlight with the same marker stroke the section title uses (the style is the Highlight setting at the top of this section). Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\"."
   },
   "values_autoplay": {
     "type": "select",
@@ -195,69 +258,6 @@
     "doc": "The title above the wheel.",
     "default": "Our core values",
     "width": 100
-  },
-  "values_heading_style": {
-    "type": "select",
-    "label": "Core values — heading style",
-    "width": 34,
-    "default": "marker",
-    "group": "Core values — heading and background",
-    "doc": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
-    "choices": {
-      "marker": "Yellow marker block (like the section title)",
-      "plain": "Plain words"
-    }
-  },
-  "values_heading_mark": {
-    "type": "text",
-    "label": "Core values — heading — highlighted words",
-    "width": 66,
-    "default": "",
-    "group": "Core values — heading and background",
-    "doc": "Words in the heading to highlight with the same marker stroke the section title uses (the style is the Highlight setting at the top of this section). Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\"."
-  },
-  "values_color": {
-    "type": "select",
-    "label": "Core values — background color",
-    "width": 34,
-    "default": "keep",
-    "group": "Core values — heading and background",
-    "doc": "A background color for the core values part alone, so it can differ from the rest of this section. \"As designed\" uses the Light or Dark choice above (white or black). Any other choice is painted instead, and the Light or Dark choice then follows its brightness on its own, so the photo looks and words stay right.\n\nLight, Dark, Accent and Alt accent are ROLES set once on the Site-wide page. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The section's own background color (further down) still colors the rest of the section.",
-    "choices": {
-      "keep": "As designed",
-      "light": "Light",
-      "dark": "Dark",
-      "accent": "Accent",
-      "alt": "Alt accent",
-      "yellow": "Yellow (a specific shade)",
-      "teal": "Teal (a specific shade)",
-      "pink": "Pink (a specific shade)",
-      "orange": "Orange (a specific shade)",
-      "white": "White (a specific shade)",
-      "ink": "Black (a specific shade)",
-      "custom": "Custom (use the color box)"
-    }
-  },
-  "values_color_custom": {
-    "type": "color",
-    "label": "Core values — custom color",
-    "width": 33,
-    "default": "",
-    "group": "Core values — heading and background",
-    "doc": "Used only when the background color above is Custom. Left empty, a Custom choice does nothing."
-  },
-  "values_text": {
-    "type": "select",
-    "label": "Core values — words",
-    "width": 33,
-    "default": "auto",
-    "group": "Core values — heading and background",
-    "doc": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while the background color is \"As designed\".",
-    "choices": {
-      "auto": "Automatic",
-      "dark": "Dark words",
-      "light": "Light words"
-    }
   },
   "values": {
     "type": "repeater",

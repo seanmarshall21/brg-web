@@ -4654,10 +4654,10 @@
             },
             {
                 "key": "field_brg_home_about_values_tone",
-                "label": "Core values — background",
+                "label": "Core values — light or dark",
                 "name": "brg_home_about_values_tone",
                 "type": "select",
-                "instructions": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a background color for the core values (further down) overrides this and makes it follow that color's brightness.",
+                "instructions": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a background color for the core values (the next box) overrides this and makes it follow that color's brightness.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -4676,6 +4676,156 @@
                 "ui": 0,
                 "ajax": 0,
                 "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_acc_core_values_heading_and_background",
+                "label": "Core values — heading and background",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_about_values_color",
+                "label": "Core values — background color",
+                "name": "brg_home_about_values_color",
+                "type": "select",
+                "instructions": "A background color for the core values part alone, so it can differ from the rest of this section. \"As designed\" uses the Light or Dark choice above (white or black). Any other choice is painted instead, and the Light or Dark choice then follows its brightness on its own, so the photo looks and words stay right.\n\nLight, Dark, Accent and Alt accent are ROLES set once on the Site-wide page. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The section's own background color (further down) still colors the rest of the section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-values_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)",
+                    "custom": "Custom (use the color box)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_values_color_custom",
+                "label": "Core values — custom color",
+                "name": "brg_home_about_values_color_custom",
+                "type": "color_picker",
+                "instructions": "Used only when the background color above is Custom. Left empty, a Custom choice does nothing.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-values_color_custom",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_home_about_values_text",
+                "label": "Core values — words",
+                "name": "brg_home_about_values_text",
+                "type": "select",
+                "instructions": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while the background color is \"As designed\".",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-values_text",
+                    "id": ""
+                },
+                "default_value": "auto",
+                "choices": {
+                    "auto": "Automatic",
+                    "dark": "Dark words",
+                    "light": "Light words"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_values_heading_style",
+                "label": "Core values — heading style",
+                "name": "brg_home_about_values_heading_style",
+                "type": "select",
+                "instructions": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-values_heading_style",
+                    "id": ""
+                },
+                "default_value": "marker",
+                "choices": {
+                    "marker": "Yellow marker block (like the section title)",
+                    "plain": "Plain words"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_values_heading_mark",
+                "label": "Core values — heading — highlighted words",
+                "name": "brg_home_about_values_heading_mark",
+                "type": "text",
+                "instructions": "Words in the heading to highlight with the same marker stroke the section title uses (the style is the Highlight setting at the top of this section). Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\".",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "66",
+                    "class": "brg-f-values_heading_mark",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_home_about_endacc_core_values_heading_and_background",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
             },
             {
                 "key": "field_brg_home_about_values_autoplay",
@@ -4878,156 +5028,6 @@
                     "id": ""
                 },
                 "default_value": "Our core values"
-            },
-            {
-                "key": "field_brg_home_about_acc_core_values_heading_and_background",
-                "label": "Core values — heading and background",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
-                "key": "field_brg_home_about_values_heading_style",
-                "label": "Core values — heading style",
-                "name": "brg_home_about_values_heading_style",
-                "type": "select",
-                "instructions": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "34",
-                    "class": "brg-f-values_heading_style",
-                    "id": ""
-                },
-                "default_value": "marker",
-                "choices": {
-                    "marker": "Yellow marker block (like the section title)",
-                    "plain": "Plain words"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_home_about_values_heading_mark",
-                "label": "Core values — heading — highlighted words",
-                "name": "brg_home_about_values_heading_mark",
-                "type": "text",
-                "instructions": "Words in the heading to highlight with the same marker stroke the section title uses (the style is the Highlight setting at the top of this section). Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\".",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "66",
-                    "class": "brg-f-values_heading_mark",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
-                "key": "field_brg_home_about_values_color",
-                "label": "Core values — background color",
-                "name": "brg_home_about_values_color",
-                "type": "select",
-                "instructions": "A background color for the core values part alone, so it can differ from the rest of this section. \"As designed\" uses the Light or Dark choice above (white or black). Any other choice is painted instead, and the Light or Dark choice then follows its brightness on its own, so the photo looks and words stay right.\n\nLight, Dark, Accent and Alt accent are ROLES set once on the Site-wide page. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The section's own background color (further down) still colors the rest of the section.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "34",
-                    "class": "brg-f-values_color",
-                    "id": ""
-                },
-                "default_value": "keep",
-                "choices": {
-                    "keep": "As designed",
-                    "light": "Light",
-                    "dark": "Dark",
-                    "accent": "Accent",
-                    "alt": "Alt accent",
-                    "yellow": "Yellow (a specific shade)",
-                    "teal": "Teal (a specific shade)",
-                    "pink": "Pink (a specific shade)",
-                    "orange": "Orange (a specific shade)",
-                    "white": "White (a specific shade)",
-                    "ink": "Black (a specific shade)",
-                    "custom": "Custom (use the color box)"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_home_about_values_color_custom",
-                "label": "Core values — custom color",
-                "name": "brg_home_about_values_color_custom",
-                "type": "color_picker",
-                "instructions": "Used only when the background color above is Custom. Left empty, a Custom choice does nothing.",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "33",
-                    "class": "brg-f-values_color_custom",
-                    "id": ""
-                },
-                "default_value": ""
-            },
-            {
-                "key": "field_brg_home_about_values_text",
-                "label": "Core values — words",
-                "name": "brg_home_about_values_text",
-                "type": "select",
-                "instructions": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while the background color is \"As designed\".",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "33",
-                    "class": "brg-f-values_text",
-                    "id": ""
-                },
-                "default_value": "auto",
-                "choices": {
-                    "auto": "Automatic",
-                    "dark": "Dark words",
-                    "light": "Light words"
-                },
-                "return_format": "value",
-                "allow_null": 0,
-                "multiple": 0,
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": ""
-            },
-            {
-                "key": "field_brg_home_about_endacc_core_values_heading_and_background",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
             },
             {
                 "key": "field_brg_home_about_values",
