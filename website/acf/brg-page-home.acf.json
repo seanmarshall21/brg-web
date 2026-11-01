@@ -4678,23 +4678,6 @@
                 "placeholder": ""
             },
             {
-                "key": "field_brg_home_about_acc_core_values_heading_and_background",
-                "label": "Core values — heading and background",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
                 "key": "field_brg_home_about_values_color",
                 "label": "Core values — background color",
                 "name": "brg_home_about_values_color",
@@ -4811,25 +4794,8 @@
                 "default_value": ""
             },
             {
-                "key": "field_brg_home_about_endacc_core_values_heading_and_background",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
-            },
-            {
                 "key": "field_brg_home_about_values_autoplay",
-                "label": "Columns and list — auto-play",
+                "label": "Core values — auto-play (columns and list)",
                 "name": "brg_home_about_values_autoplay",
                 "type": "select",
                 "instructions": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It stops on whichever one someone is pointing at or has tapped, carries on a few seconds after they leave, and does nothing for visitors who have asked their device to reduce motion.",
@@ -4854,7 +4820,7 @@
             },
             {
                 "key": "field_brg_home_about_values_secs",
-                "label": "Columns and list — seconds on each",
+                "label": "Core values — seconds on each (columns and list)",
                 "name": "brg_home_about_values_secs",
                 "type": "select",
                 "instructions": "How long each value stays open before the next one.",
@@ -4882,7 +4848,7 @@
             },
             {
                 "key": "field_brg_home_about_values_img_light",
-                "label": "Photo look on a light background",
+                "label": "Core values — photo look on a light background",
                 "name": "brg_home_about_values_img_light",
                 "type": "select",
                 "instructions": "Used when the background above is Light. Normal shows the photo as it is. Black and white takes the color out. Soft multiply lays the photo faintly over the white, darkening it, so the words stay dark and easy to read.",
@@ -4908,7 +4874,7 @@
             },
             {
                 "key": "field_brg_home_about_values_img_light_amt",
-                "label": "Light — how strong the soft look is",
+                "label": "Core values — light: how strong the soft look is",
                 "name": "brg_home_about_values_img_light_amt",
                 "type": "select",
                 "instructions": "Only used when the look is Soft. A higher number shows more of the photo.",
@@ -4936,7 +4902,7 @@
             },
             {
                 "key": "field_brg_home_about_values_soft_base",
-                "label": "Light — color under the soft photo",
+                "label": "Core values — light: color under the soft photo",
                 "name": "brg_home_about_values_soft_base",
                 "type": "select",
                 "instructions": "Only used when the look is Soft. The photo is multiplied onto this color, so any white in the photo shows as this color instead of plain white, and the whole column reads darker. White is how it was before.",
@@ -4963,7 +4929,7 @@
             },
             {
                 "key": "field_brg_home_about_values_img_dark",
-                "label": "Photo look on a dark background",
+                "label": "Core values — photo look on a dark background",
                 "name": "brg_home_about_values_img_dark",
                 "type": "select",
                 "instructions": "Used when the background above is Dark. Normal shows the photo as it is. Black and white takes the color out. Soft screen lays the photo faintly over the black, lightening it, so the words stay white and easy to read.",
@@ -4989,7 +4955,7 @@
             },
             {
                 "key": "field_brg_home_about_values_img_dark_amt",
-                "label": "Dark — how strong the soft look is",
+                "label": "Core values — dark: how strong the soft look is",
                 "name": "brg_home_about_values_img_dark_amt",
                 "type": "select",
                 "instructions": "Only used when the look is Soft. A higher number shows more of the photo.",
@@ -5031,7 +4997,7 @@
             },
             {
                 "key": "field_brg_home_about_values",
-                "label": "Core values",
+                "label": "Core values — the list",
                 "name": "brg_home_about_values",
                 "type": "repeater",
                 "instructions": "The values, shown as the wheel, the columns or the list (the Layout box above picks). On the wheel, point at a name (or tap it) and its description appears in the middle. In the columns and the list, the photo is the background of the column or the picture beside the list.\n\nUNTIL YOU ADD THE FIRST ONE HERE the section shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community, with no photos. Adding one replaces all five, so add every value you want, not only the one you are changing. Five fits the columns best.",
@@ -5232,23 +5198,6 @@
                 "placeholder": ""
             },
             {
-                "key": "field_brg_home_about_acc_photo_layout",
-                "label": "Photo layout",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "brg-acc",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 1,
-                "endpoint": 0
-            },
-            {
                 "key": "field_brg_home_about_photo_side",
                 "label": "Photo — side",
                 "name": "brg_home_about_photo_side",
@@ -5272,23 +5221,6 @@
                 "ui": 0,
                 "ajax": 0,
                 "placeholder": ""
-            },
-            {
-                "key": "field_brg_home_about_endacc_photo_layout",
-                "label": "",
-                "name": "",
-                "type": "accordion",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "open": 0,
-                "multi_expand": 0,
-                "endpoint": 1
             },
             {
                 "key": "field_brg_home_about_acc_section_background",

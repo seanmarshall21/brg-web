@@ -105,7 +105,6 @@
     "label": "Core values — background color",
     "width": 34,
     "default": "keep",
-    "group": "Core values — heading and background",
     "doc": "A background color for the core values part alone, so it can differ from the rest of this section. \"As designed\" uses the Light or Dark choice above (white or black). Any other choice is painted instead, and the Light or Dark choice then follows its brightness on its own, so the photo looks and words stay right.\n\nLight, Dark, Accent and Alt accent are ROLES set once on the Site-wide page. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The section's own background color (further down) still colors the rest of the section.",
     "choices": {
       "keep": "As designed",
@@ -127,7 +126,6 @@
     "label": "Core values — custom color",
     "width": 33,
     "default": "",
-    "group": "Core values — heading and background",
     "doc": "Used only when the background color above is Custom. Left empty, a Custom choice does nothing."
   },
   "values_text": {
@@ -135,7 +133,6 @@
     "label": "Core values — words",
     "width": 33,
     "default": "auto",
-    "group": "Core values — heading and background",
     "doc": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while the background color is \"As designed\".",
     "choices": {
       "auto": "Automatic",
@@ -148,7 +145,6 @@
     "label": "Core values — heading style",
     "width": 34,
     "default": "marker",
-    "group": "Core values — heading and background",
     "doc": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
     "choices": {
       "marker": "Yellow marker block (like the section title)",
@@ -160,12 +156,11 @@
     "label": "Core values — heading — highlighted words",
     "width": 66,
     "default": "",
-    "group": "Core values — heading and background",
     "doc": "Words in the heading to highlight with the same marker stroke the section title uses (the style is the Highlight setting at the top of this section). Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\"."
   },
   "values_autoplay": {
     "type": "select",
-    "label": "Columns and list — auto-play",
+    "label": "Core values — auto-play (columns and list)",
     "doc": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It stops on whichever one someone is pointing at or has tapped, carries on a few seconds after they leave, and does nothing for visitors who have asked their device to reduce motion.",
     "default": "on",
     "width": 50,
@@ -176,7 +171,7 @@
   },
   "values_secs": {
     "type": "select",
-    "label": "Columns and list — seconds on each",
+    "label": "Core values — seconds on each (columns and list)",
     "doc": "How long each value stays open before the next one.",
     "default": "5",
     "width": 50,
@@ -190,7 +185,7 @@
   },
   "values_img_light": {
     "type": "select",
-    "label": "Photo look on a light background",
+    "label": "Core values — photo look on a light background",
     "doc": "Used when the background above is Light. Normal shows the photo as it is. Black and white takes the color out. Soft multiply lays the photo faintly over the white, darkening it, so the words stay dark and easy to read.",
     "default": "soft",
     "width": 50,
@@ -202,7 +197,7 @@
   },
   "values_img_light_amt": {
     "type": "select",
-    "label": "Light — how strong the soft look is",
+    "label": "Core values — light: how strong the soft look is",
     "doc": "Only used when the look is Soft. A higher number shows more of the photo.",
     "default": "30",
     "width": 50,
@@ -216,7 +211,7 @@
   },
   "values_soft_base": {
     "type": "select",
-    "label": "Light — color under the soft photo",
+    "label": "Core values — light: color under the soft photo",
     "doc": "Only used when the look is Soft. The photo is multiplied onto this color, so any white in the photo shows as this color instead of plain white, and the whole column reads darker. White is how it was before.",
     "default": "mid",
     "width": 50,
@@ -229,7 +224,7 @@
   },
   "values_img_dark": {
     "type": "select",
-    "label": "Photo look on a dark background",
+    "label": "Core values — photo look on a dark background",
     "doc": "Used when the background above is Dark. Normal shows the photo as it is. Black and white takes the color out. Soft screen lays the photo faintly over the black, lightening it, so the words stay white and easy to read.",
     "default": "soft",
     "width": 50,
@@ -241,7 +236,7 @@
   },
   "values_img_dark_amt": {
     "type": "select",
-    "label": "Dark — how strong the soft look is",
+    "label": "Core values — dark: how strong the soft look is",
     "doc": "Only used when the look is Soft. A higher number shows more of the photo.",
     "default": "10",
     "width": 50,
@@ -261,7 +256,7 @@
   },
   "values": {
     "type": "repeater",
-    "label": "Core values",
+    "label": "Core values — the list",
     "button": "Add a value",
     "collapse": "label",
     "doc": "The values, shown as the wheel, the columns or the list (the Layout box above picks). On the wheel, point at a name (or tap it) and its description appears in the middle. In the columns and the list, the photo is the background of the column or the picture beside the list.\n\nUNTIL YOU ADD THE FIRST ONE HERE the section shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community, with no photos. Adding one replaces all five, so add every value you want, not only the one you are changing. Five fits the columns best.",
@@ -357,7 +352,6 @@
     "label": "Photo — side",
     "width": 50,
     "default": "left",
-    "group": "Photo layout",
     "doc": "Which side of the section the big photo sits on. This changes the wide layout only: on a phone the photo always comes first. The photo's height is set by Photo height at the top of this section.",
     "choices": {
       "left": "On the left (as designed)",
