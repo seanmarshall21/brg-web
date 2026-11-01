@@ -880,3 +880,16 @@ Under 800px both are a stack of rows that open downward. The numbers are set by 
 (data-no), not a CSS counter, because a counter reads 00 through the list's display:contents rows.
 Measured in headless Chrome at 1440 and 390: hover opens and holds, auto-play steps every 5 s and
 pauses on hover, a tap opens and switches the button to Play, no sideways scroll.
+
+## 2026-10-31 — Conti in home-about (finn's), announced: columns polish, rows when narrow, section-background fix
+
+Builds 2026.10.31.1 and .2 (commits beeddc3, 4f9b7dd), all in `website/sections/home-about/` and `brgw.js` (`brgwVset`):
+- Columns: number on top, the value name right under it in the headline font (Blanco Cavelary, caps); name width is
+  locked to the closed column so a two-line name stays two lines when its column opens.
+- Photo shows ONLY on the open item and fades in; the old pause button is gone (hover on an item holds it, auto-play
+  resumes a few seconds after the mouse leaves). The description splits into words and rises in after the width
+  transition (class `is-set`), so line breaks never shift mid-animation.
+- Wide layouts (columns, list) now switch on the block's own width (container query, 720px) rather than the screen.
+- New setting `values_soft_base` (color under a soft photo). `.brgw-sec--home-about` got `position:relative`: without
+  it the section-background layer anchored to the page and showed on the hero.
+Measured in headless Chrome on generated copies (1440, 820, 700, 390); not yet confirmed on the live page by eye.

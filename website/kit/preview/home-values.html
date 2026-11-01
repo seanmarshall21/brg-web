@@ -9,7 +9,7 @@
      The comp's grid is RULES, not filled cards: hairline dividers between cells, no borders
      on the outside. Five values, not six — "Do It Right" isn't in the comp, and Stay Stoked's
      copy differs from the old monolith, so the copy here is taken from the export. -->
-<section class="brgw-sec brgw-sec--home-values reveal" data-nav="dark" aria-label="Our core values" data-cta-pos="{{cta_position}}">
+<section data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--home-values reveal" data-nav="dark" aria-label="Our core values" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-values{--brgw-wrap:1420px;position:relative;background:#000;overflow:visible;
   padding:clamp(84px,9vw,130px) var(--pad) clamp(80px,9vw,124px);}
@@ -71,7 +71,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "values": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "cta_position": "foot", "btn_size": "", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading": "Our core values", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "values": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

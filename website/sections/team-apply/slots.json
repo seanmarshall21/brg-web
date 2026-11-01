@@ -266,6 +266,49 @@
       "small": "Small", "x-small": "Extra small"
     }
   },
+  "section_color": {
+    "type": "select",
+    "label": "Section color",
+    "width": 34,
+    "default": "keep",
+    "group": "Section color",
+    "doc": "The flat color behind this whole section. \"As designed\" leaves the color it has today; nothing changes until you choose one.\n\nLight, Dark, Accent and Alt accent are ROLES: what each looks like is set once on the Site-wide page, so changing Accent there repaints every section set to Accent as well as every accent button. The named shades are fixed colors. \"Custom\" uses the color box next to this one.\n\nA background picture (above) sits on top of this color, so the color shows through wherever the picture is faded or transparent. The words flip to dark or light on their own so they stay readable (see Section text color). Buttons set to \"As designed\" keep their own colors, so set Button color below if one blends into the new background. Small decorations drawn for the old color, such as faint white marks on a dark section, can fade out on a color they were not drawn for. Pink is the hardest color to read small words on, so keep it for sections with big type.",
+    "choices": {
+      "keep": "As designed",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)",
+      "custom": "Custom (use the color box)"
+    }
+  },
+  "section_color_custom": {
+    "type": "color",
+    "label": "Section color — custom",
+    "width": 33,
+    "default": "",
+    "group": "Section color",
+    "doc": "Used only when Section color is set to Custom. Pick any color. Left empty, a Custom choice does nothing and the section keeps the color it has today."
+  },
+  "section_text": {
+    "type": "select",
+    "label": "Section text color",
+    "width": 33,
+    "default": "auto",
+    "group": "Section color",
+    "doc": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while Section color is \"As designed\".",
+    "choices": {
+      "auto": "Automatic",
+      "dark": "Dark words",
+      "light": "Light words"
+    }
+  },
   "btn_color": {
     "type": "select",
     "label": "Button color",

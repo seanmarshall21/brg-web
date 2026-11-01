@@ -1224,7 +1224,33 @@
     document.body.appendChild(b);
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwBuild(); }
+  // Section color: the CSS paints the named choices by itself. This handles what CSS cannot, a
+  // picked custom color, and keeps the nav's light/dark switch in step with the new background.
+  // The nav reads data-nav off the section live as you scroll, so it only needs the attribute
+  // updated. Words flip to whichever of ink or white has the higher contrast against the color
+  // (the WCAG ratio). Sections left on "As designed" are skipped and keep their own data-nav.
+  function brgwSecColor(root) {
+    var lin = function (v) { v = v / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    var secs = root.querySelectorAll('.brgw-sec[data-sec-color]');
+    Array.prototype.forEach.call(secs, function (sec) {
+      var key = sec.getAttribute('data-sec-color');
+      if (!key || key === 'keep') return;
+      if (key === 'custom') {
+        var hex = (sec.getAttribute('data-sec-custom') || '').trim();
+        if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) return;
+        sec.style.setProperty('--sec-c', hex);
+        sec.setAttribute('data-sec-set', '');
+      }
+      var m = (getComputedStyle(sec).backgroundColor || '').match(/[\d.]+/g);
+      if (!m || m.length < 3 || (m.length > 3 && +m[3] === 0)) return;
+      var L = 0.2126 * lin(+m[0]) + 0.7152 * lin(+m[1]) + 0.0722 * lin(+m[2]);
+      var inkWins = (L + 0.05) / (0.0144 + 0.05) > 1.05 / (L + 0.05);
+      if (key === 'custom') sec.style.setProperty('--sec-t', inkWins ? 'var(--ink)' : 'var(--white)');
+      sec.setAttribute('data-nav', inkWins ? 'light' : 'dark');
+    });
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSecColor(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

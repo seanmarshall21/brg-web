@@ -1,4 +1,4 @@
-/* brgw build 2026.10.31.2 */
+/* brgw build 2026.11.01.1 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -768,6 +768,38 @@
 .brgw-sec .sec-bg picture{display:block;width:100%;height:100%;}
 .brgw-sec .sec-bg img{width:100%;height:100%;object-fit:cover;display:block;}
 .brgw-sec .sec-bg[data-bg=""]{display:none;}
+
+/* ---- section color (Sean, 1 Nov: "need to be able to change section background colors") --------
+   A flat color behind a whole section, chosen in wp-admin. Each section's own rule paints its
+   color at specificity (0,1,0); these selectors are (0,2,0)+ so they win without !important.
+   AS DESIGNED ("keep") MATCHES NOTHING HERE, so a section nobody has touched is byte-for-byte
+   what it was. The named choices need no script, so there is no flash of the old color. Light,
+   Dark, Accent and Alt accent read the same role variables the buttons use, so the Site-wide
+   page repaints them together; the role's own foreground color is the text color.
+   CUSTOM is applied by brgwSecColor in brgw.js only once the picked value is a valid hex. The
+   script puts data-sec-set on the section; without it the rule below never matches. That is on
+   purpose: an EMPTY custom property makes var() invalid, and a background that is invalid at
+   computed time becomes transparent, which would show the page behind the section. */
+.brgw-sec[data-sec-color="light"]{--sec-c:var(--brgw-role-light-bg,var(--white));--sec-t:var(--brgw-role-light-fg,var(--ink));}
+.brgw-sec[data-sec-color="dark"]{--sec-c:var(--brgw-role-dark-bg,var(--ink));--sec-t:var(--brgw-role-dark-fg,var(--white));}
+.brgw-sec[data-sec-color="accent"]{--sec-c:var(--brgw-role-accent-bg,var(--yellow));--sec-t:var(--brgw-role-accent-fg,var(--ink));}
+.brgw-sec[data-sec-color="alt"]{--sec-c:var(--brgw-role-alt-bg,var(--teal));--sec-t:var(--brgw-role-alt-fg,var(--ink));}
+.brgw-sec[data-sec-color="yellow"]{--sec-c:var(--yellow);--sec-t:var(--ink);}
+.brgw-sec[data-sec-color="teal"]{--sec-c:var(--teal);--sec-t:var(--ink);}
+.brgw-sec[data-sec-color="pink"]{--sec-c:var(--pink);--sec-t:var(--white);}
+.brgw-sec[data-sec-color="orange"]{--sec-c:var(--orange);--sec-t:var(--ink);}
+.brgw-sec[data-sec-color="white"]{--sec-c:var(--white);--sec-t:var(--ink);}
+.brgw-sec[data-sec-color="ink"]{--sec-c:var(--ink);--sec-t:var(--white);}
+.brgw-sec:is([data-sec-color="light"],[data-sec-color="dark"],[data-sec-color="accent"],[data-sec-color="alt"],
+  [data-sec-color="yellow"],[data-sec-color="teal"],[data-sec-color="pink"],[data-sec-color="orange"],
+  [data-sec-color="white"],[data-sec-color="ink"],[data-sec-color="custom"][data-sec-set]){
+  background:var(--sec-c);color:var(--sec-t);}
+.brgw-sec:is([data-sec-color="light"],[data-sec-color="dark"],[data-sec-color="accent"],[data-sec-color="alt"],
+  [data-sec-color="yellow"],[data-sec-color="teal"],[data-sec-color="pink"],[data-sec-color="orange"],
+  [data-sec-color="white"],[data-sec-color="ink"],[data-sec-color="custom"][data-sec-set])[data-sec-text="dark"]{color:var(--ink);}
+.brgw-sec:is([data-sec-color="light"],[data-sec-color="dark"],[data-sec-color="accent"],[data-sec-color="alt"],
+  [data-sec-color="yellow"],[data-sec-color="teal"],[data-sec-color="pink"],[data-sec-color="orange"],
+  [data-sec-color="white"],[data-sec-color="ink"],[data-sec-color="custom"][data-sec-set])[data-sec-text="light"]{color:var(--white);}
 
 /* ---- modal, for the Google Forms --------------------------------------------------
    Sean, 3 Oct: "can I just take them and put them into a modal pop-up that just fits it

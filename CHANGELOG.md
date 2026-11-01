@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.01.1 (2026-11-01)
+- section color: choose a flat background color (brand roles, shades or custom) for 15 sections; words and nav flip to stay readable
+
 ## 2026.10.31.2 (2026-10-31)
 - home: core values: photo only on the open item and fades in, words rise in after the column finishes widening, no pause button (hover pauses), columns become rows when the block is narrow, What We're About section background anchors to its own section
 
