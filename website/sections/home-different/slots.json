@@ -228,6 +228,108 @@
       "up": "Up"
     }
   },
+  "photos_side": {
+    "type": "select",
+    "label": "Photos — side",
+    "width": 34,
+    "default": "right",
+    "group": "Photo layout",
+    "doc": "Which side of the section the photos sit on. This changes the wide layout only: on a phone the words always come first and the photos follow.",
+    "choices": {
+      "right": "On the right (as designed)",
+      "left": "On the left"
+    }
+  },
+  "photos_layout": {
+    "type": "select",
+    "label": "Photos — layout",
+    "width": 33,
+    "default": "design",
+    "group": "Photo layout",
+    "doc": "How the three photos are arranged. \"As designed\" is the overlapping staircase. \"Mirrored\" flips it left to right. \"Big photo on top\" puts photo 1 across the top with photos 2 and 3 side by side under it, nothing overlapping. \"Three in a row\" puts the three side by side, nothing overlapping. Each photo's shape (below) still applies in every layout.",
+    "choices": {
+      "design": "As designed (overlapping staircase)",
+      "mirror": "Mirrored",
+      "stack": "Big photo on top, no overlap",
+      "row": "Three in a row, no overlap"
+    }
+  },
+  "photos_order": {
+    "type": "select",
+    "label": "Photos — order",
+    "width": 33,
+    "default": "123",
+    "group": "Photo layout",
+    "doc": "Which photo goes in which place. In the staircase, place 1 is the big frame at the back, place 2 the tall one and place 3 the small one in front; the other layouts use the places in the same order. \"Photo 2, 1, 3\" puts photo 2 in place 1, photo 1 in place 2 and photo 3 in place 3. The photo boxes above keep their names (large, tall, small): only where each photo shows changes, and each photo's color, movement and shape travel with it.",
+    "choices": {
+      "123": "Photo 1, 2, 3 (as designed)",
+      "132": "Photo 1, 3, 2",
+      "213": "Photo 2, 1, 3",
+      "231": "Photo 2, 3, 1",
+      "312": "Photo 3, 1, 2",
+      "321": "Photo 3, 2, 1"
+    }
+  },
+  "photo_1_shape": {
+    "type": "select",
+    "label": "Photo — large — shape",
+    "width": 34,
+    "default": "keep",
+    "group": "Photo layout",
+    "doc": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+    "choices": {
+      "keep": "As designed",
+      "1x1": "Square (1:1)",
+      "5x4": "Landscape 5:4",
+      "4x3": "Landscape 4:3",
+      "3x2": "Landscape 3:2",
+      "16x9": "Wide 16:9",
+      "4x5": "Portrait 4:5",
+      "3x4": "Portrait 3:4",
+      "2x3": "Tall portrait 2:3",
+      "9x16": "Tall 9:16 (phone shape)"
+    }
+  },
+  "photo_2_shape": {
+    "type": "select",
+    "label": "Photo — tall — shape",
+    "width": 33,
+    "default": "keep",
+    "group": "Photo layout",
+    "doc": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+    "choices": {
+      "keep": "As designed",
+      "1x1": "Square (1:1)",
+      "5x4": "Landscape 5:4",
+      "4x3": "Landscape 4:3",
+      "3x2": "Landscape 3:2",
+      "16x9": "Wide 16:9",
+      "4x5": "Portrait 4:5",
+      "3x4": "Portrait 3:4",
+      "2x3": "Tall portrait 2:3",
+      "9x16": "Tall 9:16 (phone shape)"
+    }
+  },
+  "photo_3_shape": {
+    "type": "select",
+    "label": "Photo — small — shape",
+    "width": 33,
+    "default": "keep",
+    "group": "Photo layout",
+    "doc": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+    "choices": {
+      "keep": "As designed",
+      "1x1": "Square (1:1)",
+      "5x4": "Landscape 5:4",
+      "4x3": "Landscape 4:3",
+      "3x2": "Landscape 3:2",
+      "16x9": "Wide 16:9",
+      "4x5": "Portrait 4:5",
+      "3x4": "Portrait 3:4",
+      "2x3": "Tall portrait 2:3",
+      "9x16": "Tall 9:16 (phone shape)"
+    }
+  },
   "section_bg": {
     "type": "image",
     "label": "Section background",

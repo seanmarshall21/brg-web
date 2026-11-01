@@ -3173,6 +3173,182 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_community_acc_photo_layout",
+                "label": "Photo layout",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_community_photos_side",
+                "label": "Photos — side",
+                "name": "brg_home_community_photos_side",
+                "type": "select",
+                "instructions": "Which side of the section the photos sit on. This changes the wide layout only: on a phone the words always come first and the photos follow.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-photos_side",
+                    "id": ""
+                },
+                "default_value": "right",
+                "choices": {
+                    "right": "On the right (as designed)",
+                    "left": "On the left"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_community_photos_layout",
+                "label": "Photos — layout",
+                "name": "brg_home_community_photos_layout",
+                "type": "select",
+                "instructions": "How the two photos are arranged. \"As designed\" overlaps them, the tall one in front at the bottom left and the other behind at the top right. \"Mirrored\" flips that left to right. \"Side by side\" puts them next to each other with nothing overlapping. Each photo's shape (below) still applies in every layout.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-photos_layout",
+                    "id": ""
+                },
+                "default_value": "design",
+                "choices": {
+                    "design": "As designed (overlapping)",
+                    "mirror": "Mirrored",
+                    "side": "Side by side, no overlap"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_community_photos_order",
+                "label": "Photos — order",
+                "name": "brg_home_community_photos_order",
+                "type": "select",
+                "instructions": "Which photo goes in which place. Place 1 is the big frame (the tall photo in front, in the overlapping layout) and place 2 the smaller one. \"Photo 2, 1\" swaps them. The photo boxes above keep their names: only where each photo shows changes, and each photo's color, movement and shape travel with it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-photos_order",
+                    "id": ""
+                },
+                "default_value": "12",
+                "choices": {
+                    "12": "Photo 1, 2 (as designed)",
+                    "21": "Photo 2, 1"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_community_photo_1_shape",
+                "label": "Photo — tall, front — shape",
+                "name": "brg_home_community_photo_1_shape",
+                "type": "select",
+                "instructions": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_1_shape",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "1x1": "Square (1:1)",
+                    "5x4": "Landscape 5:4",
+                    "4x3": "Landscape 4:3",
+                    "3x2": "Landscape 3:2",
+                    "16x9": "Wide 16:9",
+                    "4x5": "Portrait 4:5",
+                    "3x4": "Portrait 3:4",
+                    "2x3": "Tall portrait 2:3",
+                    "9x16": "Tall 9:16 (phone shape)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_community_photo_2_shape",
+                "label": "Photo — behind — shape",
+                "name": "brg_home_community_photo_2_shape",
+                "type": "select",
+                "instructions": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_2_shape",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "1x1": "Square (1:1)",
+                    "5x4": "Landscape 5:4",
+                    "4x3": "Landscape 4:3",
+                    "3x2": "Landscape 3:2",
+                    "16x9": "Wide 16:9",
+                    "4x5": "Portrait 4:5",
+                    "3x4": "Portrait 3:4",
+                    "2x3": "Tall portrait 2:3",
+                    "9x16": "Tall 9:16 (phone shape)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_community_endacc_photo_layout",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_home_community_acc_section_background",
                 "label": "Section background",
                 "name": "",
@@ -4481,7 +4657,7 @@
                 "label": "Core values — background",
                 "name": "brg_home_about_values_tone",
                 "type": "select",
-                "instructions": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black.",
+                "instructions": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a background color for the core values (further down) overrides this and makes it follow that color's brightness.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -4704,6 +4880,156 @@
                 "default_value": "Our core values"
             },
             {
+                "key": "field_brg_home_about_acc_core_values_heading_and_background",
+                "label": "Core values — heading and background",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_about_values_heading_style",
+                "label": "Core values — heading style",
+                "name": "brg_home_about_values_heading_style",
+                "type": "select",
+                "instructions": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-values_heading_style",
+                    "id": ""
+                },
+                "default_value": "marker",
+                "choices": {
+                    "marker": "Yellow marker block (like the section title)",
+                    "plain": "Plain words"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_values_heading_mark",
+                "label": "Core values — heading — highlighted words",
+                "name": "brg_home_about_values_heading_mark",
+                "type": "text",
+                "instructions": "Words in the heading to highlight with the same marker stroke the section title uses (the style is the Highlight setting at the top of this section). Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\".",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "66",
+                    "class": "brg-f-values_heading_mark",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_home_about_values_color",
+                "label": "Core values — background color",
+                "name": "brg_home_about_values_color",
+                "type": "select",
+                "instructions": "A background color for the core values part alone, so it can differ from the rest of this section. \"As designed\" uses the Light or Dark choice above (white or black). Any other choice is painted instead, and the Light or Dark choice then follows its brightness on its own, so the photo looks and words stay right.\n\nLight, Dark, Accent and Alt accent are ROLES set once on the Site-wide page. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The section's own background color (further down) still colors the rest of the section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-values_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow (a specific shade)",
+                    "teal": "Teal (a specific shade)",
+                    "pink": "Pink (a specific shade)",
+                    "orange": "Orange (a specific shade)",
+                    "white": "White (a specific shade)",
+                    "ink": "Black (a specific shade)",
+                    "custom": "Custom (use the color box)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_values_color_custom",
+                "label": "Core values — custom color",
+                "name": "brg_home_about_values_color_custom",
+                "type": "color_picker",
+                "instructions": "Used only when the background color above is Custom. Left empty, a Custom choice does nothing.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-values_color_custom",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_home_about_values_text",
+                "label": "Core values — words",
+                "name": "brg_home_about_values_text",
+                "type": "select",
+                "instructions": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while the background color is \"As designed\".",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-values_text",
+                    "id": ""
+                },
+                "default_value": "auto",
+                "choices": {
+                    "auto": "Automatic",
+                    "dark": "Dark words",
+                    "light": "Light words"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_endacc_core_values_heading_and_background",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
                 "key": "field_brg_home_about_values",
                 "label": "Core values",
                 "name": "brg_home_about_values",
@@ -4904,6 +5230,65 @@
                 "ui": 0,
                 "ajax": 0,
                 "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_acc_photo_layout",
+                "label": "Photo layout",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_about_photo_side",
+                "label": "Photo — side",
+                "name": "brg_home_about_photo_side",
+                "type": "select",
+                "instructions": "Which side of the section the big photo sits on. This changes the wide layout only: on a phone the photo always comes first. The photo's height is set by Photo height at the top of this section.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-photo_side",
+                    "id": ""
+                },
+                "default_value": "left",
+                "choices": {
+                    "left": "On the left (as designed)",
+                    "right": "On the right"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_endacc_photo_layout",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
             },
             {
                 "key": "field_brg_home_about_acc_section_background",
@@ -6210,6 +6595,220 @@
                 "ui": 0,
                 "ajax": 0,
                 "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_acc_photo_layout",
+                "label": "Photo layout",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_home_different_photos_side",
+                "label": "Photos — side",
+                "name": "brg_home_different_photos_side",
+                "type": "select",
+                "instructions": "Which side of the section the photos sit on. This changes the wide layout only: on a phone the words always come first and the photos follow.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-photos_side",
+                    "id": ""
+                },
+                "default_value": "right",
+                "choices": {
+                    "right": "On the right (as designed)",
+                    "left": "On the left"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_photos_layout",
+                "label": "Photos — layout",
+                "name": "brg_home_different_photos_layout",
+                "type": "select",
+                "instructions": "How the three photos are arranged. \"As designed\" is the overlapping staircase. \"Mirrored\" flips it left to right. \"Big photo on top\" puts photo 1 across the top with photos 2 and 3 side by side under it, nothing overlapping. \"Three in a row\" puts the three side by side, nothing overlapping. Each photo's shape (below) still applies in every layout.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-photos_layout",
+                    "id": ""
+                },
+                "default_value": "design",
+                "choices": {
+                    "design": "As designed (overlapping staircase)",
+                    "mirror": "Mirrored",
+                    "stack": "Big photo on top, no overlap",
+                    "row": "Three in a row, no overlap"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_photos_order",
+                "label": "Photos — order",
+                "name": "brg_home_different_photos_order",
+                "type": "select",
+                "instructions": "Which photo goes in which place. In the staircase, place 1 is the big frame at the back, place 2 the tall one and place 3 the small one in front; the other layouts use the places in the same order. \"Photo 2, 1, 3\" puts photo 2 in place 1, photo 1 in place 2 and photo 3 in place 3. The photo boxes above keep their names (large, tall, small): only where each photo shows changes, and each photo's color, movement and shape travel with it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-photos_order",
+                    "id": ""
+                },
+                "default_value": "123",
+                "choices": {
+                    "123": "Photo 1, 2, 3 (as designed)",
+                    "132": "Photo 1, 3, 2",
+                    "213": "Photo 2, 1, 3",
+                    "231": "Photo 2, 3, 1",
+                    "312": "Photo 3, 1, 2",
+                    "321": "Photo 3, 2, 1"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_photo_1_shape",
+                "label": "Photo — large — shape",
+                "name": "brg_home_different_photo_1_shape",
+                "type": "select",
+                "instructions": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-photo_1_shape",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "1x1": "Square (1:1)",
+                    "5x4": "Landscape 5:4",
+                    "4x3": "Landscape 4:3",
+                    "3x2": "Landscape 3:2",
+                    "16x9": "Wide 16:9",
+                    "4x5": "Portrait 4:5",
+                    "3x4": "Portrait 3:4",
+                    "2x3": "Tall portrait 2:3",
+                    "9x16": "Tall 9:16 (phone shape)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_photo_2_shape",
+                "label": "Photo — tall — shape",
+                "name": "brg_home_different_photo_2_shape",
+                "type": "select",
+                "instructions": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-photo_2_shape",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "1x1": "Square (1:1)",
+                    "5x4": "Landscape 5:4",
+                    "4x3": "Landscape 4:3",
+                    "3x2": "Landscape 3:2",
+                    "16x9": "Wide 16:9",
+                    "4x5": "Portrait 4:5",
+                    "3x4": "Portrait 3:4",
+                    "2x3": "Tall portrait 2:3",
+                    "9x16": "Tall 9:16 (phone shape)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_photo_3_shape",
+                "label": "Photo — small — shape",
+                "name": "brg_home_different_photo_3_shape",
+                "type": "select",
+                "instructions": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-photo_3_shape",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "1x1": "Square (1:1)",
+                    "5x4": "Landscape 5:4",
+                    "4x3": "Landscape 4:3",
+                    "3x2": "Landscape 3:2",
+                    "16x9": "Wide 16:9",
+                    "4x5": "Portrait 4:5",
+                    "3x4": "Portrait 3:4",
+                    "2x3": "Tall portrait 2:3",
+                    "9x16": "Tall 9:16 (phone shape)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_different_endacc_photo_layout",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
             },
             {
                 "key": "field_brg_home_different_acc_section_background",

@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.01.2 (2026-11-01)
+- home: photo side, shape, layout and order controls; core values get their own background color, heading and highlight; community slides stack; Switchfoot placeholder
+
 ## 2026.11.01.1 (2026-11-01)
 - section color: choose a flat background color (brand roles, shades or custom) for 15 sections; words and nav flip to stay readable
 

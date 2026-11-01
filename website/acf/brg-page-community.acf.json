@@ -3267,6 +3267,31 @@
                 "endpoint": 1
             },
             {
+                "key": "field_brg_community_give_slide_layout",
+                "label": "Slides — layout",
+                "name": "brg_community_give_slide_layout",
+                "type": "select",
+                "instructions": "Stacked shows every slide one under another, so all of them are always visible and nothing moves on its own. Each slide's words and photo still animate in as it scrolls into view. Slider is the original: one slide at a time with dots, swiping and auto-advance. The side the words sit on, the phone order and the slide colors work the same in both. \"How a slide moves\" below only applies to the slider.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-slide_layout",
+                    "id": ""
+                },
+                "default_value": "stacked",
+                "choices": {
+                    "stacked": "Stacked, all visible",
+                    "slider": "Slider, one at a time"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_community_give_slide_split",
                 "label": "How a slide moves",
                 "name": "brg_community_give_slide_split",

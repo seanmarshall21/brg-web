@@ -34,7 +34,7 @@
      cover, so the container sizes it and an uploaded photo of any dimensions cannot shift the
      layout. The button is hidden by :empty when no label is typed, so a row without one does
      not leave an empty yellow box. -->
-<section data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sides="{{slide_sides}}" data-mfirst="{{slide_mobile_first}}" class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
+<section data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-stack="{{slide_layout}}" data-sides="{{slide_sides}}" data-mfirst="{{slide_mobile_first}}" class="brgw-sec brgw-sec--community-give reveal" data-nav="light" aria-label="How we give back" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--community-give{position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--community-give .intro{padding:clamp(76px,8.4vw,120px) var(--pad) clamp(58px,6vw,86px);
@@ -142,6 +142,21 @@
    a delayed transition does not do that — Chrome snaps a removed animation straight to the
    resting value, measured at 250ms into the change — so the resting state after reveal is
    open, and only the arrival animates. */
+/* STACKED (Erin's feedback via Sean, 1 Nov: "stack on the page as sections, so they're always all
+   visible"). The shared slider engine skips a slider inside data-stack="stacked" (brgw.js), so the
+   track is just a column of slides, there are no dots, and nothing auto-advances. brgw.js adds .is-on
+   to each slide as it scrolls into view, which plays the same panel and photo arrival the slider gives
+   a slide it shows; until then a slide's panel waits closed, as the first slide's does before reveal. */
+.brgw-sec--community-give[data-stack="stacked"] .brgw-slider{overflow:visible;}
+.brgw-sec--community-give[data-stack="stacked"] .brgw-slider .brgw-slider__track{display:block;transform:none;}
+.brgw-sec--community-give[data-stack="stacked"] .brgw-slider .brgw-slider__track > *{min-width:0;}
+.brgw-sec--community-give[data-stack="stacked"] .brgw-slider__dots{display:none;}
+.brgw-sec--community-give[data-stack="stacked"] .brgw-slide:not(.is-on) > .panel{clip-path:inset(100% 0 0 0);}
+.brgw-sec--community-give[data-stack="stacked"] .brgw-slide:not(.is-on) > .panel > *{opacity:0;transform:translateY(28px);}
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--community-give[data-stack="stacked"] .brgw-slide > .panel{clip-path:none!important;}
+  .brgw-sec--community-give[data-stack="stacked"] .brgw-slide > .panel > *{opacity:1!important;transform:none!important;}
+}
 @keyframes cg-panel-in{from{clip-path:inset(100% 0 0 0);}to{clip-path:inset(0 0 0 0);}}
 @keyframes cg-rise{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
 .brgw-sec--community-give:not(.is-in) .brgw-slide > .panel{clip-path:inset(100% 0 0 0);}
@@ -259,6 +274,16 @@
                decoding="async" loading="lazy">
         </div>
       </div>
+      <div class="brgw-slide">
+        <div class="panel">
+          <h3 class="blanco">Switchfoot Bro-Am</h3>
+          <p>Placeholder text, to be replaced: a few lines on the Switchfoot Bro-Am, what the day is, who it helps and how Blacktop Restaurant Group shows up for it.</p>
+        </div>
+        <div class="shot brgw-img" data-brgw-img>
+          <img src="https://blacktoprg.netlify.app/assets/media/bg/grit.webp" alt="" width="548" height="820"
+               decoding="async" loading="lazy">
+        </div>
+      </div>
 <!--/brg:repeat-->
     </div>
     <div class="brgw-slider__dots"></div>
@@ -272,7 +297,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "slide_sides": "alternate", "slide_mobile_first": "text", "slide_split": "", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"lede_1": "At BRG, community isn't a marketing initiative \u2014", "lede_emphasis": "it's in our DNA.", "lede_2": "When our restaurants thrive, the people around us should feel that too. That means showing up at local events, supporting causes that matter, partnering with schools and nonprofits, and investing in the places our guests call home.", "banner": "How we give back", "slides": "", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "mark_1_ast_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg", "mark_1_ast_pos": "keep", "mark_1_ast_opacity": "100", "mark_1_ast_show": "1", "mark_1_ast_anim": "keep", "slide_sides": "alternate", "slide_mobile_first": "text", "slide_layout": "stacked", "slide_split": "", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

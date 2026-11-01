@@ -46,12 +46,50 @@
    SAFE TO OPEN because the photos do not depend on this element to crop them — both
    children carry .brgw-img, which brings its own overflow:hidden. The clipping that
    matters stays exactly where it was; only the decoration is released. */
-.brgw-sec--home-community .media{position:relative;aspect-ratio:4/3.35;min-height:260px;
-  overflow:visible;}
-.brgw-sec--home-community .media .plate{position:absolute;left:0;bottom:0;width:86%;height:82%;}
-.brgw-sec--home-community .media .block{position:absolute;right:0;top:0;width:46%;height:44%;
-  background:var(--yellow);}
+/* The frames are placed by a small table (see the same block in home-different): a layout is two
+   places (x, top, width, width/height in percent of the canvas width), the order setting says which
+   photo takes which place, a photo's own shape replaces its place's ratio, and the canvas grows to the
+   lowest bottom edge. .media stays overflow:visible (see above) so the cluster can hang out. */
+.brgw-sec--home-community .media-w{container-type:inline-size;}
+.brgw-sec--home-community .media{--q1x:0;--q1t:15.075;--q1w:86;--q1r:calc(86/68.675);--q2x:54;--q2t:0;--q2w:46;--q2r:calc(46/36.85);--qmin:83.75;
+  --g11:1;--g12:0;--g21:0;--g22:1;
+  --a1:0;--r1:1;--a2:0;--r2:1;
+  --p1r:calc(var(--q1r) + var(--g11)*var(--a1)*(var(--r1) - var(--q1r)) + var(--g21)*var(--a2)*(var(--r2) - var(--q1r)));--p2r:calc(var(--q2r) + var(--g12)*var(--a1)*(var(--r1) - var(--q2r)) + var(--g22)*var(--a2)*(var(--r2) - var(--q2r)));
+  --bh:max(var(--qmin),calc(var(--q1t) + var(--q1w) / var(--p1r)),calc(var(--q2t) + var(--q2w) / var(--p2r)));
+  position:relative;height:calc(var(--bh) * 1cqw);}
+.brgw-sec--home-community .media[data-layout="mirror"]{--q1x:14;--q1t:15.075;--q1w:86;--q1r:calc(86/68.675);--q2x:0;--q2t:0;--q2w:46;--q2r:calc(46/36.85);--qmin:83.75;}
+.brgw-sec--home-community .media[data-layout="side"]{--q1x:0;--q1t:0;--q1w:62;--q1r:1.1;--q2x:64;--q2t:0;--q2w:36;--q2r:0.8;--qmin:0;}
+.brgw-sec--home-community .media[data-order="21"]{--g11:0;--g21:1;--g12:1;--g22:0;}
+.brgw-sec--home-community .media[data-r1="1x1"]{--a1:1;--r1:calc(1);}
+.brgw-sec--home-community .media[data-r1="5x4"]{--a1:1;--r1:calc(5/4);}
+.brgw-sec--home-community .media[data-r1="4x3"]{--a1:1;--r1:calc(4/3);}
+.brgw-sec--home-community .media[data-r1="3x2"]{--a1:1;--r1:calc(3/2);}
+.brgw-sec--home-community .media[data-r1="16x9"]{--a1:1;--r1:calc(16/9);}
+.brgw-sec--home-community .media[data-r1="4x5"]{--a1:1;--r1:calc(4/5);}
+.brgw-sec--home-community .media[data-r1="3x4"]{--a1:1;--r1:calc(3/4);}
+.brgw-sec--home-community .media[data-r1="2x3"]{--a1:1;--r1:calc(2/3);}
+.brgw-sec--home-community .media[data-r1="9x16"]{--a1:1;--r1:calc(9/16);}
+.brgw-sec--home-community .media[data-r2="1x1"]{--a2:1;--r2:calc(1);}
+.brgw-sec--home-community .media[data-r2="5x4"]{--a2:1;--r2:calc(5/4);}
+.brgw-sec--home-community .media[data-r2="4x3"]{--a2:1;--r2:calc(4/3);}
+.brgw-sec--home-community .media[data-r2="3x2"]{--a2:1;--r2:calc(3/2);}
+.brgw-sec--home-community .media[data-r2="16x9"]{--a2:1;--r2:calc(16/9);}
+.brgw-sec--home-community .media[data-r2="4x5"]{--a2:1;--r2:calc(4/5);}
+.brgw-sec--home-community .media[data-r2="3x4"]{--a2:1;--r2:calc(3/4);}
+.brgw-sec--home-community .media[data-r2="2x3"]{--a2:1;--r2:calc(2/3);}
+.brgw-sec--home-community .media[data-r2="9x16"]{--a2:1;--r2:calc(9/16);}
+.brgw-sec--home-community .media .pl{position:absolute;display:block;overflow:hidden;
+  left:calc((var(--ga)*var(--q1x) + var(--gb)*var(--q2x)) * 1cqw);top:calc((var(--ga)*var(--q1t) + var(--gb)*var(--q2t)) * 1cqw);
+  width:calc((var(--ga)*var(--q1w) + var(--gb)*var(--q2w)) * 1cqw);height:calc((var(--ga)*var(--q1w) / var(--p1r) + var(--gb)*var(--q2w) / var(--p2r)) * 1cqw);
+  z-index:calc(var(--ga)*1 + var(--gb)*2);}
+.brgw-sec--home-community .media .pl1{--ga:var(--g11);--gb:var(--g12);}
+.brgw-sec--home-community .media .pl2{--ga:var(--g21);--gb:var(--g22);}
+.brgw-sec--home-community .media .block{background:var(--yellow);}
 .brgw-sec--home-community .media .block img{filter:contrast(1.04);}
+/* Photos on the left: wide layout only, the words stay first on a phone. */
+@media(min-width:940px){
+  .brgw-sec--home-community .grid[data-side="left"] > .media-w{order:-1;}
+}
 /* THE BIG OUTLINE SMILEY, top left, bleeding up over the section above. It is in the comp
    and the artwork has been in the repo since August as icn-smile-line-xl-wht.svg,
    referenced by nothing — which is why it was missing rather than wrong.
@@ -76,7 +114,7 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_bolt_pos}}" data-mark-show="{{mark_1_bolt_show}}" data-mark-anim="{{mark_1_bolt_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_bolt_opacity}}"><img class="brgw-pop" src="{{mark_1_bolt_art}}" alt="" width="151" height="145" loading="lazy" decoding="async"></span>
 
-  <div class="grid">
+  <div class="grid" data-side="{{photos_side}}">
     <div>
       <h2 class="blanco anim-head">{{heading_1}}<br>{{heading_2}} <span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{heading_mark}}</span></span></h2>
   <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
@@ -84,17 +122,17 @@
       <p class="anim-up">{{body_1}}</p>
       <p class="anim-up">{{body_2}}</p>
     </div>
-    <div class="media anim-up">
-      <div class="plate brgw-img" data-brgw-img>
+    <div class="media-w anim-up"><div class="media" data-layout="{{photos_layout}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}">
+      <div class="plate pl pl1 brgw-img" data-brgw-img>
         <img src="{{photo_1}}" alt=""
              width="733" height="1100" decoding="async" loading="lazy" data-tone="{{photo_1_tone}}" data-px="{{photo_1_px}}" data-px-dir="{{photo_1_px_dir}}" data-float="{{photo_1_float}}" data-float-dir="{{photo_1_float_dir}}">
       </div>
-      <div class="block brgw-img" data-brgw-img>
+      <div class="block pl pl2 brgw-img" data-brgw-img>
         <img src="{{photo_2}}" alt=""
              width="548" height="820" decoding="async" loading="lazy" data-tone="{{photo_2_tone}}" data-px="{{photo_2_px}}" data-px-dir="{{photo_2_px_dir}}" data-float="{{photo_2_float}}" data-float-dir="{{photo_2_float_dir}}">
       </div>
       <span class="cluster" aria-hidden="true" data-mark-pos="{{mark_2_all_trim_pos}}" data-mark-show="{{mark_2_all_trim_show}}" data-mark-anim="{{mark_2_all_trim_anim}}" data-mark-o style="--brgw-mark-o:{{mark_2_all_trim_opacity}}"><img class="brgw-pop" src="{{mark_2_all_trim_art}}" alt="" width="302" height="310" loading="lazy" decoding="async"></span>
-    </div>
+    </div></div>
   </div>
   <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>
@@ -105,7 +143,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading_1": "Born in San Diego.", "heading_2": "Built", "heading_mark": "for community.", "intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.14", "section_bg_px": "0", "section_bg_px_dir": "down", "mark_1_bolt_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg", "mark_1_bolt_pos": "keep", "mark_1_bolt_opacity": "100", "mark_1_bolt_show": "1", "mark_1_bolt_anim": "keep", "mark_2_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_2_all_trim_pos": "keep", "mark_2_all_trim_opacity": "100", "mark_2_all_trim_show": "1", "mark_2_all_trim_anim": "keep", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading_1": "Born in San Diego.", "heading_2": "Built", "heading_mark": "for community.", "intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photos_side": "right", "photos_layout": "design", "photos_order": "12", "photo_1_shape": "keep", "photo_2_shape": "keep", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_mobile": "", "section_bg_opacity": "0.14", "section_bg_px": "0", "section_bg_px_dir": "down", "mark_1_bolt_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg", "mark_1_bolt_pos": "keep", "mark_1_bolt_opacity": "100", "mark_1_bolt_show": "1", "mark_1_bolt_anim": "keep", "mark_2_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_2_all_trim_pos": "keep", "mark_2_all_trim_opacity": "100", "mark_2_all_trim_show": "1", "mark_2_all_trim_anim": "keep", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

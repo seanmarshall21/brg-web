@@ -45,13 +45,75 @@
    flat yellow/black/white, but they're image slots — same treatment as home-community.
    Each keeps its comp color as the background beneath the photograph, so a missing or
    slow image still reads as the composition rather than as a hole. */
-.brgw-sec--home-different .blocks{position:relative;aspect-ratio:4/3.2;min-height:280px;}
-.brgw-sec--home-different .blocks .p{position:absolute;display:block;overflow:hidden;}
+/* THE FRAMES ARE PLACED BY A SMALL TABLE, NOT BY FIXED PERCENTAGES (Sean, 1 Nov: shift the order,
+   layout and aspect ratio of the images). The canvas is a size container (.blocks-w), so every
+   number below is a percent of its WIDTH, written as cqw. A layout is a table of three places
+   (x, top, width, width/height); the order setting says which photo takes which place (g<photo><place>,
+   1 or 0); a photo's own shape setting replaces the ratio of whichever place it lands in; and the
+   canvas grows to the lowest bottom edge, so a taller shape pushes the canvas down instead of
+   overflowing it. "As designed" with no shapes reproduces the old percentages exactly (checked by
+   measuring the frames before and after). Everything between here and the SD|CA comment is
+   generated from one table; change the table's numbers rather than a single rule. */
+.brgw-sec--home-different .blocks-w{container-type:inline-size;}
+.brgw-sec--home-different .blocks{--q1x:30;--q1t:0;--q1w:62;--q1r:calc(62/48);--q2x:48;--q2t:27.2;--q2w:52;--q2r:calc(52/49.6);--q3x:6;--q3t:41.6;--q3w:26;--q3r:calc(26/23.2);--qmin:80;
+  --g11:1;--g12:0;--g13:0;--g21:0;--g22:1;--g23:0;--g31:0;--g32:0;--g33:1;
+  --a1:0;--r1:1;--a2:0;--r2:1;--a3:0;--r3:1;
+  --p1r:calc(var(--q1r) + var(--g11)*var(--a1)*(var(--r1) - var(--q1r)) + var(--g21)*var(--a2)*(var(--r2) - var(--q1r)) + var(--g31)*var(--a3)*(var(--r3) - var(--q1r)));--p2r:calc(var(--q2r) + var(--g12)*var(--a1)*(var(--r1) - var(--q2r)) + var(--g22)*var(--a2)*(var(--r2) - var(--q2r)) + var(--g32)*var(--a3)*(var(--r3) - var(--q2r)));--p3r:calc(var(--q3r) + var(--g13)*var(--a1)*(var(--r1) - var(--q3r)) + var(--g23)*var(--a2)*(var(--r2) - var(--q3r)) + var(--g33)*var(--a3)*(var(--r3) - var(--q3r)));
+  --bh:max(var(--qmin),calc(var(--q1t) + var(--q1w) / var(--p1r)),calc(var(--q2t) + var(--q2w) / var(--p2r)),calc(var(--q3t) + var(--q3w) / var(--p3r)));
+  position:relative;height:calc(var(--bh) * 1cqw);}
+.brgw-sec--home-different .blocks[data-layout="mirror"]{--q1x:8;--q1t:0;--q1w:62;--q1r:calc(62/48);--q2x:0;--q2t:27.2;--q2w:52;--q2r:calc(52/49.6);--q3x:68;--q3t:41.6;--q3w:26;--q3r:calc(26/23.2);--qmin:80;}
+.brgw-sec--home-different .blocks[data-layout="stack"]{--q1x:0;--q1t:0;--q1w:100;--q1r:calc(16/9);--q2x:0;--q2t:58.25;--q2w:49;--q2r:1;--q3x:51;--q3t:58.25;--q3w:49;--q3r:1;--qmin:0;}
+.brgw-sec--home-different .blocks[data-layout="row"]{--q1x:0;--q1t:0;--q1w:32;--q1r:0.8;--q2x:34;--q2t:0;--q2w:32;--q2r:0.8;--q3x:68;--q3t:0;--q3w:32;--q3r:0.8;--qmin:0;}
+.brgw-sec--home-different .blocks[data-order="132"]{--g11:1;--g21:0;--g31:0;--g12:0;--g22:0;--g32:1;--g13:0;--g23:1;--g33:0;}
+.brgw-sec--home-different .blocks[data-order="213"]{--g11:0;--g21:1;--g31:0;--g12:1;--g22:0;--g32:0;--g13:0;--g23:0;--g33:1;}
+.brgw-sec--home-different .blocks[data-order="231"]{--g11:0;--g21:1;--g31:0;--g12:0;--g22:0;--g32:1;--g13:1;--g23:0;--g33:0;}
+.brgw-sec--home-different .blocks[data-order="312"]{--g11:0;--g21:0;--g31:1;--g12:1;--g22:0;--g32:0;--g13:0;--g23:1;--g33:0;}
+.brgw-sec--home-different .blocks[data-order="321"]{--g11:0;--g21:0;--g31:1;--g12:0;--g22:1;--g32:0;--g13:1;--g23:0;--g33:0;}
+.brgw-sec--home-different .blocks[data-r1="1x1"]{--a1:1;--r1:calc(1);}
+.brgw-sec--home-different .blocks[data-r1="5x4"]{--a1:1;--r1:calc(5/4);}
+.brgw-sec--home-different .blocks[data-r1="4x3"]{--a1:1;--r1:calc(4/3);}
+.brgw-sec--home-different .blocks[data-r1="3x2"]{--a1:1;--r1:calc(3/2);}
+.brgw-sec--home-different .blocks[data-r1="16x9"]{--a1:1;--r1:calc(16/9);}
+.brgw-sec--home-different .blocks[data-r1="4x5"]{--a1:1;--r1:calc(4/5);}
+.brgw-sec--home-different .blocks[data-r1="3x4"]{--a1:1;--r1:calc(3/4);}
+.brgw-sec--home-different .blocks[data-r1="2x3"]{--a1:1;--r1:calc(2/3);}
+.brgw-sec--home-different .blocks[data-r1="9x16"]{--a1:1;--r1:calc(9/16);}
+.brgw-sec--home-different .blocks[data-r2="1x1"]{--a2:1;--r2:calc(1);}
+.brgw-sec--home-different .blocks[data-r2="5x4"]{--a2:1;--r2:calc(5/4);}
+.brgw-sec--home-different .blocks[data-r2="4x3"]{--a2:1;--r2:calc(4/3);}
+.brgw-sec--home-different .blocks[data-r2="3x2"]{--a2:1;--r2:calc(3/2);}
+.brgw-sec--home-different .blocks[data-r2="16x9"]{--a2:1;--r2:calc(16/9);}
+.brgw-sec--home-different .blocks[data-r2="4x5"]{--a2:1;--r2:calc(4/5);}
+.brgw-sec--home-different .blocks[data-r2="3x4"]{--a2:1;--r2:calc(3/4);}
+.brgw-sec--home-different .blocks[data-r2="2x3"]{--a2:1;--r2:calc(2/3);}
+.brgw-sec--home-different .blocks[data-r2="9x16"]{--a2:1;--r2:calc(9/16);}
+.brgw-sec--home-different .blocks[data-r3="1x1"]{--a3:1;--r3:calc(1);}
+.brgw-sec--home-different .blocks[data-r3="5x4"]{--a3:1;--r3:calc(5/4);}
+.brgw-sec--home-different .blocks[data-r3="4x3"]{--a3:1;--r3:calc(4/3);}
+.brgw-sec--home-different .blocks[data-r3="3x2"]{--a3:1;--r3:calc(3/2);}
+.brgw-sec--home-different .blocks[data-r3="16x9"]{--a3:1;--r3:calc(16/9);}
+.brgw-sec--home-different .blocks[data-r3="4x5"]{--a3:1;--r3:calc(4/5);}
+.brgw-sec--home-different .blocks[data-r3="3x4"]{--a3:1;--r3:calc(3/4);}
+.brgw-sec--home-different .blocks[data-r3="2x3"]{--a3:1;--r3:calc(2/3);}
+.brgw-sec--home-different .blocks[data-r3="9x16"]{--a3:1;--r3:calc(9/16);}
+.brgw-sec--home-different .blocks .p{position:absolute;display:block;overflow:hidden;
+  left:calc((var(--ga)*var(--q1x) + var(--gb)*var(--q2x) + var(--gc)*var(--q3x)) * 1cqw);top:calc((var(--ga)*var(--q1t) + var(--gb)*var(--q2t) + var(--gc)*var(--q3t)) * 1cqw);
+  width:calc((var(--ga)*var(--q1w) + var(--gb)*var(--q2w) + var(--gc)*var(--q3w)) * 1cqw);height:calc((var(--ga)*var(--q1w) / var(--p1r) + var(--gb)*var(--q2w) / var(--p2r) + var(--gc)*var(--q3w) / var(--p3r)) * 1cqw);
+  z-index:calc(var(--ga)*1 + var(--gb)*2 + var(--gc)*3);}
+.brgw-sec--home-different .blocks .p1{--ga:var(--g11);--gb:var(--g12);--gc:var(--g13);}
+.brgw-sec--home-different .blocks .p2{--ga:var(--g21);--gb:var(--g22);--gc:var(--g23);}
+.brgw-sec--home-different .blocks .p3{--ga:var(--g31);--gb:var(--g32);--gc:var(--g33);}
 .brgw-sec--home-different .blocks .p img{width:100%;height:100%;object-fit:cover;display:block;
   filter:contrast(1.05);}
-.brgw-sec--home-different .blocks .y{right:8%;top:0;width:62%;height:60%;background:var(--yellow);}
-.brgw-sec--home-different .blocks .k{right:0;top:34%;width:52%;height:62%;background:#000;z-index:2;}
-.brgw-sec--home-different .blocks .w{left:6%;top:52%;width:26%;height:29%;background:var(--white);z-index:3;}
+/* Each photo keeps its comp color beneath it, whichever place it is in. */
+.brgw-sec--home-different .blocks .y{background:var(--yellow);}
+.brgw-sec--home-different .blocks .k{background:#000;}
+.brgw-sec--home-different .blocks .w{background:var(--white);}
+/* Photos on the left: wide layout only, the words stay first on a phone. */
+@media(min-width:940px){
+  .brgw-sec--home-different .grid[data-side="left"]{grid-template-columns:.98fr 1.02fr;}
+  .brgw-sec--home-different .grid[data-side="left"] > .blocks-w{order:-1;}
+}
 
 /* SD|CA, top right — in the comp, and supplied by Sean as its own SVG. A placed mark
    rather than part of the background artwork, so it keeps its position and its size
@@ -68,7 +130,7 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/svg/icons/bolt.svg" alt="" width="94" height="176" loading="lazy" decoding="async"></span>
 
-  <div class="grid">
+  <div class="grid" data-side="{{photos_side}}">
     <div>
       <h2 class="blanco anim-head"><span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{heading_mark}}</span></span> {{heading_1}}</h2>
   <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
@@ -79,20 +141,20 @@
     <!-- Parallax rates alternate in sign and grow with how far forward the plate sits, so
          the three separate as you scroll instead of tracking together. Stand-in photography
          — Sean to name the real three. -->
-    <div class="blocks anim-up">
-      <span class="p y brgw-img" data-brgw-img>
+    <div class="blocks-w anim-up"><div class="blocks" data-layout="{{photos_layout}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}" data-r3="{{photo_3_shape}}">
+      <span class="p p1 y brgw-img" data-brgw-img>
         <img src="{{photo_1}}" alt=""
              width="1600" height="1067" decoding="async" loading="lazy" data-tone="{{photo_1_tone}}" data-px="{{photo_1_px}}" data-px-dir="{{photo_1_px_dir}}" data-float="{{photo_1_float}}" data-float-dir="{{photo_1_float_dir}}">
       </span>
-      <span class="p k brgw-img" data-brgw-img>
+      <span class="p p2 k brgw-img" data-brgw-img>
         <img src="{{photo_2}}" alt=""
              width="733" height="1100" decoding="async" loading="lazy" data-tone="{{photo_2_tone}}" data-px="{{photo_2_px}}" data-px-dir="{{photo_2_px_dir}}" data-float="{{photo_2_float}}" data-float-dir="{{photo_2_float_dir}}">
       </span>
-      <span class="p w brgw-img" data-brgw-img>
+      <span class="p p3 w brgw-img" data-brgw-img>
         <img src="{{photo_3}}" alt=""
              width="548" height="820" decoding="async" loading="lazy" data-tone="{{photo_3_tone}}" data-px="{{photo_3_px}}" data-px-dir="{{photo_3_px_dir}}" data-float="{{photo_3_float}}" data-float-dir="{{photo_3_float_dir}}">
       </span>
-    </div>
+    </div></div>
   </div>
   <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>
@@ -103,7 +165,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading_1": "of\nrestaurant company", "heading_mark": "A different kind", "body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photo_3": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_3_tone": "color", "photo_3_px": "0", "photo_3_px_dir": "down", "photo_3_float": "0", "photo_3_float_dir": "down", "section_bg": "https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/difkind-bkgnd.webp", "section_bg_mobile": "", "section_bg_opacity": "0.5", "section_bg_px": "0", "section_bg_px_dir": "down", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading_1": "of\nrestaurant company", "heading_mark": "A different kind", "body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photo_3": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_3_tone": "color", "photo_3_px": "0", "photo_3_px_dir": "down", "photo_3_float": "0", "photo_3_float_dir": "down", "photos_side": "right", "photos_layout": "design", "photos_order": "123", "photo_1_shape": "keep", "photo_2_shape": "keep", "photo_3_shape": "keep", "section_bg": "https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/difkind-bkgnd.webp", "section_bg_mobile": "", "section_bg_opacity": "0.5", "section_bg_px": "0", "section_bg_px_dir": "down", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   var slots = {};
   try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}

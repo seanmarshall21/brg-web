@@ -2,13 +2,15 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
+<section data-pside="{{photo_side}}" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 /* position:relative makes THIS section the anchor for its .sec-bg layer. Without it the layer
    anchors to the page and a background chosen here appeared on the hero (Sean, 31 Oct). */
 .brgw-sec--home-about{--v-pad:clamp(12px,1.4vw,20px);position:relative;background:var(--white);color:var(--ink);}
 .brgw-sec--home-about .grid{display:grid;grid-template-columns:1fr;align-items:stretch;}
 @media(min-width:940px){ .brgw-sec--home-about .grid{grid-template-columns:1fr 1fr;} }
+/* Photo on the right is a setting; wide layout only, the photo stays first on a phone. */
+@media(min-width:940px){ .brgw-sec--home-about[data-pside="right"] .shot{order:2;} }
 
 .brgw-sec--home-about .shot{position:relative;min-height:clamp(260px,34vw,480px);overflow:hidden;}
 /* Photo height is a setting. "tall" is what it was before Erin asked for the vision and
@@ -55,8 +57,13 @@
 .brgw-sec--home-about .values-blk{display:none;padding:clamp(40px,5vw,72px) var(--pad) clamp(52px,6vw,90px);
   text-align:center;border-top:1px solid rgba(35,31,32,.14);}
 .brgw-sec--home-about[data-values="on"] .values-blk{display:block;}
-.brgw-sec--home-about .vh{font-size:clamp(1.3rem,2.3vw,1.9rem);text-transform:uppercase;
-  margin-bottom:clamp(22px,3vw,40px);}
+/* The heading is set like the section's own title: a yellow marker block, tilted, with the same
+   highlight for chosen words. "Plain words" (values_heading_style) drops the block. */
+.brgw-sec--home-about .vh{display:inline-block;background:var(--yellow);color:var(--ink);
+  font-size:clamp(1.5rem,2.9vw,2.5rem);text-transform:uppercase;padding:.04em .3em;transform:rotate(-1.6deg);
+  margin-bottom:clamp(26px,3.4vw,48px);}
+.brgw-sec--home-about .values-blk[data-vhs="plain"] .vh{background:none;color:inherit;padding:0;transform:none;}
+.brgw-sec--home-about .vh .mark[data-mark=""]{display:none;}
 .brgw-sec--home-about .wheel{width:100%;max-width:640px;margin-inline:auto;}
 .brgw-sec--home-about .ring{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:18px;}
 .brgw-sec--home-about .vl{font:inherit;cursor:pointer;border:0;background:var(--teal);color:var(--white);
@@ -105,7 +112,10 @@
 .brgw-sec--home-about[data-vlayout="columns"] .wheel,.brgw-sec--home-about[data-vlayout="list"] .wheel{display:none;}
 .brgw-sec--home-about{--v-tone-fg:var(--ink);--v-tone-bg:#fff;--v-fg:var(--ink);--v-bg:#fff;--v-blend:normal;--v-filter:none;--v-scrim:0;}
 .brgw-sec--home-about[data-vtone="dark"]{--v-tone-fg:#fff;--v-tone-bg:#000;--v-fg:#fff;--v-bg:#000;}
-.brgw-sec--home-about[data-vtone="dark"] .values-blk{background:#000;color:#fff;border-top-color:rgba(255,255,255,.2);}
+/* The tone paints the block only while no block color is chosen ("keep"); a chosen color is painted by
+   the shared section-color rules in brgw.css, and brgwSecColor then sets data-vtone from its brightness. */
+.brgw-sec--home-about[data-vtone="dark"] .values-blk[data-sec-color="keep"]{background:#000;color:#fff;}
+.brgw-sec--home-about[data-vtone="dark"] .values-blk{border-top-color:rgba(255,255,255,.2);}
 .brgw-sec--home-about[data-vtone="dark"] .wheel::before{border-color:rgba(255,255,255,.4);}
 .brgw-sec--home-about[data-vtone="dark"] .core{border-color:#fff;}
 .brgw-sec--home-about[data-vtone="light"][data-vil="normal"],.brgw-sec--home-about[data-vtone="dark"][data-vid="normal"]{--v-fg:#fff;--v-bg:var(--ink);--v-scrim:.55;}
@@ -225,8 +235,8 @@
       </div>
     </div>
   </div>
-  <div class="values-blk" aria-label="Our core values">
-    <h3 class="vh blanco anim-up">{{values_heading}}</h3>
+  <div class="values-blk brgw-sub" data-sec-color="{{values_color}}" data-sec-text="{{values_text}}" data-sec-custom="{{values_color_custom}}" data-sec-sync data-vhs="{{values_heading_style}}" aria-label="Our core values">
+    <h3 class="vh blanco anim-head">{{values_heading}} <span class="mark" data-mark="{{values_heading_mark}}"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{values_heading_mark}}</span></span></h3>
     <div class="wheel anim-up" data-wheel>
       <div class="ring">
       <!--brg:repeat values-->

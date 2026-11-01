@@ -555,6 +555,25 @@
       if (sl.dataset.sliderInit) return; sl.dataset.sliderInit = '1';
       var track = sl.querySelector('.brgw-slider__track');
       if (!track) return;
+      /* STACKED: every slide is shown one under another, so there is nothing to slide. Each slide gets
+         .is-on and the same brgw:slide announcement the slider sends, once, as it scrolls into view;
+         the panel animation (CSS) and the photo reveal (the image layer below) both key on those. The
+         two-column mode is switched off here because its rules would otherwise stack the halves. */
+      if (sl.closest('[data-stack="stacked"]')) {
+        sl.removeAttribute('data-split');
+        var stacked = [].slice.call(track.children);
+        var show = function (s, k) {
+          if (s.classList.contains('is-on')) return;
+          s.classList.add('is-on');
+          try { document.dispatchEvent(new CustomEvent('brgw:slide', { detail: { slider: sl, slide: s, index: k } })); } catch (err) { /* scroll reveal still opens the photo */ }
+        };
+        if (!('IntersectionObserver' in window)) { stacked.forEach(show); return; }
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { show(e.target, stacked.indexOf(e.target)); io.unobserve(e.target); } });
+        }, { threshold: 0.2 });
+        stacked.forEach(function (s) { io.observe(s); });
+        return;
+      }
       var slides = [].slice.call(track.children), n = slides.length;
       if (n < 2) return;
       var dotsWrap = sl.querySelector('.brgw-slider__dots');
@@ -1231,7 +1250,7 @@
   // (the WCAG ratio). Sections left on "As designed" are skipped and keep their own data-nav.
   function brgwSecColor(root) {
     var lin = function (v) { v = v / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
-    var secs = root.querySelectorAll('.brgw-sec[data-sec-color]');
+    var secs = root.querySelectorAll('.brgw-sec[data-sec-color], .brgw-sub[data-sec-color]');
     Array.prototype.forEach.call(secs, function (sec) {
       var key = sec.getAttribute('data-sec-color');
       if (!key || key === 'keep') return;
@@ -1246,6 +1265,12 @@
       var L = 0.2126 * lin(+m[0]) + 0.7152 * lin(+m[1]) + 0.0722 * lin(+m[2]);
       var inkWins = (L + 0.05) / (0.0144 + 0.05) > 1.05 / (L + 0.05);
       if (key === 'custom') sec.style.setProperty('--sec-t', inkWins ? 'var(--ink)' : 'var(--white)');
+      if (sec.classList.contains('brgw-sub')) {
+        // A coloured part of a section (the core values): keep that part's own light/dark setting in step
+        // with the colour, so its photo looks and item colours match. The page's nav is not touched.
+        if (sec.hasAttribute('data-sec-sync')) { var host = sec.closest('.brgw-sec'); if (host) host.setAttribute('data-vtone', inkWins ? 'light' : 'dark'); }
+        return;
+      }
       sec.setAttribute('data-nav', inkWins ? 'light' : 'dark');
     });
   }

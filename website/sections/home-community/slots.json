@@ -187,6 +187,83 @@
       "up": "Up"
     }
   },
+  "photos_side": {
+    "type": "select",
+    "label": "Photos — side",
+    "width": 34,
+    "default": "right",
+    "group": "Photo layout",
+    "doc": "Which side of the section the photos sit on. This changes the wide layout only: on a phone the words always come first and the photos follow.",
+    "choices": {
+      "right": "On the right (as designed)",
+      "left": "On the left"
+    }
+  },
+  "photos_layout": {
+    "type": "select",
+    "label": "Photos — layout",
+    "width": 33,
+    "default": "design",
+    "group": "Photo layout",
+    "doc": "How the two photos are arranged. \"As designed\" overlaps them, the tall one in front at the bottom left and the other behind at the top right. \"Mirrored\" flips that left to right. \"Side by side\" puts them next to each other with nothing overlapping. Each photo's shape (below) still applies in every layout.",
+    "choices": {
+      "design": "As designed (overlapping)",
+      "mirror": "Mirrored",
+      "side": "Side by side, no overlap"
+    }
+  },
+  "photos_order": {
+    "type": "select",
+    "label": "Photos — order",
+    "width": 33,
+    "default": "12",
+    "group": "Photo layout",
+    "doc": "Which photo goes in which place. Place 1 is the big frame (the tall photo in front, in the overlapping layout) and place 2 the smaller one. \"Photo 2, 1\" swaps them. The photo boxes above keep their names: only where each photo shows changes, and each photo's color, movement and shape travel with it.",
+    "choices": {
+      "12": "Photo 1, 2 (as designed)",
+      "21": "Photo 2, 1"
+    }
+  },
+  "photo_1_shape": {
+    "type": "select",
+    "label": "Photo — tall, front — shape",
+    "width": 50,
+    "default": "keep",
+    "group": "Photo layout",
+    "doc": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+    "choices": {
+      "keep": "As designed",
+      "1x1": "Square (1:1)",
+      "5x4": "Landscape 5:4",
+      "4x3": "Landscape 4:3",
+      "3x2": "Landscape 3:2",
+      "16x9": "Wide 16:9",
+      "4x5": "Portrait 4:5",
+      "3x4": "Portrait 3:4",
+      "2x3": "Tall portrait 2:3",
+      "9x16": "Tall 9:16 (phone shape)"
+    }
+  },
+  "photo_2_shape": {
+    "type": "select",
+    "label": "Photo — behind — shape",
+    "width": 50,
+    "default": "keep",
+    "group": "Photo layout",
+    "doc": "The shape of this photo's frame, width by height. \"As designed\" keeps the frame the layout gives it. The picture is cropped to fill the frame, so a different shape trims different edges; the frame's width stays the same and its height changes. Other photos and the layout keep their places.",
+    "choices": {
+      "keep": "As designed",
+      "1x1": "Square (1:1)",
+      "5x4": "Landscape 5:4",
+      "4x3": "Landscape 4:3",
+      "3x2": "Landscape 3:2",
+      "16x9": "Wide 16:9",
+      "4x5": "Portrait 4:5",
+      "3x4": "Portrait 3:4",
+      "2x3": "Tall portrait 2:3",
+      "9x16": "Tall 9:16 (phone shape)"
+    }
+  },
   "section_bg": {
     "type": "image",
     "label": "Section background",

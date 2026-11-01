@@ -893,3 +893,14 @@ Builds 2026.10.31.1 and .2 (commits beeddc3, 4f9b7dd), all in `website/sections/
 - New setting `values_soft_base` (color under a soft photo). `.brgw-sec--home-about` got `position:relative`: without
   it the section-background layer anchored to the page and showed on the hero.
 Measured in headless Chrome on generated copies (1440, 820, 700, 390); not yet confirmed on the live page by eye.
+
+## 2026-11-01 — Conti in home-about, home-different, home-community, community-give (finn's), announced
+
+Build 2026.11.01.1 (5e71e1a): new "Section color" settings (As designed, role colors, named shades, Custom hex; words and nav flip)
+on 15 non-hero sections; rules live in brgw.css, `brgwSecColor` in brgw.js. Heroes not included yet.
+This push (2026.11.01.2): home-different and home-community photo frames are placed from a small table (side, layout,
+order, per-photo shape); "as designed" matches the old positions exactly at 1440 and 1000 (measured). home-about: photo side.
+The core values block (still inside What We're About) gets its own background color (`.brgw-sub`, same shared rules),
+a heading in the section-title style with highlighted words, and the Light/Dark tone follows a chosen color.
+community-give: "Slides — layout" (stacked, default / slider); the shared slider skips a stacked slider; a fourth placeholder slide
+for the Switchfoot Bro-Am sits in the default (empty) slide set only.
