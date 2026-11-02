@@ -2,7 +2,7 @@
      OUR CORE VALUES. Rebuilt 1 Nov (Sean: "make these two different sections, one About, one Values"): the wheel, the
      columns and the list that used to sit inside What We're About now live here, so the two sections have their own
      backgrounds, order and settings. Owns the yellow ASTERISK seam badge, bleeding upward into the section above. -->
-<section class="brgw-sec brgw-sec--home-values reveal" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-sync data-nav="light" data-vhs="{{values_heading_style}}" data-vlayout="{{values_layout}}" data-vtext="{{values_text_pos}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="Our core values" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--home-values reveal" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-sec-sync data-nav="light" data-vhs="{{values_heading_style}}" data-vlayout="{{values_layout}}" data-vtext="{{values_text_pos}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="Our core values" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-values{--v-pad:clamp(12px,1.4vw,20px);--brgw-wrap:1420px;position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--home-values > *{position:relative;z-index:2;}
@@ -19,13 +19,15 @@
    angle from --i and --n, which brgw.js sets), so any number of values spaces itself.
    Below 700px, or in a browser without cos(), the ring becomes a row of names with the
    definition in a panel underneath: five labels round a circle is too tight at 390px. */
-.brgw-sec--home-values .values-blk{padding:clamp(84px,9vw,130px) var(--pad) clamp(80px,9vw,124px);
+.brgw-sec--home-values .values-blk{padding:clamp(44px,5vw,72px) var(--pad) clamp(80px,9vw,124px);
   text-align:center;}
 /* The heading is set like the section's own title: a yellow marker block, tilted, with the same
    highlight for chosen words. "Plain words" (values_heading_style) drops the block. */
 :where(.brgw-sec--home-values) .vh{display:inline-block;background:var(--yellow);color:var(--ink);
   font-size:clamp(1.5rem,2.9vw,2.5rem);text-transform:uppercase;padding:.04em .3em;transform:rotate(-1.6deg);
-  margin-bottom:clamp(26px,3.4vw,48px);}
+  }
+/* The gap under the label is set here, not above: a global heading rule (margin:0) outranks a :where() selector, which is why the label sat on top of the list. */
+.brgw-sec--home-values .values-blk .vh{margin-bottom:clamp(44px,6vw,92px);}
 .brgw-sec--home-values[data-vhs="plain"] .vh{background:none;color:inherit;padding:0;transform:none;}
 .brgw-sec--home-values .vh .mark[data-mark=""]{display:none;}
 .brgw-sec--home-values .wheel{width:100%;max-width:640px;margin-inline:auto;}
@@ -178,6 +180,28 @@
   .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vp{max-height:16em;padding-bottom:20px;opacity:1;}
   /* The words swap places in one step instead of sliding open, so the list is never between two heights;
      brgw.js also holds the list at the tallest height any one value needs. */
+  .brgw-sec--home-values .vset.is-measuring,.brgw-sec--home-values .vset.is-measuring *{transition:none!important;}
+}
+/* ---- MOBILE (Sean, 2 Nov: "the photo should be above all of them"): under 720px, list and columns become
+   the label, then ONE photo, then the names; the open name drops its words right under itself. The photo
+   shows the open value's picture and nothing is behind the words. .vi and .vx stop being boxes so every
+   photo can share the first grid row while names and words stack under it. */
+@container vb (not (min-width:720px)){
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vset{display:grid;grid-template-columns:minmax(0,1fr);grid-auto-rows:auto;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi{display:contents;opacity:1;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi + .vi{border-top:0;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vx{display:contents;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg{position:relative;inset:auto;grid-column:1;grid-row:1;aspect-ratio:4 / 3;margin-bottom:10px;
+    background:var(--v-base,rgba(128,128,128,.18));opacity:0;visibility:hidden;transition:opacity .35s ease;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vbg{opacity:1;visibility:visible;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg::after{display:none;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vn{grid-column:1;color:var(--v-tone-fg);opacity:.45;transition:opacity .3s ease;
+    border-top:1px solid rgba(128,128,128,.4);font-size:clamp(1.3rem,6.4vw,1.9rem);padding:16px 0 16px 2.6em;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vn::before{left:0;top:calc(16px + .5em);}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vn{opacity:1;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vp{grid-column:1;color:var(--v-tone-fg);max-height:0;overflow:hidden;opacity:0;
+    padding:0 0 0 calc(clamp(1.3rem,6.4vw,1.9rem) * 2.6);font-size:1rem;line-height:1.55;transition:opacity .35s ease;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vp{max-height:16em;padding-bottom:18px;opacity:1;}
   .brgw-sec--home-values .vset.is-measuring,.brgw-sec--home-values .vset.is-measuring *{transition:none!important;}
 }
 @media (prefers-reduced-motion:reduce){

@@ -1309,7 +1309,13 @@
         sec.style.setProperty('--sec-c', hex);
         sec.setAttribute('data-sec-set', '');
       }
+      // A section whose color is thinned (data-sec-op) paints a color-mix() value, which reads back as
+      // color(srgb 0.9 0.8 0 / .5), not rgb(). Read the solid color instead and judge the words as if the
+      // thinned color sat on white (the page behind most sections), so words stay readable on a pale mix.
+      var pct = parseFloat(sec.getAttribute('data-sec-op') || '100') || 100, solid = pct < 100 && sec.classList.contains('brgw-sec');
+      if (solid) { var keepBg = sec.style.background; sec.style.setProperty('background', 'var(--sec-c)', 'important'); }
       var m = (getComputedStyle(sec).backgroundColor || '').match(/[\d.]+/g);
+      if (solid) { sec.style.background = keepBg; if (m && m.length >= 3) { var al = pct / 100; m = [255 - (255 - m[0]) * al, 255 - (255 - m[1]) * al, 255 - (255 - m[2]) * al]; } }
       if (!m || m.length < 3 || (m.length > 3 && +m[3] === 0)) return;
       var L = 0.2126 * lin(+m[0]) + 0.7152 * lin(+m[1]) + 0.0722 * lin(+m[2]);
       var inkWins = (L + 0.05) / (0.0144 + 0.05) > 1.05 / (L + 0.05);

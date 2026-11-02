@@ -1,4 +1,4 @@
-/* brgw build 2026.11.01.9 */
+/* brgw build 2026.11.02.1 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -809,6 +809,17 @@
   [data-sec-color="yellow"],[data-sec-color="teal"],[data-sec-color="pink"],[data-sec-color="orange"],
   [data-sec-color="white"],[data-sec-color="ink"],[data-sec-color="custom"][data-sec-set]){
   background:var(--sec-c);color:var(--sec-t);}
+/* Section color opacity (Sean, 2 Nov): a section that carries data-sec-op paints its chosen color at that
+   percent, so what is behind shows through. "As designed" and an unusable custom color paint nothing, so
+   they are left out (otherwise --sec-c is empty and the section would go transparent). Browsers without
+   color-mix keep the solid color above. */
+@supports (background:color-mix(in srgb,red 50%,transparent)){
+  .brgw-sec[data-sec-op]:not([data-sec-op=""],[data-sec-op="100"],[data-sec-color="keep"],[data-sec-color=""],[data-sec-color="custom"]:not([data-sec-set])){
+    background:color-mix(in srgb,var(--sec-c) var(--sec-op,100%),transparent);}
+}
+.brgw-sec[data-sec-op="90"]{--sec-op:90%;}.brgw-sec[data-sec-op="80"]{--sec-op:80%;}.brgw-sec[data-sec-op="70"]{--sec-op:70%;}
+.brgw-sec[data-sec-op="60"]{--sec-op:60%;}.brgw-sec[data-sec-op="50"]{--sec-op:50%;}.brgw-sec[data-sec-op="40"]{--sec-op:40%;}
+.brgw-sec[data-sec-op="30"]{--sec-op:30%;}.brgw-sec[data-sec-op="20"]{--sec-op:20%;}.brgw-sec[data-sec-op="10"]{--sec-op:10%;}
 :is(.brgw-sec,.brgw-sub,.vh):is([data-sec-color="light"],[data-sec-color="dark"],[data-sec-color="accent"],[data-sec-color="alt"],
   [data-sec-color="yellow"],[data-sec-color="teal"],[data-sec-color="pink"],[data-sec-color="orange"],
   [data-sec-color="white"],[data-sec-color="ink"],[data-sec-color="custom"][data-sec-set])[data-sec-text="dark"]{color:var(--ink);}

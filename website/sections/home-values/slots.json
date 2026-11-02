@@ -446,6 +446,26 @@
       "light": "Light words"
     }
   },
+  "section_color_opacity": {
+    "type": "select",
+    "label": "Section color — opacity",
+    "width": 34,
+    "default": "100",
+    "group": "Section color",
+    "doc": "How solid the section color is. 100% is a flat color. Lower it to let what is behind the section show through: the page behind it, and with Section background on \"color on top\" the picture too. Works with any color except \"As designed\". The words pick dark or light for the color as if it sat on white, so on a very pale mix you may want to force Section text color.",
+    "choices": {
+      "100": "100% — solid",
+      "90": "90%",
+      "80": "80%",
+      "70": "70%",
+      "60": "60%",
+      "50": "50%",
+      "40": "40%",
+      "30": "30%",
+      "20": "20%",
+      "10": "10%"
+    }
+  },
   "btn_color": {
     "type": "select",
     "label": "Button color",

@@ -66,18 +66,18 @@
       "summary": "Lede + photo with image-reveal and parallax."
     },
     {
-      "id": "home-different",
-      "title": "Home — a different kind of restaurant company",
-      "group": "editorial",
-      "status": "live",
-      "summary": "Three image plates (yellow/black/white grounds) at three parallax rates; stand-in photography."
-    },
-    {
       "id": "home-values",
       "title": "Home — core values",
       "group": "grid",
       "status": "live",
       "summary": "Core-values grid over the BRG pattern watermark."
+    },
+    {
+      "id": "home-different",
+      "title": "Home — a different kind of restaurant company",
+      "group": "editorial",
+      "status": "live",
+      "summary": "Three image plates (yellow/black/white grounds) at three parallax rates; stand-in photography."
     },
     {
       "id": "our-restaurants-brands",
@@ -155,8 +155,8 @@
       "home-hero",
       "home-community",
       "home-about",
-      "home-different",
-      "home-values"
+      "home-values",
+      "home-different"
     ],
     "our-restaurants": [
       "our-restaurants-hero",
