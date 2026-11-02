@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.01.6 (2026-11-01)
+- home about: vision and mission stacked and large (setting; side by side still available)
+
 ## 2026.11.01.5 (2026-11-01)
 - kit and wp-admin: core values fields share one 'Core values' drop-down
 

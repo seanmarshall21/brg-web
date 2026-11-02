@@ -2,7 +2,7 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section data-pside="{{photo_side}}" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
+<section data-vm="{{vm_layout}}" data-pside="{{photo_side}}" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 /* position:relative makes THIS section the anchor for its .sec-bg layer. Without it the layer
    anchors to the page and a background chosen here appeared on the hero (Sean, 31 Oct). */
@@ -45,6 +45,9 @@
 .brgw-sec--home-about .mv{display:grid;grid-template-columns:1fr;gap:clamp(22px,2.4vw,32px);}
 @media(min-width:560px){ .brgw-sec--home-about .mv{grid-template-columns:1fr 1fr;gap:clamp(18px,2vw,30px);} }
 .brgw-sec--home-about .body{gap:clamp(18px,2.2vw,30px);}
+/* STACKED vision and mission (Sean, 1 Nov: side by side "looks weird"): one column, each statement large. */
+.brgw-sec--home-about[data-vm="stacked"] .mv{grid-template-columns:1fr;gap:clamp(30px,3.4vw,52px);}
+.brgw-sec--home-about[data-vm="stacked"] .big{font-size:clamp(1.35rem,2.6vw,2.2rem);max-width:26ch;}
 
 /* ---- CORE VALUES, in this section (hidden until values_on = on) -------------------------
    Erin 30 Oct: fold Core Values into What We're About; Clayton: a wheel, with the definition

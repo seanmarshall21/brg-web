@@ -4602,6 +4602,31 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_about_vm_layout",
+                "label": "Vision and mission — layout",
+                "name": "brg_home_about_vm_layout",
+                "type": "select",
+                "instructions": "Stacked shows the vision large, then the mission large underneath it, in one column. Side by side is the smaller two-column block used before. Nothing moves in either.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-vm_layout",
+                    "id": ""
+                },
+                "default_value": "stacked",
+                "choices": {
+                    "stacked": "Stacked, one under the other",
+                    "side": "Side by side"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_home_about_values_on",
                 "label": "Core values — show in this section",
                 "name": "brg_home_about_values_on",

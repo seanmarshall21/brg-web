@@ -66,6 +66,17 @@
       "short": "Short"
     }
   },
+  "vm_layout": {
+    "type": "select",
+    "label": "Vision and mission — layout",
+    "width": 50,
+    "default": "stacked",
+    "doc": "Stacked shows the vision large, then the mission large underneath it, in one column. Side by side is the smaller two-column block used before. Nothing moves in either.",
+    "choices": {
+      "stacked": "Stacked, one under the other",
+      "side": "Side by side"
+    }
+  },
   "values_on": {
     "type": "select",
     "label": "Core values — show in this section",
