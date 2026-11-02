@@ -904,3 +904,14 @@ The core values block (still inside What We're About) gets its own background co
 a heading in the section-title style with highlighted words, and the Light/Dark tone follows a chosen color.
 community-give: "Slides — layout" (stacked, default / slider); the shared slider skips a stacked slider; a fourth placeholder slide
 for the Switchfoot Bro-Am sits in the default (empty) slide set only.
+
+## 2026-11-01 (later) — Conti, more home-about and shared brgw files (finn's), announced
+
+Builds .3 to .7 (to 78df827). home-about: vision and mission stacked by default (`vm_layout`), core values fields share one
+"Core values" group and are renamed to start "Core values —"; list layout: words under the open name by default (new
+`values_text_pos`, "Under the photo" keeps the old place), no colored box behind the photo. Kit panel now uses drop-down groups
+and hover tips (kit/build-kit.py). Shared: 15 non-hero sections get "Background — how it mixes with the color / which is on top /
+continue from the section above" (`brgwSecBg` in brgw.js, rules after `.sec-bg[data-bg=""]` in brgw.css; only sections that use
+it get an isolated group). brgwMotion now clamps a photo's travel to the slack it really has and restores the slack if
+anything wipes it, so a photo cannot leave its frame. Measured in headless Chrome on generated copies and on the live
+page; the live drift report from Sean could not be reproduced there.
