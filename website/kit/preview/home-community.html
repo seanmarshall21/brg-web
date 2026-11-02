@@ -55,11 +55,23 @@
   --g11:1;--g12:0;--g21:0;--g22:1;
   --a1:0;--r1:1;--a2:0;--r2:1;
   --p1r:calc(var(--q1r) + var(--g11)*var(--a1)*(var(--r1) - var(--q1r)) + var(--g21)*var(--a2)*(var(--r2) - var(--q1r)));--p2r:calc(var(--q2r) + var(--g12)*var(--a1)*(var(--r1) - var(--q2r)) + var(--g22)*var(--a2)*(var(--r2) - var(--q2r)));
-  --bh:max(var(--qmin),calc(var(--q1t) + var(--q1w) / var(--p1r)),calc(var(--q2t) + var(--q2w) / var(--p2r)));
+  --s1:1;--s2:1;
+  --e1:calc(var(--g11)*var(--s1) + var(--g21)*var(--s2));--e2:calc(var(--g12)*var(--s1) + var(--g22)*var(--s2));
+  --bh:max(var(--qmin),calc(var(--q1t) + var(--q1w) / var(--p1r) * (1 + var(--e1)) / 2),calc(var(--q2t) + var(--q2w) / var(--p2r) * (1 + var(--e2)) / 2));
   position:relative;overflow:visible;height:calc(var(--bh) * 1cqw);}
 .brgw-sec--home-community .media[data-layout="mirror"]{--q1x:14;--q1t:15.075;--q1w:86;--q1r:calc(86/68.675);--q2x:0;--q2t:0;--q2w:46;--q2r:calc(46/36.85);--qmin:83.75;}
 .brgw-sec--home-community .media[data-layout="side"]{--q1x:0;--q1t:0;--q1w:62;--q1r:1.1;--q2x:64;--q2t:0;--q2w:36;--q2r:0.8;--qmin:0;}
 .brgw-sec--home-community .media[data-order="21"]{--g11:0;--g21:1;--g12:1;--g22:0;}
+/* SCALE (Sean, 1 Nov: make the photos bigger as well as reshape them): a photo grows or shrinks around its own
+   center. Medium is as designed. The canvas height follows, counting the grown or shrunk frame. */
+.brgw-sec--home-community .media[data-s1="xs"]{--s1:0.7;}
+.brgw-sec--home-community .media[data-s1="s"]{--s1:0.85;}
+.brgw-sec--home-community .media[data-s1="l"]{--s1:1.2;}
+.brgw-sec--home-community .media[data-s1="xl"]{--s1:1.4;}
+.brgw-sec--home-community .media[data-s2="xs"]{--s2:0.7;}
+.brgw-sec--home-community .media[data-s2="s"]{--s2:0.85;}
+.brgw-sec--home-community .media[data-s2="l"]{--s2:1.2;}
+.brgw-sec--home-community .media[data-s2="xl"]{--s2:1.4;}
 .brgw-sec--home-community .media[data-r1="1x1"]{--a1:1;--r1:calc(1);}
 .brgw-sec--home-community .media[data-r1="5x4"]{--a1:1;--r1:calc(5/4);}
 .brgw-sec--home-community .media[data-r1="4x3"]{--a1:1;--r1:calc(4/3);}
@@ -79,11 +91,12 @@
 .brgw-sec--home-community .media[data-r2="2x3"]{--a2:1;--r2:calc(2/3);}
 .brgw-sec--home-community .media[data-r2="9x16"]{--a2:1;--r2:calc(9/16);}
 .brgw-sec--home-community .media .pl{position:absolute;display:block;overflow:hidden;
-  left:calc((var(--ga)*var(--q1x) + var(--gb)*var(--q2x)) * 1cqw);top:calc((var(--ga)*var(--q1t) + var(--gb)*var(--q2t)) * 1cqw);
-  width:calc((var(--ga)*var(--q1w) + var(--gb)*var(--q2w)) * 1cqw);height:calc((var(--ga)*var(--q1w) / var(--p1r) + var(--gb)*var(--q2w) / var(--p2r)) * 1cqw);
+  --X:calc(var(--ga)*var(--q1x) + var(--gb)*var(--q2x));--T:calc(var(--ga)*var(--q1t) + var(--gb)*var(--q2t));--W:calc(var(--ga)*var(--q1w) + var(--gb)*var(--q2w));--H:calc(var(--ga)*var(--q1w) / var(--p1r) + var(--gb)*var(--q2w) / var(--p2r));
+  left:calc((var(--X) - var(--W) * (var(--s) - 1) / 2) * 1cqw);top:calc((var(--T) - var(--H) * (var(--s) - 1) / 2) * 1cqw);
+  width:calc(var(--W) * var(--s) * 1cqw);height:calc(var(--H) * var(--s) * 1cqw);
   z-index:calc(var(--ga)*1 + var(--gb)*2);}
-.brgw-sec--home-community .media .pl1{--ga:var(--g11);--gb:var(--g12);}
-.brgw-sec--home-community .media .pl2{--ga:var(--g21);--gb:var(--g22);}
+.brgw-sec--home-community .media .pl1{--s:var(--s1);--ga:var(--g11);--gb:var(--g12);}
+.brgw-sec--home-community .media .pl2{--s:var(--s2);--ga:var(--g21);--gb:var(--g22);}
 .brgw-sec--home-community .media .block{background:var(--yellow);}
 .brgw-sec--home-community .media .block img{filter:contrast(1.04);}
 /* Photos on the left: wide layout only, the words stay first on a phone. */
@@ -122,7 +135,7 @@
       <p class="anim-up">{{body_1}}</p>
       <p class="anim-up">{{body_2}}</p>
     </div>
-    <div class="media-w anim-up"><div class="media" data-layout="{{photos_layout}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}">
+    <div class="media-w anim-up"><div class="media" data-layout="{{photos_layout}}" data-s1="{{photo_1_scale}}" data-s2="{{photo_2_scale}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}">
       <div class="plate pl pl1 brgw-img" data-brgw-img>
         <img src="{{photo_1}}" alt=""
              width="733" height="1100" decoding="async" loading="lazy" data-tone="{{photo_1_tone}}" data-px="{{photo_1_px}}" data-px-dir="{{photo_1_px_dir}}" data-float="{{photo_1_float}}" data-float-dir="{{photo_1_float_dir}}">
@@ -143,7 +156,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading_1": "Born in San Diego.", "heading_2": "Built", "heading_mark": "for community.", "intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photos_side": "right", "photos_layout": "design", "photos_order": "12", "photo_1_shape": "keep", "photo_2_shape": "keep", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_blend": "normal", "section_bg_layer": "under", "section_bg_join": "no", "section_bg_mobile": "", "section_bg_opacity": "0.14", "section_bg_px": "0", "section_bg_px_dir": "down", "mark_1_bolt_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg", "mark_1_bolt_pos": "keep", "mark_1_bolt_opacity": "100", "mark_1_bolt_show": "1", "mark_1_bolt_anim": "keep", "mark_2_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_2_all_trim_pos": "keep", "mark_2_all_trim_opacity": "100", "mark_2_all_trim_show": "1", "mark_2_all_trim_anim": "keep", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading_1": "Born in San Diego.", "heading_2": "Built", "heading_mark": "for community.", "intro_1": "Blacktop Restaurant Group started with a simple belief:", "intro_emphasis": "that a great meal is really just an excuse to connect.", "intro_2": "Since 2013, we've been growing a family of restaurant brands rooted in genuine hospitality, craft food, and a deep love for the communities we call home.", "body_1": "We're not a corporation chasing locations \u2014 we're operators who eat at our own restaurants, know our guests by name, and measure success by how many times someone walks out the door smiling.", "body_2": "Today, BRG operates 12 Board & Brew locations across San Diego and Orange County, plus Odie's Pizza Co. in Oceanside \u2014 and we're just getting started.", "hl_variant": "h3", "photo_1": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photos_side": "right", "photos_layout": "design", "photos_order": "12", "photo_1_shape": "keep", "photo_2_shape": "keep", "photo_1_scale": "m", "photo_2_scale": "m", "section_bg": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp", "section_bg_blend": "normal", "section_bg_layer": "under", "section_bg_join": "no", "section_bg_mobile": "", "section_bg_opacity": "0.14", "section_bg_px": "0", "section_bg_px_dir": "down", "mark_1_bolt_art": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-bolt.svg", "mark_1_bolt_pos": "keep", "mark_1_bolt_opacity": "100", "mark_1_bolt_show": "1", "mark_1_bolt_anim": "keep", "mark_2_all_trim_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-clust-all-trim.svg", "mark_2_all_trim_pos": "keep", "mark_2_all_trim_opacity": "100", "mark_2_all_trim_show": "1", "mark_2_all_trim_anim": "keep", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
   // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.

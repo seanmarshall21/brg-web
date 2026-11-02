@@ -3332,6 +3332,62 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_home_community_photo_1_scale",
+        "label": "Photo — tall, front — scale",
+        "name": "brg_home_community_photo_1_scale",
+        "type": "select",
+        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-photo_1_scale",
+          "id": ""
+        },
+        "default_value": "m",
+        "choices": {
+          "xs": "Extra small",
+          "s": "Small",
+          "m": "Medium (as designed)",
+          "l": "Large",
+          "xl": "Extra large"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_community_photo_2_scale",
+        "label": "Photo — behind — scale",
+        "name": "brg_home_community_photo_2_scale",
+        "type": "select",
+        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-photo_2_scale",
+          "id": ""
+        },
+        "default_value": "m",
+        "choices": {
+          "xs": "Extra small",
+          "s": "Small",
+          "m": "Medium (as designed)",
+          "l": "Large",
+          "xl": "Extra large"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_community_endacc_photo_layout",
         "label": "",
         "name": "",
@@ -4706,543 +4762,6 @@
         "ui": 0,
         "ajax": 0,
         "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_on",
-        "label": "Core values — show in this section",
-        "name": "brg_home_about_values_on",
-        "type": "select",
-        "instructions": "Shows the core values wheel below the vision and mission, so the story reads as one section. It is HIDDEN until you switch it on. When you do, remove the separate Core Values section from the page in Oxygen, or the values will show twice.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_on",
-          "id": ""
-        },
-        "default_value": "off",
-        "choices": {
-          "off": "Hidden (as it is today)",
-          "on": "Shown"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_layout",
-        "label": "Core values — layout",
-        "name": "brg_home_about_values_layout",
-        "type": "select",
-        "instructions": "How the values are laid out. Wheel: names round a ring, the description in the middle. Columns: numbered columns side by side; the one you point at or tap grows wide and the rest shrink. List: a numbered list on the left with the photo and description on the right. All three read from the same list of values below, so you can flip between them to compare.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_layout",
-          "id": ""
-        },
-        "default_value": "wheel",
-        "choices": {
-          "wheel": "Wheel",
-          "columns": "Columns",
-          "list": "List"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_text_pos",
-        "label": "Core values — list: where the words go",
-        "name": "brg_home_about_values_text_pos",
-        "type": "select",
-        "instructions": "Only for the List layout. Under the name: the open value's words drop down right under its name, pushing the names below it down, and the photo stands alone on the right. Under the photo: the words sit below the photo on the right. Neither has a colored box behind it.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_text_pos",
-          "id": ""
-        },
-        "default_value": "name",
-        "choices": {
-          "name": "Under the name",
-          "photo": "Under the photo"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_tone",
-        "label": "Core values — light or dark",
-        "name": "brg_home_about_values_tone",
-        "type": "select",
-        "instructions": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a background color for the core values (the next box) overrides this and makes it follow that color's brightness.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_tone",
-          "id": ""
-        },
-        "default_value": "light",
-        "choices": {
-          "light": "Light (white)",
-          "dark": "Dark (black)"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_color",
-        "label": "Core values — background color",
-        "name": "brg_home_about_values_color",
-        "type": "select",
-        "instructions": "A background color for the core values part alone, so it can differ from the rest of this section. \"As designed\" uses the Light or Dark choice above (white or black). Any other choice is painted instead, and the Light or Dark choice then follows its brightness on its own, so the photo looks and words stay right.\n\nLight, Dark, Accent and Alt accent are ROLES set once on the Site-wide page. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The section's own background color (further down) still colors the rest of the section.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "34",
-          "class": "brg-f-values_color",
-          "id": ""
-        },
-        "default_value": "keep",
-        "choices": {
-          "keep": "As designed",
-          "light": "Light",
-          "dark": "Dark",
-          "accent": "Accent",
-          "alt": "Alt accent",
-          "yellow": "Yellow (a specific shade)",
-          "teal": "Teal (a specific shade)",
-          "pink": "Pink (a specific shade)",
-          "orange": "Orange (a specific shade)",
-          "white": "White (a specific shade)",
-          "ink": "Black (a specific shade)",
-          "custom": "Custom (use the color box)"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_color_custom",
-        "label": "Core values — custom color",
-        "name": "brg_home_about_values_color_custom",
-        "type": "color_picker",
-        "instructions": "Used only when the background color above is Custom. Left empty, a Custom choice does nothing.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "33",
-          "class": "brg-f-values_color_custom",
-          "id": ""
-        },
-        "default_value": ""
-      },
-      {
-        "key": "field_brg_home_about_values_text",
-        "label": "Core values — words",
-        "name": "brg_home_about_values_text",
-        "type": "select",
-        "instructions": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while the background color is \"As designed\".",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "33",
-          "class": "brg-f-values_text",
-          "id": ""
-        },
-        "default_value": "auto",
-        "choices": {
-          "auto": "Automatic",
-          "dark": "Dark words",
-          "light": "Light words"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_heading_style",
-        "label": "Core values — heading style",
-        "name": "brg_home_about_values_heading_style",
-        "type": "select",
-        "instructions": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "34",
-          "class": "brg-f-values_heading_style",
-          "id": ""
-        },
-        "default_value": "marker",
-        "choices": {
-          "marker": "Yellow marker block (like the section title)",
-          "plain": "Plain words"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_heading_color",
-        "label": "Core values — heading — marker color",
-        "name": "brg_home_about_values_heading_color",
-        "type": "select",
-        "instructions": "The color of the block behind the heading above the values. \"Yellow\" is how it has always been. Pick another when the values background is yellow, since a yellow block on yellow disappears. The words on the block flip between black and white on their own. Light, Dark, Accent and Alt accent are the roles set once on the Site-wide page; the named shades are fixed colors; Custom uses the color box next to this one. Has no effect when the heading style is Plain words.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "34",
-          "class": "brg-f-values_heading_color",
-          "id": ""
-        },
-        "default_value": "keep",
-        "choices": {
-          "keep": "Yellow (as it is)",
-          "light": "Light",
-          "dark": "Dark",
-          "accent": "Accent",
-          "alt": "Alt accent",
-          "yellow": "Yellow (a specific shade)",
-          "teal": "Teal (a specific shade)",
-          "pink": "Pink (a specific shade)",
-          "orange": "Orange (a specific shade)",
-          "white": "White (a specific shade)",
-          "ink": "Black (a specific shade)",
-          "custom": "Custom (use the color box)"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_heading_color_custom",
-        "label": "Core values — heading — custom marker color",
-        "name": "brg_home_about_values_heading_color_custom",
-        "type": "color_picker",
-        "instructions": "Used only when the marker color is Custom.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "33",
-          "class": "brg-f-values_heading_color_custom",
-          "id": ""
-        },
-        "default_value": ""
-      },
-      {
-        "key": "field_brg_home_about_values_heading_mark",
-        "label": "Core values — heading — highlighted words",
-        "name": "brg_home_about_values_heading_mark",
-        "type": "text",
-        "instructions": "Words in the heading to highlight with the same marker stroke the section title uses (the style is the Highlight setting at the top of this section). Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\".",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "66",
-          "class": "brg-f-values_heading_mark",
-          "id": ""
-        },
-        "default_value": ""
-      },
-      {
-        "key": "field_brg_home_about_values_autoplay",
-        "label": "Core values — auto-play (columns and list)",
-        "name": "brg_home_about_values_autoplay",
-        "type": "select",
-        "instructions": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It stops on whichever one someone is pointing at or has tapped, carries on a few seconds after they leave, and does nothing for visitors who have asked their device to reduce motion.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_autoplay",
-          "id": ""
-        },
-        "default_value": "on",
-        "choices": {
-          "on": "On",
-          "off": "Off"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_secs",
-        "label": "Core values — seconds on each (columns and list)",
-        "name": "brg_home_about_values_secs",
-        "type": "select",
-        "instructions": "How long each value stays open before the next one.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_secs",
-          "id": ""
-        },
-        "default_value": "5",
-        "choices": {
-          "3": "3 seconds",
-          "4": "4 seconds",
-          "5": "5 seconds",
-          "7": "7 seconds",
-          "10": "10 seconds"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_img_light",
-        "label": "Core values — photo look on a light background",
-        "name": "brg_home_about_values_img_light",
-        "type": "select",
-        "instructions": "Used when the background above is Light. Normal shows the photo as it is. Black and white takes the color out. Soft multiply lays the photo faintly over the white, darkening it, so the words stay dark and easy to read.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_img_light",
-          "id": ""
-        },
-        "default_value": "soft",
-        "choices": {
-          "normal": "Normal",
-          "bw": "Black and white",
-          "soft": "Soft, multiply"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_img_light_amt",
-        "label": "Core values — light: how strong the soft look is",
-        "name": "brg_home_about_values_img_light_amt",
-        "type": "select",
-        "instructions": "Only used when the look is Soft. A higher number shows more of the photo.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_img_light_amt",
-          "id": ""
-        },
-        "default_value": "30",
-        "choices": {
-          "10": "10%",
-          "20": "20%",
-          "30": "30%",
-          "40": "40%",
-          "60": "60%"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_soft_base",
-        "label": "Core values — light: color under the soft photo",
-        "name": "brg_home_about_values_soft_base",
-        "type": "select",
-        "instructions": "Only used when the look is Soft. The photo is multiplied onto this color, so any white in the photo shows as this color instead of plain white, and the whole column reads darker. White is how it was before.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_soft_base",
-          "id": ""
-        },
-        "default_value": "mid",
-        "choices": {
-          "white": "White",
-          "light": "Light gray",
-          "mid": "Mid gray",
-          "slate": "Slate gray"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_img_dark",
-        "label": "Core values — photo look on a dark background",
-        "name": "brg_home_about_values_img_dark",
-        "type": "select",
-        "instructions": "Used when the background above is Dark. Normal shows the photo as it is. Black and white takes the color out. Soft screen lays the photo faintly over the black, lightening it, so the words stay white and easy to read.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_img_dark",
-          "id": ""
-        },
-        "default_value": "soft",
-        "choices": {
-          "normal": "Normal",
-          "bw": "Black and white",
-          "soft": "Soft, screen"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_img_dark_amt",
-        "label": "Core values — dark: how strong the soft look is",
-        "name": "brg_home_about_values_img_dark_amt",
-        "type": "select",
-        "instructions": "Only used when the look is Soft. A higher number shows more of the photo.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "50",
-          "class": "brg-f-values_img_dark_amt",
-          "id": ""
-        },
-        "default_value": "10",
-        "choices": {
-          "10": "10%",
-          "20": "20%",
-          "30": "30%",
-          "40": "40%"
-        },
-        "return_format": "value",
-        "allow_null": 0,
-        "multiple": 0,
-        "ui": 0,
-        "ajax": 0,
-        "placeholder": ""
-      },
-      {
-        "key": "field_brg_home_about_values_heading",
-        "label": "Core values — heading",
-        "name": "brg_home_about_values_heading",
-        "type": "text",
-        "instructions": "The title above the wheel.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": "100",
-          "class": "brg-f-values_heading",
-          "id": ""
-        },
-        "default_value": "Our core values"
-      },
-      {
-        "key": "field_brg_home_about_values",
-        "label": "Core values — the list",
-        "name": "brg_home_about_values",
-        "type": "repeater",
-        "instructions": "The values, shown as the wheel, the columns or the list (the Layout box above picks). On the wheel, point at a name (or tap it) and its description appears in the middle. In the columns and the list, the photo is the background of the column or the picture beside the list.\n\nUNTIL YOU ADD THE FIRST ONE HERE the section shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community, with no photos. Adding one replaces all five, so add every value you want, not only the one you are changing. Five fits the columns best.",
-        "required": 0,
-        "conditional_logic": 0,
-        "wrapper": {
-          "width": 100,
-          "class": "brg-f-values brg-fallback",
-          "id": ""
-        },
-        "layout": "block",
-        "button_label": "Add a value",
-        "min": 0,
-        "max": 0,
-        "collapsed": "field_brg_home_about_values_label",
-        "sub_fields": [
-          {
-            "key": "field_brg_home_about_values_label",
-            "label": "Name",
-            "name": "label",
-            "type": "text",
-            "instructions": "The short name on the card, set in the brand face. One or two words reads best.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "100",
-              "class": "brg-f-label",
-              "id": ""
-            },
-            "default_value": ""
-          },
-          {
-            "key": "field_brg_home_about_values_body",
-            "label": "Description",
-            "name": "body",
-            "type": "textarea",
-            "instructions": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "100",
-              "class": "brg-f-body",
-              "id": ""
-            },
-            "default_value": ""
-          },
-          {
-            "key": "field_brg_home_about_values_image",
-            "label": "Photo",
-            "name": "image",
-            "type": "image",
-            "instructions": "Used by the columns and the list; the wheel ignores it. Portrait or square works best for the columns, around 800x1000. Leave empty for a plain color.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-              "width": "100",
-              "class": "brg-f-image",
-              "id": ""
-            },
-            "return_format": "url",
-            "preview_size": "medium",
-            "library": "all"
-          }
-        ]
       },
       {
         "key": "field_brg_home_about_photo",
@@ -6988,6 +6507,90 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_home_different_photo_1_scale",
+        "label": "Photo — large — scale",
+        "name": "brg_home_different_photo_1_scale",
+        "type": "select",
+        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-photo_1_scale",
+          "id": ""
+        },
+        "default_value": "m",
+        "choices": {
+          "xs": "Extra small",
+          "s": "Small",
+          "m": "Medium (as designed)",
+          "l": "Large",
+          "xl": "Extra large"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_photo_2_scale",
+        "label": "Photo — tall — scale",
+        "name": "brg_home_different_photo_2_scale",
+        "type": "select",
+        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-photo_2_scale",
+          "id": ""
+        },
+        "default_value": "m",
+        "choices": {
+          "xs": "Extra small",
+          "s": "Small",
+          "m": "Medium (as designed)",
+          "l": "Large",
+          "xl": "Extra large"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_photo_3_scale",
+        "label": "Photo — small — scale",
+        "name": "brg_home_different_photo_3_scale",
+        "type": "select",
+        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-photo_3_scale",
+          "id": ""
+        },
+        "default_value": "m",
+        "choices": {
+          "xs": "Extra small",
+          "s": "Small",
+          "m": "Medium (as designed)",
+          "l": "Large",
+          "xl": "Extra large"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_different_endacc_photo_layout",
         "label": "",
         "name": "",
@@ -7901,10 +7504,10 @@
       },
       {
         "key": "field_brg_home_values_heading",
-        "label": "Heading",
+        "label": "Core values — heading",
         "name": "brg_home_values_heading",
         "type": "text",
-        "instructions": "Sits above the values grid, in the display face. Plain — no marker block, no line break. ~24 characters.",
+        "instructions": "The words above the values, in the section-title style. Set the marker color, the highlighted words and the plain style in the boxes below.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -7913,6 +7516,359 @@
           "id": ""
         },
         "default_value": "Our core values"
+      },
+      {
+        "key": "field_brg_home_values_values_layout",
+        "label": "Core values — layout",
+        "name": "brg_home_values_values_layout",
+        "type": "select",
+        "instructions": "How the values are laid out. Wheel: names round a ring, the description in the middle. Columns: numbered columns side by side; the one you point at or tap grows wide and the rest shrink. List: a numbered list on the left with the photo and description on the right. All three read from the same list of values below, so you can flip between them to compare.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_layout",
+          "id": ""
+        },
+        "default_value": "list",
+        "choices": {
+          "wheel": "Wheel",
+          "columns": "Columns",
+          "list": "List"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_text_pos",
+        "label": "Core values — list: where the words go",
+        "name": "brg_home_values_values_text_pos",
+        "type": "select",
+        "instructions": "Only for the List layout. Under the name: the open value's words drop down right under its name, pushing the names below it down, and the photo stands alone on the right. Under the photo: the words sit below the photo on the right. Neither has a colored box behind it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_text_pos",
+          "id": ""
+        },
+        "default_value": "name",
+        "choices": {
+          "name": "Under the name",
+          "photo": "Under the photo"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_tone",
+        "label": "Core values — light or dark",
+        "name": "brg_home_values_values_tone",
+        "type": "select",
+        "instructions": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a Section color further down overrides this and makes it follow that color's brightness.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_tone",
+          "id": ""
+        },
+        "default_value": "light",
+        "choices": {
+          "light": "Light (white)",
+          "dark": "Dark (black)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_heading_style",
+        "label": "Core values — heading style",
+        "name": "brg_home_values_values_heading_style",
+        "type": "select",
+        "instructions": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-values_heading_style",
+          "id": ""
+        },
+        "default_value": "marker",
+        "choices": {
+          "marker": "Yellow marker block (like the section title)",
+          "plain": "Plain words"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_heading_color",
+        "label": "Core values — heading — marker color",
+        "name": "brg_home_values_values_heading_color",
+        "type": "select",
+        "instructions": "The color of the block behind the heading above the values. \"Yellow\" is how it has always been. Pick another when the values background is yellow, since a yellow block on yellow disappears. The words on the block flip between black and white on their own. Light, Dark, Accent and Alt accent are the roles set once on the Site-wide page; the named shades are fixed colors; Custom uses the color box next to this one. Has no effect when the heading style is Plain words.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-values_heading_color",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "Yellow (as it is)",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)",
+          "custom": "Custom (use the color box)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_heading_color_custom",
+        "label": "Core values — heading — custom marker color",
+        "name": "brg_home_values_values_heading_color_custom",
+        "type": "color_picker",
+        "instructions": "Used only when the marker color is Custom.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-values_heading_color_custom",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_home_values_values_heading_mark",
+        "label": "Core values — heading — highlighted words",
+        "name": "brg_home_values_values_heading_mark",
+        "type": "text",
+        "instructions": "Words in the heading to highlight with the same marker stroke the About section's title uses. Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\".",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "66",
+          "class": "brg-f-values_heading_mark",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_home_values_values_autoplay",
+        "label": "Core values — auto-play (columns and list)",
+        "name": "brg_home_values_values_autoplay",
+        "type": "select",
+        "instructions": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It stops on whichever one someone is pointing at or has tapped, carries on a few seconds after they leave, and does nothing for visitors who have asked their device to reduce motion.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_autoplay",
+          "id": ""
+        },
+        "default_value": "on",
+        "choices": {
+          "on": "On",
+          "off": "Off"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_secs",
+        "label": "Core values — seconds on each (columns and list)",
+        "name": "brg_home_values_values_secs",
+        "type": "select",
+        "instructions": "How long each value stays open before the next one.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_secs",
+          "id": ""
+        },
+        "default_value": "5",
+        "choices": {
+          "3": "3 seconds",
+          "4": "4 seconds",
+          "5": "5 seconds",
+          "7": "7 seconds",
+          "10": "10 seconds"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_img_light",
+        "label": "Core values — photo look on a light background",
+        "name": "brg_home_values_values_img_light",
+        "type": "select",
+        "instructions": "Used when the background above is Light. Normal shows the photo as it is. Black and white takes the color out. Soft multiply lays the photo faintly over the white, darkening it, so the words stay dark and easy to read.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_img_light",
+          "id": ""
+        },
+        "default_value": "normal",
+        "choices": {
+          "normal": "Normal",
+          "bw": "Black and white",
+          "soft": "Soft, multiply"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_img_light_amt",
+        "label": "Core values — light: how strong the soft look is",
+        "name": "brg_home_values_values_img_light_amt",
+        "type": "select",
+        "instructions": "Only used when the look is Soft. A higher number shows more of the photo.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_img_light_amt",
+          "id": ""
+        },
+        "default_value": "10",
+        "choices": {
+          "10": "10%",
+          "20": "20%",
+          "30": "30%",
+          "40": "40%",
+          "60": "60%"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_soft_base",
+        "label": "Core values — light: color under the soft photo",
+        "name": "brg_home_values_values_soft_base",
+        "type": "select",
+        "instructions": "Only used when the look is Soft. The photo is multiplied onto this color, so any white in the photo shows as this color instead of plain white, and the whole column reads darker. White is how it was before.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_soft_base",
+          "id": ""
+        },
+        "default_value": "white",
+        "choices": {
+          "white": "White",
+          "light": "Light gray",
+          "mid": "Mid gray",
+          "slate": "Slate gray"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_img_dark",
+        "label": "Core values — photo look on a dark background",
+        "name": "brg_home_values_values_img_dark",
+        "type": "select",
+        "instructions": "Used when the background above is Dark. Normal shows the photo as it is. Black and white takes the color out. Soft screen lays the photo faintly over the black, lightening it, so the words stay white and easy to read.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_img_dark",
+          "id": ""
+        },
+        "default_value": "soft",
+        "choices": {
+          "normal": "Normal",
+          "bw": "Black and white",
+          "soft": "Soft, screen"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_img_dark_amt",
+        "label": "Core values — dark: how strong the soft look is",
+        "name": "brg_home_values_values_img_dark_amt",
+        "type": "select",
+        "instructions": "Only used when the look is Soft. A higher number shows more of the photo.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_img_dark_amt",
+          "id": ""
+        },
+        "default_value": "10",
+        "choices": {
+          "10": "10%",
+          "20": "20%",
+          "30": "30%",
+          "40": "40%"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
       },
       {
         "key": "field_brg_home_values_acc_section_background",
@@ -8178,10 +8134,10 @@
       },
       {
         "key": "field_brg_home_values_values",
-        "label": "The values",
+        "label": "Core values — the list",
         "name": "brg_home_values_values",
         "type": "repeater",
-        "instructions": "The cards in this section. They were built into the page and could not be edited.\n\nUNTIL YOU ADD THE FIRST ONE HERE the page keeps showing the five it has always shown — Leadership, Culture, Advocate, Stay Stoked, Community. Adding one replaces all five, so add every card you want, not only the one you are changing.\n\nThe grid reflows to whatever number you give it.",
+        "instructions": "The values, shown as the wheel, the columns or the list (the Layout box above picks). On the wheel, point at a name (or tap it) and its description appears in the middle. In the columns and the list, the photo is the background of the column or the picture beside the list.\n\nUNTIL YOU ADD THE FIRST ONE HERE the section shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community, with no photos. Adding one replaces all five, so add every value you want, not only the one you are changing. Five fits the columns best.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -8224,6 +8180,23 @@
               "id": ""
             },
             "default_value": ""
+          },
+          {
+            "key": "field_brg_home_values_values_image",
+            "label": "Photo",
+            "name": "image",
+            "type": "image",
+            "instructions": "Used by the columns and the list; the wheel ignores it. Portrait or square works best for the columns, around 800x1000. Leave empty for a plain color.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-image",
+              "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all"
           }
         ]
       },
@@ -8884,7 +8857,7 @@
           "class": "brg-f-section_color",
           "id": ""
         },
-        "default_value": "keep",
+        "default_value": "accent",
         "choices": {
           "keep": "As designed",
           "light": "Light",

@@ -264,6 +264,36 @@
       "9x16": "Tall 9:16 (phone shape)"
     }
   },
+  "photo_1_scale": {
+    "type": "select",
+    "label": "Photo — tall, front — scale",
+    "width": 50,
+    "default": "m",
+    "group": "Photo layout",
+    "doc": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+    "choices": {
+      "xs": "Extra small",
+      "s": "Small",
+      "m": "Medium (as designed)",
+      "l": "Large",
+      "xl": "Extra large"
+    }
+  },
+  "photo_2_scale": {
+    "type": "select",
+    "label": "Photo — behind — scale",
+    "width": 50,
+    "default": "m",
+    "group": "Photo layout",
+    "doc": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+    "choices": {
+      "xs": "Extra small",
+      "s": "Small",
+      "m": "Medium (as designed)",
+      "l": "Large",
+      "xl": "Extra large"
+    }
+  },
   "section_bg": {
     "type": "image",
     "label": "Section background",

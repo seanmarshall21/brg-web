@@ -1299,6 +1299,9 @@
     var secs = root.querySelectorAll('.brgw-sec[data-sec-color], .brgw-sub[data-sec-color], .vh[data-sec-color]');
     Array.prototype.forEach.call(secs, function (sec) {
       var key = sec.getAttribute('data-sec-color');
+      if ((!key || key === 'keep') && sec.classList.contains('brgw-sec') && sec.hasAttribute('data-sec-sync')) {
+        sec.setAttribute('data-nav', sec.getAttribute('data-vtone') === 'dark' ? 'dark' : 'light');   // a whole section whose own light/dark setting is its tone
+      }
       if (!key || key === 'keep') return;
       if (key === 'custom') {
         var hex = (sec.getAttribute('data-sec-custom') || '').trim();
@@ -1318,6 +1321,7 @@
         if (sec.hasAttribute('data-sec-sync')) { var host = sec.closest('.brgw-sec'); if (host) host.setAttribute('data-vtone', inkWins ? 'light' : 'dark'); }
         return;
       }
+      if (sec.hasAttribute('data-sec-sync')) sec.setAttribute('data-vtone', inkWins ? 'light' : 'dark');   // a whole section that follows its own color
       sec.setAttribute('data-nav', inkWins ? 'light' : 'dark');
     });
   }

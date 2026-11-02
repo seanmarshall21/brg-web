@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.01.9 (2026-11-01)
+- Core Values is its own section again (home-values rebuilt with the wheel, columns and list; About no longer holds them); photo scale (extra small to extra large) for the Home staircase photos
+
 ## 2026.11.01.8 (2026-11-01)
 - core values list holds one height and no longer jumps on hover; core values heading marker color setting; BRG sticker in Born in San Diego no longer cut off
 
