@@ -915,3 +915,9 @@ continue from the section above" (`brgwSecBg` in brgw.js, rules after `.sec-bg[d
 it get an isolated group). brgwMotion now clamps a photo's travel to the slack it really has and restores the slack if
 anything wipes it, so a photo cannot leave its frame. Measured in headless Chrome on generated copies and on the live
 page; the live drift report from Sean could not be reproduced there.
+
+### 2026-11-02 — Conti: Core Values batches .8, .9 and 2026.11.02.1 (edits in finn's files, at Sean's request)
+- **.8:** heading marker color (`values_heading_color`), fixed list height, hover only on real mouse movement, home-community sticker overflow restored.
+- **.9:** About and Core Values are two sections now (`[brg_home-values]` is the values); per-photo scale (xs 0.7 … xl 1.4) on home-different and home-community.
+- **2026.11.02.1:** under 720px the values list is label, one photo, then the names with the open name's words under it (no photo behind); `section_color_opacity` on home-values (brgw.css `data-sec-op`, brgw.js probe in brgwSecColor); label spacing (less above, more below); `sections.json` order now puts home-values after home-about so the wp-admin tabs match the page.
+- Files touched: `website/sections/home-values/*`, `website/assets/brgw.css`, `website/assets/brgw.js`, `website/sections.json`.
