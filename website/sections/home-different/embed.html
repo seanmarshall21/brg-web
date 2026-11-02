@@ -38,8 +38,8 @@
 
 /* Three overlapping IMAGE plates, at the comp's block positions. The comp draws them as
    flat yellow/black/white, but they're image slots — same treatment as home-community.
-   Each keeps its comp color as the background beneath the photograph, so a missing or
-   slow image still reads as the composition rather than as a hole. */
+   Each used to keep its comp color as the background beneath the photograph; that is now the "Behind the photo"
+   setting and is off unless chosen. */
 /* THE FRAMES ARE PLACED BY A SMALL TABLE, NOT BY FIXED PERCENTAGES (Sean, 1 Nov: shift the order,
    layout and aspect ratio of the images). The canvas is a size container (.blocks-w), so every
    number below is a percent of its WIDTH, written as cqw. A layout is a table of three places
@@ -123,9 +123,11 @@
 .brgw-sec--home-different .blocks .p img{width:100%;height:100%;object-fit:cover;display:block;
   filter:contrast(1.05);}
 /* Each photo keeps its comp color beneath it, whichever place it is in. */
-.brgw-sec--home-different .blocks .y{background:var(--yellow);}
-.brgw-sec--home-different .blocks .k{background:#000;}
-.brgw-sec--home-different .blocks .w{background:var(--white);}
+/* Nothing is painted behind a photo unless Sean chooses it (Sean, 2 Nov: "there shouldn't be a colored background
+   behind it, unless I say"). The comp's yellow, black and white grounds are now a per-photo setting. */
+.brgw-sec--home-different .blocks .p[data-ground="yellow"]{background:var(--yellow);}
+.brgw-sec--home-different .blocks .p[data-ground="black"]{background:#000;}
+.brgw-sec--home-different .blocks .p[data-ground="white"]{background:var(--white);}
 /* Photos on the left: wide layout only, the words stay first on a phone. */
 @media(min-width:940px){
   .brgw-sec--home-different .grid[data-side="left"]{grid-template-columns:.98fr 1.02fr;}
@@ -159,15 +161,15 @@
          the three separate as you scroll instead of tracking together. Stand-in photography
          — Sean to name the real three. -->
     <div class="blocks-w anim-up"><div class="blocks" style="--lx:{{photos_shift_x}};--ly:{{photos_shift_y}}" data-layout="{{photos_layout}}" data-s1="{{photo_1_scale}}" data-s2="{{photo_2_scale}}" data-s3="{{photo_3_scale}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}" data-r3="{{photo_3_shape}}">
-      <span class="p p1 y brgw-img" data-brgw-img>
+      <span class="p p1 y brgw-img" data-brgw-img data-ground="{{photo_1_ground}}">
         <img src="{{photo_1}}" alt=""
              width="1600" height="1067" decoding="async" loading="lazy" data-tone="{{photo_1_tone}}" data-px="{{photo_1_px}}" data-px-dir="{{photo_1_px_dir}}" data-float="{{photo_1_float}}" data-float-dir="{{photo_1_float_dir}}">
       </span>
-      <span class="p p2 k brgw-img" data-brgw-img>
+      <span class="p p2 k brgw-img" data-brgw-img data-ground="{{photo_2_ground}}">
         <img src="{{photo_2}}" alt=""
              width="733" height="1100" decoding="async" loading="lazy" data-tone="{{photo_2_tone}}" data-px="{{photo_2_px}}" data-px-dir="{{photo_2_px_dir}}" data-float="{{photo_2_float}}" data-float-dir="{{photo_2_float_dir}}">
       </span>
-      <span class="p p3 w brgw-img" data-brgw-img>
+      <span class="p p3 w brgw-img" data-brgw-img data-ground="{{photo_3_ground}}">
         <img src="{{photo_3}}" alt=""
              width="548" height="820" decoding="async" loading="lazy" data-tone="{{photo_3_tone}}" data-px="{{photo_3_px}}" data-px-dir="{{photo_3_px_dir}}" data-float="{{photo_3_float}}" data-float-dir="{{photo_3_float_dir}}">
       </span>

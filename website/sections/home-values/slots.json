@@ -80,6 +80,26 @@
     "default": "",
     "doc": "Used only when the marker color is Custom."
   },
+  "values_heading_text": {
+    "type": "select",
+    "label": "Core values — heading — text color",
+    "width": 34,
+    "default": "auto",
+    "doc": "The color of the words in the heading (\"Our core values\"). Automatic leaves them as designed (dark on a light marker). Choose White to put white words on a black marker block, for instance. \"Custom\" uses the color box next to this one.",
+    "choices": {
+      "auto": "Automatic",
+      "dark": "Black",
+      "light": "White",
+      "custom": "Custom (use the color box)"
+    }
+  },
+  "values_heading_text_custom": {
+    "type": "color",
+    "label": "Core values — heading — custom text color",
+    "width": 33,
+    "default": "",
+    "doc": "Used only when the heading text color is set to Custom. Left empty, a Custom choice does nothing."
+  },
   "values_heading_mark": {
     "type": "text",
     "label": "Core values — heading — highlighted words",

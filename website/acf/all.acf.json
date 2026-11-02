@@ -6048,6 +6048,48 @@
         "default_value": ""
       },
       {
+        "key": "field_brg_home_values_values_heading_text",
+        "label": "Core values — heading — text color",
+        "name": "brg_home_values_values_heading_text",
+        "type": "select",
+        "instructions": "The color of the words in the heading (\"Our core values\"). Automatic leaves them as designed (dark on a light marker). Choose White to put white words on a black marker block, for instance. \"Custom\" uses the color box next to this one.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-values_heading_text",
+          "id": ""
+        },
+        "default_value": "auto",
+        "choices": {
+          "auto": "Automatic",
+          "dark": "Black",
+          "light": "White",
+          "custom": "Custom (use the color box)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_values_heading_text_custom",
+        "label": "Core values — heading — custom text color",
+        "name": "brg_home_values_values_heading_text_custom",
+        "type": "color_picker",
+        "instructions": "Used only when the heading text color is set to Custom. Left empty, a Custom choice does nothing.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-values_heading_text_custom",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
         "key": "field_brg_home_values_values_heading_mark",
         "label": "Core values — heading — highlighted words",
         "name": "brg_home_values_values_heading_mark",
@@ -8232,6 +8274,87 @@
           "4": "Down — a little",
           "8": "Down",
           "12": "Down — a lot"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_photo_1_ground",
+        "label": "Photo — large — behind the photo",
+        "name": "brg_home_different_photo_1_ground",
+        "type": "select",
+        "instructions": "A flat color painted BEHIND this photo. \"None\" paints nothing, so if a photo is ever short of its frame, or has not loaded yet, you see the section behind it, not a block of color. Choose a color only if you want one there.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-photo_1_ground",
+          "id": ""
+        },
+        "default_value": "none",
+        "choices": {
+          "none": "None",
+          "yellow": "Yellow",
+          "black": "Black",
+          "white": "White"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_photo_2_ground",
+        "label": "Photo — tall — behind the photo",
+        "name": "brg_home_different_photo_2_ground",
+        "type": "select",
+        "instructions": "A flat color painted BEHIND this photo. \"None\" paints nothing, so if a photo is ever short of its frame, or has not loaded yet, you see the section behind it, not a block of color. Choose a color only if you want one there.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-photo_2_ground",
+          "id": ""
+        },
+        "default_value": "none",
+        "choices": {
+          "none": "None",
+          "yellow": "Yellow",
+          "black": "Black",
+          "white": "White"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_photo_3_ground",
+        "label": "Photo — small — behind the photo",
+        "name": "brg_home_different_photo_3_ground",
+        "type": "select",
+        "instructions": "A flat color painted BEHIND this photo. \"None\" paints nothing, so if a photo is ever short of its frame, or has not loaded yet, you see the section behind it, not a block of color. Choose a color only if you want one there.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-photo_3_ground",
+          "id": ""
+        },
+        "default_value": "none",
+        "choices": {
+          "none": "None",
+          "yellow": "Yellow",
+          "black": "Black",
+          "white": "White"
         },
         "return_format": "value",
         "allow_null": 0,

@@ -28,6 +28,10 @@
   }
 /* The gap under the label is set here, not above: a global heading rule (margin:0) outranks a :where() selector, which is why the label sat on top of the list. */
 .brgw-sec--home-values .values-blk .vh{margin-bottom:clamp(44px,6vw,92px);}
+/* The label's words (Sean, 2 Nov: "a black highlight with white text"): Automatic leaves them to the marker color. */
+.brgw-sec--home-values .values-blk .vh[data-vtc="dark"]{color:var(--ink);}
+.brgw-sec--home-values .values-blk .vh[data-vtc="light"]{color:var(--white);}
+.brgw-sec--home-values .values-blk .vh[data-vtc="custom"]{color:var(--vh-tc,inherit);}
 .brgw-sec--home-values[data-vhs="plain"] .vh{background:none;color:inherit;padding:0;transform:none;}
 .brgw-sec--home-values .vh .mark[data-mark=""]{display:none;}
 .brgw-sec--home-values .wheel{width:100%;max-width:640px;margin-inline:auto;}
@@ -160,6 +164,10 @@
     font-size:clamp(1.5rem,3vw,2.7rem);padding:18px 0 18px 3.2em;border-top:1px solid rgba(128,128,128,.4);}
   .brgw-sec--home-values[data-vlayout="list"] .vn::before{left:0;top:calc(18px + .55em);}
   .brgw-sec--home-values[data-vlayout="list"] .vi.is-on .vn{opacity:1;}
+  /* The open name sits close to its words (Sean, 2 Nov: the gap under "01 Leadership" was far too big): its bottom
+     padding closes up while it is open, at the same pace the words open, so the list's height never changes. */
+  .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vn{transition:opacity .6s ease,padding-bottom .6s cubic-bezier(.4,0,.2,1);}
+  .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vn{padding-bottom:6px;}
   .brgw-sec--home-values[data-vlayout="list"] .vx{display:block;grid-column:2;grid-row:1 / span var(--n,5);position:relative;opacity:0;visibility:hidden;
     transition:opacity 0s linear .8s,visibility 0s linear .8s;color:var(--v-tone-fg);isolation:isolate;}
   .brgw-sec--home-values[data-vlayout="list"] .vi.is-on .vx{opacity:1;visibility:visible;z-index:2;transition:opacity .8s ease;}
@@ -205,9 +213,10 @@
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vbg img{transform:none;transition:transform 1.6s cubic-bezier(.2,.8,.2,1);}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg::after{display:none;}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vn{grid-column:1;color:var(--v-tone-fg);opacity:.45;transition:opacity .6s ease;
-    border-top:1px solid rgba(128,128,128,.4);font-size:clamp(1.3rem,6.4vw,1.9rem);padding:16px 0 16px 2.6em;}
+    border-top:1px solid rgba(128,128,128,.4);font-size:clamp(1.3rem,6.4vw,1.9rem);padding:16px 0 16px 2.6em;
+    transition:opacity .6s ease,padding-bottom .6s cubic-bezier(.4,0,.2,1);}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vn::before{left:0;top:calc(16px + .5em);}
-  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vn{opacity:1;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vn{opacity:1;padding-bottom:4px;}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vp{grid-column:1;color:var(--v-tone-fg);max-height:0;overflow:hidden;opacity:0;
     padding:0 0 0 calc(clamp(1.3rem,6.4vw,1.9rem) * 2.6);font-size:1rem;line-height:1.55;
     transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .25s ease;}
@@ -225,7 +234,7 @@
   <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_ast_pos}}" data-mark-show="{{mark_1_ast_show}}" data-mark-anim="{{mark_1_ast_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_ast_opacity}}"><img class="brgw-pop" src="{{mark_1_ast_art}}" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
   <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
   <div class="values-blk">
-    <h3 class="vh blanco anim-head" data-sec-color="{{values_heading_color}}" data-sec-custom="{{values_heading_color_custom}}">{{heading}} <span class="mark" data-mark="{{values_heading_mark}}"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{values_heading_mark}}</span></span></h3>
+    <h3 class="vh blanco anim-head" data-sec-color="{{values_heading_color}}" data-sec-custom="{{values_heading_color_custom}}" data-vtc="{{values_heading_text}}" style="--vh-tc:{{values_heading_text_custom}}">{{heading}} <span class="mark" data-mark="{{values_heading_mark}}"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{values_heading_mark}}</span></span></h3>
     <div class="wheel anim-up" data-wheel>
       <div class="ring">
       <!--brg:repeat values-->

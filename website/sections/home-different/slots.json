@@ -413,6 +413,48 @@
       "12": "Down — a lot"
     }
   },
+  "photo_1_ground": {
+    "type": "select",
+    "label": "Photo — large — behind the photo",
+    "width": 33,
+    "default": "none",
+    "group": "Photo layout",
+    "doc": "A flat color painted BEHIND this photo. \"None\" paints nothing, so if a photo is ever short of its frame, or has not loaded yet, you see the section behind it, not a block of color. Choose a color only if you want one there.",
+    "choices": {
+      "none": "None",
+      "yellow": "Yellow",
+      "black": "Black",
+      "white": "White"
+    }
+  },
+  "photo_2_ground": {
+    "type": "select",
+    "label": "Photo — tall — behind the photo",
+    "width": 33,
+    "default": "none",
+    "group": "Photo layout",
+    "doc": "A flat color painted BEHIND this photo. \"None\" paints nothing, so if a photo is ever short of its frame, or has not loaded yet, you see the section behind it, not a block of color. Choose a color only if you want one there.",
+    "choices": {
+      "none": "None",
+      "yellow": "Yellow",
+      "black": "Black",
+      "white": "White"
+    }
+  },
+  "photo_3_ground": {
+    "type": "select",
+    "label": "Photo — small — behind the photo",
+    "width": 33,
+    "default": "none",
+    "group": "Photo layout",
+    "doc": "A flat color painted BEHIND this photo. \"None\" paints nothing, so if a photo is ever short of its frame, or has not loaded yet, you see the section behind it, not a block of color. Choose a color only if you want one there.",
+    "choices": {
+      "none": "None",
+      "yellow": "Yellow",
+      "black": "Black",
+      "white": "White"
+    }
+  },
   "section_bg": {
     "type": "image",
     "label": "Section background",

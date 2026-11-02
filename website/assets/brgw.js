@@ -979,6 +979,16 @@
           if (it.cur < lo) it.cur = lo;
           if (it.cur > hi) it.cur = hi;
         }
+        /* GSAP'S REVEAL BAKES OUR MOVEMENT INTO ITS OWN TRANSFORM (Sean, 2 Nov: photos still leaving their
+           frames). When the scale-in reveal starts, GSAP reads this photo's current `translate`, copies it into
+           `transform: translate(0, -28px)` and leaves it there for good. We then write `translate` again every
+           frame, so the photo carried the move twice (up to a full travel too high or low) and the clamp above
+           could not see the second copy. Measured on the live page: the image ended 20px short of its frame.
+           Once GSAP has let go, zero out its copy so only ours counts. */
+        if (window.gsap && it.target.style.transform) {
+          var mt = /translate\(\s*(-?[\d.]+)px(?:\s*,\s*(-?[\d.]+)px)?/.exec(it.target.style.transform);
+          if (mt && (Math.abs(+mt[1]) > 0.01 || Math.abs(+(mt[2] || 0)) > 0.01)) window.gsap.set(it.target, { x: 0, y: 0 });
+        }
         it.target.style.translate = '0 ' + it.cur.toFixed(1) + 'px';
       }
       requestAnimationFrame(update);
