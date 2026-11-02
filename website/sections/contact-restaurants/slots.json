@@ -167,6 +167,48 @@
       "up": "Up"
     }
   },
+  "section_bg_blend": {
+    "type": "select",
+    "label": "Background — how it mixes with the color",
+    "doc": "How the background picture combines with this section's color. Normal just lays it on top, faded by the strength above. The others mix the two the way layers do in Photoshop: Multiply darkens and lets the color show through the picture's light parts, Screen lightens, Overlay and Soft light add contrast gently, Hard light is the strong version, Darken and Lighten keep only the darker or lighter of the two. The mixing stays inside this section, so it never reaches the sections above or below it. Only matters when there is a background picture.",
+    "width": 50,
+    "default": "normal",
+    "group": "Section background",
+    "choices": {
+      "normal": "Normal (as it is now)",
+      "multiply": "Multiply",
+      "screen": "Screen",
+      "overlay": "Overlay",
+      "soft-light": "Soft light",
+      "hard-light": "Hard light",
+      "darken": "Darken",
+      "lighten": "Lighten"
+    }
+  },
+  "section_bg_layer": {
+    "type": "select",
+    "label": "Background — which is on top",
+    "doc": "Picture on top of the color is how it has always worked: the picture is laid over the section's color and faded by the strength above. Color on top of the picture turns it around: the picture runs at full strength underneath and the section's color is laid over it, so a yellow section becomes a yellow-tinted photo. Either way the strength above is how much of the picture you see, and the mixing choice above is used between the two.",
+    "width": 50,
+    "default": "under",
+    "group": "Section background",
+    "choices": {
+      "under": "Picture on top of the color (as it is now)",
+      "over": "Color on top of the picture"
+    }
+  },
+  "section_bg_join": {
+    "type": "select",
+    "label": "Background — continue from the section above",
+    "doc": "Yes makes this section show the next piece of the picture from the section above it, as if one picture ran behind both. It needs a background picture on the section above (or on one further up that is also continuing); this section's own picture is not used while this is on. The strength, mixing and which-is-on-top choices are taken from the section the picture starts in, and each section keeps its own color. Background movement is switched off for pictures that continue.",
+    "width": 100,
+    "default": "no",
+    "group": "Section background",
+    "choices": {
+      "no": "No, use this section's own picture",
+      "yes": "Yes, continue the picture from above"
+    }
+  },
   "section_bg_mobile": {
     "type": "image",
     "label": "Section background — phones",

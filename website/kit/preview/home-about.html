@@ -7,7 +7,7 @@
      Matches website/mocks/brg_home-about. Light section — .brgw is white-on-dark, so this
      re-grounds to ink. Full-bleed color photograph on the left half, content on the right;
      below 940px the photo goes full-width above the copy rather than shrinking to a sliver. -->
-<section data-vm="{{vm_layout}}" data-pside="{{photo_side}}" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
+<section data-vm="{{vm_layout}}" data-pside="{{photo_side}}" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--home-about reveal" data-nav="light" data-hl="{{hl_variant}}" data-shot="{{photo_height}}" data-values="{{values_on}}" data-vlayout="{{values_layout}}" data-vtext="{{values_text_pos}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="What we're about" data-cta-pos="{{cta_position}}">
 <style>
 /* position:relative makes THIS section the anchor for its .sec-bg layer. Without it the layer
    anchors to the page and a background chosen here appeared on the hero (Sean, 31 Oct). */
@@ -204,11 +204,23 @@
   .brgw-sec--home-about[data-vlayout="list"] .vn::before{left:0;top:calc(18px + .55em);}
   .brgw-sec--home-about[data-vlayout="list"] .vi.is-on .vn{opacity:1;}
   .brgw-sec--home-about[data-vlayout="list"] .vx{display:block;grid-column:2;grid-row:1 / span var(--n,5);position:relative;opacity:0;visibility:hidden;
-    transition:opacity .35s ease;color:var(--v-tone-fg);background:var(--v-tone-bg);isolation:isolate;}
+    transition:opacity .35s ease;color:var(--v-tone-fg);isolation:isolate;}
   .brgw-sec--home-about[data-vlayout="list"] .vi.is-on .vx{opacity:1;visibility:visible;}
   .brgw-sec--home-about[data-vlayout="list"] .vbg{position:relative;inset:auto;aspect-ratio:4 / 3;background:var(--v-base,rgba(128,128,128,.18));}
   .brgw-sec--home-about[data-vlayout="list"] .vbg::after{display:none;}
   .brgw-sec--home-about[data-vlayout="list"] .vp{max-height:none;overflow:visible;padding:20px 0 0;color:var(--v-tone-fg);font-size:clamp(1rem,1.2vw,1.15rem);}
+  /* WHERE THE WORDS GO (Sean, 1 Nov: no colored box under the photo, and he did not like the words
+     there). Unless "Under the photo" is chosen, the words drop down under the open name and push the
+     names below it down, and the photo stands alone on the right with nothing painted behind it.
+     .vx stops being a box so its photo and its words become grid items of their own. */
+  .brgw-sec--home-about[data-vlayout="list"]:not([data-vtext="photo"]) .vset{grid-template-rows:none;grid-auto-rows:auto;}
+  .brgw-sec--home-about[data-vlayout="list"]:not([data-vtext="photo"]) .vx{display:contents;}
+  .brgw-sec--home-about[data-vlayout="list"]:not([data-vtext="photo"]) .vbg{grid-column:2;grid-row:1 / span 12;align-self:start;
+    opacity:0;visibility:hidden;transition:opacity .35s ease;}
+  .brgw-sec--home-about[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vbg{opacity:1;visibility:visible;}
+  .brgw-sec--home-about[data-vlayout="list"]:not([data-vtext="photo"]) .vp{grid-column:1;max-height:0;overflow:hidden;padding:0 0 0 calc(clamp(1.5rem,3vw,2.7rem) * 3.2);
+    font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.55;transition:max-height .45s ease;}
+  .brgw-sec--home-about[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vp{max-height:16em;padding-bottom:20px;}
 }
 @media (prefers-reduced-motion:reduce){
   .brgw-sec--home-about .vi,.brgw-sec--home-about .vp,.brgw-sec--home-about .vx{transition:none!important;}
@@ -219,7 +231,7 @@
        PAGE and re-downloads the document as an image for every visitor, so a section
        with no background chosen has to cost nothing. An empty <source srcset=""> is
        skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
-  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+  <div class="sec-bg" data-bg="{{section_bg}}" data-blend="{{section_bg_blend}}" data-layer="{{section_bg_layer}}" data-join="{{section_bg_join}}" style="--sec-bg-o:{{section_bg_opacity}};--sec-bg-bl:{{section_bg_blend}}"
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <div class="grid">
@@ -290,7 +302,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "What we're about", "heading_mark": "", "hl_variant": "h3", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo_height": "medium", "vm_layout": "stacked", "values_on": "off", "values_layout": "wheel", "values_tone": "light", "values_color": "keep", "values_color_custom": "", "values_text": "auto", "values_heading_style": "marker", "values_heading_mark": "", "values_autoplay": "on", "values_secs": "5", "values_img_light": "soft", "values_img_light_amt": "30", "values_soft_base": "mid", "values_img_dark": "soft", "values_img_dark_amt": "10", "values_heading": "Our core values", "values": "", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "photo_side": "left", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading": "What we're about", "heading_mark": "", "hl_variant": "h3", "vision_label": "Our Vision", "vision_text": "Make your day great!", "mission_label": "Our Mission", "mission_text": "To amp up our communities by creating real connections and rad experiences.", "photo_height": "medium", "vm_layout": "stacked", "values_on": "off", "values_layout": "wheel", "values_text_pos": "name", "values_tone": "light", "values_color": "keep", "values_color_custom": "", "values_text": "auto", "values_heading_style": "marker", "values_heading_mark": "", "values_autoplay": "on", "values_secs": "5", "values_img_light": "soft", "values_img_light_amt": "30", "values_soft_base": "mid", "values_img_dark": "soft", "values_img_dark_amt": "10", "values_heading": "Our core values", "values": "", "photo": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp", "photo_tone": "color", "photo_px": "0", "photo_px_dir": "down", "photo_float": "0", "photo_float_dir": "down", "photo_side": "left", "section_bg": "", "section_bg_opacity": "0.18", "section_bg_px": "0", "section_bg_px_dir": "down", "section_bg_blend": "normal", "section_bg_layer": "under", "section_bg_join": "no", "section_bg_mobile": "", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
   // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.

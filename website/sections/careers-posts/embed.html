@@ -55,7 +55,7 @@
        PAGE and re-downloads the document as an image for every visitor, so a section
        with no background chosen has to cost nothing. An empty <source srcset=""> is
        skipped by the browser instead. data-brgw-frame lets the parallax engine move it. -->
-  <div class="sec-bg" data-bg="{{section_bg}}" style="--sec-bg-o:{{section_bg_opacity}}"
+  <div class="sec-bg" data-bg="{{section_bg}}" data-blend="{{section_bg_blend}}" data-layer="{{section_bg_layer}}" data-join="{{section_bg_join}}" style="--sec-bg-o:{{section_bg_opacity}};--sec-bg-bl:{{section_bg_blend}}"
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <div class="feed">

@@ -3536,6 +3536,87 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_contact_routes_section_bg_blend",
+                "label": "Background — how it mixes with the color",
+                "name": "brg_contact_routes_section_bg_blend",
+                "type": "select",
+                "instructions": "How the background picture combines with this section's color. Normal just lays it on top, faded by the strength above. The others mix the two the way layers do in Photoshop: Multiply darkens and lets the color show through the picture's light parts, Screen lightens, Overlay and Soft light add contrast gently, Hard light is the strong version, Darken and Lighten keep only the darker or lighter of the two. The mixing stays inside this section, so it never reaches the sections above or below it. Only matters when there is a background picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_blend",
+                    "id": ""
+                },
+                "default_value": "normal",
+                "choices": {
+                    "normal": "Normal (as it is now)",
+                    "multiply": "Multiply",
+                    "screen": "Screen",
+                    "overlay": "Overlay",
+                    "soft-light": "Soft light",
+                    "hard-light": "Hard light",
+                    "darken": "Darken",
+                    "lighten": "Lighten"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_routes_section_bg_layer",
+                "label": "Background — which is on top",
+                "name": "brg_contact_routes_section_bg_layer",
+                "type": "select",
+                "instructions": "Picture on top of the color is how it has always worked: the picture is laid over the section's color and faded by the strength above. Color on top of the picture turns it around: the picture runs at full strength underneath and the section's color is laid over it, so a yellow section becomes a yellow-tinted photo. Either way the strength above is how much of the picture you see, and the mixing choice above is used between the two.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_layer",
+                    "id": ""
+                },
+                "default_value": "under",
+                "choices": {
+                    "under": "Picture on top of the color (as it is now)",
+                    "over": "Color on top of the picture"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_routes_section_bg_join",
+                "label": "Background — continue from the section above",
+                "name": "brg_contact_routes_section_bg_join",
+                "type": "select",
+                "instructions": "Yes makes this section show the next piece of the picture from the section above it, as if one picture ran behind both. It needs a background picture on the section above (or on one further up that is also continuing); this section's own picture is not used while this is on. The strength, mixing and which-is-on-top choices are taken from the section the picture starts in, and each section keeps its own color. Background movement is switched off for pictures that continue.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "100",
+                    "class": "brg-f-section_bg_join",
+                    "id": ""
+                },
+                "default_value": "no",
+                "choices": {
+                    "no": "No, use this section's own picture",
+                    "yes": "Yes, continue the picture from above"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_contact_routes_endacc_section_background",
                 "label": "",
                 "name": "",
@@ -5004,6 +5085,87 @@
                 "choices": {
                     "down": "Down",
                     "up": "Up"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_restaurants_section_bg_blend",
+                "label": "Background — how it mixes with the color",
+                "name": "brg_contact_restaurants_section_bg_blend",
+                "type": "select",
+                "instructions": "How the background picture combines with this section's color. Normal just lays it on top, faded by the strength above. The others mix the two the way layers do in Photoshop: Multiply darkens and lets the color show through the picture's light parts, Screen lightens, Overlay and Soft light add contrast gently, Hard light is the strong version, Darken and Lighten keep only the darker or lighter of the two. The mixing stays inside this section, so it never reaches the sections above or below it. Only matters when there is a background picture.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_blend",
+                    "id": ""
+                },
+                "default_value": "normal",
+                "choices": {
+                    "normal": "Normal (as it is now)",
+                    "multiply": "Multiply",
+                    "screen": "Screen",
+                    "overlay": "Overlay",
+                    "soft-light": "Soft light",
+                    "hard-light": "Hard light",
+                    "darken": "Darken",
+                    "lighten": "Lighten"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_restaurants_section_bg_layer",
+                "label": "Background — which is on top",
+                "name": "brg_contact_restaurants_section_bg_layer",
+                "type": "select",
+                "instructions": "Picture on top of the color is how it has always worked: the picture is laid over the section's color and faded by the strength above. Color on top of the picture turns it around: the picture runs at full strength underneath and the section's color is laid over it, so a yellow section becomes a yellow-tinted photo. Either way the strength above is how much of the picture you see, and the mixing choice above is used between the two.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-section_bg_layer",
+                    "id": ""
+                },
+                "default_value": "under",
+                "choices": {
+                    "under": "Picture on top of the color (as it is now)",
+                    "over": "Color on top of the picture"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_contact_restaurants_section_bg_join",
+                "label": "Background — continue from the section above",
+                "name": "brg_contact_restaurants_section_bg_join",
+                "type": "select",
+                "instructions": "Yes makes this section show the next piece of the picture from the section above it, as if one picture ran behind both. It needs a background picture on the section above (or on one further up that is also continuing); this section's own picture is not used while this is on. The strength, mixing and which-is-on-top choices are taken from the section the picture starts in, and each section keeps its own color. Background movement is switched off for pictures that continue.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "100",
+                    "class": "brg-f-section_bg_join",
+                    "id": ""
+                },
+                "default_value": "no",
+                "choices": {
+                    "no": "No, use this section's own picture",
+                    "yes": "Yes, continue the picture from above"
                 },
                 "return_format": "value",
                 "allow_null": 0,

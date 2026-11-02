@@ -1,4 +1,4 @@
-/* brgw build 2026.11.01.6 */
+/* brgw build 2026.11.01.7 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -768,6 +768,20 @@
 .brgw-sec .sec-bg picture{display:block;width:100%;height:100%;}
 .brgw-sec .sec-bg img{width:100%;height:100%;object-fit:cover;display:block;}
 .brgw-sec .sec-bg[data-bg=""]{display:none;}
+/* ---- section background: mixing, which is on top, continuing from above (Sean, 1 Nov) ----------
+   MIXING: the picture blends with the section's own color. A section that mixes becomes its own group
+   (data-bgfx, set by brgwSecBg) so the blend stays inside it and never reaches the sections above and
+   below. Only those sections get the group: it is a stacking context, which traps the stacking of
+   anything inside it, so it is not put on every section.
+   COLOR ON TOP: brgwSecBg copies the section's own color to --sec-over-c and this hides it; the color
+   is then painted by a layer INSIDE the picture box, above the picture, so it can mix with the picture
+   alone. The strength dial then means how much of the picture shows through. */
+.brgw-sec .sec-bg{mix-blend-mode:var(--sec-bg-bl,normal);}
+.brgw-sec[data-bgfx]{isolation:isolate;}
+.brgw-sec[data-bg-layer="over"]{background-color:transparent!important;}
+.brgw-sec[data-bg-layer="over"] > .sec-bg{opacity:1;mix-blend-mode:normal;}
+.brgw-sec[data-bg-layer="over"] > .sec-bg::after{content:"";position:absolute;inset:0;
+  background:var(--sec-over-c,transparent);opacity:var(--sec-over-o,.82);mix-blend-mode:var(--sec-over-bl,normal);}
 
 /* ---- section color (Sean, 1 Nov: "need to be able to change section background colors") --------
    Applies to a whole section (.brgw-sec) and to a marked part of one (.brgw-sub, e.g. the core values block).

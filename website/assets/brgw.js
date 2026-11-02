@@ -899,7 +899,7 @@
           st.position = 'absolute'; st.left = '0'; st.right = 'auto'; st.width = '100%';
           st.top = (-pad) + '%'; st.bottom = 'auto'; st.height = (100 + 2 * pad) + '%';
           st.maxWidth = 'none'; st.maxHeight = 'none'; st.objectFit = 'cover';
-          items.push({ box: frame, target: img, amt: amt, dir: pxDir, tau: 3 * 0.06, cur: null });
+          items.push({ box: frame, target: img, amt: amt, dir: pxDir, tau: 3 * 0.06, cur: null, pad: pad });
         }
         /* A LAYER PAINTED AS A CSS BACKGROUND has no <img> to slide inside a frame, so the
            layer itself is what moves. The note above has always said the attributes may sit
@@ -962,6 +962,23 @@
         var goal = it.dir * p * it.amt * h / 100;
         if (it.cur === null || !it.tau) it.cur = goal;
         else it.cur += (goal - it.cur) * (1 - Math.exp(-dt / it.tau));
+        /* A PHOTO MUST NEVER LEAVE ITS FRAME (Sean, 1 Nov: "the image moving out of the frame,
+           which should never happen"). The slack that lets it travel is the extra height given to
+           the <img> above, so each frame: (1) put that extra height back if anything wiped it, and
+           (2) hold the travel inside what is ACTUALLY left over, measured from the laid-out boxes,
+           not from the number the setting asked for. With no slack the photo simply stays still. */
+        if (it.pad !== undefined) {
+          var tg = it.target, st = tg.style, wantTop = (-it.pad) + '%', wantH = (100 + 2 * it.pad) + '%';
+          if (st.top !== wantTop || st.height !== wantH) {
+            st.position = 'absolute'; st.left = '0'; st.right = 'auto'; st.width = '100%';
+            st.top = wantTop; st.bottom = 'auto'; st.height = wantH; st.maxWidth = 'none'; st.maxHeight = 'none';
+          }
+          var lo = it.box.clientHeight - (tg.offsetTop + tg.offsetHeight), hi = -tg.offsetTop;
+          if (lo > 0) lo = 0;
+          if (hi < 0) hi = 0;
+          if (it.cur < lo) it.cur = lo;
+          if (it.cur > hi) it.cur = hi;
+        }
         it.target.style.translate = '0 ' + it.cur.toFixed(1) + 'px';
       }
       requestAnimationFrame(update);
@@ -1275,7 +1292,86 @@
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSecColor(document); brgwBuild(); }
+  // Section background: how the picture mixes with the section color, which of the two is on top, and
+  // whether one picture runs on from the section above (Sean, 1 Nov). Pure CSS cannot know the section
+  // above, so a run of sections that continue one picture is worked out here: the picture is drawn once
+  // at the height of the whole run and each section shows its own slice of it. Heroes are left alone.
+  function brgwSecBg(root) {
+    var all = [].slice.call(root.querySelectorAll('.brgw-sec'));
+    function bgOf(s) { return s.classList.contains('brgw-hero') ? null : s.querySelector(':scope > .sec-bg'); }
+    function pageTop(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
+    function urlOf(sec) {
+      var srcs = bgOf(sec).querySelectorAll('source');
+      for (var i = 0; i < srcs.length; i++) {
+        var med = srcs[i].getAttribute('media'), set = (srcs[i].getAttribute('srcset') || '').trim();
+        if (set && (!med || (window.matchMedia && matchMedia(med).matches))) return set.split(',')[0].trim().split(/\s+/)[0];
+      }
+      var im = bgOf(sec).querySelector('img');
+      return im ? (im.getAttribute('src') || '') : '';
+    }
+    var runs = [];
+    all.forEach(function (s, i) {
+      var bg = bgOf(s), prev = all[i - 1], pbg = prev && bgOf(prev);
+      if (!bg || !pbg || bg.getAttribute('data-join') !== 'yes') return;
+      if (!pbg._brgwRun && !pbg.getAttribute('data-bg')) return;          // nothing above to continue
+      var run = pbg._brgwRun;
+      if (!run) { run = pbg._brgwRun = { origin: prev, members: [prev] }; runs.push(run); }
+      run.members.push(s); bg._brgwRun = run;
+    });
+    runs.forEach(function (run) {
+      var obg = bgOf(run.origin);
+      run.members.forEach(function (m, k) {
+        var bg = bgOf(m), im = bg.querySelector('img');
+        if (im) im.removeAttribute('data-px');                              // movement is off while a picture continues
+        if (k === 0) return;
+        bg.setAttribute('data-bg', 'joined');
+        bg.setAttribute('data-blend', obg.getAttribute('data-blend') || 'normal');
+        bg.setAttribute('data-layer', obg.getAttribute('data-layer') || 'under');
+        bg.style.setProperty('--sec-bg-o', obg.style.getPropertyValue('--sec-bg-o'));
+        bg.style.setProperty('--sec-bg-bl', obg.style.getPropertyValue('--sec-bg-bl'));
+        if (im) im.setAttribute('src', urlOf(run.origin));
+      });
+    });
+    function layout() {
+      runs.forEach(function (run) {
+        var top0 = pageTop(run.origin), lastM = run.members[run.members.length - 1];
+        var total = pageTop(lastM) + lastM.offsetHeight - top0;
+        run.members.forEach(function (m) {
+          var im = bgOf(m).querySelector('img'); if (!im) return;
+          var st = im.style;
+          st.position = 'absolute'; st.left = '0'; st.right = 'auto'; st.width = '100%'; st.maxWidth = 'none'; st.maxHeight = 'none';
+          st.top = (-(pageTop(m) - top0)) + 'px'; st.bottom = 'auto'; st.height = total + 'px'; st.objectFit = 'cover';
+        });
+      });
+    }
+    if (runs.length) {
+      layout();
+      var queued = false;
+      var again = function () { if (queued) return; queued = true; requestAnimationFrame(function () { queued = false; layout(); }); };
+      window.addEventListener('resize', again);
+      window.addEventListener('load', again);
+      if (window.ResizeObserver) {
+        var ro = new ResizeObserver(again);
+        runs.forEach(function (run) { run.members.forEach(function (m) { ro.observe(m); }); });
+      }
+    }
+    // Mixing and order, for every section that has a picture of its own or a continued one.
+    all.forEach(function (s) {
+      var bg = bgOf(s);
+      if (!bg || !bg.getAttribute('data-bg')) return;
+      var blend = bg.getAttribute('data-blend') || 'normal', over = bg.getAttribute('data-layer') === 'over';
+      if (!over && blend === 'normal') return;
+      if (!over) { s.setAttribute('data-bgfx', '1'); return; }              // CSS makes the section its own mixing group
+      var o = parseFloat(bg.style.getPropertyValue('--sec-bg-o'));
+      if (isNaN(o)) o = 0.18;
+      s.style.setProperty('--sec-over-c', getComputedStyle(s).backgroundColor);  // read BEFORE CSS hides the section's own color
+      s.style.setProperty('--sec-over-o', String(Math.max(0, Math.min(1, 1 - o))));
+      s.style.setProperty('--sec-over-bl', blend);
+      s.setAttribute('data-bg-layer', 'over');
+    });
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
