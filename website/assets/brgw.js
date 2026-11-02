@@ -1107,7 +1107,11 @@
         }, secs);
       }
       items.forEach(function (it, i) {
-        it.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = true; on(i); } });
+        /* Switching on hover needs a REAL mouse move. When the open row changes, the rows below slide
+           under a mouse that is standing still, and the browser reports that as the mouse entering
+           whatever now sits there, which opens that one, and so on down the list. */
+        it.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hover = true; });
+        it.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse' && (e.movementX || e.movementY)) { hover = true; on(i); } });
         it.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hover = false; arm(); } });
         var b = it.querySelector('.vn');
         if (!b) return;
@@ -1117,6 +1121,31 @@
         b.addEventListener('click', function () { on(i); arm(); });
       });
       on(0);
+      /* THE LIST WITH WORDS UNDER THE NAMES KEEPS ONE HEIGHT (Sean, 1 Nov: "the actual section height should
+         never vary"). Opening one value closes another, so the height only changes when the two have a
+         different number of lines. The tallest the list ever gets is measured once with each value open in
+         turn, and the list is held at that height, so the section never grows and shrinks as it changes. */
+      var sec = v.closest('[data-vlayout]'), lastW = 0;
+      function lock() {
+        v.style.minHeight = '';
+        if (!sec || sec.getAttribute('data-vlayout') !== 'list' || sec.getAttribute('data-vtext') === 'photo') return;
+        if (v.offsetParent === null || window.getComputedStyle(v).display !== 'grid') return;
+        var was = items.map(function (it) { return it.classList.contains('is-on'); }), max = 0;
+        v.classList.add('is-measuring');
+        items.forEach(function (_, k) {
+          items.forEach(function (it, j) { it.classList.toggle('is-on', j === k); });
+          max = Math.max(max, v.getBoundingClientRect().height);
+        });
+        items.forEach(function (it, j) { it.classList.toggle('is-on', was[j]); });
+        v.classList.remove('is-measuring');
+        v.style.minHeight = Math.ceil(max) + 'px';
+      }
+      lock();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(lock);
+      window.addEventListener('load', lock);
+      if (window.ResizeObserver) {
+        new ResizeObserver(function () { if (v.clientWidth !== lastW) { lastW = v.clientWidth; lock(); } }).observe(v);
+      }
       if (!auto) return;
       if ('IntersectionObserver' in window) {
         new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }).observe(v);
@@ -1267,7 +1296,7 @@
   // (the WCAG ratio). Sections left on "As designed" are skipped and keep their own data-nav.
   function brgwSecColor(root) {
     var lin = function (v) { v = v / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
-    var secs = root.querySelectorAll('.brgw-sec[data-sec-color], .brgw-sub[data-sec-color]');
+    var secs = root.querySelectorAll('.brgw-sec[data-sec-color], .brgw-sub[data-sec-color], .vh[data-sec-color]');
     Array.prototype.forEach.call(secs, function (sec) {
       var key = sec.getAttribute('data-sec-color');
       if (!key || key === 'keep') return;
@@ -1282,6 +1311,7 @@
       var L = 0.2126 * lin(+m[0]) + 0.7152 * lin(+m[1]) + 0.0722 * lin(+m[2]);
       var inkWins = (L + 0.05) / (0.0144 + 0.05) > 1.05 / (L + 0.05);
       if (key === 'custom') sec.style.setProperty('--sec-t', inkWins ? 'var(--ink)' : 'var(--white)');
+      if (sec.classList.contains('vh')) return;     // a heading's marker block: only its own color and words, nothing around it
       if (sec.classList.contains('brgw-sub')) {
         // A coloured part of a section (the core values): keep that part's own light/dark setting in step
         // with the colour, so its photo looks and item colours match. The page's nav is not touched.

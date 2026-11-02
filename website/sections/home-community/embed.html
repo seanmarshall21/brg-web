@@ -51,7 +51,7 @@
   --a1:0;--r1:1;--a2:0;--r2:1;
   --p1r:calc(var(--q1r) + var(--g11)*var(--a1)*(var(--r1) - var(--q1r)) + var(--g21)*var(--a2)*(var(--r2) - var(--q1r)));--p2r:calc(var(--q2r) + var(--g12)*var(--a1)*(var(--r1) - var(--q2r)) + var(--g22)*var(--a2)*(var(--r2) - var(--q2r)));
   --bh:max(var(--qmin),calc(var(--q1t) + var(--q1w) / var(--p1r)),calc(var(--q2t) + var(--q2w) / var(--p2r)));
-  position:relative;height:calc(var(--bh) * 1cqw);}
+  position:relative;overflow:visible;height:calc(var(--bh) * 1cqw);}
 .brgw-sec--home-community .media[data-layout="mirror"]{--q1x:14;--q1t:15.075;--q1w:86;--q1r:calc(86/68.675);--q2x:0;--q2t:0;--q2w:46;--q2r:calc(46/36.85);--qmin:83.75;}
 .brgw-sec--home-community .media[data-layout="side"]{--q1x:0;--q1t:0;--q1w:62;--q1r:1.1;--q2x:64;--q2t:0;--q2w:36;--q2r:0.8;--qmin:0;}
 .brgw-sec--home-community .media[data-order="21"]{--g11:0;--g21:1;--g12:1;--g22:0;}

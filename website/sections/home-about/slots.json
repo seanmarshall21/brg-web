@@ -173,6 +173,34 @@
       "plain": "Plain words"
     }
   },
+  "values_heading_color": {
+    "type": "select",
+    "label": "Core values — heading — marker color",
+    "width": 34,
+    "default": "keep",
+    "doc": "The color of the block behind the heading above the values. \"Yellow\" is how it has always been. Pick another when the values background is yellow, since a yellow block on yellow disappears. The words on the block flip between black and white on their own. Light, Dark, Accent and Alt accent are the roles set once on the Site-wide page; the named shades are fixed colors; Custom uses the color box next to this one. Has no effect when the heading style is Plain words.",
+    "choices": {
+      "keep": "Yellow (as it is)",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)",
+      "custom": "Custom (use the color box)"
+    }
+  },
+  "values_heading_color_custom": {
+    "type": "color",
+    "label": "Core values — heading — custom marker color",
+    "width": 33,
+    "default": "",
+    "doc": "Used only when the marker color is Custom."
+  },
   "values_heading_mark": {
     "type": "text",
     "label": "Core values — heading — highlighted words",

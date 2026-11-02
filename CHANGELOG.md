@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.01.8 (2026-11-01)
+- core values list holds one height and no longer jumps on hover; core values heading marker color setting; BRG sticker in Born in San Diego no longer cut off
+
 ## 2026.11.01.7 (2026-11-01)
 - core values list: words under the name (or the photo), no colored box; section background: blend mode, color on top or under, continue from the section above; photo can never leave its frame
 
