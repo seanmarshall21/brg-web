@@ -68,6 +68,11 @@
 .brgw-sec--home-different .blocks[data-order="321"]{--g11:0;--g21:0;--g31:1;--g12:0;--g22:1;--g32:0;--g13:1;--g23:0;--g33:0;}
 /* SCALE (Sean, 1 Nov: make the photos bigger as well as reshape them): a photo grows or shrinks around its own
    center. Medium is as designed. The canvas height follows, counting the grown or shrunk frame. */
+/* Shift the whole photo layout (Sean, 2 Nov: "shift left a little bit, right, up, or down"): --lx / --ly are in
+   canvas widths per hundred (cqw), so the move scales with the page. translate is its own property, so it does
+   not disturb the parallax or the reveal. */
+.brgw-sec--home-different .blocks{translate:calc(var(--lx,0) * 1cqw) calc(var(--ly,0) * 1cqw);}
+.brgw-sec--home-different{overflow-x:clip;}
 .brgw-sec--home-different .blocks[data-s1="xs"]{--s1:0.7;}
 .brgw-sec--home-different .blocks[data-s1="s"]{--s1:0.85;}
 .brgw-sec--home-different .blocks[data-s1="l"]{--s1:1.2;}
@@ -153,7 +158,7 @@
     <!-- Parallax rates alternate in sign and grow with how far forward the plate sits, so
          the three separate as you scroll instead of tracking together. Stand-in photography
          — Sean to name the real three. -->
-    <div class="blocks-w anim-up"><div class="blocks" data-layout="{{photos_layout}}" data-s1="{{photo_1_scale}}" data-s2="{{photo_2_scale}}" data-s3="{{photo_3_scale}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}" data-r3="{{photo_3_shape}}">
+    <div class="blocks-w anim-up"><div class="blocks" style="--lx:{{photos_shift_x}};--ly:{{photos_shift_y}}" data-layout="{{photos_layout}}" data-s1="{{photo_1_scale}}" data-s2="{{photo_2_scale}}" data-s3="{{photo_3_scale}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}" data-r3="{{photo_3_shape}}">
       <span class="p p1 y brgw-img" data-brgw-img>
         <img src="{{photo_1}}" alt=""
              width="1600" height="1067" decoding="async" loading="lazy" data-tone="{{photo_1_tone}}" data-px="{{photo_1_px}}" data-px-dir="{{photo_1_px_dir}}" data-float="{{photo_1_float}}" data-float-dir="{{photo_1_float_dir}}">

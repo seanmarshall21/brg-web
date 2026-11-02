@@ -59,6 +59,9 @@
 .brgw-sec--home-community .media[data-order="21"]{--g11:0;--g21:1;--g12:1;--g22:0;}
 /* SCALE (Sean, 1 Nov: make the photos bigger as well as reshape them): a photo grows or shrinks around its own
    center. Medium is as designed. The canvas height follows, counting the grown or shrunk frame. */
+/* Shift the whole photo layout (Sean, 2 Nov): see home-different. The sticker moves with the photos. */
+.brgw-sec--home-community .media{translate:calc(var(--lx,0) * 1cqw) calc(var(--ly,0) * 1cqw);}
+.brgw-sec--home-community{overflow-x:clip;}
 .brgw-sec--home-community .media[data-s1="xs"]{--s1:0.7;}
 .brgw-sec--home-community .media[data-s1="s"]{--s1:0.85;}
 .brgw-sec--home-community .media[data-s1="l"]{--s1:1.2;}
@@ -130,7 +133,7 @@
       <p class="anim-up">{{body_1}}</p>
       <p class="anim-up">{{body_2}}</p>
     </div>
-    <div class="media-w anim-up"><div class="media" data-layout="{{photos_layout}}" data-s1="{{photo_1_scale}}" data-s2="{{photo_2_scale}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}">
+    <div class="media-w anim-up"><div class="media" style="--lx:{{photos_shift_x}};--ly:{{photos_shift_y}}" data-layout="{{photos_layout}}" data-s1="{{photo_1_scale}}" data-s2="{{photo_2_scale}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}">
       <div class="plate pl pl1 brgw-img" data-brgw-img>
         <img src="{{photo_1}}" alt=""
              width="733" height="1100" decoding="async" loading="lazy" data-tone="{{photo_1_tone}}" data-px="{{photo_1_px}}" data-px-dir="{{photo_1_px_dir}}" data-float="{{photo_1_float}}" data-float-dir="{{photo_1_float_dir}}">

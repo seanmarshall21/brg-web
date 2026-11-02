@@ -161,13 +161,13 @@
     grid-template-rows:repeat(var(--n,5),auto);column-gap:clamp(32px,5vw,80px);align-items:start;}
   .brgw-sec--home-values[data-vlayout="list"] .vi{display:contents;opacity:1;}
   .brgw-sec--home-values[data-vlayout="list"] .vi + .vi{border-top:0;}
-  .brgw-sec--home-values[data-vlayout="list"] .vn{grid-column:1;color:var(--v-tone-fg);opacity:.4;transition:opacity .3s ease;
+  .brgw-sec--home-values[data-vlayout="list"] .vn{grid-column:1;color:var(--v-tone-fg);opacity:.4;transition:opacity .6s ease;
     font-size:clamp(1.5rem,3vw,2.7rem);padding:18px 0 18px 3.2em;border-top:1px solid rgba(128,128,128,.4);}
   .brgw-sec--home-values[data-vlayout="list"] .vn::before{left:0;top:calc(18px + .55em);}
   .brgw-sec--home-values[data-vlayout="list"] .vi.is-on .vn{opacity:1;}
   .brgw-sec--home-values[data-vlayout="list"] .vx{display:block;grid-column:2;grid-row:1 / span var(--n,5);position:relative;opacity:0;visibility:hidden;
-    transition:opacity .35s ease;color:var(--v-tone-fg);isolation:isolate;}
-  .brgw-sec--home-values[data-vlayout="list"] .vi.is-on .vx{opacity:1;visibility:visible;}
+    transition:opacity 0s linear .8s,visibility 0s linear .8s;color:var(--v-tone-fg);isolation:isolate;}
+  .brgw-sec--home-values[data-vlayout="list"] .vi.is-on .vx{opacity:1;visibility:visible;z-index:2;transition:opacity .8s ease;}
   .brgw-sec--home-values[data-vlayout="list"] .vbg{position:relative;inset:auto;aspect-ratio:4 / 3;background:var(--v-base,rgba(128,128,128,.18));}
   .brgw-sec--home-values[data-vlayout="list"] .vbg::after{display:none;}
   .brgw-sec--home-values[data-vlayout="list"] .vp{max-height:none;overflow:visible;padding:20px 0 0;color:var(--v-tone-fg);font-size:clamp(1rem,1.2vw,1.15rem);}
@@ -178,13 +178,20 @@
   .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vset{grid-template-rows:none;grid-auto-rows:auto;}
   .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vx{display:contents;}
   .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vbg{grid-column:2;grid-row:1 / span 12;align-self:start;
-    opacity:0;visibility:hidden;transition:opacity .35s ease;}
-  .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vbg{opacity:1;visibility:visible;}
+    opacity:0;visibility:hidden;transition:opacity 0s linear .8s,visibility 0s linear .8s;}
+  .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vbg{opacity:1;visibility:visible;z-index:2;transition:opacity .8s ease;}
+  /* A CROSSFADE, not a dip: the open picture fades in on top while the one it replaces stays put under it
+     and is dropped only once the new one is fully in. (Fading both at once passes through the grey base.) */
+  .brgw-sec--home-values[data-vlayout="list"] .vbg img{opacity:var(--v-imgop,1);transform:scale(1.05);transition:transform 0s linear .8s;}
+  .brgw-sec--home-values[data-vlayout="list"] .vi.is-on .vbg img{transform:none;transition:transform 1.6s cubic-bezier(.2,.8,.2,1);}
   .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vp{grid-column:1;max-height:0;overflow:hidden;padding:0 0 0 calc(clamp(1.5rem,3vw,2.7rem) * 3.2);
-    font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.55;opacity:0;transition:opacity .35s ease;}
-  .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vp{max-height:16em;padding-bottom:20px;opacity:1;}
-  /* The words swap places in one step instead of sliding open, so the list is never between two heights;
-     brgw.js also holds the list at the tallest height any one value needs. */
+    font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.55;opacity:0;
+    transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .25s ease;}
+  .brgw-sec--home-values[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vp{max-height:var(--vph,16em);padding-bottom:20px;opacity:1;
+    transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .5s ease .2s;}
+  /* The words slide open as the others slide shut at the same pace, so the names glide instead of jumping.
+     The list is held at the tallest height any one value needs (brgw.js), so the section itself never moves,
+     and brgw.js sets --vph, each value's exact height, so the slide takes its whole time. */
   .brgw-sec--home-values .vset.is-measuring,.brgw-sec--home-values .vset.is-measuring *{transition:none!important;}
 }
 /* ---- MOBILE (Sean, 2 Nov: "the photo should be above all of them"): under 720px, list and columns become
@@ -197,16 +204,20 @@
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi + .vi{border-top:0;}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vx{display:contents;}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg{position:relative;inset:auto;grid-column:1;grid-row:1;aspect-ratio:4 / 3;margin-bottom:10px;
-    background:var(--v-base,rgba(128,128,128,.18));opacity:0;visibility:hidden;transition:opacity .35s ease;}
-  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vbg{opacity:1;visibility:visible;}
+    background:var(--v-base,rgba(128,128,128,.18));opacity:0;visibility:hidden;transition:opacity 0s linear .8s,visibility 0s linear .8s;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vbg{opacity:1;visibility:visible;z-index:2;transition:opacity .8s ease;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg img{opacity:var(--v-imgop,1);transform:scale(1.05);transition:transform 0s linear .8s;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vbg img{transform:none;transition:transform 1.6s cubic-bezier(.2,.8,.2,1);}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg::after{display:none;}
-  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vn{grid-column:1;color:var(--v-tone-fg);opacity:.45;transition:opacity .3s ease;
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vn{grid-column:1;color:var(--v-tone-fg);opacity:.45;transition:opacity .6s ease;
     border-top:1px solid rgba(128,128,128,.4);font-size:clamp(1.3rem,6.4vw,1.9rem);padding:16px 0 16px 2.6em;}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vn::before{left:0;top:calc(16px + .5em);}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vn{opacity:1;}
   .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vp{grid-column:1;color:var(--v-tone-fg);max-height:0;overflow:hidden;opacity:0;
-    padding:0 0 0 calc(clamp(1.3rem,6.4vw,1.9rem) * 2.6);font-size:1rem;line-height:1.55;transition:opacity .35s ease;}
-  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vp{max-height:16em;padding-bottom:18px;opacity:1;}
+    padding:0 0 0 calc(clamp(1.3rem,6.4vw,1.9rem) * 2.6);font-size:1rem;line-height:1.55;
+    transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .25s ease;}
+  .brgw-sec--home-values:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vp{max-height:var(--vph,16em);padding-bottom:18px;opacity:1;
+    transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .5s ease .2s;}
   .brgw-sec--home-values .vset.is-measuring,.brgw-sec--home-values .vset.is-measuring *{transition:none!important;}
 }
 @media (prefers-reduced-motion:reduce){

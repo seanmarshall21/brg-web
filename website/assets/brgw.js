@@ -1111,8 +1111,12 @@
            under a mouse that is standing still, and the browser reports that as the mouse entering
            whatever now sits there, which opens that one, and so on down the list. */
         it.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hover = true; });
-        it.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse' && (e.movementX || e.movementY)) { hover = true; on(i); } });
-        it.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hover = false; arm(); } });
+        // A short pause before switching (about 80ms) so a mouse sweeping across the list does not flick through every value.
+        var hoverT = null;
+        it.addEventListener('pointermove', function (e) {
+          if (e.pointerType === 'mouse' && (e.movementX || e.movementY)) { hover = true; if (i === cur) { clearTimeout(hoverT); return; } clearTimeout(hoverT); hoverT = setTimeout(function () { on(i); }, calm ? 0 : 80); }
+        });
+        it.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { clearTimeout(hoverT); hover = false; arm(); } });
         var b = it.querySelector('.vn');
         if (!b) return;
         b.setAttribute('data-no', (i < 9 ? '0' : '') + (i + 1));
@@ -1135,6 +1139,8 @@
         items.forEach(function (_, k) {
           items.forEach(function (it, j) { it.classList.toggle('is-on', j === k); });
           max = Math.max(max, v.getBoundingClientRect().height);
+          var vp = items[k].querySelector('.vp');                             // its exact open height (box included), so the one closing and the one opening always add up to the same height
+          if (vp) vp.style.setProperty('--vph', Math.ceil(vp.scrollHeight) + 'px');
         });
         items.forEach(function (it, j) { it.classList.toggle('is-on', was[j]); });
         v.classList.remove('is-measuring');

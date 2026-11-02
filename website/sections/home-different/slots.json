@@ -375,6 +375,44 @@
       "xl": "Extra large"
     }
   },
+  "photos_shift_x": {
+    "type": "select",
+    "label": "Photo layout — shift left or right",
+    "width": 50,
+    "default": "0",
+    "group": "Photo layout",
+    "doc": "Slides the whole group of photos sideways, as one. The steps are a share of the photo area's width (a touch is 2%, a lot is 12%), so the move looks the same at any screen size. Whatever slides past the page edge is clipped. \"As designed\" leaves the layout where it is.",
+    "choices": {
+      "-12": "Left — a lot",
+      "-8": "Left",
+      "-4": "Left — a little",
+      "-2": "Left — a touch",
+      "0": "As designed",
+      "2": "Right — a touch",
+      "4": "Right — a little",
+      "8": "Right",
+      "12": "Right — a lot"
+    }
+  },
+  "photos_shift_y": {
+    "type": "select",
+    "label": "Photo layout — shift up or down",
+    "width": 50,
+    "default": "0",
+    "group": "Photo layout",
+    "doc": "Slides the whole group of photos up or down, as one. The steps are a share of the photo area's width (a touch is 2%, a lot is 12%). Moving them up can tuck them under the words or the section above; moving them down can run them into the section below. \"As designed\" leaves the layout where it is.",
+    "choices": {
+      "-12": "Up — a lot",
+      "-8": "Up",
+      "-4": "Up — a little",
+      "-2": "Up — a touch",
+      "0": "As designed",
+      "2": "Down — a touch",
+      "4": "Down — a little",
+      "8": "Down",
+      "12": "Down — a lot"
+    }
+  },
   "section_bg": {
     "type": "image",
     "label": "Section background",
@@ -500,7 +538,8 @@
       "": "As set site-wide",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     }
   },
   "section_color": {
@@ -732,7 +771,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },

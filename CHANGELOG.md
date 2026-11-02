@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.02.2 (2026-11-02)
+- core values: smoother hover (crossfade, sliding words, short hover pause); photo layout shift left/right/up/down
+
 ## 2026.11.02.1 (2026-11-02)
 - core values: photo above the list on phones, section color opacity, heading spacing; tabs follow page order
 

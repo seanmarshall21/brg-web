@@ -3388,6 +3388,70 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_home_community_photos_shift_x",
+        "label": "Photo layout — shift left or right",
+        "name": "brg_home_community_photos_shift_x",
+        "type": "select",
+        "instructions": "Slides the whole group of photos sideways, as one. The steps are a share of the photo area's width (a touch is 2%, a lot is 12%), so the move looks the same at any screen size. Whatever slides past the page edge is clipped. \"As designed\" leaves the layout where it is.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-photos_shift_x",
+          "id": ""
+        },
+        "default_value": "0",
+        "choices": {
+          "-12": "Left — a lot",
+          "-8": "Left",
+          "-4": "Left — a little",
+          "-2": "Left — a touch",
+          "0": "As designed",
+          "2": "Right — a touch",
+          "4": "Right — a little",
+          "8": "Right",
+          "12": "Right — a lot"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_community_photos_shift_y",
+        "label": "Photo layout — shift up or down",
+        "name": "brg_home_community_photos_shift_y",
+        "type": "select",
+        "instructions": "Slides the whole group of photos up or down, as one. The steps are a share of the photo area's width (a touch is 2%, a lot is 12%). Moving them up can tuck them under the words or the section above; moving them down can run them into the section below. \"As designed\" leaves the layout where it is.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-photos_shift_y",
+          "id": ""
+        },
+        "default_value": "0",
+        "choices": {
+          "-12": "Up — a lot",
+          "-8": "Up",
+          "-4": "Up — a little",
+          "-2": "Up — a touch",
+          "0": "As designed",
+          "2": "Down — a touch",
+          "4": "Down — a little",
+          "8": "Down",
+          "12": "Down — a lot"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_community_endacc_photo_layout",
         "label": "",
         "name": "",
@@ -8104,6 +8168,70 @@
           "m": "Medium (as designed)",
           "l": "Large",
           "xl": "Extra large"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_photos_shift_x",
+        "label": "Photo layout — shift left or right",
+        "name": "brg_home_different_photos_shift_x",
+        "type": "select",
+        "instructions": "Slides the whole group of photos sideways, as one. The steps are a share of the photo area's width (a touch is 2%, a lot is 12%), so the move looks the same at any screen size. Whatever slides past the page edge is clipped. \"As designed\" leaves the layout where it is.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-photos_shift_x",
+          "id": ""
+        },
+        "default_value": "0",
+        "choices": {
+          "-12": "Left — a lot",
+          "-8": "Left",
+          "-4": "Left — a little",
+          "-2": "Left — a touch",
+          "0": "As designed",
+          "2": "Right — a touch",
+          "4": "Right — a little",
+          "8": "Right",
+          "12": "Right — a lot"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_photos_shift_y",
+        "label": "Photo layout — shift up or down",
+        "name": "brg_home_different_photos_shift_y",
+        "type": "select",
+        "instructions": "Slides the whole group of photos up or down, as one. The steps are a share of the photo area's width (a touch is 2%, a lot is 12%). Moving them up can tuck them under the words or the section above; moving them down can run them into the section below. \"As designed\" leaves the layout where it is.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-photos_shift_y",
+          "id": ""
+        },
+        "default_value": "0",
+        "choices": {
+          "-12": "Up — a lot",
+          "-8": "Up",
+          "-4": "Up — a little",
+          "-2": "Up — a touch",
+          "0": "As designed",
+          "2": "Down — a touch",
+          "4": "Down — a little",
+          "8": "Down",
+          "12": "Down — a lot"
         },
         "return_format": "value",
         "allow_null": 0,
