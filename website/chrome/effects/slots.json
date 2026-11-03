@@ -29,12 +29,28 @@
       "off": "Off"
     }
   },
+  "loader_style": {
+    "type": "select",
+    "label": "Loading animation",
+    "width": 50,
+    "default": "mix",
+    "group": "Loading screen",
+    "doc": "Mix: a different brand animation each time, never the same one twice in a row. Or pick one to always use: Smiley hop, Spinning asterisk, Charging bolt, Orbit (a smiley with marks circling it), Wave (smiley, bolt and asterisk hopping in turn). A picture chosen below overrides all of these.",
+    "choices": {
+      "mix": "Mix (different each time)",
+      "hop": "Smiley hop",
+      "spin": "Spinning asterisk",
+      "charge": "Charging bolt",
+      "orbit": "Orbit",
+      "trio": "Wave"
+    }
+  },
   "loader_art": {
     "type": "image",
-    "label": "Loading screen picture",
+    "label": "Loading screen picture (replaces the animations)",
     "width": 50,
     "group": "Loading screen",
-    "doc": "What bounces. Leave it empty for the BRG smiley. Any SVG or PNG from the media library works; SVG stays crisp at any size. A shape roughly as wide as it is tall looks best."
+    "doc": "Leave empty to use the animations above. If you choose a picture, it bounces in place of them every time. Any SVG or PNG from the media library works; SVG stays crisp at any size. A shape roughly as wide as it is tall looks best."
   },
   "loader_bg": {
     "type": "select",

@@ -1796,10 +1796,60 @@
     var trans = S.page !== 'off';
     var mode = (S.loader === 'off' || S.loader === 'always') ? S.loader : 'slow';
     if (!trans && mode === 'off') return;
-    var ART = 'https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg';
-    var came = false;
-    try { came = sessionStorage.getItem('brgwFx') === '1'; sessionStorage.removeItem('brgwFx'); } catch (e) {}
+    var STYLES = ['hop', 'spin', 'charge', 'orbit', 'trio'];
+    var ICON = 'https://blacktoprg.netlify.app/assets/media/icons/';
+    var came = false, variant = '';
+    try {
+      var cv = sessionStorage.getItem('brgwFx'); sessionStorage.removeItem('brgwFx');
+      came = !!cv; if (STYLES.indexOf(cv) > -1) variant = cv;
+    } catch (e) {}
     var loader = null, shownAt = 0, ready = false, leaving = false;
+    // ONE ANIMATION PER WAIT, DIFFERENT EACH TIME. Chosen at random but never the one used last
+    // (localStorage), and handed to the next page through sessionStorage so the screen that
+    // covers the old page and the one that opens the new page are the same animation, not two.
+    function pickStyle() {
+      if (variant) return variant;
+      if (S.art) return (variant = 'hop');                      // a picture chosen in wp-admin wins
+      if (STYLES.indexOf(S.style) > -1) return (variant = S.style);
+      var last = ''; try { last = localStorage.getItem('brgwLd') || ''; } catch (e) {}
+      var pool = STYLES.filter(function (x) { return x !== last; });
+      variant = pool[Math.floor(Math.random() * pool.length)];
+      try { localStorage.setItem('brgwLd', variant); } catch (e) {}
+      return variant;
+    }
+    function icon(file, cls, ink) {
+      var im = document.createElement('img');
+      im.alt = ''; im.src = ICON + file; if (cls) im.className = cls; if (ink) im.setAttribute('data-ink', ink);
+      return im;
+    }
+    function buildArt(v) {
+      var box = document.createElement('div'); box.className = 'brgw-ld'; box.setAttribute('data-v', v);
+      if (v === 'hop') {
+        var h = icon('icn-misc-smile-yel.svg');
+        if (/^https?:\/\//.test(S.art || '')) h.src = S.art;
+        var sh = document.createElement('span'); sh.className = 'brgw-ld-sh';
+        box.appendChild(h); box.appendChild(sh);
+      } else if (v === 'spin') {
+        box.appendChild(icon('icn-misc-ast-circle-wht.svg', '', 'white'));
+      } else if (v === 'charge') {
+        box.appendChild(icon('icn-misc-bolt-line-yel.svg', 'b1'));
+        box.appendChild(icon('icn-misc-bolt-fill-yel.svg', 'b2'));
+      } else if (v === 'orbit') {
+        box.appendChild(icon('icn-misc-smile-yel.svg', 'mid'));
+        var ring = document.createElement('div'); ring.className = 'ring';
+        [['icn-misc-bolt-fill-yel.svg', ''], ['icn-misc-ast-circle-wht.svg', 'white'], ['icn-misc-bolt-fill-yel.svg', '']].forEach(function (f, i) {
+          var a = i * 2 * Math.PI / 3, o = icon(f[0], 'o', f[1]);
+          o.style.left = (50 + 50 * Math.sin(a)) + '%'; o.style.top = (50 - 50 * Math.cos(a)) + '%';
+          ring.appendChild(o);
+        });
+        box.appendChild(ring);
+      } else {
+        box.appendChild(icon('icn-misc-smile-yel.svg', 't'));
+        box.appendChild(icon('icn-misc-bolt-fill-yel.svg', 't'));
+        box.appendChild(icon('icn-misc-ast-circle-wht.svg', 't', 'white'));
+      }
+      return box;
+    }
 
     function showLoader(instant) {
       if (loader || !document.body) return;
@@ -1808,11 +1858,7 @@
       l.setAttribute('role', 'status');
       l.setAttribute('aria-label', 'Loading');
       l.setAttribute('data-bg', S.bg === 'white' || S.bg === 'teal' ? S.bg : 'black');
-      var box = document.createElement('div'); box.className = 'brgw-ld';
-      var img = document.createElement('img');
-      img.alt = ''; img.width = 215; img.height = 208; img.src = /^https?:\/\//.test(S.art || '') ? S.art : ART;
-      var sh = document.createElement('span'); sh.className = 'brgw-ld-sh';
-      box.appendChild(img); box.appendChild(sh); l.appendChild(box);
+      l.appendChild(buildArt(pickStyle()));
       if (instant) l.classList.add('is-instant');
       document.body.appendChild(l);
       void l.offsetWidth;
@@ -1850,7 +1896,7 @@
     function leave(href) {
       if (leaving) return; leaving = true;
       D.classList.add('brgw-out');
-      try { sessionStorage.setItem('brgwFx', '1'); } catch (e) {}
+      try { sessionStorage.setItem('brgwFx', pickStyle()); } catch (e) {}
       setTimeout(function () { if (mode !== 'off') showLoader(false); location.href = href; }, 340);
       setTimeout(reset, 20000);                                // navigation cancelled: give the page back
     }
