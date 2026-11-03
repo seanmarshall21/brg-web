@@ -1,0 +1,277 @@
+<!-- BRG · section: home-values-2  →  [brg_home-values-2]
+     A COPY OF [brg_home-values] (Sean, 3 Nov: put the shortcode in twice to compare two versions, each with its own tab and settings).
+     It is a generated copy: when home-values changes, make the same change here (or ask to re-copy it).
+     OUR CORE VALUES. Rebuilt 1 Nov (Sean: "make these two different sections, one About, one Values"): the wheel, the
+     columns and the list that used to sit inside What We're About now live here, so the two sections have their own
+     backgrounds, order and settings. Owns the yellow ASTERISK seam badge, bleeding upward into the section above. -->
+<section class="brgw-sec brgw-sec--home-values-2 reveal" data-full="{{full_screen}}" data-full-pin="{{full_pin}}" data-full-snap="{{full_snap}}" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-sec-sync data-nav="light" data-vhs="{{values_heading_style}}" data-vlayout="{{values_layout}}" data-vtext="{{values_text_pos}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="Our core values" data-cta-pos="{{cta_position}}">
+<style>
+.brgw-sec--home-values-2{--v-pad:clamp(12px,1.4vw,20px);--brgw-wrap:1420px;position:relative;background:var(--white);color:var(--ink);overflow:visible;}
+.brgw-sec--home-values-2 > *{position:relative;z-index:2;}
+.brgw-sec--home-values-2 .seam{position:absolute;top:0;left:50%;width:clamp(62px,6vw,92px);
+  transform:translate(-50%,-50%);z-index:5;}
+.brgw-sec--home-values-2 .seam img{width:100%;height:auto;display:block;}
+
+
+/* ---- CORE VALUES: the wheel, the columns and the list (part of What We're About until 1 Nov, when Sean made it a section of its own) ----
+   Erin 30 Oct: fold Core Values into What We're About; Clayton: a wheel, with the definition
+   appearing when the cursor goes over a value. The names sit round a ring; the definition of
+   the one pointed at (or focused, or tapped) shows in the middle. One is always showing, so
+   the middle is never an empty circle. The positions are trigonometry in CSS (cos/sin on an
+   angle from --i and --n, which brgw.js sets), so any number of values spaces itself.
+   Below 700px, or in a browser without cos(), the ring becomes a row of names with the
+   definition in a panel underneath: five labels round a circle is too tight at 390px. */
+.brgw-sec--home-values-2 .values-blk{padding:clamp(44px,5vw,72px) var(--pad) clamp(80px,9vw,124px);
+  text-align:center;}
+/* The heading is set like the section's own title: a yellow marker block, tilted, with the same
+   highlight for chosen words. "Plain words" (values_heading_style) drops the block. */
+:where(.brgw-sec--home-values-2) .vh{display:inline-block;background:var(--yellow);color:var(--ink);
+  font-size:clamp(1.5rem,2.9vw,2.5rem);text-transform:uppercase;padding:.04em .3em;transform:rotate(-1.6deg);
+  }
+/* The gap under the label is set here, not above: a global heading rule (margin:0) outranks a :where() selector, which is why the label sat on top of the list. */
+.brgw-sec--home-values-2 .values-blk .vh{margin-bottom:clamp(44px,6vw,92px);}
+/* The label's words (Sean, 2 Nov: "a black highlight with white text"): Automatic leaves them to the marker color. */
+.brgw-sec--home-values-2 .values-blk .vh[data-vtc="dark"]{color:var(--ink);}
+.brgw-sec--home-values-2 .values-blk .vh[data-vtc="light"]{color:var(--white);}
+.brgw-sec--home-values-2 .values-blk .vh[data-vtc="custom"]{color:var(--vh-tc,inherit);}
+.brgw-sec--home-values-2[data-vhs="plain"] .vh{background:none;color:inherit;padding:0;transform:none;}
+.brgw-sec--home-values-2 .vh .mark[data-mark=""]{display:none;}
+.brgw-sec--home-values-2 .wheel{width:100%;max-width:640px;margin-inline:auto;}
+.brgw-sec--home-values-2 .ring{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:18px;}
+.brgw-sec--home-values-2 .vl{font:inherit;cursor:pointer;border:0;background:var(--teal);color:var(--white);
+  font-weight:700;font-size:clamp(.7rem,.9vw,.8rem);letter-spacing:.2em;text-transform:uppercase;
+  padding:10px 20px;transition:background-color .2s ease,color .2s ease,transform .2s ease;}
+.brgw-sec--home-values-2 .vl:hover,
+.brgw-sec--home-values-2 .vl:focus-visible,
+.brgw-sec--home-values-2 .vl.is-on{background:var(--yellow);color:var(--ink);}
+.brgw-sec--home-values-2 .vl:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+.brgw-sec--home-values-2 .core{display:grid;align-items:center;justify-items:center;padding:24px 22px;
+  border:2px solid var(--ink);min-height:8.5em;}
+.brgw-sec--home-values-2 .def{grid-area:1/1;margin:0;font-size:clamp(.92rem,1.05vw,1rem);line-height:1.55;
+  opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s;}
+.brgw-sec--home-values-2 .def.is-on{opacity:1;visibility:visible;transition:opacity .25s ease;}
+@media(min-width:700px){ @supports (left:calc(50% + 1% * cos(10deg))){
+  .brgw-sec--home-values-2 .wheel{position:relative;aspect-ratio:1;max-width:600px;}
+  .brgw-sec--home-values-2 .wheel::before{content:"";position:absolute;inset:9%;border:2px dashed rgba(35,31,32,.35);border-radius:50%;}
+  .brgw-sec--home-values-2 .ring{display:block;margin:0;}
+  .brgw-sec--home-values-2 .vl{position:absolute;white-space:nowrap;
+    left:calc(50% + 41% * cos(calc(var(--i, 0) / var(--n, 5) * 360deg - 90deg)));
+    top:calc(50% + 41% * sin(calc(var(--i, 0) / var(--n, 5) * 360deg - 90deg)));
+    transform:translate(-50%,-50%);}
+  .brgw-sec--home-values-2 .vl:hover,
+  .brgw-sec--home-values-2 .vl.is-on{transform:translate(-50%,-50%) scale(1.06);}
+  .brgw-sec--home-values-2 .core{position:absolute;inset:22%;border-radius:50%;padding:0 6%;min-height:0;}
+  .brgw-sec--home-values-2 .def{font-size:clamp(.78rem,1vw,.95rem);}
+} }
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--home-values-2 .def,.brgw-sec--home-values-2 .vl{transition:none;}
+}
+
+/* The numbers come from brgw.js (data-no on each name), not a CSS counter: a counter does not
+   count through the list layout's display:contents rows and every name read 00. */
+/* ---- CORE VALUES, two more layouts: COLUMNS and LIST (Sean, 30 Oct) -------------------------
+   Both read the same values list as the wheel, plus a photo per value, and the Layout setting
+   picks which one shows. Columns: numbered, side by side; the open one is wide and solid, the
+   rest narrow at 60%. List: numbered names on the left, the open one's photo and words on the
+   right. Both can step through by themselves (a pause button shows), and under 800px both are a
+   stack of rows where the open row grows downward, because five columns are 78px each at 390px.
+   The photo look is chosen separately for a light and a dark background (the Background box
+   picks which pair applies): normal, black and white, or soft, which multiplies on light and
+   screens on dark at a strength you set. A photo with full strength needs light words and a
+   dark shade at its foot, so those looks flip the words white; Soft keeps the tone's own words. */
+.brgw-sec--home-values-2 .vset{display:none;}
+.brgw-sec--home-values-2[data-vlayout="columns"] .vset,.brgw-sec--home-values-2[data-vlayout="list"] .vset{display:block;}
+.brgw-sec--home-values-2[data-vlayout="columns"] .wheel,.brgw-sec--home-values-2[data-vlayout="list"] .wheel{display:none;}
+.brgw-sec--home-values-2{--v-tone-fg:var(--ink);--v-tone-bg:#fff;--v-fg:var(--ink);--v-bg:#fff;--v-blend:normal;--v-filter:none;--v-scrim:0;}
+.brgw-sec--home-values-2[data-vtone="dark"]{--v-tone-fg:#fff;--v-tone-bg:#000;--v-fg:#fff;--v-bg:#000;}
+/* The tone paints the block only while no block color is chosen ("keep"); a chosen color is painted by
+   the shared section-color rules in brgw.css, and brgwSecColor then sets data-vtone from its brightness. */
+.brgw-sec--home-values-2[data-vtone="dark"][data-sec-color="keep"]{background:#000;color:#fff;}
+.brgw-sec--home-values-2[data-vtone="dark"] .wheel::before{border-color:rgba(255,255,255,.4);}
+.brgw-sec--home-values-2[data-vtone="dark"] .core{border-color:#fff;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="normal"],.brgw-sec--home-values-2[data-vtone="dark"][data-vid="normal"]{--v-fg:#fff;--v-bg:var(--ink);--v-scrim:.55;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="bw"],.brgw-sec--home-values-2[data-vtone="dark"][data-vid="bw"]{--v-fg:#fff;--v-bg:var(--ink);--v-scrim:.55;--v-filter:grayscale(1);}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"]{--v-blend:multiply;--v-base:#c9c9c9;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"][data-vsb="white"]{--v-base:#fff;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"][data-vsb="light"]{--v-base:#e4e4e4;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"][data-vsb="slate"]{--v-base:#a8a8a8;}
+.brgw-sec--home-values-2[data-vtone="dark"][data-vid="soft"]{--v-blend:screen;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"][data-vila="10"]{--v-imgop:.1;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"][data-vila="20"]{--v-imgop:.2;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"][data-vila="30"]{--v-imgop:.3;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"][data-vila="40"]{--v-imgop:.4;}
+.brgw-sec--home-values-2[data-vtone="light"][data-vil="soft"][data-vila="60"]{--v-imgop:.6;}
+.brgw-sec--home-values-2[data-vtone="dark"][data-vid="soft"][data-vida="10"]{--v-imgop:.1;}
+.brgw-sec--home-values-2[data-vtone="dark"][data-vid="soft"][data-vida="20"]{--v-imgop:.2;}
+.brgw-sec--home-values-2[data-vtone="dark"][data-vid="soft"][data-vida="30"]{--v-imgop:.3;}
+.brgw-sec--home-values-2[data-vtone="dark"][data-vid="soft"][data-vida="40"]{--v-imgop:.4;}
+
+.brgw-sec--home-values-2 .vi{position:relative;isolation:isolate;overflow:hidden;opacity:.6;background:var(--v-base,var(--v-bg));color:var(--v-fg);
+  transition:opacity .35s ease;}
+.brgw-sec--home-values-2 .vi.is-on{opacity:1;}
+.brgw-sec--home-values-2 .values-blk{container:vb / inline-size;}
+.brgw-sec--home-values-2 .vset{max-width:1320px;margin-inline:auto;text-align:left;}
+.brgw-sec--home-values-2 .vbg{position:absolute;inset:0;z-index:0;}
+/* A photo shows ONLY on the open item: it fades in and settles from a slight zoom. The fade is on
+   the <img> itself, not on .vbg, because an opacity or transform on .vbg would wall the blend
+   mode off from the column color behind it and multiply/screen would do nothing. */
+.brgw-sec--home-values-2 .vbg img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:var(--v-blend);
+  opacity:0;transform:scale(1.1);filter:var(--v-filter);
+  transition:opacity .25s ease,transform .25s ease;}
+.brgw-sec--home-values-2 .vi.is-on .vbg img{opacity:var(--v-imgop,1);transform:none;
+  transition:opacity .8s ease .1s,transform 1.4s cubic-bezier(.2,.8,.2,1) .1s;}
+.brgw-sec--home-values-2 .vbg::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity .25s ease;
+  background:linear-gradient(to top,rgba(0,0,0,var(--v-scrim)),rgba(0,0,0,0) 70%);}
+.brgw-sec--home-values-2 .vi.is-on .vbg::after{opacity:1;transition:opacity .8s ease .1s;}
+/* Split text: words are wrapped by the script and rise in one after another, but only once the
+   column has finished widening (.is-set), so no line ever re-breaks while words are moving. */
+.brgw-sec--home-values-2 .vp .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em;}
+.brgw-sec--home-values-2 .vp .wi{display:inline-block;transform:translateY(115%);opacity:0;transition:opacity .15s ease;}
+.brgw-sec--home-values-2 .vi.is-set .vp .wi{transform:none;opacity:1;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .4s ease;transition-delay:calc(var(--i,0) * 28ms);}
+.brgw-sec--home-values-2 .vn{position:relative;z-index:1;display:block;width:100%;border:0;background:none;color:inherit;font:inherit;
+  cursor:pointer;text-align:left;text-transform:uppercase;font-family:'Blanco Cavelary','Montserrat',cursive;font-weight:400;font-size:clamp(1.05rem,1.6vw,1.4rem);padding:18px 16px 18px 52px;}
+.brgw-sec--home-values-2 .vn::before{content:attr(data-no);position:absolute;left:16px;top:21px;
+  font-family:'Montserrat',system-ui,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;opacity:.8;}
+.brgw-sec--home-values-2 .vn:focus-visible{outline:2px solid currentColor;outline-offset:-4px;}
+.brgw-sec--home-values-2 .vp{position:relative;z-index:1;margin:0;max-height:0;overflow:hidden;padding:0 16px 0 52px;
+  font-size:clamp(.92rem,1.05vw,1rem);line-height:1.55;transition:max-height .45s ease;}
+.brgw-sec--home-values-2 .vi.is-on .vp{max-height:16em;padding-bottom:20px;}
+.brgw-sec--home-values-2 .vi + .vi{border-top:1px solid rgba(128,128,128,.4);}
+.brgw-sec--home-values-2 .vx{display:contents;}
+@container vb (min-width:720px){
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vset{display:flex;height:clamp(420px,44vw,620px);}
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vset{container-type:inline-size;}
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vi{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;
+    transition:flex-grow .55s cubic-bezier(.2,.8,.2,1),opacity .35s ease;}
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vi + .vi{border-top:0;box-shadow:inset 1px 0 0 rgba(128,128,128,.4);}
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vi.is-on{flex-grow:3.4;}
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vx{display:block;position:absolute;inset:0;pointer-events:none;}
+  /* the number sits at the top of the column and the name right under it; the description stays at
+     the foot. The name is as wide as a CLOSED column (one share out of 3.4 + 4 = 7.4, less the side
+     padding), so a name that wraps to two lines closed wraps the same way when its column opens. */
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vn{position:static;box-sizing:content-box;
+    width:calc(min(100vw,1320px) / 7.4 - 2 * var(--v-pad));
+    width:calc(100cqw / 7.4 - 2 * var(--v-pad));
+    padding:calc(var(--v-pad) + 26px) var(--v-pad) 0;font-size:clamp(.72rem,1.5vw,1.45rem);line-height:1.15;overflow-wrap:normal;}
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vn::before{left:var(--v-pad);top:var(--v-pad);}
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vp{position:absolute;left:var(--v-pad);bottom:var(--v-pad);box-sizing:content-box;max-height:none;overflow:visible;padding:0;
+    width:calc(100cqw * 3.4 / 7.4 - 2 * var(--v-pad));opacity:0;}
+  .brgw-sec--home-values-2[data-vlayout="columns"] .vi.is-on .vp{opacity:1;padding-bottom:0;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vset{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+    grid-template-rows:repeat(var(--n,5),auto);column-gap:clamp(32px,5vw,80px);align-items:start;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vi{display:contents;opacity:1;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vi + .vi{border-top:0;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vn{grid-column:1;color:var(--v-tone-fg);opacity:.4;transition:opacity .6s ease;
+    font-size:clamp(1.5rem,3vw,2.7rem);padding:18px 0 18px 3.2em;border-top:1px solid rgba(128,128,128,.4);}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vn::before{left:0;top:calc(18px + .55em);}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vi.is-on .vn{opacity:1;}
+  /* The open name sits close to its words (Sean, 2 Nov: the gap under "01 Leadership" was far too big): its bottom
+     padding closes up while it is open, at the same pace the words open, so the list's height never changes. */
+  .brgw-sec--home-values-2[data-vlayout="list"]:not([data-vtext="photo"]) .vn{transition:opacity .6s ease,padding-bottom .6s cubic-bezier(.4,0,.2,1);}
+  .brgw-sec--home-values-2[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vn{padding-bottom:6px;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vx{display:block;grid-column:2;grid-row:1 / span var(--n,5);position:relative;opacity:0;visibility:hidden;
+    transition:opacity 0s linear .8s,visibility 0s linear .8s;color:var(--v-tone-fg);isolation:isolate;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vi.is-on .vx{opacity:1;visibility:visible;z-index:2;transition:opacity .8s ease;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vbg{position:relative;inset:auto;aspect-ratio:4 / 3;background:var(--v-base,rgba(128,128,128,.18));}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vbg::after{display:none;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vp{max-height:none;overflow:visible;padding:20px 0 0;color:var(--v-tone-fg);font-size:clamp(1rem,1.2vw,1.15rem);}
+  /* WHERE THE WORDS GO (Sean, 1 Nov: no colored box under the photo, and he did not like the words
+     there). Unless "Under the photo" is chosen, the words drop down under the open name and push the
+     names below it down, and the photo stands alone on the right with nothing painted behind it.
+     .vx stops being a box so its photo and its words become grid items of their own. */
+  .brgw-sec--home-values-2[data-vlayout="list"]:not([data-vtext="photo"]) .vset{grid-template-rows:none;grid-auto-rows:auto;}
+  .brgw-sec--home-values-2[data-vlayout="list"]:not([data-vtext="photo"]) .vx{display:contents;}
+  .brgw-sec--home-values-2[data-vlayout="list"]:not([data-vtext="photo"]) .vbg{grid-column:2;grid-row:1 / span 12;align-self:start;
+    opacity:0;visibility:hidden;transition:opacity 0s linear .8s,visibility 0s linear .8s;}
+  .brgw-sec--home-values-2[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vbg{opacity:1;visibility:visible;z-index:2;transition:opacity .8s ease;}
+  /* A CROSSFADE, not a dip: the open picture fades in on top while the one it replaces stays put under it
+     and is dropped only once the new one is fully in. (Fading both at once passes through the grey base.) */
+  .brgw-sec--home-values-2[data-vlayout="list"] .vbg img{opacity:var(--v-imgop,1);transform:scale(1.05);transition:transform 0s linear .8s;}
+  .brgw-sec--home-values-2[data-vlayout="list"] .vi.is-on .vbg img{transform:none;transition:transform 1.6s cubic-bezier(.2,.8,.2,1);}
+  .brgw-sec--home-values-2[data-vlayout="list"]:not([data-vtext="photo"]) .vp{grid-column:1;max-height:0;overflow:hidden;padding:0 0 0 calc(clamp(1.5rem,3vw,2.7rem) * 3.2);
+    font-size:clamp(1rem,1.2vw,1.15rem);line-height:1.55;opacity:0;
+    transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .25s ease;}
+  .brgw-sec--home-values-2[data-vlayout="list"]:not([data-vtext="photo"]) .vi.is-on .vp{max-height:var(--vph,16em);padding-bottom:20px;opacity:1;
+    transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .5s ease .2s;}
+  /* The words slide open as the others slide shut at the same pace, so the names glide instead of jumping.
+     The list is held at the tallest height any one value needs (brgw.js), so the section itself never moves,
+     and brgw.js sets --vph, each value's exact height, so the slide takes its whole time. */
+  .brgw-sec--home-values-2 .vset.is-measuring,.brgw-sec--home-values-2 .vset.is-measuring *{transition:none!important;}
+}
+/* ---- MOBILE (Sean, 2 Nov: "the photo should be above all of them"): under 720px, list and columns become
+   the label, then ONE photo, then the names; the open name drops its words right under itself. The photo
+   shows the open value's picture and nothing is behind the words. .vi and .vx stop being boxes so every
+   photo can share the first grid row while names and words stack under it. */
+@container vb (not (min-width:720px)){
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vset{display:grid;grid-template-columns:minmax(0,1fr);grid-auto-rows:auto;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vi{display:contents;opacity:1;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vi + .vi{border-top:0;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vx{display:contents;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg{position:relative;inset:auto;grid-column:1;grid-row:1;aspect-ratio:4 / 3;margin-bottom:10px;
+    background:var(--v-base,rgba(128,128,128,.18));opacity:0;visibility:hidden;transition:opacity 0s linear .8s,visibility 0s linear .8s;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vbg{opacity:1;visibility:visible;z-index:2;transition:opacity .8s ease;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg img{opacity:var(--v-imgop,1);transform:scale(1.05);transition:transform 0s linear .8s;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vbg img{transform:none;transition:transform 1.6s cubic-bezier(.2,.8,.2,1);}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vbg::after{display:none;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vn{grid-column:1;color:var(--v-tone-fg);opacity:.45;transition:opacity .6s ease;
+    border-top:1px solid rgba(128,128,128,.4);font-size:clamp(1.3rem,6.4vw,1.9rem);padding:16px 0 16px 2.6em;
+    transition:opacity .6s ease,padding-bottom .6s cubic-bezier(.4,0,.2,1);}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vn::before{left:0;top:calc(16px + .5em);}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vn{opacity:1;padding-bottom:4px;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vp{grid-column:1;color:var(--v-tone-fg);max-height:0;overflow:hidden;opacity:0;
+    padding:0 0 0 calc(clamp(1.3rem,6.4vw,1.9rem) * 2.6);font-size:1rem;line-height:1.55;
+    transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .25s ease;}
+  .brgw-sec--home-values-2:is([data-vlayout="list"],[data-vlayout="columns"]) .vi.is-on .vp{max-height:var(--vph,16em);padding-bottom:18px;opacity:1;
+    transition:max-height .6s cubic-bezier(.4,0,.2,1),padding-bottom .6s cubic-bezier(.4,0,.2,1),opacity .5s ease .2s;}
+  .brgw-sec--home-values-2 .vset.is-measuring,.brgw-sec--home-values-2 .vset.is-measuring *{transition:none!important;}
+}
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--home-values-2 .vi,.brgw-sec--home-values-2 .vp,.brgw-sec--home-values-2 .vx{transition:none!important;}
+}
+</style>
+  <div class="sec-bg" data-bg="{{section_bg}}" data-blend="{{section_bg_blend}}" data-layer="{{section_bg_layer}}" data-join="{{section_bg_join}}" style="--sec-bg-o:{{section_bg_opacity}};--sec-bg-bl:{{section_bg_blend}}"
+       data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"
+            data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
+  <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_ast_pos}}" data-mark-show="{{mark_1_ast_show}}" data-mark-anim="{{mark_1_ast_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_ast_opacity}}"><img class="brgw-pop" src="{{mark_1_ast_art}}" alt="" width="150" height="146" loading="lazy" decoding="async"></span>
+  <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
+  <div class="values-blk">
+    <h3 class="vh blanco anim-head" data-sec-color="{{values_heading_color}}" data-sec-custom="{{values_heading_color_custom}}" data-vtc="{{values_heading_text}}" style="--vh-tc:{{values_heading_text_custom}}">{{heading}} <span class="mark" data-mark="{{values_heading_mark}}"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{values_heading_mark}}</span></span></h3>
+    <div class="wheel anim-up" data-wheel>
+      <div class="ring">
+      <!--brg:repeat values-->
+      <button type="button" class="vl blanco">{{values.label}}</button>
+      <!--brg:empty-->
+      <button type="button" class="vl blanco">Leadership</button>
+      <button type="button" class="vl blanco">Culture</button>
+      <button type="button" class="vl blanco">Advocate</button>
+      <button type="button" class="vl blanco">Stay Stoked</button>
+      <button type="button" class="vl blanco">Community</button>
+      <!--/brg:repeat-->
+      </div>
+      <div class="core" aria-live="polite">
+      <!--brg:repeat values-->
+      <p class="def">{{values.body}}</p>
+      <!--brg:empty-->
+      <p class="def">We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p>
+      <p class="def">Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p>
+      <p class="def">We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p>
+      <p class="def">Life's too short to be boring about food. We bring energy, passion, and a little fun to everything we do.</p>
+      <p class="def">We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that invest in us.</p>
+      <!--/brg:repeat-->
+      </div>
+    </div>
+    <div class="vset" data-vset data-autoplay="{{values_autoplay}}" data-secs="{{values_secs}}">
+      <!--brg:repeat values-->
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">{{values.label}}</button><div class="vx"><div class="vbg" aria-hidden="true"><picture><source srcset="{{values.image}}"><img alt="" loading="lazy" decoding="async" width="800" height="1000"></picture></div><p class="vp">{{values.body}}</p></div></div>
+      <!--brg:empty-->
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Leadership</button><div class="vx"><div class="vbg" aria-hidden="true"><picture><source srcset="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/11/brg-odie-dough.webp"><img alt="" loading="lazy" decoding="async" width="800" height="1000"></picture></div><p class="vp">We lead from the front. Every shift, every decision, every interaction is an opportunity to set the standard &mdash; not follow it.</p></div></div>
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Culture</button><div class="vx"><div class="vbg" aria-hidden="true"><picture><source srcset="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/brg-odies-skatewall.webp"><img alt="" loading="lazy" decoding="async" width="800" height="1000"></picture></div><p class="vp">Culture isn't a poster on the wall. It's how we treat each other, how we show up, and the environment we build every single day.</p></div></div>
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Advocate</button><div class="vx"><div class="vbg" aria-hidden="true"><picture><source srcset="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/brg-bnb-table.webp"><img alt="" loading="lazy" decoding="async" width="800" height="1000"></picture></div><p class="vp">We go to bat for our team, our guests, and our communities. If you're part of our world, we're in your corner.</p></div></div>
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Stay Stoked</button><div class="vx"><div class="vbg" aria-hidden="true"><picture><source srcset="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/brg-concert-stagedive.webp"><img alt="" loading="lazy" decoding="async" width="800" height="1000"></picture></div><p class="vp">Life's too short to be boring about food. We bring energy, passion, and a little fun to everything we do.</p></div></div>
+      <div class="vi"><button type="button" class="vn blanco" aria-expanded="false">Community</button><div class="vx"><div class="vbg" aria-hidden="true"><picture><source srcset="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/11/brg-bnb-bikers-sq.webp"><img alt="" loading="lazy" decoding="async" width="800" height="1000"></picture></div><p class="vp">We don't just operate in communities &mdash; we're part of them. We give back, show up, and invest in the places that invest in us.</p></div></div>
+      <!--/brg:repeat-->
+    </div>
+  </div>
+  <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
+</section>

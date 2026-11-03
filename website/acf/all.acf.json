@@ -7887,6 +7887,1682 @@
         "endpoint": 1
       },
       {
+        "key": "field_brg_tab_home_values_2",
+        "label": "Core values 2",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_home_values_2_show_section",
+        "label": "Show this section",
+        "name": "brg_home_values_2_show_section",
+        "type": "true_false",
+        "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_home_values_2_show_divider",
+        "label": "Show the divider icon",
+        "name": "brg_home_values_2_show_divider",
+        "type": "true_false",
+        "instructions": "The round badge that sits between this section and the one above it. Untick to remove just the badge — the section itself stays.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-show-divider",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_home_values_2_heading",
+        "label": "Core values — heading",
+        "name": "brg_home_values_2_heading",
+        "type": "text",
+        "instructions": "The words above the values, in the section-title style. Set the marker color, the highlighted words and the plain style in the boxes below.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-heading",
+          "id": ""
+        },
+        "default_value": "Our core values"
+      },
+      {
+        "key": "field_brg_home_values_2_values_layout",
+        "label": "Core values — layout",
+        "name": "brg_home_values_2_values_layout",
+        "type": "select",
+        "instructions": "How the values are laid out. Wheel: names round a ring, the description in the middle. Columns: numbered columns side by side; the one you point at or tap grows wide and the rest shrink. List: a numbered list on the left with the photo and description on the right. All three read from the same list of values below, so you can flip between them to compare.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_layout",
+          "id": ""
+        },
+        "default_value": "list",
+        "choices": {
+          "wheel": "Wheel",
+          "columns": "Columns",
+          "list": "List"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_text_pos",
+        "label": "Core values — list: where the words go",
+        "name": "brg_home_values_2_values_text_pos",
+        "type": "select",
+        "instructions": "Only for the List layout. Under the name: the open value's words drop down right under its name, pushing the names below it down, and the photo stands alone on the right. Under the photo: the words sit below the photo on the right. Neither has a colored box behind it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_text_pos",
+          "id": ""
+        },
+        "default_value": "name",
+        "choices": {
+          "name": "Under the name",
+          "photo": "Under the photo"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_tone",
+        "label": "Core values — light or dark",
+        "name": "brg_home_values_2_values_tone",
+        "type": "select",
+        "instructions": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a Section color further down overrides this and makes it follow that color's brightness.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_tone",
+          "id": ""
+        },
+        "default_value": "light",
+        "choices": {
+          "light": "Light (white)",
+          "dark": "Dark (black)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_heading_style",
+        "label": "Core values — heading style",
+        "name": "brg_home_values_2_values_heading_style",
+        "type": "select",
+        "instructions": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-values_heading_style",
+          "id": ""
+        },
+        "default_value": "marker",
+        "choices": {
+          "marker": "Yellow marker block (like the section title)",
+          "plain": "Plain words"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_heading_color",
+        "label": "Core values — heading — marker color",
+        "name": "brg_home_values_2_values_heading_color",
+        "type": "select",
+        "instructions": "The color of the block behind the heading above the values. \"Yellow\" is how it has always been. Pick another when the values background is yellow, since a yellow block on yellow disappears. The words on the block flip between black and white on their own. Light, Dark, Accent and Alt accent are the roles set once on the Site-wide page; the named shades are fixed colors; Custom uses the color box next to this one. Has no effect when the heading style is Plain words.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-values_heading_color",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "Yellow (as it is)",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)",
+          "custom": "Custom (use the color box)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_heading_color_custom",
+        "label": "Core values — heading — custom marker color",
+        "name": "brg_home_values_2_values_heading_color_custom",
+        "type": "color_picker",
+        "instructions": "Used only when the marker color is Custom.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-values_heading_color_custom",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_heading_text",
+        "label": "Core values — heading — text color",
+        "name": "brg_home_values_2_values_heading_text",
+        "type": "select",
+        "instructions": "The color of the words in the heading (\"Our core values\"). Automatic leaves them as designed (dark on a light marker). Choose White to put white words on a black marker block, for instance. \"Custom\" uses the color box next to this one.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-values_heading_text",
+          "id": ""
+        },
+        "default_value": "auto",
+        "choices": {
+          "auto": "Automatic",
+          "dark": "Black",
+          "light": "White",
+          "custom": "Custom (use the color box)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_heading_text_custom",
+        "label": "Core values — heading — custom text color",
+        "name": "brg_home_values_2_values_heading_text_custom",
+        "type": "color_picker",
+        "instructions": "Used only when the heading text color is set to Custom. Left empty, a Custom choice does nothing.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-values_heading_text_custom",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_heading_mark",
+        "label": "Core values — heading — highlighted words",
+        "name": "brg_home_values_2_values_heading_mark",
+        "type": "text",
+        "instructions": "Words in the heading to highlight with the same marker stroke the About section's title uses. Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\".",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "66",
+          "class": "brg-f-values_heading_mark",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_autoplay",
+        "label": "Core values — auto-play (columns and list)",
+        "name": "brg_home_values_2_values_autoplay",
+        "type": "select",
+        "instructions": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It stops on whichever one someone is pointing at or has tapped, carries on a few seconds after they leave, and does nothing for visitors who have asked their device to reduce motion.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_autoplay",
+          "id": ""
+        },
+        "default_value": "on",
+        "choices": {
+          "on": "On",
+          "off": "Off"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_secs",
+        "label": "Core values — seconds on each (columns and list)",
+        "name": "brg_home_values_2_values_secs",
+        "type": "select",
+        "instructions": "How long each value stays open before the next one.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_secs",
+          "id": ""
+        },
+        "default_value": "5",
+        "choices": {
+          "3": "3 seconds",
+          "4": "4 seconds",
+          "5": "5 seconds",
+          "7": "7 seconds",
+          "10": "10 seconds"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_img_light",
+        "label": "Core values — photo look on a light background",
+        "name": "brg_home_values_2_values_img_light",
+        "type": "select",
+        "instructions": "Used when the background above is Light. Normal shows the photo as it is. Black and white takes the color out. Soft multiply lays the photo faintly over the white, darkening it, so the words stay dark and easy to read.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_img_light",
+          "id": ""
+        },
+        "default_value": "normal",
+        "choices": {
+          "normal": "Normal",
+          "bw": "Black and white",
+          "soft": "Soft, multiply"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_img_light_amt",
+        "label": "Core values — light: how strong the soft look is",
+        "name": "brg_home_values_2_values_img_light_amt",
+        "type": "select",
+        "instructions": "Only used when the look is Soft. A higher number shows more of the photo.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_img_light_amt",
+          "id": ""
+        },
+        "default_value": "10",
+        "choices": {
+          "10": "10%",
+          "20": "20%",
+          "30": "30%",
+          "40": "40%",
+          "60": "60%"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_soft_base",
+        "label": "Core values — light: color under the soft photo",
+        "name": "brg_home_values_2_values_soft_base",
+        "type": "select",
+        "instructions": "Only used when the look is Soft. The photo is multiplied onto this color, so any white in the photo shows as this color instead of plain white, and the whole column reads darker. White is how it was before.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_soft_base",
+          "id": ""
+        },
+        "default_value": "white",
+        "choices": {
+          "white": "White",
+          "light": "Light gray",
+          "mid": "Mid gray",
+          "slate": "Slate gray"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_img_dark",
+        "label": "Core values — photo look on a dark background",
+        "name": "brg_home_values_2_values_img_dark",
+        "type": "select",
+        "instructions": "Used when the background above is Dark. Normal shows the photo as it is. Black and white takes the color out. Soft screen lays the photo faintly over the black, lightening it, so the words stay white and easy to read.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_img_dark",
+          "id": ""
+        },
+        "default_value": "soft",
+        "choices": {
+          "normal": "Normal",
+          "bw": "Black and white",
+          "soft": "Soft, screen"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_img_dark_amt",
+        "label": "Core values — dark: how strong the soft look is",
+        "name": "brg_home_values_2_values_img_dark_amt",
+        "type": "select",
+        "instructions": "Only used when the look is Soft. A higher number shows more of the photo.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_img_dark_amt",
+          "id": ""
+        },
+        "default_value": "10",
+        "choices": {
+          "10": "10%",
+          "20": "20%",
+          "30": "30%",
+          "40": "40%"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_acc_section_background",
+        "label": "Section background",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_values_2_section_bg",
+        "label": "Section background",
+        "name": "brg_home_values_2_section_bg",
+        "type": "image",
+        "instructions": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-section_bg",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_home_values_2_section_bg_blend",
+        "label": "Background — how it mixes with the color",
+        "name": "brg_home_values_2_section_bg_blend",
+        "type": "select",
+        "instructions": "How the background picture combines with this section's color. Normal just lays it on top, faded by the strength above. The others mix the two the way layers do in Photoshop: Multiply darkens and lets the color show through the picture's light parts, Screen lightens, Overlay and Soft light add contrast gently, Hard light is the strong version, Darken and Lighten keep only the darker or lighter of the two. The mixing stays inside this section, so it never reaches the sections above or below it. Only matters when there is a background picture.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-section_bg_blend",
+          "id": ""
+        },
+        "default_value": "normal",
+        "choices": {
+          "normal": "Normal (as it is now)",
+          "multiply": "Multiply",
+          "screen": "Screen",
+          "overlay": "Overlay",
+          "soft-light": "Soft light",
+          "hard-light": "Hard light",
+          "darken": "Darken",
+          "lighten": "Lighten"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_section_bg_layer",
+        "label": "Background — which is on top",
+        "name": "brg_home_values_2_section_bg_layer",
+        "type": "select",
+        "instructions": "Picture on top of the color is how it has always worked: the picture is laid over the section's color and faded by the strength above. Color on top of the picture turns it around: the picture runs at full strength underneath and the section's color is laid over it, so a yellow section becomes a yellow-tinted photo. Either way the strength above is how much of the picture you see, and the mixing choice above is used between the two.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-section_bg_layer",
+          "id": ""
+        },
+        "default_value": "under",
+        "choices": {
+          "under": "Picture on top of the color (as it is now)",
+          "over": "Color on top of the picture"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_section_bg_join",
+        "label": "Background — continue from the section above",
+        "name": "brg_home_values_2_section_bg_join",
+        "type": "select",
+        "instructions": "Yes makes this section show the next piece of the picture from the section above it, as if one picture ran behind both. It needs a background picture on the section above (or on one further up that is also continuing); this section's own picture is not used while this is on. The strength, mixing and which-is-on-top choices are taken from the section the picture starts in, and each section keeps its own color. Background movement is switched off for pictures that continue.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-section_bg_join",
+          "id": ""
+        },
+        "default_value": "no",
+        "choices": {
+          "no": "No, use this section's own picture",
+          "yes": "Yes, continue the picture from above"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_section_bg_opacity",
+        "label": "Background strength",
+        "name": "brg_home_values_2_section_bg_opacity",
+        "type": "select",
+        "instructions": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-section_bg_opacity",
+          "id": ""
+        },
+        "default_value": "0.18",
+        "choices": {
+          "0": "Off",
+          "0.08": "8% — barely there",
+          "0.12": "12%",
+          "0.18": "18%",
+          "0.25": "25%",
+          "0.4": "40%",
+          "0.5": "50%",
+          "0.7": "70%",
+          "0.85": "85%",
+          "1": "100% — exactly as supplied"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_section_bg_px",
+        "label": "Background movement",
+        "name": "brg_home_values_2_section_bg_px",
+        "type": "number",
+        "instructions": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-section_bg_px",
+          "id": ""
+        },
+        "default_value": "0",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": "%"
+      },
+      {
+        "key": "field_brg_home_values_2_section_bg_px_dir",
+        "label": "Background movement direction",
+        "name": "brg_home_values_2_section_bg_px_dir",
+        "type": "select",
+        "instructions": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-section_bg_px_dir",
+          "id": ""
+        },
+        "default_value": "down",
+        "choices": {
+          "down": "Down",
+          "up": "Up"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_endacc_section_background",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_home_values_2_acc_section_background_phones",
+        "label": "Section background — phones",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_values_2_section_bg_mobile",
+        "label": "Section background — phones",
+        "name": "brg_home_values_2_section_bg_mobile",
+        "type": "image",
+        "instructions": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-section_bg_mobile",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_home_values_2_endacc_section_background_phones",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_home_values_2_values",
+        "label": "Core values — the list",
+        "name": "brg_home_values_2_values",
+        "type": "repeater",
+        "instructions": "The values, shown as the wheel, the columns or the list (the Layout box above picks). On the wheel, point at a name (or tap it) and its description appears in the middle. In the columns and the list, the photo is the background of the column or the picture beside the list.\n\nUNTIL YOU ADD THE FIRST ONE HERE the section shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community, with no photos. Adding one replaces all five, so add every value you want, not only the one you are changing. Five fits the columns best.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-f-values brg-fallback",
+          "id": ""
+        },
+        "layout": "block",
+        "button_label": "Add a value",
+        "min": 0,
+        "max": 0,
+        "collapsed": "field_brg_home_values_2_values_label",
+        "sub_fields": [
+          {
+            "key": "field_brg_home_values_2_values_label",
+            "label": "Name",
+            "name": "label",
+            "type": "text",
+            "instructions": "The short name on the card, set in the brand face. One or two words reads best.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-label",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_home_values_2_values_body",
+            "label": "Description",
+            "name": "body",
+            "type": "textarea",
+            "instructions": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-body",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_home_values_2_values_image",
+            "label": "Photo",
+            "name": "image",
+            "type": "image",
+            "instructions": "Used by the columns and the list; the wheel ignores it. Portrait or square works best for the columns, around 800x1000. Leave empty for a plain color.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-image",
+              "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all"
+          }
+        ]
+      },
+      {
+        "key": "field_brg_home_values_2_acc_mark_ast",
+        "label": "Mark — Ast",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_values_2_mark_1_ast_art",
+        "label": "Artwork",
+        "name": "brg_home_values_2_mark_1_ast_art",
+        "type": "image",
+        "instructions": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-mark_1_ast_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_home_values_2_mark_1_ast_pos",
+        "label": "Position",
+        "name": "brg_home_values_2_mark_1_ast_pos",
+        "type": "select",
+        "instructions": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-mark_1_ast_pos",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "Where the design put it",
+          "tl": "Top left",
+          "tc": "Top center",
+          "tr": "Top right",
+          "ml": "Middle left",
+          "mc": "Middle center",
+          "mr": "Middle right",
+          "bl": "Bottom left",
+          "bc": "Bottom center",
+          "br": "Bottom right"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_mark_1_ast_opacity",
+        "label": "Opacity",
+        "name": "brg_home_values_2_mark_1_ast_opacity",
+        "type": "number",
+        "instructions": "How solid the mark is. 100 is as drawn; lower settles it into the background.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-mark_1_ast_opacity",
+          "id": ""
+        },
+        "default_value": "100",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": "%"
+      },
+      {
+        "key": "field_brg_home_values_2_mark_1_ast_show",
+        "label": "Show this mark",
+        "name": "brg_home_values_2_mark_1_ast_show",
+        "type": "select",
+        "instructions": "Hiding removes just this one mark. Nothing else in the section changes.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-mark_1_ast_show",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Shown",
+          "0": "Hidden"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_mark_1_ast_anim",
+        "label": "Animation",
+        "name": "brg_home_values_2_mark_1_ast_anim",
+        "type": "select",
+        "instructions": "How the mark moves. \"As built\" keeps what it does today — a hard-cut jitter for most, a spin for the asterisk in the hero cluster. Still stops it entirely. Anyone who has switched off animation in their system settings sees it still whatever is chosen here.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-mark_1_ast_anim",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "As built",
+          "jitter": "Jitter",
+          "spin": "Spin",
+          "pulse": "Pulse",
+          "none": "Still"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_endacc_mark_ast",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_home_values_2_acc_buttons",
+        "label": "Buttons",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_values_2_cta_position",
+        "label": "Where the buttons sit",
+        "name": "brg_home_values_2_cta_position",
+        "type": "select",
+        "instructions": "At the bottom is the usual place and the one the rest of the site uses.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-cta_position",
+          "id": ""
+        },
+        "default_value": "foot",
+        "choices": {
+          "foot": "At the bottom of the section",
+          "head": "Directly under the heading"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_btn_size",
+        "label": "Size",
+        "name": "brg_home_values_2_btn_size",
+        "type": "select",
+        "instructions": "How big this section's buttons are. \"As set site-wide\" follows the Buttons tab on the Site-wide page; any single button can still differ on its own row.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "20",
+          "class": "brg-f-btn_size",
+          "id": ""
+        },
+        "default_value": "",
+        "choices": {
+          "": "As set site-wide",
+          "large": "Large",
+          "medium": "Medium",
+          "small": "Small",
+          "x-small": "Extra small"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_btn_color",
+        "label": "Button color",
+        "name": "brg_home_values_2_btn_color",
+        "type": "select",
+        "instructions": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.\n\nLight, Dark, Accent and Alt accent are ROLES — what each one looks like is set once on the Site-wide page, so changing Accent there repaints every accent button on the site. The named shades below them are fixed colors for anything that has to be one particular color.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "20",
+          "class": "brg-f-btn_color",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "As designed",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_btn_hover",
+        "label": "Button hover color",
+        "name": "brg_home_values_2_btn_hover",
+        "type": "select",
+        "instructions": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "20",
+          "class": "brg-f-btn_hover",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "As designed",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_btn_style",
+        "label": "Filled or outline",
+        "name": "brg_home_values_2_btn_style",
+        "type": "select",
+        "instructions": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Any one button can be set differently in the list below.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "20",
+          "class": "brg-f-btn_style",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "As designed",
+          "filled": "Filled",
+          "outline": "Outline",
+          "text": "Text only"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_btn_effect",
+        "label": "Hover effect",
+        "name": "brg_home_values_2_btn_effect",
+        "type": "select",
+        "instructions": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "20",
+          "class": "brg-f-btn_effect",
+          "id": ""
+        },
+        "default_value": "lift",
+        "choices": {
+          "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
+          "grow": "Grow",
+          "press": "Press down",
+          "fill": "Fill in",
+          "none": "None"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_buttons",
+        "label": "Buttons",
+        "name": "brg_home_values_2_buttons",
+        "type": "repeater",
+        "instructions": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nSize, color, hover color, fill and hover effect are set for the whole section above; open any button's row and the same five controls are there for that one button. Left on \"Same as the section\" a button follows the section, and the section follows the Site-wide page.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-f-buttons",
+          "id": ""
+        },
+        "layout": "block",
+        "button_label": "Add a button",
+        "min": 0,
+        "max": 0,
+        "collapsed": "field_brg_home_values_2_buttons_label",
+        "sub_fields": [
+          {
+            "key": "field_brg_home_values_2_buttons_label",
+            "label": "Label",
+            "name": "label",
+            "type": "text",
+            "instructions": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "34",
+              "class": "brg-f-label",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_home_values_2_buttons_href",
+            "label": "Link",
+            "name": "href",
+            "type": "text",
+            "instructions": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "33",
+              "class": "brg-f-href",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_home_values_2_buttons_popup",
+            "label": "Open in a pop-up",
+            "name": "popup",
+            "type": "select",
+            "instructions": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "33",
+              "class": "brg-f-popup",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Open the link",
+              "1": "Pop-up"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_values_2_buttons_color",
+            "label": "Color",
+            "name": "color",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's color above. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "20",
+              "class": "brg-f-color",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "light": "Light",
+              "dark": "Dark",
+              "accent": "Accent",
+              "alt": "Alt accent",
+              "yellow": "Yellow (a specific shade)",
+              "teal": "Teal (a specific shade)",
+              "pink": "Pink (a specific shade)",
+              "orange": "Orange (a specific shade)",
+              "white": "White (a specific shade)",
+              "ink": "Black (a specific shade)"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_values_2_buttons_hover",
+            "label": "Hover color",
+            "name": "hover",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "20",
+              "class": "brg-f-hover",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "light": "Light",
+              "dark": "Dark",
+              "accent": "Accent",
+              "alt": "Alt accent",
+              "yellow": "Yellow (a specific shade)",
+              "teal": "Teal (a specific shade)",
+              "pink": "Pink (a specific shade)",
+              "orange": "Orange (a specific shade)",
+              "white": "White (a specific shade)",
+              "ink": "Black (a specific shade)"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_values_2_buttons_style",
+            "label": "Filled or outline",
+            "name": "style",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" to follow the section. The usual pair is a filled main button next to an outline one.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "20",
+              "class": "brg-f-style",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "filled": "Filled",
+              "outline": "Outline",
+              "text": "Text only"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_values_2_buttons_effect",
+            "label": "Hover effect",
+            "name": "effect",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "20",
+              "class": "brg-f-effect",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "lift": "Lift",
+              "lift-swap": "Lift and swap color",
+              "underline": "Underline",
+              "grow": "Grow",
+              "press": "Press down",
+              "fill": "Fill in",
+              "none": "None"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          },
+          {
+            "key": "field_brg_home_values_2_buttons_size",
+            "label": "Size",
+            "name": "size",
+            "type": "select",
+            "instructions": "Leave on \"Same as the section\" to follow it.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "20",
+              "class": "brg-f-size",
+              "id": ""
+            },
+            "default_value": "",
+            "choices": {
+              "": "Same as the section",
+              "large": "Large",
+              "medium": "Medium",
+              "small": "Small",
+              "x-small": "Extra small"
+            },
+            "return_format": "value",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+          }
+        ]
+      },
+      {
+        "key": "field_brg_home_values_2_modal_bg",
+        "label": "Pop-up background",
+        "name": "brg_home_values_2_modal_bg",
+        "type": "select",
+        "instructions": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-modal_bg",
+          "id": ""
+        },
+        "default_value": "white",
+        "choices": {
+          "white": "White",
+          "ink": "Site dark",
+          "yellow": "Yellow",
+          "teal": "Teal"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_endacc_buttons",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_home_values_2_acc_section_color",
+        "label": "Section color",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_values_2_section_color",
+        "label": "Section color",
+        "name": "brg_home_values_2_section_color",
+        "type": "select",
+        "instructions": "The flat color behind this whole section. \"As designed\" leaves the color it has today; nothing changes until you choose one.\n\nLight, Dark, Accent and Alt accent are ROLES: what each looks like is set once on the Site-wide page, so changing Accent there repaints every section set to Accent as well as every accent button. The named shades are fixed colors. \"Custom\" uses the color box next to this one.\n\nA background picture (above) sits on top of this color, so the color shows through wherever the picture is faded or transparent. The words flip to dark or light on their own so they stay readable (see Section text color). Buttons set to \"As designed\" keep their own colors, so set Button color below if one blends into the new background. Small decorations drawn for the old color, such as faint white marks on a dark section, can fade out on a color they were not drawn for. Pink is the hardest color to read small words on, so keep it for sections with big type.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-section_color",
+          "id": ""
+        },
+        "default_value": "accent",
+        "choices": {
+          "keep": "As designed",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)",
+          "custom": "Custom (use the color box)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_section_color_custom",
+        "label": "Section color — custom",
+        "name": "brg_home_values_2_section_color_custom",
+        "type": "color_picker",
+        "instructions": "Used only when Section color is set to Custom. Pick any color. Left empty, a Custom choice does nothing and the section keeps the color it has today.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-section_color_custom",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_home_values_2_section_text",
+        "label": "Section text color",
+        "name": "brg_home_values_2_section_text",
+        "type": "select",
+        "instructions": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while Section color is \"As designed\".",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-section_text",
+          "id": ""
+        },
+        "default_value": "auto",
+        "choices": {
+          "auto": "Automatic",
+          "dark": "Dark words",
+          "light": "Light words"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_section_color_opacity",
+        "label": "Section color — opacity",
+        "name": "brg_home_values_2_section_color_opacity",
+        "type": "select",
+        "instructions": "How solid the section color is. 100% is a flat color. Lower it to let what is behind the section show through: the page behind it, and with Section background on \"color on top\" the picture too. Works with any color except \"As designed\". The words pick dark or light for the color as if it sat on white, so on a very pale mix you may want to force Section text color.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-section_color_opacity",
+          "id": ""
+        },
+        "default_value": "100",
+        "choices": {
+          "100": "100% — solid",
+          "90": "90%",
+          "80": "80%",
+          "70": "70%",
+          "60": "60%",
+          "50": "50%",
+          "40": "40%",
+          "30": "30%",
+          "20": "20%",
+          "10": "10%"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_endacc_section_color",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_home_values_2_acc_full_screen",
+        "label": "Full screen",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_values_2_full_screen",
+        "label": "Full screen",
+        "name": "brg_home_values_2_full_screen",
+        "type": "select",
+        "instructions": "Makes this section fill the screen, or 90% of it, with its content centered in the room. \"As designed\" leaves the height it has today; nothing changes until you choose one.\n\nIt is also held in place while the page scrolls past: see \"Hold while scrolling\". If the section is taller than the screen it stays as tall as it is, and it pins by its bottom edge so it is never cut off at the foot.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-full_screen",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "As designed",
+          "full": "Full screen (100% of the screen)",
+          "ninety": "90% of the screen"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_full_pin",
+        "label": "Hold while scrolling",
+        "name": "brg_home_values_2_full_pin",
+        "type": "select",
+        "instructions": "How long the section stays put as you scroll, before the page carries on. None lets it scroll away normally; Short holds for about half a screen of scrolling, Medium for a full screen, Long for about a screen and a half. Does nothing while Full screen is off.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-full_pin",
+          "id": ""
+        },
+        "default_value": "medium",
+        "choices": {
+          "none": "None",
+          "short": "Short",
+          "medium": "Medium",
+          "long": "Long"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_full_snap",
+        "label": "Scroll into place",
+        "name": "brg_home_values_2_full_snap",
+        "type": "select",
+        "instructions": "On: when you scroll down toward this section and stop with it a little below the top of the screen, the page eases the last bit so it sits exactly in place. Subtle: it only does this for a short distance (under a third of the screen) and never when you scroll up. Does nothing while Full screen is off.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-full_snap",
+          "id": ""
+        },
+        "default_value": "on",
+        "choices": {
+          "on": "On (subtle)",
+          "off": "Off"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_endacc_full_screen",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
         "key": "field_brg_tab_home_different",
         "label": "A different kind of restaurant company",
         "name": "",

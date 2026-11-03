@@ -1,0 +1,735 @@
+{
+  "_note": "Slots for [brg_home-values-2], a COPY of [brg_home-values] so two versions of Core values can sit on a page and be compared (each has its own tab, settings and Show/Hide switch). Declared beside the fragment so a slot and its {token} ship in one commit. Generated into website/acf/ by `python3 kit/build-acf.py`; never hand-edit an acf.json. Slot names are underscore-only. Defaults are esc_html'd on fill, so write literal characters — a literal `&` and a literal `—`, never `&amp;` or `&mdash;`.\\n\\nONLY THE HEADING IS WIRED. The five value cards stay as code, and the evidence is this section's own history: it shipped with SIX values against the old monolith and now has FIVE (no 'Do It Right' — see notes/finesser.md 2026-08-10). A count that has already changed once is the clearest possible proof it is not a design constant, so numbering the cards value_1..value_5 would bake in a number we KNOW moves, while looking editable. Dropping to four or adding a sixth would then be a code change disguised as a content one. If these should be editable, they need real repeater support — conti's option (b), deferred 2026-08-13. The BRG pattern watermark is decorative.",
+  "heading": {
+    "type": "text",
+    "label": "Core values — heading",
+    "doc": "The words above the values, in the section-title style. Set the marker color, the highlighted words and the plain style in the boxes below.",
+    "default": "Our core values",
+    "width": 100
+  },
+  "values_layout": {
+    "type": "select",
+    "label": "Core values — layout",
+    "doc": "How the values are laid out. Wheel: names round a ring, the description in the middle. Columns: numbered columns side by side; the one you point at or tap grows wide and the rest shrink. List: a numbered list on the left with the photo and description on the right. All three read from the same list of values below, so you can flip between them to compare.",
+    "default": "list",
+    "width": 50,
+    "choices": {
+      "wheel": "Wheel",
+      "columns": "Columns",
+      "list": "List"
+    }
+  },
+  "values_text_pos": {
+    "type": "select",
+    "label": "Core values — list: where the words go",
+    "doc": "Only for the List layout. Under the name: the open value's words drop down right under its name, pushing the names below it down, and the photo stands alone on the right. Under the photo: the words sit below the photo on the right. Neither has a colored box behind it.",
+    "default": "name",
+    "width": 50,
+    "choices": {
+      "name": "Under the name",
+      "photo": "Under the photo"
+    }
+  },
+  "values_tone": {
+    "type": "select",
+    "label": "Core values — light or dark",
+    "doc": "Whether the values sit on white with dark words, or on black with white words. This also decides which photo look below is used: the light one on white, the dark one on black. Choosing a Section color further down overrides this and makes it follow that color's brightness.",
+    "default": "light",
+    "width": 50,
+    "choices": {
+      "light": "Light (white)",
+      "dark": "Dark (black)"
+    }
+  },
+  "values_heading_style": {
+    "type": "select",
+    "label": "Core values — heading style",
+    "width": 34,
+    "default": "marker",
+    "doc": "How the heading above the values looks. The marker block is the yellow tilted block the section's own title uses. Plain words drops the block.",
+    "choices": {
+      "marker": "Yellow marker block (like the section title)",
+      "plain": "Plain words"
+    }
+  },
+  "values_heading_color": {
+    "type": "select",
+    "label": "Core values — heading — marker color",
+    "width": 34,
+    "default": "keep",
+    "doc": "The color of the block behind the heading above the values. \"Yellow\" is how it has always been. Pick another when the values background is yellow, since a yellow block on yellow disappears. The words on the block flip between black and white on their own. Light, Dark, Accent and Alt accent are the roles set once on the Site-wide page; the named shades are fixed colors; Custom uses the color box next to this one. Has no effect when the heading style is Plain words.",
+    "choices": {
+      "keep": "Yellow (as it is)",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)",
+      "custom": "Custom (use the color box)"
+    }
+  },
+  "values_heading_color_custom": {
+    "type": "color",
+    "label": "Core values — heading — custom marker color",
+    "width": 33,
+    "default": "",
+    "doc": "Used only when the marker color is Custom."
+  },
+  "values_heading_text": {
+    "type": "select",
+    "label": "Core values — heading — text color",
+    "width": 34,
+    "default": "auto",
+    "doc": "The color of the words in the heading (\"Our core values\"). Automatic leaves them as designed (dark on a light marker). Choose White to put white words on a black marker block, for instance. \"Custom\" uses the color box next to this one.",
+    "choices": {
+      "auto": "Automatic",
+      "dark": "Black",
+      "light": "White",
+      "custom": "Custom (use the color box)"
+    }
+  },
+  "values_heading_text_custom": {
+    "type": "color",
+    "label": "Core values — heading — custom text color",
+    "width": 33,
+    "default": "",
+    "doc": "Used only when the heading text color is set to Custom. Left empty, a Custom choice does nothing."
+  },
+  "values_heading_mark": {
+    "type": "text",
+    "label": "Core values — heading — highlighted words",
+    "width": 66,
+    "default": "",
+    "doc": "Words in the heading to highlight with the same marker stroke the About section's title uses. Leave empty for no highlight. The words are added after the heading, so write the heading without them: heading \"Our\", highlighted words \"core values\"."
+  },
+  "values_autoplay": {
+    "type": "select",
+    "label": "Core values — auto-play (columns and list)",
+    "doc": "Steps through the values by itself, like a slider that does not move: the open column or row changes every few seconds. It stops on whichever one someone is pointing at or has tapped, carries on a few seconds after they leave, and does nothing for visitors who have asked their device to reduce motion.",
+    "default": "on",
+    "width": 50,
+    "choices": {
+      "on": "On",
+      "off": "Off"
+    }
+  },
+  "values_secs": {
+    "type": "select",
+    "label": "Core values — seconds on each (columns and list)",
+    "doc": "How long each value stays open before the next one.",
+    "default": "5",
+    "width": 50,
+    "choices": {
+      "3": "3 seconds",
+      "4": "4 seconds",
+      "5": "5 seconds",
+      "7": "7 seconds",
+      "10": "10 seconds"
+    }
+  },
+  "values_img_light": {
+    "type": "select",
+    "label": "Core values — photo look on a light background",
+    "doc": "Used when the background above is Light. Normal shows the photo as it is. Black and white takes the color out. Soft multiply lays the photo faintly over the white, darkening it, so the words stay dark and easy to read.",
+    "default": "normal",
+    "width": 50,
+    "choices": {
+      "normal": "Normal",
+      "bw": "Black and white",
+      "soft": "Soft, multiply"
+    }
+  },
+  "values_img_light_amt": {
+    "type": "select",
+    "label": "Core values — light: how strong the soft look is",
+    "doc": "Only used when the look is Soft. A higher number shows more of the photo.",
+    "default": "10",
+    "width": 50,
+    "choices": {
+      "10": "10%",
+      "20": "20%",
+      "30": "30%",
+      "40": "40%",
+      "60": "60%"
+    }
+  },
+  "values_soft_base": {
+    "type": "select",
+    "label": "Core values — light: color under the soft photo",
+    "doc": "Only used when the look is Soft. The photo is multiplied onto this color, so any white in the photo shows as this color instead of plain white, and the whole column reads darker. White is how it was before.",
+    "default": "white",
+    "width": 50,
+    "choices": {
+      "white": "White",
+      "light": "Light gray",
+      "mid": "Mid gray",
+      "slate": "Slate gray"
+    }
+  },
+  "values_img_dark": {
+    "type": "select",
+    "label": "Core values — photo look on a dark background",
+    "doc": "Used when the background above is Dark. Normal shows the photo as it is. Black and white takes the color out. Soft screen lays the photo faintly over the black, lightening it, so the words stay white and easy to read.",
+    "default": "soft",
+    "width": 50,
+    "choices": {
+      "normal": "Normal",
+      "bw": "Black and white",
+      "soft": "Soft, screen"
+    }
+  },
+  "values_img_dark_amt": {
+    "type": "select",
+    "label": "Core values — dark: how strong the soft look is",
+    "doc": "Only used when the look is Soft. A higher number shows more of the photo.",
+    "default": "10",
+    "width": 50,
+    "choices": {
+      "10": "10%",
+      "20": "20%",
+      "30": "30%",
+      "40": "40%"
+    }
+  },
+  "section_bg": {
+    "type": "image",
+    "label": "Section background",
+    "doc": "A pattern or photo filling this whole section, behind everything else. Leave it empty — as it is now — and the section keeps the plain color it has today; nothing changes until you choose something. It is cropped to fill, so the exact size does not matter. ON A DARK SECTION USE A LIGHT OR GRAY ARTWORK: a black pattern over a black panel stays invisible however high you set the strength below.",
+    "group": "Section background",
+    "default": "https://blacktoprg.netlify.app/assets/media/bkgnds/brg-pattern-gry.webp",
+    "width": 100
+  },
+  "section_bg_blend": {
+    "type": "select",
+    "label": "Background — how it mixes with the color",
+    "doc": "How the background picture combines with this section's color. Normal just lays it on top, faded by the strength above. The others mix the two the way layers do in Photoshop: Multiply darkens and lets the color show through the picture's light parts, Screen lightens, Overlay and Soft light add contrast gently, Hard light is the strong version, Darken and Lighten keep only the darker or lighter of the two. The mixing stays inside this section, so it never reaches the sections above or below it. Only matters when there is a background picture.",
+    "width": 50,
+    "default": "normal",
+    "group": "Section background",
+    "choices": {
+      "normal": "Normal (as it is now)",
+      "multiply": "Multiply",
+      "screen": "Screen",
+      "overlay": "Overlay",
+      "soft-light": "Soft light",
+      "hard-light": "Hard light",
+      "darken": "Darken",
+      "lighten": "Lighten"
+    }
+  },
+  "section_bg_layer": {
+    "type": "select",
+    "label": "Background — which is on top",
+    "doc": "Picture on top of the color is how it has always worked: the picture is laid over the section's color and faded by the strength above. Color on top of the picture turns it around: the picture runs at full strength underneath and the section's color is laid over it, so a yellow section becomes a yellow-tinted photo. Either way the strength above is how much of the picture you see, and the mixing choice above is used between the two.",
+    "width": 50,
+    "default": "under",
+    "group": "Section background",
+    "choices": {
+      "under": "Picture on top of the color (as it is now)",
+      "over": "Color on top of the picture"
+    }
+  },
+  "section_bg_join": {
+    "type": "select",
+    "label": "Background — continue from the section above",
+    "doc": "Yes makes this section show the next piece of the picture from the section above it, as if one picture ran behind both. It needs a background picture on the section above (or on one further up that is also continuing); this section's own picture is not used while this is on. The strength, mixing and which-is-on-top choices are taken from the section the picture starts in, and each section keeps its own color. Background movement is switched off for pictures that continue.",
+    "width": 100,
+    "default": "no",
+    "group": "Section background",
+    "choices": {
+      "no": "No, use this section's own picture",
+      "yes": "Yes, continue the picture from above"
+    }
+  },
+  "section_bg_mobile": {
+    "type": "image",
+    "label": "Section background — phones",
+    "doc": "Optional. A version of the background for phones, used below 768px wide. Leave it empty and the main background above is used at every size. Worth setting when the main artwork is wide: cropped to a narrow screen it often shows nothing recognizable, and a tall or simplified version reads far better.",
+    "group": "Section background — phones",
+    "default": "",
+    "width": 100
+  },
+  "section_bg_opacity": {
+    "type": "select",
+    "label": "Background strength",
+    "doc": "How strongly the background shows through. Choose 100% when the artwork already has the intended strength built into the file — anything lower then fades a graphic that was supplied ready to use. Use the lower values when a full-strength image would compete with the words in front of it.",
+    "width": 50,
+    "default": "0.18",
+    "group": "Section background",
+    "choices": {
+      "0": "Off",
+      "0.08": "8% — barely there",
+      "0.12": "12%",
+      "0.18": "18%",
+      "0.25": "25%",
+      "0.4": "40%",
+      "0.5": "50%",
+      "0.7": "70%",
+      "0.85": "85%",
+      "1": "100% — exactly as supplied"
+    }
+  },
+  "section_bg_px": {
+    "type": "number",
+    "label": "Background movement",
+    "doc": "Drifts the background as the page scrolls, behind the content, as a percentage of the section's height. 0 is off — the right starting point, because a pattern moving too fast pulls the eye away from the copy. 6 is subtle, 10 medium, 16 strong, and anything in between is allowed. 40 is the ceiling; the page stops there.",
+    "width": 50,
+    "default": "0",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%",
+    "group": "Section background"
+  },
+  "section_bg_px_dir": {
+    "type": "select",
+    "label": "Background movement direction",
+    "doc": "Which way the background travels as the page scrolls. Only matters once movement above is above 0. Neighboring sections set in opposite directions are what reads as depth rather than as one sheet sliding.",
+    "width": 100,
+    "default": "down",
+    "group": "Section background",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
+    }
+  },
+  "values": {
+    "type": "repeater",
+    "label": "Core values — the list",
+    "button": "Add a value",
+    "collapse": "label",
+    "doc": "The values, shown as the wheel, the columns or the list (the Layout box above picks). On the wheel, point at a name (or tap it) and its description appears in the middle. In the columns and the list, the photo is the background of the column or the picture beside the list.\n\nUNTIL YOU ADD THE FIRST ONE HERE the section shows the five it has always shown: Leadership, Culture, Advocate, Stay Stoked, Community, with no photos. Adding one replaces all five, so add every value you want, not only the one you are changing. Five fits the columns best.",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Name",
+        "doc": "The short name on the card, set in the brand face. One or two words reads best.",
+        "default": "",
+        "width": 100
+      },
+      "body": {
+        "type": "textarea",
+        "label": "Description",
+        "doc": "The sentence or two underneath. Write an em dash as a literal character, not as an entity.",
+        "default": "",
+        "width": 100
+      },
+      "image": {
+        "type": "image",
+        "label": "Photo",
+        "doc": "Used by the columns and the list; the wheel ignores it. Portrait or square works best for the columns, around 800x1000. Leave empty for a plain color.",
+        "default": "",
+        "width": 100
+      }
+    },
+    "width": 100
+  },
+  "mark_1_ast_art": {
+    "type": "image",
+    "label": "Artwork",
+    "doc": "Which mark is drawn here. Leave it alone to keep the one the design uses. Any SVG or PNG from the media library works; SVG stays crisp at any size.",
+    "default": "https://blacktoprg.netlify.app/assets/media/icons/div-icn-ast.svg",
+    "group": "Mark — Ast",
+    "width": 100
+  },
+  "mark_1_ast_pos": {
+    "type": "select",
+    "label": "Position",
+    "doc": "Where the mark sits in its section. \"Where the design put it\" is the starting point and leaves it exactly where it is now — choose one of the nine only when you want to move it. Corners sit inside the section padding, so a long headline cannot push a mark down into the type.",
+    "width": 50,
+    "default": "keep",
+    "choices": {
+      "keep": "Where the design put it",
+      "tl": "Top left",
+      "tc": "Top center",
+      "tr": "Top right",
+      "ml": "Middle left",
+      "mc": "Middle center",
+      "mr": "Middle right",
+      "bl": "Bottom left",
+      "bc": "Bottom center",
+      "br": "Bottom right"
+    },
+    "group": "Mark — Ast"
+  },
+  "mark_1_ast_opacity": {
+    "type": "number",
+    "label": "Opacity",
+    "doc": "How solid the mark is. 100 is as drawn; lower settles it into the background.",
+    "width": 50,
+    "default": "100",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "append": "%",
+    "group": "Mark — Ast"
+  },
+  "mark_1_ast_show": {
+    "type": "select",
+    "label": "Show this mark",
+    "doc": "Hiding removes just this one mark. Nothing else in the section changes.",
+    "width": 50,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    },
+    "group": "Mark — Ast"
+  },
+  "mark_1_ast_anim": {
+    "type": "select",
+    "label": "Animation",
+    "doc": "How the mark moves. \"As built\" keeps what it does today — a hard-cut jitter for most, a spin for the asterisk in the hero cluster. Still stops it entirely. Anyone who has switched off animation in their system settings sees it still whatever is chosen here.",
+    "width": 50,
+    "default": "keep",
+    "choices": {
+      "keep": "As built",
+      "jitter": "Jitter",
+      "spin": "Spin",
+      "pulse": "Pulse",
+      "none": "Still"
+    },
+    "group": "Mark — Ast"
+  },
+  "cta_position": {
+    "type": "select",
+    "label": "Where the buttons sit",
+    "doc": "At the bottom is the usual place and the one the rest of the site uses.",
+    "width": 100,
+    "default": "foot",
+    "choices": {
+      "foot": "At the bottom of the section",
+      "head": "Directly under the heading"
+    },
+    "group": "Buttons"
+  },
+  "btn_size": {
+    "type": "select",
+    "label": "Size",
+    "doc": "How big this section's buttons are. \"As set site-wide\" follows the Buttons tab on the Site-wide page; any single button can still differ on its own row.",
+    "group": "Buttons",
+    "width": 20,
+    "default": "",
+    "choices": {
+      "": "As set site-wide",
+      "large": "Large",
+      "medium": "Medium",
+      "small": "Small",
+      "x-small": "Extra small"
+    }
+  },
+  "section_color": {
+    "type": "select",
+    "label": "Section color",
+    "width": 34,
+    "default": "accent",
+    "group": "Section color",
+    "doc": "The flat color behind this whole section. \"As designed\" leaves the color it has today; nothing changes until you choose one.\n\nLight, Dark, Accent and Alt accent are ROLES: what each looks like is set once on the Site-wide page, so changing Accent there repaints every section set to Accent as well as every accent button. The named shades are fixed colors. \"Custom\" uses the color box next to this one.\n\nA background picture (above) sits on top of this color, so the color shows through wherever the picture is faded or transparent. The words flip to dark or light on their own so they stay readable (see Section text color). Buttons set to \"As designed\" keep their own colors, so set Button color below if one blends into the new background. Small decorations drawn for the old color, such as faint white marks on a dark section, can fade out on a color they were not drawn for. Pink is the hardest color to read small words on, so keep it for sections with big type.",
+    "choices": {
+      "keep": "As designed",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)",
+      "custom": "Custom (use the color box)"
+    }
+  },
+  "section_color_custom": {
+    "type": "color",
+    "label": "Section color — custom",
+    "width": 33,
+    "default": "",
+    "group": "Section color",
+    "doc": "Used only when Section color is set to Custom. Pick any color. Left empty, a Custom choice does nothing and the section keeps the color it has today."
+  },
+  "section_text": {
+    "type": "select",
+    "label": "Section text color",
+    "width": 33,
+    "default": "auto",
+    "group": "Section color",
+    "doc": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while Section color is \"As designed\".",
+    "choices": {
+      "auto": "Automatic",
+      "dark": "Dark words",
+      "light": "Light words"
+    }
+  },
+  "section_color_opacity": {
+    "type": "select",
+    "label": "Section color — opacity",
+    "width": 34,
+    "default": "100",
+    "group": "Section color",
+    "doc": "How solid the section color is. 100% is a flat color. Lower it to let what is behind the section show through: the page behind it, and with Section background on \"color on top\" the picture too. Works with any color except \"As designed\". The words pick dark or light for the color as if it sat on white, so on a very pale mix you may want to force Section text color.",
+    "choices": {
+      "100": "100% — solid",
+      "90": "90%",
+      "80": "80%",
+      "70": "70%",
+      "60": "60%",
+      "50": "50%",
+      "40": "40%",
+      "30": "30%",
+      "20": "20%",
+      "10": "10%"
+    }
+  },
+  "full_screen": {
+    "type": "select",
+    "label": "Full screen",
+    "width": 34,
+    "default": "off",
+    "group": "Full screen",
+    "doc": "Makes this section fill the screen, or 90% of it, with its content centered in the room. \"As designed\" leaves the height it has today; nothing changes until you choose one.\n\nIt is also held in place while the page scrolls past: see \"Hold while scrolling\". If the section is taller than the screen it stays as tall as it is, and it pins by its bottom edge so it is never cut off at the foot.",
+    "choices": {
+      "off": "As designed",
+      "full": "Full screen (100% of the screen)",
+      "ninety": "90% of the screen"
+    }
+  },
+  "full_pin": {
+    "type": "select",
+    "label": "Hold while scrolling",
+    "width": 33,
+    "default": "medium",
+    "group": "Full screen",
+    "doc": "How long the section stays put as you scroll, before the page carries on. None lets it scroll away normally; Short holds for about half a screen of scrolling, Medium for a full screen, Long for about a screen and a half. Does nothing while Full screen is off.",
+    "choices": {
+      "none": "None",
+      "short": "Short",
+      "medium": "Medium",
+      "long": "Long"
+    }
+  },
+  "full_snap": {
+    "type": "select",
+    "label": "Scroll into place",
+    "width": 33,
+    "default": "on",
+    "group": "Full screen",
+    "doc": "On: when you scroll down toward this section and stop with it a little below the top of the screen, the page eases the last bit so it sits exactly in place. Subtle: it only does this for a short distance (under a third of the screen) and never when you scroll up. Does nothing while Full screen is off.",
+    "choices": {
+      "on": "On (subtle)",
+      "off": "Off"
+    }
+  },
+  "btn_color": {
+    "type": "select",
+    "label": "Button color",
+    "doc": "The color for this section's buttons. \"As designed\" leaves them exactly as they are. Any one button can be given its own color in the list below — this is the one they fall back to.\n\nLight, Dark, Accent and Alt accent are ROLES — what each one looks like is set once on the Site-wide page, so changing Accent there repaints every accent button on the site. The named shades below them are fixed colors for anything that has to be one particular color.",
+    "width": 20,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
+  "btn_hover": {
+    "type": "select",
+    "label": "Button hover color",
+    "doc": "The color this section's buttons change TO when someone points at them. \"As designed\" means they keep their own color and the hover effect works it out — Fill in, for instance, swaps to the opposite ink so it always shows something.\n\nThis is what was missing: only the four ROLES had a hover color, set on the Site-wide page, so a button in one of the named shades had nothing to change to and effects that work by changing color did nothing at all.",
+    "width": 20,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow (a specific shade)",
+      "teal": "Teal (a specific shade)",
+      "pink": "Pink (a specific shade)",
+      "orange": "Orange (a specific shade)",
+      "white": "White (a specific shade)",
+      "ink": "Black (a specific shade)"
+    },
+    "group": "Buttons"
+  },
+  "btn_style": {
+    "type": "select",
+    "label": "Filled or outline",
+    "doc": "Filled is a solid block of color. Outline draws the color as a ring with the words in it and nothing behind. Any one button can be set differently in the list below.",
+    "width": 20,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "filled": "Filled",
+      "outline": "Outline",
+      "text": "Text only"
+    },
+    "group": "Buttons"
+  },
+  "btn_effect": {
+    "type": "select",
+    "label": "Hover effect",
+    "doc": "What the button does when someone points at it. Lift is what every button has always done and stays the default — it rises slightly and casts a shadow. Lift and swap color does that AND flips to the opposite ink, which is the loudest of the set and best kept for one main action on a page. Underline draws a rule under the words and leaves the button still, which reads as a link — a good fit for the small buttons. Grow swells it in place. Press down pushes it into the page. Fill in floods an outline button with its color, so pair it with Outline. None holds it still.\n\nThis is the HOVER only; the way the button arrives on screen is the site-wide reveal. Anyone who has switched off animation sees no hover movement whatever is chosen.",
+    "width": 20,
+    "default": "lift",
+    "choices": {
+      "lift": "Lift",
+      "lift-swap": "Lift and swap color",
+      "underline": "Underline",
+      "grow": "Grow",
+      "press": "Press down",
+      "fill": "Fill in",
+      "none": "None"
+    },
+    "group": "Buttons"
+  },
+  "buttons": {
+    "type": "repeater",
+    "label": "Buttons",
+    "button": "Add a button",
+    "collapse": "label",
+    "doc": "Buttons for this section. Add as many as you need — they sit in a row and wrap onto the next line on a narrow screen. Leave the list empty, as it is now, and the section has no buttons at all and looks exactly as it does today.\n\nSize, color, hover color, fill and hover effect are set for the whole section above; open any button's row and the same five controls are there for that one button. Left on \"Same as the section\" a button follows the section, and the section follows the Site-wide page.",
+    "group": "Buttons",
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "Label",
+        "doc": "The words on the button. Short reads best: it is set in capitals with wide letter spacing. A button with no label is not drawn.",
+        "default": "",
+        "width": 34
+      },
+      "href": {
+        "type": "url",
+        "label": "Link",
+        "doc": "Where it goes. A path like /careers/ stays on this site, a full address goes off it, and mailto:someone@blacktoprg.com opens a mail window.",
+        "default": "",
+        "width": 33
+      },
+      "popup": {
+        "type": "select",
+        "label": "Open in a pop-up",
+        "doc": "For a Google Form, choose Pop-up and it opens in a panel over the page instead of sending people to Google. A form that is set to require a Google sign-in CANNOT be shown this way — Google's sign-in page refuses to be embedded and the panel comes up blank — so that one has to stay on Open the link until its Responses settings are changed. Anything that is not a form stays on Open the link.",
+        "width": 33,
+        "default": "",
+        "choices": {
+          "": "Open the link",
+          "1": "Pop-up"
+        }
+      },
+      "color": {
+        "type": "select",
+        "label": "Color",
+        "doc": "Leave on \"Same as the section\" and this button follows the section's color above. Set it to make one button stand out from the others — a main button and a quieter second one, for instance.",
+        "width": 20,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)"
+        }
+      },
+      "hover": {
+        "type": "select",
+        "label": "Hover color",
+        "doc": "Leave on \"Same as the section\" and this button follows the section's hover color above. Set it to give one button its own hover — a main button that flips to black while the quieter ones stay put.",
+        "width": 20,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)"
+        }
+      },
+      "style": {
+        "type": "select",
+        "label": "Filled or outline",
+        "doc": "Leave on \"Same as the section\" to follow the section. The usual pair is a filled main button next to an outline one.",
+        "width": 20,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "filled": "Filled",
+          "outline": "Outline",
+          "text": "Text only"
+        }
+      },
+      "effect": {
+        "type": "select",
+        "label": "Hover effect",
+        "doc": "Leave on \"Same as the section\" and this button follows the section's Hover effect, which in turn follows the site-wide one on the Site-wide page. Set it here to make one button behave differently from its neighbors.",
+        "width": 20,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "lift": "Lift",
+          "lift-swap": "Lift and swap color",
+          "underline": "Underline",
+          "grow": "Grow",
+          "press": "Press down",
+          "fill": "Fill in",
+          "none": "None"
+        }
+      },
+      "size": {
+        "type": "select",
+        "label": "Size",
+        "doc": "Leave on \"Same as the section\" to follow it.",
+        "width": 20,
+        "default": "",
+        "choices": {
+          "": "Same as the section",
+          "large": "Large",
+          "medium": "Medium",
+          "small": "Small",
+          "x-small": "Extra small"
+        }
+      }
+    },
+    "width": 100
+  },
+  "modal_bg": {
+    "type": "select",
+    "label": "Pop-up background",
+    "doc": "The color of the panel a form opens in. Match it to the form's own Theme color in Google Forms and the two read as one surface. This cannot color the form itself — that is Google's page on Google's domain.",
+    "width": 100,
+    "default": "white",
+    "choices": {
+      "white": "White",
+      "ink": "Site dark",
+      "yellow": "Yellow",
+      "teal": "Teal"
+    },
+    "group": "Buttons"
+  }
+}

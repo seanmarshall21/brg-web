@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.7 (2026-11-03)
+- about slider: first and second slide take the same scroll; new section [brg_home-values-2] (a copy of core values with its own tab)
+
 ## 2026.11.03.6 (2026-11-03)
 - about slider: brisker scrolling (shorter holds, about one second between slides)
 

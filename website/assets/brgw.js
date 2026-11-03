@@ -1537,14 +1537,17 @@
       if (panel) { panel.setAttribute('data-side', photoSide(0)); }
 
       // the runway (Sean, 3 Nov: "lock into it ... pause for a second"): the stage's own height, a longer first hold, one hold
-      // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 0.8, 0.95 each, 0.95.
+      // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 0.6 (plus the 0.35 of approach), 0.95 each, 0.95.
       var L = 0, S = 0, T = 0;
       function measure() {
         var vh = stage.offsetHeight || window.innerHeight;
-        L = Math.round(vh * 0.8 * mult); S = Math.round(vh * 0.95 * mult); T = S;
+        S = Math.round(vh * 0.95 * mult); T = S;
+        // The first slide is on screen for the last stretch of the approach (from ENTER of the screen height) as well as its hold,
+        // so its hold is shorter by that stretch: the first slide and every other one then take the same scroll (Sean, 3 Nov).
+        L = Math.max(Math.round(vh * 0.25), S - Math.round(vh * ENTER));
         run.style.height = Math.round(vh + L + Math.max(0, N - 2) * S + T) + 'px';
       }
-      var entered = false, queued = false, lastChange = 0, wait = null;
+      var ENTER = 0.35, entered = false, queued = false, lastChange = 0, wait = null;
       function bandStart(k) { return k <= 0 ? 0 : L + (k - 1) * S; }
       function idxNow() {
         var y = -run.getBoundingClientRect().top;
@@ -1553,7 +1556,7 @@
       function tick() {
         queued = false;
         var top = run.getBoundingClientRect().top;
-        if (!entered && top < window.innerHeight * 0.7) entered = true;
+        if (!entered && top < window.innerHeight * ENTER) entered = true;
         if (!entered) return;
         var want = idxNow();
         if (cur < 0) { show(want); lastChange = Date.now(); return; }

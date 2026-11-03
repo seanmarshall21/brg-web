@@ -80,6 +80,13 @@
       "summary": "Core-values grid over the BRG pattern watermark."
     },
     {
+      "id": "home-values-2",
+      "title": "Home — core values 2",
+      "group": "grid",
+      "status": "live",
+      "summary": "A copy of Core values, so two versions can sit on the page and be compared: its own tab, settings and Show/Hide switch."
+    },
+    {
       "id": "home-different",
       "title": "Home — a different kind of restaurant company",
       "group": "editorial",
