@@ -1427,7 +1427,129 @@
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwBuild(); }
+  /* ---- WHAT WE'RE ABOUT, SLIDER ([brg_home-about-slider]) ---------------------------------------
+     Sean, 3 Nov: full screen, one slide at a time, moved on by scrolling or the arrows, then the page
+     carries on. The section is a tall runway with a sticky full-screen stage inside it: while the runway
+     scrolls past, the stage stays put and the scroll position picks the slide. The slide is a switch, not
+     a scrub, so each change plays its own timed animation (CSS, in the fragment) whatever the scroll speed.
+     This script: splits the words, works out the runway height, maps scroll to slide, runs the arrows.
+     Without it the fragment shows the words stacked with no photo (data-ready is never set). */
+  function brgwSlides(root) {
+    [].forEach.call((root || document).querySelectorAll('.brgw-sec--home-about-slider'), function (sec) {
+      if (sec.getAttribute('data-ready')) return;
+      var run = sec.querySelector('.as-run'), stage = sec.querySelector('.as-stage'), panel = sec.querySelector('.as-img');
+      var panes = [].slice.call(sec.querySelectorAll('.as-tx')), phs = [].slice.call(sec.querySelectorAll('.as-ph'));
+      var N = panes.length;
+      if (!run || !stage || !N) return;
+      var reveal = sec.getAttribute('data-style') === 'reveal';
+      var first = sec.getAttribute('data-pside') === 'left' ? 'l' : 'r';
+      var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      var mult = { short: 0.55, medium: 0.85, long: 1.3 }[sec.getAttribute('data-step')] || 0.85;
+
+      // each word in its own clip box so it can rise in and leave by itself (the numbering runs on across title and words)
+      panes.forEach(function (p) {
+        var n = 0;
+        ['.as-h', '.as-p'].forEach(function (sel) {
+          var el = p.querySelector(sel); if (!el) return;
+          var words = (el.textContent || '').split(/\s+/).filter(Boolean);
+          el.textContent = '';
+          words.forEach(function (w, k) {
+            var o = document.createElement('span'); o.className = 'as-w';
+            var i = document.createElement('span'); i.className = 'as-wi'; i.style.setProperty('--i', String(n++)); i.textContent = w;
+            o.appendChild(i); el.appendChild(o);
+            if (k < words.length - 1) el.appendChild(document.createTextNode(' '));
+          });
+        });
+      });
+
+      // which side the photo is on for slide i: it crosses over on every slide, or stays put in the other style
+      function photoSide(i) { return reveal || i % 2 === 0 ? first : (first === 'r' ? 'l' : 'r'); }
+      panes.forEach(function (p, i) { p.setAttribute('data-side', photoSide(i) === 'r' ? 'l' : 'r'); });
+
+      // put a finished (or half-finished) element back to its waiting place without animating there
+      function reset(el) { el.classList.add('no-t'); el.classList.remove('is-out'); void el.offsetWidth; el.classList.remove('no-t'); }
+      var timers = [];
+      function leave(el, k) {
+        el.classList.remove('is-on'); el.classList.add('is-out');
+        clearTimeout(timers[k]);
+        timers[k] = setTimeout(function () { if (!el.classList.contains('is-on')) reset(el); }, 1300);   // when it has gone, put it back below, unseen
+      }
+      function enter(el, k, d) {
+        clearTimeout(timers[k]);
+        if (el.classList.contains('is-out')) reset(el);
+        el.style.setProperty('--d', d + 'ms');
+        el.classList.add('is-on');
+      }
+      var cur = -1, ptimers = [];
+      function show(i) {
+        if (i === cur) return;
+        var prev = cur; cur = i;
+        var dText = calm ? 0 : (reveal ? 760 : 560), dPhoto = calm ? 0 : (reveal ? 620 : 240);
+        if (prev >= 0) {
+          leave(panes[prev], prev);
+          if (phs[prev]) {
+            phs[prev].classList.remove('is-on');
+            if (reveal || window.innerWidth < 800) {                      // wiped out upward, then put back below, unseen
+              phs[prev].classList.add('is-out'); clearTimeout(ptimers[prev]);
+              ptimers[prev] = setTimeout(function () { if (!phs[prev].classList.contains('is-on')) reset(phs[prev]); }, 1300);
+            }
+          }
+        }
+        if (panel) panel.setAttribute('data-side', photoSide(i));
+        enter(panes[i], i, dText);
+        if (phs[i]) {
+          clearTimeout(ptimers[i]);
+          if (phs[i].classList.contains('is-out')) reset(phs[i]);
+          phs[i].style.setProperty('--d', dPhoto + 'ms'); phs[i].classList.add('is-on');
+        }
+        panes.forEach(function (p, k) {
+          p.inert = k !== i; p.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+          var pv = p.querySelector('[data-dir="prev"]'), nx = p.querySelector('[data-dir="next"]');
+          if (pv) pv.disabled = i === 0; if (nx) nx.disabled = i === N - 1;
+        });
+      }
+      // the panel starts on the first slide's side without sliding there
+      if (panel) { panel.setAttribute('data-side', photoSide(0)); }
+
+      // the runway: the stage's own height plus one step per extra slide plus a short rest at the end
+      var S = 0;
+      function measure() {
+        var vh = stage.offsetHeight || window.innerHeight;
+        S = Math.max(240, Math.round(vh * mult));
+        run.style.height = Math.round(vh + (N - 1) * S + vh * 0.3) + 'px';
+      }
+      var entered = false, queued = false;
+      function idxNow() {
+        var y = -run.getBoundingClientRect().top;
+        return y < 0 ? 0 : Math.min(N - 1, Math.floor(y / S));
+      }
+      function tick() {
+        queued = false;
+        var top = run.getBoundingClientRect().top;
+        if (!entered && top < window.innerHeight * 0.7) entered = true;
+        if (entered) show(idxNow());
+      }
+      function ask() { if (queued) return; queued = true; requestAnimationFrame(tick); }
+      function go(k) {
+        var base = window.pageYOffset + run.getBoundingClientRect().top;
+        window.scrollTo({ top: Math.round(base + k * S + S * 0.12), behavior: calm ? 'auto' : 'smooth' });
+      }
+      sec.addEventListener('click', function (e) {
+        var b = e.target.closest && e.target.closest('.as-btn'); if (!b || b.disabled) return;
+        go(Math.max(0, Math.min(N - 1, cur + (b.getAttribute('data-dir') === 'prev' ? -1 : 1))));
+      });
+      measure();
+      sec.setAttribute('data-ready', '1');
+      if (panel) { panel.classList.add('no-t'); void panel.offsetWidth; panel.classList.remove('no-t'); }
+      window.addEventListener('scroll', ask, { passive: true });
+      window.addEventListener('resize', function () { measure(); ask(); });
+      window.addEventListener('load', function () { measure(); ask(); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); ask(); });
+      ask();
+    });
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

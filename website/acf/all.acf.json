@@ -5828,6 +5828,343 @@
         "endpoint": 1
       },
       {
+        "key": "field_brg_tab_home_about_slider",
+        "label": "What we're about slider",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_home_about_slider_show_section",
+        "label": "Show this section",
+        "name": "brg_home_about_slider_show_section",
+        "type": "true_false",
+        "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_home_about_slider_heading",
+        "label": "Heading",
+        "name": "brg_home_about_slider_heading",
+        "type": "text",
+        "instructions": "The yellow marker label that sits across the top, over the photo. Leave it empty to hide the label.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-heading",
+          "id": ""
+        },
+        "default_value": "What we're about"
+      },
+      {
+        "key": "field_brg_home_about_slider_slider_style",
+        "label": "Style",
+        "name": "brg_home_about_slider_slider_style",
+        "type": "select",
+        "instructions": "How one slide gives way to the next.\n\nPhoto slides across: the photo slides over to the other side, covering the words, and the next words come up on the side it left. The photo and the words swap sides on every slide.\n\nStays in place: nothing moves sideways. The words split up and out of the top, the photo wipes out upward, then the next photo and words come up from the bottom. The photo stays on the side chosen in Photo side.\n\nOn a phone both styles are the same: the photo on top (70% of the screen), the words underneath (30%).",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-slider_style",
+          "id": ""
+        },
+        "default_value": "slide",
+        "choices": {
+          "slide": "Photo slides across the words",
+          "reveal": "Stays in place (wipe and reveal)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_about_slider_photo_side",
+        "label": "Photo side",
+        "name": "brg_home_about_slider_photo_side",
+        "type": "select",
+        "instructions": "Which side the photo is on for the first slide. In \"Photo slides across\" it moves to the other side on the next slide and back again after that; in \"Stays in place\" it stays here for every slide. Wide screens only: on a phone the photo is always on top.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-photo_side",
+          "id": ""
+        },
+        "default_value": "right",
+        "choices": {
+          "right": "Right (words on the left)",
+          "left": "Left (words on the right)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_about_slider_scroll_step",
+        "label": "Scrolling per slide",
+        "name": "brg_home_about_slider_scroll_step",
+        "type": "select",
+        "instructions": "How far you scroll to move on one slide while the section stays on screen. Short is quick, Long makes you scroll further. The arrows always move exactly one slide, whatever this is set to.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-scroll_step",
+          "id": ""
+        },
+        "default_value": "medium",
+        "choices": {
+          "short": "Short",
+          "medium": "Medium",
+          "long": "Long"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_about_slider_slides",
+        "label": "Slides",
+        "name": "brg_home_about_slider_slides",
+        "type": "repeater",
+        "instructions": "One row per slide, in order. The photo is shown with the words beside it. Landscape or portrait both work: the photo is cropped to fill its half of the screen (on a phone, the top 70%).\n\nUNTIL YOU ADD THE FIRST ONE HERE the section shows Our Vision and Our Mission. Adding one replaces both, so add every slide you want, not only the one you are changing. Two to four slides works best.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-f-slides",
+          "id": ""
+        },
+        "layout": "block",
+        "button_label": "Add a slide",
+        "min": 0,
+        "max": 0,
+        "collapsed": "field_brg_home_about_slider_slides_title",
+        "sub_fields": [
+          {
+            "key": "field_brg_home_about_slider_slides_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "instructions": "The big words, in the brand face, for example Our Vision.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-title",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_home_about_slider_slides_body",
+            "label": "Words under the title",
+            "name": "body",
+            "type": "textarea",
+            "instructions": "One or two sentences. Write an em dash as a literal character, not as an entity.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-body",
+              "id": ""
+            },
+            "default_value": ""
+          },
+          {
+            "key": "field_brg_home_about_slider_slides_image",
+            "label": "Photo",
+            "name": "image",
+            "type": "image",
+            "instructions": "The photo for this slide. About 1400 x 1600 or larger; it is cropped to fill.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "100",
+              "class": "brg-f-image",
+              "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all"
+          }
+        ]
+      },
+      {
+        "key": "field_brg_home_about_slider_acc_section_color",
+        "label": "Section color",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_about_slider_section_color",
+        "label": "Section color",
+        "name": "brg_home_about_slider_section_color",
+        "type": "select",
+        "instructions": "The flat color behind this whole section (the words sit on it, and the photo covers half of it). \"As designed\" leaves white; nothing changes until you choose one.\n\nLight, Dark, Accent and Alt accent are ROLES: what each looks like is set once on the Site-wide page, so changing Accent there repaints every section set to Accent as well as every accent button. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The words flip to dark or light on their own so they stay readable (see Section text color).",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-section_color",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "As designed",
+          "light": "Light",
+          "dark": "Dark",
+          "accent": "Accent",
+          "alt": "Alt accent",
+          "yellow": "Yellow (a specific shade)",
+          "teal": "Teal (a specific shade)",
+          "pink": "Pink (a specific shade)",
+          "orange": "Orange (a specific shade)",
+          "white": "White (a specific shade)",
+          "ink": "Black (a specific shade)",
+          "custom": "Custom (use the color box)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_about_slider_section_color_custom",
+        "label": "Section color — custom",
+        "name": "brg_home_about_slider_section_color_custom",
+        "type": "color_picker",
+        "instructions": "Used only when Section color is set to Custom. Pick any color. Left empty, a Custom choice does nothing and the section keeps the color it has today.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-section_color_custom",
+          "id": ""
+        },
+        "default_value": ""
+      },
+      {
+        "key": "field_brg_home_about_slider_section_text",
+        "label": "Section text color",
+        "name": "brg_home_about_slider_section_text",
+        "type": "select",
+        "instructions": "Automatic picks dark or light words, whichever reads better on the color above. Choose Dark or Light to force it. Does nothing while Section color is \"As designed\".",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-section_text",
+          "id": ""
+        },
+        "default_value": "auto",
+        "choices": {
+          "auto": "Automatic",
+          "dark": "Dark words",
+          "light": "Light words"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_about_slider_section_color_opacity",
+        "label": "Section color — opacity",
+        "name": "brg_home_about_slider_section_color_opacity",
+        "type": "select",
+        "instructions": "How solid the section color is. 100% is a flat color. Lower it to let what is behind the section show through: the page behind it, and with Section background on \"color on top\" the picture too. Works with any color except \"As designed\". The words pick dark or light for the color as if it sat on white, so on a very pale mix you may want to force Section text color.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-section_color_opacity",
+          "id": ""
+        },
+        "default_value": "100",
+        "choices": {
+          "100": "100% — solid",
+          "90": "90%",
+          "80": "80%",
+          "70": "70%",
+          "60": "60%",
+          "50": "50%",
+          "40": "40%",
+          "30": "30%",
+          "20": "20%",
+          "10": "10%"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_about_slider_endacc_section_color",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
         "key": "field_brg_tab_home_values",
         "label": "Core values",
         "name": "",

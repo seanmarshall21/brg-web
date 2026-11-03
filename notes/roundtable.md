@@ -921,3 +921,6 @@ page; the live drift report from Sean could not be reproduced there.
 - **.9:** About and Core Values are two sections now (`[brg_home-values]` is the values); per-photo scale (xs 0.7 … xl 1.4) on home-different and home-community.
 - **2026.11.02.1:** under 720px the values list is label, one photo, then the names with the open name's words under it (no photo behind); `section_color_opacity` on home-values (brgw.css `data-sec-op`, brgw.js probe in brgwSecColor); label spacing (less above, more below); `sections.json` order now puts home-values after home-about so the wp-admin tabs match the page.
 - Files touched: `website/sections/home-values/*`, `website/assets/brgw.css`, `website/assets/brgw.js`, `website/sections.json`.
+
+### 2026-11-03 — Conti: new section [brg_home-about-slider] (edits in finn's files, at Sean's request)
+- `website/sections/home-about-slider/` (embed.html + slots.json) and `brgwSlides()` in `website/assets/brgw.js` (called from boot). Sticky full-screen stage inside a tall runway; scroll position picks the slide, arrows scroll to it. Two styles (`slider_style`: slide / reveal); phone = photo 70% over words 30%. `[brg_home-about]` is unchanged. Registered in `website/sections.json` after home-about.

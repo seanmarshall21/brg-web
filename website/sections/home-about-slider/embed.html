@@ -1,0 +1,104 @@
+<!-- BRG · section: home-about-slider  →  [brg_home-about-slider]
+     WHAT WE'RE ABOUT, version 2 (Sean, 3 Nov). Full screen, one slide at a time (Our Vision, Our Mission), advanced by
+     scrolling or by the arrows. The section stays pinned (a sticky stage inside a tall runway) while the slides change, then
+     the page carries on to the next section. Two styles, picked in wp-admin: the photo SLIDES across the words, or everything
+     stays in place and the words and photo wipe and reveal. On a phone: photo on top (70%), words underneath (30%).
+     The first What We're About ([brg_home-about]) is untouched; use one or the other on the page. -->
+<section class="brgw-sec brgw-sec--home-about-slider" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-nav="light" data-style="{{slider_style}}" data-pside="{{photo_side}}" data-step="{{scroll_step}}" aria-label="What we're about">
+<style>
+.brgw-sec--home-about-slider{--as-top:clamp(72px,9svh,100px);position:relative;background:var(--white);color:var(--ink);}
+.brgw-sec--home-about-slider .as-run{position:relative;}
+.brgw-sec--home-about-slider .as-stage{position:relative;overflow:hidden;padding:clamp(56px,8vw,100px) clamp(20px,5vw,60px);}
+/* The label across the top. Empty heading = no label. */
+.brgw-sec--home-about-slider .as-title{position:absolute;left:50%;top:var(--as-top);transform:translateX(-50%) rotate(-2.4deg);z-index:6;margin:0;pointer-events:none;
+  display:inline-block;background:var(--yellow);color:var(--ink);font-size:clamp(1.5rem,3.1vw,2.9rem);text-transform:uppercase;padding:.04em .3em;white-space:nowrap;line-height:1.15;}
+.brgw-sec--home-about-slider .as-title:empty{display:none;}
+.brgw-sec--home-about-slider .as-img{position:absolute;top:0;bottom:0;left:0;width:50%;z-index:3;overflow:hidden;background:rgba(128,128,128,.14);}
+.brgw-sec--home-about-slider .as-ph{position:absolute;inset:0;}
+.brgw-sec--home-about-slider .as-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.brgw-sec--home-about-slider .as-tx{position:relative;}
+.brgw-sec--home-about-slider .as-h{margin:0;font-size:clamp(2.4rem,5.2vw,5rem);line-height:1.02;text-transform:uppercase;}
+.brgw-sec--home-about-slider .as-p{margin:clamp(14px,1.6vw,24px) 0 0;font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.55;max-width:34ch;}
+.brgw-sec--home-about-slider .as-nav{display:flex;gap:clamp(14px,1.6vw,26px);margin-top:28px;}
+.brgw-sec--home-about-slider .as-btn{appearance:none;background:none;border:0;padding:8px;margin:-8px;color:inherit;cursor:pointer;line-height:0;transition:opacity .25s ease,transform .25s ease;}
+.brgw-sec--home-about-slider .as-btn:hover:not([disabled]){transform:scale(1.12);}
+.brgw-sec--home-about-slider .as-btn:focus-visible{outline:2px solid currentColor;outline-offset:4px;}
+.brgw-sec--home-about-slider .as-btn[disabled]{opacity:.28;cursor:default;}
+
+/* ---- once the script has run (data-ready): a pinned full-screen stage ---- */
+.brgw-sec--home-about-slider[data-ready] .as-stage{position:sticky;top:0;height:100vh;height:100svh;padding:0;}
+.brgw-sec--home-about-slider[data-ready] .as-tx{position:absolute;top:0;bottom:0;width:50%;z-index:1;display:flex;flex-direction:column;justify-content:center;
+  padding:var(--as-top) clamp(36px,8vw,140px) 0;box-sizing:border-box;}
+.brgw-sec--home-about-slider[data-ready] .as-tx[data-side="l"]{left:0;}
+.brgw-sec--home-about-slider[data-ready] .as-tx[data-side="r"]{right:0;}
+.brgw-sec--home-about-slider[data-ready] .as-img[data-side="r"]{transform:translateX(100%);}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-img{transition:transform .95s cubic-bezier(.65,0,.25,1);}
+/* arrows sit at the foot of the words, on the edge nearest the photo, and are covered with them */
+.brgw-sec--home-about-slider[data-ready] .as-nav{position:absolute;bottom:clamp(36px,9svh,88px);margin:0;}
+.brgw-sec--home-about-slider[data-ready] .as-tx[data-side="l"] .as-nav{right:clamp(24px,3.2vw,52px);}
+.brgw-sec--home-about-slider[data-ready] .as-tx[data-side="r"] .as-nav{left:clamp(24px,3.2vw,52px);}
+
+/* split words: every word in its own clip box, rising into place. Waiting = below the box; leaving = up past the top. */
+.brgw-sec--home-about-slider[data-ready] .as-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em;}
+.brgw-sec--home-about-slider[data-ready] .as-wi{display:inline-block;transform:translateY(115%);
+  transition:transform .55s cubic-bezier(.5,0,.85,.25);transition-delay:calc(var(--i,0) * 22ms);}
+.brgw-sec--home-about-slider[data-ready] .as-tx.is-on .as-wi{transform:none;transition:transform .8s cubic-bezier(.2,.8,.2,1);
+  transition-delay:calc(var(--d,0ms) + var(--i,0) * 42ms);}
+.brgw-sec--home-about-slider[data-ready] .as-tx.is-out .as-wi{transform:translateY(-115%);}
+.brgw-sec--home-about-slider[data-ready] .as-tx .as-in{transition:transform .95s cubic-bezier(.65,0,.25,1);}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-tx.is-out[data-side="l"] .as-in{transform:translateX(9%);}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-tx.is-out[data-side="r"] .as-in{transform:translateX(-9%);}
+.brgw-sec--home-about-slider[data-ready] .as-tx .as-nav{opacity:0;transition:opacity .25s ease;}
+.brgw-sec--home-about-slider[data-ready] .as-tx.is-on .as-nav{opacity:1;transition:opacity .5s ease calc(var(--d,0ms) + 250ms);}
+.brgw-sec--home-about-slider[data-ready] .as-tx.no-t,.brgw-sec--home-about-slider[data-ready] .as-tx.no-t *,.brgw-sec--home-about-slider[data-ready] .as-ph.no-t{transition:none!important;}
+
+/* photos: the slide style crossfades while the photo travels; the stay-in-place style wipes up and out, then up and in */
+.brgw-sec--home-about-slider[data-ready] .as-ph{opacity:0;transition:opacity .55s ease;}
+.brgw-sec--home-about-slider[data-ready] .as-ph.is-on{opacity:1;transition:opacity .6s ease var(--d,0ms);}
+.brgw-sec--home-about-slider[data-ready][data-style="reveal"] .as-ph{opacity:1;clip-path:inset(100% 0 0 0);transition:clip-path .8s cubic-bezier(.65,0,.25,1);}
+.brgw-sec--home-about-slider[data-ready][data-style="reveal"] .as-ph.is-on{clip-path:inset(0 0 0 0);transition:clip-path .95s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
+.brgw-sec--home-about-slider[data-ready][data-style="reveal"] .as-ph.is-out{clip-path:inset(0 0 100% 0);}
+
+/* ---- a phone: photo on top (70%), words under it (30%), whichever style ---- */
+@media(max-width:799px){
+  .brgw-sec--home-about-slider[data-ready] .as-stage{min-height:520px;}
+  .brgw-sec--home-about-slider[data-ready] .as-img{left:0;right:0;top:0;bottom:auto;width:auto;height:70%;transform:none!important;transition:none!important;}
+  .brgw-sec--home-about-slider[data-ready] .as-tx,.brgw-sec--home-about-slider[data-ready] .as-tx[data-side]{left:0;right:0;top:auto;bottom:0;width:auto;height:30%;padding:clamp(14px,2.4svh,24px) clamp(22px,6vw,40px) 0;justify-content:flex-start;}
+  .brgw-sec--home-about-slider[data-ready] .as-h{font-size:clamp(2rem,9.5vw,3rem);}
+  .brgw-sec--home-about-slider[data-ready] .as-p{font-size:.98rem;line-height:1.45;margin-top:6px;max-width:none;}
+  .brgw-sec--home-about-slider[data-ready] .as-nav,.brgw-sec--home-about-slider[data-ready] .as-tx[data-side] .as-nav{left:clamp(22px,6vw,40px);right:auto;bottom:clamp(14px,2.4svh,24px);}
+  .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-tx .as-in{transition:none;transform:none!important;}
+  .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph{opacity:1;clip-path:inset(100% 0 0 0);transition:clip-path .8s cubic-bezier(.65,0,.25,1);}
+  .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph.is-on{clip-path:inset(0 0 0 0);transition:clip-path .95s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
+  .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph.is-out{clip-path:inset(0 0 100% 0);}
+  .brgw-sec--home-about-slider .as-title{font-size:clamp(1.35rem,6.4vw,2rem);}
+}
+/* the page without the script: the words, one under another, no photo */
+.brgw-sec--home-about-slider:not([data-ready]) .as-img{display:none;}
+.brgw-sec--home-about-slider:not([data-ready]) .as-tx{padding:clamp(18px,3vw,36px) 0;}
+.brgw-sec--home-about-slider:not([data-ready]) .as-nav{display:none;}
+.brgw-sec--home-about-slider:not([data-ready]) .as-title{position:static;transform:rotate(-2deg);margin:0 0 20px;}
+@media (prefers-reduced-motion:reduce){
+  .brgw-sec--home-about-slider .as-img,.brgw-sec--home-about-slider .as-ph,.brgw-sec--home-about-slider .as-wi,.brgw-sec--home-about-slider .as-in,.brgw-sec--home-about-slider .as-nav{transition:none!important;}
+}
+</style>
+  <div class="as-run">
+    <div class="as-stage">
+      <h2 class="as-title blanco">{{heading}}</h2>
+      <div class="as-img" aria-hidden="true">
+        <!--brg:repeat slides-->
+        <div class="as-ph"><img src="{{slides.image}}" alt="" loading="lazy" decoding="async" width="1400" height="1600"></div>
+        <!--brg:empty-->
+        <div class="as-ph"><img src="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/11/brg-bnb-bikers-sq.webp" alt="" loading="lazy" decoding="async" width="1400" height="1600"></div>
+        <div class="as-ph"><img src="https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-lg-cent.webp" alt="" loading="lazy" decoding="async" width="1400" height="1600"></div>
+        <!--/brg:repeat-->
+      </div>
+      <!--brg:repeat slides-->
+      <div class="as-tx"><div class="as-in"><h3 class="as-h blanco">{{slides.title}}</h3><p class="as-p">{{slides.body}}</p></div><div class="as-nav"><button type="button" class="as-btn" data-dir="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></button><button type="button" class="as-btn" data-dir="next" aria-label="Next slide"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button></div></div>
+      <!--brg:empty-->
+      <div class="as-tx"><div class="as-in"><h3 class="as-h blanco">Our Vision</h3><p class="as-p">Make your day great!</p></div><div class="as-nav"><button type="button" class="as-btn" data-dir="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></button><button type="button" class="as-btn" data-dir="next" aria-label="Next slide"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button></div></div>
+      <div class="as-tx"><div class="as-in"><h3 class="as-h blanco">Our Mission</h3><p class="as-p">To amp up our communities by creating real connections and rad experiences.</p></div><div class="as-nav"><button type="button" class="as-btn" data-dir="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></button><button type="button" class="as-btn" data-dir="next" aria-label="Next slide"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button></div></div>
+      <!--/brg:repeat-->
+    </div>
+  </div>
+</section>

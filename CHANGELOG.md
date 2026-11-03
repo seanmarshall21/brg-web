@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.1 (2026-11-03)
+- new section [brg_home-about-slider]: full-screen What We're About with scroll or arrow slides (photo slides across, or stays and wipes); old About untouched
+
 ## 2026.11.02.3 (2026-11-02)
 - photos no longer leave their frames (GSAP reveal baked a second copy of the parallax move); no colored ground behind photos unless chosen; core values heading text color; tighter gap under open value name
 
