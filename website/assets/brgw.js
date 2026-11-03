@@ -1444,7 +1444,7 @@
       var reveal = sec.getAttribute('data-style') === 'reveal';
       var first = sec.getAttribute('data-pside') === 'left' ? 'l' : 'r';
       var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-      var mult = { short: 0.55, medium: 0.85, long: 1.3 }[sec.getAttribute('data-step')] || 0.85;
+      var mult = { short: 0.7, medium: 1, long: 1.5 }[sec.getAttribute('data-step')] || 1;
 
       // each word in its own clip box so it can rise in and leave by itself (the numbering runs on across title and words)
       panes.forEach(function (p) {
@@ -1467,7 +1467,7 @@
       panes.forEach(function (p, i) { p.setAttribute('data-side', photoSide(i) === 'r' ? 'l' : 'r'); });
 
       // put a finished (or half-finished) element back to its waiting place without animating there
-      function reset(el) { el.classList.add('no-t'); el.classList.remove('is-out'); void el.offsetWidth; el.classList.remove('no-t'); }
+      function reset(el) { el.classList.add('no-t'); el.classList.remove('is-out', 'is-under'); void el.offsetWidth; el.classList.remove('no-t'); }
       var timers = [];
       function leave(el, k) {
         el.classList.remove('is-on'); el.classList.add('is-out');
@@ -1484,22 +1484,22 @@
       function show(i) {
         if (i === cur) return;
         var prev = cur; cur = i;
-        var dText = calm ? 0 : (reveal ? 760 : 560), dPhoto = calm ? 0 : (reveal ? 620 : 240);
+        // words first, then the photo (the first time in there is nothing to wait for, so it is quicker)
+        var dText = calm ? 0 : (prev < 0 ? 0 : (reveal ? 760 : 560)), dPhoto = calm ? 0 : (prev < 0 ? 520 : (reveal ? 1140 : 980));
         if (prev >= 0) {
           leave(panes[prev], prev);
           if (phs[prev]) {
             phs[prev].classList.remove('is-on');
-            if (reveal || window.innerWidth < 800) {                      // wiped out upward, then put back below, unseen
-              phs[prev].classList.add('is-out'); clearTimeout(ptimers[prev]);
-              ptimers[prev] = setTimeout(function () { if (!phs[prev].classList.contains('is-on')) reset(phs[prev]); }, 1300);
-            }
+            phs[prev].classList.add(reveal ? 'is-out' : 'is-under');       // wiped out upward, or left under the next one until it has covered it
+            clearTimeout(ptimers[prev]);
+            ptimers[prev] = setTimeout(function () { if (!phs[prev].classList.contains('is-on')) reset(phs[prev]); }, dPhoto + 1900);
           }
         }
         if (panel) panel.setAttribute('data-side', photoSide(i));
         enter(panes[i], i, dText);
         if (phs[i]) {
           clearTimeout(ptimers[i]);
-          if (phs[i].classList.contains('is-out')) reset(phs[i]);
+          if (phs[i].classList.contains('is-out') || phs[i].classList.contains('is-under')) reset(phs[i]);
           phs[i].style.setProperty('--d', dPhoto + 'ms'); phs[i].classList.add('is-on');
         }
         panes.forEach(function (p, k) {
@@ -1511,28 +1511,38 @@
       // the panel starts on the first slide's side without sliding there
       if (panel) { panel.setAttribute('data-side', photoSide(0)); }
 
-      // the runway: the stage's own height plus one step per extra slide plus a short rest at the end
-      var S = 0;
+      // the runway (Sean, 3 Nov: "lock into it ... pause for a second"): the stage's own height, a longer first hold, one hold
+      // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 1.5, 1.2 each, 1.2.
+      var L = 0, S = 0, T = 0;
       function measure() {
         var vh = stage.offsetHeight || window.innerHeight;
-        S = Math.max(240, Math.round(vh * mult));
-        run.style.height = Math.round(vh + (N - 1) * S + vh * 0.3) + 'px';
+        L = Math.round(vh * 1.5 * mult); S = Math.round(vh * 1.2 * mult); T = S;
+        run.style.height = Math.round(vh + L + Math.max(0, N - 2) * S + T) + 'px';
       }
-      var entered = false, queued = false;
+      var entered = false, queued = false, lastChange = 0, wait = null;
+      function bandStart(k) { return k <= 0 ? 0 : L + (k - 1) * S; }
       function idxNow() {
         var y = -run.getBoundingClientRect().top;
-        return y < 0 ? 0 : Math.min(N - 1, Math.floor(y / S));
+        return y < L ? 0 : Math.min(N - 1, 1 + Math.floor((y - L) / S));
       }
       function tick() {
         queued = false;
         var top = run.getBoundingClientRect().top;
         if (!entered && top < window.innerHeight * 0.7) entered = true;
-        if (entered) show(idxNow());
+        if (!entered) return;
+        var want = idxNow();
+        if (cur < 0) { show(want); lastChange = Date.now(); return; }
+        if (want === cur) return;
+        // one slide at a time and never faster than about once every second and a half, however hard it is scrolled
+        var left = 1500 - (Date.now() - lastChange);
+        if (left > 0) { clearTimeout(wait); wait = setTimeout(ask, left + 20); return; }
+        show(cur + (want > cur ? 1 : -1)); lastChange = Date.now();
+        if (want !== cur) { clearTimeout(wait); wait = setTimeout(ask, 1520); }
       }
       function ask() { if (queued) return; queued = true; requestAnimationFrame(tick); }
       function go(k) {
         var base = window.pageYOffset + run.getBoundingClientRect().top;
-        window.scrollTo({ top: Math.round(base + k * S + S * 0.12), behavior: calm ? 'auto' : 'smooth' });
+        window.scrollTo({ top: Math.round(base + bandStart(k) + S * 0.12), behavior: calm ? 'auto' : 'smooth' });
       }
       sec.addEventListener('click', function (e) {
         var b = e.target.closest && e.target.closest('.as-btn'); if (!b || b.disabled) return;

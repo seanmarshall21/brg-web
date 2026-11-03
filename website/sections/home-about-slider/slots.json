@@ -34,7 +34,7 @@
     "label": "Scrolling per slide",
     "width": 50,
     "default": "medium",
-    "doc": "How far you scroll to move on one slide while the section stays on screen. Short is quick, Long makes you scroll further. The arrows always move exactly one slide, whatever this is set to.",
+    "doc": "How long the section holds each slide while you scroll. The first slide holds a little longer, so the section locks in before anything moves, and the last holds before the page carries on. Short is brisk, Medium is a calm pause, Long makes you scroll further. The arrows always move exactly one slide, and slides never change faster than about once every second and a half, whatever the scroll speed.",
     "choices": {
       "short": "Short",
       "medium": "Medium",
@@ -78,7 +78,7 @@
     "width": 34,
     "default": "keep",
     "group": "Section color",
-    "doc": "The flat color behind this whole section (the words sit on it, and the photo covers half of it). \"As designed\" leaves white; nothing changes until you choose one.\n\nLight, Dark, Accent and Alt accent are ROLES: what each looks like is set once on the Site-wide page, so changing Accent there repaints every section set to Accent as well as every accent button. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The words flip to dark or light on their own so they stay readable (see Section text color).",
+    "doc": "The flat color behind this whole section (the words sit straight on it, with no panel of their own, and the photo covers half of it). \"As designed\" leaves the light gray it has (#EDEDEE); nothing changes until you choose one.\n\nLight, Dark, Accent and Alt accent are ROLES: what each looks like is set once on the Site-wide page, so changing Accent there repaints every section set to Accent as well as every accent button. The named shades are fixed colors. \"Custom\" uses the color box next to this one. The words flip to dark or light on their own so they stay readable (see Section text color).",
     "choices": {
       "keep": "As designed",
       "light": "Light",

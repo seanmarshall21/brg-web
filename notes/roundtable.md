@@ -924,3 +924,4 @@ page; the live drift report from Sean could not be reproduced there.
 
 ### 2026-11-03 — Conti: new section [brg_home-about-slider] (edits in finn's files, at Sean's request)
 - `website/sections/home-about-slider/` (embed.html + slots.json) and `brgwSlides()` in `website/assets/brgw.js` (called from boot). Sticky full-screen stage inside a tall runway; scroll position picks the slide, arrows scroll to it. Two styles (`slider_style`: slide / reveal); phone = photo 70% over words 30%. `[brg_home-about]` is unchanged. Registered in `website/sections.json` after home-about.
+- 3 Nov (later), Conti: about-slider holds are now 1.5 screens (first), 1.2 each later slide and the rest at the end (Medium); slides change one at a time, no faster than every 1.5s; photo reveal = bottom-up mask + zoom settle after the words; background #EDEDEE; arrows are Sean's own SVGs inlined (fill = currentColor).
