@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.11 (2026-11-03)
+- smooth wheel scrolling (50ms delay, ease in/out) replaces scroll-into-place snap
+
 ## 2026.11.03.10 (2026-11-03)
 - core values: wait on Leadership until 60% in view; photo height can match the list
 

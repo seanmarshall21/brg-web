@@ -1625,8 +1625,8 @@
      into place, subtly. The height is CSS (brgw.css). This does the other two: the section is made sticky inside a wrapper
      of its own, followed by an empty spacer as tall as the hold, so it stays put while the spacer scrolls past and then
      carries on up with the page. A section taller than the screen pins by its bottom edge instead, so it is never cut off
-     at the foot. Scrolling into place: when a downward scroll stops with the section's top a little below its pinning
-     line (under 30% of the screen), the page eases the last bit. It never fights an upward scroll or a long way off. */
+     at the foot. (Snapping the page into place when scrolling stopped was dropped on 3 Nov: Sean found it jumpy. Smooth
+     scrolling, brgwSmooth below, replaces it.) */
   function brgwFull(root) {
     [].forEach.call((root || document).querySelectorAll('.brgw-sec[data-full]'), function (sec) {
       var mode = sec.getAttribute('data-full');
@@ -1634,8 +1634,6 @@
       sec.setAttribute('data-full-init', '1');
       var pinS = { none: 0, short: 0.5, medium: 1, long: 1.6 }[sec.getAttribute('data-full-pin')];
       if (pinS === undefined) pinS = 1;
-      var snap = sec.getAttribute('data-full-snap') !== 'off';
-      var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       var wrap = null, spacer = null, pinTop = 0;
       function apply() {
         var vh = window.innerHeight, h = sec.offsetHeight;
@@ -1656,22 +1654,62 @@
       window.addEventListener('load', apply);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
       if (window.ResizeObserver) { var lastH = sec.offsetHeight; new ResizeObserver(function () { if (Math.abs(sec.offsetHeight - lastH) > 2) { lastH = sec.offsetHeight; apply(); } }).observe(sec); }
-      if (snap && !calm) {
-        var idle = null, lastY = window.pageYOffset, dir = 0;
-        window.addEventListener('scroll', function () {
-          var y = window.pageYOffset; dir = y > lastY ? 1 : (y < lastY ? -1 : dir); lastY = y;
-          clearTimeout(idle);
-          idle = setTimeout(function () {
-            if (dir <= 0) return;
-            var d = sec.getBoundingClientRect().top - Math.max(0, pinTop);
-            if (d > 8 && d < window.innerHeight * 0.3) window.scrollTo({ top: Math.round(window.pageYOffset + d), behavior: 'smooth' });
-          }, 160);
-        }, { passive: true });
-      }
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwFull(document); brgwBuild(); }
+  /* ---- SMOOTH SCROLL (Sean, 3 Nov: "the snap to section ... is making it super jumpy ... a delayed scroll. As you
+     scroll, it takes 50 ms, and then it eases into the scroll ... ease-in, ease-out ... let's not do the snap") ----
+     The mouse wheel / trackpad no longer jumps the page: each wheel turn adds to a TARGET position, 50 ms after the
+     first turn the page starts moving toward it, and it moves like a critically damped spring, so it starts gently,
+     speeds up and settles gently (ease-in, ease-out). It never overshoots. A new turn mid-way just moves the target.
+     Only on a page that has a full-screen section with "Smooth scrolling" on, or the About slider. Left alone:
+     touch screens, the keyboard, the scrollbar, pinch-zoom, reduced motion, an open pop-up, and anything inside a box
+     that scrolls on its own. Anything else that moves the page (keys, scrollbar, a link) stops it and takes over. */
+  function brgwSmooth() {
+    if (window.__brgwSmooth) return;
+    if (!document.querySelector('.brgw-sec[data-full="full"][data-full-snap="on"], .brgw-sec[data-full="ninety"][data-full-snap="on"], .brgw-sec--home-about-slider')) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    window.__brgwSmooth = 1;
+    var DELAY = 50, W = 10;                                   // ms before it starts; spring speed (higher = quicker settle, about 0.6s at 10)
+    var pos = window.pageYOffset, target = pos, vel = 0, anim = false, startT = null, last = 0;
+    function max() { return Math.max(0, document.documentElement.scrollHeight - window.innerHeight); }
+    function stop() { anim = false; clearTimeout(startT); startT = null; vel = 0; pos = target = window.pageYOffset; }
+    function inner(el) {                                      // a box that scrolls by itself keeps its own wheel
+      for (; el && el !== document.body && el !== document.documentElement; el = el.parentElement) {
+        var cs = window.getComputedStyle(el);
+        if (/(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 1) return true;
+      }
+      return false;
+    }
+    function frame(t) {
+      if (!anim) return;
+      var dt = Math.min(0.05, (t - last) / 1000); last = t;
+      var x = pos - target;
+      var acc = -W * W * x - 2 * W * vel;                     // critically damped spring toward the target
+      vel += acc * dt; pos += vel * dt;
+      if (Math.abs(pos - target) < 0.4 && Math.abs(vel) < 4) { pos = target; anim = false; window.scrollTo(0, Math.round(pos)); return; }
+      window.scrollTo(0, Math.round(pos));
+      requestAnimationFrame(frame);
+    }
+    function begin() { startT = null; anim = true; last = performance.now(); requestAnimationFrame(frame); }
+    window.addEventListener('wheel', function (e) {
+      if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.shiftKey || !e.deltaY || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (window.getComputedStyle(document.documentElement).overflow === 'hidden') return;      // a pop-up is open
+      if (inner(e.target)) return;
+      e.preventDefault();
+      var d = e.deltaMode === 1 ? e.deltaY * 40 : (e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY);
+      if (!anim && startT === null) { pos = target = window.pageYOffset; vel = 0; }
+      target = Math.max(0, Math.min(max(), target + d));
+      if (!anim && startT === null) startT = setTimeout(begin, DELAY);
+    }, { passive: false });
+    window.addEventListener('keydown', function (e) { if (anim || startT !== null) stop(); }, true);
+    window.addEventListener('pointerdown', function () { if (anim || startT !== null) stop(); }, true);
+    window.addEventListener('scroll', function () {            // moved by something else (scrollbar, a link, an arrow): follow it
+      if (!anim && startT === null && Math.abs(window.pageYOffset - pos) > 1) { pos = target = window.pageYOffset; vel = 0; }
+    }, { passive: true });
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwFull(document); brgwSmooth(); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

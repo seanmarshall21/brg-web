@@ -8031,10 +8031,10 @@
             },
             {
                 "key": "field_brg_home_values_full_snap",
-                "label": "Scroll into place",
+                "label": "Smooth scrolling",
                 "name": "brg_home_values_full_snap",
                 "type": "select",
-                "instructions": "On: when you scroll down toward this section and stop with it a little below the top of the screen, the page eases the last bit so it sits exactly in place. Subtle: it only does this for a short distance (under a third of the screen) and never when you scroll up. Does nothing while Full screen is off.",
+                "instructions": "On: the mouse wheel and trackpad scroll the page smoothly on this page: a very short pause (50 ms), then it eases in and eases out instead of jumping. Replaces the old \"scroll into place\" snap, which was dropped. Applies to the whole page once any full-screen section on it has this on. Off: normal browser scrolling. Does nothing while Full screen is off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -8044,7 +8044,7 @@
                 },
                 "default_value": "on",
                 "choices": {
-                    "on": "On (subtle)",
+                    "on": "On",
                     "off": "Off"
                 },
                 "return_format": "value",
@@ -9732,10 +9732,10 @@
             },
             {
                 "key": "field_brg_home_values_2_full_snap",
-                "label": "Scroll into place",
+                "label": "Smooth scrolling",
                 "name": "brg_home_values_2_full_snap",
                 "type": "select",
-                "instructions": "On: when you scroll down toward this section and stop with it a little below the top of the screen, the page eases the last bit so it sits exactly in place. Subtle: it only does this for a short distance (under a third of the screen) and never when you scroll up. Does nothing while Full screen is off.",
+                "instructions": "On: the mouse wheel and trackpad scroll the page smoothly on this page: a very short pause (50 ms), then it eases in and eases out instead of jumping. Replaces the old \"scroll into place\" snap, which was dropped. Applies to the whole page once any full-screen section on it has this on. Off: normal browser scrolling. Does nothing while Full screen is off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -9745,7 +9745,7 @@
                 },
                 "default_value": "on",
                 "choices": {
-                    "on": "On (subtle)",
+                    "on": "On",
                     "off": "Off"
                 },
                 "return_format": "value",
@@ -11914,10 +11914,10 @@
             },
             {
                 "key": "field_brg_home_different_full_snap",
-                "label": "Scroll into place",
+                "label": "Smooth scrolling",
                 "name": "brg_home_different_full_snap",
                 "type": "select",
-                "instructions": "On: when you scroll down toward this section and stop with it a little below the top of the screen, the page eases the last bit so it sits exactly in place. Subtle: it only does this for a short distance (under a third of the screen) and never when you scroll up. Does nothing while Full screen is off.",
+                "instructions": "On: the mouse wheel and trackpad scroll the page smoothly on this page: a very short pause (50 ms), then it eases in and eases out instead of jumping. Replaces the old \"scroll into place\" snap, which was dropped. Applies to the whole page once any full-screen section on it has this on. Off: normal browser scrolling. Does nothing while Full screen is off.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -11927,7 +11927,7 @@
                 },
                 "default_value": "on",
                 "choices": {
-                    "on": "On (subtle)",
+                    "on": "On",
                     "off": "Off"
                 },
                 "return_format": "value",

@@ -935,3 +935,7 @@ page; the live drift report from Sean could not be reproduced there.
 ### conti, 3 Nov — build 2026.11.03.10 (edits in finn's territory, at Sean's request)
 - Core values (and Core values 2): autoplay no longer starts at page load. It waits on the first value until 60% of the section (or 60% of the screen, for a tall one on a phone) is showing, then gives it a full pause. Code: `brgwVset` in `website/assets/brgw.js`.
 - New setting `values_photo_h` (Match the list / Standard 4:3, default Match): the List-layout photo is laid over the list's own box, so it is exactly as tall as the list and cannot grow the section. Desktop only; mobile layout unchanged.
+
+### conti, 3 Nov — build 2026.11.03.11 (edits in finn's territory, at Sean's request)
+- Scroll-into-place snap removed from `brgwFull` (Sean: "super jumpy"). New `brgwSmooth` in `website/assets/brgw.js`: wheel/trackpad scroll via a critically damped spring, 50 ms start delay, ease-in/ease-out. Runs only on pages with a full-screen section whose `full_snap` is on, or the About slider; skips touch, keys, scrollbar, pop-ups, inner scroll boxes, reduced motion.
+- Slot `full_snap` keeps its name (saved values survive) but is relabeled "Smooth scrolling" (On/Off) in home-values, home-values-2, home-different.

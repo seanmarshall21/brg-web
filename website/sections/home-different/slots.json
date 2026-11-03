@@ -818,13 +818,13 @@
   },
   "full_snap": {
     "type": "select",
-    "label": "Scroll into place",
+    "label": "Smooth scrolling",
     "width": 33,
     "default": "on",
     "group": "Full screen",
-    "doc": "On: when you scroll down toward this section and stop with it a little below the top of the screen, the page eases the last bit so it sits exactly in place. Subtle: it only does this for a short distance (under a third of the screen) and never when you scroll up. Does nothing while Full screen is off.",
+    "doc": "On: the mouse wheel and trackpad scroll the page smoothly on this page: a very short pause (50 ms), then it eases in and eases out instead of jumping. Replaces the old \"scroll into place\" snap, which was dropped. Applies to the whole page once any full-screen section on it has this on. Off: normal browser scrolling. Does nothing while Full screen is off.",
     "choices": {
-      "on": "On (subtle)",
+      "on": "On",
       "off": "Off"
     }
   },
