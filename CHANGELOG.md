@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.15 (2026-11-03)
+- home-different: Double and Triple photo scale steps
+
 ## 2026.11.03.14 (2026-11-03)
 - loader: swap replaces orbit; loader sandbox page
 

@@ -10520,7 +10520,7 @@
         "label": "Photo 1 — scale",
         "name": "brg_home_different_photo_1_scale",
         "type": "select",
-        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120%, extra large 140%, double 200% and triple 240%. Each photo scales from its own designed size, so a photo that starts small (like photo 3) needs the double or triple step to match the bigger ones. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -10534,7 +10534,9 @@
           "s": "Small",
           "m": "Medium (as designed)",
           "l": "Large",
-          "xl": "Extra large"
+          "xl": "Extra large",
+          "xxl": "Double (200%)",
+          "xxxl": "Triple (240%)"
         },
         "return_format": "value",
         "allow_null": 0,
@@ -10548,7 +10550,7 @@
         "label": "Photo 2 — scale",
         "name": "brg_home_different_photo_2_scale",
         "type": "select",
-        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120%, extra large 140%, double 200% and triple 240%. Each photo scales from its own designed size, so a photo that starts small (like photo 3) needs the double or triple step to match the bigger ones. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -10562,7 +10564,9 @@
           "s": "Small",
           "m": "Medium (as designed)",
           "l": "Large",
-          "xl": "Extra large"
+          "xl": "Extra large",
+          "xxl": "Double (200%)",
+          "xxxl": "Triple (240%)"
         },
         "return_format": "value",
         "allow_null": 0,
@@ -10576,7 +10580,7 @@
         "label": "Photo 3 — scale",
         "name": "brg_home_different_photo_3_scale",
         "type": "select",
-        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120% and extra large 140%. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
+        "instructions": "How big this photo's frame is. Medium is as designed. Extra small is 70% of that, small 85%, large 120%, extra large 140%, double 200% and triple 240%. Each photo scales from its own designed size, so a photo that starts small (like photo 3) needs the double or triple step to match the bigger ones. The frame grows or shrinks around its own center, so a large one reaches further in every direction and may overlap its neighbors or the words beside it; the picture inside is cropped to fit, and the shape setting still applies.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -10590,7 +10594,9 @@
           "s": "Small",
           "m": "Medium (as designed)",
           "l": "Large",
-          "xl": "Extra large"
+          "xl": "Extra large",
+          "xxl": "Double (200%)",
+          "xxxl": "Triple (240%)"
         },
         "return_format": "value",
         "allow_null": 0,
