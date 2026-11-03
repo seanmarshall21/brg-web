@@ -1796,7 +1796,7 @@
     var trans = S.page !== 'off';
     var mode = (S.loader === 'off' || S.loader === 'always') ? S.loader : 'slow';
     if (!trans && mode === 'off') return;
-    var STYLES = ['hop', 'spin', 'charge', 'orbit', 'trio'];
+    var STYLES = ['hop', 'spin', 'charge', 'flip', 'trio'];
     var ICON = 'https://blacktoprg.netlify.app/assets/media/icons/';
     var came = false, variant = '';
     try {
@@ -1834,15 +1834,10 @@
       } else if (v === 'charge') {
         box.appendChild(icon('icn-misc-bolt-line-yel.svg', 'b1'));
         box.appendChild(icon('icn-misc-bolt-fill-yel.svg', 'b2'));
-      } else if (v === 'orbit') {
-        box.appendChild(icon('icn-misc-smile-yel.svg', 'mid'));
-        var ring = document.createElement('div'); ring.className = 'ring';
-        [['icn-misc-bolt-fill-yel.svg', ''], ['icn-misc-ast-circle-wht.svg', 'white'], ['icn-misc-bolt-fill-yel.svg', '']].forEach(function (f, i) {
-          var a = i * 2 * Math.PI / 3, o = icon(f[0], 'o', f[1]);
-          o.style.left = (50 + 50 * Math.sin(a)) + '%'; o.style.top = (50 - 50 * Math.cos(a)) + '%';
-          ring.appendChild(o);
-        });
-        box.appendChild(ring);
+      } else if (v === 'flip') {
+        box.appendChild(icon('icn-misc-smile-yel.svg', 'f'));
+        box.appendChild(icon('icn-misc-bolt-fill-yel.svg', 'f'));
+        box.appendChild(icon('icn-misc-ast-circle-wht.svg', 'f', 'white'));
       } else {
         box.appendChild(icon('icn-misc-smile-yel.svg', 't'));
         box.appendChild(icon('icn-misc-bolt-fill-yel.svg', 't'));

@@ -35,13 +35,13 @@
     "width": 50,
     "default": "mix",
     "group": "Loading screen",
-    "doc": "Mix: a different brand animation each time, never the same one twice in a row. Or pick one to always use: Smiley hop, Spinning asterisk, Charging bolt, Orbit (a smiley with marks circling it), Wave (smiley, bolt and asterisk hopping in turn). A picture chosen below overrides all of these.",
+    "doc": "Mix: a different brand animation each time, never the same one twice in a row. Or pick one to always use: Smiley hop, Spinning asterisk, Charging bolt, Swap (smiley, bolt and asterisk trading places), Wave (smiley, bolt and asterisk hopping in turn). A picture chosen below overrides all of these.",
     "choices": {
       "mix": "Mix (different each time)",
       "hop": "Smiley hop",
       "spin": "Spinning asterisk",
       "charge": "Charging bolt",
-      "orbit": "Orbit",
+      "flip": "Swap",
       "trio": "Wave"
     }
   },

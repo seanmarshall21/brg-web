@@ -1,4 +1,4 @@
-/* brgw build 2026.11.03.13 */
+/* brgw build 2026.11.03.14 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -1393,17 +1393,17 @@ html.brgw-out .ct-inner-content,html.brgw-out .brgw__footer{opacity:0;transform:
 #brgw-loader[data-bg="teal"]{background:#19C7C2;--brgw-ld-sh:rgba(0,0,0,.18);}
 #brgw-loader.is-on{opacity:1;visibility:visible;transition:opacity .28s ease,visibility 0s;}
 #brgw-loader.is-instant{transition:none;}
-#brgw-loader .brgw-ld{position:relative;width:clamp(76px,13vw,120px);}
-#brgw-loader .brgw-ld img{display:block;width:100%;height:auto;transform-origin:50% 50%;}
-#brgw-loader[data-bg="white"] img[data-ink="white"]{filter:invert(1);}
+.brgw-ld{position:relative;width:clamp(76px,13vw,120px);}
+.brgw-ld img{display:block;width:100%;height:auto;transform-origin:50% 50%;}
+[data-bg="white"] img[data-ink="white"]{filter:invert(1);}
 /* Five animations, one picked per wait (brgwPageFx). All use the site's own stepped, ticking
    motion (steps(), like brgw-jit) rather than smooth easing, so they read as the same family as
    the icons scattered through the pages. Each one also says "loading" on its own: a ticking
    dial, a bolt charging up, a wave of marks passing along. */
 /* hop: the smiley bounces on its shadow */
-#brgw-loader .brgw-ld[data-v="hop"]{aspect-ratio:215/208;}
-#brgw-loader .brgw-ld[data-v="hop"] img{height:100%;transform-origin:50% 100%;animation:brgw-ld-hop 1.15s cubic-bezier(.45,0,.3,1) infinite;}
-#brgw-loader .brgw-ld-sh{position:absolute;left:14%;right:14%;bottom:-16%;height:9%;border-radius:50%;
+.brgw-ld[data-v="hop"]{aspect-ratio:215/208;}
+.brgw-ld[data-v="hop"] img{height:100%;transform-origin:50% 100%;animation:brgw-ld-hop 1.15s cubic-bezier(.45,0,.3,1) infinite;}
+.brgw-ld-sh{position:absolute;left:14%;right:14%;bottom:-16%;height:9%;border-radius:50%;
   background:var(--brgw-ld-sh);animation:brgw-ld-sh 1.15s cubic-bezier(.45,0,.3,1) infinite;}
 @keyframes brgw-ld-hop{
   0%,100%{transform:translateY(0) scale(1.1,.88) rotate(0);}
@@ -1412,31 +1412,33 @@ html.brgw-out .ct-inner-content,html.brgw-out .brgw__footer{opacity:0;transform:
   78%{transform:translateY(-6%) scale(.97,1.04) rotate(-3deg);}}
 @keyframes brgw-ld-sh{0%,100%{transform:scaleX(1.12);opacity:1;}50%{transform:scaleX(.62);opacity:.45;}}
 /* spin: the circled asterisk ticks round like a dial, eight clicks a turn */
-#brgw-loader .brgw-ld[data-v="spin"] img{animation:brgw-ld-tick 1s steps(8,end) infinite;}
+.brgw-ld[data-v="spin"] img{animation:brgw-ld-tick 1s steps(8,end) infinite;}
 @keyframes brgw-ld-tick{to{transform:rotate(360deg);}}
 /* charge: an outline bolt fills from the bottom up in steps, then flashes and starts again */
-#brgw-loader .brgw-ld[data-v="charge"]{width:clamp(70px,11vw,104px);aspect-ratio:196/249;}
-#brgw-loader .brgw-ld[data-v="charge"] img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
-#brgw-loader .brgw-ld[data-v="charge"] .b1{opacity:.55;animation:brgw-jit 1.4s steps(1,end) infinite;}
-#brgw-loader .brgw-ld[data-v="charge"] .b2{width:66%;height:auto;inset:auto;left:17%;top:10%;
+.brgw-ld[data-v="charge"]{width:clamp(70px,11vw,104px);aspect-ratio:196/249;}
+.brgw-ld[data-v="charge"] img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
+.brgw-ld[data-v="charge"] .b1{opacity:.55;animation:brgw-jit 1.4s steps(1,end) infinite;}
+.brgw-ld[data-v="charge"] .b2{width:66%;height:auto;inset:auto;left:17%;top:10%;
   animation:brgw-ld-fill 1.4s steps(6,end) infinite;}
 @keyframes brgw-ld-fill{0%{clip-path:inset(100% 0 0 0);opacity:1;}78%{clip-path:inset(0 0 0 0);opacity:1;}
   86%{clip-path:inset(0 0 0 0);opacity:.25;}93%{clip-path:inset(0 0 0 0);opacity:1;}100%{clip-path:inset(0 0 0 0);opacity:1;}}
-/* orbit: the smiley in the middle, three marks ticking round it */
-#brgw-loader .brgw-ld[data-v="orbit"]{width:clamp(70px,11vw,100px);aspect-ratio:1;margin:clamp(24px,4vw,40px);}
-#brgw-loader .brgw-ld[data-v="orbit"] .mid{position:absolute;inset:0;animation:brgw-jit 1.35s steps(1,end) infinite;}
-#brgw-loader .brgw-ld[data-v="orbit"] .ring{position:absolute;inset:-48%;animation:brgw-ld-tick 2.4s steps(12,end) infinite;}
-#brgw-loader .brgw-ld[data-v="orbit"] .o{position:absolute;width:26%;height:auto;transform:translate(-50%,-50%);}
+/* flip: smiley, bolt and asterisk swap places in one spot, a third of a turn each, with a tick of wobble */
+.brgw-ld[data-v="flip"]{aspect-ratio:1;}
+.brgw-ld[data-v="flip"] img.f{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;
+  animation:brgw-ld-flip 1.2s steps(1,end) infinite;}
+.brgw-ld[data-v="flip"] img.f:nth-child(2){animation-delay:.4s;}
+.brgw-ld[data-v="flip"] img.f:nth-child(3){animation-delay:.8s;}
+@keyframes brgw-ld-flip{0%{opacity:1;transform:rotate(-5deg) scale(1.04);}16%{opacity:1;transform:rotate(4deg) scale(1);}33%{opacity:1;transform:rotate(-3deg) scale(1.03);}34%,100%{opacity:0;}}
 /* trio: smiley, bolt and asterisk hop one after another, like loading dots */
-#brgw-loader .brgw-ld[data-v="trio"]{display:flex;align-items:flex-end;justify-content:center;gap:clamp(12px,2.4vw,22px);width:auto;}
-#brgw-loader .brgw-ld[data-v="trio"] img.t{width:clamp(34px,5.4vw,52px);height:auto;animation:brgw-ld-wave 1.2s steps(1,end) infinite;}
-#brgw-loader .brgw-ld[data-v="trio"] img.t:nth-child(2){animation-delay:.2s;}
-#brgw-loader .brgw-ld[data-v="trio"] img.t:nth-child(3){animation-delay:.4s;}
+.brgw-ld[data-v="trio"]{display:flex;align-items:flex-end;justify-content:center;gap:clamp(12px,2.4vw,22px);width:auto;}
+.brgw-ld[data-v="trio"] img.t{width:clamp(34px,5.4vw,52px);height:auto;animation:brgw-ld-wave 1.2s steps(1,end) infinite;}
+.brgw-ld[data-v="trio"] img.t:nth-child(2){animation-delay:.2s;}
+.brgw-ld[data-v="trio"] img.t:nth-child(3){animation-delay:.4s;}
 @keyframes brgw-ld-wave{
   0%,55%,100%{transform:translateY(0) rotate(0);}
   12%{transform:translateY(-34%) rotate(-9deg);}
   30%{transform:translateY(-34%) rotate(8deg);}}
 @media(prefers-reduced-motion:reduce){
   html.brgw-hold .ct-inner-content,html.brgw-hold .brgw__footer{opacity:1;}
-  #brgw-loader .brgw-ld img,#brgw-loader .brgw-ld-sh,#brgw-loader .brgw-ld .ring{animation:none!important;}
+  .brgw-ld img,.brgw-ld-sh{animation:none!important;}
 }

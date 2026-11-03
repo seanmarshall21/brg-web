@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- BRG · Loader Lab — the loading-screen animations, side by side.
+     Standalone page (NOT a fragment / not a shortcode). Netlify publishes /website, so this is live at:
+     https://blacktoprg.netlify.app/lab/loaders.html
+     The animations are the REAL ones: this page loads the site's own brgw.css and the tiles use the same
+     markup brgw.js builds (brgwPageFx > buildArt). Pick the one used on the site in
+     wp-admin > Section Content > Site-wide > Page effects > Loading animation. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BRG · Loader Lab</title>
+<link rel="stylesheet" href="../assets/brgw.css">
+<style>
+html,body{margin:0;background:#0d0c0b;color:#fff;font-family:Montserrat,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,5vw,48px) 16px 64px;box-sizing:border-box}
+h1{font-size:clamp(1.4rem,4vw,2rem);margin:0 0 6px}
+.lead{margin:0 0 22px;opacity:.75;line-height:1.5;max-width:60ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 22px}
+.bar span{opacity:.7;font-size:.9rem;margin-right:4px}
+button{font:inherit;cursor:pointer;border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;border-radius:999px;padding:8px 16px}
+button[aria-pressed="true"]{background:#FCE200;color:#231F20;border-color:#FCE200}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;gap:10px}
+.tile{--brgw-ld-sh:rgba(255,255,255,.16);background:#131210;border:1px solid rgba(255,255,255,.1);border-radius:16px;min-height:230px;display:grid;place-items:center;overflow:hidden}
+.tile[data-bg="teal"]{background:#19C7C2;--brgw-ld-sh:rgba(0,0,0,.18)}
+.tile[data-bg="white"]{background:#fff;--brgw-ld-sh:rgba(0,0,0,.14)}
+.card h2{font-size:1rem;margin:0}
+.card p{margin:0;opacity:.7;font-size:.9rem;line-height:1.45}
+.card button{align-self:flex-start;padding:6px 14px;font-size:.85rem}
+.full{--brgw-ld-sh:rgba(255,255,255,.16);position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#131210;cursor:pointer}
+.full[data-bg="teal"]{background:#19C7C2;--brgw-ld-sh:rgba(0,0,0,.18)}
+.full[data-bg="white"]{background:#fff;--brgw-ld-sh:rgba(0,0,0,.14)}
+.full small{position:absolute;bottom:24px;left:0;right:0;text-align:center;opacity:.55;font-size:.85rem}
+.full[data-bg="white"] small{color:#000}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Loader Lab</h1>
+  <p class="lead">The animations the site can show while a page loads. Each one is the real thing, running on the site's own stylesheet. The site picks a different one each time (never the same twice in a row), or you can lock it to one in wp-admin.</p>
+  <div class="bar" role="group" aria-label="Background">
+    <span>Background</span>
+    <button type="button" data-bg="black" aria-pressed="true">Black</button>
+    <button type="button" data-bg="teal" aria-pressed="false">Teal</button>
+    <button type="button" data-bg="white" aria-pressed="false">White</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+<script>
+(function(){
+  var ICON='../assets/media/icons/';
+  var ITEMS=[
+    ['hop','Smiley hop','The smiley bounces on its shadow.'],
+    ['spin','Spinning asterisk','The circled asterisk ticks round like a dial, eight clicks a turn.'],
+    ['charge','Charging bolt','An outline bolt fills from the bottom up, flashes, and charges again.'],
+    ['flip','Swap','Smiley, bolt and asterisk trade places in one spot.'],
+    ['trio','Wave','Smiley, bolt and asterisk hop one after another, like loading dots.']
+  ];
+  function im(f,c,ink){var i=document.createElement('img');i.alt='';i.src=ICON+f;if(c)i.className=c;if(ink)i.setAttribute('data-ink',ink);return i;}
+  function art(v){
+    var b=document.createElement('div');b.className='brgw-ld';b.setAttribute('data-v',v);
+    if(v==='hop'){b.appendChild(im('icn-misc-smile-yel.svg'));var s=document.createElement('span');s.className='brgw-ld-sh';b.appendChild(s);}
+    else if(v==='spin'){b.appendChild(im('icn-misc-ast-circle-wht.svg','','white'));}
+    else if(v==='charge'){b.appendChild(im('icn-misc-bolt-line-yel.svg','b1'));b.appendChild(im('icn-misc-bolt-fill-yel.svg','b2'));}
+    else if(v==='flip'){b.appendChild(im('icn-misc-smile-yel.svg','f'));b.appendChild(im('icn-misc-bolt-fill-yel.svg','f'));b.appendChild(im('icn-misc-ast-circle-wht.svg','f','white'));}
+    else{b.appendChild(im('icn-misc-smile-yel.svg','t'));b.appendChild(im('icn-misc-bolt-fill-yel.svg','t'));b.appendChild(im('icn-misc-ast-circle-wht.svg','t','white'));}
+    return b;
+  }
+  var bg='black',grid=document.getElementById('grid');
+  ITEMS.forEach(function(it){
+    var card=document.createElement('div');card.className='card';
+    var tile=document.createElement('div');tile.className='tile';tile.setAttribute('data-bg',bg);tile.appendChild(art(it[0]));
+    var h=document.createElement('h2');h.textContent=it[1];
+    var p=document.createElement('p');p.textContent=it[2];
+    var btn=document.createElement('button');btn.type='button';btn.textContent='Full screen';
+    btn.addEventListener('click',function(){
+      var f=document.createElement('div');f.className='full';f.setAttribute('data-bg',bg);f.appendChild(art(it[0]));
+      var sm=document.createElement('small');sm.textContent='Tap anywhere to close';f.appendChild(sm);
+      function close(){document.removeEventListener('keydown',key);if(f.parentNode)f.parentNode.removeChild(f);}
+      function key(e){if(e.key==='Escape')close();}
+      f.addEventListener('click',close);document.addEventListener('keydown',key);document.body.appendChild(f);
+    });
+    card.appendChild(tile);card.appendChild(h);card.appendChild(p);card.appendChild(btn);grid.appendChild(card);
+  });
+  document.querySelectorAll('.bar button').forEach(function(b){
+    b.addEventListener('click',function(){
+      bg=b.getAttribute('data-bg');
+      document.querySelectorAll('.bar button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      document.querySelectorAll('.tile').forEach(function(t){t.setAttribute('data-bg',bg);});
+    });
+  });
+})();
+</script>
+</body>
+</html>
