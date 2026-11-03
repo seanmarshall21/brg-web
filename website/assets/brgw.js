@@ -1604,7 +1604,58 @@
     });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwBuild(); }
+  /* ---- FULL SCREEN SECTIONS (data-full, set in wp-admin) ---------------------------------------------
+     Sean, 3 Nov: a toggle that makes a section full screen, holds it there for a set amount of scrolling, and scrolls you
+     into place, subtly. The height is CSS (brgw.css). This does the other two: the section is made sticky inside a wrapper
+     of its own, followed by an empty spacer as tall as the hold, so it stays put while the spacer scrolls past and then
+     carries on up with the page. A section taller than the screen pins by its bottom edge instead, so it is never cut off
+     at the foot. Scrolling into place: when a downward scroll stops with the section's top a little below its pinning
+     line (under 30% of the screen), the page eases the last bit. It never fights an upward scroll or a long way off. */
+  function brgwFull(root) {
+    [].forEach.call((root || document).querySelectorAll('.brgw-sec[data-full]'), function (sec) {
+      var mode = sec.getAttribute('data-full');
+      if ((mode !== 'full' && mode !== 'ninety') || sec.getAttribute('data-full-init')) return;
+      sec.setAttribute('data-full-init', '1');
+      var pinS = { none: 0, short: 0.5, medium: 1, long: 1.6 }[sec.getAttribute('data-full-pin')];
+      if (pinS === undefined) pinS = 1;
+      var snap = sec.getAttribute('data-full-snap') !== 'off';
+      var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      var wrap = null, spacer = null, pinTop = 0;
+      function apply() {
+        var vh = window.innerHeight, h = sec.offsetHeight;
+        pinTop = h <= vh ? (mode === 'ninety' ? Math.round((vh - h) / 2) : 0) : vh - h;
+        if (pinS <= 0) return;
+        if (!wrap) {
+          wrap = document.createElement('div'); wrap.className = 'brgw-fs';
+          sec.parentNode.insertBefore(wrap, sec); wrap.appendChild(sec);
+          spacer = document.createElement('div'); spacer.setAttribute('aria-hidden', 'true'); wrap.appendChild(spacer);
+        }
+        sec.style.position = 'sticky'; sec.style.top = pinTop + 'px';
+        var bg = window.getComputedStyle(sec).backgroundColor;           // the gaps above and below a 90% section take its color
+        if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') wrap.style.backgroundColor = bg;
+        spacer.style.height = Math.round(pinS * vh) + 'px';
+      }
+      apply();
+      window.addEventListener('resize', apply);
+      window.addEventListener('load', apply);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+      if (window.ResizeObserver) { var lastH = sec.offsetHeight; new ResizeObserver(function () { if (Math.abs(sec.offsetHeight - lastH) > 2) { lastH = sec.offsetHeight; apply(); } }).observe(sec); }
+      if (snap && !calm) {
+        var idle = null, lastY = window.pageYOffset, dir = 0;
+        window.addEventListener('scroll', function () {
+          var y = window.pageYOffset; dir = y > lastY ? 1 : (y < lastY ? -1 : dir); lastY = y;
+          clearTimeout(idle);
+          idle = setTimeout(function () {
+            if (dir <= 0) return;
+            var d = sec.getBoundingClientRect().top - Math.max(0, pinTop);
+            if (d > 8 && d < window.innerHeight * 0.3) window.scrollTo({ top: Math.round(window.pageYOffset + d), behavior: 'smooth' });
+          }, 160);
+        }, { passive: true });
+      }
+    });
+  }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwFull(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

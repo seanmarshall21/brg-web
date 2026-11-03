@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.5 (2026-11-03)
+- full screen option (100% or 90%) with hold-while-scrolling and gentle scroll-into-place on core values and a different kind of restaurant company
+
 ## 2026.11.03.4 (2026-11-03)
 - about slider: shorter first hold, ease-out transitions, photo movement (parallax) setting
 

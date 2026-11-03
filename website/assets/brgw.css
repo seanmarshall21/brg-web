@@ -1,4 +1,4 @@
-/* brgw build 2026.11.03.4 */
+/* brgw build 2026.11.03.5 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -782,6 +782,12 @@
 .brgw-sec[data-bg-layer="over"] > .sec-bg{opacity:1;mix-blend-mode:normal;}
 .brgw-sec[data-bg-layer="over"] > .sec-bg::after{content:"";position:absolute;inset:0;
   background:var(--sec-over-c,transparent);opacity:var(--sec-over-o,.82);mix-blend-mode:var(--sec-over-bl,normal);}
+
+/* ---- FULL SCREEN (Sean, 3 Nov): a section can be told to fill the screen (or 90% of it) and to hold in place while the
+   page scrolls past (brgwFull in brgw.js does the holding). The height is plain CSS so it works without the script; the
+   content is centered in the extra room. A section taller than the screen simply stays as tall as it is. */
+.brgw-sec[data-full="full"],.brgw-sec[data-full="ninety"]{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;}
+.brgw-sec[data-full="ninety"]{min-height:90vh;min-height:90svh;}
 
 /* ---- section color (Sean, 1 Nov: "need to be able to change section background colors") --------
    Applies to a whole section (.brgw-sec) and to a marked part of one (.brgw-sub, e.g. the core values block).

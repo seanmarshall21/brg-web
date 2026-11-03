@@ -7775,6 +7775,118 @@
         "endpoint": 1
       },
       {
+        "key": "field_brg_home_values_acc_full_screen",
+        "label": "Full screen",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_values_full_screen",
+        "label": "Full screen",
+        "name": "brg_home_values_full_screen",
+        "type": "select",
+        "instructions": "Makes this section fill the screen, or 90% of it, with its content centered in the room. \"As designed\" leaves the height it has today; nothing changes until you choose one.\n\nIt is also held in place while the page scrolls past: see \"Hold while scrolling\". If the section is taller than the screen it stays as tall as it is, and it pins by its bottom edge so it is never cut off at the foot.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-full_screen",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "As designed",
+          "full": "Full screen (100% of the screen)",
+          "ninety": "90% of the screen"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_full_pin",
+        "label": "Hold while scrolling",
+        "name": "brg_home_values_full_pin",
+        "type": "select",
+        "instructions": "How long the section stays put as you scroll, before the page carries on. None lets it scroll away normally; Short holds for about half a screen of scrolling, Medium for a full screen, Long for about a screen and a half. Does nothing while Full screen is off.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-full_pin",
+          "id": ""
+        },
+        "default_value": "medium",
+        "choices": {
+          "none": "None",
+          "short": "Short",
+          "medium": "Medium",
+          "long": "Long"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_full_snap",
+        "label": "Scroll into place",
+        "name": "brg_home_values_full_snap",
+        "type": "select",
+        "instructions": "On: when you scroll down toward this section and stop with it a little below the top of the screen, the page eases the last bit so it sits exactly in place. Subtle: it only does this for a short distance (under a third of the screen) and never when you scroll up. Does nothing while Full screen is off.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-full_snap",
+          "id": ""
+        },
+        "default_value": "on",
+        "choices": {
+          "on": "On (subtle)",
+          "off": "Off"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_endacc_full_screen",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
         "key": "field_brg_tab_home_different",
         "label": "A different kind of restaurant company",
         "name": "",
@@ -9589,6 +9701,118 @@
       },
       {
         "key": "field_brg_home_different_endacc_section_color",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_home_different_acc_full_screen",
+        "label": "Full screen",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_home_different_full_screen",
+        "label": "Full screen",
+        "name": "brg_home_different_full_screen",
+        "type": "select",
+        "instructions": "Makes this section fill the screen, or 90% of it, with its content centered in the room. \"As designed\" leaves the height it has today; nothing changes until you choose one.\n\nIt is also held in place while the page scrolls past: see \"Hold while scrolling\". If the section is taller than the screen it stays as tall as it is, and it pins by its bottom edge so it is never cut off at the foot.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-full_screen",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "As designed",
+          "full": "Full screen (100% of the screen)",
+          "ninety": "90% of the screen"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_full_pin",
+        "label": "Hold while scrolling",
+        "name": "brg_home_different_full_pin",
+        "type": "select",
+        "instructions": "How long the section stays put as you scroll, before the page carries on. None lets it scroll away normally; Short holds for about half a screen of scrolling, Medium for a full screen, Long for about a screen and a half. Does nothing while Full screen is off.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-full_pin",
+          "id": ""
+        },
+        "default_value": "medium",
+        "choices": {
+          "none": "None",
+          "short": "Short",
+          "medium": "Medium",
+          "long": "Long"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_full_snap",
+        "label": "Scroll into place",
+        "name": "brg_home_different_full_snap",
+        "type": "select",
+        "instructions": "On: when you scroll down toward this section and stop with it a little below the top of the screen, the page eases the last bit so it sits exactly in place. Subtle: it only does this for a short distance (under a third of the screen) and never when you scroll up. Does nothing while Full screen is off.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-full_snap",
+          "id": ""
+        },
+        "default_value": "on",
+        "choices": {
+          "on": "On (subtle)",
+          "off": "Off"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_endacc_full_screen",
         "label": "",
         "name": "",
         "type": "accordion",
