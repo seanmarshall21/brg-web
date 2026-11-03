@@ -1163,8 +1163,21 @@
         new ResizeObserver(function () { if (v.clientWidth !== lastW) { lastW = v.clientWidth; lock(); } }).observe(v);
       }
       if (!auto) return;
+      /* Sean, 3 Nov: "stays on Leadership until you have the screen fully in view or at least 60% in view
+         and then it starts to play". The section counts as seen at 60% of ITSELF showing, or when it fills
+         60% of the screen (a tall section on a phone can never show 60% of itself). Entering the view re-arms
+         the timer, so the first value always gets a whole pause before the next opens. */
       if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }).observe(v);
+        var seen = sec || v, th = [];
+        for (var q = 0; q <= 20; q++) th.push(q / 20);
+        inView = false;
+        new IntersectionObserver(function (es) {
+          var e = es[es.length - 1], r = e.rootBounds, vh = r ? r.height : window.innerHeight;
+          var now = e.isIntersecting && (e.intersectionRatio >= 0.6 || e.intersectionRect.height >= vh * 0.6);
+          if (now === inView) return;
+          inView = now;
+          if (now) arm();
+        }, { threshold: th }).observe(seen);
       }
       arm();
     });

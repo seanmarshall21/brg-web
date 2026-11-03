@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.10 (2026-11-03)
+- core values: wait on Leadership until 60% in view; photo height can match the list
+
 ## 2026.11.03.9 (2026-11-03)
 - photo layout: each photo (Photo 1, 2, 3) can be shifted on its own by a share of its own size; photos renamed Photo 1/2/3
 

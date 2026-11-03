@@ -30,6 +30,17 @@
       "photo": "Under the photo"
     }
   },
+  "values_photo_h": {
+    "type": "select",
+    "label": "Core values — list: photo height",
+    "doc": "Only for the List layout, with the words under the name. Match the list: the photo is exactly as tall as the list of values beside it (a little bigger than the standard shape). Standard: a plain 4:3 photo.",
+    "default": "match",
+    "width": 50,
+    "choices": {
+      "match": "Match the list",
+      "standard": "Standard (4:3)"
+    }
+  },
   "values_tone": {
     "type": "select",
     "label": "Core values — light or dark",

@@ -6491,6 +6491,31 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_home_values_values_photo_h",
+        "label": "Core values — list: photo height",
+        "name": "brg_home_values_values_photo_h",
+        "type": "select",
+        "instructions": "Only for the List layout, with the words under the name. Match the list: the photo is exactly as tall as the list of values beside it (a little bigger than the standard shape). Standard: a plain 4:3 photo.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_photo_h",
+          "id": ""
+        },
+        "default_value": "match",
+        "choices": {
+          "match": "Match the list",
+          "standard": "Standard (4:3)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_values_values_tone",
         "label": "Core values — light or dark",
         "name": "brg_home_values_values_tone",
@@ -8158,6 +8183,31 @@
         "choices": {
           "name": "Under the name",
           "photo": "Under the photo"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_photo_h",
+        "label": "Core values — list: photo height",
+        "name": "brg_home_values_2_values_photo_h",
+        "type": "select",
+        "instructions": "Only for the List layout, with the words under the name. Match the list: the photo is exactly as tall as the list of values beside it (a little bigger than the standard shape). Standard: a plain 4:3 photo.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_photo_h",
+          "id": ""
+        },
+        "default_value": "match",
+        "choices": {
+          "match": "Match the list",
+          "standard": "Standard (4:3)"
         },
         "return_format": "value",
         "allow_null": 0,
