@@ -1537,11 +1537,11 @@
       if (panel) { panel.setAttribute('data-side', photoSide(0)); }
 
       // the runway (Sean, 3 Nov: "lock into it ... pause for a second"): the stage's own height, a longer first hold, one hold
-      // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 1.0, 1.2 each, 1.2.
+      // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 0.8, 0.95 each, 0.95.
       var L = 0, S = 0, T = 0;
       function measure() {
         var vh = stage.offsetHeight || window.innerHeight;
-        L = Math.round(vh * 1.0 * mult); S = Math.round(vh * 1.2 * mult); T = S;
+        L = Math.round(vh * 0.8 * mult); S = Math.round(vh * 0.95 * mult); T = S;
         run.style.height = Math.round(vh + L + Math.max(0, N - 2) * S + T) + 'px';
       }
       var entered = false, queued = false, lastChange = 0, wait = null;
@@ -1558,11 +1558,11 @@
         var want = idxNow();
         if (cur < 0) { show(want); lastChange = Date.now(); return; }
         if (want === cur) return;
-        // one slide at a time and never faster than about once every second and a quarter, however hard it is scrolled
-        var left = 1250 - (Date.now() - lastChange);
+        // one slide at a time and never faster than about once a second, however hard it is scrolled
+        var left = 900 - (Date.now() - lastChange);
         if (left > 0) { clearTimeout(wait); wait = setTimeout(ask, left + 20); return; }
         show(cur + (want > cur ? 1 : -1)); lastChange = Date.now();
-        if (want !== cur) { clearTimeout(wait); wait = setTimeout(ask, 1270); }
+        if (want !== cur) { clearTimeout(wait); wait = setTimeout(ask, 920); }
       }
       function ask() { if (queued) return; queued = true; requestAnimationFrame(tick); }
       function go(k) {

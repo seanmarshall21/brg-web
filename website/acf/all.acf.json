@@ -5932,7 +5932,7 @@
         "label": "Scrolling per slide",
         "name": "brg_home_about_slider_scroll_step",
         "type": "select",
-        "instructions": "How long the section holds each slide while you scroll. The first slide holds a little (so the section locks in before anything moves) and the last holds before the page carries on. Short is brisk, Medium is a calm pause, Long makes you scroll further. The arrows always move exactly one slide, and slides never change faster than about once every second and a quarter, whatever the scroll speed.",
+        "instructions": "How long the section holds each slide while you scroll. The first slide holds a little (so the section locks in before anything moves) and the last holds before the page carries on. Short is brisk, Medium is a calm pause, Long makes you scroll further. The arrows always move exactly one slide, and slides never change faster than about once a second, whatever the scroll speed.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
