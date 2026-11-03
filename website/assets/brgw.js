@@ -1500,12 +1500,37 @@
         if (phs[i]) {
           clearTimeout(ptimers[i]);
           if (phs[i].classList.contains('is-out') || phs[i].classList.contains('is-under')) reset(phs[i]);
-          phs[i].style.setProperty('--d', dPhoto + 'ms'); phs[i].classList.add('is-on');
+          // the reveal starts only once the photo is in memory and decoded (Sean, 3 Nov: the second photo popped in); it is
+          // normally ready already, so the wait is nothing, and it is capped so a photo that never loads cannot hold the slide
+          var t0 = Date.now();
+          whenReady(imgs[i]).then(function () {
+            if (cur !== i) return;
+            phs[i].style.setProperty('--d', Math.max(0, dPhoto - (Date.now() - t0)) + 'ms'); phs[i].classList.add('is-on');
+          });
         }
         panes.forEach(function (p, k) {
           p.inert = k !== i; p.setAttribute('aria-hidden', k === i ? 'false' : 'true');
           var pv = p.querySelector('[data-dir="prev"]'), nx = p.querySelector('[data-dir="next"]');
           if (pv) pv.disabled = i === 0; if (nx) nx.disabled = i === N - 1;
+        });
+      }
+      // LOAD THE PHOTOS EARLY: they are lazy in the markup (a page with this section far down should not pay for them), but
+      // once the section is within three screens they are all fetched and decoded, so each is ready before its reveal.
+      var imgs = phs.map(function (p) { return p.querySelector('img'); });
+      function warm() { imgs.forEach(function (im) { if (!im) return; im.loading = 'eager'; if (im.decode) im.decode().catch(function () {}); }); }
+      if ('IntersectionObserver' in window) {
+        var warmIO = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { warm(); warmIO.disconnect(); } }, { rootMargin: '300% 0px 300% 0px' });
+        warmIO.observe(sec);
+      } else warm();
+      function whenReady(im) {
+        return new Promise(function (res) {
+          if (!im) return res();
+          var done = false; function fin() { if (!done) { done = true; res(); } }
+          setTimeout(fin, 2500);
+          function dec() { if (im.decode) im.decode().then(fin, fin); else fin(); }
+          if (im.complete && im.naturalWidth) return dec();
+          im.loading = 'eager';
+          im.addEventListener('load', dec, { once: true }); im.addEventListener('error', fin, { once: true });
         });
       }
       // the panel starts on the first slide's side without sliding there
@@ -1549,7 +1574,9 @@
         go(Math.max(0, Math.min(N - 1, cur + (b.getAttribute('data-dir') === 'prev' ? -1 : 1))));
       });
       measure();
+      var setup = phs.concat(panes); setup.forEach(function (el) { el.classList.add('no-t'); });
       sec.setAttribute('data-ready', '1');
+      void sec.offsetWidth; setup.forEach(function (el) { el.classList.remove('no-t'); });
       if (panel) { panel.classList.add('no-t'); void panel.offsetWidth; panel.classList.remove('no-t'); }
       window.addEventListener('scroll', ask, { passive: true });
       window.addEventListener('resize', function () { measure(); ask(); });

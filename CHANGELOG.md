@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.3 (2026-11-03)
+- about slider: photos load before their reveal (preload within 3 screens, reveal waits for the photo)
+
 ## 2026.11.03.2 (2026-11-03)
 - about slider: longer holds (first slide locks in, each slide and the end rest), words then photo reveal, light gray #EDEDEE, Sean's own arrows
 
