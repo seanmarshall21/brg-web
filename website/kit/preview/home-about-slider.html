@@ -23,7 +23,8 @@
 /* --pad is set by the script when Photo movement is on: the picture is laid out taller than its frame and drifts inside it */
 .brgw-sec--home-about-slider .as-ph img{position:absolute;left:0;top:calc(var(--pad,0%) * -1);width:100%;height:calc(100% + var(--pad,0%) * 2);object-fit:cover;display:block;}
 .brgw-sec--home-about-slider .as-tx{position:relative;}
-.brgw-sec--home-about-slider .as-h{margin:0;font-size:clamp(2.4rem,5.2vw,5rem);line-height:1.02;text-transform:uppercase;}
+/* Slide headline = the Core Values name size (list layout, home-values .vn), 3 Nov feedback: "Our Vision" the same size as "Leadership". Keep the two in step. */
+.brgw-sec--home-about-slider .as-h{margin:0;font-size:clamp(1.5rem,3vw,2.7rem);line-height:1.02;text-transform:uppercase;}
 .brgw-sec--home-about-slider .as-p{margin:clamp(14px,1.6vw,24px) 0 0;font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.55;max-width:34ch;}
 .brgw-sec--home-about-slider .as-nav{display:flex;gap:clamp(14px,1.6vw,26px);margin-top:28px;}
 /* The arrows are Sean's own drawings (arrow-lft.svg, arrow-rt.svg in the media library), inlined so their fill follows the text color. */
@@ -77,7 +78,8 @@
   .brgw-sec--home-about-slider[data-ready] .as-stage{min-height:520px;}
   .brgw-sec--home-about-slider[data-ready] .as-img{left:0;right:0;top:0;bottom:auto;width:auto;height:70%;transform:none!important;transition:none!important;}
   .brgw-sec--home-about-slider[data-ready] .as-tx,.brgw-sec--home-about-slider[data-ready] .as-tx[data-side]{left:0;right:0;top:auto;bottom:0;width:auto;height:30%;padding:clamp(14px,2.4svh,24px) clamp(22px,6vw,40px) 0;justify-content:flex-start;}
-  .brgw-sec--home-about-slider[data-ready] .as-h{font-size:clamp(2rem,9.5vw,3rem);}
+  .brgw-sec--home-about-slider[data-ready] .as-h{font-size:clamp(1.5rem,3vw,2.7rem);}
+  @media(max-width:699px){.brgw-sec--home-about-slider[data-ready] .as-h{font-size:clamp(1.3rem,6.4vw,1.9rem);}}
   .brgw-sec--home-about-slider[data-ready] .as-p{font-size:.98rem;line-height:1.45;margin-top:6px;max-width:none;}
   .brgw-sec--home-about-slider[data-ready] .as-nav,.brgw-sec--home-about-slider[data-ready] .as-tx[data-side] .as-nav{left:clamp(22px,6vw,40px);right:auto;bottom:clamp(14px,2.4svh,24px);}
   .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-tx .as-in{transition:none;transform:none!important;}
