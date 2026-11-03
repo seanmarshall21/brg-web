@@ -34,11 +34,33 @@
     "label": "Scrolling per slide",
     "width": 50,
     "default": "medium",
-    "doc": "How long the section holds each slide while you scroll. The first slide holds a little longer, so the section locks in before anything moves, and the last holds before the page carries on. Short is brisk, Medium is a calm pause, Long makes you scroll further. The arrows always move exactly one slide, and slides never change faster than about once every second and a half, whatever the scroll speed.",
+    "doc": "How long the section holds each slide while you scroll. The first slide holds a little (so the section locks in before anything moves) and the last holds before the page carries on. Short is brisk, Medium is a calm pause, Long makes you scroll further. The arrows always move exactly one slide, and slides never change faster than about once every second and a quarter, whatever the scroll speed.",
     "choices": {
       "short": "Short",
       "medium": "Medium",
       "long": "Long"
+    }
+  },
+  "photo_px": {
+    "type": "number",
+    "label": "Photo — movement",
+    "doc": "How far the photos drift inside their frame as you scroll through the section, as a percentage of the frame's height. 0 is off. The section stays pinned while you scroll, so the drift follows how far you are through it: the photos start at one end of their travel and finish at the other. The photo is laid out taller than its frame and slides within it, so an edge never appears and it is never zoomed. 40 is the ceiling.",
+    "width": 50,
+    "default": "0",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "append": "%"
+  },
+  "photo_px_dir": {
+    "type": "select",
+    "label": "Photo — movement direction",
+    "doc": "Which way the photos travel as you scroll down through the section.",
+    "width": 50,
+    "default": "down",
+    "choices": {
+      "down": "Down",
+      "up": "Up"
     }
   },
   "slides": {

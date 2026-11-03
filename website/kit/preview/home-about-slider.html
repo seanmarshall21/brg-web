@@ -9,7 +9,7 @@
      the page carries on to the next section. Two styles, picked in wp-admin: the photo SLIDES across the words, or everything
      stays in place and the words and photo wipe and reveal. On a phone: photo on top (70%), words underneath (30%).
      The first What We're About ([brg_home-about]) is untouched; use one or the other on the page. -->
-<section class="brgw-sec brgw-sec--home-about-slider" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-nav="light" data-style="{{slider_style}}" data-pside="{{photo_side}}" data-step="{{scroll_step}}" aria-label="What we're about">
+<section class="brgw-sec brgw-sec--home-about-slider" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-nav="light" data-style="{{slider_style}}" data-pside="{{photo_side}}" data-step="{{scroll_step}}" data-px="{{photo_px}}" data-px-dir="{{photo_px_dir}}" aria-label="What we're about">
 <style>
 .brgw-sec--home-about-slider{--as-top:clamp(72px,9svh,100px);position:relative;background:#EDEDEE;color:var(--ink);}
 .brgw-sec--home-about-slider .as-run{position:relative;}
@@ -20,7 +20,8 @@
 .brgw-sec--home-about-slider .as-title:empty{display:none;}
 .brgw-sec--home-about-slider .as-img{position:absolute;top:0;bottom:0;left:0;width:50%;z-index:3;overflow:hidden;}
 .brgw-sec--home-about-slider .as-ph{position:absolute;inset:0;}
-.brgw-sec--home-about-slider .as-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+/* --pad is set by the script when Photo movement is on: the picture is laid out taller than its frame and drifts inside it */
+.brgw-sec--home-about-slider .as-ph img{position:absolute;left:0;top:calc(var(--pad,0%) * -1);width:100%;height:calc(100% + var(--pad,0%) * 2);object-fit:cover;display:block;}
 .brgw-sec--home-about-slider .as-tx{position:relative;}
 .brgw-sec--home-about-slider .as-h{margin:0;font-size:clamp(2.4rem,5.2vw,5rem);line-height:1.02;text-transform:uppercase;}
 .brgw-sec--home-about-slider .as-p{margin:clamp(14px,1.6vw,24px) 0 0;font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.55;max-width:34ch;}
@@ -39,7 +40,7 @@
 .brgw-sec--home-about-slider[data-ready] .as-tx[data-side="l"]{left:0;}
 .brgw-sec--home-about-slider[data-ready] .as-tx[data-side="r"]{right:0;}
 .brgw-sec--home-about-slider[data-ready] .as-img[data-side="r"]{transform:translateX(100%);}
-.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-img{transition:transform .95s cubic-bezier(.65,0,.25,1);}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-img{transition:transform .75s cubic-bezier(.2,.8,.2,1);}
 /* arrows sit at the foot of the words, on the edge nearest the photo, and are covered with them */
 .brgw-sec--home-about-slider[data-ready] .as-nav{position:absolute;bottom:clamp(36px,9svh,88px);margin:0;}
 .brgw-sec--home-about-slider[data-ready] .as-tx[data-side="l"] .as-nav{right:clamp(24px,3.2vw,52px);}
@@ -48,11 +49,11 @@
 /* split words: every word in its own clip box, rising into place. Waiting = below the box; leaving = up past the top. */
 .brgw-sec--home-about-slider[data-ready] .as-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em;}
 .brgw-sec--home-about-slider[data-ready] .as-wi{display:inline-block;transform:translateY(115%);
-  transition:transform .55s cubic-bezier(.5,0,.85,.25);transition-delay:calc(var(--i,0) * 22ms);}
+  transition:transform .5s cubic-bezier(.3,.7,.3,1);transition-delay:calc(var(--i,0) * 20ms);}
 .brgw-sec--home-about-slider[data-ready] .as-tx.is-on .as-wi{transform:none;transition:transform .8s cubic-bezier(.2,.8,.2,1);
   transition-delay:calc(var(--d,0ms) + var(--i,0) * 42ms);}
 .brgw-sec--home-about-slider[data-ready] .as-tx.is-out .as-wi{transform:translateY(-115%);}
-.brgw-sec--home-about-slider[data-ready] .as-tx .as-in{transition:transform .95s cubic-bezier(.65,0,.25,1);}
+.brgw-sec--home-about-slider[data-ready] .as-tx .as-in{transition:transform .75s cubic-bezier(.2,.8,.2,1);}
 .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-tx.is-out[data-side="l"] .as-in{transform:translateX(9%);}
 .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-tx.is-out[data-side="r"] .as-in{transform:translateX(-9%);}
 .brgw-sec--home-about-slider[data-ready] .as-tx .as-nav{opacity:0;transition:opacity .25s ease;}
@@ -63,9 +64,9 @@
 /* PHOTOS: the same reveal the other photos on the site have (a mask that grows up from the bottom edge while the picture
    settles from a zoom), and it comes AFTER the words. The photo being replaced is left in place underneath until the new
    one has covered it (is-under), except in the stay-in-place style, where it wipes out upward first (is-out). */
-.brgw-sec--home-about-slider[data-ready] .as-ph{clip-path:inset(100% 0 0 0);z-index:0;transition:clip-path .8s cubic-bezier(.65,0,.25,1);}
+.brgw-sec--home-about-slider[data-ready] .as-ph{clip-path:inset(100% 0 0 0);z-index:0;transition:clip-path .6s cubic-bezier(.2,.8,.2,1);}
 .brgw-sec--home-about-slider[data-ready] .as-ph img{transform:scale(1.4);transition:transform .8s ease;}
-.brgw-sec--home-about-slider[data-ready] .as-ph.is-on{clip-path:inset(0 0 0 0);z-index:2;transition:clip-path 1.25s cubic-bezier(.65,0,.35,1) var(--d,0ms);}
+.brgw-sec--home-about-slider[data-ready] .as-ph.is-on{clip-path:inset(0 0 0 0);z-index:2;transition:clip-path 1s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-on img{transform:none;transition:transform 1.8s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-under{clip-path:inset(0 0 0 0);z-index:1;transition:none;}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-under img,.brgw-sec--home-about-slider[data-ready] .as-ph.is-out img{transform:none;transition:none;}
@@ -118,7 +119,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "What we're about", "slider_style": "slide", "photo_side": "right", "scroll_step": "medium", "slides": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "section_color_opacity": "100"};
+  var D = {"heading": "What we're about", "slider_style": "slide", "photo_side": "right", "scroll_step": "medium", "photo_px": "0", "photo_px_dir": "down", "slides": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "section_color_opacity": "100"};
   var raw = document.getElementById('frag').innerHTML;
   // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
   // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.

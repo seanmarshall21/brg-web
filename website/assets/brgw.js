@@ -1485,7 +1485,7 @@
         if (i === cur) return;
         var prev = cur; cur = i;
         // words first, then the photo (the first time in there is nothing to wait for, so it is quicker)
-        var dText = calm ? 0 : (prev < 0 ? 0 : (reveal ? 760 : 560)), dPhoto = calm ? 0 : (prev < 0 ? 520 : (reveal ? 1140 : 980));
+        var dText = calm ? 0 : (prev < 0 ? 0 : (reveal ? 520 : 400)), dPhoto = calm ? 0 : (prev < 0 ? 450 : (reveal ? 860 : 700));
         if (prev >= 0) {
           leave(panes[prev], prev);
           if (phs[prev]) {
@@ -1537,11 +1537,11 @@
       if (panel) { panel.setAttribute('data-side', photoSide(0)); }
 
       // the runway (Sean, 3 Nov: "lock into it ... pause for a second"): the stage's own height, a longer first hold, one hold
-      // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 1.5, 1.2 each, 1.2.
+      // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 1.0, 1.2 each, 1.2.
       var L = 0, S = 0, T = 0;
       function measure() {
         var vh = stage.offsetHeight || window.innerHeight;
-        L = Math.round(vh * 1.5 * mult); S = Math.round(vh * 1.2 * mult); T = S;
+        L = Math.round(vh * 1.0 * mult); S = Math.round(vh * 1.2 * mult); T = S;
         run.style.height = Math.round(vh + L + Math.max(0, N - 2) * S + T) + 'px';
       }
       var entered = false, queued = false, lastChange = 0, wait = null;
@@ -1558,11 +1558,11 @@
         var want = idxNow();
         if (cur < 0) { show(want); lastChange = Date.now(); return; }
         if (want === cur) return;
-        // one slide at a time and never faster than about once every second and a half, however hard it is scrolled
-        var left = 1500 - (Date.now() - lastChange);
+        // one slide at a time and never faster than about once every second and a quarter, however hard it is scrolled
+        var left = 1250 - (Date.now() - lastChange);
         if (left > 0) { clearTimeout(wait); wait = setTimeout(ask, left + 20); return; }
         show(cur + (want > cur ? 1 : -1)); lastChange = Date.now();
-        if (want !== cur) { clearTimeout(wait); wait = setTimeout(ask, 1520); }
+        if (want !== cur) { clearTimeout(wait); wait = setTimeout(ask, 1270); }
       }
       function ask() { if (queued) return; queued = true; requestAnimationFrame(tick); }
       function go(k) {
@@ -1578,6 +1578,24 @@
       sec.setAttribute('data-ready', '1');
       void sec.offsetWidth; setup.forEach(function (el) { el.classList.remove('no-t'); });
       if (panel) { panel.classList.add('no-t'); void panel.offsetWidth; panel.classList.remove('no-t'); }
+      // PHOTO MOVEMENT (parallax). The stage is pinned, so the usual "how far through the screen is it" has nothing to measure;
+      // the drift follows how far through the whole runway the page is instead, easing toward it. translate is used (not
+      // transform), so it never meets the zoom the reveal plays on the same picture.
+      var pxAmt = Math.max(0, Math.min(40, parseFloat(sec.getAttribute('data-px')) || 0)), pxDir = sec.getAttribute('data-px-dir') === 'up' ? -1 : 1;
+      var pxCur = null, pxRun = false;
+      if (pxAmt > 0 && !calm) stage.style.setProperty('--pad', (pxAmt + 0.5) + '%');
+      function pxGoal() {
+        var r = run.getBoundingClientRect(), total = Math.max(1, r.height - stage.offsetHeight);
+        var p = Math.max(0, Math.min(1, -r.top / total));
+        return pxDir * (p * 2 - 1) * pxAmt / 100 * (panel ? panel.offsetHeight : stage.offsetHeight);
+      }
+      function pxStep() {
+        var g = pxGoal(); pxCur = pxCur === null ? g : pxCur + (g - pxCur) * 0.14;
+        imgs.forEach(function (im) { if (im) im.style.translate = '0 ' + pxCur.toFixed(1) + 'px'; });
+        if (Math.abs(g - pxCur) > 0.3) requestAnimationFrame(pxStep); else pxRun = false;
+      }
+      function pxAsk() { if (pxAmt <= 0 || calm || pxRun) return; pxRun = true; requestAnimationFrame(pxStep); }
+      if (pxAmt > 0 && !calm) window.addEventListener('scroll', pxAsk, { passive: true });
       window.addEventListener('scroll', ask, { passive: true });
       window.addEventListener('resize', function () { measure(); ask(); });
       window.addEventListener('load', function () { measure(); ask(); });
