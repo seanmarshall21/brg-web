@@ -54,6 +54,50 @@ if ( ! function_exists( 'brg_menu_opt' ) ) {
     }
 }
 
+/* ── TAB ORDER FOLLOWS THE PAGE (Sean, 3 Nov) ─────────────────────────────────────────────────
+ * A page group is a flat list of fields: one tab marker per section (key field_brg_tab_<id with _>) followed by that
+ * section's fields. This regroups them into one block per tab and puts the blocks in the order the page renders its
+ * sections (saved by vc-clients-embed.php as the option brg_section_orders). Sections not on the page keep their usual
+ * order, after the ones that are. Anything it does not understand is returned untouched, so it can only ever reorder. */
+function brg_acf_order_tabs( $fields, $orders ) {
+    if ( ! is_array( $fields ) || ! is_array( $orders ) ) return $fields;
+    $pre = array(); $blocks = array(); $cur = null;
+    foreach ( $fields as $f ) {
+        $key = ( is_array( $f ) && isset( $f['key'] ) ) ? (string) $f['key'] : '';
+        if ( is_array( $f ) && isset( $f['type'] ) && $f['type'] === 'tab' && strpos( $key, 'field_brg_tab_' ) === 0 ) {
+            $cur = substr( $key, strlen( 'field_brg_tab_' ) );
+            $blocks[ $cur ] = array( $f );
+        } elseif ( $cur === null ) {
+            $pre[] = $f;
+        } else {
+            $blocks[ $cur ][] = $f;
+        }
+    }
+    if ( count( $blocks ) < 2 ) return $fields;
+    $best = array(); $best_hits = 0;
+    foreach ( $orders as $list ) {
+        if ( ! is_array( $list ) ) continue;
+        $norm = array();
+        foreach ( $list as $id ) {
+            $n = str_replace( '-', '_', (string) $id );
+            if ( isset( $blocks[ $n ] ) ) $norm[] = $n;
+        }
+        if ( count( $norm ) > $best_hits ) { $best = $norm; $best_hits = count( $norm ); }
+    }
+    if ( $best_hits < 1 ) return $fields;
+    $out = $pre; $done = array();
+    foreach ( $best as $n ) {
+        if ( isset( $done[ $n ] ) ) continue;
+        $done[ $n ] = true;
+        foreach ( $blocks[ $n ] as $f ) $out[] = $f;
+    }
+    foreach ( $blocks as $n => $blk ) {
+        if ( isset( $done[ $n ] ) ) continue;
+        foreach ( $blk as $f ) $out[] = $f;
+    }
+    return $out;
+}
+
 add_action( 'acf/init', function () {
 
     // 1) The PARENT options page. Each page of the site then gets its own SUB-page,
@@ -112,6 +156,14 @@ add_action( 'acf/init', function () {
 
     $groups = $json ? json_decode( $json, true ) : null;
     if ( ! is_array( $groups ) ) return;
+
+    // Tabs follow the order the sections appear on the page (see brg_acf_order_tabs above).
+    $brg_orders = get_option( 'brg_section_orders', array() );
+    if ( is_array( $brg_orders ) && $brg_orders ) {
+        foreach ( $groups as $gi => $g ) {
+            if ( is_array( $g ) && ! empty( $g['fields'] ) ) $groups[ $gi ]['fields'] = brg_acf_order_tabs( $g['fields'], $brg_orders );
+        }
+    }
 
     /* 2) Register a sub-page per distinct options_page in the fetched groups, then the
      *    groups themselves. DERIVED, never listed: the generator decides which pages

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.14.2
+ * Version: 2.14.3
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,8 +32,36 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.14.2' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.14.3' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
+
+/* ── WHICH ORDER THE SECTIONS APPEAR IN ON A PAGE (Sean, 3 Nov) ─────────────────────────────
+ * "If you put a shortcode in, it adds that section in the order that you put it in." The wp-admin tabs follow the page,
+ * and the page is the only place the order lives (it is set in Oxygen), so it is read back from the page itself: each
+ * [brg_<id>] shortcode notes its id as it renders, and when the request ends the order is saved for that page. brg-acf.php
+ * reads it when it builds the tabs. Saved only for an ordinary front-end view of one page (never the builder, admin, ajax
+ * or REST, which render sections one at a time), and only when it has changed, so a normal visit writes nothing.
+ * A name with its own prefix, declared once, not behind function_exists: see the shadowed-name note in the smoke check. */
+$GLOBALS['brg_sec_seen'] = array();
+function brg_sec_order_note( $id ) {
+    $GLOBALS['brg_sec_seen'][] = (string) $id;
+}
+function brg_sec_order_save() {
+    $seen = isset( $GLOBALS['brg_sec_seen'] ) && is_array( $GLOBALS['brg_sec_seen'] ) ? $GLOBALS['brg_sec_seen'] : array();
+    if ( ! $seen ) return;
+    if ( is_admin() || wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) return;
+    if ( isset( $_GET['ct_builder'] ) || isset( $_GET['oxygen_iframe'] ) ) return;
+    if ( ! is_singular() ) return;
+    $pid = (int) get_queried_object_id();
+    if ( $pid < 1 ) return;
+    $seen = array_values( array_unique( $seen ) );
+    $all  = get_option( 'brg_section_orders', array() );
+    if ( ! is_array( $all ) ) $all = array();
+    if ( isset( $all[ $pid ] ) && $all[ $pid ] === $seen ) return;
+    $all[ $pid ] = $seen;
+    update_option( 'brg_section_orders', $all, false );
+}
+add_action( 'shutdown', 'brg_sec_order_save' );
 
 /* ── CLIENTS — the ONLY thing you edit here, and only to add a new client. ──── */
 $GLOBALS['VCC_CLIENTS'] = array(
@@ -1270,6 +1298,7 @@ add_action( 'init', function () {
                     $id = isset( $s['id'] ) ? preg_replace( '/[^a-z0-9-]/', '', strtolower( (string) $s['id'] ) ) : '';
                     if ( $id === '' ) continue;
                     add_shortcode( $client . '_' . $id, function ( $atts ) use ( $client, $id ) {
+                        brg_sec_order_note( $id );
                         return vcc_render_section( $client, $id, is_array( $atts ) ? $atts : array() );
                     } );
                 }
