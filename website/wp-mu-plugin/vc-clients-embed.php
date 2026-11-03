@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.14.3
+ * Version: 2.15.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.14.3' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.15.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── WHICH ORDER THE SECTIONS APPEAR IN ON A PAGE (Sean, 3 Nov) ─────────────────────────────
@@ -244,12 +244,37 @@ if ( ! function_exists( 'vcc_brand_resolve' ) ) {
 /* ── Shared assets (tokens/reveal engine) — emitted ONCE per client per request.
       Lifted out of vcc_render_page so the section & chrome renderers share the
       same static: a page mixing a monolith + sections inlines brgw.css/js once. ── */
+/* ── Page effects settings (Site-wide > Page effects) → window.BRGW_FX for brgw.js.
+      Option names are written out, not composed, so build-acf.py's reader check (and anyone
+      grepping for one) finds each. Every value is checked against its allowed list here, so a
+      stale or odd saved value falls back to the default instead of reaching the page. ── */
+if ( ! function_exists( 'brg_fx_settings' ) ) {
+    function brg_fx_settings() {
+        $fx = array( 'page' => 'on', 'loader' => 'slow', 'bg' => 'black', 'art' => '' );
+        if ( ! function_exists( 'get_field' ) ) return $fx;
+        $page = get_field( 'brg_effects_page_fx', 'option' );
+        $load = get_field( 'brg_effects_loader', 'option' );
+        $art  = get_field( 'brg_effects_loader_art', 'option' );
+        $bg   = get_field( 'brg_effects_loader_bg', 'option' );
+        if ( is_string( $page ) && in_array( $page, array( 'on', 'off' ), true ) )                     $fx['page']   = $page;
+        if ( is_string( $load ) && in_array( $load, array( 'slow', 'always', 'off' ), true ) )         $fx['loader'] = $load;
+        if ( is_string( $bg )   && in_array( $bg, array( 'black', 'teal', 'white' ), true ) )          $fx['bg']     = $bg;
+        if ( is_array( $art ) && isset( $art['url'] ) ) $art = $art['url'];
+        if ( is_string( $art ) && preg_match( '#^https?://#', $art ) )                                 $fx['art']    = esc_url_raw( $art );
+        return $fx;
+    }
+}
+
 if ( ! function_exists( 'vcc_shared_assets' ) ) {
     function vcc_shared_assets( $client, $cfg, $ttl ) {
         static $shared = array();
         if ( ! empty( $shared[ $client ] ) ) return array( '', '' );
         $shared[ $client ] = true;
         $css = ''; $js = ''; $base = rtrim( $cfg['base'], '/' );
+        // BEFORE brgw.js, so the engine reads the settings the moment it runs.
+        if ( $client === 'brg' ) {
+            $js .= '<script id="vcc-brg-fx">window.BRGW_FX=' . wp_json_encode( brg_fx_settings(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) . ';</script>';
+        }
         foreach ( $cfg['assets'] as $a ) {
             $body = vcc_fetch( $base . $a, $ttl );
             if ( $body === '' ) continue;

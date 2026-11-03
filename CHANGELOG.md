@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.12 (2026-11-03)
+- page transitions, smiley loader, community count-up
+
 ## 2026.11.03.11 (2026-11-03)
 - smooth wheel scrolling (50ms delay, ease in/out) replaces scroll-into-place snap
 

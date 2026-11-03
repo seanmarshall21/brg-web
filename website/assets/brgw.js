@@ -1709,7 +1709,177 @@
     }, { passive: true });
   }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwFull(document); brgwSmooth(); brgwBuild(); }
+  /* COUNT-UP. Sean, 3 Nov: "make the numbers on the community page do count ups to their
+     numbers." A section opts in with data-countup="on" on any wrapper; every .fig inside it
+     counts from 0 to its own written figure.
+
+     THE FIGURE IS PARSED, NEVER REWRITTEN. "1,000+" splits into prefix "", number 1,000, suffix
+     "+", so the commas, "$", "K" and "+" the editor typed all survive, and the last frame writes
+     the original text back exactly. Anything without a digit (the XX placeholders) is left alone.
+
+     IT WAITS FOR THE SECTION'S OWN REVEAL. The figure sits inside an .anim-up cell that is
+     invisible until the reveal gate opens (after the page has loaded), so counting from the
+     moment it scrolled into view would burn the animation while nothing can be seen. Screen
+     readers get the final figure from aria-label, never "0". Reduced motion: no count at all. */
+  function brgwCount(root) {
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    root.querySelectorAll('[data-countup="on"] .fig').forEach(function (el) {
+      if (el.__cu) return;
+      var txt = el.textContent.trim();
+      var m = /^(\D*?)(\d[\d,]*(?:\.\d+)?)(.*)$/.exec(txt);
+      if (!m) return;
+      var raw = m[2], end = parseFloat(raw.replace(/,/g, ''));
+      if (!isFinite(end) || end <= 0) return;
+      el.__cu = 1;
+      var dec = (raw.split('.')[1] || '').length, commas = raw.indexOf(',') > -1, started = false;
+      function fmt(v) {
+        var s = v.toFixed(dec);
+        if (commas) { var p = s.split('.'); p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','); s = p.join('.'); }
+        return m[1] + s + m[3];
+      }
+      el.setAttribute('role', 'img');
+      el.setAttribute('aria-label', txt);
+      el.textContent = fmt(0);
+      function go() {
+        if (started) return; started = true;
+        var t0 = null, dur = 1800;
+        (function step(t) {
+          if (t0 === null) t0 = t;
+          var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);   // ease-out: fast start, gentle landing
+          if (k < 1) { el.textContent = fmt(end * e); requestAnimationFrame(step); }
+          else el.textContent = txt;
+        })(performance.now());
+      }
+      var sec = el.closest('.reveal');
+      function whenShown() {
+        if (!sec || sec.classList.contains('is-in')) { setTimeout(go, 200); return; }
+        var mo = new MutationObserver(function () {
+          if (sec.classList.contains('is-in')) { mo.disconnect(); setTimeout(go, 300); }
+        });
+        mo.observe(sec, { attributes: true, attributeFilter: ['class'] });
+        setTimeout(function () { mo.disconnect(); go(); }, 5000);          // never leave it on 0
+      }
+      new IntersectionObserver(function (es, io) {
+        if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); whenShown(); }
+      }, { threshold: 0.5 }).observe(el);
+    });
+  }
+
+  /* PAGE EFFECTS. Sean, 3 Nov: every page change should fade the page out and lift it a
+     little, then animate the next page in; and a loading screen (the smiley) for when things
+     lag. Three pieces share one flag so they hand over to each other without a blank gap:
+
+       LEAVE   a plain click on an internal link fades + lifts the page content (not the nav,
+               which stays put like any site header), then the loading screen covers it, then the
+               browser navigates. The old page stays visible until the new one answers, so the
+               screen is what tells the visitor something is happening.
+       ARRIVE  the content is held invisible (a class on <html>, set before the content below
+               the nav has even been parsed, so there is no flash) until the page is ready, then
+               rises in. "Ready" is the same test as the reveal gate: fonts + load, capped.
+       LOADER  shown only if the page is not ready within 350ms (or at once when we arrived by
+               our own link, so the old page's screen simply carries on). Kept up at least
+               550ms once shown, so it never flickers.
+
+     EVERY WAY OUT IS CLOSED OFF. The hold is lifted by a hard timer whatever else happens, and
+     the whole thing is inside try/catch at the call site, because this file is inlined in every
+     page: a failure here must cost the effect, never the page. Off in the Oxygen builder's
+     frame, with reduced motion, and by ?brgw_nofx. The back button restores a page from the
+     browser's cache already faded out, so pageshow undoes the fade. Settings arrive as
+     window.BRGW_FX from the plugin (Site-wide > Page effects); absent means defaults. */
+  function brgwPageFx() {
+    var D = document.documentElement, S = window.BRGW_FX || {};
+    if (D.__brgwFx) return; D.__brgwFx = 1;
+    var framed = true; try { framed = window.self !== window.top; } catch (e) {}
+    if (framed || /[?&](ct_builder|oxygen_iframe|brgw_nofx)\b/.test(location.search)) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var trans = S.page !== 'off';
+    var mode = (S.loader === 'off' || S.loader === 'always') ? S.loader : 'slow';
+    if (!trans && mode === 'off') return;
+    var ART = 'https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg';
+    var came = false;
+    try { came = sessionStorage.getItem('brgwFx') === '1'; sessionStorage.removeItem('brgwFx'); } catch (e) {}
+    var loader = null, shownAt = 0, ready = false, leaving = false;
+
+    function showLoader(instant) {
+      if (loader || !document.body) return;
+      var l = document.createElement('div');
+      l.id = 'brgw-loader';
+      l.setAttribute('role', 'status');
+      l.setAttribute('aria-label', 'Loading');
+      l.setAttribute('data-bg', S.bg === 'white' || S.bg === 'teal' ? S.bg : 'black');
+      var box = document.createElement('div'); box.className = 'brgw-ld';
+      var img = document.createElement('img');
+      img.alt = ''; img.width = 215; img.height = 208; img.src = /^https?:\/\//.test(S.art || '') ? S.art : ART;
+      var sh = document.createElement('span'); sh.className = 'brgw-ld-sh';
+      box.appendChild(img); box.appendChild(sh); l.appendChild(box);
+      if (instant) l.classList.add('is-instant');
+      document.body.appendChild(l);
+      void l.offsetWidth;
+      l.classList.add('is-on');
+      if (instant) requestAnimationFrame(function () { l.classList.remove('is-instant'); });
+      loader = l; shownAt = Date.now();
+    }
+    function hideLoader() {
+      if (!loader) return;
+      var l = loader; loader = null;
+      l.classList.remove('is-on');
+      setTimeout(function () { if (l.parentNode) l.parentNode.removeChild(l); }, 700);
+    }
+    function arrive() {
+      if (ready) return; ready = true;
+      var wait = loader ? Math.max(0, 550 - (Date.now() - shownAt)) : 0;
+      setTimeout(function () {
+        D.classList.remove('brgw-hold');
+        if (trans) { D.classList.add('brgw-in'); setTimeout(function () { D.classList.remove('brgw-in'); }, 1200); }
+        hideLoader();
+      }, wait);
+    }
+
+    if (trans) D.classList.add('brgw-hold');
+    if (mode === 'always' || (came && mode !== 'off')) showLoader(came);
+    else if (mode === 'slow') setTimeout(function () { if (!ready) showLoader(false); }, 350);
+
+    var fontP = (document.fonts && document.fonts.load) ? document.fonts.load("1em 'Blanco Cavelary'") : Promise.resolve();
+    var loadP = (document.readyState === 'complete') ? Promise.resolve()
+      : new Promise(function (r) { window.addEventListener('load', r, { once: true }); });
+    Promise.race([Promise.all([fontP.catch(function () {}), loadP]), new Promise(function (r) { setTimeout(r, 2500); })]).then(arrive);
+    setTimeout(arrive, 3600);                                  // hard stop: nothing stays hidden
+
+    if (!trans) return;
+    function leave(href) {
+      if (leaving) return; leaving = true;
+      D.classList.add('brgw-out');
+      try { sessionStorage.setItem('brgwFx', '1'); } catch (e) {}
+      setTimeout(function () { if (mode !== 'off') showLoader(false); location.href = href; }, 340);
+      setTimeout(reset, 20000);                                // navigation cancelled: give the page back
+    }
+    function reset() {
+      leaving = false; D.classList.remove('brgw-out'); hideLoader();
+    }
+    // window, not document: every handler on the page runs first, so a link some other script
+    // already took over (a popup button, a menu toggle) arrives here with defaultPrevented set.
+    window.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var tg = a.getAttribute('target');
+      if ((tg && tg !== '_self') || a.hasAttribute('download') || a.hasAttribute('data-brgw-nofx')) return;
+      if (a.getAttribute('data-brgw-modal')) return;
+      var u; try { u = new URL(a.getAttribute('href'), location.href); } catch (err) { return; }
+      if (u.origin !== location.origin) return;
+      if (u.pathname === location.pathname && u.search === location.search) return;
+      if (/\/wp-(admin|login|json)|\.(pdf|zip|jpe?g|png|gif|webp|svg|mp4|mov|docx?|xlsx?|csv)$/i.test(u.pathname)) return;
+      if (/[?&](ct_builder|oxygen_iframe)\b/.test(u.search)) return;
+      e.preventDefault();
+      leave(u.href);
+    });
+    window.addEventListener('pageshow', function (e) { if (e.persisted) reset(); });
+  }
+
+  try { brgwPageFx(); } catch (e) { document.documentElement.classList.remove('brgw-hold', 'brgw-out'); }
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwFull(document); brgwSmooth(); brgwCount(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

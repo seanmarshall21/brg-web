@@ -4191,6 +4191,31 @@
                 "default_value": "per year"
             },
             {
+                "key": "field_brg_community_stats_count_up",
+                "label": "Count up",
+                "name": "brg_community_stats_count_up",
+                "type": "select",
+                "instructions": "On: each figure counts up from 0 to its number the first time it scrolls into view, after the section has faded in. Commas, $, K and + are kept exactly as written; a figure with no digits (like XX) just stays put. Off: the figures show their numbers straight away. Visitors who set their device to reduce motion never see the count.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-count_up",
+                    "id": ""
+                },
+                "default_value": "on",
+                "choices": {
+                    "on": "On",
+                    "off": "Off"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_community_stats_acc_section_background",
                 "label": "Section background",
                 "name": "",

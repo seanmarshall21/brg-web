@@ -1,0 +1,52 @@
+{
+  "_label": "Page effects",
+  "_page": "site-wide",
+  "_page_label": "Site-wide",
+  "_order": 3,
+  "_note": "Site-wide page effects: the fade between pages and the loading screen. Declared here, read by the mu-plugin (brg_fx_settings in vc-clients-embed.php), which hands them to brgw.js as window.BRGW_FX. Defaults are what a page does with nothing saved.",
+  "page_fx": {
+    "type": "select",
+    "label": "Page transitions",
+    "width": 50,
+    "default": "on",
+    "group": "Page transitions",
+    "doc": "On: clicking a link to another page on this site fades the page content out and lifts it a little (the menu bar stays), then the next page fades in and rises into place. Off: pages change the way a browser normally does. Turn this off first if a link ever misbehaves. Phones and tablets with reduce motion switched on never see it.",
+    "choices": {
+      "on": "On",
+      "off": "Off"
+    }
+  },
+  "loader": {
+    "type": "select",
+    "label": "Loading screen",
+    "width": 50,
+    "default": "slow",
+    "group": "Loading screen",
+    "doc": "The bouncing smiley shown while a page loads. Only when the page is slow: it appears if a page has not finished loading after a third of a second, and when you click through to another page. Every page: it always shows while a page loads. Off: never. With Page transitions on and this off, the screen goes blank between pages while the next one loads.",
+    "choices": {
+      "slow": "Only when the page is slow",
+      "always": "Every page",
+      "off": "Off"
+    }
+  },
+  "loader_art": {
+    "type": "image",
+    "label": "Loading screen picture",
+    "width": 50,
+    "group": "Loading screen",
+    "doc": "What bounces. Leave it empty for the BRG smiley. Any SVG or PNG from the media library works; SVG stays crisp at any size. A shape roughly as wide as it is tall looks best."
+  },
+  "loader_bg": {
+    "type": "select",
+    "label": "Loading screen background",
+    "width": 50,
+    "default": "black",
+    "group": "Loading screen",
+    "doc": "The color behind the picture. Black or teal suit the yellow smiley; white suits a dark picture.",
+    "choices": {
+      "black": "Black",
+      "teal": "Teal",
+      "white": "White"
+    }
+  }
+}

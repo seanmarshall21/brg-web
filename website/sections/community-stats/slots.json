@@ -88,6 +88,17 @@
     "default": "per year",
     "width": 33
   },
+  "count_up": {
+    "type": "select",
+    "label": "Count up",
+    "width": 33,
+    "default": "on",
+    "doc": "On: each figure counts up from 0 to its number the first time it scrolls into view, after the section has faded in. Commas, $, K and + are kept exactly as written; a figure with no digits (like XX) just stays put. Off: the figures show their numbers straight away. Visitors who set their device to reduce motion never see the count.",
+    "choices": {
+      "on": "On",
+      "off": "Off"
+    }
+  },
   "section_bg": {
     "type": "image",
     "label": "Section background",
@@ -210,7 +221,8 @@
       "": "As set site-wide",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     }
   },
   "section_color": {
@@ -442,7 +454,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },

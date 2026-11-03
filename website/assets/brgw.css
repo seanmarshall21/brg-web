@@ -1,4 +1,4 @@
-/* brgw build 2026.11.03.11 */
+/* brgw build 2026.11.03.12 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -1374,4 +1374,37 @@ html.brgw-motion .brgw [data-brgw-img] img{transform:scale(2);transform-origin:5
   .brgw .brgw-hero .sp{animation:none!important;}
   .brgw .brgw-hero .sp--skater{transform:scale(1.02);opacity:calc(var(--brgw-plate-o,30) / 100);}
   .brgw .brgw-hero .sp--crown{opacity:.8;}
+}
+
+/* ── PAGE EFFECTS (3 Nov) — leave / arrive / loading screen. Engine: brgwPageFx in brgw.js.
+   The classes live on <html>, which is why none of this is scoped under .brgw. Only the page
+   CONTENT moves (.ct-inner-content and the footer); the nav is a sibling and stays put.
+   A transform on an ancestor would break position:fixed inside it, so every transform here
+   exists only while the class is on: .brgw-out for 340ms, .brgw-in for ~1s, then gone. */
+html.brgw-hold .ct-inner-content,html.brgw-hold .brgw__footer{opacity:0;}
+html.brgw-in .ct-inner-content,html.brgw-in .brgw__footer{animation:brgw-page-in .85s cubic-bezier(.22,.9,.24,1) both;}
+@keyframes brgw-page-in{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+html.brgw-out .ct-inner-content,html.brgw-out .brgw__footer{opacity:0;transform:translateY(-18px);
+  transition:opacity .3s ease-in,transform .34s ease-in;}
+#brgw-loader{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;
+  --brgw-ld-sh:rgba(255,255,255,.16);background:#131210;
+  opacity:0;visibility:hidden;transition:opacity .55s ease,visibility 0s linear .55s;}
+#brgw-loader[data-bg="white"]{background:#fff;--brgw-ld-sh:rgba(0,0,0,.14);}
+#brgw-loader[data-bg="teal"]{background:#19C7C2;--brgw-ld-sh:rgba(0,0,0,.18);}
+#brgw-loader.is-on{opacity:1;visibility:visible;transition:opacity .28s ease,visibility 0s;}
+#brgw-loader.is-instant{transition:none;}
+#brgw-loader .brgw-ld{position:relative;width:clamp(76px,13vw,120px);aspect-ratio:215/208;}
+#brgw-loader .brgw-ld img{display:block;width:100%;height:100%;transform-origin:50% 100%;
+  animation:brgw-ld-hop 1.15s cubic-bezier(.45,0,.3,1) infinite;}
+#brgw-loader .brgw-ld-sh{position:absolute;left:14%;right:14%;bottom:-16%;height:9%;border-radius:50%;
+  background:var(--brgw-ld-sh);animation:brgw-ld-sh 1.15s cubic-bezier(.45,0,.3,1) infinite;}
+@keyframes brgw-ld-hop{
+  0%,100%{transform:translateY(0) scale(1.1,.88) rotate(0);}
+  22%{transform:translateY(-8%) scale(.96,1.05) rotate(-4deg);}
+  50%{transform:translateY(-38%) scale(1,1) rotate(-12deg);}
+  78%{transform:translateY(-6%) scale(.97,1.04) rotate(-3deg);}}
+@keyframes brgw-ld-sh{0%,100%{transform:scaleX(1.12);opacity:1;}50%{transform:scaleX(.62);opacity:.45;}}
+@media(prefers-reduced-motion:reduce){
+  html.brgw-hold .ct-inner-content,html.brgw-hold .brgw__footer{opacity:1;}
+  #brgw-loader .brgw-ld img,#brgw-loader .brgw-ld-sh{animation:none;}
 }
