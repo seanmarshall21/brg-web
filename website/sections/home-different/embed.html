@@ -112,9 +112,11 @@
 .brgw-sec--home-different .blocks[data-r3="3x4"]{--a3:1;--r3:calc(3/4);}
 .brgw-sec--home-different .blocks[data-r3="2x3"]{--a3:1;--r3:calc(2/3);}
 .brgw-sec--home-different .blocks[data-r3="9x16"]{--a3:1;--r3:calc(9/16);}
+/* Each photo can be nudged on its own (Sean, 3 Nov): --ox / --oy are a percentage of THAT photo's own width / height (negative = left / up),
+   so a 20% nudge is 80px on a 400px photo and scales with the screen. */
 .brgw-sec--home-different .blocks .p{position:absolute;display:block;overflow:hidden;
   --X:calc(var(--ga)*var(--q1x) + var(--gb)*var(--q2x) + var(--gc)*var(--q3x));--T:calc(var(--ga)*var(--q1t) + var(--gb)*var(--q2t) + var(--gc)*var(--q3t));--W:calc(var(--ga)*var(--q1w) + var(--gb)*var(--q2w) + var(--gc)*var(--q3w));--H:calc(var(--ga)*var(--q1w) / var(--p1r) + var(--gb)*var(--q2w) / var(--p2r) + var(--gc)*var(--q3w) / var(--p3r));
-  left:calc((var(--X) - var(--W) * (var(--s) - 1) / 2) * 1cqw);top:calc((var(--T) - var(--H) * (var(--s) - 1) / 2) * 1cqw);
+  left:calc((var(--X) - var(--W) * (var(--s) - 1) / 2 + var(--W) * var(--s) * var(--ox, 0) / 100) * 1cqw);top:calc((var(--T) - var(--H) * (var(--s) - 1) / 2 + var(--H) * var(--s) * var(--oy, 0) / 100) * 1cqw);
   width:calc(var(--W) * var(--s) * 1cqw);height:calc(var(--H) * var(--s) * 1cqw);
   z-index:calc(var(--ga)*1 + var(--gb)*2 + var(--gc)*3);}
 .brgw-sec--home-different .blocks .p1{--s:var(--s1);--ga:var(--g11);--gb:var(--g12);--gc:var(--g13);}
@@ -161,15 +163,15 @@
          the three separate as you scroll instead of tracking together. Stand-in photography
          — Sean to name the real three. -->
     <div class="blocks-w anim-up"><div class="blocks" style="--lx:{{photos_shift_x}};--ly:{{photos_shift_y}}" data-layout="{{photos_layout}}" data-s1="{{photo_1_scale}}" data-s2="{{photo_2_scale}}" data-s3="{{photo_3_scale}}" data-order="{{photos_order}}" data-r1="{{photo_1_shape}}" data-r2="{{photo_2_shape}}" data-r3="{{photo_3_shape}}">
-      <span class="p p1 y brgw-img" data-brgw-img data-ground="{{photo_1_ground}}">
+      <span class="p p1 y brgw-img" data-brgw-img style="--ox:{{photo_1_shift_x}};--oy:{{photo_1_shift_y}}" data-ground="{{photo_1_ground}}">
         <img src="{{photo_1}}" alt=""
              width="1600" height="1067" decoding="async" loading="lazy" data-tone="{{photo_1_tone}}" data-px="{{photo_1_px}}" data-px-dir="{{photo_1_px_dir}}" data-float="{{photo_1_float}}" data-float-dir="{{photo_1_float_dir}}">
       </span>
-      <span class="p p2 k brgw-img" data-brgw-img data-ground="{{photo_2_ground}}">
+      <span class="p p2 k brgw-img" data-brgw-img style="--ox:{{photo_2_shift_x}};--oy:{{photo_2_shift_y}}" data-ground="{{photo_2_ground}}">
         <img src="{{photo_2}}" alt=""
              width="733" height="1100" decoding="async" loading="lazy" data-tone="{{photo_2_tone}}" data-px="{{photo_2_px}}" data-px-dir="{{photo_2_px_dir}}" data-float="{{photo_2_float}}" data-float-dir="{{photo_2_float_dir}}">
       </span>
-      <span class="p p3 w brgw-img" data-brgw-img data-ground="{{photo_3_ground}}">
+      <span class="p p3 w brgw-img" data-brgw-img style="--ox:{{photo_3_shift_x}};--oy:{{photo_3_shift_y}}" data-ground="{{photo_3_ground}}">
         <img src="{{photo_3}}" alt=""
              width="548" height="820" decoding="async" loading="lazy" data-tone="{{photo_3_tone}}" data-px="{{photo_3_px}}" data-px-dir="{{photo_3_px_dir}}" data-float="{{photo_3_float}}" data-float-dir="{{photo_3_float_dir}}">
       </span>

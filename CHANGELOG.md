@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.9 (2026-11-03)
+- photo layout: each photo (Photo 1, 2, 3) can be shifted on its own by a share of its own size; photos renamed Photo 1/2/3
+
 ## 2026.11.03.8 (2026-11-03)
 - wp-admin tabs follow the order of the sections on the page (plugin 2.14.3)
 
