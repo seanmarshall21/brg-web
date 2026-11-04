@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.20 (2026-11-03)
+- core values: closed columns can be see-through with dark words
+
 ## 2026.11.03.19 (2026-11-03)
 - about slider: the frame crossing, photos glide with the frame behind the middle line; first photo reveals up again
 

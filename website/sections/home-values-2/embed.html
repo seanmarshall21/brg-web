@@ -4,7 +4,7 @@
      OUR CORE VALUES. Rebuilt 1 Nov (Sean: "make these two different sections, one About, one Values"): the wheel, the
      columns and the list that used to sit inside What We're About now live here, so the two sections have their own
      backgrounds, order and settings. Owns the yellow ASTERISK seam badge, bleeding upward into the section above. -->
-<section class="brgw-sec brgw-sec--home-values-2 reveal" data-full="{{full_screen}}" data-full-pin="{{full_pin}}" data-full-snap="{{full_snap}}" data-vscroll="{{values_scroll}}" data-vscroll-speed="{{values_scroll_speed}}" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-sec-sync data-nav="light" data-vhs="{{values_heading_style}}" data-vlayout="{{values_layout}}" data-vtext="{{values_text_pos}}" data-vph="{{values_photo_h}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="Our core values" data-cta-pos="{{cta_position}}">
+<section class="brgw-sec brgw-sec--home-values-2 reveal" data-full="{{full_screen}}" data-full-pin="{{full_pin}}" data-full-snap="{{full_snap}}" data-vclosed="{{values_closed}}" data-vscroll="{{values_scroll}}" data-vscroll-speed="{{values_scroll_speed}}" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-sec-sync data-nav="light" data-vhs="{{values_heading_style}}" data-vlayout="{{values_layout}}" data-vtext="{{values_text_pos}}" data-vph="{{values_photo_h}}" data-vtone="{{values_tone}}" data-vil="{{values_img_light}}" data-vila="{{values_img_light_amt}}" data-vsb="{{values_soft_base}}" data-vid="{{values_img_dark}}" data-vida="{{values_img_dark_amt}}" aria-label="Our core values" data-cta-pos="{{cta_position}}">
 <style>
 .brgw-sec--home-values-2{--v-pad:clamp(12px,1.4vw,20px);--brgw-wrap:1420px;position:relative;background:var(--white);color:var(--ink);overflow:visible;}
 .brgw-sec--home-values-2 > *{position:relative;z-index:2;}
@@ -234,6 +234,11 @@
 @media (prefers-reduced-motion:reduce){
   .brgw-sec--home-values-2 .vi,.brgw-sec--home-values-2 .vp,.brgw-sec--home-values-2 .vx{transition:none!important;}
 }
+/* CLOSED COLUMNS, see-through (Sean, 3 Nov: "text black and the background of the columns transparent, or at least mostly transparent white; when the photo is under it, white"). Only the columns that are not open change; the open one keeps its photo and white words. */
+.brgw-sec--home-values-2.brgw-sec[data-vclosed="frost"] .vi:not(.is-on),.brgw-sec--home-values-2.brgw-sec[data-vclosed="clear"] .vi:not(.is-on){opacity:1;color:var(--v-tone-fg);}
+.brgw-sec--home-values-2.brgw-sec[data-vclosed="frost"] .vi:not(.is-on){background:color-mix(in srgb,var(--v-tone-bg) 60%,transparent);}
+.brgw-sec--home-values-2.brgw-sec[data-vclosed="clear"] .vi:not(.is-on){background:transparent;}
+.brgw-sec--home-values-2.brgw-sec[data-vclosed="frost"] .vi,.brgw-sec--home-values-2.brgw-sec[data-vclosed="clear"] .vi{transition:flex-grow .55s cubic-bezier(.2,.8,.2,1),opacity .35s ease,background-color .5s ease,color .5s ease;}
 </style>
   <div class="sec-bg" data-bg="{{section_bg}}" data-blend="{{section_bg_blend}}" data-layer="{{section_bg_layer}}" data-join="{{section_bg_join}}" style="--sec-bg-o:{{section_bg_opacity}};--sec-bg-bl:{{section_bg_blend}}"
        data-brgw-frame aria-hidden="true"><picture><source media="(max-width:767px)" srcset="{{section_bg_mobile}}"><source srcset="{{section_bg}}"><img alt="" loading="lazy" decoding="async" width="1600" height="1200"

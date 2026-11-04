@@ -6726,6 +6726,32 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_values_values_closed",
+                "label": "Core values — closed columns (background and words)",
+                "name": "brg_home_values_values_closed",
+                "type": "select",
+                "instructions": "How the columns that are not open look. As it is now: shaded gray-dark with white words (when photos are set to Normal or Black and white). Mostly transparent white: a see-through white wash with dark words. Fully transparent: no background at all, dark words. The open column keeps its photo and its white words either way. The words follow the section's light or dark setting: dark words on a light section, white on a dark one.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-values_closed",
+                    "id": ""
+                },
+                "default_value": "as",
+                "choices": {
+                    "as": "As it is now (shaded)",
+                    "frost": "Mostly transparent white, dark words",
+                    "clear": "Fully transparent, dark words"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_home_values_values_img_light",
                 "label": "Core values — photo look on a light background",
                 "name": "brg_home_values_values_img_light",
@@ -8469,6 +8495,32 @@
                     "5": "5 seconds",
                     "7": "7 seconds",
                     "10": "10 seconds"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_values_2_values_closed",
+                "label": "Core values — closed columns (background and words)",
+                "name": "brg_home_values_2_values_closed",
+                "type": "select",
+                "instructions": "How the columns that are not open look. As it is now: shaded gray-dark with white words (when photos are set to Normal or Black and white). Mostly transparent white: a see-through white wash with dark words. Fully transparent: no background at all, dark words. The open column keeps its photo and its white words either way. The words follow the section's light or dark setting: dark words on a light section, white on a dark one.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-values_closed",
+                    "id": ""
+                },
+                "default_value": "as",
+                "choices": {
+                    "as": "As it is now (shaded)",
+                    "frost": "Mostly transparent white, dark words",
+                    "clear": "Fully transparent, dark words"
                 },
                 "return_format": "value",
                 "allow_null": 0,

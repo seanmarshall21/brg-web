@@ -143,6 +143,17 @@
       "10": "10 seconds"
     }
   },
+  "values_closed": {
+    "type": "select",
+    "label": "Core values — closed columns (background and words)",
+    "default": "as",
+    "doc": "How the columns that are not open look. As it is now: shaded gray-dark with white words (when photos are set to Normal or Black and white). Mostly transparent white: a see-through white wash with dark words. Fully transparent: no background at all, dark words. The open column keeps its photo and its white words either way. The words follow the section's light or dark setting: dark words on a light section, white on a dark one.",
+    "choices": {
+      "as": "As it is now (shaded)",
+      "frost": "Mostly transparent white, dark words",
+      "clear": "Fully transparent, dark words"
+    }
+  },
   "values_img_light": {
     "type": "select",
     "label": "Core values — photo look on a light background",
