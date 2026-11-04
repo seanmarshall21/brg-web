@@ -536,6 +536,31 @@
       "off": "Off"
     }
   },
+  "values_scroll": {
+    "type": "select",
+    "label": "Scroll through the values",
+    "width": 50,
+    "default": "off",
+    "group": "Full screen",
+    "doc": "Off: the section scrolls past like any other and the values change by hover, click or the auto-play. On: the section stays pinned on screen while you scroll, and scrolling steps through the values one after another (the first, then the next, and so on). When the last has had its turn the page carries on. Hovering or clicking a value still works any time: it opens that one until the scroll moves on to the next. Auto-play is switched off while this is on, and this replaces \"Hold while scrolling\" above.",
+    "choices": {
+      "off": "Off (as it is now)",
+      "on": "On (scroll steps through them)"
+    }
+  },
+  "values_scroll_speed": {
+    "type": "select",
+    "label": "Scroll through the values — speed",
+    "width": 50,
+    "default": "quick",
+    "group": "Full screen",
+    "doc": "How much scrolling each value takes. Quick: about a quarter of a screen each, so a normal scroll runs through them fast. Medium: about half a screen each. Slow: nearly a full screen each, so you have to keep scrolling to get to the next one. Only used when \"Scroll through the values\" is On.",
+    "choices": {
+      "quick": "Quick (about a quarter screen each)",
+      "medium": "Medium (about half a screen each)",
+      "slow": "Slow (about a full screen each)"
+    }
+  },
   "btn_color": {
     "type": "select",
     "label": "Button color",

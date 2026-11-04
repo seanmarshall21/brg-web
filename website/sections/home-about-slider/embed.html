@@ -67,6 +67,14 @@
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-under{clip-path:inset(0 0 0 0);z-index:1;transition:none;}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-under img,.brgw-sec--home-about-slider[data-ready] .as-ph.is-out img{transform:none;transition:none;}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-out{clip-path:inset(0 0 100% 0);}
+/* SLIDE STYLE (Sean, 3 Nov): the photo travels WITH its frame. As the frame crosses, the new photo slides in through it from the side
+   it comes from while the old one slides out the far side, the same way the frame is going (--as-dir: 1 right, -1 left, set by
+   brgw.js), a little slower than the frame (.95s against .8s) so they arrive together, easing out. Going back is the mirror. */
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph{clip-path:none;transform:translateX(calc(var(--as-dir,1) * -100%));transition:none;}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph img{transform:scale(1.1);}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph.is-on{clip-path:none;transform:none;z-index:2;transition:transform .95s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph.is-on img{transform:none;transition:transform 1.5s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph.is-under{clip-path:none;z-index:1;transform:translateX(calc(var(--as-dir,1) * 100%));transition:transform .95s cubic-bezier(.2,.8,.2,1);}
 
 /* ---- a phone: photo on top (70%), words under it (30%), whichever style ---- */
 @media(max-width:799px){

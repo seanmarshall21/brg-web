@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.03.18 (2026-11-03)
+- about slider: photos travel with the frame; core values: scroll through the values toggle
+
 ## 2026.11.03.17 (2026-11-03)
 - loader: no white flash, new animation and color every change of page
 

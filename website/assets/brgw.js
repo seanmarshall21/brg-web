@@ -1078,7 +1078,10 @@
       var cur = -1, hover = false, focused = false, inView = true, timer = null, setTimer = null;
       var secs = (parseInt(v.getAttribute('data-secs'), 10) || 5) * 1000;
       var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var auto = v.getAttribute('data-autoplay') === 'on' && !calm && items.length > 1;
+      var host = v.closest('.brgw-sec');
+      // SCROLL THROUGH THE VALUES (Sean, 3 Nov): the section is pinned and the scroll position picks the value. Hover and click still work.
+      var vs = !!host && host.getAttribute('data-vscroll') === 'on' && !calm && items.length > 1;
+      var auto = v.getAttribute('data-autoplay') === 'on' && !calm && items.length > 1 && !vs;   // the scroll drives it, not a timer
       /* Split text: every word of a description goes in its own clip box so it can rise in on its
          own. It is set on the open item only AFTER the column has finished widening, because the
          description's width is the open column's final width and the words must not move while
@@ -1159,6 +1162,44 @@
       lock();
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(lock);
       window.addEventListener('load', lock);
+      if (vs) {
+        /* How it works: the section is made sticky inside a wrapper of its own, followed by an empty spacer. While the spacer scrolls
+           past, the section stays put (the same trick as the Full screen hold), and how far into the spacer the page is picks the
+           value: each value gets one band of scroll. A value is only switched when the band CHANGES, so a hover or click on another
+           one stays open until the scroll crosses into the next band. A section taller than the screen pins by its bottom edge so
+           it is never cut off, as in Full screen. */
+        var step = { quick: 0.25, medium: 0.5, slow: 0.9 }[host.getAttribute('data-vscroll-speed')] || 0.25;
+        var vwrap = null, vspacer = null, vtop = 0, vband = 1, vlast = -1, vq = false;
+        var vapply = function () {
+          var vh = window.innerHeight, h = host.offsetHeight;
+          vtop = h <= vh ? (host.getAttribute('data-full') === 'ninety' ? Math.round((vh - h) / 2) : 0) : vh - h;
+          if (!vwrap) {
+            vwrap = document.createElement('div'); vwrap.className = 'brgw-fs';
+            host.parentNode.insertBefore(vwrap, host); vwrap.appendChild(host);
+            vspacer = document.createElement('div'); vspacer.setAttribute('aria-hidden', 'true'); vwrap.appendChild(vspacer);
+          }
+          host.style.position = 'sticky'; host.style.top = vtop + 'px';
+          var bg = window.getComputedStyle(host).backgroundColor;
+          if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') vwrap.style.backgroundColor = bg;
+          vband = Math.max(60, Math.round(step * vh));
+          vspacer.style.height = (vband * items.length) + 'px';
+        };
+        var vtick = function () {
+          vq = false;
+          if (!vwrap) return;
+          var y = vtop - vwrap.getBoundingClientRect().top;                    // how far into the pinned stretch the page is (negative = not there yet)
+          var k = Math.max(0, Math.min(items.length - 1, Math.floor(y / vband)));
+          if (k !== vlast) { vlast = k; on(k); }
+        };
+        var vask = function () { if (!vq) { vq = true; requestAnimationFrame(vtick); } };
+        vapply();
+        window.addEventListener('resize', function () { vapply(); vask(); });
+        window.addEventListener('load', function () { vapply(); vask(); });
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { vapply(); vask(); });
+        if (window.ResizeObserver) { var vlh = host.offsetHeight; new ResizeObserver(function () { if (Math.abs(host.offsetHeight - vlh) > 2) { vlh = host.offsetHeight; vapply(); } }).observe(host); }
+        window.addEventListener('scroll', vask, { passive: true });
+        vask();
+      }
       if (window.ResizeObserver) {
         new ResizeObserver(function () { if (v.clientWidth !== lastW) { lastW = v.clientWidth; lock(); } }).observe(v);
       }
@@ -1498,7 +1539,7 @@
         if (i === cur) return;
         var prev = cur; cur = i;
         // words first, then the photo (the first time in there is nothing to wait for, so it is quicker)
-        var dText = calm ? 0 : (prev < 0 ? 0 : (reveal ? 520 : 400)), dPhoto = calm ? 0 : (prev < 0 ? 450 : (reveal ? 860 : 700));
+        var dText = calm ? 0 : (prev < 0 ? 0 : (reveal ? 520 : 400)), dPhoto = calm ? 0 : (prev < 0 ? 450 : (reveal ? 860 : 0));   // slide style: the photos travel WITH the frame, so no wait
         if (prev >= 0) {
           leave(panes[prev], prev);
           if (phs[prev]) {
@@ -1507,6 +1548,17 @@
             clearTimeout(ptimers[prev]);
             ptimers[prev] = setTimeout(function () { if (!phs[prev].classList.contains('is-on')) reset(phs[prev]); }, dPhoto + 1900);
           }
+        }
+        if (!reveal) {
+          // THE PHOTOS TRAVEL WITH THE FRAME (Sean, 3 Nov). dir = which way the frame moves: +1 right, -1 left. The photo coming in
+          // starts just outside the frame on the side it comes from and slides to rest as the one going out slides off the far side,
+          // the same way the frame is going, a little slower than the frame, both easing out. The first photo comes in from the
+          // outside edge. Photos waiting their turn are moved to the side the next one will come from without animating there.
+          var ns = photoSide(i), dir = prev < 0 ? (ns === 'r' ? -1 : 1) : (ns === 'r' ? 1 : -1);
+          phs.forEach(function (p, k) { if (k !== prev) p.classList.add('no-t'); });
+          stage.style.setProperty('--as-dir', String(dir));
+          void stage.offsetWidth;
+          phs.forEach(function (p, k) { if (k !== prev) p.classList.remove('no-t'); });
         }
         if (panel) panel.setAttribute('data-side', photoSide(i));
         enter(panes[i], i, dText);
@@ -1634,6 +1686,7 @@
       sec.setAttribute('data-full-init', '1');
       var pinS = { none: 0, short: 0.5, medium: 1, long: 1.6 }[sec.getAttribute('data-full-pin')];
       if (pinS === undefined) pinS = 1;
+      if (sec.getAttribute('data-vscroll') === 'on') pinS = 0;      // "Scroll through the values" does its own pinning (brgwVset)
       var wrap = null, spacer = null, pinTop = 0;
       function apply() {
         var vh = window.innerHeight, h = sec.offsetHeight;
