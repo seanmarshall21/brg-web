@@ -67,28 +67,21 @@
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-under{clip-path:inset(0 0 0 0);z-index:1;transition:none;}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-under img,.brgw-sec--home-about-slider[data-ready] .as-ph.is-out img{transform:none;transition:none;}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-out{clip-path:inset(0 0 100% 0);}
-/* SLIDE STYLE (Sean, 3 Nov): the photo travels WITH its frame. As the frame crosses, the new photo slides in through it from the side
-   it comes from while the old one slides out the far side, the same way the frame is going (--as-dir: 1 right, -1 left, set by
-   brgw.js), a little slower than the frame (.95s against .8s) so they arrive together, easing out. Going back is the mirror. */
-.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph{clip-path:none;transform:translateX(calc(var(--as-dir,1) * -100%));transition:none;}
-.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph img{transform:scale(1.1);}
-.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph.is-on{clip-path:none;transform:none;z-index:2;transition:transform .95s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
-.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph.is-on img{transform:none;transition:transform 1.5s cubic-bezier(.2,.8,.2,1) var(--d,0ms);}
-.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-ph.is-under{clip-path:none;z-index:1;transform:translateX(calc(var(--as-dir,1) * 100%));transition:transform .95s cubic-bezier(.2,.8,.2,1);}
-
-/* ---- a phone: photo on top (70%), words under it (30%), whichever style ---- */
-@media(max-width:799px){
-  .brgw-sec--home-about-slider[data-ready] .as-stage{min-height:520px;}
-  .brgw-sec--home-about-slider[data-ready] .as-img{left:0;right:0;top:0;bottom:auto;width:auto;height:70%;transform:none!important;transition:none!important;}
-  .brgw-sec--home-about-slider[data-ready] .as-tx,.brgw-sec--home-about-slider[data-ready] .as-tx[data-side]{left:0;right:0;top:auto;bottom:0;width:auto;height:30%;padding:clamp(14px,2.4svh,24px) clamp(22px,6vw,40px) 0;justify-content:flex-start;}
-  .brgw-sec--home-about-slider[data-ready] .as-h{font-size:clamp(1.5rem,3vw,2.7rem);}
-  @media(max-width:699px){.brgw-sec--home-about-slider[data-ready] .as-h{font-size:clamp(1.3rem,6.4vw,1.9rem);}}
-  .brgw-sec--home-about-slider[data-ready] .as-p{font-size:.98rem;line-height:1.45;margin-top:6px;max-width:none;}
-  .brgw-sec--home-about-slider[data-ready] .as-nav,.brgw-sec--home-about-slider[data-ready] .as-tx[data-side] .as-nav{left:clamp(22px,6vw,40px);right:auto;bottom:clamp(14px,2.4svh,24px);}
-  .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-tx .as-in{transition:none;transform:none!important;}
-  .brgw-sec--home-about-slider .as-title{font-size:clamp(1.35rem,6.4vw,2rem);}
+/* SLIDE STYLE, WIDE SCREEN: THE FRAME CROSSING (Sean, 3 Nov). brgw.js runs --ef (the frame's progress 0 to 1) and --ep (the photos', a little
+   slower) and sets --fa and --fb (the half the frame leaves and goes to: 0 left, 1 right) and --sg (which way: -1 left, 1 right). Everything is
+   in frame widths, and the frame is half the page, so the page's middle line sits at 1 - frame position. The frame follows --ef. The photo of the
+   half it leaves (.is-under) moves the same way as the frame by --dd of the distance, and is hidden past the middle line; the photo of the half it
+   goes to (.is-on) starts --dd back and eases into place, and shows only on its own side of the line. Both are clipped by the frame itself. */
+@media(min-width:800px){
+.brgw-sec--home-about-slider[data-ready][data-style="slide"]{--dd:.4;--fa:0;--fb:0;--ef:1;--ep:1;--sg:1;}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-img{transition:none;transform:translateX(calc((var(--fa) + (var(--fb) - var(--fa)) * var(--ef)) * 100%));}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"][data-moving] .as-ph img{transform:none!important;transition:none!important;}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"][data-moving] .as-ph.is-under{z-index:1;transition:none;transform:translateX(calc(var(--sg) * (var(--dd) * var(--ep) - var(--ef)) * 100%));
+  clip-path:inset(0 max(0%, calc(var(--sg) * var(--dd) * var(--ep) * 100%)) 0 max(0%, calc(var(--sg) * var(--dd) * var(--ep) * -100%)));}
+.brgw-sec--home-about-slider[data-ready][data-style="slide"][data-moving] .as-ph.is-on{z-index:2;transition:none;transform:translateX(calc(var(--sg) * (1 - var(--dd) * (1 - var(--ep)) - var(--ef)) * 100%));
+  clip-path:inset(0 max(0%, calc(var(--sg) * var(--dd) * (1 - var(--ep)) * -100%)) 0 max(0%, calc(var(--sg) * var(--dd) * (1 - var(--ep)) * 100%)));}
 }
-/* the page without the script: the words, one under another, no photo */
+
 .brgw-sec--home-about-slider:not([data-ready]) .as-img{display:none;}
 .brgw-sec--home-about-slider:not([data-ready]) .as-tx{padding:clamp(18px,3vw,36px) 0;}
 .brgw-sec--home-about-slider:not([data-ready]) .as-nav{display:none;}

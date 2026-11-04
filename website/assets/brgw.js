@@ -1534,12 +1534,38 @@
         el.style.setProperty('--d', d + 'ms');
         el.classList.add('is-on');
       }
+      /* THE FRAME CROSSING (Sean, 3 Nov). Two photos, one in each half of the page, and the frame is a window over one of them.
+         When it crosses, the frame moves to the other half and each photo moves the same way, slower, so the frame outruns them.
+         The page's middle line is a mask: the photo of the half the frame leaves is hidden once it passes the line (it keeps
+         moving, unseen), and the photo of the half it goes to shows only on its own side of the line. They end together, easing
+         out. Everything is a function of two numbers, ef (the frame's progress) and ep (the photos', a little slower), so CSS
+         does the placing and masking (see the fragment) and this only runs the two numbers. A first appearance is not a crossing:
+         it keeps the reveal the other photos on the page use. Phones keep the old behavior (the frame does not move there). */
+      var glideRaf = 0;
+      function wide() { return !!(window.matchMedia && window.matchMedia('(min-width: 800px)').matches); }
+      function setV(ef, ep) { stage.style.setProperty('--ef', ef.toFixed(4)); stage.style.setProperty('--ep', ep.toFixed(4)); }
+      function rest(pos) {
+        cancelAnimationFrame(glideRaf); sec.removeAttribute('data-moving');
+        stage.style.setProperty('--fa', String(pos)); stage.style.setProperty('--fb', String(pos)); setV(1, 1);
+      }
+      function glide(from, to) {
+        cancelAnimationFrame(glideRaf);
+        stage.style.setProperty('--sg', String(to - from)); stage.style.setProperty('--fa', String(from)); stage.style.setProperty('--fb', String(to));
+        setV(0, 0); sec.setAttribute('data-moving', '1');
+        var t0 = performance.now(), TF = 850, TP = 1000;
+        function ease(x) { return 1 - Math.pow(1 - x, 3.4); }
+        (function f(now) {
+          var a = Math.min(1, (now - t0) / TF), b = Math.min(1, (now - t0) / TP);
+          setV(ease(a), ease(b));
+          if (b < 1) glideRaf = requestAnimationFrame(f); else rest(to);
+        })(t0);
+      }
       var cur = -1, ptimers = [];
       function show(i) {
         if (i === cur) return;
         var prev = cur; cur = i;
         // words first, then the photo (the first time in there is nothing to wait for, so it is quicker)
-        var dText = calm ? 0 : (prev < 0 ? 0 : (reveal ? 520 : 400)), dPhoto = calm ? 0 : (prev < 0 ? 450 : (reveal ? 860 : 0));   // slide style: the photos travel WITH the frame, so no wait
+        var dText = calm ? 0 : (prev < 0 ? 0 : (reveal ? 520 : 400)), dPhoto = calm ? 0 : (prev < 0 ? 450 : (reveal ? 860 : 0));   // slide style, change of slide: the photo glides in WITH the frame, so no wait; the first photo still reveals up after the words
         if (prev >= 0) {
           leave(panes[prev], prev);
           if (phs[prev]) {
@@ -1549,17 +1575,10 @@
             ptimers[prev] = setTimeout(function () { if (!phs[prev].classList.contains('is-on')) reset(phs[prev]); }, dPhoto + 1900);
           }
         }
-        if (!reveal) {
-          // THE PHOTOS TRAVEL WITH THE FRAME (Sean, 3 Nov). dir = which way the frame moves: +1 right, -1 left. The photo coming in
-          // starts just outside the frame on the side it comes from and slides to rest as the one going out slides off the far side,
-          // the same way the frame is going, a little slower than the frame, both easing out. The first photo comes in from the
-          // outside edge. Photos waiting their turn are moved to the side the next one will come from without animating there.
-          var ns = photoSide(i), dir = prev < 0 ? (ns === 'r' ? -1 : 1) : (ns === 'r' ? 1 : -1);
-          phs.forEach(function (p, k) { if (k !== prev) p.classList.add('no-t'); });
-          stage.style.setProperty('--as-dir', String(dir));
-          void stage.offsetWidth;
-          phs.forEach(function (p, k) { if (k !== prev) p.classList.remove('no-t'); });
-        }
+        // Slide style on a wide screen: when the frame crosses to the other half, the photos glide with it (see glide below).
+        var oldPos = panel ? (panel.getAttribute('data-side') === 'r' ? 1 : 0) : 0, newPos = photoSide(i) === 'r' ? 1 : 0;
+        var glideNow = !reveal && wide() && prev >= 0 && !calm && !!panel && oldPos !== newPos;
+        if (!glideNow) rest(newPos);
         if (panel) panel.setAttribute('data-side', photoSide(i));
         enter(panes[i], i, dText);
         if (phs[i]) {
@@ -1570,6 +1589,7 @@
           var t0 = Date.now();
           whenReady(imgs[i]).then(function () {
             if (cur !== i) return;
+            if (glideNow) glide(oldPos, newPos);                         // sets the moving state first, so nothing animates by CSS
             phs[i].style.setProperty('--d', Math.max(0, dPhoto - (Date.now() - t0)) + 'ms'); phs[i].classList.add('is-on');
           });
         }
@@ -1599,7 +1619,7 @@
         });
       }
       // the panel starts on the first slide's side without sliding there
-      if (panel) { panel.setAttribute('data-side', photoSide(0)); }
+      if (panel) { panel.setAttribute('data-side', photoSide(0)); rest(photoSide(0) === 'r' ? 1 : 0); }
 
       // the runway (Sean, 3 Nov: "lock into it ... pause for a second"): the stage's own height, a longer first hold, one hold
       // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 0.6 (plus the 0.35 of approach), 0.95 each, 0.95.
