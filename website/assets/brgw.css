@@ -1,4 +1,4 @@
-/* brgw build 2026.11.03.16 */
+/* brgw build 2026.11.03.17 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -1391,6 +1391,10 @@ html.brgw-out .ct-inner-content,html.brgw-out .brgw__footer{opacity:0;transform:
   opacity:0;visibility:hidden;transition:opacity .55s ease,visibility 0s linear .55s;}
 #brgw-loader[data-bg="white"]{background:#fff;--brgw-ld-sh:rgba(0,0,0,.14);}
 #brgw-loader[data-bg="teal"]{background:#19C7C2;--brgw-ld-sh:rgba(0,0,0,.18);}
+#brgw-loader[data-bg="pink"]{background:#EC0F8D;--brgw-ld-sh:rgba(0,0,0,.2);}
+/* While a page fades out or in, the page behind it takes the loading screen's color (brgw.js sets --brgw-pg), so the
+   page dips into that color instead of into the white body: no flash of white between the page and the loader. */
+html.brgw-pgbg,html.brgw-pgbg body{background:var(--brgw-pg,#131210)!important;}
 #brgw-loader.is-on{opacity:1;visibility:visible;transition:opacity .28s ease,visibility 0s;}
 #brgw-loader.is-instant{transition:none;}
 .brgw-ld{position:relative;width:clamp(76px,13vw,120px);}

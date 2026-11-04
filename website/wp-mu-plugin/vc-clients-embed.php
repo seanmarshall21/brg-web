@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.15.2
+ * Version: 2.15.3
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.15.2' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.15.3' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── WHICH ORDER THE SECTIONS APPEAR IN ON A PAGE (Sean, 3 Nov) ─────────────────────────────
@@ -250,16 +250,16 @@ if ( ! function_exists( 'vcc_brand_resolve' ) ) {
       stale or odd saved value falls back to the default instead of reaching the page. ── */
 if ( ! function_exists( 'brg_fx_settings' ) ) {
     function brg_fx_settings() {
-        $fx = array( 'page' => 'on', 'loader' => 'slow', 'bg' => 'black', 'art' => '', 'style' => 'mix' );
+        $fx = array( 'page' => 'on', 'loader' => 'slow', 'bg' => 'mix', 'art' => '', 'style' => 'mix' );
         if ( ! function_exists( 'get_field' ) ) return $fx;
         $page = get_field( 'brg_effects_page_fx', 'option' );
         $load = get_field( 'brg_effects_loader', 'option' );
         $art  = get_field( 'brg_effects_loader_art', 'option' );
-        $bg   = get_field( 'brg_effects_loader_bg', 'option' );
+        $bg   = get_field( 'brg_effects_loader_color', 'option' );
         $sty  = get_field( 'brg_effects_loader_style', 'option' );
         if ( is_string( $page ) && in_array( $page, array( 'on', 'off' ), true ) )                     $fx['page']   = $page;
         if ( is_string( $load ) && in_array( $load, array( 'slow', 'always', 'off' ), true ) )         $fx['loader'] = $load;
-        if ( is_string( $bg )   && in_array( $bg, array( 'black', 'teal', 'white' ), true ) )          $fx['bg']     = $bg;
+        if ( is_string( $bg )   && in_array( $bg, array( 'mix', 'black', 'teal', 'pink', 'white' ), true ) )          $fx['bg']     = $bg;
         if ( is_string( $sty )  && in_array( $sty, array( 'mix', 'hop', 'spin', 'charge', 'flip', 'trio' ), true ) ) $fx['style'] = $sty;
         if ( is_array( $art ) && isset( $art['url'] ) ) $art = $art['url'];
         if ( is_string( $art ) && preg_match( '#^https?://#', $art ) )                                 $fx['art']    = esc_url_raw( $art );

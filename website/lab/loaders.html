@@ -4,7 +4,7 @@
      https://blacktoprg.netlify.app/lab/loaders.html
      The animations are the REAL ones: this page loads the site's own brgw.css and the tiles use the same
      markup brgw.js builds (brgwPageFx > buildArt). Pick the one used on the site in
-     wp-admin > Section Content > Site-wide > Page effects > Loading animation. -->
+     wp-admin > Section Content > Site-wide > Page effects > Loading animation (and Loading screen background). -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -24,12 +24,14 @@ button[aria-pressed="true"]{background:#FCE200;color:#231F20;border-color:#FCE20
 .card{display:flex;flex-direction:column;gap:10px}
 .tile{--brgw-ld-sh:rgba(255,255,255,.16);background:#131210;border:1px solid rgba(255,255,255,.1);border-radius:16px;min-height:230px;display:grid;place-items:center;overflow:hidden}
 .tile[data-bg="teal"]{background:#19C7C2;--brgw-ld-sh:rgba(0,0,0,.18)}
+.tile[data-bg="pink"]{background:#EC0F8D;--brgw-ld-sh:rgba(0,0,0,.2)}
 .tile[data-bg="white"]{background:#fff;--brgw-ld-sh:rgba(0,0,0,.14)}
 .card h2{font-size:1rem;margin:0}
 .card p{margin:0;opacity:.7;font-size:.9rem;line-height:1.45}
 .card button{align-self:flex-start;padding:6px 14px;font-size:.85rem}
 .full{--brgw-ld-sh:rgba(255,255,255,.16);position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#131210;cursor:pointer}
 .full[data-bg="teal"]{background:#19C7C2;--brgw-ld-sh:rgba(0,0,0,.18)}
+.full[data-bg="pink"]{background:#EC0F8D;--brgw-ld-sh:rgba(0,0,0,.2)}
 .full[data-bg="white"]{background:#fff;--brgw-ld-sh:rgba(0,0,0,.14)}
 .full small{position:absolute;bottom:24px;left:0;right:0;text-align:center;opacity:.55;font-size:.85rem}
 .full[data-bg="white"] small{color:#000}
@@ -43,6 +45,7 @@ button[aria-pressed="true"]{background:#FCE200;color:#231F20;border-color:#FCE20
     <span>Background</span>
     <button type="button" data-bg="black" aria-pressed="true">Black</button>
     <button type="button" data-bg="teal" aria-pressed="false">Teal</button>
+    <button type="button" data-bg="pink" aria-pressed="false">Pink</button>
     <button type="button" data-bg="white" aria-pressed="false">White</button>
   </div>
   <div class="grid" id="grid"></div>

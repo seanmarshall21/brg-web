@@ -52,16 +52,18 @@
     "group": "Loading screen",
     "doc": "Leave empty to use the animations above. If you choose a picture, it bounces in place of them every time. Any SVG or PNG from the media library works; SVG stays crisp at any size. A shape roughly as wide as it is tall looks best."
   },
-  "loader_bg": {
+  "loader_color": {
     "type": "select",
     "label": "Loading screen background",
     "width": 50,
-    "default": "black",
+    "default": "mix",
     "group": "Loading screen",
-    "doc": "The color behind the picture. Black or teal suit the yellow smiley; white suits a dark picture.",
+    "doc": "Mix: a different brand color each time (black, teal, pink or white), never the same one twice in a row, so the loading screen is not the same thing over and over. Or pick one to always use. The page dips into this color as you leave it, so there is no flash of white between the page and the loading screen.",
     "choices": {
+      "mix": "Mix (a different one each time)",
       "black": "Black",
       "teal": "Teal",
+      "pink": "Pink",
       "white": "White"
     }
   }

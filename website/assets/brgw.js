@@ -1798,25 +1798,54 @@
     if (!trans && mode === 'off') return;
     var STYLES = ['hop', 'spin', 'charge', 'flip', 'trio'];
     var ICON = 'https://blacktoprg.netlify.app/assets/media/icons/';
-    var came = false, variant = '';
+    var BGS = ['black', 'teal', 'pink', 'white'];
+    var came = false, pick = null;
     try {
       var cv = sessionStorage.getItem('brgwFx'); sessionStorage.removeItem('brgwFx');
-      came = !!cv; if (STYLES.indexOf(cv) > -1) variant = cv;
+      came = !!cv;
+      var cp = (cv || '').split('|');
+      if (STYLES.indexOf(cp[0]) > -1) pick = { v: cp[0], bg: BGS.indexOf(cp[1]) > -1 ? cp[1] : 'black' };
     } catch (e) {}
-    var loader = null, shownAt = 0, ready = false, leaving = false;
-    // ONE ANIMATION PER WAIT, DIFFERENT EACH TIME. Chosen at random but never the one used last
-    // (localStorage), and handed to the next page through sessionStorage so the screen that
-    // covers the old page and the one that opens the new page are the same animation, not two.
-    function pickStyle() {
-      if (variant) return variant;
-      if (S.art) return (variant = 'hop');                      // a picture chosen in wp-admin wins
-      if (STYLES.indexOf(S.style) > -1) return (variant = S.style);
-      var last = ''; try { last = localStorage.getItem('brgwLd') || ''; } catch (e) {}
-      var pool = STYLES.filter(function (x) { return x !== last; });
-      variant = pool[Math.floor(Math.random() * pool.length)];
-      try { localStorage.setItem('brgwLd', variant); } catch (e) {}
-      return variant;
+    var loader = null, shownAt = 0, ready = false, leaving = false, inTimer = 0;
+    // ONE ANIMATION AND ONE COLOR PER WAIT, DIFFERENT EVERY TIME. Chosen at random but never the one
+    // used last (localStorage) and never the one on screen now, and handed to the next page through
+    // sessionStorage so the screen that covers the old page and the one that opens the new page are
+    // the same, not two. A new pick is made each time you leave a page: before, the pick that arrived
+    // with the page was also the one it left with, so it stuck for the whole visit.
+    function fresh() {
+      var cur = pick || {}, lastV = '', lastB = '';
+      try { lastV = localStorage.getItem('brgwLd') || ''; lastB = localStorage.getItem('brgwLb') || ''; } catch (e) {}
+      function one(list, a, b) {
+        var pool = list.filter(function (x) { return x !== a && x !== b; });
+        if (!pool.length) pool = list;
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+      var v = S.art ? 'hop' : (STYLES.indexOf(S.style) > -1 ? S.style : one(STYLES, lastV, cur.v));
+      var bg = BGS.indexOf(S.bg) > -1 ? S.bg : one(BGS, lastB, cur.bg);
+      try { localStorage.setItem('brgwLd', v); localStorage.setItem('brgwLb', bg); } catch (e) {}
+      return { v: v, bg: bg };
     }
+    function chosen() { return pick || (pick = fresh()); }
+    // The colors by name (same as brgw.css #brgw-loader[data-bg]).
+    var BGHEX = { black: '#131210', teal: '#19C7C2', pink: '#EC0F8D', white: '#FFFFFF' };
+    // NO FLASH OF WHITE: the page body is white behind the black page, so a page fading out (or in)
+    // showed white for a moment, between the old page and the loading screen. While the effect runs
+    // the body takes the loading screen's color (or, with the loader off, the first screen's), so the
+    // page dips into that color and never into white.
+    function tint(hex) {
+      var c = hex;
+      if (!c) {
+        c = '#131210';
+        try {
+          var sec = document.querySelector('.ct-inner-content .brgw-sec') || document.querySelector('.ct-inner-content');
+          var bc = sec ? getComputedStyle(sec).backgroundColor : '';
+          if (bc && !/^rgba\(\s*0,\s*0,\s*0,\s*0\s*\)$|^transparent$/.test(bc)) c = bc;
+        } catch (e) {}
+      }
+      D.style.setProperty('--brgw-pg', c);
+      D.classList.add('brgw-pgbg');
+    }
+    function untint() { D.classList.remove('brgw-pgbg'); }
     function icon(file, cls, ink) {
       var im = document.createElement('img');
       im.alt = ''; im.src = ICON + file; if (cls) im.className = cls; if (ink) im.setAttribute('data-ink', ink);
@@ -1852,8 +1881,9 @@
       l.id = 'brgw-loader';
       l.setAttribute('role', 'status');
       l.setAttribute('aria-label', 'Loading');
-      l.setAttribute('data-bg', S.bg === 'white' || S.bg === 'teal' ? S.bg : 'black');
-      l.appendChild(buildArt(pickStyle()));
+      var pk = chosen();
+      l.setAttribute('data-bg', pk.bg);
+      l.appendChild(buildArt(pk.v));
       if (instant) l.classList.add('is-instant');
       document.body.appendChild(l);
       void l.offsetWidth;
@@ -1871,13 +1901,14 @@
       if (ready) return; ready = true;
       var wait = loader ? Math.max(0, 550 - (Date.now() - shownAt)) : 0;
       setTimeout(function () {
+        if (trans) tint(loader && pick ? BGHEX[pick.bg] : '');    // the page is parsed now: its first screen's color is known
         D.classList.remove('brgw-hold');
-        if (trans) { D.classList.add('brgw-in'); setTimeout(function () { D.classList.remove('brgw-in'); }, 1200); }
+        if (trans) { D.classList.add('brgw-in'); inTimer = setTimeout(function () { D.classList.remove('brgw-in'); untint(); }, 1300); }
         hideLoader();
       }, wait);
     }
 
-    if (trans) D.classList.add('brgw-hold');
+    if (trans) { D.classList.add('brgw-hold'); if (pick) tint(BGHEX[pick.bg]); else tint(''); }
     if (mode === 'always' || (came && mode !== 'off')) showLoader(came);
     else if (mode === 'slow') setTimeout(function () { if (!ready) showLoader(false); }, 350);
 
@@ -1890,13 +1921,16 @@
     if (!trans) return;
     function leave(href) {
       if (leaving) return; leaving = true;
+      clearTimeout(inTimer); D.classList.remove('brgw-in');     // a quick click: stop the arrival animation, keep the tint
+      if (!loader) pick = fresh();                              // a new animation and color for this change of page
+      tint(mode !== 'off' ? BGHEX[pick.bg] : '');
       D.classList.add('brgw-out');
-      try { sessionStorage.setItem('brgwFx', pickStyle()); } catch (e) {}
+      try { sessionStorage.setItem('brgwFx', pick.v + '|' + pick.bg); } catch (e) {}
       setTimeout(function () { if (mode !== 'off') showLoader(false); location.href = href; }, 340);
       setTimeout(reset, 20000);                                // navigation cancelled: give the page back
     }
     function reset() {
-      leaving = false; D.classList.remove('brgw-out'); hideLoader();
+      leaving = false; D.classList.remove('brgw-out'); untint(); hideLoader();
     }
     // window, not document: every handler on the page runs first, so a link some other script
     // already took over (a popup button, a menu toggle) arrives here with defaultPrevented set.
