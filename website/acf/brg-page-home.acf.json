@@ -10174,6 +10174,31 @@
                 "default_value": "h3"
             },
             {
+                "key": "field_brg_home_different_seam_reveal",
+                "label": "Bolt box — scroll reveal",
+                "name": "brg_home_different_seam_reveal",
+                "type": "select",
+                "instructions": "The white tilted box with the bolt at the top left of this section. On: as it scrolls into view the box fades in, slides up and wipes open from the bottom, then the bolt wipes open inside it. Off: the box is just there, and the bolt pops in when the section appears (the original). Reduced-motion visitors always get the finished box.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-seam_reveal",
+                    "id": ""
+                },
+                "default_value": "on",
+                "choices": {
+                    "on": "On (fade, slide up and reveal)",
+                    "off": "Off (the original)"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_home_different_photo_1",
                 "label": "Photo 1",
                 "name": "brg_home_different_photo_1",

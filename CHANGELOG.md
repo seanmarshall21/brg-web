@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.18.3 (2026-11-18)
+- home: the bolt box fades in, slides up and wipes open on scroll, then the bolt wipes open (setting to turn it off)
+
 ## 2026.11.18.2 (2026-11-18)
 - about slider: headline and body text size settings (default 1.8x and 1.4x, wide screens), short heights grow to fit the words
 

@@ -10174,6 +10174,31 @@
         "default_value": "h3"
       },
       {
+        "key": "field_brg_home_different_seam_reveal",
+        "label": "Bolt box — scroll reveal",
+        "name": "brg_home_different_seam_reveal",
+        "type": "select",
+        "instructions": "The white tilted box with the bolt at the top left of this section. On: as it scrolls into view the box fades in, slides up and wipes open from the bottom, then the bolt wipes open inside it. Off: the box is just there, and the bolt pops in when the section appears (the original). Reduced-motion visitors always get the finished box.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-seam_reveal",
+          "id": ""
+        },
+        "default_value": "on",
+        "choices": {
+          "on": "On (fade, slide up and reveal)",
+          "off": "Off (the original)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_different_photo_1",
         "label": "Photo 1",
         "name": "brg_home_different_photo_1",
@@ -15408,6 +15433,48 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_our_restaurants_brands_bnb_logo_show",
+        "label": "Board & Brew — logo on the photo",
+        "name": "brg_our_restaurants_brands_bnb_logo_show",
+        "type": "select",
+        "instructions": "Puts a logo on top of the photo, centered. Off keeps the photo as it is.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-bnb_logo_show",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "Off",
+          "on": "On"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_our_restaurants_brands_bnb_logo",
+        "label": "Board & Brew — logo",
+        "name": "brg_our_restaurants_brands_bnb_logo",
+        "type": "image",
+        "instructions": "The logo to show on the photo (an SVG or a PNG with a transparent background looks best). It keeps its own proportions and is never bigger than 80% of the photo's width or 80% of its height, whichever it reaches first. A small logo file is not stretched past its own size.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-bnb_logo",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
         "key": "field_brg_our_restaurants_brands_odies_image",
         "label": "Odie's — image",
         "name": "brg_our_restaurants_brands_odies_image",
@@ -15494,6 +15561,48 @@
         "ui": 0,
         "ajax": 0,
         "placeholder": ""
+      },
+      {
+        "key": "field_brg_our_restaurants_brands_odies_logo_show",
+        "label": "Odie's — logo on the photo",
+        "name": "brg_our_restaurants_brands_odies_logo_show",
+        "type": "select",
+        "instructions": "Puts a logo on top of the photo, centered. Off keeps the photo as it is.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-odies_logo_show",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "Off",
+          "on": "On"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_our_restaurants_brands_odies_logo",
+        "label": "Odie's — logo",
+        "name": "brg_our_restaurants_brands_odies_logo",
+        "type": "image",
+        "instructions": "The logo to show on the photo (an SVG or a PNG with a transparent background looks best). It keeps its own proportions and is never bigger than 80% of the photo's width or 80% of its height, whichever it reaches first. A small logo file is not stretched past its own size.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-odies_logo",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
       },
       {
         "key": "field_brg_our_restaurants_brands_acc_section_background",

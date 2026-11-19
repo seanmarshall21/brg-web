@@ -42,6 +42,17 @@
     "default": "h3",
     "width": 100
   },
+  "seam_reveal": {
+    "type": "select",
+    "label": "Bolt box — scroll reveal",
+    "width": 50,
+    "default": "on",
+    "doc": "The white tilted box with the bolt at the top left of this section. On: as it scrolls into view the box fades in, slides up and wipes open from the bottom, then the bolt wipes open inside it. Off: the box is just there, and the bolt pops in when the section appears (the original). Reduced-motion visitors always get the finished box.",
+    "choices": {
+      "on": "On (fade, slide up and reveal)",
+      "off": "Off (the original)"
+    }
+  },
   "photo_1": {
     "type": "image",
     "label": "Photo 1",

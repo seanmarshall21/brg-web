@@ -1723,6 +1723,26 @@
     });
   }
 
+  /* ---- BOLT BOX SCROLL REVEAL (home-different [data-seamrv="on"], Sean, 18 Nov) ---------------------------------
+     The white tilted box (.seam) fades in, slides up and wipes open, then its bolt wipes open (all CSS, in the fragment). This only says
+     when: the box's own clip hides it from an observer (a clipped element counts as zero area), so the SECTION is observed instead, and
+     the box shows as the section's top edge comes up the screen (the box hangs just over that edge). Armed first, so with no script the
+     box is simply there. */
+  function brgwSeam(root) {
+    [].forEach.call((root || document).querySelectorAll('.brgw-sec[data-seamrv="on"]'), function (sec) {
+      var box = sec.querySelector('.seam'); if (!box || sec.getAttribute('data-seam-armed')) return;
+      var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      if (calm || !('IntersectionObserver' in window)) return;
+      sec.setAttribute('data-seam-armed', '1');
+      void box.offsetWidth;                                           // the hidden state is in place before anything can show it
+      var io = new IntersectionObserver(function (es) {
+        if (!es.some(function (e) { return e.isIntersecting; })) return;
+        io.disconnect(); box.classList.add('is-seen');
+      }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+      io.observe(sec);
+    });
+  }
+
   /* ---- FULL SCREEN SECTIONS (data-full, set in wp-admin) ---------------------------------------------
      Sean, 3 Nov: a toggle that makes a section full screen, holds it there for a set amount of scrolling, and scrolls you
      into place, subtly. The height is CSS (brgw.css). This does the other two: the section is made sticky inside a wrapper
@@ -2058,7 +2078,7 @@
 
   try { brgwPageFx(); } catch (e) { document.documentElement.classList.remove('brgw-hold', 'brgw-out'); }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwFull(document); brgwSmooth(); brgwCount(document); brgwBuild(); }
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwFull(document); brgwSmooth(); brgwCount(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
