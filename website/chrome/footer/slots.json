@@ -56,21 +56,104 @@
   },
   "align": {
     "type": "select",
-    "label": "Alignment",
-    "doc": "Where the lockup and the social icon sit.",
+    "label": "Logo alignment",
+    "doc": "Where the logo sits. The small print, legal links and social icons are placed separately, in the groups below.",
     "group": "Footer — layout",
     "width": 100,
     "default": "center",
     "choices": {
       "center": "Centered",
+      "left": "Left"
+    }
+  },
+  "legal": {
+    "type": "text",
+    "label": "Small print",
+    "doc": "The copyright line at the foot of every page. Type {year} anywhere in it and the current year is filled in automatically — you never have to come back in January. Leave empty for no small print at all.",
+    "group": "Footer — small print",
+    "width": 100,
+    "default": "© {year} Blacktop Restaurant Group. All rights reserved."
+  },
+  "legal_align": {
+    "type": "select",
+    "label": "Small print sits (computer)",
+    "doc": "Where the copyright line goes on a computer screen: the left, middle or right end of the bottom row.",
+    "group": "Footer — small print",
+    "width": 50,
+    "default": "left",
+    "choices": {
+      "left": "Bottom left",
+      "center": "Bottom center",
+      "right": "Bottom right"
+    }
+  },
+  "legal_align_m": {
+    "type": "select",
+    "label": "Small print sits (phone)",
+    "doc": "Where the copyright line goes on a phone. On a phone the small print, legal links and social icons stack in a column, in that order, and each one lines up left, center or right as chosen here.",
+    "group": "Footer — small print",
+    "width": 50,
+    "default": "center",
+    "choices": {
       "left": "Left",
-      "split": "Lockup left, social right"
+      "center": "Center",
+      "right": "Right"
+    }
+  },
+  "legal_links": {
+    "type": "repeater",
+    "label": "Legal links",
+    "button": "Add a link",
+    "collapse": "label",
+    "doc": "One row per link, shown in a line with very small, bold, underlined text, the same size as the small print. In each row type the words, then choose where it goes: paste a web address, or search for one of your pages. Drag the rows to reorder them.",
+    "group": "Footer — legal links",
+    "width": 100,
+    "sub": {
+      "label": {
+        "type": "text",
+        "label": "What the link says",
+        "doc": "The words people see, for example Privacy Policy.",
+        "width": 40,
+        "default": ""
+      },
+      "link": {
+        "type": "link",
+        "label": "Where it goes",
+        "doc": "Click Select Link, then either paste a web address or search for one of your pages.",
+        "width": 60
+      }
+    }
+  },
+  "links_pos": {
+    "type": "select",
+    "label": "Legal links sit (computer)",
+    "doc": "Which end of the bottom row the legal links go in on a computer screen.",
+    "group": "Footer — legal links",
+    "width": 50,
+    "default": "right",
+    "choices": {
+      "left": "Bottom left",
+      "center": "Bottom center",
+      "right": "Bottom right"
+    }
+  },
+  "links_pos_m": {
+    "type": "select",
+    "label": "Legal links sit (phone)",
+    "doc": "How the legal links line up on a phone.",
+    "group": "Footer — legal links",
+    "width": 50,
+    "default": "center",
+    "choices": {
+      "left": "Left",
+      "center": "Center",
+      "right": "Right"
     }
   },
   "show_social": {
     "type": "select",
-    "label": "Social icon",
-    "doc": "The small icon at the foot. It uses the links saved on Brand info, so hiding it here leaves those alone.",
+    "label": "Social icons",
+    "doc": "Master switch for the icons at the foot. The web addresses come from Brand info (or the Social menu if one is missing there), so hiding them here leaves those alone.",
     "group": "Footer — social",
     "width": 50,
     "default": "1",
@@ -82,7 +165,7 @@
   "social_size": {
     "type": "number",
     "label": "Social icon size",
-    "doc": "How big that icon is, in pixels.",
+    "doc": "How big each icon is, in pixels.",
     "group": "Footer — social",
     "width": 50,
     "default": "20",
@@ -91,33 +174,78 @@
     "step": 1,
     "append": "px"
   },
-  "legal": {
-    "type": "text",
-    "label": "Small print",
-    "doc": "The copyright line at the foot of every page. Type {year} anywhere in it and the current year is filled in automatically — you never have to come back in January. Leave empty for no small print at all.",
-    "group": "Footer — small print",
-    "width": 60,
-    "default": "© {year} Blacktop Restaurant Group. All rights reserved."
-  },
-  "legal_align": {
+  "social_instagram": {
     "type": "select",
-    "label": "Small print sits",
-    "doc": "Which corner the copyright line and the legal links sit in, independently of how the rest of the footer is aligned.",
-    "group": "Footer — small print",
-    "width": 40,
-    "default": "left",
+    "label": "Instagram icon",
+    "doc": "Show the Instagram icon. It only appears if a Instagram address is saved on Brand info (or in the Social menu).",
+    "group": "Footer — social",
+    "width": 25,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "social_linkedin": {
+    "type": "select",
+    "label": "LinkedIn icon",
+    "doc": "Show the LinkedIn icon. It only appears if a LinkedIn address is saved on Brand info (or in the Social menu).",
+    "group": "Footer — social",
+    "width": 25,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "social_facebook": {
+    "type": "select",
+    "label": "Facebook icon",
+    "doc": "Show the Facebook icon. It only appears if a Facebook address is saved on Brand info (or in the Social menu).",
+    "group": "Footer — social",
+    "width": 25,
+    "default": "0",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "social_tiktok": {
+    "type": "select",
+    "label": "TikTok icon",
+    "doc": "Show the TikTok icon. It only appears if a TikTok address is saved on Brand info (or in the Social menu).",
+    "group": "Footer — social",
+    "width": 25,
+    "default": "0",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    }
+  },
+  "social_pos": {
+    "type": "select",
+    "label": "Social icons sit (computer)",
+    "doc": "Which end of the bottom row the icons go in on a computer screen.",
+    "group": "Footer — social",
+    "width": 50,
+    "default": "right",
     "choices": {
       "left": "Bottom left",
-      "center": "Centered",
+      "center": "Bottom center",
       "right": "Bottom right"
     }
   },
-  "links": {
-    "type": "lines",
-    "label": "Legal links",
-    "doc": "ONE LINK PER LINE, written as the words you want, then a vertical bar, then the page path. For example:\n\nPrivacy Policy|/privacy-policy/\nCookie Policy|/cookie-policy/\n\nYou can also just paste a path on its own — /privacy-policy/ — and the words are made from it. A full web address works too, for anything off this site.",
-    "group": "Footer — small print",
-    "default": "",
-    "width": 100
+  "social_pos_m": {
+    "type": "select",
+    "label": "Social icons sit (phone)",
+    "doc": "How the icons line up on a phone.",
+    "group": "Footer — social",
+    "width": 50,
+    "default": "center",
+    "choices": {
+      "left": "Left",
+      "center": "Center",
+      "right": "Right"
+    }
   }
 }

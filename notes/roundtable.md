@@ -986,3 +986,6 @@ Reveal order: sections marked data-visual-order (home-different, home-community)
 
 ## 01:06  conti  (Sean, 19 Nov)
 Phone menu (brgw-nav.css + chrome/header/slots.json labels): drawer underline now the same thin pen stroke as the bar and starts at the word when the number sits beside it; social icons/FOLLOW/text wordmark were ink-on-dark (invisible), now white; wordmark/graphic width honored (max-width:70% of a shrink-wrapped box capped 80px at 56px); settings renamed "Wordmark or graphic".
+
+## 01:30  conti  (Sean, 19 Nov)
+Footer settings (website/chrome/footer/slots.json, brgw.css, vc-clients-embed.php v2.16.0, kit/build-acf.py gains a `link` field type): small print, legal links and social icons are each placed left/center/right for a computer and for a phone; legal links are now a list (words + a link he pastes or picks a page for); each social network (Instagram, LinkedIn, Facebook, TikTok) has its own show/hide, addresses from Brand info then the Social menu. The old one-per-line links box is gone from wp-admin but still read as a fallback. Footer "Alignment" now only places the logo. PHP parse-checked with a JS parser only (no local php); CI php -l is the gate.

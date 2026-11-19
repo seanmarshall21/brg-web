@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.4 (2026-11-19)
+- footer: small print, legal links list and social icons each placed for computer and phone; per-network icons
+
 ## 2026.11.19.3 (2026-11-19)
 - phone menu: thin pen underline like the bar and only under the word, social icons and label visible on the dark panel, wordmark/graphic size actually applies (was capped at 70%), settings renamed Wordmark or graphic
 

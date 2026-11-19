@@ -2,7 +2,7 @@
 /**
  * Plugin Name: VC-Clients Embed
  * Description: Vivo Creative client sites built as code-driven HTML fragments on Netlify, rendered natively via shortcodes (no iframe). Pages AND sections are driven by repo manifests (pages.json + sections.json) + shared assets — so adding a page or a section NEVER requires editing this file. Namespaced to coexist with FC-Brands Embed.
- * Version: 2.15.3
+ * Version: 2.16.0
  * Author: Vivo Creative
  *
  * ── INSTALL ONCE. DO NOT EDIT AFTER INSTALL. ─────────────────────────────────
@@ -32,7 +32,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) return;
 
-if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.15.3' );
+if ( ! defined( 'VCC_VERSION' ) ) define( 'VCC_VERSION', '2.16.0' );
 if ( ! defined( 'VCC_TTL' ) )     define( 'VCC_TTL', 120 ); // default cache seconds
 
 /* ── WHICH ORDER THE SECTIONS APPEAR IN ON A PAGE (Sean, 3 Nov) ─────────────────────────────
@@ -303,6 +303,35 @@ if ( ! function_exists( 'vcc_current_slug' ) ) {
     }
 }
 
+/* The web address behind a footer social icon: Brand info first, and if that is empty the
+ * address of the matching item in the Social menu (the one the phone menu already uses), so
+ * an icon the editor has set up once appears everywhere without being typed twice. */
+if ( ! function_exists( 'vcc_footer_social_url' ) ) {
+    function vcc_footer_social_url( $net, $cfg = null ) {
+        $u = vcc_brand_link( $net );
+        if ( is_string( $u ) && $u !== '' ) return $u;
+        static $menu = null;
+        if ( $menu === null ) {
+            $menu = array();
+            $sloc = ( is_array( $cfg ) && isset( $cfg['nav_social'] ) ) ? $cfg['nav_social'] : '';
+            if ( $sloc !== '' && function_exists( 'get_nav_menu_locations' ) && function_exists( 'wp_get_nav_menu_items' ) ) {
+                $locs = get_nav_menu_locations();
+                if ( is_array( $locs ) && ! empty( $locs[ $sloc ] ) ) {
+                    $its = wp_get_nav_menu_items( $locs[ $sloc ] );
+                    if ( is_array( $its ) ) foreach ( $its as $it ) {
+                        if ( ! empty( $it->url ) ) $menu[] = (string) $it->url;
+                    }
+                }
+            }
+        }
+        $host = array( 'instagram' => 'instagram.com', 'linkedin' => 'linkedin.com',
+                       'facebook' => 'facebook.com',   'tiktok'   => 'tiktok.com' );
+        if ( ! isset( $host[ $net ] ) ) return '';
+        foreach ( $menu as $m ) if ( stripos( $m, $host[ $net ] ) !== false ) return $m;
+        return '';
+    }
+}
+
 /* ── Shared HEADER (nav built from pages.json) + FOOTER ─────────────────────── */
 if ( ! function_exists( 'vcc_chrome' ) ) {
     function vcc_chrome( $cfg, $current_slug ) {
@@ -329,27 +358,38 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
         }
         $header = '<header class="brgw-header"><a class="brgw-logo" href="' . esc_url( $home_url ) . '"><b>BLACKTOP</b>'
                 . '<span>Restaurant Group</span></a><nav class="brgw-nav">' . $links . '</nav></header>';
-        /* LinkedIn, bottom right — BugHerd #32, reported by joyce@blacktoprg.com 14 Sep.
-         * A LUCIDE LINE ICON drawn inline, per the house rule: no emoji, and no second
-         * request for a 1KB mark. stroke="currentColor" so it inherits the footer's color
-         * rather than carrying a hex that has to be kept in step with the palette.
-         * aria-label, not title text: the link has no visible words, so without it a screen
-         * reader announces "link" and nothing else. */
-        /* THE URL NOW COMES FROM BRAND INFO, not from this line. It was hardcoded here an
-         * hour ago; leaving it would have made the footer the second place the address
-         * lives, which is the exact duplication Brand info exists to end. The address in
-         * the ticket is the DEFAULT in website/chrome/brand/slots.json, so this renders
-         * identically with nothing saved, and changing it in wp-admin changes it here.
-         * An empty value hides the link rather than linking to nowhere. */
-        $li_url = vcc_brand_link( 'linkedin' );
-        $li     = '';
-        if ( $li_url !== '' ) {
-        $li  = '<a class="brgw__social" href="' . esc_url( $li_url ) . '"'
-             . ' target="_blank" rel="noopener noreferrer" aria-label="Blacktop Restaurant Group on LinkedIn">'
-             . '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"'
-             . ' stroke-linejoin="round" aria-hidden="true" focusable="false">'
-             . '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>'
-             . '<rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>';
+        /* THE SOCIAL ICONS, one per network, each its own setting (Sean, 19 Nov: "why is it only
+         * LinkedIn that shows?" — it was the only one this ever drew). LUCIDE LINE ICONS drawn
+         * inline, per the house rule: no emoji and no second request for a 1KB mark.
+         * stroke="currentColor" so they inherit the footer's color. aria-label, not title text:
+         * the link has no visible words, so without it a screen reader announces "link" and
+         * nothing else. The address of each comes from Brand info, or failing that the Social
+         * menu, so the footer is never a second place an address lives. An icon with no address
+         * is left out rather than linking to nowhere. */
+        $social_svg = array(
+            'instagram' => '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>',
+            'linkedin'  => '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',
+            'facebook'  => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
+            'tiktok'    => '<path d="M21 7.917v4.034a9.948 9.948 0 0 1-5-1.951v4.5a6.5 6.5 0 1 1-8-6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z"/>',
+        );
+        $social_names = array( 'instagram' => 'Instagram', 'linkedin' => 'LinkedIn', 'facebook' => 'Facebook', 'tiktok' => 'TikTok' );
+        $social_on = array(
+            'instagram' => vcc_chrome_setting( 'footer', 'social_instagram' ),
+            'linkedin'  => vcc_chrome_setting( 'footer', 'social_linkedin' ),
+            'facebook'  => vcc_chrome_setting( 'footer', 'social_facebook' ),
+            'tiktok'    => vcc_chrome_setting( 'footer', 'social_tiktok' ),
+        );
+        $br_name = vcc_brand( 'name' );
+        if ( $br_name === '' || $br_name === null ) $br_name = 'Blacktop Restaurant Group';
+        $li = '';
+        foreach ( $social_svg as $net => $paths ) {
+            if ( $social_on[ $net ] === '0' ) continue;
+            $u = vcc_footer_social_url( $net, $cfg );
+            if ( $u === '' ) continue;
+            $li .= '<a class="brgw__social" href="' . esc_url( $u ) . '"'
+                 . ' target="_blank" rel="noopener noreferrer" aria-label="' . esc_attr( $br_name . ' on ' . $social_names[ $net ] ) . '">'
+                 . '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"'
+                 . ' stroke-linejoin="round" aria-hidden="true" focusable="false">' . $paths . '</svg></a>';
         }
         /* THE LOCKUP IS ARTWORK, NOT TYPE. brgw.css replaces this element's text with a
          * background image and pushes the words off-screen (text-indent:-200vw), keeping
@@ -396,30 +436,48 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
          *     which is what the field used to ask for;
          *   - the bar is optional. A bare /privacy-policy/ becomes "Privacy Policy", so
          *     pasting a path does the obvious thing instead of silently rendering nothing. */
-        $flinksRaw = vcc_chrome_setting( 'footer', 'links' );
         $flinks = '';
-        if ( is_string( $flinksRaw ) && trim( $flinksRaw ) !== '' ) {
-            $lines = preg_split( '/[\r\n]+/', trim( $flinksRaw ) );
-            if ( count( $lines ) === 1 && strpos( $lines[0], ',' ) !== false ) {
-                $lines = explode( ',', $lines[0] );           // the old single-line format
-            }
-            $items = array();
-            foreach ( $lines as $pair ) {
-                $pair = trim( $pair );
-                if ( $pair === '' ) continue;
-                if ( strpos( $pair, '|' ) !== false ) {
-                    list( $lbl, $href ) = array_map( 'trim', explode( '|', $pair, 2 ) );
-                } else {
-                    $href = $pair;
-                    $segs = array_values( array_filter( explode( '/', (string) parse_url( $href, PHP_URL_PATH ) ) ) );
-                    $slug = $segs ? end( $segs ) : $href;
-                    $lbl  = ucwords( str_replace( array( '-', '_' ), ' ', $slug ) );
-                }
-                if ( $lbl === '' || $href === '' ) continue;
-                $items[] = '<a href="' . esc_url( $href ) . '">' . esc_html( $lbl ) . '</a>';
-            }
-            if ( $items ) $flinks = '<span class="legal-links">' . implode( '', $items ) . '</span>';
+        $items  = array();
+        /* THE LIST. Sean, 19 Nov: legal links are a repeater now — the words, then a link he
+         * can paste or pick a page for (ACF's Link field). Each row comes back as
+         * array( 'label' => ..., 'link' => array( 'url', 'title', 'target' ) ). A row with no
+         * address is skipped, and an empty label falls back to the link's own title. */
+        $fk   = vcc_footer_keys();
+        $rows = function_exists( 'get_field' ) ? get_field( $fk['legal_links'], 'option' ) : array();
+        if ( is_array( $rows ) ) foreach ( $rows as $row ) {
+            if ( ! is_array( $row ) ) continue;
+            $lk   = isset( $row['link'] ) ? $row['link'] : array();
+            $href = is_array( $lk ) && isset( $lk['url'] ) ? trim( (string) $lk['url'] ) : ( is_string( $lk ) ? trim( $lk ) : '' );
+            $lbl  = isset( $row['label'] ) ? trim( (string) $row['label'] ) : '';
+            if ( $lbl === '' && is_array( $lk ) && isset( $lk['title'] ) ) $lbl = trim( (string) $lk['title'] );
+            if ( $lbl === '' || $href === '' ) continue;
+            $blank = is_array( $lk ) && isset( $lk['target'] ) && $lk['target'] === '_blank';
+            $items[] = '<a href="' . esc_url( $href ) . '"' . ( $blank ? ' target="_blank" rel="noopener noreferrer"' : '' ) . '>' . esc_html( $lbl ) . '</a>';
         }
+        /* THE OLD ONE-PER-LINE BOX, kept only as a fallback so a site that saved links there
+         * before the list existed does not lose them. It is no longer shown in wp-admin. */
+        if ( ! $items ) {
+            $flinksRaw = vcc_chrome_setting( 'footer', 'links' );
+            if ( is_string( $flinksRaw ) && trim( $flinksRaw ) !== '' ) {
+                $lines = preg_split( '/[\r\n]+/', trim( $flinksRaw ) );
+                if ( count( $lines ) === 1 && strpos( $lines[0], ',' ) !== false ) $lines = explode( ',', $lines[0] );
+                foreach ( $lines as $pair ) {
+                    $pair = trim( $pair );
+                    if ( $pair === '' ) continue;
+                    if ( strpos( $pair, '|' ) !== false ) {
+                        list( $lbl, $href ) = array_map( 'trim', explode( '|', $pair, 2 ) );
+                    } else {
+                        $href = $pair;
+                        $segs = array_values( array_filter( explode( '/', (string) parse_url( $href, PHP_URL_PATH ) ) ) );
+                        $slug = $segs ? end( $segs ) : $href;
+                        $lbl  = ucwords( str_replace( array( '-', '_' ), ' ', $slug ) );
+                    }
+                    if ( $lbl === '' || $href === '' ) continue;
+                    $items[] = '<a href="' . esc_url( $href ) . '">' . esc_html( $lbl ) . '</a>';
+                }
+            }
+        }
+        if ( $items ) $flinks = '<span class="legal-links">' . implode( '', $items ) . '</span>';
 
         /* A REAL <img>, so the logo carries its own proportions — see the note on .lockup in
          * brgw.css. The literal below is the same fallback the stylesheet used to hold, kept
@@ -443,18 +501,44 @@ if ( ! function_exists( 'vcc_chrome' ) ) {
             $legalHtml = str_replace( '{year}',
                 '<span data-brgw-year>' . esc_html( date_i18n( 'Y' ) ) . '</span>', $legalHtml );
         }
-        $lalign = vcc_chrome_setting( 'footer', 'legal_align' );
-        if ( ! in_array( $lalign, array( 'left', 'center', 'right' ), true ) ) $lalign = 'left';
-        $small = ( $legalHtml !== '' || $flinks !== '' )
-               ? '<p class="legal anim-up" data-legal-align="' . esc_attr( $lalign ) . '">'
-                 . ( $legalHtml !== '' ? '<span class="legal-text">' . $legalHtml . '</span>' : '' )
-                 . $flinks . '</p>' : '';
+        /* THE BOTTOM ROW. Three things live here — the copyright line, the legal links and the
+         * social icons — and each is placed on its own, once for a computer and once for a
+         * phone (Sean, 19 Nov). On a computer the row has three zones, left / center / right,
+         * and each thing goes in the zone it was given; two things in one zone sit side by
+         * side. On a phone the zones dissolve (display:contents in brgw.css) and the things
+         * stack in a fixed order, each lined up left, center or right. One markup serves both,
+         * so nothing is printed twice. */
+        $posOk = function ( $v, $dflt ) {
+            return in_array( $v, array( 'left', 'center', 'right' ), true ) ? $v : $dflt;
+        };
+        $things = array(
+            'copy'   => array( $legalHtml !== '' ? '<span class="legal-text">' . $legalHtml . '</span>' : '',
+                               $posOk( vcc_chrome_setting( 'footer', 'legal_align' ),   'left' ),
+                               $posOk( vcc_chrome_setting( 'footer', 'legal_align_m' ), 'center' ) ),
+            'links'  => array( $flinks,
+                               $posOk( vcc_chrome_setting( 'footer', 'links_pos' ),     'right' ),
+                               $posOk( vcc_chrome_setting( 'footer', 'links_pos_m' ),   'center' ) ),
+            'social' => array( ( $fsocial === '1' && $li !== '' ) ? '<span class="foot-social">' . $li . '</span>' : '',
+                               $posOk( vcc_chrome_setting( 'footer', 'social_pos' ),    'right' ),
+                               $posOk( vcc_chrome_setting( 'footer', 'social_pos_m' ),  'center' ) ),
+        );
+        $zones = array( 'left' => '', 'center' => '', 'right' => '' );
+        $any = false;
+        foreach ( $things as $k => $t ) {
+            if ( $t[0] === '' ) continue;
+            $any = true;
+            $zones[ $t[1] ] .= '<span class="foot-item" data-k="' . $k . '" data-pm="' . esc_attr( $t[2] ) . '">' . $t[0] . '</span>';
+        }
+        $small = '';
+        if ( $any ) {
+            $small = '<div class="foot-bar anim-up">';
+            foreach ( $zones as $z => $html ) $small .= '<div class="foot-zone" data-z="' . $z . '">' . $html . '</div>';
+            $small .= '</div>';
+        }
 
         $footer = '<footer class="brgw__footer reveal" data-align="' . esc_attr( $falign ) . '"'
-                . ' data-social="' . esc_attr( $fsocial ) . '"'
                 . ( $fvars !== '' ? ' style="' . esc_attr( $fvars ) . '"' : '' ) . '>'
                 . $lock
-                . ( $fsocial === '1' ? $li : '' )
                 . $small
                 . '</footer>';
         return array( $header, $footer );
@@ -886,7 +970,17 @@ if ( ! function_exists( 'vcc_footer_keys' ) ) {
             'social_size' => 'brg_footer_social_size',
             'legal'       => 'brg_footer_legal',
             'legal_align' => 'brg_footer_legal_align',
-            'links'       => 'brg_footer_links',
+            'legal_align_m' => 'brg_footer_legal_align_m',
+            'legal_links' => 'brg_footer_legal_links',
+            'links_pos'   => 'brg_footer_links_pos',
+            'links_pos_m' => 'brg_footer_links_pos_m',
+            'social_instagram' => 'brg_footer_social_instagram',
+            'social_linkedin'  => 'brg_footer_social_linkedin',
+            'social_facebook'  => 'brg_footer_social_facebook',
+            'social_tiktok'    => 'brg_footer_social_tiktok',
+            'social_pos'       => 'brg_footer_social_pos',
+            'social_pos_m'     => 'brg_footer_social_pos_m',
+            'links'       => 'brg_footer_links',   // the old one-per-line box; read only as a fallback
         );
     }
 }
@@ -1002,6 +1096,7 @@ if ( ! function_exists( 'vcc_chrome_setting' ) ) {
         if ( function_exists( 'get_field' ) ) {
             $v = get_field( $map[ $key ], 'option' );
             if ( is_array( $v ) && isset( $v['url'] ) ) $v = $v['url'];
+            if ( is_array( $v ) ) $v = '';      // a repeater: read it with get_field() itself, never as a string
             if ( is_string( $v ) ) $v = trim( $v );
             if ( $v !== null && $v !== false && $v !== '' ) return (string) $v;
         }

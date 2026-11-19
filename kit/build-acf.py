@@ -60,7 +60,11 @@ TYPE = {'text': 'text', 'textarea': 'textarea', 'url': 'text', 'image': 'image',
         # that silently edits nothing past 40 — the exact failure --check exists to catch,
         # only invisible to it because the token IS wired. The bounds here are written to
         # match that clamp, and `step` keeps the box to whole numbers.
-        'number': 'number'}
+        'number': 'number',
+        # `link` is ACF's Link field: a button that opens a box where the editor either
+        # pastes a web address or searches their own pages. It returns an array
+        # (url, title, target), which the plugin reads. Used for the footer's legal links.
+        'link': 'link'}
 
 # TWO grammars, identical until plugin v2.6.1 and not since. See kit/README.md.
 #   STRIPPABLE  what the plugin removes, and what --check must SEE to report it.
@@ -266,6 +270,9 @@ def field(section_id, slot, defn):
         f['rows'] = int(defn['rows'])
     if t == 'image':
         f.update({'return_format': 'url', 'preview_size': 'medium', 'library': 'all'})
+        f.pop('default_value', None)
+    if t == 'link':
+        f.update({'return_format': 'array'})
         f.pop('default_value', None)
     if t == 'number':
         # min/max MIRROR brgw.js's Math.max(0, Math.min(40, …)) clamp. Keeping the two in
@@ -899,6 +906,8 @@ def main():
                     vals = 'an image URL'
                 elif t == 'url':
                     vals = 'a link or page path'
+                elif t == 'link':
+                    vals = 'a page or web address'
                 else:
                     vals = 'text'
                 rows.append(f"<tr><td><code>{k}</code></td><td>{(v or {}).get('label', k)}</td>"
