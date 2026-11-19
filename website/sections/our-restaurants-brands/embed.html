@@ -20,7 +20,12 @@
 
 /* No image-reveal here: these are logo lockups, and the reveal's 2→1.2 counter-scale
    crops the wordmark. A brand mark should never be cropped for the sake of an effect. */
-.brgw-sec--our-restaurants-brands .plate{border-radius:14px;aspect-ratio:16/11;overflow:hidden;}
+.brgw-sec--our-restaurants-brands .plate{border-radius:14px;aspect-ratio:16/11;overflow:hidden;position:relative;}
+/* A logo on the photo (Sean, 18 Nov): centered, never more than 80% of the photo's width or height (whichever it hits first), its own proportions. Off until switched on. */
+.brgw-sec--our-restaurants-brands .plate-logo{display:none;position:absolute;inset:0;align-items:center;justify-content:center;pointer-events:none;z-index:2;}
+.brgw-sec--our-restaurants-brands .plate-logo[data-on="on"]{display:flex;}
+.brgw-sec--our-restaurants-brands .plate-logo picture{display:contents;}
+.brgw-sec--our-restaurants-brands .plate .plate-logo img{width:auto;height:auto;max-width:80%;max-height:80%;object-fit:contain;}
 .brgw-sec--our-restaurants-brands .plate img{width:100%;height:100%;object-fit:cover;display:block;}
 .brgw-sec--our-restaurants-brands h3{font-size:clamp(1.8rem,3.6vw,3.1rem);text-transform:uppercase;margin-bottom:18px;}
 .brgw-sec--our-restaurants-brands p{opacity:.86;font-size:clamp(.97rem,1.1vw,1.06rem);line-height:1.62;max-width:46ch;}
@@ -45,6 +50,7 @@
     <div class="plate" data-brgw-frame>
       <img class="anim-up" src="{{bnb_image}}"
            alt="Board &amp; Brew" width="800" height="550" decoding="async" loading="lazy" data-tone="{{bnb_image_tone}}" data-px="{{bnb_image_px}}" data-px-dir="{{bnb_image_px_dir}}">
+      <span class="plate-logo anim-up" data-on="{{bnb_logo_show}}" aria-hidden="true"><picture><source srcset="{{bnb_logo}}"><img alt="" decoding="async" loading="lazy"></picture></span>
     </div>
     <div>
       <h3 class="blanco anim-head">{{bnb_heading}}</h3>
@@ -58,6 +64,7 @@
     <div class="plate" data-brgw-frame>
       <img class="anim-up" src="{{odies_image}}"
            alt="Odie's Pizza Co." width="800" height="550" decoding="async" loading="lazy" data-tone="{{odies_image_tone}}" data-px="{{odies_image_px}}" data-px-dir="{{odies_image_px_dir}}">
+      <span class="plate-logo anim-up" data-on="{{odies_logo_show}}" aria-hidden="true"><picture><source srcset="{{odies_logo}}"><img alt="" decoding="async" loading="lazy"></picture></span>
     </div>
     <div>
       <h3 class="blanco anim-head">{{odies_heading}}</h3>

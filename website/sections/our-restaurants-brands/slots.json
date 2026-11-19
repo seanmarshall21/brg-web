@@ -91,7 +91,8 @@
       "": "Same as the section",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     },
     "group": "Buttons"
   },
@@ -214,7 +215,8 @@
       "": "Same as the section",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     },
     "group": "Buttons"
   },
@@ -290,6 +292,24 @@
       "up": "Up"
     }
   },
+  "bnb_logo_show": {
+    "type": "select",
+    "label": "Board & Brew — logo on the photo",
+    "width": 50,
+    "default": "off",
+    "doc": "Puts a logo on top of the photo, centered. Off keeps the photo as it is.",
+    "choices": {
+      "off": "Off",
+      "on": "On"
+    }
+  },
+  "bnb_logo": {
+    "type": "image",
+    "label": "Board & Brew — logo",
+    "width": 50,
+    "default": "",
+    "doc": "The logo to show on the photo (an SVG or a PNG with a transparent background looks best). It keeps its own proportions and is never bigger than 80% of the photo's width or 80% of its height, whichever it reaches first. A small logo file is not stretched past its own size."
+  },
   "odies_image": {
     "type": "image",
     "label": "Odie's — image",
@@ -329,6 +349,24 @@
       "down": "Down",
       "up": "Up"
     }
+  },
+  "odies_logo_show": {
+    "type": "select",
+    "label": "Odie's — logo on the photo",
+    "width": 50,
+    "default": "off",
+    "doc": "Puts a logo on top of the photo, centered. Off keeps the photo as it is.",
+    "choices": {
+      "off": "Off",
+      "on": "On"
+    }
+  },
+  "odies_logo": {
+    "type": "image",
+    "label": "Odie's — logo",
+    "width": 50,
+    "default": "",
+    "doc": "The logo to show on the photo (an SVG or a PNG with a transparent background looks best). It keeps its own proportions and is never bigger than 80% of the photo's width or 80% of its height, whichever it reaches first. A small logo file is not stretched past its own size."
   },
   "section_bg": {
     "type": "image",
@@ -519,7 +557,8 @@
       "": "As set site-wide",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     }
   },
   "section_color": {
@@ -751,7 +790,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },

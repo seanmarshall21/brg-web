@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.18.4 (2026-11-18)
+- brands: optional logo centered on the Board & Brew and Odie's photos (off until switched on)
+
 ## 2026.11.18.3 (2026-11-18)
 - home: the bolt box fades in, slides up and wipes open on scroll, then the bolt wipes open (setting to turn it off)
 
