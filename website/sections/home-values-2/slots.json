@@ -611,6 +611,18 @@
       "slow": "Slow (about a full screen each)"
     }
   },
+  "values_step": {
+    "type": "select",
+    "label": "Scroll through the values — one at a time",
+    "width": 100,
+    "default": "off",
+    "group": "Full screen",
+    "doc": "Only used when \"Scroll through the values\" is On, and only for people scrolling with a mouse or trackpad (a phone keeps scrolling straight through). Off: scrolling runs through the values as it does now. On: the page slows to a stop when it reaches this section; then each scroll moves to exactly one value, easing in and out. The next value will not start until the one before it has opened completely and your scrolling has paused, and when the last has had its turn the next scroll eases you on to the next section. Arrow keys, Page Up/Down and Space do the same.",
+    "choices": {
+      "off": "Off",
+      "on": "On"
+    }
+  },
   "btn_color": {
     "type": "select",
     "label": "Button color",

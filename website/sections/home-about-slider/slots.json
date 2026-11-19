@@ -92,6 +92,18 @@
       "long": "Long"
     }
   },
+  "slide_step": {
+    "type": "select",
+    "label": "Scroll one slide at a time",
+    "width": 50,
+    "default": "off",
+    "group": null,
+    "doc": "Only for the full-height slider (not the 80/60/40% heights), and only for a mouse or trackpad (a phone keeps scrolling straight through). Off: scrolling runs through the slides as it does now. On: the page slows to a stop when it reaches the slider; then each scroll moves to exactly one slide, easing in and out. The next slide will not start until the one before it has finished appearing and your scrolling has paused, and after the last slide the next scroll eases you on to the next section. Arrow keys, Page Up/Down and Space do the same.",
+    "choices": {
+      "off": "Off",
+      "on": "On"
+    }
+  },
   "photo_px": {
     "type": "number",
     "label": "Photo — movement",

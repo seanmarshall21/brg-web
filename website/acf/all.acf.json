@@ -6242,6 +6242,31 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_home_about_slider_slide_step",
+        "label": "Scroll one slide at a time",
+        "name": "brg_home_about_slider_slide_step",
+        "type": "select",
+        "instructions": "Only for the full-height slider (not the 80/60/40% heights), and only for a mouse or trackpad (a phone keeps scrolling straight through). Off: scrolling runs through the slides as it does now. On: the page slows to a stop when it reaches the slider; then each scroll moves to exactly one slide, easing in and out. The next slide will not start until the one before it has finished appearing and your scrolling has paused, and after the last slide the next scroll eases you on to the next section. Arrow keys, Page Up/Down and Space do the same.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-slide_step",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "Off",
+          "on": "On"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_about_slider_photo_px",
         "label": "Photo — movement",
         "name": "brg_home_about_slider_photo_px",
@@ -8341,6 +8366,31 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_home_values_values_step",
+        "label": "Scroll through the values — one at a time",
+        "name": "brg_home_values_values_step",
+        "type": "select",
+        "instructions": "Only used when \"Scroll through the values\" is On, and only for people scrolling with a mouse or trackpad (a phone keeps scrolling straight through). Off: scrolling runs through the values as it does now. On: the page slows to a stop when it reaches this section; then each scroll moves to exactly one value, easing in and out. The next value will not start until the one before it has opened completely and your scrolling has paused, and when the last has had its turn the next scroll eases you on to the next section. Arrow keys, Page Up/Down and Space do the same.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-values_step",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "Off",
+          "on": "On"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_values_endacc_full_screen",
         "label": "",
         "name": "",
@@ -10191,6 +10241,31 @@
           "quick": "Quick (about a quarter screen each)",
           "medium": "Medium (about half a screen each)",
           "slow": "Slow (about a full screen each)"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_step",
+        "label": "Scroll through the values — one at a time",
+        "name": "brg_home_values_2_values_step",
+        "type": "select",
+        "instructions": "Only used when \"Scroll through the values\" is On, and only for people scrolling with a mouse or trackpad (a phone keeps scrolling straight through). Off: scrolling runs through the values as it does now. On: the page slows to a stop when it reaches this section; then each scroll moves to exactly one value, easing in and out. The next value will not start until the one before it has opened completely and your scrolling has paused, and when the last has had its turn the next scroll eases you on to the next section. Arrow keys, Page Up/Down and Space do the same.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-values_step",
+          "id": ""
+        },
+        "default_value": "off",
+        "choices": {
+          "off": "Off",
+          "on": "On"
         },
         "return_format": "value",
         "allow_null": 0,

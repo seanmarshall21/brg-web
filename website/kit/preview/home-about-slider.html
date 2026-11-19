@@ -9,7 +9,7 @@
      the page carries on to the next section. Two styles, picked in wp-admin: the photo SLIDES across the words, or everything
      stays in place and the words and photo wipe and reveal. On a phone: photo on top (70%), words underneath (30%).
      The first What We're About ([brg_home-about]) is untouched; use one or the other on the page. -->
-<section class="brgw-sec brgw-sec--home-about-slider" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-nav="light" data-style="{{slider_style}}" data-pside="{{photo_side}}" data-h="{{stage_height}}" data-min="{{stage_min}}" data-hs="{{headline_size}}" data-ps="{{body_size}}" data-step="{{scroll_step}}" data-px="{{photo_px}}" data-px-dir="{{photo_px_dir}}" aria-label="What we're about">
+<section class="brgw-sec brgw-sec--home-about-slider" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-nav="light" data-style="{{slider_style}}" data-pside="{{photo_side}}" data-h="{{stage_height}}" data-min="{{stage_min}}" data-hs="{{headline_size}}" data-ps="{{body_size}}" data-step="{{scroll_step}}" data-stepscroll="{{slide_step}}" data-px="{{photo_px}}" data-px-dir="{{photo_px_dir}}" aria-label="What we're about">
 <style>
 .brgw-sec--home-about-slider{--as-top:clamp(72px,9svh,100px);position:relative;background:#EDEDEE;color:var(--ink);}
 .brgw-sec--home-about-slider .as-run{position:relative;}
@@ -159,7 +159,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading": "What we're about", "slider_style": "slide", "photo_side": "right", "stage_height": "full", "stage_min": "400", "headline_size": "1.8", "body_size": "1.4", "scroll_step": "medium", "photo_px": "0", "photo_px_dir": "down", "slides": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "section_color_opacity": "100"};
+  var D = {"heading": "What we're about", "slider_style": "slide", "photo_side": "right", "stage_height": "full", "stage_min": "400", "headline_size": "1.8", "body_size": "1.4", "scroll_step": "medium", "slide_step": "off", "photo_px": "0", "photo_px_dir": "down", "slides": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "section_color_opacity": "100"};
   var raw = document.getElementById('frag').innerHTML;
   // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
   // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.

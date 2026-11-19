@@ -1245,6 +1245,15 @@
           if (k !== vlast) { vlast = k; on(k); }
         };
         var vask = function () { if (!vq) { vq = true; requestAnimationFrame(vtick); } };
+        // STEP THROUGH (Sean, 19 Nov): one scroll gesture = one value, on an eased glide (see brgwStepper). Each value gets at least half a screen of travel so the glide has room to be seen.
+        if (host.getAttribute('data-vstep') === 'on') {
+          step = Math.max(step, 0.5);
+          brgwZone({ targets: function () {
+            if (!vwrap) return null;
+            var y0 = window.pageYOffset + vwrap.getBoundingClientRect().top - vtop;
+            return items.map(function (_, k) { return y0 + (k + 0.5) * vband; });
+          } });
+        }
         vapply();
         window.addEventListener('resize', function () { vapply(); vask(); });
         window.addEventListener('load', function () { vapply(); vask(); });
@@ -1764,6 +1773,12 @@
       }
       function pxAsk() { if (pxAmt <= 0 || calm || pxRun) return; pxRun = true; requestAnimationFrame(pxStep); }
       if (pxAmt > 0 && !calm) window.addEventListener('scroll', pxAsk, { passive: true });
+      // STEP THROUGH (Sean, 19 Nov): one scroll gesture = one slide, on an eased glide (see brgwStepper). Only the pinned height has steps to go through.
+      if (!fixed && !calm && sec.getAttribute('data-stepscroll') === 'on') brgwZone({ targets: function () {
+        var base = window.pageYOffset + run.getBoundingClientRect().top, t = [base + L * 0.35];
+        for (var k = 1; k < N; k++) t.push(base + L + (k - 1) * S + S * 0.5);
+        return t;
+      } });
       window.addEventListener('scroll', ask, { passive: true });
       window.addEventListener('resize', function () { measure(); ask(); });
       window.addEventListener('load', function () { measure(); ask(); });
@@ -1909,6 +1924,102 @@
     });
   }
 
+  /* ---- STEP THROUGH, ONE AT A TIME (Sean, 19 Nov) --------------------------------------------------------------------------
+     "When you get to that section it slows to a stop, then you scroll, with an ease in and an ease out, to the next slide, and
+     a very nice ease in to start scrolling again, and an ease out when you get to the Core Values ... each element needs to
+     open completely before you can scroll on to the next one. It shouldn't be a scrub."
+     A section (the What We're About slider, the Core Values) registers a ZONE: the page positions of its steps. Inside a zone,
+     one scroll gesture moves exactly one step, on an ease-in / ease-out glide; further wheel movement is ignored until the glide
+     has finished and the new step has had time to open completely AND the wheel has gone quiet (a trackpad's tail of momentum
+     is part of the same gesture, so it cannot run on into the next step). Ahead of a zone, a scroll glides to a stop at its first
+     step; at either end, the next scroll glides on to the neighboring zone, or about a screen. Keys (arrows, Page Up/Down, Space)
+     do the same. Phones (finger scrolling) keep scrolling straight through, as before. Reduced motion: never registered. */
+  function brgwZone(def) { (window.__brgwZones = window.__brgwZones || []).push(def); brgwStepper(); }
+  function brgwStepper() {
+    if (window.__brgwStepper) return; window.__brgwStepper = 1;
+    var SETTLE = 700;                                      // ms after a glide for the new step to finish opening
+    var animating = false, raf = 0, lockUntil = 0, lastWheel = 0, needIdle = false;
+    function vh() { return window.innerHeight; }
+    function maxY() { return Math.max(0, document.documentElement.scrollHeight - vh()); }
+    function zones() {
+      var out = [];
+      (window.__brgwZones || []).forEach(function (z) { var t = z.targets(); if (t && t.length > 1) out.push({ t: t }); });
+      out.sort(function (a, b) { return a.t[0] - b.t[0]; });
+      return out;
+    }
+    function nearest(t, y) { var b = 0, d = 1e9; t.forEach(function (v, i) { var x = Math.abs(v - y); if (x < d) { d = x; b = i; } }); return b; }
+    function decide(y, dir) {                                // where the next step goes, or null = scroll freely
+      var Z = zones(), A = vh() * 0.9, i, t, n, k;
+      for (i = 0; i < Z.length; i++) {
+        t = Z[i].t; n = t.length;
+        if (y >= t[0] - 4 && y <= t[n - 1] + 4) {            // inside this zone
+          k = nearest(t, y);
+          if (dir > 0 && k < n - 1) return t[k + 1];
+          if (dir < 0 && k > 0) return t[k - 1];
+          if (dir > 0) { var nx = Z[i + 1]; if (nx && nx.t[0] - t[n - 1] <= vh() * 2.4) return nx.t[0]; return Math.min(maxY(), t[n - 1] + vh() * 0.9); }
+          var pv = Z[i - 1]; if (pv && t[0] - pv.t[pv.t.length - 1] <= vh() * 2.4) return pv.t[pv.t.length - 1];
+          return Math.max(0, t[0] - vh() * 0.9);
+        }
+      }
+      for (i = 0; i < Z.length; i++) {                       // outside: close ahead of a zone, it slows to a stop at its edge
+        t = Z[i].t; n = t.length;
+        if (dir > 0 && y < t[0] && t[0] - y <= A) return t[0];
+        if (dir < 0 && y > t[n - 1] && y - t[n - 1] <= A) return t[n - 1];
+      }
+      return null;
+    }
+    function ease(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+    function glide(to) {
+      if (window.__brgwSmoothStop) window.__brgwSmoothStop();
+      var from = window.pageYOffset; to = Math.max(0, Math.min(maxY(), Math.round(to)));
+      var dist = Math.abs(to - from); if (dist < 2) return;
+      var dur = Math.round(Math.max(750, Math.min(1500, 650 + 480 * dist / vh())));
+      animating = true; cancelAnimationFrame(raf);
+      var t0 = null;
+      (function step(now) {
+        if (!animating) return;
+        if (t0 === null) t0 = now;
+        var k = Math.min(1, (now - t0) / dur);
+        window.scrollTo(0, Math.round(from + (to - from) * ease(k)));
+        if (k < 1) raf = requestAnimationFrame(step);
+        else { animating = false; lockUntil = Date.now() + SETTLE; needIdle = true; }
+      })(performance.now());
+    }
+    function handle(dir, e, isWheel, gap) {                       // returns true when it took the event
+      var to = decide(window.pageYOffset, dir);
+      if (to === null && !animating) return false;
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (animating || Date.now() < lockUntil) return true;
+      if (isWheel && needIdle && gap < 110) return true;   // still the same gesture
+      needIdle = false;
+      if (to !== null) glide(to);
+      return true;
+    }
+    window.addEventListener('wheel', function (ev) {
+      var now = Date.now(), gap = now - lastWheel; lastWheel = now;     // gap: the quiet since the last wheel movement
+      if (ev.defaultPrevented || ev.ctrlKey || ev.metaKey || ev.shiftKey || !ev.deltaY || Math.abs(ev.deltaX) > Math.abs(ev.deltaY)) return;
+      if (window.getComputedStyle(document.documentElement).overflow === 'hidden') return;      // a pop-up is open
+      var el = ev.target;
+      for (; el && el !== document.body && el !== document.documentElement; el = el.parentElement) {
+        var cs = window.getComputedStyle(el);
+        if (/(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 1) return;   // a box that scrolls by itself
+      }
+      if (Math.abs(ev.deltaY) < 3 && !animating) return;
+      handle(ev.deltaY > 0 ? 1 : -1, ev, true, gap);
+    }, { passive: false, capture: true });
+    window.addEventListener('keydown', function (ev) {
+      if (ev.defaultPrevented || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+      var a = document.activeElement; if (a && a !== document.body && /^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(a.tagName)) return;
+      if (a && a.isContentEditable) return;
+      var dir = 0;
+      if (ev.key === 'ArrowDown' || ev.key === 'PageDown' || (ev.key === ' ' && !ev.shiftKey)) dir = 1;
+      else if (ev.key === 'ArrowUp' || ev.key === 'PageUp' || (ev.key === ' ' && ev.shiftKey)) dir = -1;
+      if (dir) handle(dir, ev, false);
+    }, true);
+    window.addEventListener('pointerdown', function () { if (animating) { animating = false; cancelAnimationFrame(raf); lockUntil = 0; } }, true);
+  }
+
+
   /* ---- SMOOTH SCROLL (Sean, 3 Nov: "the snap to section ... is making it super jumpy ... a delayed scroll. As you
      scroll, it takes 50 ms, and then it eases into the scroll ... ease-in, ease-out ... let's not do the snap") ----
      The mouse wheel / trackpad no longer jumps the page: each wheel turn adds to a TARGET position, 50 ms after the
@@ -1926,6 +2037,7 @@
     var pos = window.pageYOffset, target = pos, vel = 0, anim = false, startT = null, last = 0;
     function max() { return Math.max(0, document.documentElement.scrollHeight - window.innerHeight); }
     function stop() { anim = false; clearTimeout(startT); startT = null; vel = 0; pos = target = window.pageYOffset; }
+    window.__brgwSmoothStop = stop;                           // the step-through glide takes over from the spring
     function inner(el) {                                      // a box that scrolls by itself keeps its own wheel
       for (; el && el !== document.body && el !== document.documentElement; el = el.parentElement) {
         var cs = window.getComputedStyle(el);

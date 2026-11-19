@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.11 (2026-11-19)
+- step-through scrolling: the About slider and Core Values can move one slide/value per scroll on an eased glide (off by default; two new settings)
+
 ## 2026.11.19.10 (2026-11-19)
 - header: the page that opens in the small state no longer animates into it
 
