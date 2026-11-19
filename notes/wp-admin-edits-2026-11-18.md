@@ -13,7 +13,7 @@ menu → the page named below. Save with **Update** at the top right of each pag
    Note: the shorter heights are not pinned, so the arrows change the slide (no scroll-through).
 2. **A different kind of restaurant group.** Tab **A different kind of restaurant group** (it may still say "company" until the admin refreshes).
    **Heading** field: change the second line to `restaurant group` (the first line stays `of`).
-3. **Swap Board & Brew and Odie's photos.** Same tab. Today **Photo 1** (large) is the Odie's
+3. **ON HOLD, WAITING ON THE CLIENT (Sean, 18 Nov): swap Board & Brew and Odie's photos.** The feedback does not say what to swap them to, so do nothing here until the client answers. Question to send the client: *"On the home page, in 'A different kind of restaurant group', you asked us to swap the Board & Brew and Odie's photos. Do you mean swap their places (the big photo and the tall photo), or replace each one with a different photo? If different photos, which ones?"* We have also added an option to put each brand's logo on top of its photo (wp-admin, Brands tab); nothing to do there until the client says. What is on the page today and what a straight swap would involve: Today **Photo 1** (large) is the Odie's
    food photo `brg-odies-food.webp` and **Photo 2** (tall) is the Board & Brew photo
    `brg-bnb-sando.webp`. Swap them: put the Board & Brew photo in Photo 1 and the Odie's photo in
    Photo 2. Heads-up: `brg-bnb-sando.webp` is only 519 x 479 pixels, and Photo 1 is the big

@@ -100,6 +100,8 @@
 .brgw-sec--home-community .media .block{background:var(--yellow);}
 .brgw-sec--home-community .media .block img{filter:contrast(1.04);}
 /* Photos on the left: wide layout only, the words stay first on a phone. */
+/* On a phone (one column) the photos can come first (Sean, 18 Nov): Photos — order on a phone. */
+@media(max-width:939px){ .brgw-sec--home-community .grid[data-phone="photos"] > .media-w{order:-1;} }
 @media(min-width:940px){
   .brgw-sec--home-community .grid[data-side="left"] > .media-w{order:-1;}
 }
@@ -127,7 +129,7 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true" data-mark-pos="{{mark_1_bolt_pos}}" data-mark-show="{{mark_1_bolt_show}}" data-mark-anim="{{mark_1_bolt_anim}}" data-mark-o style="--brgw-mark-o:{{mark_1_bolt_opacity}}"><img class="brgw-pop" src="{{mark_1_bolt_art}}" alt="" width="151" height="145" loading="lazy" decoding="async"></span>
 
-  <div class="grid" data-side="{{photos_side}}">
+  <div class="grid" data-side="{{photos_side}}" data-phone="{{phone_order}}">
     <div>
       <h2 class="blanco anim-head">{{heading_1}}<br>{{heading_2}} <span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{heading_mark}}</span></span></h2>
   <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>

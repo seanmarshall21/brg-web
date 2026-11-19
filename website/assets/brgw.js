@@ -453,7 +453,23 @@
         }
       });
     }, { threshold: [0, REVEAL_RATIO], rootMargin: REVEAL_MARGIN });
-    root.querySelectorAll('.reveal').forEach(function (s) { io.observe(lead(s)); });
+    root.querySelectorAll('.reveal').forEach(function (s) { if (s.classList.contains('brgw__footer')) return; io.observe(lead(s)); });
+
+    /* THE FOOTER REVEALS THE MOMENT ANY OF IT IS ON SCREEN, ALL OF IT AT ONCE (Sean, 18 Nov: "at 1% ... the very bottom part should also trigger
+       at the same time, just because I've had issues with not being able to scroll all the way to the bottom"). The other sections wait until
+       half of their first line is up; the footer is observed as a whole and goes the instant its first sliver shows, and the row at the very
+       bottom (the legal line) starts with the lockup instead of after it. Lines of split text keep their own small stagger between them. */
+    [].forEach.call(root.querySelectorAll('.brgw__footer.reveal'), function (f) {
+      [].forEach.call(f.querySelectorAll('.anim-up, .anim-cta, .brgw-pop'), function (el) {
+        el.style.transitionDelay = '0ms'; el.style.setProperty('--brgw-delay', '0ms');
+        if (el.classList.contains('brgw-pop')) el.style.animationDelay = '0ms, 600ms'; else if (el.classList.contains('anim-cta')) el.style.animationDelay = '0ms';
+      });
+      var fio = new IntersectionObserver(function (es) {
+        if (!es.some(function (e) { return e.isIntersecting; })) return;
+        f.classList.add('is-in'); fio.disconnect();
+      }, { threshold: 0 });
+      fio.observe(f);
+    });
 
     /* ---- PER-CHILD REVEAL, for a grid taller than the screen -------------------------
        Sean, 3 Oct: "when I go down to the next sections, they all load in at the same
@@ -1142,6 +1158,19 @@
         b.addEventListener('click', function () { on(i); arm(); });
       });
       on(0);
+      /* THE PHOTOS ARE READY BEFORE THEY ARE SHOWN (Sean, 18 Nov: "a glitch on each photo transition, sometimes the first time it goes
+         through. It loads the next slide's photo, then behind it you see a flash"). The pictures are lazy in the markup, and a lazy picture
+         that is hidden is not fetched until the moment it is shown, so the first time a value opened its box faded in empty (the tone color),
+         then the picture popped in. Once the section is within two screens, every picture is fetched and decoded, so the first open is
+         the same as the tenth. */
+      var warmImgs = [].slice.call(v.querySelectorAll('.vbg img'));
+      function warmV() { warmImgs.forEach(function (im) { im.loading = 'eager'; if (im.decode) im.decode().catch(function () {}); }); }
+      if (warmImgs.length) {
+        if ('IntersectionObserver' in window) {
+          var wio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { warmV(); wio.disconnect(); } }, { rootMargin: '200% 0px 200% 0px' });
+          wio.observe(v);
+        } else warmV();
+      }
       /* THE LIST WITH WORDS UNDER THE NAMES KEEPS ONE HEIGHT (Sean, 1 Nov: "the actual section height should
          never vary"). Opening one value closes another, so the height only changes when the two have a
          different number of lines. The tallest the list ever gets is measured once with each value open in
@@ -1723,6 +1752,85 @@
     });
   }
 
+  /* ---- THE NEXT PAGE STARTS LOADING EARLY (Sean, 18 Nov: "make load time between pages faster ... the next page start loading earlier") --------
+     WordPress already asks the browser to fetch a linked page, but at its gentlest setting (only once the mouse button goes down). This asks
+     for it as soon as a link is hovered (about a fifth of a second) or, on a phone, as it is tapped or comes into view, so by the time the
+     page change starts the page is often already here. Only a PREFETCH (the page's text is fetched and kept; nothing on it runs), never a
+     prerender, so no page effects, counters or analytics fire early. Same-site links only; not admin or login addresses, not links with a
+     query, not downloads; and nothing at all on Data Saver or a 2G / slow-2G connection. Browsers without Speculation Rules get the same
+     thing from a hover / touch listener and a prefetch link. */
+  function brgwSpeed() {
+    if (window.__brgwSpeed) return; window.__brgwSpeed = 1;
+    var c = navigator.connection;
+    if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return;
+    var BAD = ['/wp-*.php', '/wp-admin/*', '/wp-content/*', '/wp-json/*', '/*\\?(.+)', '/*.pdf', '/*.zip'];
+    if (window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules')) {
+      var sc = document.createElement('script'); sc.type = 'speculationrules';
+      sc.textContent = JSON.stringify({ prefetch: [{ source: 'document', where: { and: [
+        { href_matches: '/*' }, { not: { href_matches: BAD } },
+        { not: { selector_matches: 'a[rel~="nofollow"], a[target="_blank"], a[download], .no-prefetch, .no-prefetch a' } }
+      ] }, eagerness: 'moderate' }] });
+      document.head.appendChild(sc);
+      return;
+    }
+    var l = document.createElement('link');
+    if (!(l.relList && l.relList.supports && l.relList.supports('prefetch'))) return;
+    var done = {}, t = null;
+    function ok(a) {
+      if (!a || !a.href || a.target === '_blank' || a.hasAttribute('download')) return null;
+      var u; try { u = new URL(a.href); } catch (x) { return null; }
+      if (u.origin !== location.origin || u.search || /^\/(wp-admin|wp-content|wp-json)\//.test(u.pathname) || /\.(pdf|zip|jpe?g|png|webp|svg|mp4)$/i.test(u.pathname)) return null;
+      if (u.pathname === location.pathname) return null;
+      return u.href.split('#')[0];
+    }
+    function go(a) {
+      var h = ok(a); if (!h || done[h]) return; done[h] = 1;
+      var k = document.createElement('link'); k.rel = 'prefetch'; k.href = h; k.as = 'document'; document.head.appendChild(k);
+    }
+    document.addEventListener('mouseover', function (e) { var a = e.target.closest && e.target.closest('a[href]'); if (!a) return; clearTimeout(t); t = setTimeout(function () { go(a); }, 100); }, { passive: true });
+    document.addEventListener('mouseout', function () { clearTimeout(t); }, { passive: true });
+    document.addEventListener('touchstart', function (e) { go(e.target.closest && e.target.closest('a[href]')); }, { passive: true });
+  }
+
+  /* ---- LINKS TO A PLACE ON THE SAME PAGE SCROLL WITH AN EASE (Sean, 18 Nov: the Careers "Open Positions" button jumped down) ----------
+     Any link whose address is this page plus a #place that exists (the Open Positions button is /careers/#roles) glides there: slow out of
+     the start, quicker through the middle, slow into the landing (ease in, ease out), longer for a longer trip, and it lands where the
+     browser would have, below the nav (the target's scroll-margin-top). Left alone: modified clicks, links that open a pop-up or a new tab,
+     reduced motion (the browser's own jump), and anything with no such place on the page. The wheel / touch / keys stop it, as they do the
+     smooth wheel scrolling. */
+  function brgwAnchor() {
+    if (window.__brgwAnchor) return; window.__brgwAnchor = 1;
+    var raf = 0;
+    function stop() { cancelAnimationFrame(raf); raf = 0; }
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (t) { window.addEventListener(t, stop, { passive: true }); });
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+      if (a.hasAttribute('data-brgw-modal') && a.getAttribute('data-brgw-modal')) return;
+      if (a.target && a.target !== '_self') return;
+      var u; try { u = new URL(a.getAttribute('href'), window.location.href); } catch (x) { return; }
+      if (!u.hash || u.hash.length < 2 || u.origin !== window.location.origin || u.pathname.replace(/\/+$/, '') !== window.location.pathname.replace(/\/+$/, '')) return;
+      var id; try { id = decodeURIComponent(u.hash.slice(1)); } catch (x) { id = u.hash.slice(1); }
+      var el = document.getElementById(id); if (!el) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      e.preventDefault();
+      var margin = parseFloat(window.getComputedStyle(el).scrollMarginTop) || 0;
+      var max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      var from = window.pageYOffset, to = Math.max(0, Math.min(max, Math.round(el.getBoundingClientRect().top + from - margin)));
+      var dist = Math.abs(to - from);
+      if (dist < 2) return;
+      var dur = Math.max(700, Math.min(1500, 520 + dist * 0.35)), t0 = null;
+      function ease(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }   // ease in, ease out (cubic)
+      stop();
+      (function step(now) {
+        if (t0 === null) t0 = now;
+        var k = Math.min(1, (now - t0) / dur);
+        window.scrollTo(0, Math.round(from + (to - from) * ease(k)));
+        if (k < 1) raf = requestAnimationFrame(step); else { raf = 0; try { history.pushState(null, '', u.hash); } catch (x) {} }
+      })(performance.now());
+    });
+  }
+
   /* ---- BOLT BOX SCROLL REVEAL (home-different [data-seamrv="on"], Sean, 18 Nov) ---------------------------------
      The white tilted box (.seam) fades in, slides up and wipes open, then its bolt wipes open (all CSS, in the fragment). This only says
      when: the box's own clip hides it from an observer (a clipped element counts as zero area), so the SECTION is observed instead, and
@@ -2078,7 +2186,7 @@
 
   try { brgwPageFx(); } catch (e) { document.documentElement.classList.remove('brgw-hold', 'brgw-out'); }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwFull(document); brgwSmooth(); brgwCount(document); brgwBuild(); }
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwAnchor(); brgwSpeed(); brgwFull(document); brgwSmooth(); brgwCount(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

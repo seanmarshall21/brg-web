@@ -193,10 +193,22 @@
     "width": 34,
     "default": "right",
     "group": "Photo layout",
-    "doc": "Which side of the section the photos sit on. This changes the wide layout only: on a phone the words always come first and the photos follow.",
+    "doc": "Which side of the section the photos sit on. This changes the wide layout only: what comes first on a phone is the next box, Photos — order on a phone.",
     "choices": {
       "right": "On the right (as designed)",
       "left": "On the left"
+    }
+  },
+  "phone_order": {
+    "type": "select",
+    "label": "Photos — order on a phone",
+    "width": 33,
+    "group": "Photo layout",
+    "default": "photos",
+    "doc": "What comes first when the section stacks into one column (phones and small tablets). Photos first puts the photos on top, then the headline, body copy and button. Words first is the original: headline, body copy, then the photos.",
+    "choices": {
+      "photos": "Photos, then words",
+      "words": "Words, then photos (as it was)"
     }
   },
   "photos_layout": {

@@ -3194,7 +3194,7 @@
                 "label": "Photos — side",
                 "name": "brg_home_community_photos_side",
                 "type": "select",
-                "instructions": "Which side of the section the photos sit on. This changes the wide layout only: on a phone the words always come first and the photos follow.",
+                "instructions": "Which side of the section the photos sit on. This changes the wide layout only: what comes first on a phone is the next box, Photos — order on a phone.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -3206,6 +3206,31 @@
                 "choices": {
                     "right": "On the right (as designed)",
                     "left": "On the left"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_community_phone_order",
+                "label": "Photos — order on a phone",
+                "name": "brg_home_community_phone_order",
+                "type": "select",
+                "instructions": "What comes first when the section stacks into one column (phones and small tablets). Photos first puts the photos on top, then the headline, body copy and button. Words first is the original: headline, body copy, then the photos.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-phone_order",
+                    "id": ""
+                },
+                "default_value": "photos",
+                "choices": {
+                    "photos": "Photos, then words",
+                    "words": "Words, then photos (as it was)"
                 },
                 "return_format": "value",
                 "allow_null": 0,
@@ -6855,6 +6880,59 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_values_values_m_scale",
+                "label": "Names on a phone — size when not open",
+                "name": "brg_home_values_values_m_scale",
+                "type": "select",
+                "instructions": "On a phone, the names that are not open shrink to this share of their size, and grow back to full size when opened, with a smooth ease. 100% is the original (no change in size).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-values_m_scale",
+                    "id": ""
+                },
+                "default_value": "75",
+                "choices": {
+                    "100": "100% (no change)",
+                    "90": "90%",
+                    "75": "75%",
+                    "60": "60%"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_values_values_m_gap",
+                "label": "Names on a phone — gap after the number",
+                "name": "brg_home_values_values_m_gap",
+                "type": "select",
+                "instructions": "On a phone, how much room there is between the number (01, 02...) and the name and words. 100% is the original gap; 50% halves it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-values_m_gap",
+                    "id": ""
+                },
+                "default_value": "50",
+                "choices": {
+                    "100": "100% (as it was)",
+                    "75": "75%",
+                    "50": "50%"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_home_values_values_img_light",
                 "label": "Core values — photo look on a light background",
                 "name": "brg_home_values_values_img_light",
@@ -8624,6 +8702,59 @@
                     "as": "As it is now (shaded)",
                     "frost": "Mostly transparent white, dark words",
                     "clear": "Fully transparent, dark words"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_values_2_values_m_scale",
+                "label": "Names on a phone — size when not open",
+                "name": "brg_home_values_2_values_m_scale",
+                "type": "select",
+                "instructions": "On a phone, the names that are not open shrink to this share of their size, and grow back to full size when opened, with a smooth ease. 100% is the original (no change in size).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-values_m_scale",
+                    "id": ""
+                },
+                "default_value": "75",
+                "choices": {
+                    "100": "100% (no change)",
+                    "90": "90%",
+                    "75": "75%",
+                    "60": "60%"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_values_2_values_m_gap",
+                "label": "Names on a phone — gap after the number",
+                "name": "brg_home_values_2_values_m_gap",
+                "type": "select",
+                "instructions": "On a phone, how much room there is between the number (01, 02...) and the name and words. 100% is the original gap; 50% halves it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-values_m_gap",
+                    "id": ""
+                },
+                "default_value": "50",
+                "choices": {
+                    "100": "100% (as it was)",
+                    "75": "75%",
+                    "50": "50%"
                 },
                 "return_format": "value",
                 "allow_null": 0,
