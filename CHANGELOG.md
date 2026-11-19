@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.18.7 (2026-11-18)
+- header: the logo's white text follows the menu ink, the header stays on screen through page changes, and the underline rubs out and draws in
+
 ## 2026.11.18.6 (2026-11-18)
 - faster page changes (next page is fetched on hover or tap), Core Values photos loaded before they show, footer reveals at first sight, same-page links ease-scroll, Core Values phone names scale, Born in San Diego photos-first on phones
 

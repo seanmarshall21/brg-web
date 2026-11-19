@@ -372,10 +372,23 @@
 
     // Optional auto-invert (only if sections opt in with data-nav="dark|light").
     if (document.querySelector('[data-nav]')) {
+      /* THE HEADER STAYS WHEN THE PAGE CHANGES (Sean, 18 Nov). The loading screen now sits UNDER the header, so while it is up the header is
+         over the loading screen's color, not over a section. Its ink follows that color (light colors get dark ink), and the same for
+         the page tint that holds the page's color while it fades. brgw.js says when the loading screen comes and goes ('brgw:fx'). */
+      function lum(c) {
+        var m = /rgba?\(\s*(\d+)[ ,]+(\d+)[ ,]+(\d+)/.exec(c || '');
+        if (!m) { m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec((c || '').trim()); if (!m) return -1; m = [0, parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)]; }
+        return (0.2126 * m[1] + 0.7152 * m[2] + 0.0722 * m[3]) / 255;
+      }
       var flip = function () {
         var el = document.elementFromPoint(Math.round(window.innerWidth / 2), nav.offsetHeight + 4);
         var sec = el && el.closest('[data-nav]');
         var shade = sec ? sec.getAttribute('data-nav') : '';
+        var ld = el && el.closest ? el.closest('#brgw-loader') : null;
+        if (ld) { var L = lum(getComputedStyle(ld).backgroundColor); if (L >= 0) shade = L > 0.55 ? 'light' : 'dark'; }
+        else if (!sec && document.documentElement.classList.contains('brgw-pgbg')) {
+          var T = lum(getComputedStyle(document.documentElement).getPropertyValue('--brgw-pg')); if (T >= 0) shade = T > 0.55 ? 'light' : 'dark';
+        }
         // Both classes are set explicitly, and an unlabelled area clears BOTH rather than
         // falling through to one of them. The header's default (white links over dark
         // imagery) is then what shows, which is the behavior every page had before any
@@ -386,10 +399,86 @@
       };
       window.addEventListener('scroll', flip, { passive: true });
       window.addEventListener('resize', flip); flip();
+      window.addEventListener('brgw:fx', function () { [0, 60, 200, 450, 800, 1300].forEach(function (t) { setTimeout(flip, t); }); });
     }
   }
 
-  function boot() { [].slice.call(document.querySelectorAll('.bnav')).forEach(enhance); }
+  /* THE LOGO'S WHITE HALF FOLLOWS THE MENU (Sean, 18 Nov: "the menu changes on a dark background, but the logo doesn't"). The plugin can inline the
+     logo as real SVG (so CSS can reach inside it), but only when the file is on the CDN; the editor's logo is an upload on the site, so it
+     stayed a picture, whose white "RESTAURANT GROUP" disappeared over a light section. This does the same job in the browser for an SVG on THIS
+     site: fetch it, take out anything that could run, rename its classes so two logos cannot restyle each other, turn every white fill into
+     var(--bnav-logo-ink, white) (brgw-nav.css sets that to the dark ink over a light section), and swap it in for the picture. Any failure
+     leaves the picture exactly as it was. */
+  function inlineLogo(nav) {
+    var img = nav.querySelector('.bnav-logo img'); if (!img || img.getAttribute('data-inlined')) return;
+    var u; try { u = new URL(img.getAttribute('src') || '', location.href); } catch (e) { return; }
+    if (u.origin !== location.origin || !/\.svg$/i.test(u.pathname)) return;
+    img.setAttribute('data-inlined', '1');
+    fetch(u.href, { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (txt) {
+      if (!txt || txt.length > 400000) return;
+      var doc = new DOMParser().parseFromString(txt, 'image/svg+xml');
+      var root = doc.documentElement;
+      if (!root || root.nodeName.toLowerCase() !== 'svg' || doc.querySelector('parsererror')) return;
+      [].forEach.call(doc.querySelectorAll('script, foreignObject, iframe, object, embed'), function (n) { n.remove(); });
+      [].forEach.call(doc.querySelectorAll('*'), function (n) {
+        [].slice.call(n.attributes).forEach(function (a) {
+          var nm = a.name.toLowerCase();
+          if (nm.indexOf('on') === 0 || ((nm === 'href' || nm === 'xlink:href') && /^\s*(javascript|data):/i.test(a.value))) n.removeAttribute(a.name);
+        });
+      });
+      var uid = 'bl' + Math.abs([].reduce.call(u.pathname, function (h, c) { return (h * 31 + c.charCodeAt(0)) | 0; }, 7)).toString(36);
+      var WHITE = /(^|[:\s])(#fff(?:fff)?|white)\b/i;
+      var names = {};
+      [].forEach.call(doc.querySelectorAll('style'), function (st) {
+        var css = st.textContent || '', m, re = /\.([A-Za-z_][\w-]*)\s*(?=[{,])/g;
+        while ((m = re.exec(css))) names[m[1]] = 1;
+        Object.keys(names).forEach(function (c) { css = css.replace(new RegExp('\\.' + c + '(?=\\s*[{,])', 'g'), '.' + uid + '-' + c); });
+        css = css.replace(/fill\s*:\s*(#fff(?:fff)?|white)\b/gi, 'fill:var(--bnav-logo-ink,$1)');
+        st.textContent = css;
+      });
+      [].forEach.call(doc.querySelectorAll('[class]'), function (n) {
+        n.setAttribute('class', n.getAttribute('class').split(/\s+/).map(function (c) { return names[c] ? uid + '-' + c : c; }).join(' '));
+      });
+      [].forEach.call(doc.querySelectorAll('[fill]'), function (n) {
+        if (WHITE.test(n.getAttribute('fill'))) { n.removeAttribute('fill'); n.style.fill = 'var(--bnav-logo-ink,#fff)'; }
+      });
+      root.removeAttribute('width'); root.removeAttribute('height');
+      root.setAttribute('aria-hidden', 'true'); root.setAttribute('focusable', 'false');
+      var svg = document.importNode(root, true);
+      if (img.parentNode) img.parentNode.replaceChild(svg, img);
+      window.dispatchEvent(new Event('brgw:fx'));
+    }).catch(function () {});
+  }
+
+  /* THE UNDERLINE MOVES WITH THE PAGE CHANGE (Sean, 18 Nov). Leaving by a menu link: the underline of the page you are on rubs out and the one
+     under the link you pressed is drawn (it is already drawn by the pointer, but not by a tap or a key). Arriving by the menu, the new page's
+     underline is simply there; arriving any other way (an address, the logo, a button), it is drawn in once the page is up. */
+  function navUnderline(nav) {
+    var via = false;
+    try {
+      var v = sessionStorage.getItem('brgwNav'); sessionStorage.removeItem('brgwNav');
+      var pr = (v || '').split('|');
+      via = !!v && Date.now() - (parseInt(pr[1], 10) || 0) < 20000 && pr[0].replace(/\/+$/, '') === location.pathname.replace(/\/+$/, '');
+    } catch (e) {}
+    var act = nav.querySelector('.bnav-grp .is-active');
+    if (act && !via) {
+      act.classList.add('ul-wait');
+      var go = function () { setTimeout(function () { act.classList.remove('ul-wait'); }, 450); };
+      if (document.readyState === 'complete') go(); else window.addEventListener('load', go, { once: true });
+      setTimeout(function () { act.classList.remove('ul-wait'); }, 4500);
+    }
+    nav.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest('.bnav-link[href]'); if (!a) return;
+      var u; try { u = new URL(a.href, location.href); } catch (x) { return; }
+      if (u.origin !== location.origin || u.pathname.replace(/\/+$/, '') === location.pathname.replace(/\/+$/, '')) return;
+      try { sessionStorage.setItem('brgwNav', u.pathname + '|' + Date.now()); } catch (x) {}
+      [].forEach.call(nav.querySelectorAll('.bnav-grp .is-active'), function (it) { it.classList.add('is-out'); });
+      var item = a.closest('.bnav-item'); if (item) item.classList.add('is-in');
+    });
+  }
+
+  function boot() { [].slice.call(document.querySelectorAll('.bnav')).forEach(function (n) { enhance(n); inlineLogo(n); navUnderline(n); }); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

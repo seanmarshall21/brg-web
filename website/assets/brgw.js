@@ -2107,6 +2107,7 @@
       return box;
     }
 
+    function ping() { try { window.dispatchEvent(new Event('brgw:fx')); } catch (e) {} }   // the header re-reads what it sits over (brgw-nav.js)
     function showLoader(instant) {
       if (loader || !document.body) return;
       var l = document.createElement('div');
@@ -2121,20 +2122,20 @@
       void l.offsetWidth;
       l.classList.add('is-on');
       if (instant) requestAnimationFrame(function () { l.classList.remove('is-instant'); });
-      loader = l; shownAt = Date.now();
+      loader = l; shownAt = Date.now(); ping();
     }
     function hideLoader() {
       if (!loader) return;
       var l = loader; loader = null;
-      l.classList.remove('is-on');
-      setTimeout(function () { if (l.parentNode) l.parentNode.removeChild(l); }, 700);
+      l.classList.remove('is-on'); ping();
+      setTimeout(function () { if (l.parentNode) l.parentNode.removeChild(l); ping(); }, 700);
     }
     function arrive() {
       if (ready) return; ready = true;
       var wait = loader ? Math.max(0, 550 - (Date.now() - shownAt)) : 0;
       setTimeout(function () {
         if (trans) tint(loader && pick ? BGHEX[pick.bg] : '');    // the page is parsed now: its first screen's color is known
-        D.classList.remove('brgw-hold');
+        D.classList.remove('brgw-hold'); ping();
         if (trans) { D.classList.add('brgw-in'); inTimer = setTimeout(function () { D.classList.remove('brgw-in'); untint(); }, 1300); }
         hideLoader();
       }, wait);
@@ -2156,7 +2157,7 @@
       clearTimeout(inTimer); D.classList.remove('brgw-in');     // a quick click: stop the arrival animation, keep the tint
       if (!loader) pick = fresh();                              // a new animation and color for this change of page
       tint(mode !== 'off' ? BGHEX[pick.bg] : '');
-      D.classList.add('brgw-out');
+      D.classList.add('brgw-out'); ping();
       try { sessionStorage.setItem('brgwFx', pick.v + '|' + pick.bg); } catch (e) {}
       setTimeout(function () { if (mode !== 'off') showLoader(false); location.href = href; }, 340);
       setTimeout(reset, 20000);                                // navigation cancelled: give the page back

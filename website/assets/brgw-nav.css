@@ -126,6 +126,12 @@
 .bnav-grp .is-active .bnav-uline path{visibility:visible;stroke-dashoffset:0;}
 .bnav-grp .is-active .bnav-uline path{transition-duration:.7s;transition-delay:.15s;}
 .bnav-grp .is-active .bnav-link{opacity:1;}
+/* The underline moves with a page change (brgw-nav.js navUnderline): rubbed out on the item being left, drawn on the one pressed, and drawn in on
+   an arrival that did not come from the menu. .ul-wait holds the stroke undrawn for a moment; .is-out rubs it out; .is-in draws it. */
+.bnav-grp .is-active.ul-wait .bnav-uline path{stroke-dashoffset:1;transition:none;}
+.bnav-grp .is-active.is-out .bnav-uline path{stroke-dashoffset:1;transition:stroke-dashoffset .45s cubic-bezier(.55,.06,.2,1);transition-delay:0s;}
+.bnav-grp .is-in .bnav-uline path{visibility:visible;stroke-dashoffset:0;transition:stroke-dashoffset .55s cubic-bezier(.55,.06,.2,1);}
+@media(prefers-reduced-motion:reduce){ .bnav-grp .bnav-uline path{transition:none!important;} }
 
 /* ---- layouts ---- */
 .bnav.lay-left .bnav-logo,.bnav.lay-compact .bnav-logo{order:-1;margin-right:auto;}
