@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.18.5 (2026-11-18)
+- home 'different kind' section: button can sit after the body copy or under the photos, alignment (wide and phone), photos-first or photos-in-the-middle on a phone, photos behind the words
+
 ## 2026.11.18.4 (2026-11-18)
 - brands: optional logo centered on the Board & Brew and Odie's photos (off until switched on)
 

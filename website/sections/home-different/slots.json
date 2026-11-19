@@ -245,10 +245,35 @@
     "width": 34,
     "default": "right",
     "group": "Photo layout",
-    "doc": "Which side of the section the photos sit on. This changes the wide layout only: on a phone the words always come first and the photos follow.",
+    "doc": "Which side of the section the photos sit on. This changes the wide layout only: what comes first on a phone is the next box, Photos — order on a phone.",
     "choices": {
       "right": "On the right (as designed)",
       "left": "On the left"
+    }
+  },
+  "phone_order": {
+    "type": "select",
+    "label": "Photos — order on a phone",
+    "width": 33,
+    "group": "Photo layout",
+    "default": "words",
+    "doc": "What comes first when the section stacks into one column (phones and small tablets). Words first is the original: headline, body copy, button, then the photos. Photos first puts the photos on top, then the headline, body copy and button. Photos in the middle puts the headline first, then the photos, then the body copy and button.",
+    "choices": {
+      "words": "Words, then photos (as designed)",
+      "photos": "Photos, then words",
+      "mid": "Headline, then photos, then body copy and button"
+    }
+  },
+  "photos_z": {
+    "type": "select",
+    "label": "Photos — behind or in front of the words",
+    "width": 33,
+    "group": "Photo layout",
+    "default": "behind",
+    "doc": "Where the photos sit in the stack. Behind (the default) means the words are always readable: if the photos overlap the words, move with the scroll or are nudged over them, the words stay on top. In front lets the photos cover the words.",
+    "choices": {
+      "behind": "Behind the words",
+      "front": "In front of the words"
     }
   },
   "photos_layout": {
@@ -739,14 +764,43 @@
   "cta_position": {
     "type": "select",
     "label": "Where the buttons sit",
-    "doc": "At the bottom is the usual place and the one the rest of the site uses.",
+    "doc": "Where the button goes. At the bottom of the section is the usual place. Directly under the heading puts it above the copy. Right after the body copy keeps it inside the words column, directly under the last paragraph, wherever the photos go, so it never ends up after the photos (this is the one to pick if the photos move around or stack). Directly under the photos puts it in the photos column.",
     "width": 100,
     "default": "foot",
     "choices": {
       "foot": "At the bottom of the section",
-      "head": "Directly under the heading"
+      "head": "Directly under the heading",
+      "body": "Right after the body copy",
+      "photos": "Directly under the photos"
     },
     "group": "Buttons"
+  },
+  "cta_align": {
+    "type": "select",
+    "label": "Buttons — alignment",
+    "width": 50,
+    "group": "Buttons",
+    "default": "keep",
+    "doc": "Which side the button sits on, on wide screens. As it is now leaves the original placement. On a phone the next box decides.",
+    "choices": {
+      "keep": "As it is now",
+      "left": "Left",
+      "center": "Center",
+      "right": "Right"
+    }
+  },
+  "cta_align_phone": {
+    "type": "select",
+    "label": "Buttons — alignment on a phone",
+    "width": 50,
+    "group": "Buttons",
+    "default": "center",
+    "doc": "Which side the button sits on when the section is one column (phones and small tablets).",
+    "choices": {
+      "center": "Center",
+      "left": "Left",
+      "right": "Right"
+    }
   },
   "btn_size": {
     "type": "select",

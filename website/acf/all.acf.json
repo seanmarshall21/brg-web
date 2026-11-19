@@ -10622,7 +10622,7 @@
         "label": "Photos — side",
         "name": "brg_home_different_photos_side",
         "type": "select",
-        "instructions": "Which side of the section the photos sit on. This changes the wide layout only: on a phone the words always come first and the photos follow.",
+        "instructions": "Which side of the section the photos sit on. This changes the wide layout only: what comes first on a phone is the next box, Photos — order on a phone.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -10634,6 +10634,57 @@
         "choices": {
           "right": "On the right (as designed)",
           "left": "On the left"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_phone_order",
+        "label": "Photos — order on a phone",
+        "name": "brg_home_different_phone_order",
+        "type": "select",
+        "instructions": "What comes first when the section stacks into one column (phones and small tablets). Words first is the original: headline, body copy, button, then the photos. Photos first puts the photos on top, then the headline, body copy and button. Photos in the middle puts the headline first, then the photos, then the body copy and button.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-phone_order",
+          "id": ""
+        },
+        "default_value": "words",
+        "choices": {
+          "words": "Words, then photos (as designed)",
+          "photos": "Photos, then words",
+          "mid": "Headline, then photos, then body copy and button"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_photos_z",
+        "label": "Photos — behind or in front of the words",
+        "name": "brg_home_different_photos_z",
+        "type": "select",
+        "instructions": "Where the photos sit in the stack. Behind (the default) means the words are always readable: if the photos overlap the words, move with the scroll or are nudged over them, the words stay on top. In front lets the photos cover the words.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-photos_z",
+          "id": ""
+        },
+        "default_value": "behind",
+        "choices": {
+          "behind": "Behind the words",
+          "front": "In front of the words"
         },
         "return_format": "value",
         "allow_null": 0,
@@ -11573,7 +11624,7 @@
         "label": "Where the buttons sit",
         "name": "brg_home_different_cta_position",
         "type": "select",
-        "instructions": "At the bottom is the usual place and the one the rest of the site uses.",
+        "instructions": "Where the button goes. At the bottom of the section is the usual place. Directly under the heading puts it above the copy. Right after the body copy keeps it inside the words column, directly under the last paragraph, wherever the photos go, so it never ends up after the photos (this is the one to pick if the photos move around or stack). Directly under the photos puts it in the photos column.",
         "required": 0,
         "conditional_logic": 0,
         "wrapper": {
@@ -11584,7 +11635,62 @@
         "default_value": "foot",
         "choices": {
           "foot": "At the bottom of the section",
-          "head": "Directly under the heading"
+          "head": "Directly under the heading",
+          "body": "Right after the body copy",
+          "photos": "Directly under the photos"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_cta_align",
+        "label": "Buttons — alignment",
+        "name": "brg_home_different_cta_align",
+        "type": "select",
+        "instructions": "Which side the button sits on, on wide screens. As it is now leaves the original placement. On a phone the next box decides.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-cta_align",
+          "id": ""
+        },
+        "default_value": "keep",
+        "choices": {
+          "keep": "As it is now",
+          "left": "Left",
+          "center": "Center",
+          "right": "Right"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_different_cta_align_phone",
+        "label": "Buttons — alignment on a phone",
+        "name": "brg_home_different_cta_align_phone",
+        "type": "select",
+        "instructions": "Which side the button sits on when the section is one column (phones and small tablets).",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-cta_align_phone",
+          "id": ""
+        },
+        "default_value": "center",
+        "choices": {
+          "center": "Center",
+          "left": "Left",
+          "right": "Right"
         },
         "return_format": "value",
         "allow_null": 0,

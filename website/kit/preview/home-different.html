@@ -169,6 +169,40 @@
   width:clamp(130px,19vw,300px);opacity:.1;pointer-events:none;}
 .brgw-sec--home-different .sdca img{width:100%;height:auto;display:block;}
 @media(max-width:760px){ .brgw-sec--home-different .sdca{width:120px;top:2%;right:4%;} }
+
+/* ---- BUTTONS, PHONE ORDER AND STACKING (Sean, 18 Nov) ------------------------------------------------------------
+   Where the button goes: the shared rule (brgw.css) shows the head and foot rows; here the other two. "body" is the row right after the last
+   paragraph, INSIDE the words column, so it stays attached to the copy wherever the photos go; "photos" is the row under the photo frames.
+   Alignment: data-ctaal (wide) and data-ctaph (one column). "keep" leaves the row exactly as the shared rule places it.
+   Order on a phone: data-phone words (as designed) | photos (photos first) | mid (headline, photos, then body copy and button), one column only.
+   Stacking: the words are above the photos unless data-pz="front", so a photo that overlaps or drifts over the words never hides them. */
+.brgw-sec--home-different[data-cta-pos="body"] .brgw-cta[data-cta-at="body"],
+.brgw-sec--home-different[data-cta-pos="photos"] .brgw-cta[data-cta-at="photos"]{display:flex;}
+.brgw-sec--home-different .brgw-cta[data-cta-at="body"],.brgw-sec--home-different .brgw-cta[data-cta-at="photos"]{max-width:none;margin-inline:0;}
+.brgw-sec--home-different .brgw-cta[data-cta-at="photos"]{margin-top:clamp(20px,2.4vw,34px);}
+@media(min-width:940px){
+  .brgw-sec--home-different .grid[data-ctaal="left"]   ~ .brgw-cta,.brgw-sec--home-different .grid[data-ctaal="left"] .brgw-cta{justify-content:flex-start;}
+  .brgw-sec--home-different .grid[data-ctaal="center"] ~ .brgw-cta,.brgw-sec--home-different .grid[data-ctaal="center"] .brgw-cta{justify-content:center;}
+  .brgw-sec--home-different .grid[data-ctaal="right"]  ~ .brgw-cta,.brgw-sec--home-different .grid[data-ctaal="right"] .brgw-cta{justify-content:flex-end;}
+}
+@media(max-width:939px){
+  .brgw-sec--home-different .grid[data-ctaph="center"] ~ .brgw-cta,.brgw-sec--home-different .grid[data-ctaph="center"] .brgw-cta{justify-content:center;}
+  .brgw-sec--home-different .grid[data-ctaph="left"]   ~ .brgw-cta,.brgw-sec--home-different .grid[data-ctaph="left"] .brgw-cta{justify-content:flex-start;}
+  .brgw-sec--home-different .grid[data-ctaph="right"]  ~ .brgw-cta,.brgw-sec--home-different .grid[data-ctaph="right"] .brgw-cta{justify-content:flex-end;}
+  .brgw-sec--home-different .grid[data-phone="photos"] > .blocks-w{order:-1;}
+  .brgw-sec--home-different .grid[data-phone="mid"]{row-gap:clamp(22px,5vw,36px);}
+  .brgw-sec--home-different .grid[data-phone="mid"] > .tx{display:contents;}
+  .brgw-sec--home-different .grid[data-phone="mid"] > .tx > h2{order:1;margin-bottom:0;}
+  .brgw-sec--home-different .grid[data-phone="mid"] > .tx > .brgw-cta[data-cta-at="head"]{order:2;margin-top:0;}
+  .brgw-sec--home-different .grid[data-phone="mid"] > .blocks-w{order:3;}
+  .brgw-sec--home-different .grid[data-phone="mid"] > .tx > p{order:4;margin:0;max-width:none;}
+  .brgw-sec--home-different .grid[data-phone="mid"] > .tx > .brgw-cta[data-cta-at="body"]{order:5;margin-top:0;}
+}
+/* stacking: each side is its own layer; the photo canvas keeps its photos' own order inside it */
+.brgw-sec--home-different .grid > .tx > *{position:relative;z-index:2;}
+.brgw-sec--home-different .grid > .blocks-w{position:relative;z-index:1;}
+.brgw-sec--home-different .grid[data-pz="front"] > .tx > *{z-index:1;}
+.brgw-sec--home-different .grid[data-pz="front"] > .blocks-w{z-index:2;}
 </style>
   <span class="sdca" aria-hidden="true"><img src="https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/brg-icn-sdca-wht.svg" alt="" width="600" height="300" loading="lazy" decoding="async"></span>
   <div class="sec-bg" data-bg="{{section_bg}}" data-blend="{{section_bg_blend}}" data-layer="{{section_bg_layer}}" data-join="{{section_bg_join}}" style="--sec-bg-o:{{section_bg_opacity}};--sec-bg-bl:{{section_bg_blend}}"
@@ -176,13 +210,14 @@
             data-px="{{section_bg_px}}" data-px-dir="{{section_bg_px_dir}}"></picture></div>
   <span class="seam" aria-hidden="true"><img class="brgw-pop" src="https://blacktoprg.netlify.app/assets/media/svg/icons/bolt.svg" alt="" width="94" height="176" loading="lazy" decoding="async"></span>
 
-  <div class="grid" data-side="{{photos_side}}">
-    <div>
+  <div class="grid" data-side="{{photos_side}}" data-phone="{{phone_order}}" data-pz="{{photos_z}}" data-ctaal="{{cta_align}}" data-ctaph="{{cta_align_phone}}">
+    <div class="tx">
       <h2 class="blanco anim-head"><span class="mark"><svg class="hl-b" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true"><path d="M5,6 C62,3 140,5 210,3 C228,2 236,4 236,9 C237,20 235,31 234,38 C233,42 226,43 208,42 C138,40 64,42 10,41 C5,41 3,38 3,31 C2,22 2,12 5,6 Z"/></svg><span class="hl-t">{{heading_mark}}</span></span> {{heading_1}}</h2>
   <div class="brgw-cta" data-cta-at="head" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
       <p class="anim-up">{{body_1}}</p>
       <p class="anim-up">{{body_2}}</p>
       <p class="anim-up">{{body_3}}</p>
+  <div class="brgw-cta" data-cta-at="body" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
     </div>
     <!-- Parallax rates alternate in sign and grow with how far forward the plate sits, so
          the three separate as you scroll instead of tracking together. Stand-in photography
@@ -200,7 +235,8 @@
         <img src="{{photo_3}}" alt=""
              width="548" height="820" decoding="async" loading="lazy" data-tone="{{photo_3_tone}}" data-px="{{photo_3_px}}" data-px-dir="{{photo_3_px_dir}}" data-float="{{photo_3_float}}" data-float-dir="{{photo_3_float_dir}}">
       </span>
-    </div></div>
+    </div>
+  <div class="brgw-cta" data-cta-at="photos" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div></div>
   </div>
   <div class="brgw-cta" data-cta-at="foot" data-btn-color="{{btn_color}}" data-btn-hover="{{btn_hover}}" data-btn-style="{{btn_style}}" data-btn-size="{{btn_size}}" data-btn-fx="{{btn_effect}}"><!--brg:repeat buttons--><a class="btn anim-cta" data-btn-size="{{buttons.size}}" data-btn-color="{{buttons.color}}" data-btn-hover="{{buttons.hover}}" data-btn-style="{{buttons.style}}" data-btn-fx="{{buttons.effect}}" data-cta="{{buttons.label}}" href="{{buttons.href}}" data-brgw-modal="{{buttons.popup}}" data-brgw-modal-bg="{{modal_bg}}">{{buttons.label}}</a><!--brg:empty--><!--/brg:repeat--></div>
 </section>
@@ -211,7 +247,7 @@
 // works the same as one in text. Slots arrive base64 in the hash, so changing them
 // reloads the frame — which doubles as the animation replay.
 (function(){
-  var D = {"heading_1": "of\nrestaurant group", "heading_mark": "A different kind", "body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3", "seam_reveal": "on", "photo_1": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photo_3": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_3_tone": "color", "photo_3_px": "0", "photo_3_px_dir": "down", "photo_3_float": "0", "photo_3_float_dir": "down", "photos_side": "right", "photos_layout": "design", "photos_order": "123", "photo_1_shape": "keep", "photo_2_shape": "keep", "photo_3_shape": "keep", "photo_1_scale": "m", "photo_2_scale": "m", "photo_3_scale": "m", "photo_1_shift_x": "0", "photo_1_shift_y": "0", "photo_2_shift_x": "0", "photo_2_shift_y": "0", "photo_3_shift_x": "0", "photo_3_shift_y": "0", "photos_shift_x": "0", "photos_shift_y": "0", "photo_1_ground": "none", "photo_2_ground": "none", "photo_3_ground": "none", "section_bg": "https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/difkind-bkgnd.webp", "section_bg_blend": "normal", "section_bg_layer": "under", "section_bg_join": "no", "section_bg_mobile": "", "section_bg_opacity": "0.5", "section_bg_px": "0", "section_bg_px_dir": "down", "cta_position": "foot", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "full_screen": "off", "full_pin": "medium", "full_snap": "on", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
+  var D = {"heading_1": "of\nrestaurant group", "heading_mark": "A different kind", "body_1": "The restaurant industry has a reputation: long hours, high turnover, burnt-out teams. We're working to change that.", "body_2": "We believe the best guest experiences start with the best team experiences. When our people feel valued, supported, and genuinely stoked to come to work \u2014 that energy is contagious. You feel it the moment you walk in.", "body_3": "We're building something that lasts \u2014 not just great food, but great careers, great communities, and a model that proves you can do right by your people and run a great business at the same time.", "hl_variant": "h3", "seam_reveal": "on", "photo_1": "https://blacktoprg.netlify.app/assets/media/imgs/brg-img-home-xl.webp", "photo_1_tone": "color", "photo_1_px": "0", "photo_1_px_dir": "down", "photo_1_float": "0", "photo_1_float_dir": "down", "photo_2": "https://blacktoprg.netlify.app/assets/media/bg/skater.webp", "photo_2_tone": "color", "photo_2_px": "0", "photo_2_px_dir": "down", "photo_2_float": "0", "photo_2_float_dir": "down", "photo_3": "https://blacktoprg.netlify.app/assets/media/bg/surfer.webp", "photo_3_tone": "color", "photo_3_px": "0", "photo_3_px_dir": "down", "photo_3_float": "0", "photo_3_float_dir": "down", "photos_side": "right", "phone_order": "words", "photos_z": "behind", "photos_layout": "design", "photos_order": "123", "photo_1_shape": "keep", "photo_2_shape": "keep", "photo_3_shape": "keep", "photo_1_scale": "m", "photo_2_scale": "m", "photo_3_scale": "m", "photo_1_shift_x": "0", "photo_1_shift_y": "0", "photo_2_shift_x": "0", "photo_2_shift_y": "0", "photo_3_shift_x": "0", "photo_3_shift_y": "0", "photos_shift_x": "0", "photos_shift_y": "0", "photo_1_ground": "none", "photo_2_ground": "none", "photo_3_ground": "none", "section_bg": "https://blacktoprestaurantgroup.com/wp-content/uploads/2026/10/difkind-bkgnd.webp", "section_bg_blend": "normal", "section_bg_layer": "under", "section_bg_join": "no", "section_bg_mobile": "", "section_bg_opacity": "0.5", "section_bg_px": "0", "section_bg_px_dir": "down", "cta_position": "foot", "cta_align": "keep", "cta_align_phone": "center", "btn_size": "", "section_color": "keep", "section_color_custom": "", "section_text": "auto", "full_screen": "off", "full_pin": "medium", "full_snap": "on", "btn_color": "keep", "btn_hover": "keep", "btn_style": "keep", "btn_effect": "lift", "buttons": "", "modal_bg": "white"};
   var raw = document.getElementById('frag').innerHTML;
   // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
   // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.
