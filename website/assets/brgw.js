@@ -935,11 +935,25 @@
           if (getComputedStyle(frame).position === 'static') frame.style.position = 'relative';
           frame.style.overflow = 'hidden';
           var pad = amt + EDGE;
+          /* PARALLAX AND REVEAL NEVER SHARE AN ELEMENT (Sean, 19 Nov: "it scroll-reveals in, and if you scrolled past where its initial
+             placement was it jumps to catch up ... the reveal should show the photo, and the positioning should be based on the
+             parallax"). The reveal (GSAP) animates the <img>: it scales it and neutralizes its `translate` while it plays, and this
+             loop used to stand back for those ~1.6 s, so the photo sat at the wrong place until the reveal ended and then caught up.
+             The photo now sits in a layer of its own (.brgw-pxw), taller than the frame, and THE LAYER is what moves. The reveal keeps
+             the <img>; this keeps the layer; neither can touch the other, so the position is right from the first frame. */
+          var unit = (img.parentNode && img.parentNode.tagName === 'PICTURE') ? img.parentNode : img;
+          var lay = frame.querySelector(':scope > .brgw-pxw');
+          if (!lay) {
+            lay = document.createElement('span'); lay.className = 'brgw-pxw';
+            unit.parentNode.insertBefore(lay, unit); lay.appendChild(unit);
+          }
+          var ls = lay.style;
+          ls.position = 'absolute'; ls.left = '0'; ls.right = 'auto'; ls.width = '100%';
+          ls.top = (-pad) + '%'; ls.bottom = 'auto'; ls.height = (100 + 2 * pad) + '%';
           var st = img.style;
-          st.position = 'absolute'; st.left = '0'; st.right = 'auto'; st.width = '100%';
-          st.top = (-pad) + '%'; st.bottom = 'auto'; st.height = (100 + 2 * pad) + '%';
+          st.position = 'absolute'; st.left = '0'; st.top = '0'; st.right = 'auto'; st.bottom = 'auto'; st.width = '100%'; st.height = '100%';
           st.maxWidth = 'none'; st.maxHeight = 'none'; st.objectFit = 'cover';
-          items.push({ box: frame, target: img, amt: amt, dir: pxDir, tau: 3 * 0.06, cur: null, pad: pad });
+          items.push({ box: frame, target: lay, amt: amt, dir: pxDir, tau: 3 * 0.06, cur: null, pad: pad });
         }
         /* A LAYER PAINTED AS A CSS BACKGROUND has no <img> to slide inside a frame, so the
            layer itself is what moves. The note above has always said the attributes may sit

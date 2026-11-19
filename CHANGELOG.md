@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.12 (2026-11-19)
+- parallax photos: the reveal and the parallax are on separate layers, so a photo is never out of place while it reveals and never jumps to catch up
+
 ## 2026.11.19.11 (2026-11-19)
 - step-through scrolling: the About slider and Core Values can move one slide/value per scroll on an eased glide (off by default; two new settings)
 
