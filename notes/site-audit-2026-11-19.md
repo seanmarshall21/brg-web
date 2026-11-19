@@ -71,3 +71,9 @@ No failed requests (no 404s or 500s) on any page.
 ## Not done, and why
 - Lighthouse was not run (it needs a tool installed; I did not add one without asking).
 - Nothing in the repo was changed for this audit. Every real cost found sits in WordPress or at the host.
+
+## Addendum — the three jumpy moments Sean named (19 Nov, later)
+
+1. **Photos loading in on scroll.** Measured on a phone-sized screen at a 4 Mbps connection: of 26 photos that scrolled into view on the home page, 6 were not loaded yet; the big one was the grey parallax pattern `brg-pattern-gry.webp` (242 KB, the desktop-size file even on a phone), which appeared 3.7 s after it scrolled in. **Fixed in build 2026.11.19.9** (`brgwImgs` in brgw.js): background and parallax photos are requested and decoded when they are within a screen and a half, and a photo that is still on its way is held invisible and fades in (0.8 s) instead of cutting in. **Still Sean's:** the phone version of that pattern (a smaller file in "Mobile pattern" on each section) so a phone does not download the 1920 px one. Tested on a local page and the header only on live; the fade itself was not seen on a real phone.
+2. **Sections that pin.** Core Values and "A different kind of restaurant group" are set to Full screen with "Hold while scrolling: Short" (a 400–422 px hold) and "Smooth scrolling: On". Nothing moves wrongly while pinned (checked frame by frame), so the feel is the hold itself. Sean's setting; see the question asked.
+3. **Header across a page change on a phone.** The bar shrinks 96 → 78 px as you scroll, stays small under the open menu, and the next page used to draw it at 96 px in one cut. **Fixed in builds 2026.11.19.9–.10** (`brgw-nav.js`): the next page opens small and eases to full once its content shows. A 3-frame (about 50 ms) full-size blink remains at the very first paint, before any script has run; fixing that needs a change in the plugin.
