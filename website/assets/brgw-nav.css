@@ -349,3 +349,15 @@
 @media (prefers-reduced-motion: reduce){
   .bnav-anchor{transition:none; opacity:1; transform:none;}
 }
+
+/* The phone-menu graphic jumps between four slightly different tilts and positions, like the
+   marks on the home page do (hard cuts, not a glide). Sean, 19 Nov: "very subtly" — a few degrees
+   and a couple of pixels. Still when the visitor has asked their device for less motion. */
+@keyframes bnav-wm-jit{
+  0%,24.99%  {transform:rotate(0deg)    translate(0,0);}
+  25%,49.99% {transform:rotate(-3deg)   translate(-1px,-2px);}
+  50%,74.99% {transform:rotate(2.5deg)  translate(2px,1px);}
+  75%,100%   {transform:rotate(-1.5deg) translate(1px,2px);}
+}
+.bnav-wordmark.is-art{transform-origin:50% 60%;animation:bnav-wm-jit 1.6s steps(1,end) infinite;}
+@media (prefers-reduced-motion:reduce){.bnav-wordmark.is-art{animation:none;}}
