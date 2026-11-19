@@ -29,6 +29,30 @@
       "left": "Left (words on the right)"
     }
   },
+  "stage_height": {
+    "type": "select",
+    "label": "Height",
+    "width": 50,
+    "default": "full",
+    "doc": "How tall the section is. Full screen is the original: the section locks to the screen and you scroll through the slides. 80%, 60% and 40% are a share of the screen's height, and these are NOT pinned: the section is an ordinary block on the page and the arrows change the slide, so there is no empty space around it. It is never shorter than the minimum below. On a phone the section needs about 520px for the photo and the words, so it is never shorter than that there.",
+    "choices": {
+      "full": "Full screen (pinned, scroll through)",
+      "80": "80% of the screen",
+      "60": "60% of the screen",
+      "40": "40% of the screen"
+    }
+  },
+  "stage_min": {
+    "type": "number",
+    "label": "Height — never shorter than",
+    "width": 50,
+    "default": "400",
+    "doc": "The least height, in pixels, when Height is 80%, 60% or 40%. So a short screen never squeezes the section too small. 400 is a good floor. Ignored for Full screen.",
+    "min": 200,
+    "max": 900,
+    "step": 10,
+    "append": "px"
+  },
   "scroll_step": {
     "type": "select",
     "label": "Scrolling per slide",

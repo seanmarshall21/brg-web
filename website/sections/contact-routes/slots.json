@@ -170,7 +170,7 @@
     "type": "textarea",
     "label": "One-liner",
     "doc": "One line under the label.",
-    "default": "Press kit, high-res imagery, interviews, or a comment on a story.",
+    "default": "Press inquiries, interviews, or a comment on a story.",
     "group": "Box 2 — top right",
     "width": 100
   },

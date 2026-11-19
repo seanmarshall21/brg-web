@@ -12,9 +12,9 @@
         signals the role is stale — the opposite of what this section is for. Do not
         reinstate them. See work/dum/careers-posts-urls/FINDINGS.md.
       · The "View job" links point at /careers/ until the real LinkedIn job URLs are supplied. -->
-<section data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--careers-posts reveal" data-nav="light" aria-label="Latest openings on LinkedIn" data-cta-pos="{{cta_position}}">
+<section data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--careers-posts reveal" data-nav="light" id="roles" aria-label="Latest openings on LinkedIn" data-cta-pos="{{cta_position}}">
 <style>
-.brgw-sec--careers-posts{--brgw-wrap:760px;position:relative;background:var(--white);color:var(--ink);overflow:hidden;
+.brgw-sec--careers-posts{scroll-margin-top:clamp(56px,6vw,90px);--brgw-wrap:760px;position:relative;background:var(--white);color:var(--ink);overflow:hidden;
   padding:clamp(66px,7.6vw,110px) var(--pad) clamp(70px,8vw,116px);}
 /* Pale graffiti wash behind the cards, as in the comp. */
 .brgw-sec--careers-posts::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;

@@ -4,7 +4,7 @@
      the page carries on to the next section. Two styles, picked in wp-admin: the photo SLIDES across the words, or everything
      stays in place and the words and photo wipe and reveal. On a phone: photo on top (70%), words underneath (30%).
      The first What We're About ([brg_home-about]) is untouched; use one or the other on the page. -->
-<section class="brgw-sec brgw-sec--home-about-slider" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-nav="light" data-style="{{slider_style}}" data-pside="{{photo_side}}" data-step="{{scroll_step}}" data-px="{{photo_px}}" data-px-dir="{{photo_px_dir}}" aria-label="What we're about">
+<section class="brgw-sec brgw-sec--home-about-slider" data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" data-sec-op="{{section_color_opacity}}" data-nav="light" data-style="{{slider_style}}" data-pside="{{photo_side}}" data-h="{{stage_height}}" data-min="{{stage_min}}" data-step="{{scroll_step}}" data-px="{{photo_px}}" data-px-dir="{{photo_px_dir}}" aria-label="What we're about">
 <style>
 .brgw-sec--home-about-slider{--as-top:clamp(72px,9svh,100px);position:relative;background:#EDEDEE;color:var(--ink);}
 .brgw-sec--home-about-slider .as-run{position:relative;}
@@ -67,6 +67,32 @@
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-under{clip-path:inset(0 0 0 0);z-index:1;transition:none;}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-under img,.brgw-sec--home-about-slider[data-ready] .as-ph.is-out img{transform:none;transition:none;}
 .brgw-sec--home-about-slider[data-ready] .as-ph.is-out{clip-path:inset(0 0 100% 0);}
+/* ---- a phone: photo on top (70%), words under it (30%), whichever style (restored 18 Nov: build .19 dropped it by mistake) ---- */
+@media(max-width:799px){
+  .brgw-sec--home-about-slider[data-ready] .as-stage{min-height:520px;}
+  .brgw-sec--home-about-slider[data-ready] .as-img{left:0;right:0;top:0;bottom:auto;width:auto;height:70%;transform:none!important;transition:none!important;}
+  .brgw-sec--home-about-slider[data-ready] .as-tx,.brgw-sec--home-about-slider[data-ready] .as-tx[data-side]{left:0;right:0;top:auto;bottom:0;width:auto;height:30%;padding:clamp(14px,2.4svh,24px) clamp(22px,6vw,40px) 0;justify-content:flex-start;}
+  .brgw-sec--home-about-slider[data-ready] .as-h{font-size:clamp(1.5rem,3vw,2.7rem);}
+  @media(max-width:699px){.brgw-sec--home-about-slider[data-ready] .as-h{font-size:clamp(1.3rem,6.4vw,1.9rem);}}
+  .brgw-sec--home-about-slider[data-ready] .as-p{font-size:.98rem;line-height:1.45;margin-top:6px;max-width:none;}
+  .brgw-sec--home-about-slider[data-ready] .as-nav,.brgw-sec--home-about-slider[data-ready] .as-tx[data-side] .as-nav{left:clamp(22px,6vw,40px);right:auto;bottom:clamp(14px,2.4svh,24px);}
+  .brgw-sec--home-about-slider[data-ready][data-style="slide"] .as-tx .as-in{transition:none;transform:none!important;}
+  .brgw-sec--home-about-slider .as-title{font-size:clamp(1.35rem,6.4vw,2rem);}
+}
+
+/* ---- HEIGHT (Sean, 18 Nov: "What We're About" felt empty, too much white; shrink it) ----
+   data-h is full (the original: pinned, scrolled through) or 80, 60, 40 = that share of the screen's height. The shorter ones are NOT pinned:
+   an ordinary block on the page, the arrows change the slide (brgw.js, "fixed"), nothing empty above or below. data-min is the least height in
+   pixels (brgw.js sets --as-min from it; 400 until then). On a phone the 520px above still applies, so it never gets shorter than that. */
+.brgw-sec--home-about-slider{--as-min:400px;}
+.brgw-sec--home-about-slider[data-h="80"]{--as-hh:.8;}
+.brgw-sec--home-about-slider[data-h="60"]{--as-hh:.6;}
+.brgw-sec--home-about-slider[data-h="40"]{--as-hh:.4;}
+.brgw-sec--home-about-slider[data-ready][data-h="80"] .as-stage,.brgw-sec--home-about-slider[data-ready][data-h="60"] .as-stage,.brgw-sec--home-about-slider[data-ready][data-h="40"] .as-stage{
+  position:relative;top:auto;height:max(var(--as-min,400px),calc(var(--as-hh) * 100vh));height:max(var(--as-min,400px),calc(var(--as-hh) * 100svh));}
+/* a shorter stage has less room, so the arrows and the title sit a little closer to the edges */
+.brgw-sec--home-about-slider[data-ready][data-h="60"] .as-nav,.brgw-sec--home-about-slider[data-ready][data-h="40"] .as-nav{bottom:clamp(20px,4svh,48px);}
+
 /* SLIDE STYLE, WIDE SCREEN: THE FRAME CROSSING (Sean, 3 Nov). brgw.js runs --ef (the frame's progress 0 to 1) and --ep (the photos', a little
    slower) and sets --fa and --fb (the half the frame leaves and goes to: 0 left, 1 right) and --sg (which way: -1 left, 1 right). Everything is
    in frame widths, and the frame is half the page, so the page's middle line sits at 1 - frame position. The frame follows --ef. The photo of the

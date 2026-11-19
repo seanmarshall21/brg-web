@@ -82,7 +82,7 @@
                     "class": "brg-f-sub",
                     "id": ""
                 },
-                "default_value": "Whatever you need — a story, a partnership, a job, or just to tell us how we did — here's who to ask."
+                "default_value": "From partnerships and press to jobs and feedback, here’s who to reach."
             },
             {
                 "key": "field_brg_contact_hero_uline_art",
@@ -2555,7 +2555,7 @@
                     "class": "brg-f-route_2_text",
                     "id": ""
                 },
-                "default_value": "Press kit, high-res imagery, interviews, or a comment on a story."
+                "default_value": "Press inquiries, interviews, or a comment on a story."
             },
             {
                 "key": "field_brg_contact_routes_route_2_buttons",

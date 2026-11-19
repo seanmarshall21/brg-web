@@ -4,7 +4,7 @@
     "type": "lines",
     "label": "Heading",
     "doc": "The section heading. PRESS RETURN to break the line exactly where you want it. The highlighted words are a separate box below, so that the mark can follow them.",
-    "default": "of\nrestaurant company",
+    "default": "of\nrestaurant group",
     "width": 100
   },
   "heading_mark": {

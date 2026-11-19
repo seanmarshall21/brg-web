@@ -426,6 +426,10 @@
         var r = els[q].getBoundingClientRect();
         if (r.width > 0 && r.height > 0) { el = els[q]; break; }
       }
+      /* A BUTTON IS NOT A GOOD LEAD (Sean, 18 Nov: the Community "Want to partner with us?" button only appeared at the very bottom of the
+         page). A button waits clipped to nothing (clip-path: inset(50%)), and the observer counts the clip, so half of it was never "in
+         view" and the section only revealed when the bottom-of-page guard below caught it. Its wrapper is observed instead. */
+      if (el !== sec && el.classList.contains('anim-cta')) el = el.parentElement || sec;
       leadOf.set(sec, el);
       return el;
     }
@@ -1499,6 +1503,10 @@
       var first = sec.getAttribute('data-pside') === 'left' ? 'l' : 'r';
       var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       var mult = { short: 0.7, medium: 1, long: 1.5 }[sec.getAttribute('data-step')] || 1;
+      // HEIGHT (Sean, 18 Nov): 80, 60 or 40 (% of the screen) means a plain block, not pinned, and the arrows change the slide
+      var fixed = /^(80|60|40)$/.test(sec.getAttribute('data-h') || '');
+      var minH = parseFloat(sec.getAttribute('data-min')); if (!(minH >= 200)) minH = 400; if (minH > 900) minH = 900;
+      sec.style.setProperty('--as-min', Math.round(minH) + 'px');
 
       // each word in its own clip box so it can rise in and leave by itself (the numbering runs on across title and words)
       panes.forEach(function (p) {
@@ -1625,6 +1633,7 @@
       // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 0.6 (plus the 0.35 of approach), 0.95 each, 0.95.
       var L = 0, S = 0, T = 0;
       function measure() {
+        if (fixed) { run.style.height = ''; return; }
         var vh = stage.offsetHeight || window.innerHeight;
         S = Math.round(vh * 0.95 * mult); T = S;
         // The first slide is on screen for the last stretch of the approach (from ENTER of the screen height) as well as its hold,
@@ -1640,6 +1649,10 @@
       }
       function tick() {
         queued = false;
+        if (fixed) {                                            // not pinned: the first slide shows as the section comes into view, and after that only the arrows move it
+          if (cur < 0 && run.getBoundingClientRect().top < window.innerHeight * 0.75) { show(0); lastChange = Date.now(); }
+          return;
+        }
         var top = run.getBoundingClientRect().top;
         if (!entered && top < window.innerHeight * ENTER) entered = true;
         if (!entered) return;
@@ -1654,6 +1667,7 @@
       }
       function ask() { if (queued) return; queued = true; requestAnimationFrame(tick); }
       function go(k) {
+        if (fixed) { if (Date.now() - lastChange < 700 || k === cur) return; show(k); lastChange = Date.now(); return; }
         var base = window.pageYOffset + run.getBoundingClientRect().top;
         window.scrollTo({ top: Math.round(base + bandStart(k) + S * 0.12), behavior: calm ? 'auto' : 'smooth' });
       }
@@ -1673,8 +1687,9 @@
       var pxCur = null, pxRun = false;
       if (pxAmt > 0 && !calm) stage.style.setProperty('--pad', (pxAmt + 0.5) + '%');
       function pxGoal() {
-        var r = run.getBoundingClientRect(), total = Math.max(1, r.height - stage.offsetHeight);
-        var p = Math.max(0, Math.min(1, -r.top / total));
+        var r = run.getBoundingClientRect(), p;
+        if (fixed) p = Math.max(0, Math.min(1, (window.innerHeight - r.top) / Math.max(1, window.innerHeight + r.height)));   // not pinned: how far the block has crossed the screen
+        else p = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - stage.offsetHeight)));
         return pxDir * (p * 2 - 1) * pxAmt / 100 * (panel ? panel.offsetHeight : stage.offsetHeight);
       }
       function pxStep() {

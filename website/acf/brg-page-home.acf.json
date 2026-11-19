@@ -6088,6 +6088,54 @@
                 "placeholder": ""
             },
             {
+                "key": "field_brg_home_about_slider_stage_height",
+                "label": "Height",
+                "name": "brg_home_about_slider_stage_height",
+                "type": "select",
+                "instructions": "How tall the section is. Full screen is the original: the section locks to the screen and you scroll through the slides. 80%, 60% and 40% are a share of the screen's height, and these are NOT pinned: the section is an ordinary block on the page and the arrows change the slide, so there is no empty space around it. It is never shorter than the minimum below. On a phone the section needs about 520px for the photo and the words, so it is never shorter than that there.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-stage_height",
+                    "id": ""
+                },
+                "default_value": "full",
+                "choices": {
+                    "full": "Full screen (pinned, scroll through)",
+                    "80": "80% of the screen",
+                    "60": "60% of the screen",
+                    "40": "40% of the screen"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_home_about_slider_stage_min",
+                "label": "Height — never shorter than",
+                "name": "brg_home_about_slider_stage_min",
+                "type": "number",
+                "instructions": "The least height, in pixels, when Height is 80%, 60% or 40%. So a short screen never squeezes the section too small. 400 is a good floor. Ignored for Full screen.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-stage_min",
+                    "id": ""
+                },
+                "default_value": "400",
+                "min": 200,
+                "max": 900,
+                "step": 10,
+                "placeholder": "",
+                "prepend": "",
+                "append": "px"
+            },
+            {
                 "key": "field_brg_home_about_slider_scroll_step",
                 "label": "Scrolling per slide",
                 "name": "brg_home_about_slider_scroll_step",
@@ -9928,7 +9976,7 @@
             },
             {
                 "key": "field_brg_tab_home_different",
-                "label": "A different kind of restaurant company",
+                "label": "A different kind of restaurant group",
                 "name": "",
                 "type": "tab",
                 "placement": "top",
@@ -9993,7 +10041,7 @@
                     "class": "brg-f-heading_1",
                     "id": ""
                 },
-                "default_value": "of\nrestaurant company"
+                "default_value": "of\nrestaurant group"
             },
             {
                 "key": "field_brg_home_different_heading_mark",
