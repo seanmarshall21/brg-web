@@ -1,4 +1,4 @@
-/* brgw build 2026.11.19.8 */
+/* brgw build 2026.11.19.9 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -1583,3 +1583,10 @@ html.lg-fly-on .lg-fly-ov{opacity:1;pointer-events:auto;}
   .brgw-sec--legal .lg-ico img{animation:none!important;}
   .brgw-sec--legal .lg-panel,.brgw-sec--legal .lg-in,.lg-fly,.lg-fly-ov{transition:none!important;}
   .brgw-sec--legal .lg-item.is-open .lg-in > .lg-prose{animation:none!important;}}
+
+/* Photos held back until they have arrived, then eased in (brgwImgs in brgw.js). The fade is an animation, not a transition, so it
+   cannot replace a transition a photo already has; "backwards" holds the first frame (invisible) and lets go when it ends. */
+.brgw-imgwait{opacity:0;}
+.brgw-imgin{animation:brgw-imgfade .8s ease backwards;}
+@keyframes brgw-imgfade{from{opacity:0;}to{opacity:1;}}
+@media (prefers-reduced-motion:reduce){.brgw-imgwait{opacity:1;}.brgw-imgin{animation:none;}}

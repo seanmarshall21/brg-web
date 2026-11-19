@@ -2207,6 +2207,39 @@
 
   try { brgwPageFx(); } catch (e) { document.documentElement.classList.remove('brgw-hold', 'brgw-out'); }
 
+  /* ---- PHOTOS THAT ARRIVE WITHOUT A POP (Sean, 19 Nov: "photos of parallax loading in on the scroll") ------------------
+     The big photos and patterns are lazy, so the browser only asks for one when it decides you are close, and a phone browser
+     decides late (iPhone Safari most of all): the picture then appears from nothing, in one cut, as it reaches you. Two fixes.
+     1. THE ASK COMES EARLY. A photo within a screen and a half of the viewport is switched to eager and decoded ahead of time, so
+        by the time it scrolls in it is already a picture and not a download.
+     2. IF IT IS STILL ON ITS WAY, IT FADES IN. A photo that is not loaded yet is held invisible (not out of the layout) and eases in
+        when it arrives, instead of cutting in. With no script nothing is held: the base is visible. Reduced motion skips the fade. */
+  function brgwImgs(root) {
+    var imgs = [].slice.call((root || document).querySelectorAll(
+      '.brgw-sec .sec-bg img, .brgw-sec .hero-bg img, .brgw-sec [data-brgw-frame] img, .brgw-sec img[data-px]'));
+    if (!imgs.length) return;
+    var calm = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    imgs.forEach(function (img) {
+      if (img.getAttribute('data-img-armed')) return; img.setAttribute('data-img-armed', '1');
+      if (calm || (img.complete && img.naturalWidth > 0)) return;
+      img.classList.add('brgw-imgwait');
+      function show() { img.classList.remove('brgw-imgwait'); img.classList.add('brgw-imgin'); }
+      img.addEventListener('load', show, { once: true });
+      img.addEventListener('error', function () { img.classList.remove('brgw-imgwait'); }, { once: true });
+      setTimeout(function () { img.classList.remove('brgw-imgwait'); }, 8000);         // never leave a photo held back
+    });
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var img = e.target; io.unobserve(img);
+        if (img.loading === 'lazy') img.loading = 'eager';
+        if (img.decode) img.decode().catch(function () {});
+      });
+    }, { rootMargin: '150% 0px 150% 0px' });
+    imgs.forEach(function (i) { io.observe(i); });
+  }
+
   /* ---- LEGAL PAGES (Privacy, Cookies, Accessibility) — sections, anchor menu, phone panel ---------------------
      Sean, 19 Nov. The page's words are ONE rich-text box; this cuts it into sections at every Heading 2, builds
      the anchor menu from them, and turns each into an open/close row. Five ways to read (data-read):
@@ -2388,7 +2421,7 @@
   }
 
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwAnchor(); brgwSpeed(); brgwFull(document); brgwSmooth(); brgwCount(document); brgwLegal(document); brgwBuild(); }
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwAnchor(); brgwSpeed(); brgwFull(document); brgwSmooth(); brgwCount(document); brgwLegal(document); brgwImgs(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

@@ -347,6 +347,24 @@
     onShrinkScroll();
     window.addEventListener('scroll', onShrinkScroll, { passive: true });
 
+    /* CARRIED ACROSS A PAGE CHANGE (Sean, 19 Nov: on a phone the bar went small as he scrolled, he opened the menu, and the next
+       page drew the bar at full size in one cut). A page that opens straight after one that was in its small state now starts small
+       and eases to full once its content is showing, so the size never jumps. The note lives in this tab for fifteen seconds only. */
+    try {
+      var wasSmall = sessionStorage.getItem('bnavSmall'); sessionStorage.removeItem('bnavSmall');
+      if (wasSmall && Date.now() - (+wasSmall) < 15000 && window.pageYOffset <= 8) {
+        nav.classList.add('is-scrolled'); shrunk = true; reserve();
+        var tStart = Date.now();
+        (function waitShow() {
+          if (document.documentElement.classList.contains('brgw-hold') && Date.now() - tStart < 3000) { setTimeout(waitShow, 80); return; }
+          setTimeout(function () { if (window.pageYOffset <= 8) { shrunk = false; nav.classList.remove('is-scrolled'); reserve(); } }, 260);
+        })();
+      }
+    } catch (e) {}
+    window.addEventListener('pagehide', function () {
+      try { if (nav.classList.contains('is-scrolled')) sessionStorage.setItem('bnavSmall', String(Date.now())); else sessionStorage.removeItem('bnavSmall'); } catch (e) {}
+    });
+
     /* CLOSE WHEN THE WINDOW CROSSES TO DESKTOP. Leaving the takeover open while the links
        reappear in the bar behind it strands the reader in a panel with no obvious way out
        — the X is a mobile-only control. Oak + Elm hit this and close on the same event. */

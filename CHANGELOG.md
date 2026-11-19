@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.9 (2026-11-19)
+- smoother: photos are asked for early and fade in instead of popping; the header keeps its small size across a page change and eases to full
+
 ## 2026.11.19.8 (2026-11-19)
 - legal pages: sections open only when clicked (menu still opens its section); scroll-open kept as an option
 
