@@ -181,7 +181,7 @@
    source list puts a raw bulleted menu on every page. */
 .bnav > .nav-social-src{display:none;}
 .bnav-drawer-eyebrow{display:block;margin:26px 0 10px;font:800 .66rem/1 'Montserrat',system-ui,sans-serif;
-  letter-spacing:.18em;text-transform:uppercase;color:rgba(35,31,32,.45);}
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.62);}   /* white, not ink: the drawer panel is dark (#131210) */
 .bnav-social{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;}
 /* With an icon the label becomes the accessible name and the glyph carries the meaning —
    showing both is redundant and wraps the row on a phone. Unrecognized platforms keep
@@ -189,14 +189,14 @@
 .bnav-social-link.has-icon .lbl{position:absolute;width:1px;height:1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;}
 .bnav-social-link.has-icon{width:40px;height:40px;display:inline-flex;align-items:center;
-  justify-content:center;border:1.5px solid rgba(35,31,32,.18);border-radius:50%;padding:0;
+  justify-content:center;border:1.5px solid rgba(255,255,255,.38);border-radius:50%;padding:0;
   transition:border-color .2s,color .2s,transform .2s;}
 .bnav-social-link.has-icon:hover,.bnav-social-link.has-icon:focus-visible{
-  border-color:var(--ink);transform:translateY(-2px);}
+  border-color:#fff;transform:translateY(-2px);}
 .bnav-social-link.has-icon::after{display:none;}
 .bnav-social-link svg{width:19px;height:19px;display:block;}
 .bnav-social-link{font:700 .95rem/1 'Montserrat',system-ui,sans-serif;text-transform:uppercase;
-  letter-spacing:.04em;color:var(--ink);text-decoration:none;position:relative;padding-bottom:3px;}
+  letter-spacing:.04em;color:#fff;text-decoration:none;position:relative;padding-bottom:3px;}
 .bnav-social-link::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;
   background:var(--acc);transition:right .28s cubic-bezier(.22,.61,.36,1);}
 .bnav-social-link:hover::after,.bnav-social-link:focus-visible::after{right:0;}
@@ -214,8 +214,9 @@
    row — 109px under a 95px "Home" — and the stroke then measured 100% of that inflated
    row. Hiding it dropped the row to exactly the text, which is how the loop showed
    itself. Out of flow, the row is sized by its words alone and 100% means the word. */
-.bnav-drawer .bnav-uline{position:absolute;left:0;right:0;width:100%;height:.32em;bottom:.02em;display:block;}
-.bnav-drawer .bnav-uline path{stroke:var(--yellow);stroke-width:9;}
+.bnav-drawer .bnav-uline{position:absolute;left:0;right:0;width:100%;height:.25em;bottom:.04em;display:block;}
+/* Same pen stroke as the bar (4.5 across a 7-tall box). It was 9 in a box 1.6x taller than the bar's, which filled the whole strip as a flat yellow block. */
+.bnav-drawer .bnav-uline path{stroke:var(--yellow);stroke-width:4.5;}
 .bnav-drawer .is-active .bnav-uline path{visibility:visible;stroke-dashoffset:0;}
 .bnav-drawer-close{all:unset;cursor:pointer;position:absolute;top:26px;right:26px;font-size:12px;letter-spacing:.14em;
   text-transform:uppercase;font-weight:700;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:8px 15px;color:#fff;}
@@ -241,7 +242,7 @@
   .bnav-drawer.is-full .bnav-link{font-size:var(--bnav-tm-link,40px);}
   .bnav-drawer.is-full .bnav-drawer-eyebrow,
   .bnav-drawer.is-full .bnav-num{font-size:var(--bnav-tm-label,11px);}
-  .bnav-drawer.is-full .bnav-wordmark.is-art{width:var(--bnav-tm-wm,160px);max-width:70%;}
+  .bnav-drawer.is-full .bnav-wordmark.is-art{width:var(--bnav-tm-wm,160px);max-width:calc(100vw - 48px);}
 
   /* SHOW / HIDE, each block independently. */
   /* READ OFF THE DRAWER, NOT OFF THE BAR. These were `.bnav[...] ~ .bnav-drawer`, a
@@ -266,7 +267,7 @@
 }
 
 /* The wordmark may now be artwork instead of words; the text form is untouched. */
-.bnav-wordmark.is-art{display:block;height:auto;width:var(--bnav-tm-wm,160px);max-width:70%;}
+.bnav-wordmark.is-art{display:block;height:auto;width:var(--bnav-tm-wm,160px);max-width:calc(100vw - 48px);}   /* was max-width:70%, a share of a box that shrink-wraps the picture: an 80px setting drew 56px */
 
 /* ── The mobile takeover ─────────────────────────────────────────────────────────
    The same drawer component in its full-menu role (.is-full), presented as a
@@ -317,7 +318,9 @@
      The underline is absolutely positioned inside the row, so it is not a flex item and
      keeps spanning the row exactly as before. */
   .bnav-drawer.is-full[data-num-pos="left"] .bnav-item{display:flex;gap:.45em;}
-  .bnav-drawer.is-full[data-num-pos="left"] .bnav-num{margin-bottom:0;flex:none;}
+  .bnav-drawer.is-full[data-num-pos="left"] .bnav-num{margin-bottom:0;flex:none;width:2.4em;}
+  /* The underline belongs to the WORD, so with the number beside it, it starts where the word starts: the number column (2.4 x .62rem) plus the gap. */
+  .bnav-drawer.is-full[data-num-pos="left"] .bnav-uline{left:calc(1.488rem + .45em);width:calc(100% - 1.488rem - .45em);}   /* an <svg> with width:auto ignores left/right and takes its picture ratio, so the width is spelled out */
   .bnav-drawer.is-full[data-num-pos="left"][data-num-align="top"]    .bnav-item{align-items:flex-start;}
   .bnav-drawer.is-full[data-num-pos="left"][data-num-align="middle"] .bnav-item{align-items:center;}
   /* "the line it stands on" is BASELINE, not flex-end. The row's box carries the space
@@ -337,7 +340,7 @@
 .bnav-drawer.open .bnav-anchor{opacity:1; transform:none;}
 .bnav-wordmark{
   display:block; font-size:clamp(2.6rem,15vw,5.2rem); line-height:.9;
-  letter-spacing:-.01em; color:var(--ink,#231F20);
+  letter-spacing:-.01em; color:#fff;   /* the text form of the wordmark sits on the dark panel */
 }
 .bnav-meta{
   display:block; margin-top:6px; font-size:.78rem; letter-spacing:.14em;

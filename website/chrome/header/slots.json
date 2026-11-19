@@ -143,8 +143,8 @@
   },
   "pin_wordmark": {
     "type": "select",
-    "label": "Wordmark",
-    "doc": "Same choice for the wordmark at the foot of the menu.",
+    "label": "Wordmark or graphic",
+    "doc": "Same choice for the wordmark or graphic at the foot of the menu.",
     "group": "Phone menu — top or bottom",
     "width": 34,
     "default": "bottom",
@@ -181,7 +181,7 @@
   },
   "order_wordmark": {
     "type": "select",
-    "label": "Wordmark",
+    "label": "Wordmark or graphic",
     "doc": "Where this block sits within its group.",
     "group": "Phone menu — order (top to bottom)",
     "width": 34,
@@ -218,8 +218,8 @@
   },
   "tm_wordmark_size": {
     "type": "number",
-    "label": "Wordmark size",
-    "doc": "How wide the wordmark is at the foot of the menu.",
+    "label": "Wordmark or graphic size",
+    "doc": "How wide the wordmark or graphic is at the foot of the menu, in pixels.",
     "group": "Phone menu — sizes",
     "width": 34,
     "default": "160",
@@ -266,8 +266,8 @@
   },
   "show_wordmark": {
     "type": "select",
-    "label": "Wordmark",
-    "doc": "The wordmark at the foot of the menu.",
+    "label": "Wordmark or graphic",
+    "doc": "The wordmark or graphic at the foot of the menu.",
     "group": "Phone menu — show / hide",
     "width": 34,
     "default": "1",
@@ -363,7 +363,7 @@
   },
   "wordmark": {
     "type": "image",
-    "label": "Wordmark",
+    "label": "Wordmark or graphic",
     "doc": "The mark at the foot of the phone menu. Leave empty and the menu ends with the social row.",
     "group": "Phone menu — text",
     "width": 50

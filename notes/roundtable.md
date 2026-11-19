@@ -983,3 +983,6 @@ Core Values on a phone: space above and below each name is now 60% of what it wa
 
 ## 01:01  conti  (Sean, 19 Nov)
 Reveal order: sections marked data-visual-order (home-different, home-community) now hand out the stagger top-to-bottom as laid out, so photos-first on a phone arrive before the words; side-by-side layouts keep written order. brgw.js vOrder()/lead(). Footer copyright centered at <=600px in brgw.css (overrides the desktop Small-print setting).
+
+## 01:06  conti  (Sean, 19 Nov)
+Phone menu (brgw-nav.css + chrome/header/slots.json labels): drawer underline now the same thin pen stroke as the bar and starts at the word when the number sits beside it; social icons/FOLLOW/text wordmark were ink-on-dark (invisible), now white; wordmark/graphic width honored (max-width:70% of a shrink-wrapped box capped 80px at 56px); settings renamed "Wordmark or graphic".
