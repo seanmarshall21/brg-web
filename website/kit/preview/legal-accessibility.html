@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Legal — accessibility — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: legal-privacy / legal-cookies / legal-accessibility  →  [brg_legal-privacy] etc.
+     ONE TEMPLATE, THREE COPIES. The three files are identical on purpose (the plugin fills a
+     section by its id, so each page needs its own); only slots.json differs, in its words.
+     Sean, 19 Nov: black page, white words, the policy's title top left with the hand-drawn
+     underline; an anchor menu down the left; sections that open as you reach them; a light
+     version; the brand marks floating in a gutter that never holds text.
+     THE WORDS ARE ONE BOX. {{content}} is a single rich-text field; brgwLegal() (brgw.js) cuts
+     it into sections at every Heading 2, builds the menu from them, and turns each into an
+     open/close row. With no script the box is simply the whole policy, all open. All the look
+     lives in brgw.css under .brgw-sec--legal. -->
+<section class="brgw-sec brgw-sec--legal reveal" data-legal data-look="{{look}}" data-nav="{{look}}" data-read="{{reading}}" data-num="{{numbers}}" data-icons="{{icons}}" data-uline-c="{{uline_color}}" aria-label="{{heading}}">
+  <div class="lg-wrap">
+    <header class="lg-head">
+      <span class="lg-title"><h1 class="blanco anim-head">{{heading}}</h1><img class="uline" aria-hidden="true" alt="" width="845" height="28" src="https://blacktoprg.netlify.app/assets/media/lines/line-{{uline_color}}-lg.svg"></span>
+      <p class="lg-sub anim-up">{{sub}}</p>
+      <p class="lg-upd anim-up">{{updated}}</p>
+    </header>
+    <div class="lg-body">
+      <nav class="lg-toc" aria-label="On this page"></nav>
+      <div class="lg-main"><div class="lg-src lg-prose">{{content}}</div></div>
+      <div class="lg-gut" aria-hidden="true" data-px="{{icons_px}}">
+        <span class="lg-ico" data-i="1"><img src="{{icon_1_art}}" alt="" width="64" height="64" loading="lazy" decoding="async"></span>
+        <span class="lg-ico" data-i="2"><img src="{{icon_2_art}}" alt="" width="64" height="64" loading="lazy" decoding="async"></span>
+        <span class="lg-ico" data-i="3"><img src="{{icon_3_art}}" alt="" width="64" height="64" loading="lazy" decoding="async"></span>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"heading": "Accessibility", "updated": "Last updated: November 19, 2026", "sub": "How we work to make this website usable for everyone, and what to do if something gets in your way.", "content": "<p>Blacktop Restaurant Group wants everyone to be able to read about our restaurants, meet our team and find ways to work with us. This page explains how we approach accessibility on blacktoprestaurantgroup.com and what to do if something gets in your way.</p>\n<h2>Our commitment</h2>\n<p>We are working toward meeting the Web Content Accessibility Guidelines (WCAG) 2.2, level AA, which is the widely used standard for accessible websites. Accessibility is part of how we build and update pages, not an afterthought.</p>\n<h2>What we do</h2>\n<ul><li>Pages use a clear structure of headings, so screen readers and keyboard users can move around.</li>\n<li>Menus, buttons and links are built to be reached and used with a keyboard.</li>\n<li>Photos that carry meaning get text descriptions; purely decorative artwork is hidden from assistive technology.</li>\n<li>Text is sized to read comfortably, and pages reflow to fit phones and small screens.</li>\n<li>Colors are chosen with contrast in mind, and we avoid relying on color alone to carry meaning.</li>\n<li>Motion is kept to the brand's small animations. If your device is set to \"reduce motion,\" the site turns animations off.</li>\n</ul>\n<h2>Where we know we fall short</h2>\n<p>We keep checking the site and fixing what we find, but some areas may not yet meet every guideline. Content added by people on our team, and parts supplied by other companies (embedded video, third-party job listings, social links), may not be fully accessible. If you hit a barrier, we want to know.</p>\n<h2>Tell us about a problem</h2>\n<p>If you can't use part of the site, can't find something, or would like information in another format, please tell us through the <a href=\"/contact/\">Contact page</a>. Say which page and what happened, and what device or assistive technology you use if you can. We will reply as soon as we can, and fix the problem or get you the information another way.</p>\n<h2>Visiting our restaurants</h2>\n<p>This page is about the website. For questions about access at a specific restaurant, such as step-free entry, seating or menus in another format, please contact that restaurant directly or through our <a href=\"/contact/\">Contact page</a>.</p>\n<h2>Keeping up</h2>\n<p>We review this statement and the site as we make changes, and whenever people tell us something isn't working. The date at the top shows when it was last updated.</p>", "look": "dark", "uline_color": "community", "numbers": "1", "reading": "follow", "icons": "1", "icons_px": "16", "icon_1_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-brg-yel.svg", "icon_2_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-bolt-fill-yel.svg", "icon_3_art": "https://blacktoprg.netlify.app/assets/media/icons/icn-misc-smile-yel.svg"};
+  var raw = document.getElementById('frag').innerHTML;
+  // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
+  // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.
+  raw = raw.replace(/<!--brg:repeat [a-z0-9_-]+-->([\s\S]*?)<!--\/brg:repeat-->/gi, function(m, inner){
+    var i = inner.indexOf('<!--brg:empty-->'); return i < 0 ? '' : inner.slice(i + 16);
+  });
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

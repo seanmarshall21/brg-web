@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.5 (2026-11-19)
+- legal pages: one template for Privacy, Cookies and Accessibility (anchor menu, sections that open as you scroll, light/dark, floating marks)
+
 ## 2026.11.19.4 (2026-11-19)
 - footer: small print, legal links list and social icons each placed for computer and phone; per-network icons
 

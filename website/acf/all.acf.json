@@ -39480,6 +39480,1449 @@
     "description": "Editable content for the Contact page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
   },
   {
+    "key": "group_brg_page_legal",
+    "title": "Legal — Content",
+    "fields": [
+      {
+        "key": "field_brg_page_legal_msg",
+        "label": "",
+        "name": "",
+        "type": "message",
+        "message": "<strong>Legal</strong> — one tab per section. Edits fill that section's <code>{{slots}}</code> on the live page. Shortcode attributes still override, and a blank field falls back to the built-in default.",
+        "new_lines": "wpautop",
+        "esc_html": 0,
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_tab_legal_privacy",
+        "label": "Privacy policy",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_legal_privacy_show_section",
+        "label": "Show this section",
+        "name": "brg_legal_privacy_show_section",
+        "type": "true_false",
+        "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_legal_privacy_acc_title",
+        "label": "Title",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_privacy_heading",
+        "label": "Title",
+        "name": "brg_legal_privacy_heading",
+        "type": "text",
+        "instructions": "The page title, top left, with the hand-drawn underline.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-heading",
+          "id": ""
+        },
+        "default_value": "Privacy Policy"
+      },
+      {
+        "key": "field_brg_legal_privacy_updated",
+        "label": "Last updated line",
+        "name": "brg_legal_privacy_updated",
+        "type": "text",
+        "instructions": "Small line under the title. Change it each time you edit the policy. Empty hides it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-updated",
+          "id": ""
+        },
+        "default_value": "Last updated: November 19, 2026"
+      },
+      {
+        "key": "field_brg_legal_privacy_sub",
+        "label": "Intro line",
+        "name": "brg_legal_privacy_sub",
+        "type": "textarea",
+        "instructions": "One or two sentences under the title. Empty hides it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-sub",
+          "id": ""
+        },
+        "default_value": "How Blacktop Restaurant Group collects, uses and protects information on this website, in plain language."
+      },
+      {
+        "key": "field_brg_legal_privacy_endacc_title",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_privacy_acc_the_policy",
+        "label": "The policy",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_privacy_content",
+        "label": "The policy",
+        "name": "brg_legal_privacy_content",
+        "type": "wysiwyg",
+        "instructions": "The whole policy in one box. Use <b>Heading 2</b> for each section title: every Heading 2 becomes a section in the left-hand menu and an open/close row on the page. Anything above the first Heading 2 shows as an introduction. Headings 3, lists, bold and links all work.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-content",
+          "id": ""
+        },
+        "default_value": "<p>Blacktop Restaurant Group (\"Blacktop,\" \"we,\" \"us\") runs this website, blacktoprestaurantgroup.com, to tell people about our restaurants, our team, our community work and our careers. This policy explains what information we collect when you use it, what we do with it, and the choices you have.</p>\n<h2>The short version</h2>\n<ul><li>We don't ask you to create an account, and the site has no checkout or sign-up forms.</li>\n<li>We collect only what you choose to send us (for example, an email), plus basic visit statistics from analytics, and only analytics if you allow it.</li>\n<li>We don't sell your personal information.</li>\n<li>You can ask us what we hold about you, or to delete it, any time.</li></ul>\n<h2>What we collect</h2>\n<p><strong>What you send us.</strong> When you email us, apply for a job or ask about a partnership, we receive the details you include: usually your name, email address, any phone number, and whatever you write or attach.</p>\n<p><strong>Visit information.</strong> Like most websites, our servers and our analytics record technical details about a visit: your approximate location (city level), the pages you view, when and for how long, the site you came from, and your browser, device and operating system. We use this to understand which pages are useful and to keep the site working.</p>\n<p><strong>Cookies and similar tools.</strong> Some of this is gathered with cookies. What each one does, and how to say no, is in our <a href=\"/cookie-policy/\">Cookie Policy</a>.</p>\n<h2>How we use it</h2>\n<ul><li>To answer you: replying to messages, press, partnership and job inquiries.</li>\n<li>To consider job applications and, if you apply, to contact you about the role.</li>\n<li>To measure and improve the site: what people read, what is slow, what is broken.</li>\n<li>To keep the site secure and prevent misuse.</li>\n<li>To meet legal obligations.</li></ul>\n<p>We do not use your information to make automated decisions about you, and we do not sell it.</p>\n<h2>Who we share it with</h2>\n<p>We share information only with companies that help us run the site, and only as needed for that:</p>\n<ul><li><strong>Analytics:</strong> Google (Google Analytics), if you accept analytics cookies.</li>\n<li><strong>Hosting, delivery and security:</strong> our web host and the services that deliver and protect the site and its files (including Cloudflare, Netlify and jsDelivr). They see technical request data such as your IP address.</li>\n<li><strong>Video:</strong> if a page plays a YouTube or Vimeo video, that provider may set its own cookies when you press play.</li>\n<li><strong>Site feedback tool:</strong> while the site is being built, a feedback tool (BugHerd) lets our team leave notes on pages.</li></ul>\n<p>We may also disclose information when the law requires it, or to protect our rights, our guests or our team. If the company is ever sold or merged, information may transfer to the new owner under the same protections.</p>\n<h2>How long we keep it</h2>\n<p>Messages and applications are kept as long as we need them to deal with your request, and for job applications for a reasonable period afterward in case another role opens up, then deleted. Analytics data is kept for the period set in our analytics account. You can ask us to delete your information sooner.</p>\n<h2>Your choices and rights</h2>\n<p>You can change your cookie choices at any time from the cookie settings on this site, or in your browser. If you live in California, you have the right to:</p>\n<ul><li>know what personal information we collect, use and disclose about you;</li>\n<li>ask us to delete the personal information we hold about you;</li>\n<li>ask us to correct information that is wrong;</li>\n<li>opt out of the sale or sharing of your personal information (we do not sell it, and we do not share it for advertising);</li>\n<li>be treated the same whether or not you use these rights.</li></ul>\n<p>To use any of these, write to us through our <a href=\"/contact/\">Contact page</a> and tell us what you would like. We may need to confirm it is you before we act.</p>\n<h2>Children</h2>\n<p>This website is for a general audience and is not directed at children under 13. We do not knowingly collect personal information from children. If you believe a child has sent us information, tell us and we will delete it.</p>\n<h2>Security</h2>\n<p>The site is served over an encrypted connection (HTTPS) and we limit who can see messages sent to us. No method of transmission or storage is completely secure, so we can't promise absolute security.</p>\n<h2>Other websites</h2>\n<p>We link to restaurant sites, social networks and other places we don't run. Their privacy practices are their own, so please read their policies.</p>\n<h2>Changes to this policy</h2>\n<p>We will update this page when our practices change and change the \"last updated\" date at the top. If a change is significant, we will say so on the site.</p>\n<h2>Contact us</h2>\n<p>Questions about this policy or your information? Reach us through the <a href=\"/contact/\">Contact page</a>. Blacktop Restaurant Group, San Diego, California.</p>"
+      },
+      {
+        "key": "field_brg_legal_privacy_endacc_the_policy",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_privacy_acc_look",
+        "label": "Look",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_privacy_look",
+        "label": "Page look",
+        "name": "brg_legal_privacy_look",
+        "type": "select",
+        "instructions": "Dark is white words on black. Light is black words on white, with the colored underline. The menu at the top of the page follows.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-look",
+          "id": ""
+        },
+        "default_value": "dark",
+        "choices": {
+          "dark": "Dark — white on black",
+          "light": "Light — black on white"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_privacy_uline_color",
+        "label": "Underline color",
+        "name": "brg_legal_privacy_uline_color",
+        "type": "select",
+        "instructions": "The color of the hand-drawn underline under the title, and of the small highlights (the current menu item, link underlines).",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-uline_color",
+          "id": ""
+        },
+        "default_value": "home",
+        "choices": {
+          "home": "Yellow",
+          "restaurants": "Teal",
+          "community": "Orange",
+          "team": "Pink",
+          "purp": "Purple"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_privacy_numbers",
+        "label": "Section numbers",
+        "name": "brg_legal_privacy_numbers",
+        "type": "select",
+        "instructions": "Small numbers (01, 02…) beside each section title and in the menu.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-numbers",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Shown",
+          "0": "Hidden"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_privacy_endacc_look",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_privacy_acc_reading",
+        "label": "Reading",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_privacy_reading",
+        "label": "How the sections open",
+        "name": "brg_legal_privacy_reading",
+        "type": "select",
+        "instructions": "<b>Open as you scroll, stay open</b>: each section opens when you reach it and stays open.<br><b>Open as you scroll, close the last</b>: the section before it folds away.<br><b>Click, one at a time</b>: opening one closes the others.<br><b>Click, as many as you like</b>.<br><b>All open</b>: no rows, the whole policy shown.<br>The menu always opens the section it takes you to.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-reading",
+          "id": ""
+        },
+        "default_value": "follow",
+        "choices": {
+          "follow": "Open as you scroll, stay open",
+          "follow-close": "Open as you scroll, close the last",
+          "click": "Click, one at a time",
+          "click-many": "Click, as many as you like",
+          "open": "All open"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_privacy_endacc_reading",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_privacy_acc_floating_marks",
+        "label": "Floating marks",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_privacy_icons",
+        "label": "Floating brand marks",
+        "name": "brg_legal_privacy_icons",
+        "type": "select",
+        "instructions": "A few of the brand marks float in a column down the right edge of a computer screen. They never sit over the words, so a phone does not show them.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-icons",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Shown",
+          "0": "Hidden"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_privacy_icons_px",
+        "label": "How much they drift",
+        "name": "brg_legal_privacy_icons_px",
+        "type": "number",
+        "instructions": "How far they move as you scroll, 0 (still) to 40.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icons_px",
+          "id": ""
+        },
+        "default_value": "16",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brg_legal_privacy_icon_1_art",
+        "label": "Mark 1",
+        "name": "brg_legal_privacy_icon_1_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_1_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_privacy_icon_2_art",
+        "label": "Mark 2",
+        "name": "brg_legal_privacy_icon_2_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_2_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_privacy_icon_3_art",
+        "label": "Mark 3",
+        "name": "brg_legal_privacy_icon_3_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_3_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_privacy_endacc_floating_marks",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_tab_legal_cookies",
+        "label": "Cookie policy",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_legal_cookies_show_section",
+        "label": "Show this section",
+        "name": "brg_legal_cookies_show_section",
+        "type": "true_false",
+        "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_legal_cookies_acc_title",
+        "label": "Title",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_cookies_heading",
+        "label": "Title",
+        "name": "brg_legal_cookies_heading",
+        "type": "text",
+        "instructions": "The page title, top left, with the hand-drawn underline.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-heading",
+          "id": ""
+        },
+        "default_value": "Cookie Policy"
+      },
+      {
+        "key": "field_brg_legal_cookies_updated",
+        "label": "Last updated line",
+        "name": "brg_legal_cookies_updated",
+        "type": "text",
+        "instructions": "Small line under the title. Change it each time you edit the policy. Empty hides it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-updated",
+          "id": ""
+        },
+        "default_value": "Last updated: November 19, 2026"
+      },
+      {
+        "key": "field_brg_legal_cookies_sub",
+        "label": "Intro line",
+        "name": "brg_legal_cookies_sub",
+        "type": "textarea",
+        "instructions": "One or two sentences under the title. Empty hides it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-sub",
+          "id": ""
+        },
+        "default_value": "What cookies and similar tools this site uses, why, and how to turn them off."
+      },
+      {
+        "key": "field_brg_legal_cookies_endacc_title",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_cookies_acc_the_policy",
+        "label": "The policy",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_cookies_content",
+        "label": "The policy",
+        "name": "brg_legal_cookies_content",
+        "type": "wysiwyg",
+        "instructions": "The whole policy in one box. Use <b>Heading 2</b> for each section title: every Heading 2 becomes a section in the left-hand menu and an open/close row on the page. Anything above the first Heading 2 shows as an introduction. Headings 3, lists, bold and links all work.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-content",
+          "id": ""
+        },
+        "default_value": "<p>This page explains what cookies and similar tools this website uses, why, and how to turn them off. For how we handle personal information in general, see our <a href=\"/privacy-policy/\">Privacy Policy</a>.</p>\n<h2>What cookies are</h2>\n<p>A cookie is a small text file a website saves in your browser. Some are needed for the site to work, some remember your choices, and some tell us how the site is used. \"Similar tools\" means things like your browser's local and session storage, which work the same way.</p>\n<h2>Your choice</h2>\n<p>When you first visit, a banner asks whether you accept cookies. The strictly necessary ones are always on. The rest are off until you accept, and you can change your mind at any time from the cookie settings on this site. You can also block or delete cookies in your browser; the site still works, though some things may be less smooth.</p>\n<h2>Strictly necessary</h2>\n<p>These keep the site working and remember your cookie choice. They don't track you across other sites, and they can't be switched off here.</p>\n<ul><li><strong>Cookie consent preferences</strong> — remembers what you chose in the banner. Kept for about 30 days.</li>\n<li><strong>Site display settings</strong> — the site uses your browser's session and local storage to remember which loading animation it showed last, so it doesn't repeat. This holds no personal information and never leaves your browser.</li>\n<li><strong>Login cookies</strong> — set only for our team when they sign in to edit the site. Visitors don't get them.</li></ul>\n<h2>Analytics</h2>\n<p>With your permission, we use Google Analytics to count visits and see which pages are read, so we can improve the site. It sets cookies such as <strong>_ga</strong> and <strong>_ga_</strong> followed by an identifier, which last up to two years and tell visits apart without naming anyone. The information is sent to Google and stored on its servers. You can opt out through the banner, or by using Google's browser add-on at <a href=\"https://tools.google.com/dlpage/gaoptout\" rel=\"noopener\" target=\"_blank\">tools.google.com/dlpage/gaoptout</a>.</p>\n<h2>Embedded video and other services</h2>\n<p>Some pages may show a video from YouTube or Vimeo. We use privacy-friendly embed addresses where we can, but if you press play, the provider may set its own cookies. Their policies apply to those. The site's files are delivered through content networks (Cloudflare, Netlify and jsDelivr), which may log technical request details such as your IP address.</p>\n<h2>Site feedback tool</h2>\n<p>While the site is being built, our team uses a feedback tool (BugHerd) to leave notes on pages. It may set a cookie in your browser.</p>\n<h2>How to manage cookies</h2>\n<ul><li><strong>On this site:</strong> use the cookie settings link on the page to change what you've allowed.</li>\n<li><strong>In your browser:</strong> every major browser lets you see, block and delete cookies. Look for \"Privacy\" or \"Cookies\" in its settings.</li>\n<li><strong>Browser settings:</strong> many browsers can also send a \"Do Not Track\" or Global Privacy Control signal. Check your browser's privacy settings.</li></ul>\n<h2>Changes and contact</h2>\n<p>If we add or change a cookie, we will update this page and its date. Questions? Reach us through the <a href=\"/contact/\">Contact page</a>.</p>"
+      },
+      {
+        "key": "field_brg_legal_cookies_endacc_the_policy",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_cookies_acc_look",
+        "label": "Look",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_cookies_look",
+        "label": "Page look",
+        "name": "brg_legal_cookies_look",
+        "type": "select",
+        "instructions": "Dark is white words on black. Light is black words on white, with the colored underline. The menu at the top of the page follows.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-look",
+          "id": ""
+        },
+        "default_value": "dark",
+        "choices": {
+          "dark": "Dark — white on black",
+          "light": "Light — black on white"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_cookies_uline_color",
+        "label": "Underline color",
+        "name": "brg_legal_cookies_uline_color",
+        "type": "select",
+        "instructions": "The color of the hand-drawn underline under the title, and of the small highlights (the current menu item, link underlines).",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-uline_color",
+          "id": ""
+        },
+        "default_value": "restaurants",
+        "choices": {
+          "home": "Yellow",
+          "restaurants": "Teal",
+          "community": "Orange",
+          "team": "Pink",
+          "purp": "Purple"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_cookies_numbers",
+        "label": "Section numbers",
+        "name": "brg_legal_cookies_numbers",
+        "type": "select",
+        "instructions": "Small numbers (01, 02…) beside each section title and in the menu.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-numbers",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Shown",
+          "0": "Hidden"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_cookies_endacc_look",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_cookies_acc_reading",
+        "label": "Reading",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_cookies_reading",
+        "label": "How the sections open",
+        "name": "brg_legal_cookies_reading",
+        "type": "select",
+        "instructions": "<b>Open as you scroll, stay open</b>: each section opens when you reach it and stays open.<br><b>Open as you scroll, close the last</b>: the section before it folds away.<br><b>Click, one at a time</b>: opening one closes the others.<br><b>Click, as many as you like</b>.<br><b>All open</b>: no rows, the whole policy shown.<br>The menu always opens the section it takes you to.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-reading",
+          "id": ""
+        },
+        "default_value": "follow",
+        "choices": {
+          "follow": "Open as you scroll, stay open",
+          "follow-close": "Open as you scroll, close the last",
+          "click": "Click, one at a time",
+          "click-many": "Click, as many as you like",
+          "open": "All open"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_cookies_endacc_reading",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_cookies_acc_floating_marks",
+        "label": "Floating marks",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_cookies_icons",
+        "label": "Floating brand marks",
+        "name": "brg_legal_cookies_icons",
+        "type": "select",
+        "instructions": "A few of the brand marks float in a column down the right edge of a computer screen. They never sit over the words, so a phone does not show them.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-icons",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Shown",
+          "0": "Hidden"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_cookies_icons_px",
+        "label": "How much they drift",
+        "name": "brg_legal_cookies_icons_px",
+        "type": "number",
+        "instructions": "How far they move as you scroll, 0 (still) to 40.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icons_px",
+          "id": ""
+        },
+        "default_value": "16",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brg_legal_cookies_icon_1_art",
+        "label": "Mark 1",
+        "name": "brg_legal_cookies_icon_1_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_1_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_cookies_icon_2_art",
+        "label": "Mark 2",
+        "name": "brg_legal_cookies_icon_2_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_2_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_cookies_icon_3_art",
+        "label": "Mark 3",
+        "name": "brg_legal_cookies_icon_3_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_3_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_cookies_endacc_floating_marks",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_tab_legal_accessibility",
+        "label": "Accessibility",
+        "name": "",
+        "type": "tab",
+        "placement": "top",
+        "endpoint": 0,
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        }
+      },
+      {
+        "key": "field_brg_legal_accessibility_show_section",
+        "label": "Show this section",
+        "name": "brg_legal_accessibility_show_section",
+        "type": "true_false",
+        "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": 100,
+          "class": "brg-show-section",
+          "id": ""
+        },
+        "message": "",
+        "default_value": 1,
+        "ui": 1,
+        "ui_on_text": "Shown",
+        "ui_off_text": "Hidden"
+      },
+      {
+        "key": "field_brg_legal_accessibility_acc_title",
+        "label": "Title",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_accessibility_heading",
+        "label": "Title",
+        "name": "brg_legal_accessibility_heading",
+        "type": "text",
+        "instructions": "The page title, top left, with the hand-drawn underline.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-heading",
+          "id": ""
+        },
+        "default_value": "Accessibility"
+      },
+      {
+        "key": "field_brg_legal_accessibility_updated",
+        "label": "Last updated line",
+        "name": "brg_legal_accessibility_updated",
+        "type": "text",
+        "instructions": "Small line under the title. Change it each time you edit the policy. Empty hides it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-updated",
+          "id": ""
+        },
+        "default_value": "Last updated: November 19, 2026"
+      },
+      {
+        "key": "field_brg_legal_accessibility_sub",
+        "label": "Intro line",
+        "name": "brg_legal_accessibility_sub",
+        "type": "textarea",
+        "instructions": "One or two sentences under the title. Empty hides it.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-sub",
+          "id": ""
+        },
+        "default_value": "How we work to make this website usable for everyone, and what to do if something gets in your way."
+      },
+      {
+        "key": "field_brg_legal_accessibility_endacc_title",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_accessibility_acc_the_policy",
+        "label": "The policy",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_accessibility_content",
+        "label": "The policy",
+        "name": "brg_legal_accessibility_content",
+        "type": "wysiwyg",
+        "instructions": "The whole policy in one box. Use <b>Heading 2</b> for each section title: every Heading 2 becomes a section in the left-hand menu and an open/close row on the page. Anything above the first Heading 2 shows as an introduction. Headings 3, lists, bold and links all work.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-content",
+          "id": ""
+        },
+        "default_value": "<p>Blacktop Restaurant Group wants everyone to be able to read about our restaurants, meet our team and find ways to work with us. This page explains how we approach accessibility on blacktoprestaurantgroup.com and what to do if something gets in your way.</p>\n<h2>Our commitment</h2>\n<p>We are working toward meeting the Web Content Accessibility Guidelines (WCAG) 2.2, level AA, which is the widely used standard for accessible websites. Accessibility is part of how we build and update pages, not an afterthought.</p>\n<h2>What we do</h2>\n<ul><li>Pages use a clear structure of headings, so screen readers and keyboard users can move around.</li>\n<li>Menus, buttons and links are built to be reached and used with a keyboard.</li>\n<li>Photos that carry meaning get text descriptions; purely decorative artwork is hidden from assistive technology.</li>\n<li>Text is sized to read comfortably, and pages reflow to fit phones and small screens.</li>\n<li>Colors are chosen with contrast in mind, and we avoid relying on color alone to carry meaning.</li>\n<li>Motion is kept to the brand's small animations. If your device is set to \"reduce motion,\" the site turns animations off.</li>\n</ul>\n<h2>Where we know we fall short</h2>\n<p>We keep checking the site and fixing what we find, but some areas may not yet meet every guideline. Content added by people on our team, and parts supplied by other companies (embedded video, third-party job listings, social links), may not be fully accessible. If you hit a barrier, we want to know.</p>\n<h2>Tell us about a problem</h2>\n<p>If you can't use part of the site, can't find something, or would like information in another format, please tell us through the <a href=\"/contact/\">Contact page</a>. Say which page and what happened, and what device or assistive technology you use if you can. We will reply as soon as we can, and fix the problem or get you the information another way.</p>\n<h2>Visiting our restaurants</h2>\n<p>This page is about the website. For questions about access at a specific restaurant, such as step-free entry, seating or menus in another format, please contact that restaurant directly or through our <a href=\"/contact/\">Contact page</a>.</p>\n<h2>Keeping up</h2>\n<p>We review this statement and the site as we make changes, and whenever people tell us something isn't working. The date at the top shows when it was last updated.</p>"
+      },
+      {
+        "key": "field_brg_legal_accessibility_endacc_the_policy",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_accessibility_acc_look",
+        "label": "Look",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_accessibility_look",
+        "label": "Page look",
+        "name": "brg_legal_accessibility_look",
+        "type": "select",
+        "instructions": "Dark is white words on black. Light is black words on white, with the colored underline. The menu at the top of the page follows.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-look",
+          "id": ""
+        },
+        "default_value": "dark",
+        "choices": {
+          "dark": "Dark — white on black",
+          "light": "Light — black on white"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_accessibility_uline_color",
+        "label": "Underline color",
+        "name": "brg_legal_accessibility_uline_color",
+        "type": "select",
+        "instructions": "The color of the hand-drawn underline under the title, and of the small highlights (the current menu item, link underlines).",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-uline_color",
+          "id": ""
+        },
+        "default_value": "community",
+        "choices": {
+          "home": "Yellow",
+          "restaurants": "Teal",
+          "community": "Orange",
+          "team": "Pink",
+          "purp": "Purple"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_accessibility_numbers",
+        "label": "Section numbers",
+        "name": "brg_legal_accessibility_numbers",
+        "type": "select",
+        "instructions": "Small numbers (01, 02…) beside each section title and in the menu.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-numbers",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Shown",
+          "0": "Hidden"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_accessibility_endacc_look",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_accessibility_acc_reading",
+        "label": "Reading",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_accessibility_reading",
+        "label": "How the sections open",
+        "name": "brg_legal_accessibility_reading",
+        "type": "select",
+        "instructions": "<b>Open as you scroll, stay open</b>: each section opens when you reach it and stays open.<br><b>Open as you scroll, close the last</b>: the section before it folds away.<br><b>Click, one at a time</b>: opening one closes the others.<br><b>Click, as many as you like</b>.<br><b>All open</b>: no rows, the whole policy shown.<br>The menu always opens the section it takes you to.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "100",
+          "class": "brg-f-reading",
+          "id": ""
+        },
+        "default_value": "follow",
+        "choices": {
+          "follow": "Open as you scroll, stay open",
+          "follow-close": "Open as you scroll, close the last",
+          "click": "Click, one at a time",
+          "click-many": "Click, as many as you like",
+          "open": "All open"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_accessibility_endacc_reading",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      },
+      {
+        "key": "field_brg_legal_accessibility_acc_floating_marks",
+        "label": "Floating marks",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "brg-acc",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 1,
+        "endpoint": 0
+      },
+      {
+        "key": "field_brg_legal_accessibility_icons",
+        "label": "Floating brand marks",
+        "name": "brg_legal_accessibility_icons",
+        "type": "select",
+        "instructions": "A few of the brand marks float in a column down the right edge of a computer screen. They never sit over the words, so a phone does not show them.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "34",
+          "class": "brg-f-icons",
+          "id": ""
+        },
+        "default_value": "1",
+        "choices": {
+          "1": "Shown",
+          "0": "Hidden"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_legal_accessibility_icons_px",
+        "label": "How much they drift",
+        "name": "brg_legal_accessibility_icons_px",
+        "type": "number",
+        "instructions": "How far they move as you scroll, 0 (still) to 40.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icons_px",
+          "id": ""
+        },
+        "default_value": "16",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_brg_legal_accessibility_icon_1_art",
+        "label": "Mark 1",
+        "name": "brg_legal_accessibility_icon_1_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_1_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_accessibility_icon_2_art",
+        "label": "Mark 2",
+        "name": "brg_legal_accessibility_icon_2_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_2_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_accessibility_icon_3_art",
+        "label": "Mark 3",
+        "name": "brg_legal_accessibility_icon_3_art",
+        "type": "image",
+        "instructions": "The artwork. Any image works; the small brand marks are the intended ones.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "33",
+          "class": "brg-f-icon_3_art",
+          "id": ""
+        },
+        "return_format": "url",
+        "preview_size": "medium",
+        "library": "all"
+      },
+      {
+        "key": "field_brg_legal_accessibility_endacc_floating_marks",
+        "label": "",
+        "name": "",
+        "type": "accordion",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "open": 0,
+        "multi_expand": 0,
+        "endpoint": 1
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "options_page",
+          "operator": "==",
+          "value": "brg-section-content-legal"
+        }
+      ]
+    ],
+    "menu_order": 6,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the Legal page, one tab per section. Generated — edit website/sections/<id>/slots.json and rerun kit/build-acf.py."
+  },
+  {
     "key": "group_brg_chrome_brand",
     "title": "Brand info — Content",
     "fields": [

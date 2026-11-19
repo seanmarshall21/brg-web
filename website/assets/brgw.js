@@ -2207,7 +2207,188 @@
 
   try { brgwPageFx(); } catch (e) { document.documentElement.classList.remove('brgw-hold', 'brgw-out'); }
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwAnchor(); brgwSpeed(); brgwFull(document); brgwSmooth(); brgwCount(document); brgwBuild(); }
+  /* ---- LEGAL PAGES (Privacy, Cookies, Accessibility) — sections, anchor menu, phone panel ---------------------
+     Sean, 19 Nov. The page's words are ONE rich-text box; this cuts it into sections at every Heading 2, builds
+     the anchor menu from them, and turns each into an open/close row. Five ways to read (data-read):
+       click        one row open at a time          click-many   as many as you like
+       follow       a row opens as you scroll to it, and stays open
+       follow-close the same, but the one before it closes
+       open         everything open, no rows
+     BASE IS THE PLAIN PAGE: nothing here runs unless there are two or more headings, and without script the whole
+     policy shows, open, in one column. Menu and panel are built here, so a page with no script has no dead menu.
+     Closing a row ABOVE where you are reading would drag the page upward, so those close instantly and the scroll
+     position is corrected by exactly what they gave up. Rows you scrolled past, jumped past or closed yourself are
+     never opened again behind your back. */
+  function brgwLegal(root) {
+    [].forEach.call((root || document).querySelectorAll('.brgw-sec--legal[data-legal]'), function (sec) {
+      if (sec.getAttribute('data-lg-ready')) return;
+      var src = sec.querySelector('.lg-src'), main = sec.querySelector('.lg-main'), toc = sec.querySelector('.lg-toc');
+      if (!src || !main || !toc) return;
+      var mode = sec.getAttribute('data-read') || 'follow';
+      if (['click', 'click-many', 'follow', 'follow-close', 'open'].indexOf(mode) < 0) mode = 'follow';
+      var follow = mode === 'follow' || mode === 'follow-close', one = mode === 'click' || mode === 'follow-close';
+      var look = sec.getAttribute('data-look') === 'light' ? 'light' : 'dark', acc = sec.getAttribute('data-uline-c') || '';
+      var nums = sec.getAttribute('data-num') !== '0';
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* cut the words at every Heading 2 */
+      var lead = document.createElement('div'); lead.className = 'lg-lead lg-prose';
+      var items = [], cur = null;
+      [].slice.call(src.childNodes).forEach(function (n) {
+        if (n.nodeType === 1 && n.tagName === 'H2') { cur = { title: n.textContent.replace(/\s+/g, ' ').trim(), nodes: [] }; items.push(cur); }
+        else if (cur) cur.nodes.push(n);
+        else if (n.nodeType === 1 || (n.nodeType === 3 && n.textContent.trim())) lead.appendChild(n);
+      });
+      if (items.length < 2) return;
+      function pad(n) { return (n < 10 ? '0' : '') + n; }
+      function slug(t) { return t.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60); }
+
+      var list = document.createElement('div'); list.className = 'lg-list';
+      var used = {};
+      items.forEach(function (it, i) {
+        var id = slug(it.title) || 'section-' + (i + 1); while (used[id]) id += '-' + (i + 1); used[id] = 1; it.id = id;
+        var art = document.createElement('article'); art.className = 'lg-item'; art.id = id;
+        var h = document.createElement('h2'); h.className = 'lg-h';
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'lg-btn'; b.id = id + '-b';
+        b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', id + '-p');
+        b.innerHTML = '<span class="lg-n"></span><span class="lg-t"></span><span class="lg-x" aria-hidden="true"></span>';
+        b.querySelector('.lg-n').textContent = pad(i + 1); b.querySelector('.lg-t').textContent = it.title;
+        h.appendChild(b);
+        var p = document.createElement('div'); p.className = 'lg-panel'; p.id = id + '-p'; p.setAttribute('role', 'region'); p.setAttribute('aria-labelledby', b.id);
+        var inn = document.createElement('div'); inn.className = 'lg-in'; var pr = document.createElement('div'); pr.className = 'lg-prose';
+        it.nodes.forEach(function (n) { pr.appendChild(n); }); inn.appendChild(pr); p.appendChild(inn);
+        art.appendChild(h); art.appendChild(p); list.appendChild(art);
+        it.el = art; it.btn = b; it.panel = p; it.open = false; it.seen = false; it.i = i;
+      });
+      if (lead.childNodes.length) main.appendChild(lead);
+      main.appendChild(list); if (src.parentNode) src.parentNode.removeChild(src);
+
+      /* the anchor menu, here and (as a panel) on a phone */
+      function menu(host, withHead) {
+        var h = '<p class="lg-toc-h">On this page</p><ol>';
+        items.forEach(function (it, i) { h += '<li><a href="#' + it.id + '"><span class="lg-n">' + pad(i + 1) + '</span><span class="lg-l"></span></a></li>'; });
+        host.innerHTML = withHead ? h + '</ol>' : h.replace(/^<p[^>]*>.*?<\/p>/, '') + '</ol>';
+        [].forEach.call(host.querySelectorAll('.lg-l'), function (sp, i) { sp.textContent = items[i].title; });
+      }
+      menu(toc, true);
+      var fly = document.createElement('div'); fly.className = 'lg-fly'; fly.setAttribute('data-look', look); fly.setAttribute('data-uline-c', acc);
+      fly.setAttribute('data-num', nums ? '1' : '0'); fly.setAttribute('role', 'dialog'); fly.setAttribute('aria-label', 'On this page');
+      var fx = document.createElement('button'); fx.type = 'button'; fx.className = 'lg-fly-x'; fx.setAttribute('aria-label', 'Close menu');
+      var fbody = document.createElement('div'); menu(fbody, true);
+      fly.appendChild(fx); fly.appendChild(fbody);
+      var ov = document.createElement('div'); ov.className = 'lg-fly-ov';
+      var fb = document.createElement('button'); fb.type = 'button'; fb.className = 'lg-fly-btn'; fb.setAttribute('data-look', look);
+      fb.setAttribute('aria-label', 'Open the page menu'); fb.innerHTML = '<i aria-hidden="true"></i><span>Sections</span>';
+      document.body.appendChild(ov); document.body.appendChild(fly); document.body.appendChild(fb);
+      var D = document.documentElement;
+      function flyOpen(on) {
+        D.classList.toggle('lg-fly-on', !!on);
+        if (on) { var a = fly.querySelector('a'); if (a) a.focus({ preventScroll: true }); } else { fb.focus({ preventScroll: true }); }
+      }
+      fb.addEventListener('click', function () { flyOpen(true); });
+      fx.addEventListener('click', function () { flyOpen(false); });
+      ov.addEventListener('click', function () { flyOpen(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && D.classList.contains('lg-fly-on')) flyOpen(false); });
+
+      /* open / close */
+      function setOpen(it, on) {
+        it.open = !!on; it.el.classList.toggle('is-open', !!on); it.btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+        if ('inert' in it.panel) it.panel.inert = !on;
+      }
+      function openItem(it, how) {        // how: 'scroll' | 'user' | 'jump'
+        it.seen = true; delete it.shut;
+        if (it.open) return;
+        if (one) {
+          var above = [], below = [];
+          items.forEach(function (o) { if (o !== it && o.open) (o.i < it.i ? above : below).push(o); });
+          if (above.length) {                    // those above shrink at once; the page is corrected by what they gave up
+            var t0 = it.btn.getBoundingClientRect().top;
+            list.classList.add('lg-snap'); above.forEach(function (o) { setOpen(o, false); });
+            void list.offsetHeight;
+            var d = it.btn.getBoundingClientRect().top - t0; if (d) window.scrollTo(0, window.pageYOffset + d);
+            requestAnimationFrame(function () { list.classList.remove('lg-snap'); });
+          }
+          below.forEach(function (o) { setOpen(o, false); });
+        }
+        setOpen(it, true);
+      }
+      function closeItem(it) { it.seen = true; it.shut = true; setOpen(it, false); }
+      items.forEach(function (it) {
+        setOpen(it, mode === 'open');
+        it.btn.addEventListener('click', function () { if (mode === 'open') return; if (it.open) closeItem(it); else openItem(it, 'user'); });
+      });
+      if (mode === 'open') items.forEach(function (it) { it.seen = true; });
+
+      /* the menu: open the row, then take the reader to it */
+      function go(id) {
+        var it = null; items.forEach(function (o) { if (o.id === id) it = o; });
+        if (!it) return false;
+        items.forEach(function (o) { if (o.i < it.i) o.seen = true; });    // the ones skipped stay as they are
+        if (mode !== 'open') openItem(it, 'jump');
+        var top = it.el.getBoundingClientRect().top + window.pageYOffset - 96;
+        window.scrollTo({ top: Math.max(0, top), behavior: reduce ? 'auto' : 'smooth' });
+        try { history.replaceState(null, '', '#' + id); } catch (x) {}
+        return true;
+      }
+      function onLink(e) {
+        var a = e.target.closest ? e.target.closest('a[href^="#"]') : null; if (!a) return;
+        var id = decodeURIComponent(a.getAttribute('href').slice(1));
+        if (go(id)) { e.preventDefault(); e.stopPropagation(); if (D.classList.contains('lg-fly-on')) flyOpen(false); }
+      }
+      toc.addEventListener('click', onLink, true); fly.addEventListener('click', onLink, true);
+
+      /* what to do as the page scrolls */
+      var raf = 0;
+      function line() { return window.innerHeight * 0.62; }
+      function tick() {
+        raf = 0;
+        if (follow) {
+          var guard = 0, did;
+          do {
+            did = false;
+            for (var k = 0; k < items.length; k++) {
+              var it = items[k];
+              if (it.seen) continue;
+              if (it.btn.getBoundingClientRect().top < line()) {
+                if (mode === 'follow-close') items.forEach(function (o) { if (o !== it && o.open) { var t0 = it.btn.getBoundingClientRect().top; setOpen(o, false); if (o.i < it.i) { list.classList.add('lg-snap'); void list.offsetHeight; var d = it.btn.getBoundingClientRect().top - t0; if (d) window.scrollTo(0, window.pageYOffset + d); list.classList.remove('lg-snap'); } } });
+                setOpen(it, true); it.seen = true; did = true;
+              }
+              break;                                  // only ever the first row that has not been reached yet
+            }
+          } while (did && ++guard < 40);
+        }
+        var cur = items[0], vh = window.innerHeight;
+        items.forEach(function (it) { if (it.el.getBoundingClientRect().top <= vh * 0.4) cur = it; });
+        [].forEach.call(sec.querySelectorAll('.lg-toc a, .lg-fly a'), function (a) {
+          var on = a.getAttribute('href') === '#' + cur.id; a.classList.toggle('is-cur', on);
+          if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+        });
+        [].forEach.call(fly.querySelectorAll('a'), function (a) { var on = a.getAttribute('href') === '#' + cur.id; a.classList.toggle('is-cur', on); });
+        var r = sec.getBoundingClientRect();
+        fb.classList.toggle('is-here', r.top < vh * 0.7 && r.bottom > vh * 0.3);
+        if (!reduce) [].forEach.call(sec.querySelectorAll('.lg-ico'), function (ic) {
+          var amt = Math.max(0, Math.min(40, parseFloat(ic.parentNode.getAttribute('data-px')) || 0)); if (!amt) return;
+          var b = ic.parentNode.getBoundingClientRect(), y = b.top + b.height * (ic.getAttribute('data-i') === '1' ? 0.03 : ic.getAttribute('data-i') === '2' ? 0.44 : 0.8);
+          ic.style.transform = 'translate3d(0,' + Math.round(-((y - vh / 2) / vh) * amt * 4) + 'px,0)';
+        });
+      }
+      function sched() { if (!raf) raf = requestAnimationFrame(tick); }
+      window.addEventListener('scroll', sched, { passive: true }); window.addEventListener('resize', sched);
+
+      sec.setAttribute('data-lg-ready', '1');
+      /* arriving: a link with #section opens that row; a page reloaded part-way keeps what it scrolled past closed */
+      var hash = ''; try { hash = decodeURIComponent(location.hash.slice(1)); } catch (x) {}
+      var hit = false; items.forEach(function (o) { if (o.id === hash) hit = true; });
+      if (hit) { go(hash); }
+      else items.forEach(function (it) { if (it.btn.getBoundingClientRect().top < 0) it.seen = true; });
+      sched();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(sched);
+      window.addEventListener('load', sched);
+    });
+  }
+
+
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwAnchor(); brgwSpeed(); brgwFull(document); brgwSmooth(); brgwCount(document); brgwLegal(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

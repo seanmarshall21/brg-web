@@ -1,0 +1,28 @@
+<!-- BRG · section: legal-privacy / legal-cookies / legal-accessibility  →  [brg_legal-privacy] etc.
+     ONE TEMPLATE, THREE COPIES. The three files are identical on purpose (the plugin fills a
+     section by its id, so each page needs its own); only slots.json differs, in its words.
+     Sean, 19 Nov: black page, white words, the policy's title top left with the hand-drawn
+     underline; an anchor menu down the left; sections that open as you reach them; a light
+     version; the brand marks floating in a gutter that never holds text.
+     THE WORDS ARE ONE BOX. {{content}} is a single rich-text field; brgwLegal() (brgw.js) cuts
+     it into sections at every Heading 2, builds the menu from them, and turns each into an
+     open/close row. With no script the box is simply the whole policy, all open. All the look
+     lives in brgw.css under .brgw-sec--legal. -->
+<section class="brgw-sec brgw-sec--legal reveal" data-legal data-look="{{look}}" data-nav="{{look}}" data-read="{{reading}}" data-num="{{numbers}}" data-icons="{{icons}}" data-uline-c="{{uline_color}}" aria-label="{{heading}}">
+  <div class="lg-wrap">
+    <header class="lg-head">
+      <span class="lg-title"><h1 class="blanco anim-head">{{heading}}</h1><img class="uline" aria-hidden="true" alt="" width="845" height="28" src="https://blacktoprg.netlify.app/assets/media/lines/line-{{uline_color}}-lg.svg"></span>
+      <p class="lg-sub anim-up">{{sub}}</p>
+      <p class="lg-upd anim-up">{{updated}}</p>
+    </header>
+    <div class="lg-body">
+      <nav class="lg-toc" aria-label="On this page"></nav>
+      <div class="lg-main"><div class="lg-src lg-prose">{{content}}</div></div>
+      <div class="lg-gut" aria-hidden="true" data-px="{{icons_px}}">
+        <span class="lg-ico" data-i="1"><img src="{{icon_1_art}}" alt="" width="64" height="64" loading="lazy" decoding="async"></span>
+        <span class="lg-ico" data-i="2"><img src="{{icon_2_art}}" alt="" width="64" height="64" loading="lazy" decoding="async"></span>
+        <span class="lg-ico" data-i="3"><img src="{{icon_3_art}}" alt="" width="64" height="64" loading="lazy" decoding="async"></span>
+      </div>
+    </div>
+  </div>
+</section>

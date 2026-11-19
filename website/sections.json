@@ -162,6 +162,27 @@
       "group": "cta",
       "status": "live",
       "summary": "Teal CTA band closing to /our-restaurants/. No map embed: a third-party map inlined into WP means cookies, a consent banner and a second JS engine."
+    },
+    {
+      "id": "legal-privacy",
+      "title": "Legal — privacy policy",
+      "group": "editorial",
+      "status": "live",
+      "summary": "Privacy Policy page: black (or light) page, title with the hand-drawn underline, anchor menu on the left, sections that open as you reach them, floating brand marks in a side gutter."
+    },
+    {
+      "id": "legal-cookies",
+      "title": "Legal — cookie policy",
+      "group": "editorial",
+      "status": "live",
+      "summary": "Cookie Policy page, same template as the privacy page."
+    },
+    {
+      "id": "legal-accessibility",
+      "title": "Legal — accessibility",
+      "group": "editorial",
+      "status": "live",
+      "summary": "Accessibility page, same template as the privacy page."
     }
   ],
   "stacks": {
@@ -197,6 +218,15 @@
       "contact-hero",
       "contact-routes",
       "contact-restaurants"
+    ],
+    "privacy-policy": [
+      "legal-privacy"
+    ],
+    "cookie-policy": [
+      "legal-cookies"
+    ],
+    "accessibility": [
+      "legal-accessibility"
     ]
   }
 }
