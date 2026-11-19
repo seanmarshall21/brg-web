@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.6 (2026-11-19)
+- phone menu: the graphic size setting now sits under the graphic itself
+
 ## 2026.11.19.5 (2026-11-19)
 - legal pages: one template for Privacy, Cookies and Accessibility (anchor menu, sections that open as you scroll, light/dark, floating marks)
 

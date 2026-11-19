@@ -216,18 +216,6 @@
     "step": 1,
     "append": "px"
   },
-  "tm_wordmark_size": {
-    "type": "number",
-    "label": "Wordmark or graphic size",
-    "doc": "How wide the wordmark or graphic is at the foot of the menu, in pixels.",
-    "group": "Phone menu — sizes",
-    "width": 34,
-    "default": "160",
-    "min": 60,
-    "max": 420,
-    "step": 5,
-    "append": "px"
-  },
   "tm_label_size": {
     "type": "number",
     "label": "Small label size",
@@ -349,7 +337,7 @@
     "type": "text",
     "label": "“Menu” label text",
     "doc": "The wording of the small label above the page links.",
-    "group": "Phone menu — text",
+    "group": "Phone menu — text and graphic",
     "width": 50,
     "default": "Menu"
   },
@@ -357,7 +345,7 @@
     "type": "text",
     "label": "“Follow” label text",
     "doc": "The wording of the small label above the social icons.",
-    "group": "Phone menu — text",
+    "group": "Phone menu — text and graphic",
     "width": 50,
     "default": "Follow"
   },
@@ -365,14 +353,26 @@
     "type": "image",
     "label": "Wordmark or graphic",
     "doc": "The mark at the foot of the phone menu. Leave empty and the menu ends with the social row.",
-    "group": "Phone menu — text",
+    "group": "Phone menu — text and graphic",
     "width": 50
+  },
+  "tm_wordmark_size": {
+    "type": "number",
+    "label": "Wordmark or graphic size",
+    "doc": "How wide the wordmark or graphic is at the foot of the phone menu, in pixels. Raise the number to make it bigger (for example 220), lower it for smaller. Applies to the picture above and to a typed wordmark alike.",
+    "group": "Phone menu — text and graphic",
+    "width": 100,
+    "default": "160",
+    "min": 60,
+    "max": 420,
+    "step": 5,
+    "append": "px"
   },
   "wordmark_line": {
     "type": "text",
     "label": "Line under the wordmark",
     "doc": "A short line beneath it, like a strapline. Leave empty for none.",
-    "group": "Phone menu — text",
+    "group": "Phone menu — text and graphic",
     "width": 100,
     "default": ""
   }
