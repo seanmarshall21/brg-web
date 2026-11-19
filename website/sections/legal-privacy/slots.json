@@ -74,14 +74,14 @@
   "reading": {
     "type": "select",
     "label": "How the sections open",
-    "doc": "<b>Open as you scroll, stay open</b>: each section opens when you reach it and stays open.<br><b>Open as you scroll, close the last</b>: the section before it folds away.<br><b>Click, one at a time</b>: opening one closes the others.<br><b>Click, as many as you like</b>.<br><b>All open</b>: no rows, the whole policy shown.<br>The menu always opens the section it takes you to.",
+    "doc": "<b>Click, as many as you like</b>: nothing opens by itself; click a title to open it, and open as many as you want.<br><b>Click, one at a time</b>: opening one closes the others.<br><b>Open as you scroll, stay open</b>: each section opens when you reach it and stays open.<br><b>Open as you scroll, close the last</b>: the section before it folds away.<br><b>All open</b>: no rows, the whole policy shown.<br>The menu always opens the section it takes you to.",
     "width": 100,
-    "default": "follow",
+    "default": "click-many",
     "choices": {
+      "click-many": "Click, as many as you like",
+      "click": "Click, one at a time",
       "follow": "Open as you scroll, stay open",
       "follow-close": "Open as you scroll, close the last",
-      "click": "Click, one at a time",
-      "click-many": "Click, as many as you like",
       "open": "All open"
     },
     "group": "Reading"

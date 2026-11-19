@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.8 (2026-11-19)
+- legal pages: sections open only when clicked (menu still opens its section); scroll-open kept as an option
+
 ## 2026.11.19.7 (2026-11-19)
 - phone menu: the graphic jumps between four tilts and positions, subtly
 

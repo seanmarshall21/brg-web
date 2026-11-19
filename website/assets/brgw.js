@@ -2224,8 +2224,8 @@
       if (sec.getAttribute('data-lg-ready')) return;
       var src = sec.querySelector('.lg-src'), main = sec.querySelector('.lg-main'), toc = sec.querySelector('.lg-toc');
       if (!src || !main || !toc) return;
-      var mode = sec.getAttribute('data-read') || 'follow';
-      if (['click', 'click-many', 'follow', 'follow-close', 'open'].indexOf(mode) < 0) mode = 'follow';
+      var mode = sec.getAttribute('data-read') || 'click-many';
+      if (['click', 'click-many', 'follow', 'follow-close', 'open'].indexOf(mode) < 0) mode = 'click-many';
       var follow = mode === 'follow' || mode === 'follow-close', one = mode === 'click' || mode === 'follow-close';
       var look = sec.getAttribute('data-look') === 'light' ? 'light' : 'dark', acc = sec.getAttribute('data-uline-c') || '';
       var nums = sec.getAttribute('data-num') !== '0';
