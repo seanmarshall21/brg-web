@@ -361,3 +361,6 @@
 }
 .bnav-wordmark.is-art{transform-origin:50% 60%;animation:bnav-wm-jit 1.6s steps(1,end) infinite;}
 @media (prefers-reduced-motion:reduce){.bnav-wordmark.is-art{animation:none;}}
+
+/* The one frame a page opens in the state the last page ended in: no animation into it (brgw-nav.js, 19 Nov). */
+.bnav.bnav-nofx,.bnav.bnav-nofx *{transition:none!important;}

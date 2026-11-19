@@ -353,7 +353,8 @@
     try {
       var wasSmall = sessionStorage.getItem('bnavSmall'); sessionStorage.removeItem('bnavSmall');
       if (wasSmall && Date.now() - (+wasSmall) < 15000 && window.pageYOffset <= 8) {
-        nav.classList.add('is-scrolled'); shrunk = true; reserve();
+        nav.classList.add('bnav-nofx', 'is-scrolled'); shrunk = true; reserve();       // no animation for this first cut: it is the state the last page ended in
+        void nav.offsetWidth; requestAnimationFrame(function () { requestAnimationFrame(function () { nav.classList.remove('bnav-nofx'); }); });
         var tStart = Date.now();
         (function waitShow() {
           if (document.documentElement.classList.contains('brgw-hold') && Date.now() - tStart < 3000) { setTimeout(waitShow, 80); return; }
