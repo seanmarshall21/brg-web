@@ -6933,6 +6933,34 @@
         "placeholder": ""
       },
       {
+        "key": "field_brg_home_values_values_m_pad",
+        "label": "Names on a phone — space around each name",
+        "name": "brg_home_values_values_m_pad",
+        "type": "select",
+        "instructions": "On a phone, the space above and below each name, between it and the lines that divide the list. 100% is the original spacing; 60% is the new default.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_m_pad",
+          "id": ""
+        },
+        "default_value": "60",
+        "choices": {
+          "100": "100% (as it was)",
+          "80": "80%",
+          "60": "60%",
+          "50": "50%",
+          "40": "40%"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
         "key": "field_brg_home_values_values_img_light",
         "label": "Core values — photo look on a light background",
         "name": "brg_home_values_values_img_light",
@@ -8755,6 +8783,34 @@
           "100": "100% (as it was)",
           "75": "75%",
           "50": "50%"
+        },
+        "return_format": "value",
+        "allow_null": 0,
+        "multiple": 0,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_brg_home_values_2_values_m_pad",
+        "label": "Names on a phone — space around each name",
+        "name": "brg_home_values_2_values_m_pad",
+        "type": "select",
+        "instructions": "On a phone, the space above and below each name, between it and the lines that divide the list. 100% is the original spacing; 60% is the new default.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "50",
+          "class": "brg-f-values_m_pad",
+          "id": ""
+        },
+        "default_value": "60",
+        "choices": {
+          "100": "100% (as it was)",
+          "80": "80%",
+          "60": "60%",
+          "50": "50%",
+          "40": "40%"
         },
         "return_format": "value",
         "allow_null": 0,

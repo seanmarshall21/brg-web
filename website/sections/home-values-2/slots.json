@@ -179,6 +179,20 @@
       "50": "50%"
     }
   },
+  "values_m_pad": {
+    "type": "select",
+    "label": "Names on a phone — space around each name",
+    "width": 50,
+    "default": "60",
+    "doc": "On a phone, the space above and below each name, between it and the lines that divide the list. 100% is the original spacing; 60% is the new default.",
+    "choices": {
+      "100": "100% (as it was)",
+      "80": "80%",
+      "60": "60%",
+      "50": "50%",
+      "40": "40%"
+    }
+  },
   "values_img_light": {
     "type": "select",
     "label": "Core values — photo look on a light background",

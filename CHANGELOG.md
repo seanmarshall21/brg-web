@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.1 (2026-11-19)
+- Core Values on a phone: the space around each name is 60% of what it was, as a setting (100/80/60/50/40)
+
 ## 2026.11.18.7 (2026-11-18)
 - header: the logo's white text follows the menu ink, the header stays on screen through page changes, and the underline rubs out and draws in
 
