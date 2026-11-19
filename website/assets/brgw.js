@@ -1632,8 +1632,23 @@
       // the runway (Sean, 3 Nov: "lock into it ... pause for a second"): the stage's own height, a longer first hold, one hold
       // per later slide, and a rest at the end before the page carries on. In screen heights, for Medium: 0.6 (plus the 0.35 of approach), 0.95 each, 0.95.
       var L = 0, S = 0, T = 0;
+      // A short stage (80/60/40%) is never so short that the words run into the label above or the arrows below (Sean, 18 Nov, bigger text):
+      // it grows to what the tallest slide needs. The words are centered in the space under the label, so the stage must be tall enough for both gaps.
+      function fit() {
+        if (!fixed) return;
+        if (!wide()) { stage.style.minHeight = ''; return; }
+        stage.style.minHeight = '';
+        var ttl = sec.querySelector('.as-title'), nav = panes[0] && panes[0].querySelector('.as-nav');
+        var sr = stage.getBoundingClientRect(), tr = ttl ? ttl.getBoundingClientRect() : null;
+        var tb = tr && tr.height ? tr.bottom - sr.top : 0;
+        var top = parseFloat(window.getComputedStyle(panes[0]).paddingTop) || 0;
+        var navH = nav ? nav.offsetHeight : 0, bo = nav ? (parseFloat(window.getComputedStyle(nav).bottom) || 0) : 0;
+        var inH = 0; panes.forEach(function (p) { var i = p.querySelector('.as-in'); if (i) inH = Math.max(inH, i.offsetHeight); });
+        var need = Math.max(2 * tb + 40 + inH - top, top + inH + 2 * (bo + navH + 22));
+        stage.style.minHeight = Math.ceil(need) + 'px';
+      }
       function measure() {
-        if (fixed) { run.style.height = ''; return; }
+        if (fixed) { run.style.height = ''; fit(); return; }
         var vh = stage.offsetHeight || window.innerHeight;
         S = Math.round(vh * 0.95 * mult); T = S;
         // The first slide is on screen for the last stretch of the approach (from ENTER of the screen height) as well as its hold,
@@ -1678,6 +1693,7 @@
       measure();
       var setup = phs.concat(panes); setup.forEach(function (el) { el.classList.add('no-t'); });
       sec.setAttribute('data-ready', '1');
+      fit();
       void sec.offsetWidth; setup.forEach(function (el) { el.classList.remove('no-t'); });
       if (panel) { panel.classList.add('no-t'); void panel.offsetWidth; panel.classList.remove('no-t'); }
       // PHOTO MOVEMENT (parallax). The stage is pinned, so the usual "how far through the screen is it" has nothing to measure;

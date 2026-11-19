@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.18.2 (2026-11-18)
+- about slider: headline and body text size settings (default 1.8x and 1.4x, wide screens), short heights grow to fit the words
+
 ## 2026.11.18.1 (2026-11-18)
 - about slider: height options (80/60/40%, minimum) and phone layout restored; buttons reveal on time (partner button); careers button scrolls to the jobs; Switchfoot, contact and heading copy; Core Values photos
 
