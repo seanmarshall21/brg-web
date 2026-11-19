@@ -980,3 +980,6 @@ page; the live drift report from Sean could not be reproduced there.
 
 ## 00:59  conti  (Sean, 19 Nov)
 Core Values on a phone: space above and below each name is now 60% of what it was; new setting "Names on a phone — space around each name" (100/80/60/50/40, default 60) in Home → Core values and Core values 2. Build stamped in CHANGELOG. Touched finn files only via sections/ (FC_ALLOW_CROSS).
+
+## 01:01  conti  (Sean, 19 Nov)
+Reveal order: sections marked data-visual-order (home-different, home-community) now hand out the stagger top-to-bottom as laid out, so photos-first on a phone arrive before the words; side-by-side layouts keep written order. brgw.js vOrder()/lead(). Footer copyright centered at <=600px in brgw.css (overrides the desktop Small-print setting).

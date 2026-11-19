@@ -1,4 +1,4 @@
-/* brgw build 2026.11.19.1 */
+/* brgw build 2026.11.19.2 */
 /* brgw.css — SHARED across every BRG page. Edit once → all pages update.
    Injected inline (no iframe) by the vc-clients plugin, before each page fragment.
    Page-specific section styles live in each page's own <style>. Namespaced .brgw. */
@@ -382,6 +382,9 @@
   .brgw__footer .legal[data-legal-align="left"]{align-items:flex-start;}
   .brgw__footer .legal[data-legal-align="center"]{align-items:center;}
   .brgw__footer .legal[data-legal-align="right"]{align-items:flex-end;}
+  /* Sean, 19 Nov: on a phone the copyright line is centered whatever the desktop setting says. */
+  .brgw__footer .legal[data-legal-align]{align-items:center;justify-content:center;text-align:center;}
+  .brgw__footer .legal-links{justify-content:center;}
 }
 .brgw__footer .legal-links{display:flex;gap:14px;flex-wrap:wrap;}
 .brgw__footer .legal a{color:inherit;}

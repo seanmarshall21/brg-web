@@ -326,6 +326,16 @@
        of scheduling, not a guarantee anyone reading this could rely on. Measuring
        only width and left is also what makes it safe to measure BEFORE reveal:
        .ln-i starts translated vertically, and translateY changes neither. */
+    /* Stable insertion sort, top to bottom, that never moves an item past one it shares a height with. */
+    function vOrder(items) {
+      var box = items.map(function (el) { var r = el.getBoundingClientRect(); return { el: el, t: r.top, b: r.bottom }; });
+      for (var i = 1; i < box.length; i++) {
+        var j = i, cur = box[i];
+        while (j > 0 && box[j - 1].t >= cur.b - 1) { box[j] = box[j - 1]; j--; }
+        box[j] = cur;
+      }
+      box.forEach(function (x, k) { items[k] = x.el; });
+    }
     placeAll(root);
     root.querySelectorAll('.reveal').forEach(function (sec) {
       /* Stagger. Sean: the reveals "fire too early, stagger too tight, and move too fast"
@@ -344,6 +354,12 @@
          They already had an entrance, but no delay, so every mark in a section popped at
          once while the words around them arrived one at a time. */
       var items = [].slice.call(sec.querySelectorAll('.ln-i, .anim-up, .anim-cta, .brgw-pop'));
+      /* ARRIVE IN THE ORDER THEY SIT ON THE SCREEN, NOT THE ORDER THEY ARE WRITTEN (Sean, 19 Nov: photos stacked above the words on a phone, but the
+         words faded in first). The stagger above is handed out in page-source order, and the source puts the words before the photos. A section
+         that says data-visual-order gets its list sorted top to bottom first. Two things that share any height (side by side, as on a desktop)
+         keep their written order, so only a genuinely stacked layout changes. Measured now, before reveal: .ln-i is shifted down inside its
+         mask and .anim-up a few px, which moves everything alike and does not change the order. */
+      if (sec.hasAttribute('data-visual-order')) vOrder(items);
 
       /* THE CLAMP IS A SCALE, NOT A CEILING, and that is the fix for "images should
          animate in sequentially". The old version held the delay at STAG_MAX once the
@@ -422,9 +438,13 @@
          an empty block is 0x0, a 0x0 element never intersects anything, and the section
          never revealed. Any element with no size is skipped. */
       var els = sec.querySelectorAll('.ln, .anim-up, .anim-cta'), el = sec;
+      var vis = sec.hasAttribute('data-visual-order'), topY = 1e9;
       for (var q = 0; q < els.length; q++) {
         var r = els[q].getBoundingClientRect();
-        if (r.width > 0 && r.height > 0) { el = els[q]; break; }
+        if (r.width > 0 && r.height > 0) {
+          if (!vis) { el = els[q]; break; }
+          if (r.top < topY - 1) { topY = r.top; el = els[q]; }      /* the one highest on the page, first written wins a tie */
+        }
       }
       /* A BUTTON IS NOT A GOOD LEAD (Sean, 18 Nov: the Community "Want to partner with us?" button only appeared at the very bottom of the
          page). A button waits clipped to nothing (clip-path: inset(50%)), and the observer counts the clip, so half of it was never "in

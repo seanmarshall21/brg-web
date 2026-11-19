@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.19.2 (2026-11-19)
+- reveal order follows what is on screen (photos-first on a phone arrive before the words); footer copyright centered on a phone
+
 ## 2026.11.19.1 (2026-11-19)
 - Core Values on a phone: the space around each name is 60% of what it was, as a setting (100/80/60/50/40)
 
