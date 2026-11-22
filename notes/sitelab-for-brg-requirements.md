@@ -1,5 +1,7 @@
 # SiteLab for BRG: the five things to write down (started 2026-11-22)
 
+Status 22 Nov: the five-point document is on the BKSTG board as item 0bd1c0c6, assigned to Structure, **proposed, not yet approved** (Structure is confirming Sean's answer with him). The BRG facts section (point 2) is complete as far as known.
+
 Sean's rule (22 Nov): before BRG goes on SiteLab's list and before a BRG staging copy is made, these five things must be figured out and **in writing**. Sean's words: "how the client-facing site lab structure is going to work; how their side needs to be set up and their requirements; how our setup works; how they're able to use SiteLab and get updates; what add-ons they have available, especially when we have things like the Bones, Fresco, and Kit options available."
 
 **What this file is:** the five headings, with only what is already known and where it came from. Anything marked **BLANK** is not written anywhere I could find. I have not filled any blank with a guess. BKSTG product decisions (points 1, 3, 4, 5) are Structure's to write; the BRG facts (point 2) are mine.
@@ -36,9 +38,10 @@ From Structure's note: SiteLab is planned on the BKSTG Hub's systems (CRSSD's co
 ## 5. Add-ons available to a client (BONES, FRESCO, KIT)
 
 Names as Sean listed them (BKSTG Stack names list, 21 Nov):
-- **BONES™**: design system builder, under BRNDS.
+- **BONES™**: design system builder (was "Design Systems"), under BRNDS.
 - **FRESCO**: branding tool, under BRNDS.
-- **KIT™**: brand discovery questionnaires.
+- **KIT™**: brand discovery questionnaires (was "Brand Kit").
+(Structure, 22 Nov, from `docs/app-names/app-names.md` in bkstg-extd: BONES = Design Systems, KIT = Brand Kit, FRESCO = the branding tool, all under BRNDS; FRESCO has no logo yet.)
 - SiteFlow (page-to-page transitions on sites) and SiteGlow (animated site background) are named as site systems.
 
 **BLANK:** which of these a client site can use, what each does to a WordPress site, how a client gets them, and how they are updated. SiteLab's files do not connect BONES, FRESCO or KIT to sites. (One line in the direction note says Majestic was named the first WordPress tester "bones only", meaning the plugin with minimal parts, not necessarily the BONES tool; not checked.)
