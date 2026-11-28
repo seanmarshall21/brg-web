@@ -4604,6 +4604,31 @@
                 "ui_off_text": "Hidden"
             },
             {
+                "key": "field_brg_team_apply_cta_show",
+                "label": "Show the button",
+                "name": "brg_team_apply_cta_show",
+                "type": "select",
+                "instructions": "Hide the main button (for example while the Careers page is held back until the new HR platform on 1 Jan). Shown by default.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-cta_show",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_team_apply_cta_label",
                 "label": "Button label",
                 "name": "brg_team_apply_cta_label",

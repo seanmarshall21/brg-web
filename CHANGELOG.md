@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.27.2 (2026-11-27)
+- switches to hide the Careers buttons on Team and Contact until the new HR platform on Jan 1
+
 ## 2026.11.27.1 (2026-11-27)
 - careers: live job listings section (LinkedIn and Indeed through SociableKIT), loaded only when scrolled near; privacy and cookie wording mention it
 

@@ -144,7 +144,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },
@@ -287,7 +288,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },
@@ -430,11 +432,24 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },
     "width": 100
+  },
+  "route_4_show": {
+    "type": "select",
+    "label": "Show this box",
+    "doc": "Hide this whole box (for example Careers, until the new HR platform on 1 Jan). Shown by default. With it hidden, the box above it takes the full width of the last row.",
+    "width": 50,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    },
+    "group": "Box 4 — bottom right"
   },
   "route_4_label": {
     "type": "text",
@@ -573,7 +588,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },
@@ -702,7 +718,8 @@
       "": "As set site-wide",
       "large": "Large",
       "medium": "Medium",
-      "small": "Small", "x-small": "Extra small"
+      "small": "Small",
+      "x-small": "Extra small"
     }
   },
   "section_color": {
@@ -934,7 +951,8 @@
           "": "Same as the section",
           "large": "Large",
           "medium": "Medium",
-          "small": "Small", "x-small": "Extra small"
+          "small": "Small",
+          "x-small": "Extra small"
         }
       }
     },

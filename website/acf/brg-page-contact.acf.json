@@ -3131,6 +3131,31 @@
                 "endpoint": 0
             },
             {
+                "key": "field_brg_contact_routes_route_4_show",
+                "label": "Show this box",
+                "name": "brg_contact_routes_route_4_show",
+                "type": "select",
+                "instructions": "Hide this whole box (for example Careers, until the new HR platform on 1 Jan). Shown by default. With it hidden, the box above it takes the full width of the last row.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-route_4_show",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
                 "key": "field_brg_contact_routes_route_4_label",
                 "label": "Heading",
                 "name": "brg_contact_routes_route_4_label",
