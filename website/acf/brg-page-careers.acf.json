@@ -5656,6 +5656,408 @@
                 "open": 0,
                 "multi_expand": 0,
                 "endpoint": 1
+            },
+            {
+                "key": "field_brg_tab_careers_jobs",
+                "label": "Open jobs",
+                "name": "",
+                "type": "tab",
+                "placement": "top",
+                "endpoint": 0,
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                }
+            },
+            {
+                "key": "field_brg_careers_jobs_show_section",
+                "label": "Show this section",
+                "name": "brg_careers_jobs_show_section",
+                "type": "true_false",
+                "instructions": "Untick to take this section off the live page. Nothing is deleted — the wording below stays exactly as it is and comes straight back when you tick it again. Takes up to two minutes to show on the site.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": 100,
+                    "class": "brg-show-section",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 1,
+                "ui": 1,
+                "ui_on_text": "Shown",
+                "ui_off_text": "Hidden"
+            },
+            {
+                "key": "field_brg_careers_jobs_acc_words",
+                "label": "Words",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_jobs_heading",
+                "label": "Heading",
+                "name": "brg_careers_jobs_heading",
+                "type": "text",
+                "instructions": "The heading above the listings.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "brg-f-heading",
+                    "id": ""
+                },
+                "default_value": "Open roles"
+            },
+            {
+                "key": "field_brg_careers_jobs_sub",
+                "label": "Intro line",
+                "name": "brg_careers_jobs_sub",
+                "type": "textarea",
+                "instructions": "One or two sentences under the heading. Empty hides it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "100",
+                    "class": "brg-f-sub",
+                    "id": ""
+                },
+                "default_value": "Every opening we have, straight from LinkedIn and Indeed. Pick one and apply."
+            },
+            {
+                "key": "field_brg_careers_jobs_fallback",
+                "label": "If the listings do not load",
+                "name": "brg_careers_jobs_fallback",
+                "type": "text",
+                "instructions": "Shown, with a link to LinkedIn, if a listing has not appeared after eight seconds (an ad blocker, a bad connection).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "100",
+                    "class": "brg-f-fallback",
+                    "id": ""
+                },
+                "default_value": "We can't show the listings here right now. See all our openings on"
+            },
+            {
+                "key": "field_brg_careers_jobs_endacc_words",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_jobs_acc_linkedin",
+                "label": "LinkedIn",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_jobs_linkedin_on",
+                "label": "LinkedIn listings",
+                "name": "brg_careers_jobs_linkedin_on",
+                "type": "select",
+                "instructions": "Show the LinkedIn job listings.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-linkedin_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_jobs_linkedin_id",
+                "label": "LinkedIn embed number",
+                "name": "brg_careers_jobs_linkedin_id",
+                "type": "text",
+                "instructions": "The number from the SociableKIT LinkedIn jobs embed code: the data-embed-id value, digits only. Empty hides the LinkedIn block.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "40",
+                    "class": "brg-f-linkedin_id",
+                    "id": ""
+                },
+                "default_value": "25732019"
+            },
+            {
+                "key": "field_brg_careers_jobs_linkedin_label",
+                "label": "LinkedIn label",
+                "name": "brg_careers_jobs_linkedin_label",
+                "type": "text",
+                "instructions": "Small label above the LinkedIn listings. Empty hides it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "35",
+                    "class": "brg-f-linkedin_label",
+                    "id": ""
+                },
+                "default_value": "On LinkedIn"
+            },
+            {
+                "key": "field_brg_careers_jobs_endacc_linkedin",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_jobs_acc_indeed",
+                "label": "Indeed",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_jobs_indeed_on",
+                "label": "Indeed listings",
+                "name": "brg_careers_jobs_indeed_on",
+                "type": "select",
+                "instructions": "Show the Indeed job listings.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "brg-f-indeed_on",
+                    "id": ""
+                },
+                "default_value": "1",
+                "choices": {
+                    "1": "Shown",
+                    "0": "Hidden"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_jobs_indeed_id",
+                "label": "Indeed embed number",
+                "name": "brg_careers_jobs_indeed_id",
+                "type": "text",
+                "instructions": "The number from the SociableKIT Indeed jobs embed code: the data-embed-id value, digits only. Empty hides the Indeed block.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "40",
+                    "class": "brg-f-indeed_id",
+                    "id": ""
+                },
+                "default_value": "25732021"
+            },
+            {
+                "key": "field_brg_careers_jobs_indeed_label",
+                "label": "Indeed label",
+                "name": "brg_careers_jobs_indeed_label",
+                "type": "text",
+                "instructions": "Small label above the Indeed listings. Empty hides it.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "35",
+                    "class": "brg-f-indeed_label",
+                    "id": ""
+                },
+                "default_value": "On Indeed"
+            },
+            {
+                "key": "field_brg_careers_jobs_endacc_indeed",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
+            },
+            {
+                "key": "field_brg_careers_jobs_acc_section_color",
+                "label": "Section color",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "brg-acc",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 1,
+                "endpoint": 0
+            },
+            {
+                "key": "field_brg_careers_jobs_section_color",
+                "label": "Section color",
+                "name": "brg_careers_jobs_section_color",
+                "type": "select",
+                "instructions": "The flat color behind this section. \"As designed\" keeps white.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "brg-f-section_color",
+                    "id": ""
+                },
+                "default_value": "keep",
+                "choices": {
+                    "keep": "As designed",
+                    "light": "Light",
+                    "dark": "Dark",
+                    "accent": "Accent",
+                    "alt": "Alt accent",
+                    "yellow": "Yellow",
+                    "teal": "Teal",
+                    "pink": "Pink",
+                    "orange": "Orange",
+                    "white": "White",
+                    "ink": "Ink",
+                    "custom": "Custom"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_jobs_section_text",
+                "label": "Section text color",
+                "name": "brg_careers_jobs_section_text",
+                "type": "select",
+                "instructions": "Automatic picks dark or light words, whichever reads better on the color above.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-section_text",
+                    "id": ""
+                },
+                "default_value": "auto",
+                "choices": {
+                    "auto": "Automatic",
+                    "dark": "Dark words",
+                    "light": "Light words"
+                },
+                "return_format": "value",
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_brg_careers_jobs_section_color_custom",
+                "label": "Section color — custom",
+                "name": "brg_careers_jobs_section_color_custom",
+                "type": "color_picker",
+                "instructions": "Used only when Section color is Custom.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "brg-f-section_color_custom",
+                    "id": ""
+                },
+                "default_value": ""
+            },
+            {
+                "key": "field_brg_careers_jobs_endacc_section_color",
+                "label": "",
+                "name": "",
+                "type": "accordion",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "open": 0,
+                "multi_expand": 0,
+                "endpoint": 1
             }
         ],
         "location": [

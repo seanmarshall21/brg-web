@@ -2333,6 +2333,41 @@
 
   try { brgwPageFx(); } catch (e) { document.documentElement.classList.remove('brgw-hold', 'brgw-out'); }
 
+  /* ---- LIVE JOB LISTINGS (careers-jobs, Clayton at BRG, 27 Nov) ------------------------------------------------------
+     Two SociableKIT widgets, LinkedIn and Indeed. Their scripts are NOT in the page markup: this adds each one, once, when the section
+     is within about two screens of the viewport, so the careers page never waits on a third party and the listings cost nothing for
+     anyone who does not scroll that far. Only the fixed https://widgets.sociablekit.com/ address from the markup is ever loaded, and the
+     embed id is cut down to digits first, so what an editor types in wp-admin can change which listings show but never what runs.
+     If a widget has not drawn itself after eight seconds (an ad blocker, a bad connection) a plain "see them on LinkedIn" line appears. */
+  function brgwJobs(root) {
+    [].forEach.call((root || document).querySelectorAll('.brgw-sec--careers-jobs[data-jobs]'), function (sec) {
+      if (sec.getAttribute('data-jobs-armed')) return; sec.setAttribute('data-jobs-armed', '1');
+      var started = false;
+      function drawn(box) { var w = box.querySelector('[data-sk-src]'); return !!(w && (w.innerText || '').replace(/\s+/g, ' ').trim().length > 12); }   // the widget keeps a hidden spinner, so judge it by whether it has words
+      function start() {
+        if (started) return; started = true;
+        var added = {};
+        [].forEach.call(sec.querySelectorAll('.jb-box'), function (box) {
+          if (box.getAttribute('data-on') === '0') { box.removeAttribute('data-pending'); return; }
+          var w = box.querySelector('[data-sk-src]'); if (!w) return;
+          var id = (w.getAttribute('data-embed-id') || '').replace(/\D/g, ''); w.setAttribute('data-embed-id', id);
+          var src = w.getAttribute('data-sk-src') || '';
+          if (!id || src.indexOf('https://widgets.sociablekit.com/') !== 0) { box.removeAttribute('data-pending'); return; }
+          if (added[src]) return; added[src] = 1;
+          var sc = document.createElement('script'); sc.src = src; sc.async = true; document.body.appendChild(sc);
+        });
+        var tries = 0, t = setInterval(function () {
+          tries++;
+          [].forEach.call(sec.querySelectorAll('.jb-box[data-pending="1"]'), function (box) { if (drawn(box)) box.removeAttribute('data-pending'); });
+          if (tries >= 16 || !sec.querySelector('.jb-box[data-pending="1"]')) { clearInterval(t); if (sec.querySelector('.jb-box[data-pending="1"]')) sec.setAttribute('data-jobs-late', '1'); }
+        }, 500);
+      }
+      if (!('IntersectionObserver' in window)) { start(); return; }
+      var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); start(); } }, { rootMargin: '200% 0px 200% 0px' });
+      io.observe(sec);
+    });
+  }
+
   /* ---- PHOTOS THAT ARRIVE WITHOUT A POP (Sean, 19 Nov: "photos of parallax loading in on the scroll") ------------------
      The big photos and patterns are lazy, so the browser only asks for one when it decides you are close, and a phone browser
      decides late (iPhone Safari most of all): the picture then appears from nothing, in one cut, as it reaches you. Two fixes.
@@ -2547,7 +2582,7 @@
   }
 
 
-  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwAnchor(); brgwSpeed(); brgwFull(document); brgwSmooth(); brgwCount(document); brgwLegal(document); brgwImgs(document); brgwBuild(); }
+  function boot() { startRevealGate(); initSliders(); startMotion(); brgwVideo(document); brgwSecColor(document); brgwSecBg(document); brgwMotion(document); brgwModal(document); brgwYear(); brgwBtnFx(document); brgwWheel(document); brgwVset(document); brgwSlides(document); brgwSeam(document); brgwAnchor(); brgwSpeed(); brgwFull(document); brgwSmooth(); brgwCount(document); brgwLegal(document); brgwImgs(document); brgwJobs(document); brgwBuild(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

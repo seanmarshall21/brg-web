@@ -1,0 +1,126 @@
+{
+  "_note": "Live job listings: two SociableKIT widgets (LinkedIn and Indeed). The embed numbers come from BRG's SociableKIT account (Clayton, 27 Nov). Widget scripts are added by brgwJobs() in brgw.js, never written into the page.",
+  "heading": {
+    "type": "text",
+    "label": "Heading",
+    "doc": "The heading above the listings.",
+    "width": 50,
+    "default": "Open roles",
+    "group": "Words"
+  },
+  "sub": {
+    "type": "lines",
+    "label": "Intro line",
+    "doc": "One or two sentences under the heading. Empty hides it.",
+    "width": 100,
+    "default": "Every opening we have, straight from LinkedIn and Indeed. Pick one and apply.",
+    "group": "Words"
+  },
+  "linkedin_on": {
+    "type": "select",
+    "label": "LinkedIn listings",
+    "doc": "Show the LinkedIn job listings.",
+    "width": 25,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    },
+    "group": "LinkedIn"
+  },
+  "linkedin_id": {
+    "type": "text",
+    "label": "LinkedIn embed number",
+    "doc": "The number from the SociableKIT LinkedIn jobs embed code: the data-embed-id value, digits only. Empty hides the LinkedIn block.",
+    "width": 40,
+    "default": "25732019",
+    "group": "LinkedIn"
+  },
+  "linkedin_label": {
+    "type": "text",
+    "label": "LinkedIn label",
+    "doc": "Small label above the LinkedIn listings. Empty hides it.",
+    "width": 35,
+    "default": "On LinkedIn",
+    "group": "LinkedIn"
+  },
+  "indeed_on": {
+    "type": "select",
+    "label": "Indeed listings",
+    "doc": "Show the Indeed job listings.",
+    "width": 25,
+    "default": "1",
+    "choices": {
+      "1": "Shown",
+      "0": "Hidden"
+    },
+    "group": "Indeed"
+  },
+  "indeed_id": {
+    "type": "text",
+    "label": "Indeed embed number",
+    "doc": "The number from the SociableKIT Indeed jobs embed code: the data-embed-id value, digits only. Empty hides the Indeed block.",
+    "width": 40,
+    "default": "25732021",
+    "group": "Indeed"
+  },
+  "indeed_label": {
+    "type": "text",
+    "label": "Indeed label",
+    "doc": "Small label above the Indeed listings. Empty hides it.",
+    "width": 35,
+    "default": "On Indeed",
+    "group": "Indeed"
+  },
+  "fallback": {
+    "type": "text",
+    "label": "If the listings do not load",
+    "doc": "Shown, with a link to LinkedIn, if a listing has not appeared after eight seconds (an ad blocker, a bad connection).",
+    "width": 100,
+    "default": "We can't show the listings here right now. See all our openings on",
+    "group": "Words"
+  },
+  "section_color": {
+    "type": "select",
+    "label": "Section color",
+    "doc": "The flat color behind this section. \"As designed\" keeps white.",
+    "width": 34,
+    "default": "keep",
+    "choices": {
+      "keep": "As designed",
+      "light": "Light",
+      "dark": "Dark",
+      "accent": "Accent",
+      "alt": "Alt accent",
+      "yellow": "Yellow",
+      "teal": "Teal",
+      "pink": "Pink",
+      "orange": "Orange",
+      "white": "White",
+      "ink": "Ink",
+      "custom": "Custom"
+    },
+    "group": "Section color"
+  },
+  "section_text": {
+    "type": "select",
+    "label": "Section text color",
+    "doc": "Automatic picks dark or light words, whichever reads better on the color above.",
+    "width": 33,
+    "default": "auto",
+    "choices": {
+      "auto": "Automatic",
+      "dark": "Dark words",
+      "light": "Light words"
+    },
+    "group": "Section color"
+  },
+  "section_color_custom": {
+    "type": "color",
+    "label": "Section color — custom",
+    "doc": "Used only when Section color is Custom.",
+    "width": 33,
+    "default": "",
+    "group": "Section color"
+  }
+}

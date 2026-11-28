@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Careers — open jobs — preview</title>
+<link rel="stylesheet" href="https://blacktoprg.netlify.app/assets/brgw.css">
+<style>html,body{margin:0;background:#0f0e0d}</style></head><body>
+<div class="brgw" id="root"></div>
+<template id="frag"><!-- BRG · section: careers-jobs  →  [brg_careers-jobs]
+     LIVE JOB LISTINGS (Clayton at BRG, 27 Nov): two SociableKIT widgets, one for LinkedIn and one for Indeed, each with its own
+     embed number from BRG's SociableKIT account. Replaces the hand-made cards in careers-posts at go-live (the careers page is
+     held back until BRG's new HR platform on 1 Jan). Takes the id="roles" anchor that careers-posts has, so /careers/#roles keeps working.
+     THE WIDGET SCRIPTS ARE NOT WRITTEN INTO THE PAGE. brgwJobs() (brgw.js) adds them only once this section is within about two
+     screens of the viewport, from the fixed address in data-sk-src, and only with a plain number as the embed id. So the page does not
+     wait on a third party, and an editor can only change the number, never the script address. If a widget does not appear
+     (an ad blocker, a slow network), the fallback line shows after eight seconds. -->
+<section data-sec-color="{{section_color}}" data-sec-text="{{section_text}}" data-sec-custom="{{section_color_custom}}" class="brgw-sec brgw-sec--careers-jobs reveal" data-jobs data-nav="light" id="roles" aria-label="{{heading}}">
+<style>
+.brgw-sec--careers-jobs{position:relative;background:var(--white);color:var(--ink);padding:clamp(58px,6.5vw,96px) var(--pad);}
+.brgw-sec--careers-jobs .jb-wrap{max-width:1180px;margin-inline:auto;}
+.brgw-sec--careers-jobs h2{font-size:clamp(1.9rem,4.2vw,3.4rem);text-transform:uppercase;margin:0;text-align:center;}
+.brgw-sec--careers-jobs .sub{max-width:56ch;margin:clamp(16px,2vw,26px) auto 0;text-align:center;font-size:clamp(.98rem,1.15vw,1.1rem);line-height:1.6;opacity:.88;}
+.brgw-sec--careers-jobs .jb-list{display:grid;gap:clamp(28px,3.4vw,48px);margin-top:clamp(32px,4vw,56px);}
+.brgw-sec--careers-jobs .jb-box[data-on="0"],.brgw-sec--careers-jobs .jb-box[data-id=""]{display:none;}
+.brgw-sec--careers-jobs .jb-label{margin:0 0 12px;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.62;}
+.brgw-sec--careers-jobs .jb-slot{min-height:120px;}
+/* The widgets draw themselves in Inter; they take the site's typeface instead. Everything else about them is the widget's own. */
+.brgw-sec--careers-jobs [class^="sk-ww-"],.brgw-sec--careers-jobs [class^="sk-ww-"] *{font-family:inherit;}
+.brgw-sec--careers-jobs .jb-fallback{display:none;margin:12px 0 0;font-size:.95rem;line-height:1.5;text-align:center;}
+.brgw-sec--careers-jobs .jb-fallback a{color:inherit;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.2em;}
+.brgw-sec--careers-jobs[data-jobs-late] .jb-box[data-pending="1"] .jb-fallback{display:block;}
+</style>
+  <div class="jb-wrap">
+    <h2 class="blanco anim-head">{{heading}}</h2>
+    <p class="sub anim-up">{{sub}}</p>
+    <div class="jb-list anim-up">
+      <div class="jb-box" data-kind="linkedin" data-on="{{linkedin_on}}" data-id="{{linkedin_id}}" data-pending="1">
+        <p class="jb-label">{{linkedin_label}}</p>
+        <div class="jb-slot"><div class="sk-ww-linkedin-page-jobs" data-embed-id="{{linkedin_id}}" data-sk-src="https://widgets.sociablekit.com/linkedin-page-jobs/widget.js"></div></div>
+        <p class="jb-fallback">{{fallback}} <a href="#brand-linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+      </div>
+      <div class="jb-box" data-kind="indeed" data-on="{{indeed_on}}" data-id="{{indeed_id}}" data-pending="1">
+        <p class="jb-label">{{indeed_label}}</p>
+        <div class="jb-slot"><div class="sk-ww-indeed-jobs" data-embed-id="{{indeed_id}}" data-sk-src="https://widgets.sociablekit.com/indeed-jobs/widget.js"></div></div>
+        <p class="jb-fallback">{{fallback}} <a href="#brand-linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+<script>
+// Fill the raw fragment exactly the way the plugin does: a literal string replace of
+// {{token}} on the RAW markup, so a token inside an attribute (href="{{cta_href}}")
+// works the same as one in text. Slots arrive base64 in the hash, so changing them
+// reloads the frame — which doubles as the animation replay.
+(function(){
+  var D = {"heading": "Open roles", "sub": "Every opening we have, straight from LinkedIn and Indeed. Pick one and apply.", "linkedin_on": "1", "linkedin_id": "25732019", "linkedin_label": "On LinkedIn", "indeed_on": "1", "indeed_id": "25732021", "indeed_label": "On Indeed", "fallback": "We can't show the listings here right now. See all our openings on", "section_color": "keep", "section_text": "auto", "section_color_custom": ""};
+  var raw = document.getElementById('frag').innerHTML;
+  // A repeater with no saved rows shows its brg:empty set (the defaults), exactly as the plugin does;
+  // without this the raw template row, with its {{row.tokens}} unfilled, showed beside the defaults.
+  raw = raw.replace(/<!--brg:repeat [a-z0-9_-]+-->([\s\S]*?)<!--\/brg:repeat-->/gi, function(m, inner){
+    var i = inner.indexOf('<!--brg:empty-->'); return i < 0 ? '' : inner.slice(i + 16);
+  });
+  var slots = {};
+  try { if (location.hash.length > 1) slots = JSON.parse(atob(decodeURIComponent(location.hash.slice(1)))); } catch(e){}
+  var out = raw.replace(/\{\{([a-z0-9_-]+)\}\}/gi, function(m, k){
+    return Object.prototype.hasOwnProperty.call(slots, k) ? slots[k] : (D[k] !== undefined ? D[k] : '');
+  });
+  document.getElementById('root').innerHTML = out;
+  var s = document.createElement('script'); s.src = 'https://blacktoprg.netlify.app/assets/brgw.js'; document.body.appendChild(s);
+})();
+</script></body></html>

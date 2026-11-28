@@ -12,6 +12,9 @@ Written by `python3 scripts/stamp.py "what changed"`. A push that deploys withou
 stamp is refused by pre-push, so every deploy has an entry.
 
 
+## 2026.11.27.1 (2026-11-27)
+- careers: live job listings section (LinkedIn and Indeed through SociableKIT), loaded only when scrolled near; privacy and cookie wording mention it
+
 ## 2026.11.19.12 (2026-11-19)
 - parallax photos: the reveal and the parallax are on separate layers, so a photo is never out of place while it reveals and never jumps to catch up
 

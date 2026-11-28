@@ -183,6 +183,13 @@
       "group": "editorial",
       "status": "live",
       "summary": "Accessibility page, same template as the privacy page."
+    },
+    {
+      "id": "careers-jobs",
+      "title": "Careers — open jobs",
+      "group": "feed",
+      "status": "live",
+      "summary": "Live job listings from SociableKIT: a LinkedIn widget and an Indeed widget, each with its own embed number. Replaces the hand-made cards in careers-posts at go-live; takes the same #roles anchor."
     }
   ],
   "stacks": {
@@ -212,6 +219,7 @@
       "careers-hero",
       "careers-apply",
       "careers-positions",
+      "careers-jobs",
       "careers-posts"
     ],
     "contact": [
